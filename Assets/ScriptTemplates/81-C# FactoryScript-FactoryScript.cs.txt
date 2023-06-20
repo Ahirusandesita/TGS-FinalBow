@@ -1,0 +1,26 @@
+// 81-C# FactoryScript-FactoryScript.cs
+//
+//CreateDay:
+//Creator  :
+//
+interface I#SCRIPTNAME#
+{
+
+}
+public class #SCRIPTNAME#:I#SCRIPTNAME#
+{
+
+	//Cannot be instantiated from outside
+	private #SCRIPTNAME#()
+	{
+
+	}
+
+	//Factory accessed externally
+	public static I#SCRIPTNAME# CreateInstance()
+	{
+		 I#SCRIPTNAME# instance = new #SCRIPTNAME#();
+		 return instance;
+	}
+
+}
