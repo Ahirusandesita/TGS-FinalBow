@@ -87,11 +87,12 @@ interface IFScoreManager_AllAttractGetScore : IFScoreManager_AttractGetScore, IF
 interface IFScoreManager_Time
 {
     void BonusScore_TimeScore();
+    void BonusValue_Time(int time);
 }
 
 interface IFScoreManager_TimeGetScore
 {
-    int BonusScore_TimeGetScore();
+    int BonusScore_GetTime();
 }
 
 interface IFScoreManager_ValueGetHp
@@ -104,7 +105,7 @@ interface IFSccoreManager_ValueGetAttract
 }
 interface IFScoreManager_ValueGetTime
 {
-
+    int BonusValue_TimeGetScore();
 }
 
 interface IFScoreManager_AllGetScore :
@@ -185,7 +186,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
             _scoreCoin = scoreAll.NomalScore_CoinGetScore();
             _scoreHpBonus = scoreAll.BonusScore_HpGetScore();
             _scoreAttractBonus = scoreAll.BonusScore_AttractGetBonus();
-            _scoreTimeBonus = scoreAll.BonusScore_TimeGetScore();
+            _scoreTimeBonus = scoreAll.BonusScore_GetTime();
             _scoreComboBonus = scoreAll.NomalScore_ComboGetScore();
             if (_scoreHpBonus == 0)
             {
@@ -310,10 +311,21 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
     }
 
-    public int BonusScore_TimeGetScore()
+    public void BonusValue_Time(int time)
+    {
+        _valueTimeBonus = time;
+    }
+
+    public int BonusScore_GetTime()
     {
         return _scoreTimeBonus;
     }
+
+    public int BonusValue_TimeGetScore()
+    {
+        return _valueTimeBonus;
+    }
+
 
     public int BonusValue_GetHp()
     {

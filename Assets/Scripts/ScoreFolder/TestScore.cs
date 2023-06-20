@@ -42,6 +42,7 @@ public class TestScore : MonoBehaviour
 
         scoreManager.BonusScore_HpScore();
         scoreManager.BonusScore_TimeScore();
+        scoreManager.BonusValue_Time(152);
  }
 
  private void Update ()
