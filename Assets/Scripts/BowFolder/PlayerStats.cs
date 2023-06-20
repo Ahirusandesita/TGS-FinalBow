@@ -15,11 +15,12 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         _canvasManager = GameObject.FindGameObjectWithTag("CanvasController").GetComponent<CanvasManager>();
-        if(GameObject.FindGameObjectsWithTag("ScoreController").Length != 0)
+        if (GameObject.FindGameObjectsWithTag("ScoreController").Length == 0)
         {
-            _scoreManager = GameObject.FindWithTag("ScoreController").GetComponent<ScoreManager>();
-            _scoreManager.BonusScore_HpValueSetting(_player_HP);
+            enabled = false;
         }
+        _scoreManager = GameObject.FindWithTag("ScoreController").GetComponent<ScoreManager>();
+        _scoreManager.BonusScore_HpValueSetting(_player_HP);
     }
 
     /// <summary>
@@ -33,10 +34,7 @@ public class PlayerStats : MonoBehaviour
             _player_HP -= damage;
             _canvasManager.StagingDamage();
             StartCoroutine(Invincible());
-            if(_scoreManager != null)
-            {
-                _scoreManager.BonusScore_HpScore();
-            }
+            _scoreManager.BonusScore_HpScore();
         }
 
     }
@@ -62,11 +60,11 @@ public class PlayerStats : MonoBehaviour
 
     public int Player_HP
     {
-        get 
+        get
         {
             return _player_HP;
         }
-        
+
     }
 
     private IEnumerator Invincible()

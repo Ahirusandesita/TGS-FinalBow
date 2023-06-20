@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.24801646, g: 0.33522272, b: 0.60549533, a: 1}
+  m_IndirectSpecularColor: {r: 0.53903234, g: 0.6185252, b: 0.80672854, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -206,6 +206,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &5627573
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -637,6 +639,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &76087443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3348,6 +3352,65 @@ Transform:
   m_Father: {fileID: 503488821}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &195435564
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_RootOrder
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.791921
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5637822
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.9689255
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 523837106745824013, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5714300282983421450, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
+      propertyPath: m_Name
+      value: TimeController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5f7ff2eff1284c042b12da3d879fe39c, type: 3}
 --- !u!1001 &196040888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3494,6 +3557,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &206095653
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6241,6 +6306,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &339272862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13160,6 +13227,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &423074122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13422,6 +13491,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &469039152
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13462,6 +13533,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &470244412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15586,6 +15659,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &486616079
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19875,6 +19950,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &541026421
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25709,6 +25786,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &626896523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32921,6 +33000,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &849911202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33476,6 +33557,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &899819437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33716,6 +33799,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &932236174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48303,6 +48388,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1073695776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51191,6 +51278,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &1249592173
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -51888,6 +51977,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &1308081886
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -52710,6 +52801,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1409536079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54811,6 +54904,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1446303810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54890,6 +54985,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1453313771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54942,6 +55039,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1457751434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55450,6 +55549,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &1493254929
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -59473,6 +59574,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &1568450387
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -59800,6 +59903,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &1604391449
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -59870,6 +59975,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1620673238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61943,6 +62050,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1644133444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62664,7 +62773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8883607e24d0c4a8a37dd025598fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPlace: {fileID: 1757350824}
+  playerPlace: {fileID: 0}
 --- !u!1 &1730704975
 GameObject:
   m_ObjectHideFlags: 0
@@ -62975,11 +63084,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 91539656a2852a24894b1408b15af8fa, type: 3}
---- !u!4 &1757350824 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2966335229581577472, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
-  m_PrefabInstance: {fileID: 123067409}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1768425139
 GameObject:
   m_ObjectHideFlags: 0
@@ -63183,6 +63287,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &1783122635
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -65104,6 +65210,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1807465127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67684,6 +67792,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1888064801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67817,6 +67927,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &1907108588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70354,6 +70466,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &1928195358
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -70510,6 +70624,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &1950106437
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -75403,6 +75519,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &2049623300
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -75575,6 +75693,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!114 &2069872773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75858,6 +75978,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &2079346448
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -81879,6 +82001,8 @@ MonoBehaviour:
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
   _linearMovementSpeed: 10
+  _childSpawner: {fileID: 0}
+  _attackSpawnPlace: {fileID: 0}
 --- !u!136 &2104581940
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Score : MonoBehaviour
+public class ScoreResult : MonoBehaviour
 {
     #region variable 
     private IFScoreManager_AllGetScore _scoerManager;

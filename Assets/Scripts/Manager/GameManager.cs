@@ -26,26 +26,18 @@ interface IGameManagerSceneMoveNameGet
 
 
 
+
+
 public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, IGameManagerSceneMoveNameGet
 {
 
     public ScoreManager ScoreManager { set; get; }
     public SceneManagement SceneManagement { set; get; }
+    public TimeManager TimeManager { set; get; }
 
     public static GameManager Instance = null;
-    IScene scene;
     IStageSpawn stageSpawn;
     private string _sceneMoveName;
-
-    //public void SetSceneMoveName(string sceneName)
-    //{
-    //    _sceneMoveName = sceneName;
-    //}
-    //public string GetSceneMoveName()
-    //{
-    //    return _sceneMoveName;
-    //}
-
 
     void Awake()
     {

@@ -9,8 +9,6 @@ using System.Collections;
 public class PlayerHitZone : MonoBehaviour
 {
     #region variable 
-    public TagObject _CanvasControllerTagData = default;
-
     //プレイヤーの座標
     public Transform _playerTransform = default;
 
@@ -18,8 +16,6 @@ public class PlayerHitZone : MonoBehaviour
     private Vector3[] _playerHitZone = new Vector3[8];
 
     public float _hitDistance;
-
-    private ICanvasManager _canvasManager = default;
 
     private PlayerStats _playerStats;
 
@@ -29,9 +25,11 @@ public class PlayerHitZone : MonoBehaviour
     #region method
     private void Start()
     {
+        if (GameObject.FindGameObjectsWithTag("CanvasController").Length == 0)
+        {
+            enabled = false;
+        }
         _playerStats = this.GetComponent<PlayerStats>();
-        _canvasManager = GameObject.FindGameObjectWithTag(_CanvasControllerTagData.TagName).GetComponent<CanvasManager>();
-
         for (int i = 0; i < _playerHitZone.Length; i++)
         {
             _playerHitZone[i] = _playerTransform.position;
