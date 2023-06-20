@@ -63,6 +63,7 @@ interface IFScoreManager_ComboGetScore
 interface IFScoreManager_Hp
 {
     void BonusScore_HpScore();
+    void BonusScore_HpValueSetting(int hp);
 }
 
 interface IFScoreManager_HpGetScore
@@ -158,7 +159,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
 
     //‰¼
-    private int _scoreHpBonus = 1000;
+    private int _scoreHpBonus = 0;
     private int _valueHpBonus = 0;
 
     private int _scoreAttractBonus = 0;
@@ -281,7 +282,10 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         _valueHpBonus++;
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
     }
-
+    public void BonusScore_HpValueSetting(int hp)
+    {
+        _scoreHpBonus = hp * 200;
+    }
     public int BonusScore_HpGetScore()
     {
         return _scoreHpBonus;
