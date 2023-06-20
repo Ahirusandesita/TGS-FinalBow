@@ -119,21 +119,16 @@ public class Score : MonoBehaviour
         ScoreDisplay(ScoreType.timeValue);
         ScoreDisplay(ScoreType.all);
         yield return new WaitForSeconds(1f);
-        ScoreDigits(0, DisplayType.bonus);
+        ScoreDigits(-1, DisplayType.bonus);
     }
 
     private void ScoreDigits(int score,DisplayType displayType)
     {
+        bool isValueTimeMinutesZero = false;
         if(displayType == DisplayType.valueTime)
         {
-            int a = score / 60;
-            if (a == 0)
-            {
-                a = 10;
-            }
-            int b = score % 60;
-            a = a * 100;
-            score = a + b;
+            isValueTimeMinutesZero = IsTimeValueMinutesZero(score);
+            score = ChengeTimer(score);
         }
 
         //ノーマルスコアを更新するためにリセットする
@@ -153,6 +148,13 @@ public class Score : MonoBehaviour
             }
             _bonusScoreObjects.Clear();
         }
+
+        //マイナス1なら表示を終了
+        if(score == -1)
+        {
+            return;
+        }
+
         //ポジションリセット
         _scorePosition = _scorePositionStart;
         _bonusPosition = _bonusPositionStart;
@@ -161,37 +163,50 @@ public class Score : MonoBehaviour
         //スコアの桁数を計算する
         int numberDigits = score;
         int countDigits = 1;
+
         while (numberDigits > 0)
         {
             numberDigits /= 10;
-            countDigits *= 10;
+            countDigits++;
         }
-        countDigits /= 10;
+        countDigits--;
+        if(countDigits == 0)
+        {
+            countDigits++;
+        }
 
-
+        int digit = 1;
 
         List<int> digitsList = new List<int>();
         while (countDigits > 0)
         {
             //スコアの桁数を一つ減らす
             int digitsScore = score;
-            int digits = 1;
-            while (digitsScore >= 10)
+            for (int i = 0; i < digit; i++)
             {
                 digitsScore = digitsScore / 10;
-                digits = digits * 10;
             }
-            digitsList.Add(digitsScore);
+            for (int i = 0; i < digit; i++)
+            {
+                digitsScore = digitsScore * 10;
+            }
+            int displayNumber = score - digitsScore;
+            Debug.Log(displayNumber);
+            digitsList.Add(displayNumber);
 
-            digitsScore = digitsScore * digits;
-            score -= digitsScore;
-            countDigits = countDigits /= 10;
+            score = score / 10;
+            countDigits --;
         }
 
 
-        for (int i = digitsList.Count - 1; i > -1; i--)
+        for (int i = 0; i < digitsList.Count; i++)
         {
-            if (displayType == DisplayType.valueTime && i == digitsList.Count -3)
+            if(isValueTimeMinutesZero && i == digitsList.Count - 1)
+            {
+                return;
+            }
+
+            if (displayType == DisplayType.valueTime && i == 2)
             {
                 _bonusPositions[_bonusScoreIndex].x += 5;
                 GameObject bonusScore = Instantiate(_numberObject.numberObject[12].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
@@ -200,7 +215,7 @@ public class Score : MonoBehaviour
             }
 
 
-            if (i == digitsList.Count - 1)//&& value
+            if (i == 0)//&& value
             {
                 if (displayType == DisplayType.valueHp)
                 {
@@ -289,6 +304,25 @@ public class Score : MonoBehaviour
             _bonusScoreIndex++;
         }
     }
-
+    private int ChengeTimer(int score)
+    {
+            int timeMinutes = score / 60;
+            if (timeMinutes == 0)
+            {
+                timeMinutes = 100;
+            }
+            int timeSecond = score % 60;
+            timeMinutes = timeMinutes * 100;
+            score = timeMinutes + timeSecond;
+        return score;
+    }
+    private bool IsTimeValueMinutesZero(int score)
+    {
+        if(score /60 == 0)
+        {
+            return true;
+        }
+        return false;
+    }
     #endregion
 }
