@@ -15,7 +15,7 @@ public class Score : MonoBehaviour
     
     private enum ScoreType { nomal, hp, attract, time ,all,hpValue,attractValue,timeValue};
 
-    private enum DisplayType { nomal,bonus,value,valueTime};
+    private enum DisplayType { nomal,bonus,value,valueHp,valueAttract,valueTime};
 
     private NumberObject _numberObject;
     private int nomalScore = 0;
@@ -26,7 +26,7 @@ public class Score : MonoBehaviour
     private Vector3 _scorePosition = new Vector3(121f, 140.6f, 34f);
     private Vector3 _scorePositionStart;
     //ボーナスを出すポジション
-    private Vector3[] _bonusPositions = { new Vector3(121f, 91.7f, 34f), new Vector3(121f, 66f, 34f), new Vector3(121f, 43.3f, 34f) };
+    private Vector3[] _bonusPositions = { new Vector3(114f, 91.7f, 34f), new Vector3(114f, 66f, 34f), new Vector3(114f, 43.3f, 34f) };
     private Vector3 _bonusPosition = new Vector3(125f, 160.4f, 34f);
     private Vector3[] _bonusPositionStarts;
     private Vector3 _bonusPositionStart;
@@ -92,13 +92,13 @@ public class Score : MonoBehaviour
                 break;
 
             case ScoreType.hpValue:
-                ScoreDigits(_scoerManager.BonusValue_GetHp(),DisplayType.value);
+                ScoreDigits(_scoerManager.BonusValue_GetHp(),DisplayType.valueHp);
                 break;
             case ScoreType.attractValue:
-                ScoreDigits(_scoerManager.BonusValue_GetAttract(), DisplayType.value);
+                ScoreDigits(_scoerManager.BonusValue_GetAttract(), DisplayType.valueAttract);
                 break;
             case ScoreType.timeValue:
-                ScoreDigits(_scoerManager.BonusValue_TimeGetScore(),DisplayType.value);
+                ScoreDigits(_scoerManager.BonusValue_TimeGetScore(),DisplayType.valueTime);
                 break;
         }
     }
@@ -119,11 +119,18 @@ public class Score : MonoBehaviour
         ScoreDisplay(ScoreType.timeValue);
         ScoreDisplay(ScoreType.all);
         yield return new WaitForSeconds(1f);
-        ScoreDigits(0, DisplayType.bonus);
+        ScoreDigits(-1, DisplayType.bonus);
     }
 
     private void ScoreDigits(int score,DisplayType displayType)
     {
+        bool isValueTimeMinutesZero = false;
+        if(displayType == DisplayType.valueTime)
+        {
+            isValueTimeMinutesZero = IsTimeValueMinutesZero(score);
+            score = ChengeTimer(score);
+        }
+
         //ノーマルスコアを更新するためにリセットする
         if (_nomalScoreObjects.Count != 0 && displayType == DisplayType.nomal)
         {
@@ -141,6 +148,13 @@ public class Score : MonoBehaviour
             }
             _bonusScoreObjects.Clear();
         }
+
+        //マイナス1なら表示を終了
+        if(score == -1)
+        {
+            return;
+        }
+
         //ポジションリセット
         _scorePosition = _scorePositionStart;
         _bonusPosition = _bonusPositionStart;
@@ -149,38 +163,72 @@ public class Score : MonoBehaviour
         //スコアの桁数を計算する
         int numberDigits = score;
         int countDigits = 1;
+
         while (numberDigits > 0)
         {
             numberDigits /= 10;
-            countDigits *= 10;
+            countDigits++;
         }
-        countDigits /= 10;
+        countDigits--;
+        if(countDigits == 0)
+        {
+            countDigits++;
+        }
 
-
+        int digit = 1;
 
         List<int> digitsList = new List<int>();
         while (countDigits > 0)
         {
             //スコアの桁数を一つ減らす
             int digitsScore = score;
-            int digits = 1;
-            while (digitsScore >= 10)
+            for (int i = 0; i < digit; i++)
             {
                 digitsScore = digitsScore / 10;
-                digits = digits * 10;
             }
-            digitsList.Add(digitsScore);
+            for (int i = 0; i < digit; i++)
+            {
+                digitsScore = digitsScore * 10;
+            }
+            int displayNumber = score - digitsScore;
+            Debug.Log(displayNumber);
+            digitsList.Add(displayNumber);
 
-            digitsScore = digitsScore * digits;
-            score -= digitsScore;
-            countDigits = countDigits /= 10;
+            score = score / 10;
+            countDigits --;
         }
 
 
-        for (int i = digitsList.Count - 1; i > -1; i--)
+        for (int i = 0; i < digitsList.Count; i++)
         {
-            if (i == digitsList.Count-1)//&& value
+            if(isValueTimeMinutesZero && i == digitsList.Count - 1)
             {
+                return;
+            }
+
+            if (displayType == DisplayType.valueTime && i == 2)
+            {
+                _bonusPositions[_bonusScoreIndex].x += 5;
+                GameObject bonusScore = Instantiate(_numberObject.numberObject[12].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
+                bonusScore.transform.localScale *= 70f;
+                _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
+            }
+
+
+            if (i == 0)//&& value
+            {
+                if (displayType == DisplayType.valueHp)
+                {
+                    GameObject bonusScore = Instantiate(_numberObject.numberObject[10].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
+                    bonusScore.transform.localScale *= 70f;
+                    _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
+                }
+                if (displayType == DisplayType.valueAttract)
+                {
+                    GameObject bonusScore = Instantiate(_numberObject.numberObject[11].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
+                    bonusScore.transform.localScale *= 70f;
+                    _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
+                }
                 //秒　個　などの感じを出す場合はこれを使用する
                 // _bonusPositions[_bonusScoreIndex].x -=_scorePlusXPosition;
             }
@@ -251,11 +299,30 @@ public class Score : MonoBehaviour
         //    score -= digitsScore;
         //    countDigits = countDigits /= 10;
         //}
-        if (displayType == DisplayType.value)
+        if (displayType == DisplayType.value || displayType == DisplayType.valueHp || displayType == DisplayType.valueAttract || displayType == DisplayType.valueTime)
         {
             _bonusScoreIndex++;
         }
     }
-
+    private int ChengeTimer(int score)
+    {
+            int timeMinutes = score / 60;
+            if (timeMinutes == 0)
+            {
+                timeMinutes = 100;
+            }
+            int timeSecond = score % 60;
+            timeMinutes = timeMinutes * 100;
+            score = timeMinutes + timeSecond;
+        return score;
+    }
+    private bool IsTimeValueMinutesZero(int score)
+    {
+        if(score /60 == 0)
+        {
+            return true;
+        }
+        return false;
+    }
     #endregion
 }
