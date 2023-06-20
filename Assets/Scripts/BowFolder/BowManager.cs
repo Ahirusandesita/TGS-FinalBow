@@ -379,6 +379,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     private void SetUsingHand()
     {
+        print("aaayobaregta");
         // マウスモード
         if (_mouseMode)
         {
