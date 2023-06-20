@@ -43,10 +43,17 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     [SerializeField] GameObject _drawObject = default;
 
+    [SerializeField] Transform _changeHandObjectTransform = default;
+
     /// <summary>
     /// Debugモード
     /// </summary>
     public bool _mouseMode = false;
+
+    /// <summary>
+    /// VRで値追うモード
+    /// </summary>
+    public bool _traceValue = false;
 
     #endregion
 
@@ -69,6 +76,8 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     private ObjectPoolSystem _poolSystem = default;
     //デバック用
     private PlayerManager _playerManager = default;
+    //デバッグ
+    private VR_Trace_Value _trace = default;
 
     delegate bool HandUseDelegate();
 
@@ -100,6 +109,8 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     Vector3 _firstDrawObjectPositon = default;
 
     Vector3 _firstDrawObjectWorldPositon = default;
+
+    Vector3 _directionMainCameraLookToBow = default;
 
     Quaternion _myQuaternion = default;
 
@@ -165,6 +176,8 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
 
         _distanceCameraToDrawObject = Vector3.Distance(_drawObject.transform.position, Camera.main.transform.position);
 
+        _directionMainCameraLookToBow = (_drawObject.transform.position - Camera.main.transform.position).normalized;
+
         _myQuaternion = transform.localRotation;
 
         #endregion
@@ -172,6 +185,11 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         // インプットの設定
         SetUsingHand();
 
+        // デバッグ用
+        if (_traceValue)
+        {
+            _trace = this.gameObject.AddComponent<VR_Trace_Value>();
+        }
     }
 
     private void Update()
@@ -195,10 +213,9 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
             }
 
             // 弓持ちかえる処理
-            if (grapLimitDistance > Vector3.Distance(transform.position, _handPositionDelegate()) && !_mouseMode)
+            if (grapLimitDistance > Vector3.Distance(_changeHandObjectTransform.position, _handPositionDelegate()) && !_mouseMode)
             {
                 ChangeHand();
-
             }
 
         }
@@ -229,7 +246,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     public float GetPercentDrawDistance()
     {
-        return drawLimitDistance / Vector3.Magnitude(_drawObject.transform.position - transform.position);
+        return Vector3.Magnitude(_drawObject.transform.position - transform.position) / drawLimitDistance;
     }
 
     /// <summary>
@@ -247,20 +264,19 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     private void Holding()
     {
-        print("aaa" +(GetPercentDrawDistance()));
+        // ドローオブジェクト引いている手に移動
+        _draw.BowDrawing(_handPositionDelegate(), _drawObject, _firstDrawObjectPositon);
+
         _vibe.StartDrawVibe(GetPercentDrawDistance());
-
+        SetText(GetPercentDrawDistance().ToString());
         _inhallCustom.SetActive(true);
-
+        
         _inhallCustom.SetEffectSize(GetPercentDrawDistance());
 
-        _drawDistance = _draw.BowDrawing(_handPositionDelegate(), _drawObject, _firstDrawObjectPositon);
-
-        _attract.SetAngle(_drawDistance);
+        _attract.SetAngle(GetPercentDrawDistance());
 
         // 弓のローテーション変更
         TurnBow();
-        
         // 弓を引きすぎると手が弦から離れてうつ
         if (!ConeDecision.ConeInObject(transform, _drawObject.transform, drawLimitAngle, drawLimitDistance, -1))
         {
@@ -288,7 +304,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
 
             transform.localPosition = Vector3.zero;
 
-            transform.localRotation = Quaternion.identity;
+            transform.localRotation = _myQuaternion;
         }
         // 右手の場合
         else
@@ -299,7 +315,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
 
             transform.localPosition = Vector3.zero;
 
-            transform.localRotation = Quaternion.identity;
+            transform.localRotation = _myQuaternion;
         }
 
         SetUsingHand();
@@ -334,7 +350,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
 
         _inhallCustom.SetActive(false);
 
-        _playerManager.SetArrowMoveSpeed(GetDrawDistance() * add);
+        _playerManager.SetArrowMoveSpeed(GetPercentDrawDistance() * add);
 
         StartShotArrow(_aim.GetAim());
 
@@ -379,7 +395,6 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     private void SetUsingHand()
     {
-        print("aaayobaregta");
         // マウスモード
         if (_mouseMode)
         {
@@ -448,16 +463,29 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         _playerManager.ShotArrow(aim);
     }
 
-
+    private void SetText(string text)
+    {
+        if (_traceValue)
+        {
+            _trace.SetText(GetPercentDrawDistance() + "," + drawLimitDistance);
+        }
+        else
+        {
+            X_Debug.Log("値追いモードつけて");
+        }
+        
+    }
 
     #region マウス関係
     private Vector3 GetMousePos()
     {
-
+        // マウスの二次元上の座標
         Vector3 pos = Input.mousePosition;
-        pos.z = _distanceCameraToDrawObject;
-        print(Camera.main.ScreenToWorldPoint(pos) + "," + _drawObject.transform.position);
-        return Camera.main.ScreenToWorldPoint(pos);
+
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
+        Vector3 finalPos =  _directionMainCameraLookToBow * _distanceCameraToDrawObject + worldPos;
+
+        return finalPos;
 
     }
 
