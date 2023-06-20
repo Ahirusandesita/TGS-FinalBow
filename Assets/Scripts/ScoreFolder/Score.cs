@@ -15,7 +15,7 @@ public class Score : MonoBehaviour
     
     private enum ScoreType { nomal, hp, attract, time ,all,hpValue,attractValue,timeValue};
 
-    private enum DisplayType { nomal,bonus,value,valueTime};
+    private enum DisplayType { nomal,bonus,value,valueHp,valueAttract,valueTime};
 
     private NumberObject _numberObject;
     private int nomalScore = 0;
@@ -26,7 +26,7 @@ public class Score : MonoBehaviour
     private Vector3 _scorePosition = new Vector3(121f, 140.6f, 34f);
     private Vector3 _scorePositionStart;
     //ボーナスを出すポジション
-    private Vector3[] _bonusPositions = { new Vector3(121f, 91.7f, 34f), new Vector3(121f, 66f, 34f), new Vector3(121f, 43.3f, 34f) };
+    private Vector3[] _bonusPositions = { new Vector3(114f, 91.7f, 34f), new Vector3(114f, 66f, 34f), new Vector3(114f, 43.3f, 34f) };
     private Vector3 _bonusPosition = new Vector3(125f, 160.4f, 34f);
     private Vector3[] _bonusPositionStarts;
     private Vector3 _bonusPositionStart;
@@ -92,13 +92,13 @@ public class Score : MonoBehaviour
                 break;
 
             case ScoreType.hpValue:
-                ScoreDigits(_scoerManager.BonusValue_GetHp(),DisplayType.value);
+                ScoreDigits(_scoerManager.BonusValue_GetHp(),DisplayType.valueHp);
                 break;
             case ScoreType.attractValue:
-                ScoreDigits(_scoerManager.BonusValue_GetAttract(), DisplayType.value);
+                ScoreDigits(_scoerManager.BonusValue_GetAttract(), DisplayType.valueAttract);
                 break;
             case ScoreType.timeValue:
-                ScoreDigits(_scoerManager.BonusValue_TimeGetScore(),DisplayType.value);
+                ScoreDigits(_scoerManager.BonusValue_TimeGetScore(),DisplayType.valueTime);
                 break;
         }
     }
@@ -124,6 +124,18 @@ public class Score : MonoBehaviour
 
     private void ScoreDigits(int score,DisplayType displayType)
     {
+        if(displayType == DisplayType.valueTime)
+        {
+            int a = score / 60;
+            if (a == 0)
+            {
+                a = 10;
+            }
+            int b = score % 60;
+            a = a * 100;
+            score = a + b;
+        }
+
         //ノーマルスコアを更新するためにリセットする
         if (_nomalScoreObjects.Count != 0 && displayType == DisplayType.nomal)
         {
@@ -179,8 +191,29 @@ public class Score : MonoBehaviour
 
         for (int i = digitsList.Count - 1; i > -1; i--)
         {
-            if (i == digitsList.Count-1)//&& value
+            if (displayType == DisplayType.valueTime && i == digitsList.Count -3)
             {
+                _bonusPositions[_bonusScoreIndex].x += 5;
+                GameObject bonusScore = Instantiate(_numberObject.numberObject[12].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
+                bonusScore.transform.localScale *= 70f;
+                _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
+            }
+
+
+            if (i == digitsList.Count - 1)//&& value
+            {
+                if (displayType == DisplayType.valueHp)
+                {
+                    GameObject bonusScore = Instantiate(_numberObject.numberObject[10].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
+                    bonusScore.transform.localScale *= 70f;
+                    _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
+                }
+                if (displayType == DisplayType.valueAttract)
+                {
+                    GameObject bonusScore = Instantiate(_numberObject.numberObject[11].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
+                    bonusScore.transform.localScale *= 70f;
+                    _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
+                }
                 //秒　個　などの感じを出す場合はこれを使用する
                 // _bonusPositions[_bonusScoreIndex].x -=_scorePlusXPosition;
             }
@@ -251,7 +284,7 @@ public class Score : MonoBehaviour
         //    score -= digitsScore;
         //    countDigits = countDigits /= 10;
         //}
-        if (displayType == DisplayType.value)
+        if (displayType == DisplayType.value || displayType == DisplayType.valueHp || displayType == DisplayType.valueAttract || displayType == DisplayType.valueTime)
         {
             _bonusScoreIndex++;
         }
