@@ -9,12 +9,17 @@ using System.Collections;
 public class PlayerStats : MonoBehaviour
 {
     private bool isInvincible = false;
-    private int _player_HP = default;
+    private int _player_HP = 10;
     private ICanvasManager _canvasManager;
-
+    private IFScoreManager_Hp _scoreManager;
     private void Start()
     {
         _canvasManager = GameObject.FindGameObjectWithTag("CanvasController").GetComponent<CanvasManager>();
+        if(GameObject.FindGameObjectsWithTag("ScoreController").Length != 0)
+        {
+            _scoreManager = GameObject.FindWithTag("ScoreController").GetComponent<ScoreManager>();
+            _scoreManager.BonusScore_HpValueSetting(_player_HP);
+        }
     }
 
     /// <summary>
@@ -28,6 +33,10 @@ public class PlayerStats : MonoBehaviour
             _player_HP -= damage;
             _canvasManager.StagingDamage();
             StartCoroutine(Invincible());
+            if(_scoreManager != null)
+            {
+                _scoreManager.BonusScore_HpScore();
+            }
         }
 
     }
