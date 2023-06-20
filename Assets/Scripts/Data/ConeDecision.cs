@@ -37,7 +37,7 @@ public static class ConeDecision
 
         //‹——£
         float distance = dir.magnitude;
-
+ 
         //cosƒÆ/2
         float cosHalf = Mathf.Cos(angle / 2 * Mathf.Deg2Rad);
 

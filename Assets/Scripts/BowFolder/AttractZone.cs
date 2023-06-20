@@ -20,7 +20,7 @@ public class AttractZone : MonoBehaviour
     /// <summary>
     /// â~êçÇÃäpìxî{ó¶
     /// </summary>
-    public float angleSizeMagnification = 100000f;
+    public float angleSizeMagnification = 100f;
 
     private float angle;
     /// <summary>
