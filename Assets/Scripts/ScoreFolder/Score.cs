@@ -1,8 +1,8 @@
 // --------------------------------------------------------- 
 // Score.cs 
 // 
-// CreateDay: 
-// Creator  : 
+// CreateDay: 2023/06/19
+// Creator  : NomuraYuhei
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
@@ -15,7 +15,7 @@ public class Score : MonoBehaviour
     
     private enum ScoreType { nomal, hp, attract, time ,all,hpValue,attractValue,timeValue};
 
-    private enum DisplayType { nomal,bonus,value};
+    private enum DisplayType { nomal,bonus,value,valueTime};
 
     private NumberObject _numberObject;
     private int nomalScore = 0;
@@ -23,11 +23,11 @@ public class Score : MonoBehaviour
     List<GameObject> _bonusScoreObjects = new List<GameObject>();
 
     //スコアを出すポジション
-    private Vector3 _scorePosition = new Vector3(1.6f, 140.6f, 34f);
+    private Vector3 _scorePosition = new Vector3(121f, 140.6f, 34f);
     private Vector3 _scorePositionStart;
     //ボーナスを出すポジション
-    private Vector3[] _bonusPositions = { new Vector3(1.6f, 91.7f, 34f), new Vector3(20.7f, 66f, 34f), new Vector3(27.3f, 43.3f, 34f) };
-    private Vector3 _bonusPosition = new Vector3(51.7f, 160.4f, 34f);
+    private Vector3[] _bonusPositions = { new Vector3(121f, 91.7f, 34f), new Vector3(121f, 66f, 34f), new Vector3(121f, 43.3f, 34f) };
+    private Vector3 _bonusPosition = new Vector3(125f, 160.4f, 34f);
     private Vector3[] _bonusPositionStarts;
     private Vector3 _bonusPositionStart;
     private int _bonusScoreIndex = 0;
@@ -42,7 +42,7 @@ public class Score : MonoBehaviour
     {
         _scoerManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>().ScoreManager;
         _numberObject = transform.parent.GetComponent<ScoreUIManager>()._NumberObjectData;
-        StartCoroutine(A());
+        StartCoroutine(ScoreTimer());
 
         _scorePositionStart = _scorePosition;
         _bonusPositionStarts = _bonusPositions;
@@ -82,8 +82,8 @@ public class Score : MonoBehaviour
                 break;
 
             case ScoreType.time:
-                ScoreDigits(_scoerManager.BonusScore_TimeGetScore(), DisplayType.bonus);
-                nomalScore += _scoerManager.BonusScore_TimeGetScore();
+                ScoreDigits(_scoerManager.BonusScore_GetTime(), DisplayType.bonus);
+                nomalScore += _scoerManager.BonusScore_GetTime();
                 ScoreDigits(nomalScore, DisplayType.nomal);
                 break;
 
@@ -97,9 +97,12 @@ public class Score : MonoBehaviour
             case ScoreType.attractValue:
                 ScoreDigits(_scoerManager.BonusValue_GetAttract(), DisplayType.value);
                 break;
+            case ScoreType.timeValue:
+                ScoreDigits(_scoerManager.BonusValue_TimeGetScore(),DisplayType.value);
+                break;
         }
     }
-    IEnumerator A()
+    private IEnumerator ScoreTimer()
     {
         yield return new WaitForSeconds(2f);
         ScoreDisplay(ScoreType.nomal);
@@ -113,6 +116,7 @@ public class Score : MonoBehaviour
         ScoreDisplay(ScoreType.all);
         yield return new WaitForSeconds(1f);
         ScoreDisplay(ScoreType.time);
+        ScoreDisplay(ScoreType.timeValue);
         ScoreDisplay(ScoreType.all);
         yield return new WaitForSeconds(1f);
         ScoreDigits(0, DisplayType.bonus);
@@ -153,7 +157,8 @@ public class Score : MonoBehaviour
         countDigits /= 10;
 
 
-        //桁数になるまでループ
+
+        List<int> digitsList = new List<int>();
         while (countDigits > 0)
         {
             //スコアの桁数を一つ減らす
@@ -164,35 +169,88 @@ public class Score : MonoBehaviour
                 digitsScore = digitsScore / 10;
                 digits = digits * 10;
             }
-
-
-            if (displayType == DisplayType.nomal)
-            {
-                GameObject nomalScore = Instantiate(_numberObject.numberObject[digitsScore].numberObject, _scorePosition, Quaternion.Euler(0f, 180f, 0f));
-                nomalScore.transform.localScale *= 70f;
-                _nomalScoreObjects.Add(nomalScore);
-                _scorePosition.x += _scorePlusXPosition;
-            }
-            else if(displayType == DisplayType.bonus)
-            {
-                GameObject bonusScore = Instantiate(_numberObject.numberObject[digitsScore].numberObject, _bonusPosition, Quaternion.Euler(0f, 180f, 0f));
-
-                bonusScore.transform.localScale *= 70f;
-                _bonusScoreObjects.Add(bonusScore);
-                //_bonusPositions[_bonusScoreIndex].x += _scorePlusXPosition;
-                _bonusPosition.x += _scorePlusXPosition;
-            }
-            else
-            {
-                GameObject bonusScore = Instantiate(_numberObject.numberObject[digitsScore].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
-                bonusScore.transform.localScale *= 70f;
-                _bonusPositions[_bonusScoreIndex].x += _scorePlusXPosition;
-            }
+            digitsList.Add(digitsScore);
 
             digitsScore = digitsScore * digits;
             score -= digitsScore;
             countDigits = countDigits /= 10;
         }
+
+
+        for (int i = digitsList.Count - 1; i > -1; i--)
+        {
+            if (i == digitsList.Count-1)//&& value
+            {
+                //秒　個　などの感じを出す場合はこれを使用する
+                // _bonusPositions[_bonusScoreIndex].x -=_scorePlusXPosition;
+            }
+
+            if (displayType == DisplayType.nomal)
+            {
+                GameObject nomalScore = Instantiate(_numberObject.numberObject[digitsList[i]].numberObject, _scorePosition, Quaternion.Euler(0f, 180f, 0f));
+                nomalScore.transform.localScale *= 70f;
+                _nomalScoreObjects.Add(nomalScore);
+                _scorePosition.x -= _scorePlusXPosition;
+            }
+            else if (displayType == DisplayType.bonus)
+            {
+                GameObject bonusScore = Instantiate(_numberObject.numberObject[digitsList[i]].numberObject, _bonusPosition, Quaternion.Euler(0f, 180f, 0f));
+
+                bonusScore.transform.localScale *= 35f;
+                _bonusScoreObjects.Add(bonusScore);
+                //_bonusPositions[_bonusScoreIndex].x += _scorePlusXPosition;
+                _bonusPosition.x -= _scorePlusXPosition_bonus;
+            }
+            else
+            {
+                GameObject bonusScore = Instantiate(_numberObject.numberObject[digitsList[i]].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
+                bonusScore.transform.localScale *= 70f;
+                _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
+            }
+            
+        }
+
+
+        //桁数になるまでループ
+        //while (countDigits > 0)
+        //{
+        //    //スコアの桁数を一つ減らす
+        //    int digitsScore = score;
+        //    int digits = 1;
+        //    while (digitsScore >= 10)
+        //    {
+        //        digitsScore = digitsScore / 10;
+        //        digits = digits * 10;
+        //    }
+
+
+        //    if (displayType == DisplayType.nomal)
+        //    {
+        //        GameObject nomalScore = Instantiate(_numberObject.numberObject[digitsScore].numberObject, _scorePosition, Quaternion.Euler(0f, 180f, 0f));
+        //        nomalScore.transform.localScale *= 70f;
+        //        _nomalScoreObjects.Add(nomalScore);
+        //        _scorePosition.x += _scorePlusXPosition;
+        //    }
+        //    else if (displayType == DisplayType.bonus)
+        //    {
+        //        GameObject bonusScore = Instantiate(_numberObject.numberObject[digitsScore].numberObject, _bonusPosition, Quaternion.Euler(0f, 180f, 0f));
+
+        //        bonusScore.transform.localScale *= 70f;
+        //        _bonusScoreObjects.Add(bonusScore);
+        //        //_bonusPositions[_bonusScoreIndex].x += _scorePlusXPosition;
+        //        _bonusPosition.x += _scorePlusXPosition;
+        //    }
+        //    else
+        //    {
+        //        GameObject bonusScore = Instantiate(_numberObject.numberObject[digitsScore].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
+        //        bonusScore.transform.localScale *= 70f;
+        //        _bonusPositions[_bonusScoreIndex].x += _scorePlusXPosition;
+        //    }
+
+        //    digitsScore = digitsScore * digits;
+        //    score -= digitsScore;
+        //    countDigits = countDigits /= 10;
+        //}
         if (displayType == DisplayType.value)
         {
             _bonusScoreIndex++;
