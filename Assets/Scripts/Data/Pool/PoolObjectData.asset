@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f01401011ebd58419e13a2834cb7d30, type: 3}
+  m_Name: PoolObjectData
+  m_EditorClassIdentifier: 
+  _scriptablePoolInformation:
+  - _name: Arrow
+    _prefab: {fileID: 3084670092578774059, guid: ea82161d13e361d4aa82f2dfd08c6511, type: 3}
+    _queueMax: 15
+  - _name: FireBall
+    _prefab: {fileID: 7187811981614886133, guid: d06020532bbdcc9428c6f7b6a6a6171b, type: 3}
+    _queueMax: 100
+  - _name: Bird
+    _prefab: {fileID: 598212175796384945, guid: e26c2b1b39eed6b4e8bbed396c2c79a2, type: 3}
+    _queueMax: 15
+  - _name: Targeter
+    _prefab: {fileID: -3062190278450946162, guid: e5f6f2cea43e7184c87eeafe8ae81970, type: 3}
+    _queueMax: 15
+  - _name: TargetObject
+    _prefab: {fileID: 1852502067193274808, guid: ff350965cedd9c749a53c9dd0d47570a, type: 3}
+    _queueMax: 10
+  _scriptableEffectInformation:
+  - _name: Nomal
+    _prefab: {fileID: 879681129677348344, guid: bb7c04ee23d5c584c99ac06601febe0c, type: 3}
+    _queueMax: 5
+  - _name: Bomb
+    _prefab: {fileID: 7554899051286264844, guid: a6fc1e688a90e7d4caab89c0ca876bf7, type: 3}
+    _queueMax: 5
+  - _name: Thunder
+    _prefab: {fileID: 934617562227915448, guid: 4e05db48b6a7d5141bc36642f3a63223, type: 3}
+    _queueMax: 0
+  - _name: KnockBack
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: Homing
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: Penetrate
+    _prefab: {fileID: 1475618779179179817, guid: 07799b25da23d9c4d97a417f6f0d0f31, type: 3}
+    _queueMax: 0
+  - _name: BombThunder
+    _prefab: {fileID: 1835174905073365006, guid: e2fbfb1c7da82df49a8eb86118dea601, type: 3}
+    _queueMax: 0
+  - _name: BombKnockBack
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: BombHoming
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: BombPenetrate
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: ThunderKnockBack
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: ThunderHoming
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: ThunderPenetrate
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: KnockBackHoming
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: KnockBackPenetrate
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: HomingPenetrate
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: NomalPassive
+    _prefab: {fileID: 4071751469577258315, guid: a157948ce04399d43b6a034f35e2bf70, type: 3}
+    _queueMax: 20
+  - _name: BombPassive
+    _prefab: {fileID: 786889566517218707, guid: 612cc49f17b4f1b4d8a7f19eb1baf850, type: 3}
+    _queueMax: 5
+  - _name: ThunderPassive
+    _prefab: {fileID: 6379973611441325710, guid: cb4d6c53d7e06cf478e369f188a361ef, type: 3}
+    _queueMax: 0
+  - _name: KnockBackPassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: HomingPassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: PenetratePassive
+    _prefab: {fileID: 5966243932138495114, guid: 622ee0ebec7891b45867bf3755309cf1, type: 3}
+    _queueMax: 0
+  - _name: BombThunderPassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: BombKnockBackPassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: BombHomingPassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: BombPenetratePassive
+    _prefab: {fileID: 786889566517218707, guid: cd417d3e326d74043af653c756f0d5a9, type: 3}
+    _queueMax: 0
+  - _name: ThunderKnockBackPassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: ThunderHomingPassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: ThunderPenetratePassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: KnockBackHomingPassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: KnockBackPenetratePassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
+  - _name: HomingPenetratePassive
+    _prefab: {fileID: 0}
+    _queueMax: 0
