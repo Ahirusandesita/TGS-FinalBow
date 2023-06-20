@@ -15,7 +15,7 @@ interface IArrowMoveReset
 {
     void ResetsStart();
 }
-interface IArrowMoveSettingReset:IArrowMoveSetting,IArrowMoveReset
+interface IArrowMoveSettingReset : IArrowMoveSetting, IArrowMoveReset
 {
 
 }
@@ -24,7 +24,7 @@ interface IArrowMoveSettingReset:IArrowMoveSetting,IArrowMoveReset
 /// <summary>
 /// 矢の動きのクラス　通常とホーミングの挙動を行う
 /// </summary>
-public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
+public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 {
 
     #region 変数 グロ注意
@@ -133,11 +133,14 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
     // ターゲットを探す円錐の中心角　現在は３６０度すべてサーチする　値は中心角の半分を入れる
     private const float SEARCH_ANGLE = 180f;
 
-    #endregion
+    // Vector.forward　処理軽減のためにあらかじめ代入しておく
+    private Vector3 _forward = Vector3.forward;
 
     #endregion
 
-    public void ArrowMove_Nomal(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    #endregion
+
+    public void ArrowMove_Nomal(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
 
 
 
@@ -235,7 +238,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
     /// </summary>
     /// <param name="arrowTransform">矢のトランスフォーム</param>
     /// <param name="arrowSpeed">矢が飛んでいく速度</param>
-    private void NormalMove(Transform arrowTransform ,float arrowSpeed)
+    private void NormalMove(Transform arrowTransform, float arrowSpeed)
     {
         #region 普通の飛び方
         // 初期角度の代入
@@ -246,7 +249,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
 
             // フラグの設定　一回代入したら今後代入しないように変更
             _isSetAngle = !_isSetAngle;
-            
+
             // 角度補正の補間値計算
             // 初期角度が９０を超えているかどうか判定　それによって_underVecterが変化する
             if (_firstAngle.x > 90)
@@ -259,7 +262,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
                 // 初期角度が９０を超えていない場合の値を代入
                 _underVecter = UNDER_VECTOR_POS;
             }
-            
+
             // 傾ける必要のある角度そのものの代入
             _fallAngle = _underVecter - _firstAngle.x;
 
@@ -269,7 +272,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
         }
 
         // 矢の移動
-        arrowTransform.Translate(   ZERO,                                           // Ｘ軸
+        arrowTransform.Translate(ZERO,                                           // Ｘ軸
                                     ZERO,                                           // Ｙ軸
                                     (arrowSpeed + _addFallSpeed) * Time.deltaTime,  // Ｚ軸
                                     Space.Self);                                    // ローカル座標で指定　矢先はＺ軸に向いている前提
@@ -278,7 +281,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
         _imageSpeed = MathN.Clamp_min(_imageSpeed - (AIR_RESIST * Time.deltaTime), ZERO);
 
         // 慣性降下率計算
-        _fallValue = MathN.Clamp( FALL_MAX_VALUE - (_imageSpeed / _fallStartSpeed), ZERO, FALL_MAX_VALUE);
+        _fallValue = MathN.Clamp(FALL_MAX_VALUE - (_imageSpeed / _fallStartSpeed), ZERO, FALL_MAX_VALUE);
 
         // 角度補正
         // 現在角度設定
@@ -290,7 +293,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
         // ショボ撃ち補正
         if (arrowSpeed < ADD_FALL_SPEED_MAX && ADD_START_ANGLE <= _nowAngle && _nowAngle <= ADD_FINISH_ANGLE)
         {
-            _addFallSpeed = Mathf.Lerp( arrowSpeed , ADD_FALL_SPEED_MAX , _nowAngle / ADD_FINISH_ANGLE) - arrowSpeed;
+            _addFallSpeed = Mathf.Lerp(arrowSpeed, ADD_FALL_SPEED_MAX, _nowAngle / ADD_FINISH_ANGLE) - arrowSpeed;
         }
 
 
@@ -309,7 +312,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
         if (_target == null || _target == default)
         {
             // 初期設定とターゲットの選定
-            SetHomingTarget(arrowTransform,arrowSpeed);
+            SetHomingTarget(arrowTransform, arrowSpeed);
         }
 
 
@@ -318,10 +321,10 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
         // 最終角度を設定
         _lookRot = Quaternion.LookRotation(_lookVect);
         // オブジェクトのrotationを変更
-        arrowTransform.rotation = Quaternion.Slerp(arrowTransform.rotation,_lookRot,_lookSpeed);
+        arrowTransform.rotation = Quaternion.Slerp(arrowTransform.rotation, _lookRot, _lookSpeed);
 
         // 矢の移動
-        arrowTransform.Translate(   ZERO,                               // Ｘ軸
+        arrowTransform.Translate(ZERO,                               // Ｘ軸
                                     ZERO,                               // Ｙ軸
                                     arrowSpeed * Time.deltaTime,        // Ｚ軸
                                     Space.Self);                        // ローカル座標で指定　矢先はZ軸に向いている前提
@@ -346,7 +349,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
         _lookSpeed = SPEED_COEF * arrowSpeed;
 
         // ターゲットを探索して代入
-        _target = ConeDecision.ConeSearchNearest(arrowTransform, AttractObjectList.GetAttractObject(),SEARCH_ANGLE);
+        _target = ConeDecision.ConeSearchNearest(arrowTransform, AttractObjectList.GetAttractObject(), SEARCH_ANGLE);
 
 
         // 例外処理　もし判定内にオブジェクトが一つもなかった場合にnullRefを回避するための処理
@@ -357,6 +360,62 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
         }
     }
 
+    #region NormalSetting,NormalMove2で使用している変数
+    private Vector3 _arrowVector = default;
+    private float _arrowSpeed_Horizontal = default;
+    private float _arrowSpeed_X = default;
+    private float _arrowSpeed_Y = default;
+    private float _arrowSpeed_Z = default;
+    private float _maxRange = default;
+    private bool _endSetting = false;
+    private const float SPEED_TO_RANGE_COEFFICIENT = 15f;
+
+    private float _nowRange = default;
+    private Vector3 _moveValue = default;
+    private float _nowSpeedValue = default;
+    private float _addGravity = default;
+    private float GRAVITY = 10f;
+    private const float STANDARD_SPEED_VALUE = 1f;
+    private const float TERMINAL_VELOCITY = 100f;
+    #endregion
+
+
+    /// <summary>
+    /// ノーマルアロー開始時の設定メソッド
+    /// </summary>
+    private void NormalSetting(Transform arrowTransform, float arrowSpeed, bool isThunder)
+    {
+        _arrowVector = arrowTransform.TransformVector(_forward).normalized;
+        _arrowSpeed_Horizontal = Mathf.Sqrt(MathN.Pow(_arrowVector.x) + MathN.Pow(_arrowVector.z)) * arrowSpeed;
+        _arrowSpeed_X = _arrowVector.x * arrowSpeed;
+        _arrowSpeed_Y = _arrowVector.y * arrowSpeed;
+        _arrowSpeed_Z = _arrowVector.z * arrowSpeed;
+        _maxRange = _arrowSpeed_Horizontal * SPEED_TO_RANGE_COEFFICIENT;
+
+        _endSetting = true;
+    }
+
+    private void NormalMove2(Transform arrowTransform, float arrowSpeed, bool isThunder)
+    {
+        if (!_endSetting)
+        {
+            NormalSetting(arrowTransform, arrowSpeed, isThunder);
+        }
+
+        _nowSpeedValue = MathN.Clamp_min( STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO );
+
+        _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);
+        _moveValue.y = (_arrowSpeed_Y * _nowSpeedValue);
+        _moveValue.z = (_arrowSpeed_Z + _addGravity);
+
+        arrowTransform.Translate(_moveValue * Time.deltaTime);
+        arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
+
+        _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
+        _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
+
+        
+    }
 
     /// <summary>
     /// 矢の速度を指定するプロパティ　setしかないため注意
@@ -365,7 +424,7 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
     {
         set
         {
-            _arrowSpeed = value/10;    
+            _arrowSpeed = value / 10;
         }
     }
 
@@ -376,4 +435,5 @@ public class ArrowMove : MonoBehaviour,IArrowMoveSettingReset
     {
         _isSetAngle = false;
     }
+
 }
