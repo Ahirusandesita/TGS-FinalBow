@@ -2,36 +2,23 @@
 // ArrowPassiveEffect.cs 
 // 
 // CreateDay: 2023/06/08
-// Creator  : ?
+// Creator  : Nomura
 // --------------------------------------------------------- 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// 今は使わない
-/// </summary>
-interface IScene
+interface ISceneManager
 {
-    /// <summary>
-    /// シーン移動
-    /// </summary>
-    /// <param name="sceneName"></param>
-    void SceneMove();
+    SceneObject SceneName { get; }
 }
-public class SceneManagement : MonoBehaviour,IScene
+
+public class SceneManagement : MonoBehaviour,ISceneManager
 {
     private IGameManagerSceneMoveNameSet _gameManager;
 
-    private string[] sceneName;
-    private int sceneIndex;
-
     public TagObject _GameControllerTagData;
-    public SceneObject _sceneName;
 
-    public void SceneMove()
-    {
-        sceneIndex++;
-    }
+    public SceneObject SceneName { private set; get; }
 
     private void SceneSpecifyMove(string sceneName)
     {
@@ -44,8 +31,7 @@ public class SceneManagement : MonoBehaviour,IScene
     /// <param name="sceneName"></param>
     public void SceneLoadSpecifyMove(SceneObject sceneObject)
     {
-        //_gameManager.SetSceneMoveName(sceneObject._sceneName);
-        _sceneName = sceneObject;
+        SceneName = sceneObject;
         _gameManager.SceneManagement = this;
         SceneSpecifyMove("LoadScene");
     }
@@ -53,13 +39,6 @@ public class SceneManagement : MonoBehaviour,IScene
     // Start is called before the first frame update
     void Start()
     {
-        //タグの名前スクリプタブルにする
         _gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
