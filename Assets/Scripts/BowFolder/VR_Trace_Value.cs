@@ -29,9 +29,9 @@ public class VR_Trace_Value : MonoBehaviour
 
         rightEye = new GameObject().AddComponent<Text>();
 
-        leftEye.transform.parent = left.transform;
+        leftEye.rectTransform.SetParent(left.transform);
 
-        rightEye.transform.parent = right.transform;
+        rightEye.rectTransform.SetParent(right.transform);
     }
 
     

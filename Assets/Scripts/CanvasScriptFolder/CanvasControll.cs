@@ -17,7 +17,7 @@ interface ICanvasControll
 public class CanvasControll : MonoBehaviour,ICanvasControll
 {
     #region variable 
-    private int _chengeImageValue = 2;
+    private int _chengeImageValue = 6;
 
     private Transform _myTransform;
     private Image[] _lifeImages = new Image[2];
