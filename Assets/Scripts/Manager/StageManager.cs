@@ -53,6 +53,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [Tooltip("Wave1の雑魚の出現位置")]
     public List<Transform> _birdSpawnPlaces_Wave1 = new List<Transform>();
 
+    [Tooltip("Wave1の雑魚のゴール位置")]
+    public List<Transform> _birdGoalPlaces_Wave1 = new List<Transform>();
+
     [Tooltip("Wave2の雑魚の出現位置")]
     public List<Transform> _birdSpawnPlaces_Wave2 = new List<Transform>();
 
@@ -132,6 +135,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
                     // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
                     GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, _birdSpawnPlaces_Wave1[i].position).gameObject;
                     temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
+
+                    temporaryObject.AddComponent<BirdMoveFirst>().GoalPosition = _birdGoalPlaces_Wave1[i].position;
                 }
 
                 break;
