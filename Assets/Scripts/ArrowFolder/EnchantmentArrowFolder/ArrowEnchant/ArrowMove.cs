@@ -413,8 +413,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
         _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
         _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
-
-        
     }
 
     /// <summary>
@@ -434,6 +432,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     public void ResetsStart()
     {
         _isSetAngle = false;
+        _endSetting = false;
     }
 
 }

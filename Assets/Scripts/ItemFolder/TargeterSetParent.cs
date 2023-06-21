@@ -17,8 +17,8 @@ public class TargeterSetParent : MonoBehaviour
     private float _moveValue_x = default;
     private float _moveValue_y = default;
     private float _attractPower = default;
-    private const float PERIOD_VALUE = default;
-    private const float COEFFICIENT_DISTANCExRADIUS = default;
+    private const float PERIOD_VALUE = Mathf.PI * 2f;
+    private const float COEFFICIENT_DISTANCExRADIUS = 10f;
     private Transform ParentObject = default;
     #endregion
     #region プロパティ
