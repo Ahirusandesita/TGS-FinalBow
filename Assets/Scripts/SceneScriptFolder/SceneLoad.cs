@@ -24,7 +24,7 @@ public class SceneLoad : MonoBehaviour
 		_gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
 
 		//　コルーチンを開始
-		StartCoroutine(LoadData(_gameManager.SceneManagement._sceneName._sceneName));
+		StartCoroutine(LoadData(_gameManager.SceneManagement.SceneName._sceneName));
 	}
 
 	IEnumerator LoadData(string sceneName)
