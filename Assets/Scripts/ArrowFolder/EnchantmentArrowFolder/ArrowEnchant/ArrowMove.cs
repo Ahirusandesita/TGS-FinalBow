@@ -408,7 +408,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _moveValue.y = (_arrowSpeed_Y * _nowSpeedValue);
         _moveValue.z = (_arrowSpeed_Z + _addGravity);
 
-        arrowTransform.Translate(_moveValue * Time.deltaTime);
+        arrowTransform.position +=  _moveValue * Time.deltaTime ;
         arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
 
         _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
