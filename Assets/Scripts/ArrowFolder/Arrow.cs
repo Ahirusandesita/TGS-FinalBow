@@ -173,7 +173,7 @@ public class Arrow : MonoBehaviour,IArrowMove
     {
         if (_EventArrowPassiveEffect != null)
         {
-            _EventArrowPassiveEffect(this.transform);
+            _EventArrowPassiveEffect(_myTransform);
         }
 
         if (_playerManager != null)
@@ -187,10 +187,10 @@ public class Arrow : MonoBehaviour,IArrowMove
         }
 
         //矢を移動する関数を呼ぶ
-        _MoveArrow(this.transform);
+        _MoveArrow(_myTransform);
 
         //矢がどこかにヒットしたら
-        if (ArrowGetObject.ArrowHit(this.transform,this))
+        if (ArrowGetObject.ArrowHit(_myTransform,this))
         {
             //ヒットしたオブジェクトとエンチャントEnumを渡す　ヒット処理開始
             _EventArrow(_hitObject, _enchantState);
@@ -198,7 +198,7 @@ public class Arrow : MonoBehaviour,IArrowMove
             //ヒットエフェクトを発動
             if (_EventArrowEffect != null)
             {
-                _EventArrowEffect(this.transform);
+                _EventArrowEffect(_myTransform);
                 _ArrowEnchantSound(_audioSource);
             }
             //矢をリセットする
@@ -220,24 +220,24 @@ public class Arrow : MonoBehaviour,IArrowMove
 
 
         //仮
-        if (ArrowGetObject.ArrowHit_Object(this.transform))
+        if (ArrowGetObject.ArrowHit_Object(_myTransform))
         {
-            ArrowGetObject.GetArrowHitObject_Object().GetComponent<SceneMoveHitArrow>().SceneMove(this.transform);
+            ArrowGetObject.GetArrowHitObject_Object().GetComponent<SceneMoveHitArrow>().SceneMove(_myTransform);
             if (_EventArrowEffect != null)
             {
-                _EventArrowEffect(this.transform);
+                _EventArrowEffect(_myTransform);
                 _ArrowEnchantSound(_audioSource);
             }
             ReturnQue();
         }
 
         //仮
-        if (ArrowGetObject.ArrowHit_TitleObject(this.transform))
+        if (ArrowGetObject.ArrowHit_TitleObject(_myTransform))
         {
             ArrowGetObject.GetArrowHitObject_TitleObject().GetComponent<TargetAnimation>().TargetPushed();
             if (_EventArrowEffect != null)
             {
-                _EventArrowEffect(this.transform);
+                _EventArrowEffect(_myTransform);
                 _ArrowEnchantSound(_audioSource);
             }
             ReturnQue();
@@ -254,7 +254,7 @@ public class Arrow : MonoBehaviour,IArrowMove
     {
 
         //親オブジェクトをNullにする
-        this.transform.parent = null;
+        _myTransform.parent = null;
        
         //移動スピードをセットする
         _arrowMove.SetArrowSpeed = _moveSpeed;
