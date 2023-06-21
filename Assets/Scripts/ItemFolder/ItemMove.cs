@@ -19,6 +19,8 @@ public class ItemMove : MonoBehaviour
     [SerializeField, Tooltip("臨時版の使用の可否")]
     public bool _UseTemporary = true;
 
+    public bool _endSetting = false;
+
     #endregion
 
     #region　Unity変数一覧
@@ -36,7 +38,7 @@ public class ItemMove : MonoBehaviour
     private Vector3 _spawnPosition = default;
 
     // 追跡するターゲットのオブジェクト
-    private GameObject _targeterObject = default;
+    private GameObject _targeterObject = null;
 
     #endregion
 
@@ -181,6 +183,9 @@ public class ItemMove : MonoBehaviour
 
         // ターゲットの移動速度を設定
         _targeterObject.GetComponent<TargeterSetParent>().SetAttractPower = attractPower;
+
+        //設定完了
+        _endSetting = true;
     }
 
     /// <summary>
@@ -188,6 +193,11 @@ public class ItemMove : MonoBehaviour
     /// </summary>
     private void ItemMovement()
     {
+        if (!_endSetting)
+        {
+            StartSetting(_goalTransform, _attract_Power);
+        }
+
         // 自身から見た追跡するターゲットへの向きを求める
         _targetVector = MathN.Vector3_Normalize(this.transform.position, _targeterObject.transform.position);
 
@@ -238,6 +248,7 @@ public class ItemMove : MonoBehaviour
             {
                 // 追跡するターゲットの設定
                 _targeterObject = value;
+                print("いんすたんすしたよおおおおおおお");
 
                 // 移動の開始
                 _isStart = true;
