@@ -1098,7 +1098,6 @@ GameObject:
   - component: {fileID: 5433653101946554788}
   - component: {fileID: 1842631481302152824}
   - component: {fileID: 7679170251223779403}
-  - component: {fileID: 7734269625025910789}
   - component: {fileID: 598212175796384945}
   - component: {fileID: 5213685018902185837}
   m_Layer: 6
@@ -1158,7 +1157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _EnemyControllerTagData: {fileID: 11400000, guid: 90de9017c3acb294188b8d044f6ae203, type: 2}
 --- !u!114 &7679170251223779403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,24 +1169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2275d0a137bac824398e3d0e633f868e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7734269625025910789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5433653101953825380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b432c21f313e1f4da43b9cc69984ee7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _idleMoveSpeedX: 10
-  _idleMoveSpeedY: 5
-  _changeAngleSpeed: 1
-  _linearMovementSpeed: 0.1
-  _childSpawner: {fileID: 807502785826467371}
-  _attackSpawnPlace: {fileID: 807502785826467371}
 --- !u!114 &598212175796384945
 MonoBehaviour:
   m_ObjectHideFlags: 0
