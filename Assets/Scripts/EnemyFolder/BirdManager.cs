@@ -11,25 +11,36 @@ using System.Collections;
 /// 鳥雑魚の管理クラス
 /// </summary>
 // コンポーネントのアタッチを強制
-[RequireComponent(typeof(BirdStats), typeof(CashObjectInformation))]
+[RequireComponent(typeof(BirdStats), typeof(BirdMove), typeof(CashObjectInformation))]
 public class BirdManager : MonoBehaviour
 {
+    [Tooltip("タグの名前")]
+    public TagObject _EnemyControllerTagData = default;
+
+
     [Tooltip("取得したBirdMoveクラス")]
-    private BirdMoveBase _birdMoveBase = default;
+    private BirdMove _birdMove = default;
 
     [Tooltip("取得したBirdStatsクラス")]
     private BirdStats _birdStats = default;
 
+    [Tooltip("取得したBirdAttackクラス")]
+    private BirdAttack _birdAttack = default;
+
 
     private void Start()
     {
-        _birdMoveBase = this.GetComponent<BirdMoveBase>();
+        _birdMove = this.GetComponent<BirdMove>();
 
         _birdStats = this.GetComponent<BirdStats>();
+
+        _birdAttack = GameObject.FindWithTag(_EnemyControllerTagData.TagName).GetComponent<BirdAttack>();
 
         // 召喚された雑魚じゃなければ攻撃開始
         if (!_birdStats.IsSummmon)
         {
+            _birdMove._onBeforeAttack = _birdAttack.NormalAttack;
+
             //StartCoroutine(_birdAttack.NormalAttackLoop(_attackSpawnPlace));
         }
     }
@@ -48,6 +59,6 @@ public class BirdManager : MonoBehaviour
             return;
         }
 
-        _birdMoveBase.MoveSequence();
+        _birdMove.MoveSelect();
     }
 }
