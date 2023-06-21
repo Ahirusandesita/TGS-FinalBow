@@ -27,11 +27,11 @@ public class ArrowEnchant : MonoBehaviour
     [Tooltip("爆発外部のダメージ")]
     [SerializeField] int _bombSideDamage = 40;
 
-    [Tooltip("爆発中心部の大きさ")]
-    [SerializeField] float _bombMiddleAreaSize = 3f;
+    [Tooltip("爆発中心部の半径")]
+    [SerializeField] float _bombMiddleAreaSize = 6f;
 
-    [Tooltip("爆発外部の大きさ")]
-    [SerializeField] float _bombSideAreaSize = 15f;
+    [Tooltip("爆発外部の半径")]
+    [SerializeField] float _bombSideAreaSize = 30f;
 
     [Tooltip("サンダーダメージ")]
     [SerializeField] int _thunderDamage = 20;
@@ -391,6 +391,6 @@ public class ArrowEnchant : MonoBehaviour
     private void TestBombArea(GameObject hi)
     {
         GameObject obj = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), hi.transform.position, Quaternion.identity);
-        obj.transform.localScale = Vector3.one * _bombSideAreaSize;
+        obj.transform.localScale = Vector3.one * _bombSideAreaSize * 2;
     }
 }
