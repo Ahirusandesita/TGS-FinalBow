@@ -233,7 +233,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_Name
-      value: OVRCameraRig
+      value: OVRCameraRig Variant
       objectReference: {fileID: 0}
     - target: {fileID: 159718, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_TagString
@@ -241,7 +241,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -376,11 +388,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5185129958207729088, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: add
-      value: 2000
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 5185129958207729088, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _traceValue
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5185129958207729088, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _handLeftPosition
@@ -388,11 +400,11 @@ PrefabInstance:
       objectReference: {fileID: 9051230437724243433}
     - target: {fileID: 5185129958207729088, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: drawLimitDistance
-      value: 1.5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 5185129958207729088, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: grapLimitDistance
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5185129958207729088, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _handRightPosition
@@ -452,7 +464,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5185129958207729101, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: dictance
-      value: 100000
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185129958207729101, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
+      propertyPath: angleSizeMagnification
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
