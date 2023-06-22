@@ -35,7 +35,7 @@ public class EnemyDeath : MonoBehaviour
 
     private void DeathEnd()
     {
-        _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.enemyDeath, _myTransform.position, Quaternion.identity);
+        _objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _myTransform.position, Quaternion.identity);
         _scoreManager.NomalScore_NomalEnemyScore();
     }
 
