@@ -32,6 +32,10 @@ public class PoolEnum : MonoBehaviour
         /// <summary>
         /// “I
         /// </summary>
-        targetObject
+        targetObject,
+        /// <summary>
+        /// “G‚Ì€–Sˆ—
+        /// </summary>
+        enemyDeath,
     }
 }
