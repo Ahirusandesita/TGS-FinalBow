@@ -34,7 +34,11 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
     [SerializeField] TagObject _vibeTagName = default;
 
-    private Action<float, float> _vibeAction = default;
+    [Tooltip("弓持っている手のバイブ")]
+    private Action<float, float> _useHandVibeAction = default;
+
+    [Tooltip("弓持っていない手のバイブ")]
+    private Action<float, float> _freeHandVibeAction = default;
 
     private AnimationCurve _shotFrequency = default;
 
@@ -75,7 +79,9 @@ public class BowVibe : MonoBehaviour, IFBowVibe
     {
         try
         {
-            _vibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
+            _useHandVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
+
+            _freeHandVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -87,7 +93,9 @@ public class BowVibe : MonoBehaviour, IFBowVibe
     {
         try
         {
-            _vibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
+            _useHandVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
+
+            _freeHandVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -99,8 +107,8 @@ public class BowVibe : MonoBehaviour, IFBowVibe
     {
         // バイブ弱める
         power = power / 2;
-        
-        _vibeManager.TwinHandsVibe(power, power);
+        _freeHandVibeAction(power, power);
+        //_vibeManager.TwinHandsVibe(power, power);
     }
 
     public void EndDrawVibe()
@@ -138,7 +146,7 @@ public class BowVibe : MonoBehaviour, IFBowVibe
             try
             {
                 // 現在の時間の振動をする
-                _vibeAction?.Invoke(freq, amp);
+                _useHandVibeAction?.Invoke(freq, amp);
             }
             catch (NullReferenceException)
             {
