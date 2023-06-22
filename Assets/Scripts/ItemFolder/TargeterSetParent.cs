@@ -54,7 +54,9 @@ public class TargeterSetParent : MonoBehaviour
     private void Start()
     {
         // ParentObjectの代入
-        ParentObject = GameObject.Find("Player").transform;
+        ParentObject = GameObject.FindGameObjectWithTag("PlayerController").transform;
+        // 親オブジェクトの設定
+        this.transform.parent = ParentObject.transform;
     }
 
     /// <summary>
@@ -75,8 +77,8 @@ public class TargeterSetParent : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        // 親オブジェクトの設定
-        this.transform.parent = ParentObject.transform;
+        //// 親オブジェクトの設定
+        //this.transform.parent = ParentObject.transform;
 
         // 開始時間を設定
         _functionTime = -Time.time;
