@@ -62,8 +62,13 @@ public class BirdMoveFirst : BirdMoveBase
 
             _birdAttack.NormalAttack(_childSpawner);
             _currentTime = 0f;
+        }
 
-            return;
+        _currentTime2 += Time.deltaTime;
+
+        if (_currentTime2 >= 10f)
+        {
+
         }
     }
 

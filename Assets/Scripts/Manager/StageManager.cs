@@ -40,6 +40,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [Tooltip("タグの名前")]
     public TagObject _PoolSystemTagData = default;
 
+    [Tooltip("敵のスポーン座標テーブル")]
+    public EnemySpawnerTable _enemySpawnerTable = default;
+
     [Header("雑魚の出現位置リスト")]
     [Tooltip("チュートリアル（吸い込み）の的の出現位置")]
     public List<Transform> _targetSpawnPlaces_Tutorial1 = new List<Transform>();
