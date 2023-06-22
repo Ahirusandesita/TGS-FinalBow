@@ -39,7 +39,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     // 矢の初速　前方に進んでいく力の大きさ
     // SetArrowSpeedで速度を指定できる
-    private float _arrowSpeed = 20f;
+    private float _arrowSpeed = 10f;
 
 
     // 定数
@@ -368,15 +368,25 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     private float _arrowSpeed_Z = default;
     private float _maxRange = default;
     private bool _endSetting = false;
-    private const float SPEED_TO_RANGE_COEFFICIENT = 15f;
+
+    [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない"),SerializeField] //デバッグ用
+    private float SPEED_TO_RANGE_COEFFICIENT = 15f;
 
     private float _nowRange = default;
     private Vector3 _moveValue = default;
     private float _nowSpeedValue = default;
     private float _addGravity = default;
-    private float GRAVITY = 10f;
+
+    [Tooltip("重力加速度　大きいほど降下するのが早くなる"), SerializeField] //デバッグ用
+    private float GRAVITY = -50f;
+
     private const float STANDARD_SPEED_VALUE = 1f;
-    private const float TERMINAL_VELOCITY = 100f;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Tooltip("最大落下速度　落下速度が加速する頂点　これより速くは落下しない"), SerializeField] //デバッグ用
+    private float TERMINAL_VELOCITY = 100f;
     #endregion
 
 
@@ -392,6 +402,9 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _arrowSpeed_Z = _arrowVector.z * arrowSpeed;
         _maxRange = _arrowSpeed_Horizontal * SPEED_TO_RANGE_COEFFICIENT;
 
+        _nowRange = default;
+        _addGravity = default;
+
         _endSetting = true;
     }
 
@@ -405,8 +418,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _nowSpeedValue = MathN.Clamp_min( STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO );
 
         _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);
-        _moveValue.y = (_arrowSpeed_Y * _nowSpeedValue);
-        _moveValue.z = (_arrowSpeed_Z + _addGravity);
+        _moveValue.y = (_arrowSpeed_Y + _addGravity);
+        _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);
 
         arrowTransform.position +=  _moveValue * Time.deltaTime ;
         arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
