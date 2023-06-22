@@ -43,6 +43,9 @@ public abstract class BirdMoveBase : MonoBehaviour
     #endregion
 
     #region protected変数
+    [Tooltip("敵のスポーン座標テーブル")]
+    protected EnemySpawnerTable _enemySpawnerTable = default;
+
     [Tooltip("子オブジェクトにあるスポナーを取得")]
     protected Transform _childSpawner = default;
 
@@ -62,7 +65,7 @@ public abstract class BirdMoveBase : MonoBehaviour
     protected float _interpolationRatio = 0f;
 
     [Tooltip("直線移動のスピード")]
-    protected float _linearMovementSpeed = 0.2f;
+    protected float _linearMovementSpeed = 0.15f;
 
     [Tooltip("プレイヤーの方向を向く速度")]
     protected float _rotateToPlayerSpeed = 150f;
@@ -82,6 +85,14 @@ public abstract class BirdMoveBase : MonoBehaviour
         set
         {
             _goalPosition = value;
+        }
+    }
+
+    public EnemySpawnerTable EnemySpawnerTable
+    {
+        set
+        {
+            _enemySpawnerTable = value;
         }
     }
 
@@ -194,7 +205,7 @@ public abstract class BirdMoveBase : MonoBehaviour
     public abstract void MoveSequence();
 
     /// <summary>
-    /// 直線移動（Updataで呼ぶ）
+    /// 直線移動（Updateで呼ぶ）
     /// </summary>
     /// <param name="goalPosition">ゴールの位置</param>
     protected void LinearMovement(Vector3 goalPosition)
@@ -226,5 +237,10 @@ public abstract class BirdMoveBase : MonoBehaviour
     protected void RotateToPlayer(float rotateSpeed)
     {
         _transform.rotation = Quaternion.RotateTowards(_transform.rotation, _childSpawner.rotation, Time.deltaTime * rotateSpeed);
+    }
+
+    protected void SetGoalPosition()
+    {
+        //_goalPosition = _enemySpawnerTable._scriptableESpawnerInformation[]
     }
 }
