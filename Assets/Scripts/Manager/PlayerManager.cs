@@ -61,11 +61,15 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// </summary>
     private ClickInput _clickInput = new ClickInput();
     #endregion
-    delegate void a();
-    void Awake()
-    {
-        //arrowEnchant = _arrowEnchantObject.GetComponent<ArrowEnchantment>();
 
+    private void Update()
+    {
+        //テスト用
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SetEnchantParameter(EnchantmentEnum.ItemAttributeState.bomb);
+            SetEnchantParameter(EnchantmentEnum.ItemAttributeState.thunder);
+        }
     }
 
     private void Start()
