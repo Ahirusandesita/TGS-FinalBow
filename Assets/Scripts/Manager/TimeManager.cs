@@ -28,8 +28,8 @@ public class TimeManager :MonoBehaviour , ITime
 
     private void Start()
     {
-        _gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        _scoreManager = GameObject.FindWithTag("ScoreManager").GetComponent<ScoreManager>();
+        _gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        _scoreManager = GameObject.FindWithTag("ScoreController").GetComponent<ScoreManager>();
 
         if(_gameManager.TimeManager != null)
         {
