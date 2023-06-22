@@ -467,7 +467,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     {
         if (_traceValue)
         {
-            _trace.SetText(GetPercentDrawDistance() + "," + drawLimitDistance);
+            _trace.SetText(text);
         }
         else
         {
