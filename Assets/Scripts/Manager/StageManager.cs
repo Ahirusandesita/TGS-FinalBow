@@ -94,15 +94,16 @@ public class StageManager : MonoBehaviour, IStageSpawn
         {
             case WaveType.zakoWave1:
                 // Inspector上でアタッチしたスポーン位置の数だけ雑魚をスポーンさせる
-                for (int i = 0; i < _birdSpawnPlaces_Wave1.Count; i++)
+                for (int i = 0; i < _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces.Count; i++)
                 {
                     // スポーンさせた雑魚の数を設定
-                    _currentNumberOfObject = _birdSpawnPlaces_Wave1.Count;
+                    _currentNumberOfObject = _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces.Count;
 
                     // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, _birdSpawnPlaces_Wave1[i].position).gameObject;
-                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
+                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, 
+                        _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces[i].position).gameObject;
 
+                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
                     temporaryObject.AddComponent<BirdMoveFirst>();
                 }
 

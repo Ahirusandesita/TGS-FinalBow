@@ -104,6 +104,8 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
+
         // 移動のスタート位置を設定
         try
         {
@@ -128,8 +130,6 @@ public abstract class BirdMoveBase : MonoBehaviour
         _childSpawner = _transform.GetChild(2).transform;
 
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
-
-        _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
     }
 
     public void MoveSelect()
@@ -175,7 +175,11 @@ public abstract class BirdMoveBase : MonoBehaviour
     /// </summary>
     private void Paralysing()
     {
-        animator.speed = 0;
+        if (bird.Get_isParalysis)
+        {
+            animator.speed = 0;
+        }
+        animator.speed = 1;
     }
 
     private void Test()
@@ -253,7 +257,7 @@ public abstract class BirdMoveBase : MonoBehaviour
     {
         try
         {
-            _goalPosition = _stageManager._enemySpawnerTable._centeralTransform.position;
+            _goalPosition = _stageManager._enemySpawnerTable._centralInformation._centralTransform.position;
         }
         catch (Exception)
         {

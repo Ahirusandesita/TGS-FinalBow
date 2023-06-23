@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5cbee3ea3fcce54299e4185dc52f8fc, type: 3}
   m_Name: EnemySpawnerData
   m_EditorClassIdentifier: 
-  _centeralTransform: {fileID: 0}
-  _scriptableESpawnerInformation: []
+  _centralInformation:
+    _centralTransform: {fileID: 4472435608552212666, guid: 5795edc4ce8b8b54f83bf1cdad2087f9, type: 3}
+  _scriptableESpawnerInformation:
+  - _wave: ZakoWave1
+    _birdSpawnPlaces:
+    - {fileID: 2049416342418207555, guid: 990e41dde47c39b4fbf5b01bf68a744b, type: 3}
+    _birdGoalPlaces:
+    - {fileID: 3083441638828090966, guid: 6f99e4a7c1df8a44c8759de66b4abeb7, type: 3}
