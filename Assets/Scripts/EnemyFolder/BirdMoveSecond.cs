@@ -18,9 +18,15 @@ public class BirdMoveSecond : BirdMoveBase
 
     const float PERCENT_HALF = 0.5f;
 
+    const float VIEW_PORT_MIN = 0f;
+
+    const float VIEW_PORT_MAX = 1f;
+
     Vector3 _sideMoveNormalizedVector = default;
 
     Vector3 _movingSide = default;
+
+    Vector3 objectViewPoint = default;
 
     float _movingY = default;
 
@@ -33,8 +39,6 @@ public class BirdMoveSecond : BirdMoveBase
     float directionY = default;
 
     bool _canMoveDown = default;
-
-    bool _IsVisible = default;
 
     bool _canStartAttack = default;
 
@@ -87,8 +91,6 @@ public class BirdMoveSecond : BirdMoveBase
 
         _canMoveDown = false;
 
-        _IsVisible = false;
-
         IsFinishMovement = false;
 
         _canStartAttack = true;
@@ -107,7 +109,7 @@ public class BirdMoveSecond : BirdMoveBase
             // チェック移動エンド
             IsFinishMovement = CheckMoveFinish();
 
-            if (AttackCheck() && _canStartAttack)
+            if (_canStartAttack && AttackCheck())
             {
                 _canStartAttack = false;
 
@@ -130,7 +132,13 @@ public class BirdMoveSecond : BirdMoveBase
     /// <returns>アタックできるならtrue</returns>
     private bool AttackCheck()
     {
-        return _IsVisible;
+        objectViewPoint = Camera.main.WorldToViewportPoint(_transform.position);
+
+        return IsBetween(objectViewPoint.x, VIEW_PORT_MIN, VIEW_PORT_MAX) &&
+            (IsBetween(objectViewPoint.y, VIEW_PORT_MIN, VIEW_PORT_MAX) &&
+            objectViewPoint.z > VIEW_PORT_MIN);
+
+        bool IsBetween(float look, float min, float max) => min <= look && look <= max;
     }
 
 
@@ -225,9 +233,6 @@ public class BirdMoveSecond : BirdMoveBase
         return _finishMoveValue < _cacheMoveValue;
     }
 
-    private void OnBecameVisible()
-    {
-        _IsVisible = true;
-    }
+ 
     #endregion
 }
