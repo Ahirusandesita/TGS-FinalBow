@@ -45,50 +45,38 @@ public static class ArrowGetObject
        
         return false;
     }
-    public static GameObject GetArrowHitObject()
-    {
-        return target;
-    }
 
 
-    public static bool ArrowHit_Object(Transform arrowTransform)
+    public static bool ArrowHit_Object(Transform arrowTransform, Arrow arrow)
     {
         if (Physics.CheckCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK, _layerMask_Button))
         {
             Collider[] co = Physics.OverlapCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK);
             if (co != null)
             {
-                _target_Button = co[0].gameObject;
+                arrow._hitObject = co[0].gameObject;
                 return true;
             }
         }
 
         return false;
     }
-    public static GameObject GetArrowHitObject_Object()
-    {
-        return _target_Button;
-    }
 
 
 
-    public static bool ArrowHit_TitleObject(Transform arrowTransform)
+    public static bool ArrowHit_TitleObject(Transform arrowTransform,Arrow arrow)
     {
         if (Physics.CheckCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK, _layerMask_TitleObject))
         {
             Collider[] co = Physics.OverlapCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK);
             if (co != null)
             {
-                _target_TitleObject = co[0].gameObject;
+                arrow._hitObject = co[0].gameObject;
                 return true;
             }
         }
 
         return false;
-    }
-    public static GameObject GetArrowHitObject_TitleObject()
-    {
-        return _target_TitleObject;
     }
 
 

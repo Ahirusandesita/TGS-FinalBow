@@ -244,7 +244,7 @@ public class Arrow : MonoBehaviour,IArrowMove
             ReturnQue();
         }
         //仮
-        if (ArrowGetObject.ArrowHit_Object(_myTransform))
+        if (ArrowGetObject.ArrowHit_Object(_myTransform,this))
         {
             if (_hitObject == _hitObjectLast)
             {
@@ -252,7 +252,7 @@ public class Arrow : MonoBehaviour,IArrowMove
             }
             _hitObjectLast = _hitObject;
 
-            ArrowGetObject.GetArrowHitObject_Object().GetComponent<SceneMoveHitArrow>().SceneMove(_myTransform);
+            _hitObject.GetComponent<SceneMoveHitArrow>().SceneMove(_myTransform);
             if (_EventArrowEffect != null)
             {
                 _EventArrowEffect(_myTransform);
@@ -262,7 +262,7 @@ public class Arrow : MonoBehaviour,IArrowMove
         }
 
         //仮
-        if (ArrowGetObject.ArrowHit_TitleObject(_myTransform))
+        if (ArrowGetObject.ArrowHit_TitleObject(_myTransform,this))
         {
             if (_hitObject == _hitObjectLast)
             {
@@ -270,7 +270,7 @@ public class Arrow : MonoBehaviour,IArrowMove
             }
             _hitObjectLast = _hitObject;
 
-            ArrowGetObject.GetArrowHitObject_TitleObject().GetComponent<TargetAnimation>().TargetPushed();
+            _hitObject.GetComponent<TargetAnimation>().TargetPushed();
             if (_EventArrowEffect != null)
             {
                 _EventArrowEffect(_myTransform);
