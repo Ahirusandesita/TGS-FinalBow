@@ -140,25 +140,25 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #endregion
 
-    public void ArrowMove_Nomal(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
+    public void ArrowMove_Nomal(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
-    public void ArrowMove_Bomb(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_Bomb(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
-    public void ArrowMove_Thunder(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_Thunder(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
 
 
 
 
 
-    public void ArrowMove_KnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_KnockBack(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
 
 
 
@@ -170,19 +170,19 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-    public void ArrowMove_Penetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_Penetrate(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
-    public void ArrowMove_BombThunder(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_BombThunder(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
 
 
 
 
 
-    public void ArrowMove_BombKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_BombKnockBack(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
 
 
 
@@ -194,13 +194,13 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-    public void ArrowMove_BombPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_BombPenetrate(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
-    public void ArrowMove_ThunderKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_ThunderKnockBack(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
 
 
 
@@ -212,7 +212,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-    public void ArrowMove_ThunderPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_ThunderPenetrate(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
 
 
 
@@ -224,7 +224,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-    public void ArrowMove_KnockBackPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed); }
+    public void ArrowMove_KnockBackPenetrate(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
 
 
 
@@ -403,7 +403,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _arrowSpeed_X = _arrowVector.x * arrowSpeed;
         _arrowSpeed_Y = _arrowVector.y * arrowSpeed;
         _arrowSpeed_Z = _arrowVector.z * arrowSpeed;
-        _maxRange = _arrowSpeed_Horizontal * SPEED_TO_RANGE_COEFFICIENT_NORMAL;
+        _maxRange = _arrowSpeed_Horizontal * SpeedToRangeCoefficient(isThunder);
 
         _nowRange = default;
         _addGravity = default;
@@ -429,6 +429,19 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
         _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
         _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
+    }
+
+
+    private float SpeedToRangeCoefficient(bool isThunder)
+    {
+        if (isThunder)
+        {
+            return SPEED_TO_RANGE_COEFFICIENT_THUNDER;
+        }
+        else
+        {
+            return SPEED_TO_RANGE_COEFFICIENT_NORMAL;
+        }
     }
 
     /// <summary>
