@@ -68,7 +68,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         if (Input.GetKeyDown(KeyCode.K))
         {
             SetEnchantParameter(EnchantmentEnum.ItemAttributeState.bomb);
-            SetEnchantParameter(EnchantmentEnum.ItemAttributeState.thunder);
+            SetEnchantParameter(EnchantmentEnum.ItemAttributeState.penetrate);
         }
     }
 
