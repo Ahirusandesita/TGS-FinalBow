@@ -12,8 +12,6 @@ public class Windmill : ObjectParent
     private float _addRotateSpeed = -600f;
     private float _remRotateSpeed = 300f;
 
-    private bool isRotate = false;
-
     #endregion
     #region property
     #endregion
