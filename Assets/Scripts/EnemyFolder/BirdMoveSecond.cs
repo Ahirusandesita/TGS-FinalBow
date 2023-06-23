@@ -47,6 +47,8 @@ public class BirdMoveSecond : BirdMoveBase
 
         InitializeVariables();
 
+        //SetGoalPosition(WaveType.zakoWave2);
+
         // 最初から正面を向かせる
         _transform.rotation = Quaternion.Euler(Vector3.up * 180f);
         // 横移動ベクトル
@@ -64,9 +66,8 @@ public class BirdMoveSecond : BirdMoveBase
 
         _goalPosition = new Vector3(100, 0, 0);
     }
-    protected override void InitializeVariables()
+    protected void InitializeVariables()
     {
-        _needRotateTowardDirectionOfTravel = false;
 
         _sideMoveNormalizedVector = default;
 
@@ -85,20 +86,22 @@ public class BirdMoveSecond : BirdMoveBase
         _canMoveDown = false;
 
         _IsVisible = false;
+
+        IsFinishMovement = false;
     }
 
     // スタートからゴールへいく
     // 左行き:下　右行き:上
     public override void MoveSequence()
     {
-        if (!_isFinishMovement)
+        if (!IsFinishMovement)
         {
             // 向く処理
             RotateToPlayer(_rotateToPlayerSpeed);
             // 移動処理
             ArcMove();
             // チェック移動エンド
-            _isFinishMovement = CheckMoveFinish();
+            IsFinishMovement = CheckMoveFinish();
 
             if (AttackCheck())
             {
@@ -111,7 +114,7 @@ public class BirdMoveSecond : BirdMoveBase
         {
             transform.position = _goalPosition;
         }
-        
+
     }
 
     /// <summary>
@@ -137,7 +140,7 @@ public class BirdMoveSecond : BirdMoveBase
         Vector3 cross = Vector3.Cross(_transform.forward, enemyToPlayerVector);
 
         // 外積から左右判定
-        if(cross.y < 0)
+        if (cross.y < 0)
         {
             // 敵から見て右にプレイヤーがいるので下に行く
             return true;
@@ -162,13 +165,13 @@ public class BirdMoveSecond : BirdMoveBase
     {
         _movingSide = SIDE_MOVE_SPEED * Time.deltaTime * _sideMoveNormalizedVector;
         // 累計横移動量のキャッシュ
-        _cacheMoveValue += _movingSide.magnitude; 
+        _cacheMoveValue += _movingSide.magnitude;
 
         _movingY = MoveCalcY();
 
         _movingSide += Vector3.up * _movingY;
 
-        _transform.Translate(_movingSide,Space.World);
+        _transform.Translate(_movingSide, Space.World);
 
     }
 
@@ -188,7 +191,7 @@ public class BirdMoveSecond : BirdMoveBase
         }
 
         // 前半の動き
-        if(percentMoveDistance < PERCENT_HALF)
+        if (percentMoveDistance < PERCENT_HALF)
         {
             return directionY * MOVE_SPEED_Y * PrabolaMove() * Time.deltaTime;
         }
@@ -201,8 +204,8 @@ public class BirdMoveSecond : BirdMoveBase
         float PrabolaMove()
         {
             // 放物線運動のax^2の部分
-            return  PARABORA_ANGLE * Mathf.Pow(PERCENT_HALF - percentMoveDistance, 2);
-                      
+            return PARABORA_ANGLE * Mathf.Pow(PERCENT_HALF - percentMoveDistance, 2);
+
         }
 
     }

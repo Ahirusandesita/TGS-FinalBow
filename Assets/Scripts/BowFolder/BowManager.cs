@@ -28,6 +28,7 @@ public interface IFBowManagerQue
 [RequireComponent(typeof(Inhall))]
 public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQue
 {
+    
     #region かつてpublicだった変数
     [SerializeField] TagObject _InputTagName = default;
 
@@ -142,6 +143,11 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     [SerializeField] float cantShotDistance = 0.01f;
 
+    /// <summary>
+    /// 引いた時にマックスパワーになる距離の最高距離の割合
+    /// </summary>
+    [SerializeField] float drawDistancePercentMaxPower = 0.9f;
+
     #endregion
 
     float _drawDistance = default;
@@ -246,7 +252,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     public float GetPercentDrawDistance()
     {
-        return Vector3.Magnitude(_drawObject.transform.position - transform.position) / drawLimitDistance;
+        return Vector3.Magnitude(_drawObject.transform.position - transform.position) / (drawLimitDistance * drawDistancePercentMaxPower);
     }
 
     /// <summary>
