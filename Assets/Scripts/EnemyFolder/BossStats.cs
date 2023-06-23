@@ -11,6 +11,9 @@ public class BossStats : EnemyStats
     [Tooltip("ボスの最大HP")]
     public const int MAX_BOSS_HP = 100;
 
+    public SceneObject _sceneObject;
+
+
     private void OnEnable()
     {
         // HPの設定
@@ -36,6 +39,8 @@ public class BossStats : EnemyStats
     {
         print("ボスを倒しました");
         this.gameObject.SetActive(false);
+
+        GameObject.FindWithTag("SceneController").GetComponent<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
     }
 
     public override int HP

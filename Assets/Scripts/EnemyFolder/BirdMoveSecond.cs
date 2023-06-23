@@ -53,7 +53,7 @@ public class BirdMoveSecond : BirdMoveBase
 
         InitializeVariables();
 
-        //SetGoalPosition(WaveType.zakoWave2);
+        SetGoalPosition(WaveType.zakoWave3);
 
         // ç≈èâÇ©ÇÁê≥ñ Çå¸Ç©ÇπÇÈ
         _transform.rotation = FRONT_ANGLE;
@@ -66,12 +66,12 @@ public class BirdMoveSecond : BirdMoveBase
     }
 
     // ÇƒÇ∑Ç∆
-    private void Awake()
-    {
-        _startPosition = new Vector3(0, 0, 0);
+    //private void Awake()
+    //{
+    //    _startPosition = new Vector3(0, 0, 0);
 
-        _goalPosition = new Vector3(-100, 0, 0);
-    }
+    //    _goalPosition = new Vector3(-100, 0, 0);
+    //}
     protected void InitializeVariables()
     {
 
@@ -121,7 +121,7 @@ public class BirdMoveSecond : BirdMoveBase
         // à⁄ìÆèIóπéû
         else
         {
-            transform.position = _goalPosition;
+            _transform.position = _goalPosition;
         }
 
     }

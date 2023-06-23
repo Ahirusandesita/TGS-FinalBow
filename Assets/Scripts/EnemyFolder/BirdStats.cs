@@ -78,5 +78,7 @@ public class BirdStats : CommonEnemyStats
         _combo.NomalScore_ComboScore();
         X_Debug.Log("’¹‚ªŽ€‚É‚Ü‚µ‚½");
         gameObject.SetActive(false);
+
+        this.GetComponent<EnemyDeath>().Death();
     }
 }

@@ -64,10 +64,10 @@ public abstract class BirdMoveBase : MonoBehaviour
     protected float _interpolationRatio = 0f;
 
     [Tooltip("直線移動のスピード")]
-    protected float _linearMovementSpeed = 0.15f;
+    protected float _linearMovementSpeed = 0.3f;
 
     [Tooltip("プレイヤーの方向を向く速度")]
-    protected float _rotateSpeed = 80f;
+    protected float _rotateSpeed = 100f;
 
     [Tooltip("移動終了（ゴールに到達）")]
     protected bool _isFinishMovement = false;

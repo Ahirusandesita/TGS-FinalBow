@@ -4,7 +4,7 @@
 // CreateDay: 2023/06/14
 // Creator  : TakayanagiSora
 // --------------------------------------------------------- 
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -27,7 +27,6 @@ public enum WaveType
     zakoWave2,
     zakoWave3,
     zakoWave4,
-    wave5,
     boss
 }
 
@@ -40,25 +39,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [Tooltip("敵のスポーン座標テーブル")]
     public EnemySpawnerTable _enemySpawnerTable = default;
 
-    [Header("雑魚の出現位置リスト")]
-    [Tooltip("Wave1の雑魚の出現位置")]
-    public List<Transform> _birdSpawnPlaces_Wave1 = new List<Transform>();
-
-    [Tooltip("Wave1の雑魚のゴール位置")]
-    public List<Transform> _birdGoalPlaces_Wave1 = new List<Transform>();
-
-    [Tooltip("Wave2の雑魚の出現位置")]
-    public List<Transform> _birdSpawnPlaces_Wave2 = new List<Transform>();
-
-    [Tooltip("Wave3の雑魚の出現位置")]
-    public List<Transform> _birdSpawnPlaces_Wave3 = new List<Transform>();
-
-    [Tooltip("Wave4の雑魚の出現位置")]
-    public List<Transform> _birdSpawnPlaces_Wave4 = new List<Transform>();
-
-    [Tooltip("Wave5の雑魚の出現位置")]
-    public List<Transform> _birdSpawnPlaces_Wave5 = new List<Transform>();
-
 
     [Tooltip("取得したObjectPoolSystemクラス")]
     private ObjectPoolSystem _objectPoolSystem = default;
@@ -67,7 +47,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private int _currentNumberOfObject = default;
 
     [Tooltip("現在のウェーブ数")]
-    private WaveType _waveType = WaveType.zakoWave1;     // 初期値0（tutorial1)
+    private WaveType _waveType = WaveType.zakoWave1;     // 初期値0
+
+
+    public GameObject _bossTest;
     #endregion
 
 
@@ -87,80 +70,50 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     public void Spawn()
     {
-        //GameManagerが呼ぶ　TimeManagerには呼ばせない
-
-        // スポーン処理（仮）
-        switch (_waveType)
+        try
         {
-            case WaveType.zakoWave1:
-                // Inspector上でアタッチしたスポーン位置の数だけ雑魚をスポーンさせる
-                for (int i = 0; i < _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces.Count; i++)
+            if (_waveType == WaveType.boss)
+            {
+                // ボスをスポーン
+
+                Instantiate(_bossTest);
+                return;
+            }
+
+            // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
+            for (int i = 0; i < _enemySpawnerTable._scriptableESpawnerInformation[(int)_waveType]._birdSpawnPlaces.Count; i++)
+            {
+                // スポーンさせた雑魚の数を設定
+                _currentNumberOfObject = _enemySpawnerTable._scriptableESpawnerInformation[(int)_waveType]._birdSpawnPlaces.Count;
+
+                // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
+                GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird,
+                    _enemySpawnerTable._scriptableESpawnerInformation[(int)_waveType]._birdSpawnPlaces[i].position).gameObject;
+                temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
+
+                switch (_waveType)
                 {
-                    // スポーンさせた雑魚の数を設定
-                    _currentNumberOfObject = _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces.Count;
+                    case WaveType.zakoWave1:
+                        //呼び出した雑魚にコンポーネントを付与
+                        temporaryObject.AddComponent<BirdMoveFirst>();
 
-                    // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, 
-                        _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces[i].position).gameObject;
+                        break;
 
-                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
-                    temporaryObject.AddComponent<BirdMoveFirst>();
+                    case WaveType.zakoWave2:
+                        temporaryObject.AddComponent<BirdMoveFirst>();
+
+                        break;
+
+                    default:
+                        temporaryObject.AddComponent<BirdMoveSecond>();
+
+                        break;
                 }
-
-                break;
-
-            case WaveType.zakoWave2:
-                for (int i = 0; i < _birdSpawnPlaces_Wave2.Count; i++)
-                {
-                    _currentNumberOfObject = _birdSpawnPlaces_Wave2.Count;
-
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, _birdSpawnPlaces_Wave2[i].position).gameObject;
-                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
-                }
-
-                break;
-
-            case WaveType.zakoWave3:
-                for (int i = 0; i < _birdSpawnPlaces_Wave3.Count; i++)
-                {
-                    _currentNumberOfObject = _birdSpawnPlaces_Wave3.Count;
-
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, _birdSpawnPlaces_Wave3[i].position).gameObject;
-                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
-                }
-
-                break;
-
-            case WaveType.zakoWave4:
-                for (int i = 0; i < _birdSpawnPlaces_Wave4.Count; i++)
-                {
-                    _currentNumberOfObject = _birdSpawnPlaces_Wave4.Count;
-
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, _birdSpawnPlaces_Wave4[i].position).gameObject;
-                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
-                }
-
-                break;
-
-            case WaveType.wave5:
-                for (int i = 0; i < _birdSpawnPlaces_Wave5.Count; i++)
-                {
-                    _currentNumberOfObject = _birdSpawnPlaces_Wave5.Count;
-
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, _birdSpawnPlaces_Wave5[i].position).gameObject;
-                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
-                }
-
-                break;
-
-            case WaveType.boss:
-                // ボスを出現させる
-
-                break;
-
-            default:
-                X_Debug.LogError("実装しているウェーブを超えています");
-                break;
+            }
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("実装しているウェーブを超えているか、参照先のアタッチが外れています");
         }
     }
 
