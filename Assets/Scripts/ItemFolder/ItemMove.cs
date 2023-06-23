@@ -178,11 +178,14 @@ public class ItemMove : MonoBehaviour
         // 求めた位置に追跡するターゲットの作成する
         CreateTargeter(_spawnPosition);
 
+        //ターゲットのクラスを代入
+        targeterclass = _targeterObject.GetComponent<TargeterSetParent>();
+
         // 自身の移動速度を設定
         _attract_Power = attractPower;
 
         // ターゲットの移動速度を設定
-        _targeterObject.GetComponent<TargeterSetParent>().SetAttractPower = attractPower;
+        targeterclass.SetAttractPower = attractPower;
 
         //設定完了
         _endSetting = true;
@@ -214,7 +217,7 @@ public class ItemMove : MonoBehaviour
         if (targeterclass.IsTargeterArrivel && _targetDistance < _destroyDistance)
         {
             // 追跡するターゲットの削除及びリセット
-            Re_setTargeter();
+            ReSetAll();
         }
     }
 
@@ -231,8 +234,10 @@ public class ItemMove : MonoBehaviour
     /// <summary>
     /// 追跡するターゲットの消去メソッド
     /// </summary>
-    public void Re_setTargeter()
+    public void ReSetAll()
     {
+        targeterclass.ReSetTargeter();
+        this.transform.localScale = startsize;
         PoolManager.ReturnObject(Cash);
     }
 
@@ -248,7 +253,6 @@ public class ItemMove : MonoBehaviour
             {
                 // 追跡するターゲットの設定
                 _targeterObject = value;
-                print("いんすたんすしたよおおおおおおお");
 
                 // 移動の開始
                 _isStart = true;

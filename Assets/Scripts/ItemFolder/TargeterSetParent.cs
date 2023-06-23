@@ -20,6 +20,12 @@ public class TargeterSetParent : MonoBehaviour
     private const float PERIOD_VALUE = Mathf.PI * 2f;
     private const float COEFFICIENT_DISTANCExRADIUS = 10f;
     private Transform ParentObject = default;
+
+    // ObjectPoolSystemの代入用変数
+    private ObjectPoolSystem PoolManager = default;
+
+    // CashObjectInformationの代入用変数
+    private CashObjectInformation Cash = default;
     #endregion
     #region プロパティ
 
@@ -55,6 +61,12 @@ public class TargeterSetParent : MonoBehaviour
     {
         // ParentObjectの代入
         ParentObject = GameObject.FindGameObjectWithTag("PlayerController").transform;
+
+        // PoolManagerの代入
+        PoolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
+
+        // CashObjectInformationの代入
+        Cash = this.GetComponent<CashObjectInformation>();
     }
 
     /// <summary>
@@ -139,5 +151,11 @@ public class TargeterSetParent : MonoBehaviour
             _isTargetArrival = true;
         }
     }
+
+    public void ReSetTargeter()
+    {
+        PoolManager.ReturnObject(Cash);
+    }
+
     #endregion
 }
