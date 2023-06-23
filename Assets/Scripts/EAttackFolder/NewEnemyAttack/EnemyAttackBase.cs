@@ -25,8 +25,7 @@ public abstract class EnemyAttackBase : MonoBehaviour
 
 
     [Tooltip("自身のTransformのキャッシュ")]
-    private Transform _transform = default;
-
+    protected Transform _transform = default;
 
     [Tooltip("移動可能フラグ")]
     protected bool _canMove = default;
@@ -37,24 +36,30 @@ public abstract class EnemyAttackBase : MonoBehaviour
     [SerializeField, Tooltip("攻撃の速さ")]
     protected float _attackMoveSpeed = 20f;
 
-    protected float _attackStartTime = 0f;
+    [Tooltip("攻撃の発射ディレイ")]
+    protected float _attackStartDelay = 0f;
 
+    [Tooltip("攻撃が動くまでの待機時間")]
+    protected WaitForSeconds _attackDelayWait = default;
     #endregion
-    #region property
-    #endregion
+
     #region method
+
+    private void Awake()
+    {
+        SetAttackStartDelay();
+        _attackDelayWait = new WaitForSeconds(_attackStartDelay);
+    }
 
     private void OnEnable()
     {
         // 攻撃の生存時間を設定
-        _lifeTime = 5f;
+        _lifeTime = 8f;
 
         // フラグを初期化
         _canMove = false;
 
-        SetAttackStartTime();
-
-        StartCoroutine(AttackStartTime());
+        StartCoroutine(AttackStartWait());
     }
 
     protected void Start()
@@ -73,7 +78,6 @@ public abstract class EnemyAttackBase : MonoBehaviour
 
     protected void Update()
     {
-
         // 動けなければ返す
         if (!_canMove)
         {
@@ -108,20 +112,24 @@ public abstract class EnemyAttackBase : MonoBehaviour
     /// <summary>
     /// 攻撃の挙動
     /// </summary>
-    public abstract void AttackMove();
+    protected abstract void AttackMove();
 
-    private IEnumerator AttackStartTime()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator AttackStartWait()
     {
-        yield return new WaitForSeconds(_attackStartTime);
+        yield return _attackDelayWait;
         _canMove = true;
     }
 
     /// <summary>
     /// 何秒後にスタートするか
     /// </summary>
-    protected virtual void SetAttackStartTime()
+    protected virtual void SetAttackStartDelay()
     {
-        _attackStartTime = 0f;
+        _attackStartDelay = 0f;
     }
     #endregion
 }

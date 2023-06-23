@@ -24232,11 +24232,11 @@ GameObject:
   - component: {fileID: 8460317685369823945}
   - component: {fileID: 8460317685369823944}
   - component: {fileID: 7187811981614886133}
-  - component: {fileID: -3544844373398630833}
   - component: {fileID: 4672926286905180761}
   - component: {fileID: 4644608670399402100}
+  - component: {fileID: -4131600960598446935}
   m_Layer: 0
-  m_Name: FireBall
+  m_Name: FireBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29136,21 +29136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myObjectType: 0
---- !u!114 &-3544844373398630833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8460317685369823947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d31aa4b4b7ecb2748bec4f8532d6c01a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _PoolSystemTagData: {fileID: 11400000, guid: 00e291fa0e47e8c4ab70d20233f8378b, type: 2}
-  _PlayerControllerTagData: {fileID: 11400000, guid: 66ccf49a8785c044a83e26f1b5f1accb, type: 2}
-  _attackMoveSpeed: 20
 --- !u!114 &4672926286905180761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29180,6 +29165,21 @@ MonoBehaviour:
   _UseTemporary: 1
   _endSetting: 0
   _destroyDistance: 1
+--- !u!114 &-4131600960598446935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8460317685369823947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189098e2e4b10334b978b87c35d3fc79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PoolSystemTagData: {fileID: 11400000, guid: 00e291fa0e47e8c4ab70d20233f8378b, type: 2}
+  _PlayerControllerTagData: {fileID: 11400000, guid: 66ccf49a8785c044a83e26f1b5f1accb, type: 2}
+  _attackMoveSpeed: 20
 --- !u!1 &8460317685947152129
 GameObject:
   m_ObjectHideFlags: 0
