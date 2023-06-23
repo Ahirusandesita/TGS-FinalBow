@@ -168,7 +168,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     private int _scoreTimeBonus = 0;
     private int _valueTimeBonus = 0;
 
-    private int _scoreSum = 0;
+    //private int _scoreSum = 0;
     #endregion
     #region property
     #endregion
