@@ -10,7 +10,7 @@ public class TargeterSetParent : MonoBehaviour
 {
     #region 変数
     private bool _isStart = false;
-    private bool _isTargetArrival = true;
+    private bool _isTargetArrival = false;
     private float _distance = default;
     private float _moveRadius = default;
     private float _functionTime = default;
@@ -104,7 +104,7 @@ public class TargeterSetParent : MonoBehaviour
         _isStart = false;
 
         // 到達フラグの初期化
-        _isTargetArrival = true;
+        _isTargetArrival = false;
     }
 
     /// <summary>
@@ -136,7 +136,7 @@ public class TargeterSetParent : MonoBehaviour
             _isStart = false;
 
             // 到達フラグを立てる
-            _isTargetArrival = false;
+            _isTargetArrival = true;
         }
     }
     #endregion
