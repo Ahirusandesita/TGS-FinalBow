@@ -21,6 +21,9 @@ public class BirdMoveFirst : BirdMoveBase
 
     [Tooltip("回転後のブレイク時間")]
     private const float AFTER_ROTATE_BREAK_TIME = 0.2f;
+
+    [Tooltip("正面の角度")]
+    private readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
     #endregion
 
 
@@ -28,24 +31,20 @@ public class BirdMoveFirst : BirdMoveBase
     {
         base.OnEnable();
 
-        InitializeVariables();
+        SetGoalPositionCentral();
         // 最初から正面を向かせる
-        _transform.rotation = Quaternion.Euler(Vector3.up * 180f);
+        _transform.rotation = FRONT_ANGLE;
     }
 
-    protected override void InitializeVariables()
-    {
-        _needRotateTowardDirectionOfTravel = false;
-    }
 
     public override void MoveSequence()
     {
         _currentTime += Time.deltaTime;
 
         // 移動が完了するまでループ
-        if (!_isFinishMovement)
+        if (!IsFinishMovement)
         {
-            LinearMovement(_goalPosition);
+            LinearMovement();
 
             return;
         }
@@ -66,9 +65,10 @@ public class BirdMoveFirst : BirdMoveBase
 
         _currentTime2 += Time.deltaTime;
 
+        // 一定時間経ったら移動再開
         if (_currentTime2 >= 10f)
         {
-
+            SetGoalPosition(WaveType.zakoWave1);
         }
     }
 
