@@ -7,9 +7,6 @@
 using System;
 using UnityEngine;
 
-
-//※まだ矢を打った後にリセットする処理はない
-
 /// <summary>
 /// 矢にエンチャント登録することができる
 /// </summary>
@@ -39,7 +36,7 @@ interface IArrowPlusDamage
 /// <summary>
 /// 矢のエンチャントの組み合わせを作るクラス
 /// </summary>
-public class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
+public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 {
     #region 変数宣言部
 
