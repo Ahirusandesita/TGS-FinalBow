@@ -128,6 +128,8 @@ public class Arrow : MonoBehaviour,IArrowMove
     [System.NonSerialized]
     public GameObject _hitObject;
 
+    private GameObject _hitObjectLast;
+
     public bool _needArrowEnchant = true;
     private void OnEnable()
     {
@@ -191,6 +193,13 @@ public class Arrow : MonoBehaviour,IArrowMove
         //矢がどこかにヒットしたら
         if (ArrowGetObject.ArrowHit(_myTransform,this))
         {
+            //ヒットしたオブジェクトが同じオブジェクトならヒットしていないことにする
+            if(_hitObject == _hitObjectLast)
+            {
+                return;
+            }
+            _hitObjectLast = _hitObject;
+
             //ヒットしたオブジェクトとエンチャントEnumを渡す　ヒット処理開始
             _EventArrow(_hitObject, _enchantState);
 
@@ -216,11 +225,15 @@ public class Arrow : MonoBehaviour,IArrowMove
             //貫通系じゃなければプールに戻す処理をよぶ
             ReturnQue();
         }
-
-
         //仮
         if (ArrowGetObject.ArrowHit_Object(_myTransform))
         {
+            if (_hitObject == _hitObjectLast)
+            {
+                return;
+            }
+            _hitObjectLast = _hitObject;
+
             ArrowGetObject.GetArrowHitObject_Object().GetComponent<SceneMoveHitArrow>().SceneMove(_myTransform);
             if (_EventArrowEffect != null)
             {
@@ -233,6 +246,12 @@ public class Arrow : MonoBehaviour,IArrowMove
         //仮
         if (ArrowGetObject.ArrowHit_TitleObject(_myTransform))
         {
+            if (_hitObject == _hitObjectLast)
+            {
+                return;
+            }
+            _hitObjectLast = _hitObject;
+
             ArrowGetObject.GetArrowHitObject_TitleObject().GetComponent<TargetAnimation>().TargetPushed();
             if (_EventArrowEffect != null)
             {
