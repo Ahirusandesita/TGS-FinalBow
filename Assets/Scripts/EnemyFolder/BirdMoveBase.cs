@@ -39,7 +39,6 @@ public abstract class BirdMoveBase : MonoBehaviour
     private float _moveAngle = 0f;
 
     private float _time = 0f;
-
     #endregion
 
     #region protected変数
@@ -68,10 +67,13 @@ public abstract class BirdMoveBase : MonoBehaviour
     protected float _linearMovementSpeed = 0.15f;
 
     [Tooltip("プレイヤーの方向を向く速度")]
-    protected float _rotateToPlayerSpeed = 150f;
+    protected float _rotateSpeed = 80f;
 
     [Tooltip("移動終了（ゴールに到達）")]
-    private bool _isFinishMovement = false;
+    protected bool _isFinishMovement = false;
+
+    [Tooltip("正面の角度")]
+    protected readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
     #endregion
 
 
@@ -88,6 +90,7 @@ public abstract class BirdMoveBase : MonoBehaviour
         {
             _isFinishMovement = value;
 
+            // falseに設定されたとき、線形補完も同時にリセット
             if (!_isFinishMovement)
             {
                 _interpolationRatio = 0f;
@@ -127,10 +130,17 @@ public abstract class BirdMoveBase : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
+        // 子オブジェクトの「SpawnPosition」
         _childSpawner = _transform.GetChild(2).transform;
 
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
     }
+
+    private void Update()
+    {
+        MoveSequence();
+    }
+
 
     public void MoveSelect()
     {
@@ -198,7 +208,7 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     /// <summary>
     /// 各ウェーブの敵の一連の挙動（イベントとして進行をまとめる）
-    /// <para>ManagerのUpdateで呼ばれる</para>
+    /// <para>Updateで呼ばれる</para>
     /// </summary>
     public abstract void MoveSequence();
 
@@ -228,9 +238,14 @@ public abstract class BirdMoveBase : MonoBehaviour
     /// <summary>
     /// プレイヤーの方向を向く（Updateで呼ぶ）
     /// </summary>
-    protected void RotateToPlayer(float rotateSpeed)
+    protected void RotateToPlayer()
     {
-        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, _childSpawner.rotation, Time.deltaTime * rotateSpeed);
+        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, _childSpawner.rotation, Time.deltaTime * _rotateSpeed);
+    }
+
+    protected void RotateToFront()
+    {
+        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, FRONT_ANGLE, Time.deltaTime * _rotateSpeed);
     }
 
     /// <summary>
