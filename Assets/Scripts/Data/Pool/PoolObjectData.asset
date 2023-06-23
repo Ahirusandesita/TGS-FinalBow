@@ -16,7 +16,10 @@ MonoBehaviour:
   - _name: Arrow
     _prefab: {fileID: 3084670092578774059, guid: ea82161d13e361d4aa82f2dfd08c6511, type: 3}
     _queueMax: 15
-  - _name: FireBall
+  - _name: NormalBullet
+    _prefab: {fileID: 1391308840062237195, guid: f1d128399b71e724f97aa4fb680da92c, type: 3}
+    _queueMax: 100
+  - _name: FireBullet
     _prefab: {fileID: 7187811981614886133, guid: d06020532bbdcc9428c6f7b6a6a6171b, type: 3}
     _queueMax: 100
   - _name: Bird

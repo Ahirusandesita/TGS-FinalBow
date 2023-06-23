@@ -18,13 +18,17 @@ public class PoolEnum : MonoBehaviour
         /// </summary>
         arrow,
         /// <summary>
+        /// 通常の玉
+        /// </summary>
+        normalBullet,
+        /// <summary>
         /// 火の玉（ボスの攻撃）
         /// </summary>
-        fireBall,
+        fireBullet,
         /// <summary>
         /// 鳥の雑魚
         /// </summary>
-        bird ,
+        bird,
         /// <summary>
         /// アイテムの引き寄せ用
         /// </summary>

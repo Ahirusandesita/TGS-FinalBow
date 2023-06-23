@@ -13,7 +13,7 @@ public class BirdAttack : EnemyAttack
 
     // デバッグ用↓↓↓
     [SerializeField, Tooltip("一度に出す玉の数")]
-    private int _numberOfFireBall = 3;
+    private int _numberOfBullet = 3;
 
     [SerializeField, Tooltip("攻撃の間隔")]
     private float _attackIntervalTime = 3f;
@@ -37,8 +37,8 @@ public class BirdAttack : EnemyAttack
     {
         while (true)
         {
-            // 火の玉をスポーン
-            SpawnEAttackFanForm(PoolEnum.PoolObjectType.fireBall, spawnPlace, _numberOfFireBall);
+            // 通常の玉をスポーン
+            SpawnEAttackFanForm(PoolEnum.PoolObjectType.normalBullet, spawnPlace, _numberOfBullet);
 
             // 攻撃間のブレイク
             yield return _attackIntervalWait;
@@ -51,7 +51,7 @@ public class BirdAttack : EnemyAttack
     /// <param name="spawnPlace">スポーンさせる位置</param>
     public void NormalAttack(Transform spawnPlace)
     {
-        // 火の玉をスポーン
-        SpawnEAttackFanForm(PoolEnum.PoolObjectType.fireBall, spawnPlace, _numberOfFireBall);
+        // 通常の玉をスポーン
+        SpawnEAttackFanForm(PoolEnum.PoolObjectType.normalBullet, spawnPlace, _numberOfBullet);
     }
 }
