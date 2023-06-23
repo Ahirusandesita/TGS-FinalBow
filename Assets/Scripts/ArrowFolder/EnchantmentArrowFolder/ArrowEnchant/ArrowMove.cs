@@ -370,7 +370,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     private bool _endSetting = false;
 
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない"),SerializeField] //デバッグ用
-    private float SPEED_TO_RANGE_COEFFICIENT = 15f;
+    private float SPEED_TO_RANGE_COEFFICIENT_NORMAL = 15f;
+
+    [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない"), SerializeField] //デバッグ用
+    private float SPEED_TO_RANGE_COEFFICIENT_THUNDER = 30f;
 
     private float _nowRange = default;
     private Vector3 _moveValue = default;
@@ -400,7 +403,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _arrowSpeed_X = _arrowVector.x * arrowSpeed;
         _arrowSpeed_Y = _arrowVector.y * arrowSpeed;
         _arrowSpeed_Z = _arrowVector.z * arrowSpeed;
-        _maxRange = _arrowSpeed_Horizontal * SPEED_TO_RANGE_COEFFICIENT;
+        _maxRange = _arrowSpeed_Horizontal * SPEED_TO_RANGE_COEFFICIENT_NORMAL;
 
         _nowRange = default;
         _addGravity = default;
