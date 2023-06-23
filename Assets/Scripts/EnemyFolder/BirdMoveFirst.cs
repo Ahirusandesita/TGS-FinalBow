@@ -13,7 +13,7 @@ public class BirdMoveFirst : BirdMoveBase
     [Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
     private float _currentTime = 0f;
 
-    [Tooltip("現在の経過時間（回転後のブレイクに使う）")]
+    [Tooltip("現在の経過時間（再び動き出すまでの時間に使う）")]
     private float _currentTime2 = 0f;
 
     [Tooltip("攻撃の頻度")]
@@ -24,6 +24,9 @@ public class BirdMoveFirst : BirdMoveBase
 
     [Tooltip("正面の角度")]
     private readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
+
+    [Tooltip("次の移動完了で処理終了")]
+    private bool _isLastMove = default;
     #endregion
 
 
@@ -34,6 +37,7 @@ public class BirdMoveFirst : BirdMoveBase
         SetGoalPositionCentral();
         // 最初から正面を向かせる
         _transform.rotation = FRONT_ANGLE;
+        _isLastMove = false;
     }
 
 
@@ -48,6 +52,15 @@ public class BirdMoveFirst : BirdMoveBase
 
             return;
         }
+        else
+        {
+            // 最後の移動が終了したら、このメソッドを抜ける
+            if (_isLastMove)
+            {
+                return;
+            }
+        }
+
 
         // 一定間隔で攻撃
         if (_currentTime >= ATTACK_INTERVAL_TIME)
@@ -69,6 +82,8 @@ public class BirdMoveFirst : BirdMoveBase
         if (_currentTime2 >= 10f)
         {
             SetGoalPosition(WaveType.zakoWave1);
+            IsFinishMovement = false;
+            _isLastMove = true;
         }
     }
 
