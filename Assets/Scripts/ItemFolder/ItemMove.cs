@@ -284,6 +284,9 @@ public class ItemMove : MonoBehaviour
 
         // ˆø‚«Šñ‚¹‚é‘¬“x‚Ì‰Šú‰»
         _attract_Power = default;
+
+        //İ’èƒtƒ‰ƒO‚Ì‰Šú‰»
+        _endSetting = false;
     }
 
 
