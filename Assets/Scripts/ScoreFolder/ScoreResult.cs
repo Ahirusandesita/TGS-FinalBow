@@ -23,11 +23,11 @@ public class ScoreResult : MonoBehaviour
     List<GameObject> _bonusScoreObjects = new List<GameObject>();
 
     //スコアを出すポジション
-    private Vector3 _scorePosition = new Vector3(121f, 140.6f, 34f);
+    private Vector3 _scorePosition = new Vector3(121f, 140.6f, 44f);
     private Vector3 _scorePositionStart;
     //ボーナスを出すポジション
-    private Vector3[] _bonusPositions = { new Vector3(114f, 91.7f, 34f), new Vector3(114f, 66f, 34f), new Vector3(114f, 43.3f, 34f) };
-    private Vector3 _bonusPosition = new Vector3(125f, 160.4f, 34f);
+    private Vector3[] _bonusPositions = { new Vector3(114f, 91.7f, 44f), new Vector3(114f, 66f, 44f), new Vector3(114f, 43.3f, 44f) };
+    private Vector3 _bonusPosition = new Vector3(125f, 160.4f, 44f);
     private Vector3[] _bonusPositionStarts;
     private Vector3 _bonusPositionStart;
     private int _bonusScoreIndex = 0;
