@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1500,12 +1500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PoolSystemTagData: {fileID: 0}
   _enemySpawnerTable: {fileID: 0}
-  _birdSpawnPlaces_Wave1: []
-  _birdGoalPlaces_Wave1: []
-  _birdSpawnPlaces_Wave2: []
-  _birdSpawnPlaces_Wave3: []
-  _birdSpawnPlaces_Wave4: []
-  _birdSpawnPlaces_Wave5: []
+  _bossTest: {fileID: 0}
 --- !u!1001 &2100526731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1632,13 +1627,13 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4208937216684494464, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: dictance
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 9051230437966575151, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_Name
       value: OVRCameraRig
-      objectReference: {fileID: 0}
-    - target: {fileID: 9051230437966575151, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9051230437966670351, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_RootOrder
