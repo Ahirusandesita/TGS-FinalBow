@@ -43,8 +43,8 @@ public abstract class BirdMoveBase : MonoBehaviour
     #endregion
 
     #region protected変数
-    [Tooltip("敵のスポーン座標テーブル")]
-    protected EnemySpawnerTable _enemySpawnerTable = default;
+    [Tooltip("取得したStageManager")]
+    protected StageManager _stageManager = default;
 
     [Tooltip("子オブジェクトにあるスポナーを取得")]
     protected Transform _childSpawner = default;
@@ -88,14 +88,6 @@ public abstract class BirdMoveBase : MonoBehaviour
         }
     }
 
-    public EnemySpawnerTable EnemySpawnerTable
-    {
-        set
-        {
-            _enemySpawnerTable = value;
-        }
-    }
-
     #region method
 
     private void Awake()
@@ -129,6 +121,8 @@ public abstract class BirdMoveBase : MonoBehaviour
         _childSpawner = _transform.GetChild(2).transform;
 
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
+
+        _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
     }
 
     public void MoveSelect()
@@ -241,6 +235,6 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     protected void SetGoalPosition()
     {
-        //_goalPosition = _enemySpawnerTable._scriptableESpawnerInformation[]
+        //_goalPosition = _stageManager._enemySpawnerTable._scriptableESpawnerInformation[]
     }
 }
