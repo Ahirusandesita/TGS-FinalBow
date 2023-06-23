@@ -36,6 +36,8 @@ public class BirdMoveSecond : BirdMoveBase
 
     bool _IsVisible = default;
 
+    bool _canStartAttack = default;
+
     #endregion
     #region property
     #endregion
@@ -50,7 +52,7 @@ public class BirdMoveSecond : BirdMoveBase
         //SetGoalPosition(WaveType.zakoWave2);
 
         // 最初から正面を向かせる
-        _transform.rotation = Quaternion.Euler(Vector3.up * 180f);
+        _transform.rotation = FRONT_ANGLE;
         // 横移動ベクトル
         _sideMoveNormalizedVector = GetSideMoveVector().normalized;
         // 横移動量
@@ -64,7 +66,7 @@ public class BirdMoveSecond : BirdMoveBase
     {
         _startPosition = new Vector3(0, 0, 0);
 
-        _goalPosition = new Vector3(100, 0, 0);
+        _goalPosition = new Vector3(-100, 0, 0);
     }
     protected void InitializeVariables()
     {
@@ -88,6 +90,8 @@ public class BirdMoveSecond : BirdMoveBase
         _IsVisible = false;
 
         IsFinishMovement = false;
+
+        _canStartAttack = true;
     }
 
     // スタートからゴールへいく
@@ -97,16 +101,19 @@ public class BirdMoveSecond : BirdMoveBase
         if (!IsFinishMovement)
         {
             // 向く処理
-            RotateToPlayer(_rotateToPlayerSpeed);
+            RotateToPlayer();
             // 移動処理
             ArcMove();
             // チェック移動エンド
             IsFinishMovement = CheckMoveFinish();
 
-            if (AttackCheck())
+            if (AttackCheck() && _canStartAttack)
             {
-                //_birdAttack.NormalAttack();
+                _canStartAttack = false;
+
+                _birdAttack.NormalAttackLoop(_childSpawner);
             }
+
             return;
         }
         // 移動終了時
