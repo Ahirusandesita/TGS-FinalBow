@@ -80,7 +80,25 @@ public class Arrow : MonoBehaviour,IArrowMove
     /// </summary>
     public MoveDelegateMethod _MoveArrow;
 
-    
+
+    /// <summary>
+    /// ヒットしたオブジェクト
+    /// </summary>
+    [System.NonSerialized]
+    public GameObject _hitObject;
+
+
+    /// <summary>
+    /// エンチャントできるか
+    /// </summary>
+    public bool _needArrowEnchant = true;
+
+
+    /// <summary>
+    /// 矢がActivの時間設定
+    /// </summary>
+    public float _arrowActivTime = 5f;
+
 
     /// <summary>
     /// 弓のオブジェクト
@@ -125,12 +143,10 @@ public class Arrow : MonoBehaviour,IArrowMove
 
     private AudioSource _audioSource;
 
-    [System.NonSerialized]
-    public GameObject _hitObject;
-
     private GameObject _hitObjectLast;
 
-    public bool _needArrowEnchant = true;
+    private WaitForSeconds _waitArrowActivTime;
+
     private void OnEnable()
     {
         _playerManager = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerManager>();
@@ -168,6 +184,8 @@ public class Arrow : MonoBehaviour,IArrowMove
 
 
         _audioSource = this.GetComponent<AudioSource>();
+
+        _waitArrowActivTime = new WaitForSeconds(_arrowActivTime);
 
     }
     private void Update()
@@ -351,38 +369,7 @@ public class Arrow : MonoBehaviour,IArrowMove
     /// <returns></returns>
     private IEnumerator IEArrowQue()
     {
-        yield return new WaitForSeconds(5f);
+        yield return _waitArrowActivTime;
         ReturnQue();
     }
-
-    /// <summary>
-    /// 消さないで(^^♪
-    /// </summary>
-    /// <param name="arrowDelegateMethod"></param>
-    /// <returns></returns>
-    //public bool CheckMethod(ArrowDelegateMethod arrowDelegateMethod)
-    //{
-    //    if (flag)
-    //    {
-    //        flag = false;
-    //        return true;
-    //    }
-    //    Debug.Log(arrowDelegateMethod);
-    //    System.Delegate[] ArrowEventMethod;
-    //    if (EventArrow.GetInvocationList() == null)
-    //    {
-    //        return true;
-    //    }
-    //    ArrowEventMethod = EventArrow.GetInvocationList();
-    //    for (int i = 0; i < ArrowEventMethod.Length; i++)
-    //    {
-    //        if (arrowDelegateMethod.Equals(ArrowEventMethod[i]))
-    //        {
-    //            Debug.LogError("すでに登録済みのイベント");
-    //            return false;
-    //        }
-    //    }
-    //    return true;
-    //}
-  
 }

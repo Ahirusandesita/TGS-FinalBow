@@ -11,9 +11,12 @@ public class ArrowEnchantEffect : MonoBehaviour
 {
     private ObjectPoolSystem _objectPoolSystem;
 
+    private WaitForSeconds _waitSeconds = default;
+
     private void Start()
     {
         _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
+        _waitSeconds = new WaitForSeconds(1f);
     }
 
 
@@ -143,7 +146,7 @@ public class ArrowEnchantEffect : MonoBehaviour
     /// <returns></returns>
     private IEnumerator EffectTime(GameObject effectObject,EffectPoolEnum.EffectPoolState effectPoolState)
     {
-        yield return new WaitForSeconds(1f);
+        yield return _waitSeconds;
 
         _objectPoolSystem.ReturnObject(effectPoolState,effectObject);
     }
