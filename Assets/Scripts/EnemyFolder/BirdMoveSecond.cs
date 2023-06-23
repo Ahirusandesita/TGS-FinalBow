@@ -102,7 +102,7 @@ public class BirdMoveSecond : BirdMoveBase
 
             if (AttackCheck())
             {
-                //_birdAttack.NormalAttack;
+                //_birdAttack.NormalAttack();
             }
             return;
         }
