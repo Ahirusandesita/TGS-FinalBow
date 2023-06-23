@@ -10,8 +10,6 @@ using System.Collections;
 public class BirdMoveFirst : BirdMoveBase
 {
     #region 変数
-    private bool _isFirstTimes = true;
-
     [Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
     private float _currentTime = 0f;
 
@@ -26,9 +24,6 @@ public class BirdMoveFirst : BirdMoveBase
 
     [Tooltip("再び動き出すまでの時間")]
     private const float RE_ATTACK_TIME = 10f;
-
-    [Tooltip("正面の角度")]
-    private readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
     #endregion
 
 
@@ -38,6 +33,8 @@ public class BirdMoveFirst : BirdMoveBase
 
         _isLastMove = false;
         SetGoalPositionCentral();
+        _currentTime = 0f;
+        _currentTime2 = 0f;
     }
 
 
@@ -67,7 +64,7 @@ public class BirdMoveFirst : BirdMoveBase
             // 攻撃前にプレイヤーの方向を向く
             if (_transform.rotation != _childSpawner.rotation)
             {
-                RotateToPlayer(_rotateToPlayerSpeed);
+                RotateToPlayer();
                 return;
             }
 
@@ -80,14 +77,17 @@ public class BirdMoveFirst : BirdMoveBase
         // 一定時間経ったら移動再開
         if (_currentTime2 >= RE_ATTACK_TIME)
         {
+            if (_transform.rotation != FRONT_ANGLE)
+            {
+                RotateToFront();
+                return;
+            }
+
             IsFinishMovement = false;
 
             // スタート位置とゴール位置の再設定
             _startPosition = _transform.position;
             SetGoalPosition(WaveType.zakoWave1);
-
-            // 正面を向きなおす
-            _transform.rotation = FRONT_ANGLE;
 
             // 次の移動が最後
             _isLastMove = true;

@@ -47,7 +47,5 @@ public class BirdManager : MonoBehaviour
             // ¢Š«‚³‚ê‚½’¹‚Ì‹““®
             return;
         }
-
-        _birdMoveBase.MoveSequence();
     }
 }
