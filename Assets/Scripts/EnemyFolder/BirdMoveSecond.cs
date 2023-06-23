@@ -10,25 +10,31 @@ public class BirdMoveSecond : BirdMoveBase
 {
     #region variable 
 
+    const float SIDE_MOVE_SPEED = 30f;
+
+    const float MOVE_SPEED_Y = 10f;
+
+    const float PARABORA_ANGLE = 10f;
+
+    const float PERCENT_HALF = 0.5f;
+
     Vector3 _sideMoveNormalizedVector = default;
 
     Vector3 _movingSide = default;
 
     float _movingY = default;
 
-    float _sideMoveSpeed = default;
-
-    float _moveSpeedY = default;
-
     float _cacheMoveValue = default;
 
     float _finishMoveValue = default;
 
     float percentMoveDistance = default;
-
+    [Tooltip("1or-1")]
     float directionY = default;
 
-    bool _moveDown = default;
+    bool _canMoveDown = default;
+
+    bool _IsVisible = default;
 
     #endregion
     #region property
@@ -48,7 +54,7 @@ public class BirdMoveSecond : BirdMoveBase
         // 横移動量
         _finishMoveValue = GetSideMoveVector().magnitude;
         // 下か上か決める
-        _moveDown = CheckDown();
+        _canMoveDown = CheckDown();
     }
 
     // てすと
@@ -68,10 +74,6 @@ public class BirdMoveSecond : BirdMoveBase
 
         _movingY = default;
 
-        _sideMoveSpeed = 10f;
-
-        _moveSpeedY = 1f;
-
         _cacheMoveValue = default;
 
         _finishMoveValue = default;
@@ -80,7 +82,9 @@ public class BirdMoveSecond : BirdMoveBase
 
         directionY = default;
 
-        _moveDown = default;
+        _canMoveDown = false;
+
+        _IsVisible = false;
     }
 
     // スタートからゴールへいく
@@ -89,14 +93,34 @@ public class BirdMoveSecond : BirdMoveBase
     {
         if (!_isFinishMovement)
         {
+            // 向く処理
+            RotateToPlayer(_rotateToPlayerSpeed);
             // 移動処理
             ArcMove();
             // チェック移動エンド
             _isFinishMovement = CheckMoveFinish();
 
+            if (AttackCheck())
+            {
+                //_birdAttack.NormalAttack();
+            }
             return;
         }
+        // 移動終了時
+        else
+        {
+            transform.position = _goalPosition;
+        }
         
+    }
+
+    /// <summary>
+    /// アタックの条件を記述
+    /// </summary>
+    /// <returns>アタックできるならtrue</returns>
+    private bool AttackCheck()
+    {
+        return _IsVisible;
     }
 
 
@@ -136,15 +160,15 @@ public class BirdMoveSecond : BirdMoveBase
     /// </summary>
     private void ArcMove()
     {
-        _movingSide = _sideMoveSpeed * Time.deltaTime * _sideMoveNormalizedVector;
+        _movingSide = SIDE_MOVE_SPEED * Time.deltaTime * _sideMoveNormalizedVector;
+        // 累計横移動量のキャッシュ
         _cacheMoveValue += _movingSide.magnitude; 
 
         _movingY = MoveCalcY();
 
         _movingSide += Vector3.up * _movingY;
-        print(_movingSide);
 
-        _transform.Translate(_movingSide);
+        _transform.Translate(_movingSide,Space.World);
 
     }
 
@@ -158,21 +182,29 @@ public class BirdMoveSecond : BirdMoveBase
 
         directionY = 1f;
 
-        if (_moveDown)
+        if (_canMoveDown)
         {
             directionY = -1f;
         }
 
-        if(percentMoveDistance < 0.5f)
+        // 前半の動き
+        if(percentMoveDistance < PERCENT_HALF)
         {
-            return directionY * _moveSpeedY * Time.deltaTime;
+            return directionY * MOVE_SPEED_Y * PrabolaMove() * Time.deltaTime;
         }
+        // 後半の動き
         else
         {
-            return -directionY * _moveSpeedY * Time.deltaTime;
+            return -directionY * MOVE_SPEED_Y * PrabolaMove() * Time.deltaTime;
         }
 
-        
+        float PrabolaMove()
+        {
+            // 放物線運動のax^2の部分
+            return  PARABORA_ANGLE * Mathf.Pow(PERCENT_HALF - percentMoveDistance, 2);
+                      
+        }
+
     }
     /// <summary>
     /// 移動終わったか調べる
@@ -181,6 +213,11 @@ public class BirdMoveSecond : BirdMoveBase
     private bool CheckMoveFinish()
     {
         return _finishMoveValue < _cacheMoveValue;
+    }
+
+    private void OnBecameVisible()
+    {
+        _IsVisible = true;
     }
     #endregion
 }

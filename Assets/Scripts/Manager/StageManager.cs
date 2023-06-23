@@ -23,13 +23,10 @@ interface IStageSpawn
 /// </summary>
 public enum WaveType
 {
-    tutorial1,
-    tutorial2,
-    tutorial3,
-    wave1,
-    wave2,
-    wave3,
-    wave4,
+    zakoWave1,
+    zakoWave2,
+    zakoWave3,
+    zakoWave4,
     wave5,
     boss
 }
@@ -44,15 +41,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
     public EnemySpawnerTable _enemySpawnerTable = default;
 
     [Header("雑魚の出現位置リスト")]
-    [Tooltip("チュートリアル（吸い込み）の的の出現位置")]
-    public List<Transform> _targetSpawnPlaces_Tutorial1 = new List<Transform>();
-
-    [Tooltip("チュートリアル（ショット）の的の出現位置")]
-    public List<Transform> _targetSpawnPlaces_Tutorial2 = new List<Transform>();
-
-    [Tooltip("チュートリアル（エンチャント）の的の出現位置")]
-    public List<Transform> _targetSpawnPlaces_Tutorial3 = new List<Transform>();
-
     [Tooltip("Wave1の雑魚の出現位置")]
     public List<Transform> _birdSpawnPlaces_Wave1 = new List<Transform>();
 
@@ -79,7 +67,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private int _currentNumberOfObject = default;
 
     [Tooltip("現在のウェーブ数")]
-    private WaveType _waveType = WaveType.wave1;     // 初期値0（tutorial1)
+    private WaveType _waveType = WaveType.zakoWave1;     // 初期値0（tutorial1)
     #endregion
 
 
@@ -104,47 +92,24 @@ public class StageManager : MonoBehaviour, IStageSpawn
         // スポーン処理（仮）
         switch (_waveType)
         {
-            case WaveType.tutorial2:
-                for (int i = 0; i < _targetSpawnPlaces_Tutorial2.Count; i++)
-                {
-                    // Inspector上でアタッチしたスポーン位置の数だけ的をスポーンさせる
-                    _currentNumberOfObject = _targetSpawnPlaces_Tutorial2.Count;
-
-                    // 的をプールから呼び出し、呼び出した各的のデリゲート変数にデクリメント関数を登録
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.targetObject, _targetSpawnPlaces_Tutorial2[i].position).gameObject;
-                    temporaryObject.GetComponent<TargetStats>()._onDeathTarget = DecrementNumberOfObject;
-                }
-
-                break;
-
-            case WaveType.tutorial3:
-                for (int i = 0; i < _targetSpawnPlaces_Tutorial3.Count; i++)
-                {
-                    _currentNumberOfObject = _targetSpawnPlaces_Tutorial3.Count;
-
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.targetObject, _targetSpawnPlaces_Tutorial3[i].position).gameObject;
-                    temporaryObject.GetComponent<TargetStats>()._onDeathTarget = DecrementNumberOfObject;
-                }
-
-                break;
-
-            case WaveType.wave1:
+            case WaveType.zakoWave1:
                 // Inspector上でアタッチしたスポーン位置の数だけ雑魚をスポーンさせる
-                for (int i = 0; i < _birdSpawnPlaces_Wave1.Count; i++)
+                for (int i = 0; i < _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces.Count; i++)
                 {
                     // スポーンさせた雑魚の数を設定
-                    _currentNumberOfObject = _birdSpawnPlaces_Wave1.Count;
+                    _currentNumberOfObject = _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces.Count;
 
                     // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
-                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, _birdSpawnPlaces_Wave1[i].position).gameObject;
-                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
+                    GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird, 
+                        _enemySpawnerTable._scriptableESpawnerInformation[(int)WaveType.zakoWave1]._birdSpawnPlaces[i].position).gameObject;
 
-                    temporaryObject.AddComponent<BirdMoveFirst>().GoalPosition = _birdGoalPlaces_Wave1[i].position;
+                    temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
+                    temporaryObject.AddComponent<BirdMoveFirst>();
                 }
 
                 break;
 
-            case WaveType.wave2:
+            case WaveType.zakoWave2:
                 for (int i = 0; i < _birdSpawnPlaces_Wave2.Count; i++)
                 {
                     _currentNumberOfObject = _birdSpawnPlaces_Wave2.Count;
@@ -155,7 +120,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
                 break;
 
-            case WaveType.wave3:
+            case WaveType.zakoWave3:
                 for (int i = 0; i < _birdSpawnPlaces_Wave3.Count; i++)
                 {
                     _currentNumberOfObject = _birdSpawnPlaces_Wave3.Count;
@@ -166,7 +131,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
                 break;
 
-            case WaveType.wave4:
+            case WaveType.zakoWave4:
                 for (int i = 0; i < _birdSpawnPlaces_Wave4.Count; i++)
                 {
                     _currentNumberOfObject = _birdSpawnPlaces_Wave4.Count;

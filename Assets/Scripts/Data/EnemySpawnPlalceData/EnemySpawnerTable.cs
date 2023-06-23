@@ -15,7 +15,7 @@ using System.Collections.Generic;
 public class EnemySpawnerTable : ScriptableObject
 {
     [Header("マップ中心の座標"), Tooltip("マップ中心の座標")]
-    public Transform _centeralTransform;
+    public CentralInformation _centralInformation;
     [Header("雑魚の出現位置リスト"), Tooltip("雑魚の出現位置リスト")]
     public List<EnemySpawnerInformation> _scriptableESpawnerInformation = new List<EnemySpawnerInformation>();
 }
@@ -35,4 +35,10 @@ public class EnemySpawnerInformation
 
     [Tooltip("雑魚のゴール位置")]
     public List<Transform> _birdGoalPlaces = new List<Transform>();
+}
+
+[System.Serializable]
+public class CentralInformation
+{
+    public Transform _centralTransform;
 }

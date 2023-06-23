@@ -71,20 +71,27 @@ public abstract class BirdMoveBase : MonoBehaviour
     protected float _rotateToPlayerSpeed = 150f;
 
     [Tooltip("移動終了（ゴールに到達）")]
-    protected bool _isFinishMovement = false;
-
-
-    #region 各MoveSequenceのオプション項目
-    [Tooltip("進行方向を向いて移動する（falseの場合は正面を向いて移動する）")]
-    protected bool _needRotateTowardDirectionOfTravel = default;
-    #endregion
+    private bool _isFinishMovement = false;
     #endregion
 
-    public Vector3 GoalPosition
+
+    /// <summary>
+    /// 移動終了（ゴールに到達）
+    /// </summary>
+    protected bool IsFinishMovement
     {
+        get
+        {
+            return _isFinishMovement;
+        }
         set
         {
-            _goalPosition = value;
+            _isFinishMovement = value;
+
+            if (!_isFinishMovement)
+            {
+                _interpolationRatio = 0f;
+            }
         }
     }
 
@@ -97,6 +104,8 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
+
         // 移動のスタート位置を設定
         try
         {
@@ -121,8 +130,6 @@ public abstract class BirdMoveBase : MonoBehaviour
         _childSpawner = _transform.GetChild(2).transform;
 
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
-
-        _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
     }
 
     public void MoveSelect()
@@ -133,7 +140,6 @@ public abstract class BirdMoveBase : MonoBehaviour
         }
         else
         {
-            LinearMovement(_startPosition + Vector3.right * 50f);
             //IdleMove();
         }
     }
@@ -169,7 +175,11 @@ public abstract class BirdMoveBase : MonoBehaviour
     /// </summary>
     private void Paralysing()
     {
-        animator.speed = 0;
+        if (bird.Get_isParalysis)
+        {
+            animator.speed = 0;
+        }
+        animator.speed = 1;
     }
 
     private void Test()
@@ -187,12 +197,6 @@ public abstract class BirdMoveBase : MonoBehaviour
 
 
     /// <summary>
-    /// 変数の初期化を行う
-    /// <para>_needRotateTowardDirectionOfTravel</para>
-    /// </summary>
-    protected abstract void InitializeVariables();
-
-    /// <summary>
     /// 各ウェーブの敵の一連の挙動（イベントとして進行をまとめる）
     /// <para>ManagerのUpdateで呼ばれる</para>
     /// </summary>
@@ -201,28 +205,24 @@ public abstract class BirdMoveBase : MonoBehaviour
     /// <summary>
     /// 直線移動（Updateで呼ぶ）
     /// </summary>
-    /// <param name="goalPosition">ゴールの位置</param>
-    protected void LinearMovement(Vector3 goalPosition)
+    protected virtual void LinearMovement()
     {
         // 移動が完了したら抜ける
         if (_interpolationRatio >= 1f)
         {
             X_Debug.Log("鳥の移動完了");
-            _isFinishMovement = true;
+            IsFinishMovement = true;
 
             return;
         }
 
         // 自身の座標を線形補完により更新
         _interpolationRatio += Time.deltaTime * _linearMovementSpeed;
-        _transform.position = Vector3.Lerp(_startPosition, goalPosition, _interpolationRatio);
+        _transform.position = Vector3.Lerp(_startPosition, _goalPosition, _interpolationRatio);
 
-        if (_needRotateTowardDirectionOfTravel)
-        {
-            // 進行方向を向く（「目標位置」から「自分の位置」を減算したベクトルの方向を向く）
-            // goalPositionだけだとなぜかちょっとずれた
-            _transform.rotation = Quaternion.LookRotation(goalPosition - _transform.position);
-        }
+        // 進行方向を向く（「目標位置」から「自分の位置」を減算したベクトルの方向を向く）
+        // goalPositionだけだとなぜかちょっとずれた
+        //_transform.rotation = Quaternion.LookRotation(_goalPosition - _transform.position);
     }
 
     /// <summary>
@@ -233,8 +233,35 @@ public abstract class BirdMoveBase : MonoBehaviour
         _transform.rotation = Quaternion.RotateTowards(_transform.rotation, _childSpawner.rotation, Time.deltaTime * rotateSpeed);
     }
 
-    protected void SetGoalPosition()
+    /// <summary>
+    /// _goalPosition変数の代入処理
+    /// </summary>
+    /// <param name="zakoWaveNumber">どのウェーブの敵の動きかenumで指定（ex: BirdMoveFirstはzakoWave1）</param>
+    /// <param name="howManyTimes">この関数を呼ぶのは何回目？（推奨：名前付き引数）</param>
+    protected virtual void SetGoalPosition(WaveType zakoWaveNumber, int howManyTimes = 1)
     {
-        //_goalPosition = _stageManager._enemySpawnerTable._scriptableESpawnerInformation[]
+        try
+        {
+            _goalPosition = _stageManager._enemySpawnerTable._scriptableESpawnerInformation[(int)zakoWaveNumber]._birdGoalPlaces[howManyTimes - 1].position;
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("ゴール座標がEnemySpawnerTable(Scriptable)に設定されていないか、呼び出し可能回数を超えています");
+        }
+    }
+
+    /// <summary>
+    /// _goalPosition変数にマップ中央の座標を代入する処理
+    /// </summary>
+    protected void SetGoalPositionCentral()
+    {
+        try
+        {
+            _goalPosition = _stageManager._enemySpawnerTable._centralInformation._centralTransform.position;
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("中心座標がEnemySpawnerTable(Screptable)に設定されていません");
+        }
     }
 }
