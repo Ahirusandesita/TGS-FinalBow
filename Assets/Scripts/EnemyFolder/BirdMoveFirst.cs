@@ -42,7 +42,8 @@ public class BirdMoveFirst : BirdMoveBase
     {
         _currentTime += Time.deltaTime;
 
-        // 移動が完了するまでループ
+        // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
+
         if (!IsFinishMovement)
         {
             LinearMovement();
@@ -58,7 +59,8 @@ public class BirdMoveFirst : BirdMoveBase
             }
         }
 
-        // 一定間隔で攻撃
+        // 攻撃処理（一定間隔で実行される）-----------------------------------------------------------------------------------
+
         if (_currentTime >= ATTACK_INTERVAL_TIME)
         {
             // 攻撃前にプレイヤーの方向を向く
@@ -68,15 +70,18 @@ public class BirdMoveFirst : BirdMoveBase
                 return;
             }
 
+            //　攻撃を実行
             _birdAttack.NormalAttack(_childSpawner);
             _currentTime = 0f;
         }
 
         _currentTime2 += Time.deltaTime;
 
-        // 一定時間経ったら移動再開
+        // 再移動のためのリセット処理（攻撃がスタートしてから一定時間後に実行）-----------------------------------------------
+
         if (_currentTime2 >= RE_ATTACK_TIME)
         {
+            // 再移動前に正面を向く
             if (_transform.rotation != FRONT_ANGLE)
             {
                 RotateToFront();
