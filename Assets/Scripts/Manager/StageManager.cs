@@ -26,7 +26,6 @@ public enum WaveType
     zakoWave1,
     zakoWave2,
     zakoWave3,
-    zakoWave4,
     boss
 }
 

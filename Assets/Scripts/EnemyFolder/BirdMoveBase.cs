@@ -183,7 +183,7 @@ public abstract class BirdMoveBase : MonoBehaviour
     /// <summary>
     /// –ƒáƒ’†
     /// </summary>
-    private void Paralysing()
+    protected void Paralysing()
     {
         if (bird.Get_isParalysis)
         {
