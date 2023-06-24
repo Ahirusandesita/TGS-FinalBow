@@ -19,15 +19,17 @@ public class SceneLoad : MonoBehaviour
 	//　非同期動作で使用するAsyncOperation
 	private AsyncOperation async;
 	private IGameManagerSceneMoveNameGet _gameManager;
+	private SceneFadeOut _sceneFadeOut = default;
 	public void Start()
 	{
 		_gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
-
+		_sceneFadeOut = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeOut>();
 		//　コルーチンを開始
-		StartCoroutine(LoadData(_gameManager.SceneManagement.SceneName._sceneName));
+		_sceneFadeOut.SceneFadeStart();
+		StartCoroutine(SceneLoadFadeIn());
 	}
 
-	IEnumerator LoadData(string sceneName)
+	private IEnumerator LoadData(string sceneName)
 	{
 		// シーンの読み込みをする
 		async = SceneManager.LoadSceneAsync(sceneName);
@@ -35,9 +37,15 @@ public class SceneLoad : MonoBehaviour
 		//　読み込みが終わるまで進捗状況をスライダーの値に反映させる
 		while (!async.isDone)
 		{
-			var progressVal = Mathf.Clamp01(async.progress / 0.9f);
+			//float progressVal = Mathf.Clamp01(async.progress / 0.9f);
 			yield return null;
 		}
 	}
+	private IEnumerator SceneLoadFadeIn()
+    {
+		yield return new WaitUntil(() => _sceneFadeOut._isFadeEnd);
+		LoadData(_gameManager.SceneManagement.SceneName._sceneName);
+	}
+
 	#endregion
 }

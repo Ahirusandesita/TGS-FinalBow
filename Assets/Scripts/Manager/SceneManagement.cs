@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 interface ISceneManager
 {
@@ -20,6 +21,8 @@ public class SceneManagement : MonoBehaviour,ISceneManager
 
     public SceneObject SceneName { private set; get; }
 
+    private SceneFadeIn _sceneFadeIn = default;
+
     private void SceneSpecifyMove(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -33,12 +36,22 @@ public class SceneManagement : MonoBehaviour,ISceneManager
     {
         SceneName = sceneObject;
         _gameManager.SceneManagement = this;
-        SceneSpecifyMove("LoadScene");
+        StartCoroutine(SceneMoveFadeIn());
     }
 
     // Start is called before the first frame update
     void Start()
     {
         _gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
+
+        _sceneFadeIn = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeIn>();
+        _sceneFadeIn.SceneFadeStart();
     }
+
+    private IEnumerator SceneMoveFadeIn()
+    {
+        yield return new WaitUntil(() => _sceneFadeIn._isFadeEnd);
+        SceneSpecifyMove("LoadScene");
+    }
+
 }
