@@ -25,7 +25,6 @@ public class SceneLoad : MonoBehaviour
 		_gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
 		_sceneFadeOut = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeOut>();
 		//　コルーチンを開始
-		_sceneFadeOut.SceneFadeStart();
 		StartCoroutine(SceneLoadFadeIn());
 	}
 
@@ -43,6 +42,7 @@ public class SceneLoad : MonoBehaviour
 	}
 	private IEnumerator SceneLoadFadeIn()
     {
+		_sceneFadeOut.SceneFadeStart();
 		yield return new WaitUntil(() => _sceneFadeOut._isFadeEnd);
 		LoadData(_gameManager.SceneManagement.SceneName._sceneName);
 	}
