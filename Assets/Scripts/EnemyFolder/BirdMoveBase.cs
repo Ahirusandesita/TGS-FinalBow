@@ -72,6 +72,25 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("移動終了（ゴールに到達）")]
     protected bool _isFinishMovement = false;
 
+    [Tooltip("消滅させる（倒せなかった場合）")]
+    protected bool _needDespawn = false;
+
+    [Tooltip("出現時/消滅時の大きさ")]
+    protected Vector3 _spawn_And_DespawnSize = default;
+
+    [Tooltip("通常の大きさ")]
+    protected Vector3 _normalSize = default;
+
+    [Tooltip("Scale変えるときのブレイク")]
+    // これがないとループが速すぎて目に見えない
+    protected WaitForSeconds _changeSizeWait = new WaitForSeconds(0.01f);
+
+    [Tooltip("Scaleの変更が完了")]
+    protected bool _isChangeScaleComplete = false;
+
+    [Tooltip("Scaleの加算/減算値")]
+    protected readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
+
     [Tooltip("正面の角度")]
     protected readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
     #endregion
@@ -98,6 +117,29 @@ public abstract class BirdMoveBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 消滅させる（倒せなかった場合）
+    /// </summary>
+    public bool NeedDespawn
+    {
+        get
+        {
+            return _needDespawn;
+        }
+    }
+
+    /// <summary>
+    /// Scaleの変更が完了
+    /// </summary>
+    public bool IsChangeScaleComplete
+    {
+        get
+        {
+            return _isChangeScaleComplete;
+        }
+    }
+
+
     #region method
 
     private void Awake()
@@ -114,14 +156,24 @@ public abstract class BirdMoveBase : MonoBehaviour
         {
             _startPosition = _transform.position;
         }
+        // プールが生成された瞬間の1回だけはこっちが動く
         catch (Exception)
         {
             _transform = this.transform;
             _startPosition = _transform.position;
+            _spawn_And_DespawnSize = _transform.localScale / 5f;
+            _normalSize = _transform.localScale;    // キャッシュ
+
+            X_Debug.Log(_spawn_And_DespawnSize);
         }
 
         // リセット
         _interpolationRatio = 0f;
+        _needDespawn = false;
+        _isChangeScaleComplete = false;
+
+        // スポーン時に大きくする
+        StartCoroutine(LargerAtSpawn());
     }
 
     protected virtual void Start()
@@ -204,7 +256,7 @@ public abstract class BirdMoveBase : MonoBehaviour
         // 正面の移動
         _idleMove += IDLE_MOVE_Z_SPEED * Time.deltaTime * Vector3.forward;
 
-        transform.Translate(_idleMove);
+        _transform.Translate(_idleMove);
     }
     #endregion
 
@@ -281,5 +333,41 @@ public abstract class BirdMoveBase : MonoBehaviour
         {
             X_Debug.LogError("中心座標がEnemySpawnerTable(Screptable)に設定されていません");
         }
+    }
+
+    /// <summary>
+    /// 出現時にだんだん大きくなる処理
+    /// </summary>
+    protected IEnumerator LargerAtSpawn()
+    {
+        _transform.localScale = _spawn_And_DespawnSize;
+
+        // Scaleが通常サイズより小さい間、大きくする（判定のためにxを用いる）
+        while (_transform.localScale.x < _normalSize.x)
+        {
+            _transform.localScale += CHANGE_SCALE_VALUE;
+
+            yield return _changeSizeWait;
+        }
+
+        yield break;
+    }
+
+    /// <summary>
+    /// 消滅時にだんだん小さくなる処理
+    /// </summary>
+    public IEnumerator SmallerAtDespawn()
+    {
+        // Scaleが消滅時のサイズより大きい間、小さくする（判定のためにxを用いる）
+        while (_transform.localScale.x > _spawn_And_DespawnSize.x)
+        {
+            _transform.localScale -= CHANGE_SCALE_VALUE;
+
+            yield return _changeSizeWait;
+        }
+
+        _isChangeScaleComplete = true;
+
+        yield break;
     }
 }

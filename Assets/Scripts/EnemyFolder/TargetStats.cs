@@ -17,17 +17,16 @@ public class TargetStats : EnemyStats
 
     private CashObjectInformation _cashObjectInformation = default;
 
-    private ObjectPoolSystem _objectPoolSystem = default;
-
     private void OnEnable()
     {
         _hp = 1;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
-        _objectPoolSystem = GameObject.FindWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
     }
 
     public override void TakeBomb(int damage)

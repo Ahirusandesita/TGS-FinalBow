@@ -26,12 +26,6 @@ public class BirdManager : MonoBehaviour
         _birdMoveBase = this.GetComponent<BirdMoveBase>();
 
         _birdStats = this.GetComponent<BirdStats>();
-
-        // ¢Š«‚³‚ê‚½G‹›‚¶‚á‚È‚¯‚ê‚ÎUŒ‚ŠJn
-        if (!_birdStats.IsSummmon)
-        {
-            //StartCoroutine(_birdAttack.NormalAttackLoop(_attackSpawnPlace));
-        }
     }
 
     private void Update()
@@ -40,6 +34,16 @@ public class BirdManager : MonoBehaviour
         if (_birdStats.HP <= 0)
         {
             _birdStats.Death();
+        }
+        // “|‚¹‚È‚©‚Á‚½‚ç“¦‚°‚é
+        else if (_birdMoveBase.NeedDespawn)
+        {
+            StartCoroutine(_birdMoveBase.SmallerAtDespawn());
+
+            if (_birdMoveBase.IsChangeScaleComplete)
+            {
+                _birdStats.Despawn();
+            }
         }
 
         if (_birdStats.IsSummmon)

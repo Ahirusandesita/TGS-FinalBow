@@ -6,110 +6,110 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 
-interface IFScoreManager_NomalEnemy
+public interface IFScoreManager_NomalEnemy
 {
     void NomalScore_NomalEnemyScore();
 }
-interface IFScoreManager_NomalEnemyGetScore
+public interface IFScoreManager_NomalEnemyGetScore
 {
     int NomalScore_NomalEnemyGetScore();
 }
 
-interface IFScoreManager_BossEnemy
+public interface IFScoreManager_BossEnemy
 {
     void NomalScore_BossEnemyScore();
 }
-interface IFScoreManager_BossEnemyGetScore
+public interface IFScoreManager_BossEnemyGetScore
 {
     int NomalScore_BossEnemyGetScore();
 }
 
 
-interface IFScoreManager_AllEnemy : IFScoreManager_NomalEnemy, IFScoreManager_BossEnemy { }
+public interface IFScoreManager_AllEnemy : IFScoreManager_NomalEnemy, IFScoreManager_BossEnemy { }
 
 interface IFScoreManager_AllEnemyGetScore : IFScoreManager_NomalEnemyGetScore, IFScoreManager_BossEnemyGetScore { }
 
 
-interface IFScoreManager_Coin
+public interface IFScoreManager_Coin
 {
     void NomalScore_CoinScore();
 }
 
-interface IFScoreManager_CoinGetScore
+public interface IFScoreManager_CoinGetScore
 {
     int NomalScore_CoinGetScore();
 }
 
-interface IFScoreManager_Enchant
+public interface IFScoreManager_Enchant
 {
     void NomalScore_EnchantScore();
 }
 
-interface IFScoreManager_EnchantGetScore
+public interface IFScoreManager_EnchantGetScore
 {
     int NomalScore_EnchantGetScore();
 }
 
-interface IFScoreManager_Combo
+public interface IFScoreManager_Combo
 {
     void NomalScore_ComboScore();
 }
 
-interface IFScoreManager_ComboGetScore
+public interface IFScoreManager_ComboGetScore
 {
     int NomalScore_ComboGetScore();
 }
 
-interface IFScoreManager_Hp
+public interface IFScoreManager_Hp
 {
     void BonusScore_HpScore();
     void BonusScore_HpValueSetting(int hp);
 }
 
-interface IFScoreManager_HpGetScore
+public interface IFScoreManager_HpGetScore
 {
     int BonusScore_HpGetScore();
 }
 
-interface IFScoreManager_Attract
+public interface IFScoreManager_Attract
 {
     void BonusScore_AttractBonus();
 }
 
-interface IFScoreManager_AttractGetScore
+public interface IFScoreManager_AttractGetScore
 {
     int BonusScore_AttractGetBonus();
 }
 
-interface IFScoreManager_AllAttract : IFScoreManager_Attract, IFScoreManager_Enchant { }
+public interface IFScoreManager_AllAttract : IFScoreManager_Attract, IFScoreManager_Enchant { }
 
-interface IFScoreManager_AllAttractGetScore : IFScoreManager_AttractGetScore, IFScoreManager_EnchantGetScore { }
+public interface IFScoreManager_AllAttractGetScore : IFScoreManager_AttractGetScore, IFScoreManager_EnchantGetScore { }
 
-interface IFScoreManager_Time
+public interface IFScoreManager_Time
 {
     void BonusScore_TimeScore();
     void BonusValue_Time(int time);
 }
 
-interface IFScoreManager_TimeGetScore
+public interface IFScoreManager_TimeGetScore
 {
     int BonusScore_GetTime();
 }
 
-interface IFScoreManager_ValueGetHp
+public interface IFScoreManager_ValueGetHp
 {
     int BonusValue_GetHp();
 }
-interface IFSccoreManager_ValueGetAttract
+public interface IFSccoreManager_ValueGetAttract
 {
     int BonusValue_GetAttract();
 }
-interface IFScoreManager_ValueGetTime
+public interface IFScoreManager_ValueGetTime
 {
     int BonusValue_TimeGetScore();
 }
 
-interface IFScoreManager_AllGetScore :
+public interface IFScoreManager_AllGetScore :
     IFScoreManager_NomalEnemyGetScore,
     IFScoreManager_BossEnemyGetScore,
     IFScoreManager_EnchantGetScore,
