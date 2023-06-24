@@ -45,11 +45,11 @@ public class SceneManagement : MonoBehaviour,ISceneManager
         _gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
 
         _sceneFadeIn = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeIn>();
-        _sceneFadeIn.SceneFadeStart();
     }
 
     private IEnumerator SceneMoveFadeIn()
     {
+        _sceneFadeIn.SceneFadeStart();
         yield return new WaitUntil(() => _sceneFadeIn._isFadeEnd);
         SceneSpecifyMove("LoadScene");
     }
