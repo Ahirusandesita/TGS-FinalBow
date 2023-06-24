@@ -40,7 +40,7 @@ public class BirdMoveFirst : BirdMoveBase
     public override void MoveSequence()
     {
         _currentTime += Time.deltaTime;
-
+        Paralysing();
         // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
 
         if (!IsFinishMovement)

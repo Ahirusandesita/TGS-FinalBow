@@ -100,6 +100,7 @@ public class BirdMoveSecond : BirdMoveBase
     // 左行き:下　右行き:上
     public override void MoveSequence()
     {
+            Paralysing();
         if (!IsFinishMovement)
         {
             // 向く処理
