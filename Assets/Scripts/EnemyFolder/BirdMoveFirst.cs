@@ -39,8 +39,11 @@ public class BirdMoveFirst : BirdMoveBase
 
     public override void MoveSequence()
     {
-        _currentTime += Time.deltaTime;
+        // 麻痺状態か判定する（麻痺だったら動かない）
         Paralysing();
+
+        _currentTime += Time.deltaTime;
+
         // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
 
         if (!IsFinishMovement)
