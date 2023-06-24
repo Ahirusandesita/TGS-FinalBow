@@ -18,9 +18,22 @@ public interface IFTake
 public abstract class EnemyStats : MonoBehaviour, IFTake
 {
     #region protectedïœêî
+    protected Animator _animator = default;
+
+    protected ObjectPoolSystem _objectPoolSystem;
+
+    protected Transform _myTransform = default;
+
     [Tooltip("äeìGÇÃHP")]
     protected int _hp = default;
     #endregion
+
+    protected virtual void Start()
+    {
+        _animator = this.GetComponent<Animator>();
+        _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
+        _myTransform = this.transform;
+    }
 
     //IFScoreManager_Combo _combo = default;
     /// <summary>

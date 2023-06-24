@@ -11,34 +11,12 @@ public class BirdStats : CommonEnemyStats
     [Tooltip("召喚された鳥かどうか")]
     private bool _isSummmon = false;
 
-    IFScoreManager_NomalEnemy _score = default;
-
-    IFScoreManager_Combo _combo = default;
-
-    string caritag = "ScoreController";
     /// <summary>
     /// 召喚された鳥が死んだときに呼び出す
     /// </summary>
     public delegate void OnDeathBird();
     [Tooltip("この鳥が死んだときに実行 / 「敵の残存数」のデクリメント処理を登録")]
     public OnDeathBird _onDeathBird;
-
-    protected override void Start()
-    {
-        base.Start();
-
-        try
-        {
-            _score = GameObject.FindGameObjectWithTag(caritag).GetComponent<ScoreManager>();
-
-            _combo = GameObject.FindGameObjectWithTag(caritag).GetComponent<ScoreManager>();
-        }
-        catch(System.NullReferenceException)
-        {
-            X_Debug.LogError("ScoreManagerがワルサー4p98");
-        }
-
-    }
 
     protected override void OnEnable()
     {
@@ -74,11 +52,26 @@ public class BirdStats : CommonEnemyStats
     {
         // 変数のデクリメント
         _onDeathBird();
+
+        // スコアを加算
         _score.NomalScore_NomalEnemyScore();
         _combo.NomalScore_ComboScore();
-        X_Debug.Log("鳥が死にました");
-        gameObject.SetActive(false);
 
-        this.GetComponent<EnemyDeath>().Death();
+        // 死んだときのエフェクト呼び出し
+        _objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _myTransform.position, Quaternion.identity);
+
+        // プールに返す
+        _objectPoolSystem.ReturnObject(_cashObjectInformation);
+    }
+
+    public override void Despawn()
+    {
+        // 変数のデクリメント
+        _onDeathBird();
+
+        // 小さくなる演出
+
+        // プールに返す
+        _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
 }

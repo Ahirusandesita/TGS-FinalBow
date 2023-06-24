@@ -12,9 +12,12 @@ interface IFCommonEnemyGetParalysis
     bool Get_isParalysis { get; }
 
 }
-public abstract class CommonEnemyStats : EnemyStats,IFCommonEnemyGetParalysis
+public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 {
-    protected Transform _myTransform = default;
+    protected CashObjectInformation _cashObjectInformation = default;
+
+    protected IFScoreManager_NomalEnemy _score;
+    protected IFScoreManager_Combo _combo = default;
 
     protected WaitForSeconds _paralysisWait = default;
 
@@ -45,10 +48,23 @@ public abstract class CommonEnemyStats : EnemyStats,IFCommonEnemyGetParalysis
 
     protected bool _isParalysis = false;
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
+
+        try
+        {
+            _score = GameObject.FindWithTag("ScoreController").GetComponent<ScoreManager>();
+            _combo = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<ScoreManager>();
+        }
+        catch (System.NullReferenceException)
+        {
+            X_Debug.LogError("ScoreManagerがワルサー4p98");
+        }
+
+        _cashObjectInformation = this.GetComponent<CashObjectInformation>();
+
         _paralysisWait = new WaitForSeconds(_paralysisTime);
-        _myTransform = transform;
     }
 
     protected virtual void OnEnable()
@@ -80,6 +96,11 @@ public abstract class CommonEnemyStats : EnemyStats,IFCommonEnemyGetParalysis
         gameObject.SetActive(false);
         //_objPoolSys.ReturnObject(this.gameObject);
     }
+
+    /// <summary>
+    /// 逃走（消滅）する
+    /// </summary>
+    public abstract void Despawn();
 
     public override int HP
     {

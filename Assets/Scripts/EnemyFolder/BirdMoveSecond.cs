@@ -101,14 +101,14 @@ public class BirdMoveSecond : BirdMoveBase
     public override void MoveSequence()
     {
             Paralysing();
-        if (!IsFinishMovement)
+        if (!_needDespawn)
         {
             // 向く処理
             RotateToPlayer();
             // 移動処理
             ArcMove();
             // チェック移動エンド
-            IsFinishMovement = CheckMoveFinish();
+            _needDespawn = CheckMoveFinish();
 
             if (_canStartAttack && AttackCheck())
             {

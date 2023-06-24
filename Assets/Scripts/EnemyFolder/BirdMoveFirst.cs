@@ -54,9 +54,11 @@ public class BirdMoveFirst : BirdMoveBase
         }
         else
         {
-            // 最後の移動が終了したら、このメソッドを抜ける
+            // 最後の移動が終了したら、デスポーンさせる
             if (_isLastMove)
             {
+                _needDespawn = true;
+
                 return;
             }
         }
