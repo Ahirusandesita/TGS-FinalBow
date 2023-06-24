@@ -188,7 +188,10 @@ public abstract class BirdMoveBase : MonoBehaviour
         if (bird.Get_isParalysis)
         {
             animator.speed = 0;
+
+            return;
         }
+
         animator.speed = 1;
     }
 
