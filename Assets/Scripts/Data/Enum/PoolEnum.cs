@@ -38,8 +38,20 @@ public class PoolEnum : MonoBehaviour
         /// </summary>
         targetObject,
         /// <summary>
-        /// 敵の死亡処理
+        /// ノーマルザコ鳥
         /// </summary>
-        enemyDeath,
+        normalBird,
+        /// <summary>
+        /// 爆弾ザコ鳥
+        /// </summary>
+        bombBird,
+        /// <summary>
+        /// 貫通ザコ鳥
+        /// </summary>
+        kantuBird,
+        /// <summary>
+        /// 雷ザコ鳥
+        /// </summary>
+        ThunderBird,
     }
 }
