@@ -51,9 +51,9 @@ Canvas:
   m_GameObject: {fileID: 881307573238519463}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -255,9 +255,9 @@ Canvas:
   m_GameObject: {fileID: 7523221211022708397}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -366,6 +366,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7523221209589073435}
     m_Modifications:
+    - target: {fileID: 6327762783026857190, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327762783026857190, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6327762783026857191, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -502,6 +510,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7523221209589073435}
     m_Modifications:
+    - target: {fileID: 6327762783026857190, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327762783026857190, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6327762783026857191, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
