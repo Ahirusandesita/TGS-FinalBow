@@ -1568,6 +1568,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4591247666243097192, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 614966741}
+    - target: {fileID: 5587674851566027988, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 9051230437103398912}
+    - target: {fileID: 5605553771996671836, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 9051230437103398912}
     - target: {fileID: 7523221209589073434, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
       propertyPath: m_Name
       value: SceneFadeController
@@ -1616,6 +1628,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7523221211022708390, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 614966741}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
@@ -1749,3 +1765,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+--- !u!20 &9051230437103398912 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9068951981225548295, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 9051230437103398911}
+  m_PrefabAsset: {fileID: 0}

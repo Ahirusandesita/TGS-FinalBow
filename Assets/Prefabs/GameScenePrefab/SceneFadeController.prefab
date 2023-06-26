@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5587674851566027988}
   - component: {fileID: 6997607170242357971}
   - component: {fileID: 7700420852762154716}
-  - component: {fileID: 1120754825371310211}
   - component: {fileID: 6903114973013178285}
   - component: {fileID: 2834928066730264}
   - component: {fileID: 1821486494581434570}
@@ -52,9 +51,9 @@ Canvas:
   m_GameObject: {fileID: 881307573238519463}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -105,18 +104,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1120754825371310211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881307573238519463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d7faa1797134a4cbd2a56d91fe93af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &6903114973013178285
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -229,7 +216,6 @@ GameObject:
   - component: {fileID: 7523221211022708390}
   - component: {fileID: 7523221211022708385}
   - component: {fileID: 7523221211022708384}
-  - component: {fileID: 7523221211022708387}
   - component: {fileID: 7523221211022708389}
   - component: {fileID: 7523221211022708388}
   - component: {fileID: 7523221211022708391}
@@ -269,9 +255,9 @@ Canvas:
   m_GameObject: {fileID: 7523221211022708397}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -322,18 +308,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7523221211022708387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7523221211022708397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d7faa1797134a4cbd2a56d91fe93af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &7523221211022708389
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -392,6 +366,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7523221209589073435}
     m_Modifications:
+    - target: {fileID: 6327762783026857190, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327762783026857190, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6327762783026857191, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -528,6 +510,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7523221209589073435}
     m_Modifications:
+    - target: {fileID: 6327762783026857190, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327762783026857190, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6327762783026857191, guid: 848d77de76d3209478b2ff80237385d8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
