@@ -1318,6 +1318,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5144204438039303923}
   - component: {fileID: 5144204438046832915}
+  - component: {fileID: 8699823271377731589}
+  - component: {fileID: 8971920768907346053}
+  - component: {fileID: 952767148615529407}
+  - component: {fileID: -6379067043386795570}
   m_Layer: 0
   m_Name: Phoenix_PBR thunder
   m_TagString: Untagged
@@ -1362,6 +1366,55 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8699823271377731589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e2f60bc0f2b854db2fa49eb5c9c008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myObjectType: 0
+--- !u!114 &8971920768907346053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2275d0a137bac824398e3d0e633f868e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &952767148615529407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6379067043386795570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b493db9015b091e4fa772c32573a9cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5144204438039530197
 GameObject:
   m_ObjectHideFlags: 0
