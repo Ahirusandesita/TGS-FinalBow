@@ -20,8 +20,8 @@ public class SceneFadeIn : MonoBehaviour
     protected const float ALPHA_STARTPERCENT_ONE = 1.0f;
     protected const float FADETIME = 2f;//フェードに掛かる時間
 
-    private Image _myColor = default;
-
+    private Image _myImage = default;
+    private Color _myColor = new Color(0f, 0f, 0f, 0f);
     #endregion
     #region property
     #endregion
@@ -29,7 +29,7 @@ public class SceneFadeIn : MonoBehaviour
 
     private void Start()
     {
-        _myColor = this.GetComponentInChildren<Image>();
+        _myImage = this.GetComponentInChildren<Image>();
         _alphaEnd = StartAlphaColor();
     }
 
@@ -50,6 +50,8 @@ public class SceneFadeIn : MonoBehaviour
     protected virtual float StartAlphaColor()
     {
         _alpha = ALPHA_STARTPERCENT_ZERO;
+        _myColor.a = _alpha;
+        _myImage.color = _myColor;
         return ALPHA_STARTPERCENT_ONE;
     }
 
@@ -71,7 +73,8 @@ public class SceneFadeIn : MonoBehaviour
             {
                 _isFadeEnd = true;
             }
-            _myColor.color = new Color(0f, 0f, 0f, _alpha);
+            _myColor.a = _alpha;
+            _myImage.color = _myColor;
         }
     }
     #endregion
