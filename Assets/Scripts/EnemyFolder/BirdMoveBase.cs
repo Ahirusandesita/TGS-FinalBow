@@ -39,6 +39,12 @@ public abstract class BirdMoveBase : MonoBehaviour
     private float _moveAngle = 0f;
 
     private float _time = 0f;
+
+    [Tooltip("このインスタンスは何体目")]
+    public int _spawnNumber = default;
+
+    [Tooltip("どのウェーブでスポーンしたか")]
+    public WaveType _spawnedWave = default;
     #endregion
 
     #region protected変数
