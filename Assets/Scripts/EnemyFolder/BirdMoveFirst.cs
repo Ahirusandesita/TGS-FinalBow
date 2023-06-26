@@ -5,6 +5,7 @@
 // Creator  : TakayanagiSora
 // --------------------------------------------------------- 
 using UnityEngine;
+using System;
 
 public class BirdMoveFirst : BirdMoveBase
 {
@@ -31,10 +32,16 @@ public class BirdMoveFirst : BirdMoveBase
         base.OnEnable();
 
         _isLastMove = false;
-        //SetGoalPositionCentral();
-        SetGoalPosition(_spawnedWave, _spawnNumber);
         _currentTime = 0f;
         _currentTime2 = 0f;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        //SetGoalPositionCentral();
+        SetGoalPosition(_spawnedWave, _spawnedNumber ,howManyTimes: 1);
     }
 
 
@@ -59,6 +66,9 @@ public class BirdMoveFirst : BirdMoveBase
             if (_isLastMove)
             {
                 _needDespawn = true;
+
+                // クラスをはがす
+                Destroy(this);
 
                 return;
             }
@@ -97,7 +107,7 @@ public class BirdMoveFirst : BirdMoveBase
 
             // スタート位置とゴール位置の再設定
             _startPosition = _transform.position;
-            SetGoalPosition(WaveType.zakoWave1, _spawnNumber + 2);
+            SetGoalPosition(_spawnedWave, _spawnedNumber, howManyTimes: 2);
 
             // 次の移動が最後
             _isLastMove = true;

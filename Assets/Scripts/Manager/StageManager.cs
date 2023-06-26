@@ -74,14 +74,14 @@ public class StageManager : MonoBehaviour, IStageSpawn
             }
 
             // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
-            for (int i = 0; i < _enemySpawnerTable._scriptableESpawnerInformation[(int)_waveType]._birdSpawnPlaces.Count; i++)
+            for (int i = 0; i < _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count; i++)
             {
                 // スポーンさせた雑魚の数を設定
-                _currentNumberOfObject = _enemySpawnerTable._scriptableESpawnerInformation[(int)_waveType]._birdSpawnPlaces.Count;
+                _currentNumberOfObject = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count;
 
                 // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
                 GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird,
-                    _enemySpawnerTable._scriptableESpawnerInformation[(int)_waveType]._birdSpawnPlaces[i].position).gameObject;
+                    _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdSpawnPlace.position).gameObject;
                 temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
                 switch (_waveType)
@@ -89,14 +89,14 @@ public class StageManager : MonoBehaviour, IStageSpawn
                     case WaveType.zakoWave1:
                         //呼び出した雑魚にコンポーネントを付与
                         BirdMoveBase temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
-                        temporaryMove._spawnNumber = i + 1;
+                        temporaryMove._spawnedNumber = i;
                         temporaryMove._spawnedWave = _waveType;
 
                         break;
 
                     case WaveType.zakoWave2:
                         temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
-                        temporaryMove._spawnNumber = i + 1;
+                        temporaryMove._spawnedNumber = i;
                         temporaryMove._spawnedWave = _waveType;
 
                         break;

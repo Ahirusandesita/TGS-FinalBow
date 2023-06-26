@@ -53,7 +53,7 @@ public class BirdMoveSecond : BirdMoveBase
 
         InitializeVariables();
 
-        SetGoalPosition(WaveType.zakoWave3);
+        SetGoalPosition(WaveType.zakoWave3, _spawnedNumber);
 
         // Å‰‚©‚ç³–Ê‚ğŒü‚©‚¹‚é
         _transform.rotation = FRONT_ANGLE;
