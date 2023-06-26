@@ -88,12 +88,16 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 {
                     case WaveType.zakoWave1:
                         //呼び出した雑魚にコンポーネントを付与
-                        temporaryObject.AddComponent<BirdMoveFirst>();
+                        BirdMoveBase temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
+                        temporaryMove._spawnNumber = i + 1;
+                        temporaryMove._spawnedWave = _waveType;
 
                         break;
 
                     case WaveType.zakoWave2:
-                        temporaryObject.AddComponent<BirdMoveFirst>();
+                        temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
+                        temporaryMove._spawnNumber = i + 1;
+                        temporaryMove._spawnedWave = _waveType;
 
                         break;
 
