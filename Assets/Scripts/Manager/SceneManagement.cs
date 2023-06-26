@@ -21,6 +21,8 @@ public class SceneManagement : MonoBehaviour,ISceneManager
 
     public SceneObject SceneName { private set; get; }
 
+    private SceneFadeManager _sceneFadeManager = default;
+
     private SceneFadeIn _sceneFadeIn = default;
 
     private SceneFadeIn _sceneFadeOut = default;
@@ -46,26 +48,19 @@ public class SceneManagement : MonoBehaviour,ISceneManager
     {
         _gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
 
+        _sceneFadeManager = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeManager>();
+
         _sceneFadeIn = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeManager>().GetSceneFadeIn();
 
         _sceneFadeOut = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeManager>().GetSceneFadeOut();
 
-        StartCoroutine(SceneMoveFadeOut());
+        _sceneFadeManager.SceneFadeOutStart();
     }
 
     private IEnumerator SceneMoveFadeIn()
     {
-        _sceneFadeIn.SceneFadeStart();
-        yield return new WaitUntil(() => _sceneFadeIn._isFadeEnd);
+        _sceneFadeManager.SceneFadeInStart();
+        yield return new WaitUntil(() => _sceneFadeManager._isSceneFadeInEnd);
         SceneSpecifyMove("LoadScene");
     }
-
-
-    private IEnumerator SceneMoveFadeOut()
-    {
-        _sceneFadeOut.SceneFadeStart();
-        yield return new WaitUntil(() => _sceneFadeOut._isFadeEnd);
-
-    }
-
 }
