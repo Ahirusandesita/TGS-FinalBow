@@ -121,7 +121,9 @@ public interface IFScoreManager_AllGetScore :
     IFScoreManager_ValueGetHp,
     IFSccoreManager_ValueGetAttract,
     IFScoreManager_ValueGetTime
-{ }
+{
+    void ScoreReset();
+}
 
 public class ScoreManager : MonoBehaviour,
 IFScoreManager_NomalEnemy, IFScoreManager_NomalEnemyGetScore,
@@ -192,6 +194,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
             if (_scoreHpBonus == 0)
             {
                 //_scoreHpBonus = ÉvÉåÉCÉÑÅ[ÇÃHpÇÃêî * _ScoreHpBonus;
+                _scoreHpBonus = _ScoreHpBonus;
             }
             if (_scoreTimeBonus == 0)
             {
@@ -278,9 +281,9 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void BonusScore_HpScore()
     {
-        
+
         _scoreHpBonus -= _ScoreHpBonus;
-        if(_scoreHpBonus < 0)
+        if (_scoreHpBonus < 0)
         {
             _scoreHpBonus = 0;
         }
@@ -318,7 +321,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void BonusScore_TimeScore()
     {
         _scoreTimeBonus -= _ScoreTimeBonus;
-        if(_scoreTimeBonus < 0)
+        if (_scoreTimeBonus < 0)
         {
             _scoreTimeBonus = 0;
         }
@@ -349,6 +352,27 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public int BonusValue_GetAttract()
     {
         return _valueAttractBonus;
+    }
+
+    public void ScoreReset()
+    {
+        _scoreNomalEnemy = 0;
+
+        _scoreBossEnemy = 0;
+
+        _scoreEnchant = 0;
+
+        _scoreCoin = 0;
+
+        _scoreComboBonus = 0;
+        _scoreHpBonus = _ScoreHpBonus;
+        _valueHpBonus = 0;
+
+        _scoreAttractBonus = 0;
+        _valueAttractBonus = 0;
+
+        _scoreTimeBonus = 4000;
+        _valueTimeBonus = 0;
     }
     #endregion
 }

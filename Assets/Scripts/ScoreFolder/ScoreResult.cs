@@ -120,6 +120,8 @@ public class ScoreResult : MonoBehaviour
         ScoreDisplay(ScoreType.all);
         yield return new WaitForSeconds(1f);
         ScoreDigits(-1, DisplayType.bonus);
+
+        _scoerManager.ScoreReset();
     }
 
     private void ScoreDigits(int score,DisplayType displayType)
