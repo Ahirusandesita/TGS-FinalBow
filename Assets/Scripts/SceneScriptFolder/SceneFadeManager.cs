@@ -51,16 +51,5 @@ public class SceneFadeManager : MonoBehaviour
     }
 
 
-    public SceneFadeIn GetSceneFadeIn()
-    {
-        _sceneFadeIn[0] = transform.GetChild(0).GetComponent<SceneFadeIn>();
-        return _sceneFadeIn[0];
-    }
-    public SceneFadeOut GetSceneFadeOut()
-    {
-        _sceneFadeOut[1] = transform.GetChild(1).GetComponent<SceneFadeOut>();
-        return _sceneFadeOut[1];
-    }
-
     #endregion
 }
