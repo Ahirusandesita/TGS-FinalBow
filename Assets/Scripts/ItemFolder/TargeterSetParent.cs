@@ -13,7 +13,7 @@ public class TargeterSetParent : MonoBehaviour
     private bool _isTargetArrival = false;
     private float _distance = default;
     private float _moveRadius = default;
-    private float _functionTime = default;
+    private float _timeCount = default;
     private float _moveValue_x = default;
     private float _moveValue_y = default;
     private float _attractPower = default;
@@ -94,9 +94,6 @@ public class TargeterSetParent : MonoBehaviour
             this.transform.parent = ParentObject.transform;
         }
 
-        // 開始時間を設定
-        _functionTime = -Time.time;
-
         // 目標地点とのローカルポジションＺを代入
         _distance = this.transform.localPosition.z;
 
@@ -117,6 +114,9 @@ public class TargeterSetParent : MonoBehaviour
 
         // 到達フラグの初期化
         _isTargetArrival = false;
+
+        // 時間の初期化
+        _timeCount = default;
     }
 
     /// <summary>
@@ -131,8 +131,8 @@ public class TargeterSetParent : MonoBehaviour
             _moveRadius = _distance * COEFFICIENT_DISTANCExRADIUS;
 
             // ＸＹ軸それぞれの位置を求める
-            _moveValue_x = Mathf.Sin((_functionTime + Time.time) * PERIOD_VALUE) * _moveRadius;
-            _moveValue_y = Mathf.Cos((_functionTime + Time.time) * PERIOD_VALUE) * _moveRadius;
+            _moveValue_x = Mathf.Sin(_timeCount * PERIOD_VALUE) * _moveRadius;
+            _moveValue_y = Mathf.Cos(_timeCount * PERIOD_VALUE) * _moveRadius;
 
             // 各軸ごとの位置を代入
             this.transform.localPosition = new Vector3( _moveValue_x,   // Ｘ軸
@@ -141,9 +141,15 @@ public class TargeterSetParent : MonoBehaviour
 
             // 距離を縮める
             _distance -= _attractPower * Time.deltaTime;
+
+            // 時間経過
+            _timeCount += Time.deltaTime;
         }
         else
         {
+            print("ローカル　" + this.transform.localPosition) ;
+            print("ワールド　" + this.transform.position);
+            print("親　" + this.transform.parent.position);
             // 開始フラグを切る
             _isStart = false;
 
