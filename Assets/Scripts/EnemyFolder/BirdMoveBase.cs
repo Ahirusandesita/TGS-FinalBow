@@ -40,8 +40,9 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     private float _time = 0f;
 
-    [Tooltip("このインスタンスは何体目")]
-    public int _spawnNumber = default;
+    [Tooltip("このインスタンスが参照を開始するゴール座標リストインデックス")]
+    // ex) ゴールが2種類ある場合、Instance_1 = 0, Instance_2 = 2が設定される
+    public int _spawnedNumber = default;
 
     [Tooltip("どのウェーブでスポーンしたか")]
     public WaveType _spawnedWave = default;
@@ -313,12 +314,13 @@ public abstract class BirdMoveBase : MonoBehaviour
     /// _goalPosition変数の代入処理
     /// </summary>
     /// <param name="zakoWaveNumber">どのウェーブの敵の動きかenumで指定（ex: BirdMoveFirstはzakoWave1）</param>
+    /// <param name="spawnedNumber">インスタンス番号（_spawnedNumberを渡す）（_spawn</param>
     /// <param name="howManyTimes">この関数を呼ぶのは何回目？（推奨：名前付き引数）</param>
-    protected virtual void SetGoalPosition(WaveType zakoWaveNumber, int howManyTimes = 1)
+    protected virtual void SetGoalPosition(WaveType zakoWaveNumber, int spawnedNumber ,int howManyTimes = 1)
     {
         try
         {
-            _goalPosition = _stageManager._enemySpawnerTable._scriptableESpawnerInformation[(int)zakoWaveNumber]._birdGoalPlaces[howManyTimes - 1].position;
+            _goalPosition = _stageManager._enemySpawnerTable._scriptableWaveEnemy[(int)zakoWaveNumber]._enemysSpawner[spawnedNumber]._birdGoalPlaces[howManyTimes - 1].position;
         }
         catch (Exception)
         {
