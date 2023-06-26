@@ -44,6 +44,9 @@ public class SceneFadeManager : MonoBehaviour
     }
     private IEnumerator SceneMoveFadeOut()
     {
+        _sceneFadeOut[0] = transform.GetChild(1).GetComponent<SceneFadeOut>();
+        
+        _sceneFadeOut[1] = transform.GetChild(3).GetComponent<SceneFadeOut>();
         _sceneFadeOut[0].SceneFadeStart();
         _sceneFadeOut[1].SceneFadeStart();
         yield return new WaitUntil(() => _sceneFadeOut[0]._isFadeEnd);

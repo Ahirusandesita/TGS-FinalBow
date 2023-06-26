@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9012927822071701898, guid: df6d4415a5e4a48498e2b3afbcb97b9e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9012927822260178980, guid: df6d4415a5e4a48498e2b3afbcb97b9e, type: 3}
       propertyPath: m_Name
       value: CanvasController
@@ -181,6 +185,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9012927822260178987, guid: df6d4415a5e4a48498e2b3afbcb97b9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012927823360943706, guid: df6d4415a5e4a48498e2b3afbcb97b9e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 614966741}
+    - target: {fileID: 9012927823360943706, guid: df6d4415a5e4a48498e2b3afbcb97b9e, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012927823590236348, guid: df6d4415a5e4a48498e2b3afbcb97b9e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 9051230437103398912}
+    - target: {fileID: 9012927823590236348, guid: df6d4415a5e4a48498e2b3afbcb97b9e, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012927823772276923, guid: df6d4415a5e4a48498e2b3afbcb97b9e, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -431,6 +455,7 @@ MonoBehaviour:
   _homingDamage: 20
   _penetrateDamage: 20
   _limitAddDamage: 10
+  _headShotDamageMultiplier: 1.5
 --- !u!114 &669780411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,7 +1525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PoolSystemTagData: {fileID: 0}
   _enemySpawnerTable: {fileID: 0}
-  _bossTest: {fileID: 0}
+  _bossPrefab: {fileID: 0}
 --- !u!1001 &2100526731
 PrefabInstance:
   m_ObjectHideFlags: 0
