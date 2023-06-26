@@ -5,6 +5,7 @@
 // Creator  : TakayanagiSora
 // --------------------------------------------------------- 
 using System;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -49,23 +50,17 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private WaveType _waveType = WaveType.zakoWave1;     // 初期値0
 
 
-    public GameObject _bossTest;
+    public GameObject _bossPrefab;
     #endregion
 
 
     private void Start()
     {
         _objectPoolSystem = GameObject.FindWithTag(_PoolSystemTagData.TagName).GetComponent<ObjectPoolSystem>();
+
+        StartCoroutine(GameStart());
     }
 
-    private void Update()
-    {
-        // デバッグ用
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Spawn();
-        }
-    }
 
     public void Spawn()
     {
@@ -74,8 +69,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
             if (_waveType == WaveType.boss)
             {
                 // ボスをスポーン
-
-                Instantiate(_bossTest);
+                Instantiate(_bossPrefab);
                 return;
             }
 
@@ -137,5 +131,16 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private void IncrementWave()
     {
         _waveType++;
+    }
+
+    /// <summary>
+    /// ゲームスタート（一秒待ってからスポーンさせる）
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator GameStart()
+    {
+        yield return new WaitForSeconds(1f);
+
+        Spawn();
     }
 }
