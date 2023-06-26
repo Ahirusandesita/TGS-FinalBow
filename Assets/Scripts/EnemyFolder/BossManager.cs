@@ -5,6 +5,7 @@
 // Creator  : Takayanagi
 // --------------------------------------------------------- 
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// ボスの管理クラス
@@ -39,6 +40,8 @@ public class BossManager : MonoBehaviour
         _bossAttack = this.GetComponent<BossAttack>();
 
         _bossMove = this.GetComponent<BossMove>();
+
+        StartCoroutine(FGStart());
     }
 
     private void Update()
@@ -49,13 +52,14 @@ public class BossManager : MonoBehaviour
             _bossStats.Death();
         }
 
-        // Eを押したらFireGatlingスタート（デバッグ用）
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            _bossMove.IsAttack = true;
-            _bossAttack.SpawnBirdsForFireGatling();
-        }
-
         _bossMove.MoveSelect();
+    }
+
+    private IEnumerator FGStart()
+    {
+        yield return new WaitForSeconds(1f);
+
+        _bossMove.IsAttack = true;
+        _bossAttack.SpawnBirdsForFireGatling();
     }
 }
