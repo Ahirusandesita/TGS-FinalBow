@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2494350199507808296
 MonoBehaviour:
@@ -46,19 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PoolSystemTagData: {fileID: 11400000, guid: 00e291fa0e47e8c4ab70d20233f8378b, type: 2}
   _enemySpawnerTable: {fileID: 11400000, guid: 02eb4ea1e506b1a40997c4170025ec9c, type: 2}
-  _targetSpawnPlaces_Tutorial1: []
-  _targetSpawnPlaces_Tutorial2: []
-  _targetSpawnPlaces_Tutorial3: []
-  _birdSpawnPlaces_Wave1:
-  - {fileID: 0}
-  _birdGoalPlaces_Wave1:
-  - {fileID: 0}
-  _birdSpawnPlaces_Wave2:
-  - {fileID: 0}
-  - {fileID: 0}
-  _birdSpawnPlaces_Wave3:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _birdSpawnPlaces_Wave4: []
-  _birdSpawnPlaces_Wave5: []
+  _bossPrefab: {fileID: 7289886223458851598, guid: 7edc165c292eb8f488de86ca582d7f88, type: 3}
