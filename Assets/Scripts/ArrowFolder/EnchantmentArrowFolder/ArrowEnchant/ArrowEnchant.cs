@@ -48,11 +48,14 @@ public class ArrowEnchant : MonoBehaviour
     [Tooltip("追加ダメージ上限")]
     [SerializeField] int _limitAddDamage = 10;
 
+    [Tooltip("ヘッドショットダメージ倍率")]
+    [SerializeField] float _headShotDamageMultiplier = 1.5f;
+
     #endregion
 
     private int addDamage = 0;
 
-
+    readonly private string HeadTagName = InhallLibTags.HeadPointTag;
 
     /// <summary>
     /// hitObjのEnemyStats
@@ -259,12 +262,27 @@ public class ArrowEnchant : MonoBehaviour
     /// <returns>hitObjのEnemyStats</returns>
     private EnemyStats NormalHitDamage(GameObject hitObj,int damage)
     {
-        EnemyStats st = hitObj.GetComponent<EnemyStats>();
+        EnemyStats st = default;
+
+        // ヘッドショットかどうか
+        if (hitObj.CompareTag(HeadTagName))
+        {
+            // 倍率ダメージ切り捨て
+            damage = Mathf.FloorToInt(damage * _headShotDamageMultiplier);
+
+            // ステータス持っているのは親オブジェクトなので
+            st = hitObj.transform.parent.GetComponent<EnemyStats>();
+        }
+        else
+        {
+            st = hitObj.GetComponent<EnemyStats>();
+        }
+        
+
         st.TakeDamage(damage);
         // 初期化
         addDamage = 0;
-        // デバッグ用
-        print(hitObj);
+ 
         //EnemyStats st = default;
         return st;
     }
@@ -276,95 +294,76 @@ public class ArrowEnchant : MonoBehaviour
     private void BombHitDamage(GameObject hitObj,Enchant enchant)
     {
         //TestBombArea(hitObj);
-        // このメソッドで影響のでることが決まったEnemyStatsを入れる
-        EnemyStats takeBombStats = default;
+ 
         // 爆風範囲内の敵をスキャン
         Collider[] sideColliders = Physics.OverlapSphere(hitObj.transform.position, _bombSideAreaSize, _layerMask);
         // 爆心内の敵をスキャン
         Collider[] middleColliders = Physics.OverlapSphere(hitObj.transform.position, _bombMiddleAreaSize, _layerMask);
         // sideからmiddleCollidersを排除
         HashSet<Collider> side = new HashSet<Collider>(sideColliders);
+
         side.ExceptWith(middleColliders);
 
         // 処理したゲームオブジェクトをぶち込む
         HashSet<GameObject> processedObject = new HashSet<GameObject>();
 
-        // 爆心内ダメージ
-        foreach (Collider inCollider in middleColliders)
+        // 爆心内のダメージ判定から先に行う
+        BombDamage(middleColliders, processedObject,_bombMiddleDamage);
+
+        // 爆発外部のダメージ判定を爆心内ダメージ判定を行ったオブジェクトを除外して行う
+        BombDamage(sideColliders, processedObject,_bombSideDamage);
+
+
+        void BombDamage(Collider[] takeDamageColliders, HashSet<GameObject> processedObject,int damage)
         {
-            // コライダーのゲームオブジェクト
-            GameObject checkMiddleObject = inCollider.gameObject;
-            // 取得したゲームオブジェクトが処理済みなら次ループ
-            if (processedObject.Contains(checkMiddleObject)) continue;
-            // 処理済みゲームオブジェクトに登録
-            processedObject.Add(checkMiddleObject);
-
-            takeBombStats = checkMiddleObject.GetComponent<EnemyStats>();
-
-            if (takeBombStats != null)
+            // このメソッドで影響のでることが決まったEnemyStatsを入れる
+            EnemyStats takeBombStats = default;
+            // 爆心内ダメージ
+            foreach (Collider inCollider in takeDamageColliders)
             {
-                ;
-                takeBombStats.TakeBomb(_bombMiddleDamage);
+                // コライダーのゲームオブジェクト
+                GameObject checkObject = inCollider.gameObject;
 
-                switch (enchant)
+                // 取得したゲームオブジェクトがヘッドショットの判定用のものなら次ループ
+                if (checkObject.CompareTag(HeadTagName)) continue;
+
+                // 取得したゲームオブジェクトが処理済みなら次ループ
+                if (processedObject.Contains(checkObject)) continue;
+
+                // 処理済みゲームオブジェクトに登録
+                processedObject.Add(checkObject);
+
+                takeBombStats = checkObject.GetComponent<EnemyStats>();
+
+                if (takeBombStats != null)
                 {
-                    case Enchant.homing:
-                        //takeBombStats.TakeHoming();
-                        break;
-                    case Enchant.knockBack:
-                        takeBombStats.TakeKnockBack();
-                        break;
-                    case Enchant.penetrate:
-                        //takeBombStats.TakePenetrate();
-                        break;
-                    case Enchant.thunder:
-                        takeBombStats.TakeThunder();
-                        break;
-                    default:
-                        break;
+
+                    takeBombStats.TakeBomb(damage);
+
+                    // 追加効果
+                    switch (enchant)
+                    {
+                        case Enchant.homing:
+                            //takeBombStats.TakeHoming();
+                            break;
+                        case Enchant.knockBack:
+                            takeBombStats.TakeKnockBack();
+                            break;
+                        case Enchant.penetrate:
+                            //takeBombStats.TakePenetrate();
+                            break;
+                        case Enchant.thunder:
+                            takeBombStats.TakeThunder();
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
 
             }
 
         }
-
-        // 爆風範囲内ダメージ
-        foreach (Collider collider in side)
-        {
-            // コライダーのゲームオブジェクト
-            GameObject checkSideObject = collider.gameObject;
-            // 取得したゲームオブジェクトが処理済みなら次ループ
-            if (processedObject.Contains(checkSideObject)) continue;
-            // 処理済みゲームオブジェクトに登録
-            processedObject.Add(checkSideObject);
-
-            takeBombStats = collider.gameObject.GetComponent<EnemyStats>();
-
-            if (takeBombStats != null)
-            {
-                takeBombStats.TakeBomb(_bombSideDamage);
-
-                switch (enchant)
-                {
-                    case Enchant.homing:
-                        //takeBombStats.TakeHoming();
-                        break;
-                    case Enchant.knockBack:
-                        takeBombStats.TakeKnockBack();
-                        break;
-                    case Enchant.penetrate:
-                        //takeBombStats.TakePenetrate();
-                        break;
-                    case Enchant.thunder:
-                        takeBombStats.TakeThunder();
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-        }
-
     }
 
     /// <summary>
@@ -386,6 +385,7 @@ public class ArrowEnchant : MonoBehaviour
             addDamage = _limitAddDamage;
         }
     }
+
 
 
     private void TestBombArea(GameObject hi)
