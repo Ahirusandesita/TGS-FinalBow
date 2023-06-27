@@ -25,7 +25,7 @@ public interface IFBowManagerQue
 }
 [RequireComponent(typeof(BowDraw), typeof(BowHold), typeof(BowShotAim))]
 [RequireComponent(typeof(BowVibe), typeof(AttractEffectCustom),typeof(AttractZone))]
-[RequireComponent(typeof(Inhall))]
+[RequireComponent(typeof(Inhall), typeof(BowSE))]
 public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQue
 {
     
@@ -75,6 +75,8 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     private InputManagement _mng = default;
 
     private ObjectPoolSystem _poolSystem = default;
+
+    private BowSE _bowSE = default;
     //デバック用
     private PlayerManager _playerManager = default;
     //デバッグ
@@ -150,8 +152,6 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
 
     #endregion
 
-    float _drawDistance = default;
-
     float _distanceCameraToDrawObject = default;
 
     private void Start()
@@ -169,6 +169,8 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         _vibe = GetComponent<BowVibe>();
 
         _inhallCustom = GetComponent<AttractEffectCustom>();
+
+        _bowSE = GetComponent<BowSE>();
 
         _mng = GameObject.FindGameObjectWithTag(_InputTagName.TagName).GetComponent<InputManagement>();
 
@@ -270,6 +272,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     private void Holding()
     {
+        
         // ドローオブジェクト引いている手に移動
         _draw.BowDrawing(_handPositionDelegate(), _drawObject, _firstDrawObjectPositon);
 
@@ -280,6 +283,10 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         _inhallCustom.SetEffectSize(GetPercentDrawDistance());
 
         _attract.SetAngle(GetPercentDrawDistance());
+
+        _bowSE.CallDrawingSE(GetPercentDrawDistance());
+
+        _bowSE.CallAttractSE(GetPercentDrawDistance());
 
         // 弓のローテーション変更
         TurnBow();
@@ -334,6 +341,8 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     {
         _hold.BowHoldStart(_handPositionDelegate(), _drawObject);
 
+        _bowSE.CallDrawStart();
+
         _arrow = _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, _drawObject.transform.position);
 
         _arrow.transform.rotation = this.transform.rotation;
@@ -350,6 +359,8 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     private void ShotProcess()
     {
+        _bowSE.CallShotSE();
+
         _vibe.EndDrawVibe();
 
         _vibe.StartShotVibe(GetPercentDrawDistance());
