@@ -29,6 +29,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #region 変数 グロ注意
 
+
     #region 共用変数
 
     // 初期の角度　代入フラグが立っていたら代入する
@@ -51,60 +52,37 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #region ノーマルで使用している変数
 
-    // 矢の速度の計算上必要な仮想速度　
-    // 横軸の速度のみを想定的に計算するのに使う
-    // 計算式：　imageSpeed - (時間毎のAIR_RESISTによる減衰値)
-    private float _imageSpeed = default;
+    private Vector3 _arrowVector = default;
+    private float _arrowSpeed_Horizontal = default;
+    private float _arrowSpeed_X = default;
+    private float _arrowSpeed_Y = default;
+    private float _arrowSpeed_Z = default;
+    private float _maxRange = default;
+    private bool _endSetting = false;
 
-    // 慣性降下率　速度に応じて変化する下方向にかかる力の倍率
-    // 計算式：　FALL_MAX_VALUE －（現在速度÷FALLSPEEDLIMIT）　　　
-    // （ FALL_MAX_VALUE ≧ fallValue ≧ ０ ）
-    private float _fallValue = default;
 
-    // 真下を向くために必要な補間値
-    // fallValueとかけ合わせることで時間ごとの角度変化を求められる
-    // firstAngleとFALL_MAX_VALUEの差
-    private float _fallAngle = default;
-
-    // 真下を向く角度　Ｘが正数か負数かによって変化させる
-    private float _underVecter = default;
-
-    // 降下上限速度　降下し始める上限値
-    // この速度を超えている間は降下しないでまっすぐ飛ぶ
-    // 仮想速度が０になったら真下方向に進む
-    // 簡易法線計算によく使われる計算方法
-    private float _fallStartSpeed = default;
-
-    // 現在角度　ショボ撃ちの微妙感を減らすために使用
-    private float _nowAngle = default;
-
-    // ショボ撃ち補正速度の加算値　移動処理の_arrowSpeedに加算する                                                                           いも食べたい
-    private float _addFallSpeed = default;
+    private float _nowRange = default;
+    private Vector3 _moveValue = default;
+    private float _nowSpeedValue = default;
+    private float _addGravity = default;
 
 
 
-    // 定数
+    // ここから下　定数
+    [Tooltip("重力加速度　大きいほど降下するのが早くなる　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
+    private float GRAVITY = -50f;
 
-    // 慣性降下率の最大値　１　いち　one　正直いらない
-    private const float FALL_MAX_VALUE = 1f;
+    [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"),SerializeField] //デバッグ用
+    private float SPEED_TO_RANGE_COEFFICIENT_NORMAL = 15f;
 
-    // 空気抵抗率　速度減衰の大小を決める値　０で無抵抗 １で毎秒１f減衰
-    private const float AIR_RESIST = 5f;
+    [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
+    private float SPEED_TO_RANGE_COEFFICIENT_THUNDER = 30f;
 
-    // 真下を向く角度　横移動しない Ｘが正数の時に使用
-    private const float UNDER_VECTOR_POS = 90f;
+    // 速度減衰の元値　現在速度
+    private const float STANDARD_SPEED_VALUE = 1f;
 
-    // 真下を向く角度　横移動しない Ｘが負数の時に使用
-    private const float UNDER_VECTOR_NEG = 450f;
-
-    // ショボ撃ち補正速度　この速度より遅い場合は加速させる
-    private const float ADD_FALL_SPEED_MAX = 100f;
-
-    // ショボ撃ち補正開始の角度
-    private const float ADD_START_ANGLE = 90f;
-
-    // ショボ撃ち補正終了の角度　Lerpの上限にも使う
-    private const float ADD_FINISH_ANGLE = 180f;
+    [Tooltip("最大落下速度　落下速度が加速する頂点　これより速くは落下しない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
+    private float TERMINAL_VELOCITY = 100f;
 
     #endregion
 
@@ -233,72 +211,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     public void ArrowMove_HomingPenetrate(Transform arrowTransform) { HomingMove(arrowTransform, _arrowSpeed); }
 
 
-    /// <summary>
-    /// 通常の矢の挙動をさせるメソッド
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    /// <param name="arrowSpeed">矢が飛んでいく速度</param>
-    private void NormalMove(Transform arrowTransform, float arrowSpeed)
-    {
-        #region 普通の飛び方
-        // 初期角度の代入
-        if (!_isSetAngle)
-        {
-            // 初動の角度をワールド座標の数値で代入　色々使う
-            _firstAngle = new Vector3(arrowTransform.eulerAngles.x, arrowTransform.eulerAngles.y, arrowTransform.eulerAngles.z);
-
-            // フラグの設定　一回代入したら今後代入しないように変更
-            _isSetAngle = !_isSetAngle;
-
-            // 角度補正の補間値計算
-            // 初期角度が９０を超えているかどうか判定　それによって_underVecterが変化する
-            if (_firstAngle.x > 90)
-            {
-                // 初期角度が９０を超えている場合の値を代入
-                _underVecter = UNDER_VECTOR_NEG;
-            }
-            else
-            {
-                // 初期角度が９０を超えていない場合の値を代入
-                _underVecter = UNDER_VECTOR_POS;
-            }
-
-            // 傾ける必要のある角度そのものの代入
-            _fallAngle = _underVecter - _firstAngle.x;
-
-            // 矢の速度を設定する
-            _imageSpeed = arrowSpeed;
-            _fallStartSpeed = _imageSpeed * 0.8f;
-        }
-
-        // 矢の移動
-        arrowTransform.Translate(ZERO,                                           // Ｘ軸
-                                    ZERO,                                           // Ｙ軸
-                                    (arrowSpeed + _addFallSpeed) * Time.deltaTime,  // Ｚ軸
-                                    Space.Self);                                    // ローカル座標で指定　矢先はＺ軸に向いている前提
-
-        // 速度減衰
-        _imageSpeed = MathN.Clamp_min(_imageSpeed - (AIR_RESIST * Time.deltaTime), ZERO);
-
-        // 慣性降下率計算
-        _fallValue = MathN.Clamp(FALL_MAX_VALUE - (_imageSpeed / _fallStartSpeed), ZERO, FALL_MAX_VALUE);
-
-        // 角度補正
-        // 現在角度設定
-        _nowAngle = _firstAngle.x + (_fallAngle * _fallValue);
-        // 角度代入
-        arrowTransform.rotation = Quaternion.Euler(_nowAngle,
-                                                   _firstAngle.y,
-                                                   _firstAngle.z);
-        // ショボ撃ち補正
-        if (arrowSpeed < ADD_FALL_SPEED_MAX && ADD_START_ANGLE <= _nowAngle && _nowAngle <= ADD_FINISH_ANGLE)
-        {
-            _addFallSpeed = Mathf.Lerp(arrowSpeed, ADD_FALL_SPEED_MAX, _nowAngle / ADD_FINISH_ANGLE) - arrowSpeed;
-        }
-
-
-        #endregion
-    }
 
     /// <summary>
     /// ホーミングの挙動をさせるメソッド
@@ -307,7 +219,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
     private void HomingMove(Transform arrowTransform, float arrowSpeed)
     {
-        #region ホーミングの飛び方
         // 初期角度の代入　ターゲットがなくなった場合は再度代入
         if (_target == null || _target == default)
         {
@@ -328,7 +239,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
                                     ZERO,                               // Ｙ軸
                                     arrowSpeed * Time.deltaTime,        // Ｚ軸
                                     Space.Self);                        // ローカル座標で指定　矢先はZ軸に向いている前提
-        #endregion
     }
 
     /// <summary>
@@ -360,41 +270,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         }
     }
 
-    #region NormalSetting,NormalMove2で使用している変数
-    private Vector3 _arrowVector = default;
-    private float _arrowSpeed_Horizontal = default;
-    private float _arrowSpeed_X = default;
-    private float _arrowSpeed_Y = default;
-    private float _arrowSpeed_Z = default;
-    private float _maxRange = default;
-    private bool _endSetting = false;
-
-    [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない"),SerializeField] //デバッグ用
-    private float SPEED_TO_RANGE_COEFFICIENT_NORMAL = 15f;
-
-    [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない"), SerializeField] //デバッグ用
-    private float SPEED_TO_RANGE_COEFFICIENT_THUNDER = 30f;
-
-    private float _nowRange = default;
-    private Vector3 _moveValue = default;
-    private float _nowSpeedValue = default;
-    private float _addGravity = default;
-
-    [Tooltip("重力加速度　大きいほど降下するのが早くなる"), SerializeField] //デバッグ用
-    private float GRAVITY = -50f;
-
-    private const float STANDARD_SPEED_VALUE = 1f;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Tooltip("最大落下速度　落下速度が加速する頂点　これより速くは落下しない"), SerializeField] //デバッグ用
-    private float TERMINAL_VELOCITY = 100f;
-    #endregion
 
 
     /// <summary>
-    /// ノーマルアロー開始時の設定メソッド
+    /// NormalMove開始時の設定メソッド
     /// </summary>
     private void NormalSetting(Transform arrowTransform, float arrowSpeed, bool isThunder)
     {
@@ -411,6 +290,12 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _endSetting = true;
     }
 
+    /// <summary>
+    /// 通常の矢の挙動
+    /// </summary>
+    /// <param name="arrowTransform"></param>
+    /// <param name="arrowSpeed"></param>
+    /// <param name="isThunder"></param>
     private void NormalMove2(Transform arrowTransform, float arrowSpeed, bool isThunder)
     {
         if (!_endSetting)
@@ -431,15 +316,22 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
     }
 
-
+    /// <summary>
+    /// 空気抵抗の設定プロパティ　通常かサンダーで変化
+    /// </summary>
+    /// <param name="isThunder">サンダーフラグ</param>
+    /// <returns></returns>
     private float SpeedToRangeCoefficient(bool isThunder)
     {
+        // サンターかどうか判定
         if (isThunder)
         {
+            // サンダーの空気抵抗を返す
             return SPEED_TO_RANGE_COEFFICIENT_THUNDER;
         }
         else
         {
+            // 通常の空気抵抗を返す
             return SPEED_TO_RANGE_COEFFICIENT_NORMAL;
         }
     }
