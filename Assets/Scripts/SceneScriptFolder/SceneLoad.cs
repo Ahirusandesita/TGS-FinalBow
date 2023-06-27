@@ -19,7 +19,6 @@ public class SceneLoad : MonoBehaviour
 	//@”ñ“¯Šú“®ì‚Åg—p‚·‚éAsyncOperation
 	private AsyncOperation async;
 	private IGameManagerSceneMoveNameGet _gameManager;
-	private SceneFadeOut _sceneFadeOut = default;
 	public void Start()
 	{
 		_gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();

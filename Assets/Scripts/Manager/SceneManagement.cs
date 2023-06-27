@@ -23,10 +23,6 @@ public class SceneManagement : MonoBehaviour,ISceneManager
 
     private SceneFadeManager _sceneFadeManager = default;
 
-    private SceneFadeIn _sceneFadeIn = default;
-
-    private SceneFadeIn _sceneFadeOut = default;
-
     private void SceneSpecifyMove(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
