@@ -20,6 +20,8 @@ public class BowSE : MonoBehaviour
 
     [SerializeField] AudioClip _shotClip = default;
 
+    [SerializeField] AudioSource _attractSource = default;
+
     [SerializeField] float _drawSE_MaxWaitTime = 0.7f;
 
     const int MAX_PERCENT = 1;
@@ -30,9 +32,11 @@ public class BowSE : MonoBehaviour
 
     const int SE_INDEX_SHOT = 2;
 
-    AudioSource _audio = default;
+    const float SE_LIMIT_LOOP_SPEED = 0.2f;
 
-    float[] cacheTimes = default;
+    AudioSource _myAudio = default;
+
+    float[] _cacheTimes = new float[4];
 
     #endregion
     #region property
@@ -41,7 +45,7 @@ public class BowSE : MonoBehaviour
 
     private void Start()
     {
-        _audio = GetComponent<AudioSource>();
+        _myAudio = GetComponent<AudioSource>();
     }
 
 
@@ -49,28 +53,28 @@ public class BowSE : MonoBehaviour
     {
         if (LoopSEControlToPercent(drawPowerPercent,_drawSE_MaxWaitTime, SE_INDEX_DRAW))
         {
-            _audio.PlayOneShot(_drawingClips[Random.Range(0, _drawingClips.Length)], drawPowerPercent);
+            _myAudio.PlayOneShot(_drawingClips[Random.Range(0, _drawingClips.Length)], drawPowerPercent);
 
         }
     }
 
     public void CallDrawStart()
     {
-        _audio.PlayOneShot(_drawStartClips);
+        _myAudio.PlayOneShot(_drawStartClips);
     }
 
     public void CallAttractSE(float attractPowerPercent)
     {
         if (LoopSEControlToConst(_attractClip.length, SE_INDEX_ATTRACT))
         {
-            _audio.PlayOneShot(_attractClip,attractPowerPercent);
+            _attractSource.PlayOneShot(_attractClip,attractPowerPercent);
 
         }
     }
 
     public void CallShotSE()
     {
-        _audio.PlayOneShot(_shotClip);
+        _myAudio.PlayOneShot(_shotClip);
     }
 
 
@@ -81,9 +85,16 @@ public class BowSE : MonoBehaviour
             loopSpeed = MAX_PERCENT;
         }
 
-        if (cacheTimes[indexSE] + (maxWaitTime * (MAX_PERCENT - loopSpeed)) < Time.time)
+        float waitTimePercent = MAX_PERCENT - loopSpeed;
+
+        if (waitTimePercent < SE_LIMIT_LOOP_SPEED)
         {
-            cacheTimes[indexSE] = Time.time;
+            waitTimePercent = SE_LIMIT_LOOP_SPEED;
+        }
+
+        if (_cacheTimes[indexSE] + (maxWaitTime * waitTimePercent) < Time.time)
+        {
+            _cacheTimes[indexSE] = Time.time;
 
             return true;
         }
@@ -92,9 +103,9 @@ public class BowSE : MonoBehaviour
 
     private bool LoopSEControlToConst(float waitTime, int indexSE)
     {
-        if (cacheTimes[indexSE] + waitTime < Time.time)
+        if (_cacheTimes[indexSE] + waitTime < Time.time)
         {
-            cacheTimes[indexSE] = Time.time;
+            _cacheTimes[indexSE] = Time.time;
             return true;
         }
         return false;
