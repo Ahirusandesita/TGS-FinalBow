@@ -158,7 +158,7 @@ public class Arrow : MonoBehaviour,IArrowMove
         //PlayerManagerにGameObjectをセットする
         if (_playerManager != null)
         {
-            _playerManager.SetArrow(this.gameObject);
+            _playerManager.SetArrow(this);
         }
         else
         {
