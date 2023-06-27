@@ -25,8 +25,8 @@ public class Arrow : MonoBehaviour,IArrowMove
 {
 
 
-    public ArrowMove EnchantArrowMove { private set; get; }
-    public ArrowPassiveEffect EnchantArrowPassiveEffect { private set; get; }
+    public ArrowMove EnchantArrowMove { set; get; }
+    public ArrowPassiveEffect EnchantArrowPassiveEffect { set; get; }
 
     /// <summary>
     /// 矢のエフェクト用デリゲート
@@ -152,8 +152,16 @@ public class Arrow : MonoBehaviour,IArrowMove
 
     private WaitForSeconds _waitArrowActivTime;
 
+    private bool _isStarEnable = true;
     private void OnEnable()
     {
+        if (_isStarEnable)
+        {
+            EnchantArrowMove = this.gameObject.GetComponent<ArrowMove>();
+            EnchantArrowPassiveEffect = this.gameObject.GetComponent<ArrowPassiveEffect>();
+            _isStarEnable = false;
+        }
+
         _playerManager = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerManager>();
         //PlayerManagerにGameObjectをセットする
         if (_playerManager != null)
@@ -176,10 +184,6 @@ public class Arrow : MonoBehaviour,IArrowMove
     }
     private void Start()
     {
-
-        EnchantArrowMove = this.GetComponent<ArrowMove>();
-        EnchantArrowPassiveEffect = this.GetComponent<ArrowPassiveEffect>();
-
 
         _playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
