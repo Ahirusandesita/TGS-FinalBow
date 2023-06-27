@@ -48,7 +48,7 @@ public class AttractEffectCustom : MonoBehaviour,IFAttractEffectCustom
             size = 0.1f;
         }
 
-        //_particle.startSize3D = startRootSize * size;
+        _particle.startSize3D = startRootSize * size;
 
 
 
