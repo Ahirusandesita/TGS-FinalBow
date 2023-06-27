@@ -40,6 +40,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [Tooltip("敵のスポーン座標テーブル")]
     public EnemySpawnerTable _enemySpawnerTable = default;
 
+    [Tooltip("ボスのプレハブ")]
+    public GameObject _bossPrefab;
+
 
     [Tooltip("取得したObjectPoolSystemクラス")]
     private ObjectPoolSystem _objectPoolSystem = default;
@@ -49,9 +52,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     [Tooltip("現在のウェーブ数")]
     private WaveType _waveType = WaveType.zakoWave1_1;     // 初期値0
-
-
-    public GameObject _bossPrefab;
     #endregion
 
 
@@ -74,45 +74,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 return;
             }
 
-            // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
-            for (int i = 0; i < _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count; i++)
-            {
-                // スポーンさせた雑魚の数を設定
-                _currentNumberOfObject = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count;
+            // EnemySpawnerTableで設定したスポナーの数を設定
+            _currentNumberOfObject = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count;
 
-                // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
-                GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird,
-                    _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdSpawnPlace.position).gameObject;
-                temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
-
-                BirdMoveBase temporaryMove;
-
-                switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._moveType)
-                {
-                    case MoveType.linear:
-                        //呼び出した雑魚にコンポーネントを付与
-                        temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
-
-                        break;
-
-                    case MoveType.curve:
-                        temporaryMove = temporaryObject.AddComponent<BirdMoveSecond>();
-
-                        break;
-
-                    default:
-                        temporaryMove = null;
-
-                        return;
-                }
-
-                // 呼び出した雑魚の変数に設定
-                temporaryMove.ThisInstanceIndex = i;
-                temporaryMove.SpawnedWave = _waveType;
-                temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdGoalPlaces.Count;
-                temporaryMove.LinearMovementSpeed = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._speed;
-                temporaryMove.ReAttackTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._waitTime_s;
-            }
+            // プールから呼び出す
+            StartCoroutine(SpawnAndDelay());
         }
         catch (Exception)
         {
@@ -152,5 +118,54 @@ public class StageManager : MonoBehaviour, IStageSpawn
         yield return new WaitForSeconds(1.5f);
 
         Spawn();
+    }
+
+    /// <summary>
+    /// 待機処理
+    /// </summary>
+    /// <param name="wait">待機する秒数</param>
+    /// <returns></returns>
+    private IEnumerator SpawnAndDelay()
+    {
+        // 設定した数だけ雑魚をスポーンさせる
+        for (int i = 0; i < _currentNumberOfObject; i++)
+        {
+            // 設定された秒数だけ待機する
+            yield return new WaitForSeconds(_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._spawnDelay_s);
+
+
+            // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
+            GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird,
+                _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdSpawnPlace.position).gameObject;
+            temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
+
+            BirdMoveBase temporaryMove;
+
+            switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._moveType)
+            {
+                case MoveType.linear:
+                    //呼び出した雑魚にコンポーネントを付与
+                    temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
+
+                    break;
+
+                case MoveType.curve:
+                    temporaryMove = temporaryObject.AddComponent<BirdMoveSecond>();
+
+                    break;
+
+                default:
+                    temporaryMove = null;
+
+                    break; ;
+            }
+
+            // 呼び出した雑魚の変数に設定
+            temporaryMove.ThisInstanceIndex = i;
+            temporaryMove.SpawnedWave = _waveType;
+            temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdGoalPlaces.Count;
+            temporaryMove.LinearMovementSpeed = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._speed;
+            temporaryMove.ReAttackTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._waitTime_s;
+        }
     }
 }

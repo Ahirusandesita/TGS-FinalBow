@@ -48,11 +48,13 @@ public class BirdMoveFirst : BirdMoveBase
         if (_linearMovementSpeed == 0f)
         {
             _linearMovementSpeed = 20;
+            X_Debug.LogError("EnemySpawnPlaceData.Speed ‚ªİ’è‚³‚ê‚Ä‚Ü‚¹‚ñ");
         }
 
         if (_reAttackTime == 0f)
         {
             _reAttackTime = 5f;
+            X_Debug.LogError("EnemySpawnPlaceData.WaitTime_s ‚ªİ’è‚³‚ê‚Ä‚Ü‚¹‚ñ");
         }
     }
 

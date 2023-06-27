@@ -65,6 +65,10 @@ public class EnemySpawnerInformation
     [Header("停止して攻撃する秒数（Linearのみ）"), Tooltip("停止して攻撃する秒数")]
     public float _waitTime_s;
 
+    [Header("スポーンディレイ（注意：前の敵からの秒数、　推奨：数秒程度）"), Tooltip("スポーンディレイ（注意：前の敵からの秒数、　推奨：数秒程度）")]
+    // 大幅なディレイを付加したい場合は、Waveを分ける（全員倒さないと次のウェーブに進まないため）
+    public float _spawnDelay_s;
+
     [Header("雑魚のスポーン位置"), Tooltip("雑魚のスポーン位置")]
     public Transform _birdSpawnPlace;
 
