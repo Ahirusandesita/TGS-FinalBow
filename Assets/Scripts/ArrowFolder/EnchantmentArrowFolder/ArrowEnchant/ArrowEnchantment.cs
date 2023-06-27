@@ -38,9 +38,6 @@ interface IArrowPlusDamage
 /// </summary>
 public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 {
-
-    private ArrowDelegate[] arrowActions;
-
     #region 変数宣言部
 
     public AudioClip _EnchantSound;
@@ -57,11 +54,11 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// </summary>
     private ArrowEnchantEffect _arrowEnchantEffect;
 
-    private ArrowPassiveEffect _arrowPassiveEffect;
+    private ArrowPassiveEffect _arrowEnchantPassiveEffect;
 
     private ArrowEnchantSound _arrowEnchantSound;
 
-    private ArrowMove _arrowMove;
+    private ArrowMove arrowMove;
     /// <summary>
     /// EnchantmentState型の理想配列を代入する配列
     /// </summary>
@@ -116,6 +113,15 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 
     }
 
+    private void Start()
+    {
+        _arrowEnchant = this.GetComponent<ArrowEnchant>();
+        _arrowEnchantEffect = this.GetComponent<ArrowEnchantEffect>();
+        _arrowEnchantSound = this.GetComponent<ArrowEnchantSound>();
+    }
+
+
+
     /// <summary>
     /// 矢のエンチャント処理を代入する
     /// </summary>
@@ -130,36 +136,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
             return;
         }
 
-        _arrowPassiveEffect = arrow.EnchantArrowPassiveEffect;
-        _arrowMove = arrow.EnchantArrowMove;
-
-        //Arrowクラスのデリゲートに代入する処理のActionデリゲート
-        Action<
-            Arrow.ArrowEnchantmentDelegateMethod,
-            Arrow.ArrowEffectDelegateMethod,
-            Arrow.ArrowEffectDelegateMethod,
-            Arrow.ArrowEffectDestroyDelegateMethod,
-            Arrow.ArrowEnchantSoundDeletgateMethod,
-            Arrow.MoveDelegateMethod> ArrowEnchant = (
-                arrowEnchantMethod,
-                arrowEffectMethod,
-                arrowPassiveEffectMethod,
-                arrowPassiveEffectDestroyMethod,
-                arrowEnchantSoundMethod,
-                arrowMoveMethod) =>
-        {
-            arrow._EventArrow = arrowEnchantMethod;
-            arrow._EventArrowEffect = arrowEffectMethod;
-            arrow._EventArrowPassiveEffect = arrowPassiveEffectMethod;
-            arrow._EventArrowEffectPassiveDestroy = arrowPassiveEffectDestroyMethod;
-            arrow._ArrowEnchantSound = arrowEnchantSoundMethod;
-
-            //移動を更新するか
-            if (needMoveChenge)
-            {
-                arrow._MoveArrow = arrowMoveMethod;
-            }
-        };
+        _arrowEnchantPassiveEffect = arrow.EnchantArrowPassiveEffect;
+        arrowMove = arrow.EnchantArrowMove;
 
         //取得したEnchantのEnumを掛け合わせて代入
         EnchantmentEnum.EnchantmentState enchantState = EnchantmentStateSetting(enchantmentState);
@@ -175,155 +153,10 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         //矢にEnumをセット
         arrow.SetEnchantState(enchantState);
 
-        ArrowEnchant(
-        arrowActions[(int)enchantState].a,
-        arrowActions[(int)enchantmentState].b,
-        arrowActions[(int)enchantmentState].c,
-        arrowActions[(int)enchantmentState].d,
-        arrowActions[(int)enchantmentState].e,
-        arrowActions[(int)enchantmentState].f
-        );   
+        EnchantmentPreparation(enchantState, arrow, needMoveChenge);
+
     }
 
-    private void Start()
-    {
-        _arrowEnchant = this.GetComponent<ArrowEnchant>();
-        _arrowEnchantEffect = this.GetComponent<ArrowEnchantEffect>();
-        _arrowEnchantSound = this.GetComponent<ArrowEnchantSound>();
-
-        //エンチャントの配列インスタンス
-        arrowActions = new ArrowDelegate[]
-        {
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Nomal),
-                new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Nomal),
-                new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_Nomal),
-                new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_Nomal),
-                new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Nomal),
-                new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_Nomal)
-                    ),
-            new ArrowDelegate(
-                 new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Bomb),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Bomb),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_Bomb),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_Bomb),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Bomb),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_Bomb)
-                ),
-            new ArrowDelegate(
-                 new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Thunder),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Thunder),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_Thunder),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_Thunder),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Thunder),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_Thunder)
-                    ),
-            new ArrowDelegate(
-                 new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_KnockBack),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_KnockBack),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_KnockBack),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_KnockBack),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBack),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_KnockBack)
-            ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Homing),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Homing),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_Homing),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_Homing),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Homing),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_Homing)
-                ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Penetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Penetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_Penetrate),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_Penetrate),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Penetrate),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_Penetrate)
-                ),
-            new ArrowDelegate(
-                 new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_BombThunder),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_BombThunder),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_BombThunder),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_BombThunder),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombThunder),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_BombThunder)
-                    ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_BombKnockBack),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_BombKnockBack),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_BombKnockBack),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_BombKnockBack),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombKnockBack),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_BombKnockBack)
-                ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_BombHoming),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_BombHoming),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_BombHoming),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_BombHoming),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombHoming),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_BombHoming)
-                ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_BombPenetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_BombPenetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_BombPenetrate),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_BombPenetrate),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombPenetrate),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_BombPenetrate)
-                ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_ThunderKnockBack),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_ThunderKnockBack),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_ThunderKnockBack),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_ThunderKnockBack),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderKnockBack),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_ThunderKnockBack)
-                ),
-            new ArrowDelegate(
-                 new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_ThunderHoming),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_ThunderHoming),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_ThunderHoming),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_ThunderHoming),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderHoming),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_ThunderHoming)
-                ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_ThunderPenetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_ThunderPenetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_ThunderPenetrate),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_ThunderPenetrate),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderPenetrate),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_ThunderPenetrate)
-                ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_KnockBackHoming),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_KnockBackHoming),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_KnockBackHoming),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_KnockBackHoming),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBackHoming),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_KnockBackHoming)
-                ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_KnockBackPenetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_KnockBackPenetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_KnockBackPenetrate),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_KnockBackPenetrate),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBackPenetrate),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_KnockBackPenetrate)
-                ),
-            new ArrowDelegate(
-                new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_HomingPenetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_HomingPenetrate),
-                    new Arrow.ArrowEffectDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffect_HomingPenetrate),
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowPassiveEffect.ArrowPassiveEffectDestroy_HomingPenetrate),
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_HomingPenetrate),
-                    new Arrow.MoveDelegateMethod(_arrowMove.ArrowMove_HomingPenetrate)
-                )
-        };
-    }
 
     public void ArrowEnchantPlusDamage()
     {
@@ -386,6 +219,225 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
             _isEnchantments[i] = false;
         }
         _isEnchantments[0] = true;
+    }
+
+
+
+    /// <summary>
+    /// エンチャントを矢に代入する
+    /// </summary>
+    /// <param name="enchantState"></param>
+    /// <param name="arrow"></param>
+    /// <param name="needMoveChenge"></param>
+    private void EnchantmentPreparation(EnchantmentEnum.EnchantmentState enchantState, Arrow arrow, bool needMoveChenge)
+    {
+
+        Action<
+           Arrow.ArrowEnchantmentDelegateMethod,
+           Arrow.ArrowEffectDelegateMethod,
+           Arrow.ArrowEffectDelegateMethod,
+           Arrow.ArrowEffectDestroyDelegateMethod,
+           Arrow.ArrowEnchantSoundDeletgateMethod,
+           Arrow.MoveDelegateMethod> ArrowEnchant = (
+               arrowEnchantMethod,
+               arrowEffectMethod,
+               arrowPassiveEffectMethod,
+               arrowPassiveEffectDestroyMethod,
+               arrowEnchantSoundMethod,
+               arrowMoveMethod) =>
+           {
+               arrow._EventArrow = arrowEnchantMethod;
+               arrow._EventArrowEffect = arrowEffectMethod;
+               arrow._EventArrowPassiveEffect = arrowPassiveEffectMethod;
+               arrow._EventArrowEffectPassiveDestroy = arrowPassiveEffectDestroyMethod;
+               arrow._ArrowEnchantSound = arrowEnchantSoundMethod;
+
+               //移動を更新するか
+               if (needMoveChenge)
+               {
+                   arrow._MoveArrow = arrowMoveMethod;
+               }
+           };
+
+
+        //Enumに合わせて処理を代入していく
+        switch (enchantState)
+        {
+            case EnchantmentEnum.EnchantmentState.nomal:
+                //デリゲート代入用デリゲート変数
+                ArrowEnchant(
+                    //エンチャント処理関数代入
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Nomal),
+                    //エンチャントエフェクト関数代入
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Nomal),
+                    //エンチャントエフェクト削除関数代入
+                    //エンチャント常時発動エフェクト関数代入
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_Nomal),
+                    //エンチャント常時発動エフェクト削除関数代入
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_Nomal),
+
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Nomal),
+                //移動関数代入
+                new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Nomal));
+
+                break;
+
+            //以下やっていることは同じ　Enum対応した関数を代入している
+            case EnchantmentEnum.EnchantmentState.bomb:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Bomb),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Bomb),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_Bomb),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_Bomb),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Bomb),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Bomb));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.thunder:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Thunder),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Thunder),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_Thunder),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_Thunder),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Thunder),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Thunder));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.knockBack:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_KnockBack),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_KnockBack),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_KnockBack),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_KnockBack),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBack),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_KnockBack));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.homing:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Homing),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Homing),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_Homing),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_Homing),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Homing),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Homing));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.penetrate:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Penetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Penetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_Penetrate),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_Penetrate),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Penetrate),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Penetrate));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bombThunder:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_BombThunder),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_BombThunder),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_BombThunder),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_BombThunder),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombThunder),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_BombThunder));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bombKnockBack:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_BombKnockBack),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_BombKnockBack),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_BombKnockBack),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_BombKnockBack),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombKnockBack),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_BombKnockBack));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bombHoming:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_BombHoming),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_BombHoming),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_BombHoming),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_BombHoming),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombHoming),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_BombHoming));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bombPenetrate:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_BombPenetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_BombPenetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_BombPenetrate),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_BombPenetrate),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombPenetrate),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_BombPenetrate));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.thunderKnockBack:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_ThunderKnockBack),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_ThunderKnockBack),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_ThunderKnockBack),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_ThunderKnockBack),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderKnockBack),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_ThunderKnockBack));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.thunderHoming:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_ThunderHoming),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_ThunderHoming),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_ThunderHoming),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_ThunderHoming),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderHoming),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_ThunderHoming));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.thunderPenetrate:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_ThunderPenetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_ThunderPenetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_ThunderPenetrate),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_ThunderPenetrate),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderPenetrate),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_ThunderPenetrate));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.knockBackHoming:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_KnockBackHoming),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_KnockBackHoming),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_KnockBackHoming),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_KnockBackHoming),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBackHoming),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_KnockBackHoming));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.knockBackpenetrate:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_KnockBackPenetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_KnockBackPenetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_KnockBackPenetrate),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_KnockBackPenetrate),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBackPenetrate),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_KnockBackPenetrate));
+                break;
+
+            case EnchantmentEnum.EnchantmentState.homingPenetrate:
+                ArrowEnchant(
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_HomingPenetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_HomingPenetrate),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_HomingPenetrate),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_HomingPenetrate),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_HomingPenetrate),
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_HomingPenetrate));
+                break;
+
+            default:
+                Debug.LogError("存在しない掛け合わせ");
+                break;
+
+        }
     }
 
 }

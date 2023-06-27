@@ -1,8 +1,8 @@
 // --------------------------------------------------------- 
 // FFAFA.cs 
 // 
-// CreateDay: 
-// Creator  : 
+// CreateDay: égÇÌÇ»Ç¢
+// Creator  : égÇÌÇ»Ç¢Å@è¡Ç∑è¡Ç∑
 // --------------------------------------------------------- 
 using System.Collections;
 public class ArrowDelegate
