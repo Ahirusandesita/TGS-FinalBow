@@ -39,13 +39,6 @@ public abstract class BirdMoveBase : MonoBehaviour
     private float _moveAngle = 0f;
 
     private float _time = 0f;
-
-    [Tooltip("このインスタンスが参照を開始するゴール座標リストインデックス")]
-    // ex) ゴールが2種類ある場合、Instance_1 = 0, Instance_2 = 2が設定される
-    public int _spawnedNumber = default;
-
-    [Tooltip("どのウェーブでスポーンしたか")]
-    public WaveType _spawnedWave = default;
     #endregion
 
     #region protected変数
@@ -95,6 +88,16 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("Scaleの変更が完了")]
     protected bool _isChangeScaleComplete = false;
 
+    [Tooltip("このインスタンスが参照を開始するゴール座標リストインデックス")]
+    // ex) ゴールが2種類ある場合、Instance_1 = 0, Instance_2 = 2が設定される
+    protected int _spawnedNumber = default;
+
+    [Tooltip("どのウェーブでスポーンしたか")]
+    protected WaveType _spawnedWave = default;
+
+    [Tooltip("設定されたゴールの数")]
+    protected int _numberOfGoal = default;
+
     [Tooltip("Scaleの加算/減算値")]
     protected readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
 
@@ -143,6 +146,30 @@ public abstract class BirdMoveBase : MonoBehaviour
         get
         {
             return _isChangeScaleComplete;
+        }
+    }
+
+    public int SpawnedNumber
+    {
+        set
+        {
+            _spawnedNumber = value;
+        }
+    }
+
+    public WaveType SpawnedWave
+    {
+        set
+        {
+            _spawnedWave = value;
+        }
+    }
+
+    public int NumberOfGoal
+    {
+        set
+        {
+            _numberOfGoal = value;
         }
     }
 

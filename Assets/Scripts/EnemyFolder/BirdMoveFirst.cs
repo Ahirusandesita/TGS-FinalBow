@@ -19,6 +19,9 @@ public class BirdMoveFirst : BirdMoveBase
     [Tooltip("次の移動完了で処理終了")]
     private bool _isLastMove = default;
 
+    [Tooltip("次のゴール設定の回数")]
+    private int _nextSetGoalCount = 1;  // 初期値1
+
     [Tooltip("攻撃の頻度")]
     private const float ATTACK_INTERVAL_TIME = 2f;
 
@@ -41,7 +44,8 @@ public class BirdMoveFirst : BirdMoveBase
         base.Start();
 
         //SetGoalPositionCentral();
-        SetGoalPosition(_spawnedWave, _spawnedNumber ,howManyTimes: 1);
+        SetGoalPosition(_spawnedWave, _spawnedNumber, howManyTimes: _nextSetGoalCount);
+        _nextSetGoalCount++;
     }
 
 
@@ -107,10 +111,14 @@ public class BirdMoveFirst : BirdMoveBase
 
             // スタート位置とゴール位置の再設定
             _startPosition = _transform.position;
-            SetGoalPosition(_spawnedWave, _spawnedNumber, howManyTimes: 2);
+            SetGoalPosition(_spawnedWave, _spawnedNumber, howManyTimes: _nextSetGoalCount);
+            _nextSetGoalCount++;
 
-            // 次の移動が最後
-            _isLastMove = true;
+            if (_nextSetGoalCount > _numberOfGoal)
+            {
+                // 次の移動が最後
+                _isLastMove = true;
+            }
         }
     }
 }
