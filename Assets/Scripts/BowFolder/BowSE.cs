@@ -5,9 +5,24 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
+
+interface IFBowSE_CallToBow
+{
+    void CallDrawingSE(float drawPowerPercent);
+
+    void CallDrawStart();
+
+    void CallShotSE();
+
+}
+
+interface IFBowSE_CallToAttract
+{
+    void CallItemGetSE();
+}
+
 [RequireComponent(typeof(AudioSource))]
-public class BowSE : MonoBehaviour
+public class BowSE : MonoBehaviour,IFBowSE_CallToBow,IFBowSE_CallToAttract
 {
 
     #region variable 
@@ -18,7 +33,11 @@ public class BowSE : MonoBehaviour
 
     [SerializeField] AudioClip _attractClip = default;
 
+    [SerializeField] AudioClip _attractStartClip = default;
+
     [SerializeField] AudioClip _shotClip = default;
+
+    [SerializeField] AudioClip _getItemClip = default;
 
     [SerializeField] AudioSource _attractSource = default;
 
@@ -27,10 +46,6 @@ public class BowSE : MonoBehaviour
     const int MAX_PERCENT = 1;
 
     const int SE_INDEX_DRAW = 0;
-
-    const int SE_INDEX_ATTRACT = 1;
-
-    const int SE_INDEX_SHOT = 2;
 
     const float SE_LIMIT_LOOP_SPEED = 0.2f;
 
@@ -46,12 +61,14 @@ public class BowSE : MonoBehaviour
     private void Start()
     {
         _myAudio = GetComponent<AudioSource>();
+
+        _attractSource.clip = _attractClip;
     }
 
 
     public void CallDrawingSE(float drawPowerPercent)
     {
-        if (LoopSEControlToPercent(drawPowerPercent,_drawSE_MaxWaitTime, SE_INDEX_DRAW))
+        if (LoopSEControlToPercent(drawPowerPercent, _drawSE_MaxWaitTime, SE_INDEX_DRAW))
         {
             _myAudio.PlayOneShot(_drawingClips[Random.Range(0, _drawingClips.Length)], drawPowerPercent);
 
@@ -65,11 +82,22 @@ public class BowSE : MonoBehaviour
 
     public void CallAttractSE(float attractPowerPercent)
     {
-        if (LoopSEControlToConst(_attractClip.length, SE_INDEX_ATTRACT))
-        {
-            _attractSource.PlayOneShot(_attractClip,attractPowerPercent);
+        _attractSource.volume = attractPowerPercent;
 
+        if (!_attractSource.isPlaying)
+        {
+            _attractSource.Play();
         }
+    }
+
+    public void CallAttractStartSE()
+    {
+        _attractSource.PlayOneShot(_attractStartClip);
+    }
+
+    public void StopAttractSE()
+    {
+        _attractSource.Stop();
     }
 
     public void CallShotSE()
@@ -77,8 +105,12 @@ public class BowSE : MonoBehaviour
         _myAudio.PlayOneShot(_shotClip);
     }
 
+    public void CallItemGetSE()
+    {
+        _myAudio.PlayOneShot(_getItemClip);
+    }
 
-    private bool LoopSEControlToPercent(float loopSpeed,float maxWaitTime, int indexSE)
+    private bool LoopSEControlToPercent(float loopSpeed, float maxWaitTime, int indexSE)
     {
         if (loopSpeed > MAX_PERCENT)
         {

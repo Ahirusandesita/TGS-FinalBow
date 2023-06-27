@@ -343,6 +343,8 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
 
         _bowSE.CallDrawStart();
 
+        _bowSE.CallAttractStartSE();
+
         _arrow = _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, _drawObject.transform.position);
 
         _arrow.transform.rotation = this.transform.rotation;
@@ -360,6 +362,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     private void ShotProcess()
     {
         _bowSE.CallShotSE();
+        _bowSE.StopAttractSE();
 
         _vibe.EndDrawVibe();
 
