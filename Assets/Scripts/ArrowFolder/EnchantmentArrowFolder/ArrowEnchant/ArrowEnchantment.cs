@@ -42,6 +42,9 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 
     public AudioClip _EnchantSound;
 
+    public GameObject TestEnchantGetEffect;
+
+
     /// <summary>
     /// –î‚ÌŒø‰ÊƒNƒ‰ƒX
     /// </summary>
@@ -164,6 +167,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         if(enchantState != _enchantmentStateLast && enchantState != EnchantmentEnum.EnchantmentState.nomal)
         {
             _arrowEnchantSound.ArrowSound_EnchantSound(_EnchantSound);
+            Instantiate(TestEnchantGetEffect, arrow.transform.position, Quaternion.identity);
         }
 
         //‘O‰ñ‚ÌEnum
