@@ -16,7 +16,7 @@ public interface IFPlayerManagerEnchantParameter
 }
 public interface IFPlayerManagerSetArrow
 {
-    void SetArrow(GameObject arrow);
+    void SetArrow(Arrow arrow);
 }
 
 
@@ -146,13 +146,13 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// –î‚ÌƒNƒ‰ƒX‚ðŽæ“¾‚·‚é
     /// </summary>
     /// <param name="arrowObj"></param>
-    public void SetArrow(GameObject arrowObj)
+    public void SetArrow(Arrow arrow)
     {
         if (arrowEnchant == null)
         {
             return;
         }
-        _arrow = arrowObj.GetComponent<Arrow>();
+        _arrow = arrow;
         arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.nomal);
     }
 
