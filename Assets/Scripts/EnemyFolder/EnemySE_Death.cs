@@ -1,20 +1,25 @@
 // --------------------------------------------------------- 
-// AttractSE.cs 
+// EnemySE_Death.cs 
 // 
 // CreateDay: 
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class AttractSE : MonoBehaviour
+public class EnemySE_Death : MonoBehaviour
 {
     #region 変数一覧
-    // 使用するAudioSource
-    AudioSource _myAudio = default;
 
-    // 引き寄せた時のSE
+    // 
     [SerializeField]
-    AudioClip _attractSE = default;
+    private GameObject _AudioObject = default;
+
+    // 使用するAudioSource
+    private AudioSource _myAudio = default;
+
+    // 敵が死んだときのSE
+    [SerializeField]
+    public AudioClip _deathSE = default;
 
     // 再生メソッドが呼ばれた回数　多重を防ぐために使用
     int _playCount = default;
@@ -24,6 +29,7 @@ public class AttractSE : MonoBehaviour
 
     // 次の再生を行うまでの待機時間
     private float _replayTime = default;
+
     #endregion
 
     #region プロパティ
@@ -32,10 +38,9 @@ public class AttractSE : MonoBehaviour
 
     #region メソッド
 
-    private void Start()
+    private void Start ()
     {
-        // 使用するAudioSourceを取得
-        _myAudio = this.GetComponent<AudioSource>();
+        _myAudio = _AudioObject.gameObject.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -44,10 +49,10 @@ public class AttractSE : MonoBehaviour
         _replayTime += Time.deltaTime;
 
         // 再生カウントがある かつ 再生間隔が経過している
-        if(_playCount > 0 && _replayTime > DELAY_TIME)
+        if (_playCount > 0 && _replayTime > DELAY_TIME)
         {
             // SEの再生
-            _myAudio.PlayOneShot(_attractSE);
+            _myAudio.PlayOneShot(_deathSE);
 
             // カウントを０に戻す
             _playCount = 0;
@@ -56,12 +61,24 @@ public class AttractSE : MonoBehaviour
     }
 
     /// <summary>
-    /// 引き寄せた時の音を呼ぶメソッド
+    /// 敵が死んだときのSEを再生するメソッド
     /// </summary>
-    public void PlayAttractSE()
+    public void PlayEnemyDeathSE(Vector3 playPosition)
     {
-        // 再生カウントを増やす
-        _playCount++;
+        // 代入前に実行されるのを防ぐため
+        if(_myAudio != null)
+        {
+            // 再生位置を変更
+            _AudioObject.transform.position = playPosition;
+
+            // 再生カウントを加算
+            _playCount ++;
+        }
+        else
+        {
+            // 何もせずに返す
+            return;
+        }
     }
 
  #endregion
