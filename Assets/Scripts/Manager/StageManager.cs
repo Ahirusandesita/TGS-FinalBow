@@ -24,7 +24,8 @@ interface IStageSpawn
 /// </summary>
 public enum WaveType
 {
-    zakoWave1,
+    zakoWave1_1,
+    zakoWave1_2,
     zakoWave2,
     zakoWave3,
     boss
@@ -47,7 +48,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private int _currentNumberOfObject = default;
 
     [Tooltip("現在のウェーブ数")]
-    private WaveType _waveType = WaveType.zakoWave1;     // 初期値0
+    private WaveType _waveType = WaveType.zakoWave1_1;     // 初期値0
 
 
     public GameObject _bossPrefab;
@@ -105,10 +106,12 @@ public class StageManager : MonoBehaviour, IStageSpawn
                         return;
                 }
 
-                temporaryMove.SpawnedNumber = i;
+                // 呼び出した雑魚の変数に設定
+                temporaryMove.ThisInstanceIndex = i;
                 temporaryMove.SpawnedWave = _waveType;
-                // ゴールの数を設定する
                 temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdGoalPlaces.Count;
+                temporaryMove.LinearMovementSpeed = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._speed;
+                temporaryMove.ReAttackTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._waitTime_s;
             }
         }
         catch (Exception)

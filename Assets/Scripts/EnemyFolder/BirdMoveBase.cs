@@ -63,8 +63,14 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("線形補完の割合")]
     protected float _interpolationRatio = 0f;
 
+    [Tooltip("スタートとゴール間の距離 = 目標移動量")]
+    protected float _startToGoalDistance = default;
+
+    [Tooltip("動いた距離")]
+    protected float _movedDistance = default;
+
     [Tooltip("直線移動のスピード")]
-    protected float _linearMovementSpeed = 0.3f;
+    protected float _linearMovementSpeed = 20f;
 
     [Tooltip("プレイヤーの方向を向く速度")]
     protected float _rotateSpeed = 100f;
@@ -86,17 +92,20 @@ public abstract class BirdMoveBase : MonoBehaviour
     protected WaitForSeconds _changeSizeWait = new WaitForSeconds(0.01f);
 
     [Tooltip("Scaleの変更が完了")]
-    protected bool _isChangeScaleComplete = false;
+    protected bool _isCompleteChangeScale = false;
 
-    [Tooltip("このインスタンスが参照を開始するゴール座標リストインデックス")]
-    // ex) ゴールが2種類ある場合、Instance_1 = 0, Instance_2 = 2が設定される
-    protected int _spawnedNumber = default;
+    [Tooltip("このインスタンスのインデックス")]
+    // ex) 同ウェーブに敵が2体いる場合、Instance_0 = 0, Instance_1 = 1が設定される
+    protected int _thisInstanceIndex = default;
 
     [Tooltip("どのウェーブでスポーンしたか")]
     protected WaveType _spawnedWave = default;
 
     [Tooltip("設定されたゴールの数")]
     protected int _numberOfGoal = default;
+
+    [Tooltip("再び動き出すまでの時間")]
+    protected float _reAttackTime = 10f;
 
     [Tooltip("Scaleの加算/減算値")]
     protected readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
@@ -145,18 +154,24 @@ public abstract class BirdMoveBase : MonoBehaviour
     {
         get
         {
-            return _isChangeScaleComplete;
+            return _isCompleteChangeScale;
         }
     }
 
-    public int SpawnedNumber
+    /// <summary>
+    /// このインスタンスのインデックス
+    /// </summary>
+    public int ThisInstanceIndex
     {
         set
         {
-            _spawnedNumber = value;
+            _thisInstanceIndex = value;
         }
     }
 
+    /// <summary>
+    /// どのウェーブでスポーンしたか
+    /// </summary>
     public WaveType SpawnedWave
     {
         set
@@ -165,11 +180,36 @@ public abstract class BirdMoveBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 設定されたゴールの数
+    /// </summary>
     public int NumberOfGoal
     {
         set
         {
             _numberOfGoal = value;
+        }
+    }
+
+    /// <summary>
+    /// 直線移動のスピード
+    /// </summary>
+    public float LinearMovementSpeed
+    {
+        set
+        {
+            _linearMovementSpeed = value;
+        }
+    }
+
+    /// <summary>
+    /// 再び動き出すまでの時間
+    /// </summary>
+    public float ReAttackTime
+    {
+        set
+        {
+            _reAttackTime = value;
         }
     }
 
@@ -197,14 +237,13 @@ public abstract class BirdMoveBase : MonoBehaviour
             _startPosition = _transform.position;
             _spawn_And_DespawnSize = _transform.localScale / 5f;
             _normalSize = _transform.localScale;    // キャッシュ
-
-            X_Debug.Log(_spawn_And_DespawnSize);
         }
 
         // リセット
         _interpolationRatio = 0f;
         _needDespawn = false;
-        _isChangeScaleComplete = false;
+        _isCompleteChangeScale = false;
+        _movedDistance = 0f;
 
         // スポーン時に大きくする
         StartCoroutine(LargerAtSpawn());
@@ -306,18 +345,21 @@ public abstract class BirdMoveBase : MonoBehaviour
     /// </summary>
     protected virtual void LinearMovement()
     {
-        // 移動が完了したら抜ける
-        if (_interpolationRatio >= 1f)
+        // 移動が完了したら抜ける（実移動量と目標移動量を比較）
+        if (_movedDistance >= _startToGoalDistance)
         {
             X_Debug.Log("鳥の移動完了");
             IsFinishMovement = true;
+            _movedDistance = 0f;
 
             return;
         }
 
-        // 自身の座標を線形補完により更新
-        _interpolationRatio += Time.deltaTime * _linearMovementSpeed;
-        _transform.position = Vector3.Lerp(_startPosition, _goalPosition, _interpolationRatio);
+        // 移動する（移動方向のベクトル * 移動速度）
+        _transform.Translate((_goalPosition - _startPosition).normalized * _linearMovementSpeed * Time.deltaTime, Space.World); 　// 第二引数ないとバグる
+        // 移動量を加算
+        _movedDistance += ((_goalPosition - _startPosition).normalized * _linearMovementSpeed * Time.deltaTime).magnitude;
+
 
         // 進行方向を向く（「目標位置」から「自分の位置」を減算したベクトルの方向を向く）
         // goalPositionだけだとなぜかちょっとずれた
@@ -348,6 +390,7 @@ public abstract class BirdMoveBase : MonoBehaviour
         try
         {
             _goalPosition = _stageManager._enemySpawnerTable._scriptableWaveEnemy[(int)zakoWaveNumber]._enemysSpawner[spawnedNumber]._birdGoalPlaces[howManyTimes - 1].position;
+            _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
         }
         catch (Exception)
         {
@@ -401,7 +444,7 @@ public abstract class BirdMoveBase : MonoBehaviour
             yield return _changeSizeWait;
         }
 
-        _isChangeScaleComplete = true;
+        _isCompleteChangeScale = true;
 
         yield break;
     }
