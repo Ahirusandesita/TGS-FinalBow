@@ -7,6 +7,23 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
+/// <summary>
+/// 敵の動きの種類
+/// </summary>
+public enum MoveType
+{
+    /// <summary>
+    /// 直線移動
+    /// </summary>
+    linear,
+    /// <summary>
+    /// 曲線移動
+    /// </summary>
+    curve
+}
+
+
 /// <summary>
 /// 敵のスポナーを設定して保存するクラス
 /// </summary>
@@ -29,6 +46,9 @@ public class WaveEnemyInformation
 {
     [Tooltip("ウェーブ名")]
     public string _wave;
+
+    [Tooltip("動きの種類")]
+    public MoveType _moveType;
 
     public List<EnemySpawnerInformation> _enemysSpawner = new List<EnemySpawnerInformation>();
 }

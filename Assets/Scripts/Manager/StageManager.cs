@@ -84,28 +84,31 @@ public class StageManager : MonoBehaviour, IStageSpawn
                     _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdSpawnPlace.position).gameObject;
                 temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
-                switch (_waveType)
+                BirdMoveBase temporaryMove;
+
+                switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._moveType)
                 {
-                    case WaveType.zakoWave1:
+                    case MoveType.linear:
                         //呼び出した雑魚にコンポーネントを付与
-                        BirdMoveBase temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
-                        temporaryMove._spawnedNumber = i;
-                        temporaryMove._spawnedWave = _waveType;
+                        temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
 
                         break;
 
-                    case WaveType.zakoWave2:
-                        temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
-                        temporaryMove._spawnedNumber = i;
-                        temporaryMove._spawnedWave = _waveType;
+                    case MoveType.curve:
+                        temporaryMove = temporaryObject.AddComponent<BirdMoveSecond>();
 
                         break;
 
                     default:
-                        temporaryObject.AddComponent<BirdMoveSecond>();
+                        temporaryMove = null;
 
-                        break;
+                        return;
                 }
+
+                temporaryMove.SpawnedNumber = i;
+                temporaryMove.SpawnedWave = _waveType;
+                // ゴールの数を設定する
+                temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdGoalPlaces.Count;
             }
         }
         catch (Exception)
@@ -143,7 +146,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// <returns></returns>
     private IEnumerator GameStart()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         Spawn();
     }
