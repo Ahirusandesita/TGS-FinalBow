@@ -52,35 +52,59 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #region ノーマルで使用している変数
 
+    // 矢が向いている方向ベクトル
     private Vector3 _arrowVector = default;
+
+    // 矢の移動量　各軸方向ごとの移動量を代入する
+    private Vector3 _moveValue = default;
+
+    // 矢の水平方向への移動速度
     private float _arrowSpeed_Horizontal = default;
+
+    // 矢のＸ軸方向への移動速度
     private float _arrowSpeed_X = default;
+
+    // 矢のＹ軸方向への移動速度
     private float _arrowSpeed_Y = default;
+
+    // 矢のＺ軸方向への移動速度
     private float _arrowSpeed_Z = default;
+
+    // 最大の移動距離　速度に応じて変化する
     private float _maxRange = default;
+
+    // 現在の移動距離
+    private float _nowRange = default;
+
+    // 矢の水平方向への移動速度の減衰率
+    private float _nowSpeedValue = default;
+
+    // 矢の降下する速度　_arrowSpeed_Y に加算する
+    private float _addGravity = default;
+
+    // 設定が終わったかどうか判定するフラグ
     private bool _endSetting = false;
 
 
-    private float _nowRange = default;
-    private Vector3 _moveValue = default;
-    private float _nowSpeedValue = default;
-    private float _addGravity = default;
 
+    /***  ここから下　定数  ***/
 
-
-    // ここから下　定数
+    // 重力加速度　大きいほど降下するのが早くなる
     [Tooltip("重力加速度　大きいほど降下するのが早くなる　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
     private float GRAVITY = -50f;
 
+    // 矢の射程を決める値　射程が長いほど速度減衰が少ない
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"),SerializeField] //デバッグ用
     private float SPEED_TO_RANGE_COEFFICIENT_NORMAL = 15f;
 
+    // 矢の射程を決める値　射程が長いほど速度減衰が少ない
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
     private float SPEED_TO_RANGE_COEFFICIENT_THUNDER = 30f;
 
-    // 速度減衰の元値　現在速度
+    // 速度減衰の元値　現在速度 = STANDARD_SPEED_VALUE - 減衰率
     private const float STANDARD_SPEED_VALUE = 1f;
 
+    // 最大落下速度　落下速度が加速する頂点　これより速くは落下しない
     [Tooltip("最大落下速度　落下速度が加速する頂点　これより速くは落下しない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
     private float TERMINAL_VELOCITY = 100f;
 
