@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _EnchantSound: {fileID: 8300000, guid: 240c9f89b5683ca4da4c1bd714d3f589, type: 3}
+  TestEnchantGetEffect: {fileID: 0}
 --- !u!114 &5778584847393236417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +74,7 @@ MonoBehaviour:
   _homingDamage: 20
   _penetrateDamage: 20
   _limitAddDamage: 10
+  _headShotDamageMultiplier: 1.5
 --- !u!114 &5778584847393236416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,22 +111,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d01f897314faf4cb304575363aeda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nomalSound: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
-  _bombSound: {fileID: 8300000, guid: 877ecc06b811d8c49b3c0efa170465ed, type: 3}
-  _thunderSound: {fileID: 0}
-  _knockBackSound: {fileID: 0}
-  _homingSound: {fileID: 0}
+  _nomalSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
+  _bombSound: {fileID: 8300000, guid: 8b8d1322ba20531418e588ea07a92273, type: 3}
+  _thunderSound: {fileID: 8300000, guid: a4fd03749e40998499518e636a8253ba, type: 3}
+  _knockBackSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
+  _homingSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
   _penetrateSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
-  _bombThunderSound: {fileID: 0}
-  _bombKnockBackSound: {fileID: 0}
-  _bombHomingSound: {fileID: 0}
-  _bombPenetrateSound: {fileID: 0}
-  _thunderKnockBackSound: {fileID: 0}
-  _thunderHomingSound: {fileID: 0}
-  _thunderPenetrateSound: {fileID: 0}
-  _knockBackHomingSound: {fileID: 0}
-  _knockBackPenetrateSound: {fileID: 0}
-  _homingPenetrateSound: {fileID: 0}
+  _bombThunderSound: {fileID: 8300000, guid: 8b8d1322ba20531418e588ea07a92273, type: 3}
+  _bombKnockBackSound: {fileID: 8300000, guid: 8b8d1322ba20531418e588ea07a92273, type: 3}
+  _bombHomingSound: {fileID: 8300000, guid: 8b8d1322ba20531418e588ea07a92273, type: 3}
+  _bombPenetrateSound: {fileID: 8300000, guid: 8b8d1322ba20531418e588ea07a92273, type: 3}
+  _thunderKnockBackSound: {fileID: 8300000, guid: a4fd03749e40998499518e636a8253ba, type: 3}
+  _thunderHomingSound: {fileID: 8300000, guid: a4fd03749e40998499518e636a8253ba, type: 3}
+  _thunderPenetrateSound: {fileID: 8300000, guid: a4fd03749e40998499518e636a8253ba, type: 3}
+  _knockBackHomingSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
+  _knockBackPenetrateSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
+  _homingPenetrateSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
 --- !u!82 &4673029608373597619
 AudioSource:
   m_ObjectHideFlags: 0
