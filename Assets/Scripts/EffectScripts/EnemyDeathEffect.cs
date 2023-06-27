@@ -1,8 +1,8 @@
 // --------------------------------------------------------- 
 // EnemyDeathEffect.cs 
 // 
-// CreateDay: 
-// Creator  : 
+// CreateDay: 2023/06/23
+// Creator  : Nomura
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
