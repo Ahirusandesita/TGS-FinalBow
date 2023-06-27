@@ -9811,7 +9811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4631137237186101843
 Transform:
   m_ObjectHideFlags: 0
@@ -9820,7 +9820,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4631137237186101836}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.94, z: 0}
+  m_LocalPosition: {x: -1.15, y: 1.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10017,7 +10017,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.9496783, g: 0.9811321, b: 0.5322179, a: 1}
-      maxColor: {r: 0, g: 1, b: 0.4262998, a: 0.5686275}
+      maxColor: {r: 0.56037736, g: 0.9782456, b: 1, a: 0.5686275}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10079,7 +10079,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.3
+      scalar: 1.2
       minScalar: 0.3
       maxCurve:
         serializedVersion: 2
@@ -19679,11 +19679,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 666494892833029905, guid: bbb653a8a51f0b24197650b47e36db09, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 666494892833029905, guid: bbb653a8a51f0b24197650b47e36db09, type: 3}
       propertyPath: InitialModule.startRotation.scalar
-      value: 0
+      value: 1.5707963
       objectReference: {fileID: 0}
     - target: {fileID: 666494892833029905, guid: bbb653a8a51f0b24197650b47e36db09, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -19698,8 +19698,12 @@ PrefabInstance:
       value: 0.5442506
       objectReference: {fileID: 0}
     - target: {fileID: 666494892833029905, guid: bbb653a8a51f0b24197650b47e36db09, type: 3}
-      propertyPath: InitialModule.startRotation.minScalar
+      propertyPath: InitialModule.startRotationY.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666494892833029905, guid: bbb653a8a51f0b24197650b47e36db09, type: 3}
+      propertyPath: InitialModule.startRotation.minScalar
+      value: 1.5707963
       objectReference: {fileID: 0}
     - target: {fileID: 666494892833029906, guid: bbb653a8a51f0b24197650b47e36db09, type: 3}
       propertyPath: m_Flip.x
