@@ -59,6 +59,12 @@ public class WaveEnemyInformation
 [System.Serializable]
 public class EnemySpawnerInformation
 {
+    [Header("移動スピード（Linearのみ）"), Tooltip("直線移動のスピード")]
+    public float _speed;
+
+    [Header("停止して攻撃する秒数（Linearのみ）"), Tooltip("停止して攻撃する秒数")]
+    public float _waitTime_s;
+
     [Header("雑魚のスポーン位置"), Tooltip("雑魚のスポーン位置")]
     public Transform _birdSpawnPlace;
 

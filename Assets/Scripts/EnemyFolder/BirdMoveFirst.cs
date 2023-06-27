@@ -24,9 +24,6 @@ public class BirdMoveFirst : BirdMoveBase
 
     [Tooltip("攻撃の頻度")]
     private const float ATTACK_INTERVAL_TIME = 2f;
-
-    [Tooltip("再び動き出すまでの時間")]
-    private const float RE_ATTACK_TIME = 10f;
     #endregion
 
 
@@ -44,8 +41,19 @@ public class BirdMoveFirst : BirdMoveBase
         base.Start();
 
         //SetGoalPositionCentral();
-        SetGoalPosition(_spawnedWave, _spawnedNumber, howManyTimes: _nextSetGoalCount);
+        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
         _nextSetGoalCount++;
+
+        // もしInspectorで設定ミスがあったら仮設定する
+        if (_linearMovementSpeed == 0f)
+        {
+            _linearMovementSpeed = 20;
+        }
+
+        if (_reAttackTime == 0f)
+        {
+            _reAttackTime = 5f;
+        }
     }
 
 
@@ -98,8 +106,18 @@ public class BirdMoveFirst : BirdMoveBase
 
         // 再移動のためのリセット処理（攻撃がスタートしてから一定時間後に実行）-----------------------------------------------
 
-        if (_currentTime2 >= RE_ATTACK_TIME)
+        // 攻撃が終了
+        if (_currentTime2 >= _reAttackTime)
         {
+            // 設定されたゴールの数が1のとき AND すべてのゴールが設定されたら、次の行動が最後
+            if (_numberOfGoal == 1 && _nextSetGoalCount > _numberOfGoal)
+            {
+                // 次の移動が最後
+                _isLastMove = true;
+
+                return;
+            }
+
             // 再移動前に正面を向く
             if (_transform.rotation != FRONT_ANGLE)
             {
@@ -111,14 +129,26 @@ public class BirdMoveFirst : BirdMoveBase
 
             // スタート位置とゴール位置の再設定
             _startPosition = _transform.position;
-            SetGoalPosition(_spawnedWave, _spawnedNumber, howManyTimes: _nextSetGoalCount);
+            SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
             _nextSetGoalCount++;
 
+            // すべてのゴールが設定されたら、次の行動が最後
             if (_nextSetGoalCount > _numberOfGoal)
             {
-                // 次の移動が最後
                 _isLastMove = true;
             }
+
+            _currentTime2 = 0f;
+        }
+    }
+
+    private void IncrementGoalCount()
+    {
+        _nextSetGoalCount++;
+
+        if (_nextSetGoalCount > _numberOfGoal)
+        {
+            _isLastMove = true;
         }
     }
 }
