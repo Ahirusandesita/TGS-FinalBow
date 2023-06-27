@@ -22,7 +22,12 @@ interface IArrowMove
 /// 矢
 /// </summary>
 public class Arrow : MonoBehaviour,IArrowMove
-{ 
+{
+
+
+    public ArrowMove EnchantArrowMove { private set; get; }
+    public ArrowPassiveEffect EnchantArrowPassiveEffect { private set; get; }
+
     /// <summary>
     /// 矢のエフェクト用デリゲート
     /// </summary>
@@ -172,13 +177,16 @@ public class Arrow : MonoBehaviour,IArrowMove
     private void Start()
     {
 
+        EnchantArrowMove = this.GetComponent<ArrowMove>();
+        EnchantArrowPassiveEffect = this.GetComponent<ArrowPassiveEffect>();
+
 
         _playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
         _myTransform = gameObject.transform;
 
         //矢のクラスをゲットコンポーネントする
-        _arrowMove = this.gameObject.GetComponent<ArrowMove>();
+        _arrowMove = EnchantArrowMove;
 
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
 
