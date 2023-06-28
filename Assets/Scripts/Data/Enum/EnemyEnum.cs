@@ -28,5 +28,7 @@ public enum EnemyType
     normalBird,
     bombBird,
     penetrateBird,
-    thunderBird
+    thunderBird,
+    bombBird2,
+    thunderBird2,
 }

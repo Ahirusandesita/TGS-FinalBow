@@ -1323,7 +1323,7 @@ GameObject:
   - component: {fileID: -7282001897792379756}
   - component: {fileID: -5469327859998643783}
   m_Layer: 6
-  m_Name: Phoenix_PBR bomb
+  m_Name: Phoenix_PBR bomb2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1338,7 +1338,7 @@ Transform:
   m_GameObject: {fileID: 5144204438039530195}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5144204438039303839}
@@ -1393,7 +1393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2275d0a137bac824398e3d0e633f868e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 30
+  _maxHp: 80
 --- !u!114 &-7282001897792379756
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -158,7 +158,17 @@ public class StageManager : MonoBehaviour, IStageSpawn
                     break;
 
                 case EnemyType.thunderBird:
-                    selectedPrefab = PoolEnum.PoolObjectType.ThunderBird;
+                    selectedPrefab = PoolEnum.PoolObjectType.thunderBird;
+
+                    break;
+
+                case EnemyType.bombBird2:
+                    selectedPrefab = PoolEnum.PoolObjectType.bombBird2;
+
+                    break;
+
+                case EnemyType.thunderBird2:
+                    selectedPrefab = PoolEnum.PoolObjectType.thunderBird2;
 
                     break;
 

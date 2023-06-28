@@ -41,11 +41,6 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     /// </summary>
     protected readonly float _timeOutTime = 0.5f;
 
-    /// <summary>
-    /// ‰ŠúHP
-    /// </summary>
-    protected readonly int _setHP = 30;
-
     protected bool _isParalysis = false;
 
     protected override void Start()
@@ -70,7 +65,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     protected virtual void OnEnable()
     {
         // HP‚ÌÄİ’è
-        _hp = _setHP;
+        _hp = _maxHp;
     }
 
 

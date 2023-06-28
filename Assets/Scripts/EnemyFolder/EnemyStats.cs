@@ -24,8 +24,13 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
 
     protected Transform _myTransform = default;
 
-    [Tooltip("Še“G‚ÌHP")]
-    protected int _hp = default;
+    [SerializeField, Tooltip("Še“G‚ÌHP")]
+    protected int _maxHp = default;
+
+    /// <summary>
+    /// ‰ŠúHP
+    /// </summary>
+    protected int _hp;
     #endregion
 
     protected virtual void Start()

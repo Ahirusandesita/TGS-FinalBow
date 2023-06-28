@@ -60,6 +60,14 @@ public class PoolEnum : MonoBehaviour
         /// <summary>
         /// 雷ザコ鳥
         /// </summary>
-        ThunderBird,
+        thunderBird,
+        /// <summary>
+        /// でかい爆弾ザコ鳥
+        /// </summary>
+        bombBird2,
+        /// <summary>
+        /// でかい雷ザコ鳥
+        /// </summary>
+        thunderBird2,
     }
 }
