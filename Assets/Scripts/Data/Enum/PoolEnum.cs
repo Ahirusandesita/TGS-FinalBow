@@ -64,10 +64,10 @@ public class PoolEnum : MonoBehaviour
         /// <summary>
         /// でかい爆弾ザコ鳥
         /// </summary>
-        bombBird2,
+        bombBirdBig,
         /// <summary>
         /// でかい雷ザコ鳥
         /// </summary>
-        thunderBird2,
+        thunderBirdBig,
     }
 }
