@@ -85,17 +85,21 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     /***  ここから下　定数  ***/
 
-    // 重力加速度　大きいほど降下するのが早くなる
+    // 通常時の重力加速度　絶対値が大きいほど降下するのが早くなる
     [Tooltip("重力加速度　大きいほど降下するのが早くなる　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
-    private float GRAVITY = -50f;
+    private float GRAVITY_NORMAL = -50f;
 
-    // 矢の射程を決める値　射程が長いほど速度減衰が少ない
+    // サンダーの時の重力加速度　絶対値が大きいほど降下するのが早くなる
+    [Tooltip("重力加速度　大きいほど降下するのが早くなる　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
+    private float GRAVITY_THUNDER = -10f;
+
+    // 通常時の射程倍率　射程が長いほど速度減衰が少ない
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"),SerializeField] //デバッグ用
-    private float SPEED_TO_RANGE_COEFFICIENT_NORMAL = 15f;
+    private float SPEED_TO_RANGE_COEFFICIENT_NORMAL = 7f;
 
-    // 矢の射程を決める値　射程が長いほど速度減衰が少ない
+    // サンダーの時の射程倍率　射程が長いほど速度減衰が少ない
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
-    private float SPEED_TO_RANGE_COEFFICIENT_THUNDER = 30f;
+    private float SPEED_TO_RANGE_COEFFICIENT_THUNDER = 100f;
 
     // 速度減衰の元値　現在速度 = STANDARD_SPEED_VALUE - 減衰率
     private const float STANDARD_SPEED_VALUE = 1f;
@@ -159,6 +163,22 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         {
             // 通常の空気抵抗を返す
             return SPEED_TO_RANGE_COEFFICIENT_NORMAL;
+        }
+    }
+
+    
+    private float GravityValue(bool isThunder)
+    {
+        // サンダーかどうか判定
+        if (isThunder)
+        {
+            // サンダーの重力加速度を返す
+            return GRAVITY_THUNDER;
+        }
+        else
+        {
+            // 通常の重力加速度を返す
+            return GRAVITY_NORMAL;
         }
     }
 
@@ -283,12 +303,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #endregion
 
-
-
-    #endregion
-
-
-
     #region ノーマルの挙動
 
     /// <summary>
@@ -327,7 +341,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
             _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
 
             // 重力による下方向への移動量を算出
-            _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
+            _addGravity = MathN.Clamp_max( _addGravity + GravityValue(isThunder) * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
         }
     }
 
@@ -428,5 +442,5 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #endregion
 
-
+    #endregion
 }
