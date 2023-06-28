@@ -62,6 +62,10 @@ public class ArrowEnchant : MonoBehaviour
     /// </summary>
     EnemyStats stats = default;
 
+    /// <summary>
+    /// ヘッドショット時の反応のクラス
+    /// </summary>
+    HeadShotEffects headShot = default;
     enum Enchant 
     {
         thunder,
@@ -70,8 +74,11 @@ public class ArrowEnchant : MonoBehaviour
         penetrate,
         none,
     }
-    
-    
+
+    private void Start()
+    {
+        headShot = GetComponent<HeadShotEffects>();
+    }
 
     public void ArrowEnchantment_Normal(GameObject hitObj,EnchantmentEnum.EnchantmentState state)
     {
@@ -267,6 +274,9 @@ public class ArrowEnchant : MonoBehaviour
         // ヘッドショットかどうか
         if (hitObj.CompareTag(HeadTagName))
         {
+            // Effect
+            headShot.PlayHeadShotEffect(hitObj.transform.position);
+
             // 倍率ダメージ切り捨て
             damage = Mathf.FloorToInt(damage * _headShotDamageMultiplier);
 
