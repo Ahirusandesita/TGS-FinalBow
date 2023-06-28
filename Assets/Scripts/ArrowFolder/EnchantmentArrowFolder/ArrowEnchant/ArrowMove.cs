@@ -264,19 +264,21 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
             // 設定用メソッドを実行
             NormalSetting(arrowTransform, arrowSpeed, isThunder);
         }
+        else
+        {
+            // 水平方向への移動速度の減衰率を計算　
+            _nowSpeedValue = MathN.Clamp_min( STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO );
 
-        // 水平方向への移動速度の減衰率を計算　
-        _nowSpeedValue = MathN.Clamp_min( STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO );
+            _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);
+            _moveValue.y = (_arrowSpeed_Y + _addGravity);
+            _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);
 
-        _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);
-        _moveValue.y = (_arrowSpeed_Y + _addGravity);
-        _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);
+            arrowTransform.position +=  _moveValue * Time.deltaTime ;
+            arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
 
-        arrowTransform.position +=  _moveValue * Time.deltaTime ;
-        arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
-
-        _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
-        _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
+            _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
+            _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
+        }
     }
 
     /// <summary>
