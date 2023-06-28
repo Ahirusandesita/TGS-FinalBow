@@ -98,7 +98,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// </summary>
     private EnchantmentEnum.EnchantmentState[,] _enchantPreparationNumbers =
     {
-        {EnchantmentEnum.EnchantmentState.nomal  ,EnchantmentEnum.EnchantmentState.bomb   ,EnchantmentEnum.EnchantmentState.thunder    ,EnchantmentEnum.EnchantmentState.knockBack       ,EnchantmentEnum.EnchantmentState.homing         ,EnchantmentEnum.EnchantmentState.penetrate          },
+        {EnchantmentEnum.EnchantmentState.normal  ,EnchantmentEnum.EnchantmentState.bomb   ,EnchantmentEnum.EnchantmentState.thunder    ,EnchantmentEnum.EnchantmentState.knockBack       ,EnchantmentEnum.EnchantmentState.homing         ,EnchantmentEnum.EnchantmentState.penetrate          },
         {EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.bombThunder,EnchantmentEnum.EnchantmentState.bombKnockBack   ,EnchantmentEnum.EnchantmentState.bombHoming     ,EnchantmentEnum.EnchantmentState.bombPenetrate      },
         {EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing    ,EnchantmentEnum.EnchantmentState.thunderKnockBack,EnchantmentEnum.EnchantmentState.thunderHoming  ,EnchantmentEnum.EnchantmentState.thunderPenetrate   },
         {EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing    ,EnchantmentEnum.EnchantmentState.nothing         ,EnchantmentEnum.EnchantmentState.knockBackHoming,EnchantmentEnum.EnchantmentState.knockBackpenetrate },
@@ -110,7 +110,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// <summary>
     /// 前回のエンチャントを代入する変数
     /// </summary>
-    private EnchantmentEnum.EnchantmentState _enchantmentStateLast = EnchantmentEnum.EnchantmentState.nomal;
+    private EnchantmentEnum.EnchantmentState _enchantmentStateLast = EnchantmentEnum.EnchantmentState.normal;
 
     #endregion
 
@@ -162,7 +162,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         EnchantmentEnum.EnchantmentState enchantState = EnchantmentStateSetting(enchantmentState);
 
         //前回のエンチャントと現在のエンチャントが違うとき＆現在のエンチャントがノーマルではないとき
-        if (enchantState != _enchantmentStateLast && enchantState != EnchantmentEnum.EnchantmentState.nomal)
+        if (enchantState != _enchantmentStateLast && enchantState != EnchantmentEnum.EnchantmentState.normal)
         {
             _arrowEnchantSound.ArrowSound_EnchantSound(_EnchantSound);
             Instantiate(TestEnchantGetEffect, arrow.transform.position, Quaternion.identity);
@@ -249,7 +249,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         //エンチャントが存在していなければNormalにする
         if (!exitisEnchantment)
         {
-            _enchantmentStateNow = EnchantmentEnum.EnchantmentState.nomal;
+            _enchantmentStateNow = EnchantmentEnum.EnchantmentState.normal;
         }
         return _enchantmentStateNow;
     }
@@ -294,22 +294,22 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         //Enumに合わせて処理を代入していく
         switch (enchantState)
         {
-            case EnchantmentEnum.EnchantmentState.nomal:
+            case EnchantmentEnum.EnchantmentState.normal:
                 //デリゲート代入用デリゲート変数
                 ArrowEnchant(
                     //エンチャント処理関数代入
-                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Nomal),
+                    new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Normal),
                     //エンチャントエフェクト関数代入
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Nomal),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Normal),
                     //エンチャントエフェクト削除関数代入
                     //エンチャント常時発動エフェクト関数代入
-                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_Nomal),
+                    new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_Normal),
                     //エンチャント常時発動エフェクト削除関数代入
-                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_Nomal),
+                    new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_Normal),
 
-                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Nomal),
+                    new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Normal),
                 //移動関数代入
-                new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Nomal));
+                new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Normal));
 
                 break;
 

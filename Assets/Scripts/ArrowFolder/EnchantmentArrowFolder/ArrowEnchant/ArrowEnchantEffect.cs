@@ -20,7 +20,7 @@ public class ArrowEnchantEffect : MonoBehaviour
     }
 
 
-    public void ArrowEffect_Nomal(Transform spawnPosition)
+    public void ArrowEffect_Normal(Transform spawnPosition)
     {
         EffectCall(EffectPoolEnum.EffectPoolState.nomal, spawnPosition);
     }

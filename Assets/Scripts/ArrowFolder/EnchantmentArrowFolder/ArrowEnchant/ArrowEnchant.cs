@@ -73,7 +73,7 @@ public class ArrowEnchant : MonoBehaviour
     
     
 
-    public void ArrowEnchantment_Nomal(GameObject hitObj,EnchantmentEnum.EnchantmentState state)
+    public void ArrowEnchantment_Normal(GameObject hitObj,EnchantmentEnum.EnchantmentState state)
     {
         stats = NormalHitDamage(hitObj,_normalDamage + addDamage);
     }

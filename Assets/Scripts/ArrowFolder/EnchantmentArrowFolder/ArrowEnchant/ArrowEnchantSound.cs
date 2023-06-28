@@ -35,7 +35,7 @@ public class ArrowEnchantSound : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
     }
-    public void ArrowSound_Nomal(AudioSource spawnAudioSource)
+    public void ArrowSound_Normal(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
         spawnAudioSource.PlayOneShot(_nomalSound);

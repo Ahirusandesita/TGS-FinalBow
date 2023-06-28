@@ -8,7 +8,7 @@ public static class EnchantStateModel
 {
     private static EnchantmentEnum.EnchantmentState[] _arrowStateModels =
     {
-        EnchantmentEnum.EnchantmentState.nomal,
+        EnchantmentEnum.EnchantmentState.normal,
         EnchantmentEnum.EnchantmentState.bomb,
         EnchantmentEnum.EnchantmentState.thunder,
         EnchantmentEnum.EnchantmentState.knockBack,

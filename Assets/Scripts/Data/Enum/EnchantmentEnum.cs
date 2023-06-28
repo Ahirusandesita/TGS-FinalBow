@@ -7,7 +7,7 @@
 public class EnchantmentEnum
 {
     public enum ItemAttributeState {
-        nomal,
+        normal,
         bomb,
         thunder,
         knockBack,
@@ -19,7 +19,7 @@ public class EnchantmentEnum
     };
     public enum EnchantmentState
     {
-        nomal,
+        normal,
         bomb,
         thunder,
         knockBack,

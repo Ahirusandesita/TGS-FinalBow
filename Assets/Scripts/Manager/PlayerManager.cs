@@ -134,7 +134,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// <param name="aim"></param>
     public void ShotArrow(Vector3 aim)
     {
-        arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.nomal));
+        arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
         _arrow.ArrowMoveStart();
         arrowEnchant.EnchantmentStateReset();
@@ -157,7 +157,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         _arrowEnchant = arrow;
         _arrowMove = arrow;
         _arrow = arrow;
-        arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.nomal);
+        arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.normal);
     }
 
     public void SetArrowMoveSpeed(float arrowMoveSpeed)
