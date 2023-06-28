@@ -313,16 +313,17 @@ public abstract class BirdMoveBase : MonoBehaviour
     /// <summary>
     /// –ƒáƒ’†
     /// </summary>
-    protected void Paralysing()
+    protected bool Paralysing()
     {
         if (bird.Get_isParalysis)
         {
             animator.speed = 0;
 
-            return;
+            return true;
         }
 
         animator.speed = 1;
+        return false;
     }
 
     private void Test()

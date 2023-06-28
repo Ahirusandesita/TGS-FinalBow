@@ -62,7 +62,10 @@ public class BirdMoveFirst : BirdMoveBase
     public override void MoveSequence()
     {
         // –ƒáƒó‘Ô‚©”»’è‚·‚éi–ƒáƒ‚¾‚Á‚½‚ç“®‚©‚È‚¢j
-        Paralysing();
+        if (Paralysing())
+        {
+            return;
+        }
 
         _currentTime += Time.deltaTime;
 
