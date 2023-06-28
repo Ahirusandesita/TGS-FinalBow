@@ -24,7 +24,6 @@ interface IArrowEventSetting:IArrowPlusDamage
     /// 矢のエンチャントをリセットする
     /// </summary>
     void EnchantmentStateReset();
-
 }
 
 /// <summary>
@@ -106,12 +105,10 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         {EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing    ,EnchantmentEnum.EnchantmentState.nothing         ,EnchantmentEnum.EnchantmentState.nothing        ,EnchantmentEnum.EnchantmentState.nothing            },
     };
 
-
     /// <summary>
     /// 前回のエンチャントを代入する変数
     /// </summary>
     private EnchantmentEnum.EnchantmentState _enchantmentStateLast = EnchantmentEnum.EnchantmentState.normal;
-
     #endregion
 
 
@@ -263,6 +260,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     private void EnchantmentPreparation(EnchantmentEnum.EnchantmentState enchantState, Arrow arrow, bool needMoveChenge)
     {
 
+        //エンチャントの関数をArrowに代入するためのデリゲート
         Action<
            Arrow.ArrowEnchantmentDelegateMethod,
            Arrow.ArrowEffectDelegateMethod,
@@ -463,12 +461,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_HomingPenetrate),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_HomingPenetrate));
                 break;
-
-            default:
-                Debug.LogError("存在しない掛け合わせ");
-                break;
-
         }
     }
-
 }
