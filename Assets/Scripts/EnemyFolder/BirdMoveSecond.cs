@@ -100,7 +100,11 @@ public class BirdMoveSecond : BirdMoveBase
     // 左行き:下　右行き:上
     public override void MoveSequence()
     {
-            Paralysing();
+        if (Paralysing())
+        {
+            return;
+        }
+
         if (!_needDespawn)
         {
             // 向く処理
@@ -234,6 +238,6 @@ public class BirdMoveSecond : BirdMoveBase
         return _finishMoveValue < _cacheMoveValue;
     }
 
- 
+
     #endregion
 }
