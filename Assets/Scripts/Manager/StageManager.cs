@@ -123,7 +123,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// <summary>
     /// 待機処理
     /// </summary>
-    /// <param name="wait">待機する秒数</param>
     /// <returns></returns>
     private IEnumerator SpawnAndDelay()
     {
@@ -131,8 +130,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
         BirdMoveBase temporaryMove;
 
 
-        // 設定した数だけ雑魚をスポーンさせる
-        for (int i = 0; i < _currentNumberOfObject; i++)
+        // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
+        for (int i = 0; i < _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count; i++)
         {
             // 設定された秒数だけ待機する
             yield return new WaitForSeconds(_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._spawnDelay_s);
