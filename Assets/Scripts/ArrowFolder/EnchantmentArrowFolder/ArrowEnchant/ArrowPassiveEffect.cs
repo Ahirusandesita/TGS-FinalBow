@@ -23,13 +23,13 @@ public class ArrowPassiveEffect : MonoBehaviour
     #endregion
     #region method
 
-    public void ArrowPassiveEffect_Nomal(Transform spawnPosition)
+    public void ArrowPassiveEffect_Normal(Transform spawnPosition)
     {
         //_objectPoosSystem.CallObject(PoolEnum.PoolObjectType.nomal, spawnPosition.position, spawnPosition.rotation);
         PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.nomalPassive);
     }
 
-    public void ArrowPassiveEffectDestroy_Nomal(GameObject arrowObject)
+    public void ArrowPassiveEffectDestroy_Normal(GameObject arrowObject)
     {
         PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.nomalPassive);
     }

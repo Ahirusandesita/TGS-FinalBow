@@ -151,7 +151,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #region イベント設定用メソッド
 
-    public void ArrowMove_Nomal(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
+    public void ArrowMove_Normal(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
 
 
 

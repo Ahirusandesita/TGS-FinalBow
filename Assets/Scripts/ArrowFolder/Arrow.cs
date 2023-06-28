@@ -386,7 +386,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         //矢が移動していない
         _isArrowMove = false;
         _hitObject = default;
-        _enchantState = EnchantmentEnum.EnchantmentState.nomal;
+        _enchantState = EnchantmentEnum.EnchantmentState.normal;
         EventArrow = null;
         EventArrowEffect = null;
         EventArrowEffectDestroy = null;
