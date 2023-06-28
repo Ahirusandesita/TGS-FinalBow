@@ -131,7 +131,7 @@ public class ItemMove : MonoBehaviour
         _attractSE = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<AttractSE>();
 
         // IFBowManager_GetStats‚Ì‘ã“ü
-        _bowManager = GameObject.FindGameObjectWithTag("BowController").GetComponent<IFBowManager_GetStats>();
+        _bowManager = GameObject.FindGameObjectWithTag("BowController").GetComponent<BowManager>();
     }
 
     /// <summary>
