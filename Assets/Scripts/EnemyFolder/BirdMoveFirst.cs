@@ -100,7 +100,7 @@ public class BirdMoveFirst : BirdMoveBase
             }
 
             //@UŒ‚‚ğÀs
-            _birdAttack.NormalAttack(_childSpawner);
+            _birdAttack.NormalAttack(_childSpawner, ConversionToBulletType());
             _currentTime = 0f;
         }
 

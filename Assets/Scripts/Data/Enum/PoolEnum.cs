@@ -1,8 +1,8 @@
 // --------------------------------------------------------- 
-// ArrowPassiveEffect.cs 
+// PoolEnum.cs 
 // 
 // CreateDay: 2023/06/08
-// Creator  : Nomura
+// Creator  : TakayanagiSora
 // --------------------------------------------------------- 
 using UnityEngine;
 
@@ -18,13 +18,21 @@ public class PoolEnum : MonoBehaviour
         /// </summary>
         arrow,
         /// <summary>
-        /// 通常の玉
+        /// 通常の弾
         /// </summary>
         normalBullet,
         /// <summary>
-        /// 火の玉（ボスの攻撃）
+        /// 爆発の弾
         /// </summary>
-        fireBullet,
+        bombBullet,
+        /// <summary>
+        /// 貫通の弾
+        /// </summary>
+        penetrateBullet,
+        /// <summary>
+        /// 電撃の弾
+        /// </summary>
+        thunderBullet,
         /// <summary>
         /// 鳥の雑魚
         /// </summary>
@@ -48,7 +56,7 @@ public class PoolEnum : MonoBehaviour
         /// <summary>
         /// 貫通ザコ鳥
         /// </summary>
-        kantuBird,
+        penetrateBird,
         /// <summary>
         /// 雷ザコ鳥
         /// </summary>

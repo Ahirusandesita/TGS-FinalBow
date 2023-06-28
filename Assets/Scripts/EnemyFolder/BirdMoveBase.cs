@@ -42,6 +42,9 @@ public abstract class BirdMoveBase : MonoBehaviour
     #endregion
 
     #region protected変数
+    [Tooltip("自身の敵の種類")]
+    protected CashObjectInformation _cashObjectInformation = default;
+
     [Tooltip("取得したStageManager")]
     protected StageManager _stageManager = default;
 
@@ -258,6 +261,8 @@ public abstract class BirdMoveBase : MonoBehaviour
         // 子オブジェクトの「SpawnPosition」
         _childSpawner = _transform.GetChild(2).transform;
 
+        _cashObjectInformation = this.GetComponent<CashObjectInformation>();
+
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
     }
 
@@ -447,5 +452,30 @@ public abstract class BirdMoveBase : MonoBehaviour
         _isCompleteChangeScale = true;
 
         yield break;
+    }
+
+    /// <summary>
+    /// 自身の敵の種類から、対応する弾の種類を返す（enum)
+    /// </summary>
+    /// <returns></returns>
+    protected PoolEnum.PoolObjectType ConversionToBulletType()
+    {
+        switch (_cashObjectInformation._myObjectType)
+        {
+            case PoolEnum.PoolObjectType.normalBird:
+                return PoolEnum.PoolObjectType.normalBullet;
+
+            case PoolEnum.PoolObjectType.bombBird:
+                return PoolEnum.PoolObjectType.bombBullet;
+
+            case PoolEnum.PoolObjectType.penetrateBird:
+                return PoolEnum.PoolObjectType.penetrateBullet;
+
+            case PoolEnum.PoolObjectType.ThunderBird:
+                return PoolEnum.PoolObjectType.thunderBullet;
+        }
+
+        // 例外処理
+        return PoolEnum.PoolObjectType.normalBullet;
     }
 }

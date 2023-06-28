@@ -9,22 +9,6 @@ using System.Collections.Generic;
 
 
 /// <summary>
-/// 敵の動きの種類
-/// </summary>
-public enum MoveType
-{
-    /// <summary>
-    /// 直線移動
-    /// </summary>
-    linear,
-    /// <summary>
-    /// 曲線移動
-    /// </summary>
-    curve
-}
-
-
-/// <summary>
 /// 敵のスポナーを設定して保存するクラス
 /// </summary>
 // Assets > Create > Scriptables > CreateEnemySpawnerTableでアセット化
@@ -59,6 +43,9 @@ public class WaveEnemyInformation
 [System.Serializable]
 public class EnemySpawnerInformation
 {
+    [Header("敵の種類"), Tooltip("敵の種類")]
+    public EnemyType _enemyType;
+
     [Header("移動スピード（Linearのみ）"), Tooltip("直線移動のスピード")]
     public float _speed;
 
