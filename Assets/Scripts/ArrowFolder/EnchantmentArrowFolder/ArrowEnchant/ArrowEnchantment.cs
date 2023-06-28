@@ -109,6 +109,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// 前回のエンチャントを代入する変数
     /// </summary>
     private EnchantmentEnum.EnchantmentState _enchantmentStateLast = EnchantmentEnum.EnchantmentState.normal;
+
+    private EnchantmentEnum.EnchantmentState _enchantmentStateNow = EnchantmentEnum.EnchantmentState.normal;
     #endregion
 
 
@@ -227,8 +229,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     {
         //エンチャントが存在しているか
         bool exitisEnchantment = false;
-        //現在のエンチャント
-        EnchantmentEnum.EnchantmentState _enchantmentStateNow = default;
 
         for (int i = 0; i < _isEnchantments.Length - 1; i++)
         {
