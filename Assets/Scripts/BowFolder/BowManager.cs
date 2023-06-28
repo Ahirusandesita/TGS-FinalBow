@@ -382,6 +382,19 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
 
         StartShotArrow(_aim.GetAim());
 
+        // ちゃんと弓引いてなければすぐにデキュー
+        if (GetDrawDistance() < cantShotDistance)
+        {
+            //Destroy(_arrow);
+            _poolSystem.ReturnObject(_arrow);
+
+        }
+        else
+        {
+            // 撃つのでSE鳴らす
+            _bowSE.CallShotSE();
+
+        }
 
         _drawObject.transform.localPosition = _firstDrawObjectPositon;
 
@@ -390,14 +403,6 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         _attract.SetAngle(0f);
 
         _stats = HandStats.None;
-        // ちゃんと弓引いてなければすぐにデキュー
-        if (GetDrawDistance() < cantShotDistance)
-        {
-            //Destroy(_arrow);
-            _poolSystem.ReturnObject(_arrow);
-            return;
-        }
-        _bowSE.CallShotSE();
     }
 
     /// <summary>
