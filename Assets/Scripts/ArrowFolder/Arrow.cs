@@ -60,6 +60,15 @@ public interface IArrowEnchant
     /// エンチャントできるかどうか
     /// </summary>
     bool NeedArrowEnchant { set; get; }
+
+    ArrowMove EnchantArrowMove { set; get; }
+
+    ArrowPassiveEffect EnchantArrowPassiveEffect { set; get; }
+
+    void SetEnchantState(EnchantmentEnum.EnchantmentState enchantment);
+
+    Transform MyTransform { get; }
+
 }
 
 /// <summary>
@@ -148,17 +157,18 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     /// </summary>
     public float _arrowActivTime = 5f;
 
+    /// <summary>
+    /// 自分のTransform
+    /// </summary>
+    public Transform MyTransform { private set; get; }
+
+
 
     /// <summary>
     /// 弓のオブジェクト
     /// </summary>
     //private GameObject _bowObject;
     private IFBowManagerQue _bowManagerQue;
-
-    /// <summary>
-    /// 自分のTransform
-    /// </summary>
-    private Transform _myTransform;
 
     /// <summary>
     /// PlayerManagerにObjectをセットする用　インターフェースにする
@@ -231,7 +241,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         NeedArrowEnchant = true;
         _playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
-        _myTransform = gameObject.transform;
+        MyTransform = gameObject.transform;
 
         //矢のクラスをゲットコンポーネントする
         _arrowMove = EnchantArrowMove;
@@ -248,7 +258,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     {
         if (EventArrowPassiveEffect != null)
         {
-            EventArrowPassiveEffect(_myTransform);
+            EventArrowPassiveEffect(MyTransform);
         }
 
         if (_playerManager != null)
@@ -262,10 +272,10 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         }
 
         //矢を移動する関数を呼ぶ
-        MoveArrow(_myTransform);
+        MoveArrow(MyTransform);
 
         //矢がどこかにヒットしたら
-        if (ArrowGetObject.ArrowHit(_myTransform,this))
+        if (ArrowGetObject.ArrowHit(MyTransform,this))
         {
             //ヒットしたオブジェクトが同じオブジェクトならヒットしていないことにする
             if(_hitObject == _hitObjectLast)
@@ -280,7 +290,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
             //ヒットエフェクトを発動
             if (EventArrowEffect != null)
             {
-                EventArrowEffect(_myTransform);
+                EventArrowEffect(MyTransform);
                 ArrowEnchantSound(_audioSource);
             }
             //矢をリセットする
@@ -300,7 +310,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
             ReturnQue();
         }
         //仮
-        if (ArrowGetObject.ArrowHit_Object(_myTransform,this))
+        if (ArrowGetObject.ArrowHit_Object(MyTransform,this))
         {
             if (_hitObject == _hitObjectLast)
             {
@@ -308,17 +318,17 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
             }
             _hitObjectLast = _hitObject;
 
-            _hitObject.GetComponent<SceneMoveHitArrow>().SceneMove(_myTransform);
+            _hitObject.GetComponent<SceneMoveHitArrow>().SceneMove(MyTransform);
             if (EventArrowEffect != null)
             {
-                EventArrowEffect(_myTransform);
+                EventArrowEffect(MyTransform);
                 ArrowEnchantSound(_audioSource);
             }
             ReturnQue();
         }
 
         //仮
-        if (ArrowGetObject.ArrowHit_TitleObject(_myTransform,this))
+        if (ArrowGetObject.ArrowHit_TitleObject(MyTransform,this))
         {
             if (_hitObject == _hitObjectLast)
             {
@@ -329,7 +339,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
             _hitObject.GetComponent<TargetAnimation>().TargetPushed();
             if (EventArrowEffect != null)
             {
-                EventArrowEffect(_myTransform);
+                EventArrowEffect(MyTransform);
                 ArrowEnchantSound(_audioSource);
             }
             ReturnQue();
@@ -346,7 +356,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     {
 
         //親オブジェクトをNullにする
-        _myTransform.parent = null;
+        MyTransform.parent = null;
        
         //移動スピードをセットする
         _arrowMove.SetArrowSpeed = _moveSpeed;
