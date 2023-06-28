@@ -10,7 +10,7 @@ using UnityEngine;
 /// <summary>
 /// 矢にエンチャント登録することができる
 /// </summary>
-interface IArrowEventSetting
+interface IArrowEventSetting:IArrowPlusDamage
 {
     /// <summary>
     /// 矢にエンチャント登録する
@@ -25,10 +25,16 @@ interface IArrowEventSetting
     /// </summary>
     void EnchantmentStateReset();
 
-    void ArrowEnchantPlusDamage();
 }
+
+/// <summary>
+/// 矢のダメージをプラスする
+/// </summary>
 interface IArrowPlusDamage
 {
+    /// <summary>
+    /// 矢のダメージをプラスする
+    /// </summary>
     void ArrowEnchantPlusDamage();
 }
 
@@ -40,8 +46,14 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 {
     #region 変数宣言部
 
+    /// <summary>
+    /// エンチャントが変わった時のサウンド
+    /// </summary>
     public AudioClip _EnchantSound;
 
+    /// <summary>
+    /// エンチャントが変わった時のエフェクト
+    /// </summary>
     public GameObject TestEnchantGetEffect;
 
 
@@ -49,26 +61,31 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// 矢の効果クラス
     /// </summary>
     private ArrowEnchant _arrowEnchant;
+
     /// <summary>
     /// 矢のエフェクトクラス
     /// </summary>
     private ArrowEnchantEffect _arrowEnchantEffect;
 
+    /// <summary>
+    /// 矢の常時エフェクトクラス
+    /// </summary>
     private ArrowPassiveEffect _arrowEnchantPassiveEffect;
 
+    /// <summary>
+    /// 矢の効果音クラス
+    /// </summary>
     private ArrowEnchantSound _arrowEnchantSound;
 
+    /// <summary>
+    /// 矢の移動クラス
+    /// </summary>
     private ArrowMove arrowMove;
+
     /// <summary>
     /// EnchantmentState型の理想配列を代入する配列
     /// </summary>
     private EnchantmentEnum.EnchantmentState[] _enchantmentStateModels =
-        new EnchantmentEnum.EnchantmentState[EnchantmentEnum.EnchantmentStateLength()];
-
-    /// <summary>
-    /// エンチャントを理想配列通りに代入する配列
-    /// </summary>
-    private EnchantmentEnum.EnchantmentState[] _enchantmentStates =
         new EnchantmentEnum.EnchantmentState[EnchantmentEnum.EnchantmentStateLength()];
 
     /// <summary>
@@ -89,10 +106,10 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         {EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing,EnchantmentEnum.EnchantmentState.nothing    ,EnchantmentEnum.EnchantmentState.nothing         ,EnchantmentEnum.EnchantmentState.nothing        ,EnchantmentEnum.EnchantmentState.nothing            },
     };
 
+
     /// <summary>
-    /// 現在のエンチャントを代入する変数
+    /// 前回のエンチャントを代入する変数
     /// </summary>
-    private EnchantmentEnum.EnchantmentState _enchantmentStateNow = EnchantmentEnum.EnchantmentState.nomal;
     private EnchantmentEnum.EnchantmentState _enchantmentStateLast = EnchantmentEnum.EnchantmentState.nomal;
 
     #endregion
@@ -115,6 +132,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 
     private void Start()
     {
+        //矢の効果　エフェクト　サウンドを取得する
         _arrowEnchant = this.GetComponent<ArrowEnchant>();
         _arrowEnchantEffect = this.GetComponent<ArrowEnchantEffect>();
         _arrowEnchantSound = this.GetComponent<ArrowEnchantSound>();
@@ -136,11 +154,14 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
             return;
         }
 
-        _arrowEnchantPassiveEffect = arrow.EnchantArrowPassiveEffect;
+        //矢の移動　常時エフェクトを取得する
         arrowMove = arrow.EnchantArrowMove;
+        _arrowEnchantPassiveEffect = arrow.EnchantArrowPassiveEffect;
 
         //取得したEnchantのEnumを掛け合わせて代入
         EnchantmentEnum.EnchantmentState enchantState = EnchantmentStateSetting(enchantmentState);
+
+        //前回のエンチャントと現在のエンチャントが違うとき＆現在のエンチャントがノーマルではないとき
         if (enchantState != _enchantmentStateLast && enchantState != EnchantmentEnum.EnchantmentState.nomal)
         {
             _arrowEnchantSound.ArrowSound_EnchantSound(_EnchantSound);
@@ -157,11 +178,29 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 
     }
 
+    /// <summary>
+    /// エンチャントのStateをリセットする　エンチャント対象の矢が変更される時に呼ぶ
+    /// </summary>
+    public void EnchantmentStateReset()
+    {
+        //リセットする
+        for (int i = 0; i < _isEnchantments.Length; i++)
+        {
+            _isEnchantments[i] = false;
+        }
+        _isEnchantments[0] = true;
+    }
 
+    /// <summary>
+    /// 矢のダメージをプラスする
+    /// </summary>
     public void ArrowEnchantPlusDamage()
     {
+        //矢のダメージをプラスする
         _arrowEnchant.SetAttackDamage();
     }
+
+
 
     /// <summary>
     /// エンチャントの理想配列との一致
@@ -181,47 +220,39 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
             }
         }
         return EnchantmentPreparation();
-
     }
+
     /// <summary>
     /// エンチャントのEnumの組み合わせからEnum代入
     /// </summary>
     /// <returns>掛け合わせ完成EnchantState</returns>
     private EnchantmentEnum.EnchantmentState EnchantmentPreparation()
     {
+        //エンチャントが存在しているか
         bool exitisEnchantment = false;
+        //現在のエンチャント
+        EnchantmentEnum.EnchantmentState _enchantmentStateNow = default;
+
         for (int i = 0; i < _isEnchantments.Length - 1; i++)
         {
             for (int j = i + 1; j < _isEnchantments.Length; j++)
             {
+                //２つエンチャントがあれば
                 if (_isEnchantments[i] && _isEnchantments[j])
                 {
-                    //2つtrueのときにi,jに登録してあるEnumをNowに代入
+                    //i,jに登録してあるEnumをNowに代入
                     _enchantmentStateNow = _enchantPreparationNumbers[i, j];
                     exitisEnchantment = true;
                 }
             }
         }
+        //エンチャントが存在していなければNormalにする
         if (!exitisEnchantment)
         {
             _enchantmentStateNow = EnchantmentEnum.EnchantmentState.nomal;
         }
         return _enchantmentStateNow;
     }
-
-    /// <summary>
-    /// エンチャントのStateをリセットする　エンチャント対象の矢が変更される時に呼ぶ
-    /// </summary>
-    public void EnchantmentStateReset()
-    {
-        for (int i = 0; i < _isEnchantments.Length; i++)
-        {
-            _isEnchantments[i] = false;
-        }
-        _isEnchantments[0] = true;
-    }
-
-
 
     /// <summary>
     /// エンチャントを矢に代入する
