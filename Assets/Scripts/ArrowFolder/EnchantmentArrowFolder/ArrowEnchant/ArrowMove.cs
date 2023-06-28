@@ -142,6 +142,47 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #region プロパティ
 
+    /// <summary>
+    /// 空気抵抗の設定プロパティ　通常かサンダーで変化
+    /// </summary>
+    /// <param name="isThunder">サンダーフラグ</param>
+    /// <returns></returns>
+    private float SpeedToRangeCoefficient(bool isThunder)
+    {
+        // サンターかどうか判定
+        if (isThunder)
+        {
+            // サンダーの空気抵抗を返す
+            return SPEED_TO_RANGE_COEFFICIENT_THUNDER;
+        }
+        else
+        {
+            // 通常の空気抵抗を返す
+            return SPEED_TO_RANGE_COEFFICIENT_NORMAL;
+        }
+    }
+
+    /// <summary>
+    /// 矢の速度を指定するプロパティ　setしかないため注意
+    /// </summary>
+    public float SetArrowSpeed
+    {
+        set
+        {
+            // 矢の速度を設定
+            _arrowSpeed = value;
+        }
+    }
+
+    /// <summary>
+    /// リスタート設定用プロパティ
+    /// </summary>
+    public void ResetsStart()
+    {
+        // 設定完了のフラグをリセット
+        _endSetting = false;
+    }
+
     #endregion
 
     #region メソッド
@@ -248,7 +289,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-
+    #region ノーマルの挙動
 
     /// <summary>
     /// ノーマルの挙動をさせるメソッド
@@ -264,42 +305,67 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
             // 設定用メソッドを実行
             NormalSetting(arrowTransform, arrowSpeed, isThunder);
         }
+
+        // 設定が終わっていたら
         else
         {
-            // 水平方向への移動速度の減衰率を計算　
+            // 水平方向への移動速度の減衰率を算出
             _nowSpeedValue = MathN.Clamp_min( STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO );
 
-            _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);
-            _moveValue.y = (_arrowSpeed_Y + _addGravity);
-            _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);
+            // 各軸方向への移動量を算出
+            _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);    // Ｘ軸
+            _moveValue.y = (_arrowSpeed_Y + _addGravity);       // Ｙ軸
+            _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);    // Ｚ軸
 
+            // 各軸方向へ移動量の分だけ移動
             arrowTransform.position +=  _moveValue * Time.deltaTime ;
+
+            // 移動している方向に向かせる
             arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
 
+            // 現在の移動距離を加算
             _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
+
+            // 重力による下方向への移動量を算出
             _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
         }
     }
 
     /// <summary>
-    /// NormalMove開始時の設定メソッド
+    /// ノーマルの挙動のための初期設定を行うメソッド
     /// </summary>
+    /// <param name="arrowTransform">矢のトランスフォーム</param>
+    /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
+    /// <param name="isThunder">サンダーかそれ以外か</param>
     private void NormalSetting(Transform arrowTransform, float arrowSpeed, bool isThunder)
     {
+        // 矢の角度を取得
         _arrowVector = arrowTransform.TransformVector(_forward).normalized;
+
+        // 矢の水平方向への移動速度を算出
         _arrowSpeed_Horizontal = Mathf.Sqrt(MathN.Pow(_arrowVector.x) + MathN.Pow(_arrowVector.z)) * arrowSpeed;
-        _arrowSpeed_X = _arrowVector.x * arrowSpeed;
-        _arrowSpeed_Y = _arrowVector.y * arrowSpeed;
-        _arrowSpeed_Z = _arrowVector.z * arrowSpeed;
+
+        // 矢の各軸方向への移動速度を算出
+        _arrowSpeed_X = _arrowVector.x * arrowSpeed;    // Ｘ軸
+        _arrowSpeed_Y = _arrowVector.y * arrowSpeed;    // Ｙ軸
+        _arrowSpeed_Z = _arrowVector.z * arrowSpeed;    // Ｚ軸
+
+        // 速度から最大の移動距離を算出
         _maxRange = _arrowSpeed_Horizontal * SpeedToRangeCoefficient(isThunder);
 
+        // 現在の移動速度を初期化
         _nowRange = default;
+
+        // 重力により移動量を初期化
         _addGravity = default;
 
+        // 設定完了
         _endSetting = true;
     }
 
+    #endregion
 
+    #region ホーミングの挙動
 
     /// <summary>
     /// ホーミングの挙動をさせるメソッド
@@ -315,16 +381,17 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
             SetHomingTarget(arrowTransform, arrowSpeed);
         }
 
-
         // ターゲットへのベクトルを取得
         _lookVect = _target.transform.position - arrowTransform.position;
+
         // 最終角度を設定
         _lookRot = Quaternion.LookRotation(_lookVect);
+
         // オブジェクトのrotationを変更
         arrowTransform.rotation = Quaternion.Slerp(arrowTransform.rotation, _lookRot, _lookSpeed);
 
         // 矢の移動
-        arrowTransform.Translate(ZERO,                               // Ｘ軸
+        arrowTransform.Translate(   ZERO,                               // Ｘ軸
                                     ZERO,                               // Ｙ軸
                                     arrowSpeed * Time.deltaTime,        // Ｚ軸
                                     Space.Self);                        // ローカル座標で指定　矢先はZ軸に向いている前提
@@ -333,8 +400,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     /// <summary>
     /// ホーミングの初期設定とターゲットの選定を行うメソッド
     /// </summary>
-    /// <param name="arrowTransform"></param>
-    /// <param name="arrowSpeed"></param>
+    /// <param name="arrowTransform">矢のトランスフォーム</param>
+    /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
     private void SetHomingTarget(Transform arrowTransform, float arrowSpeed)
     {
         // もろもろの初期化処理とターゲット再選定
@@ -359,46 +426,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         }
     }
 
+    #endregion
 
 
-    /// <summary>
-    /// 空気抵抗の設定プロパティ　通常かサンダーで変化
-    /// </summary>
-    /// <param name="isThunder">サンダーフラグ</param>
-    /// <returns></returns>
-    private float SpeedToRangeCoefficient(bool isThunder)
-    {
-        // サンターかどうか判定
-        if (isThunder)
-        {
-            // サンダーの空気抵抗を返す
-            return SPEED_TO_RANGE_COEFFICIENT_THUNDER;
-        }
-        else
-        {
-            // 通常の空気抵抗を返す
-            return SPEED_TO_RANGE_COEFFICIENT_NORMAL;
-        }
-    }
-
-    /// <summary>
-    /// 矢の速度を指定するプロパティ　setしかないため注意
-    /// </summary>
-    public float SetArrowSpeed
-    {
-        set
-        {
-            // 矢の速度を設定
-            _arrowSpeed = value;
-        }
-    }
-
-    /// <summary>
-    /// リスタート設定用プロパティ
-    /// </summary>
-    public void ResetsStart()
-    {
-        // 設定完了のフラグをリセット
-        _endSetting = false;
-    }
 }

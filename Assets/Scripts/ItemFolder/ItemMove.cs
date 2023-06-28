@@ -93,6 +93,9 @@ public class ItemMove : MonoBehaviour
     // TargeterSetParent‚Ì‘ã“ü—p•Ï”
     private TargeterSetParent targeterclass = default;
 
+    // BowManager
+    private BowManager _bowManager = default;
+
     // ScoreManager‚Ì‘ã“ü—p•Ï”
     private IFScoreManager_AllAttract _scoreManager = default;
     #endregion
@@ -126,6 +129,8 @@ public class ItemMove : MonoBehaviour
 
         // AttractSE‚Ì‘ã“ü
         _attractSE = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<AttractSE>();
+
+        // 
     }
 
     /// <summary>
