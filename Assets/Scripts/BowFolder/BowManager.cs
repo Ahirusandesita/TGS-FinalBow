@@ -31,7 +31,7 @@ public interface IFBowManager_GetStats
 [RequireComponent(typeof(BowDraw), typeof(BowHold), typeof(BowShotAim))]
 [RequireComponent(typeof(BowVibe), typeof(AttractEffectCustom), typeof(AttractZone))]
 [RequireComponent(typeof(Inhall), typeof(BowSE))]
-public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQue
+public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQue,IFBowManager_GetStats
 {
 
     #region ‚©‚Â‚Äpublic‚¾‚Á‚½•Ï”
