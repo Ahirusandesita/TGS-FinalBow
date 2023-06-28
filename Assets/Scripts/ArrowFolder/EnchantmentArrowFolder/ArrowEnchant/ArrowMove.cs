@@ -27,8 +27,7 @@ interface IArrowMoveSettingReset : IArrowMoveSetting, IArrowMoveReset
 public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 {
 
-    #region 変数 グロ注意
-
+    #region 変数一覧 グロ注意
 
     #region 共用変数
 
@@ -36,14 +35,14 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     private Vector3 _firstAngle = default;
 
     // 代入フラグ　一回代入したらtrueにする
-    private bool _isSetAngle = false;
+    private bool _endSetting = false;
 
     // 矢の初速　前方に進んでいく力の大きさ
-    // SetArrowSpeedで速度を指定できる
     private float _arrowSpeed = 10f;
 
 
-    // 定数
+
+    /***  ここから下　定数  ***/
 
     // ゼロ　ただのゼロ　普通にゼロ　なおfloat ニュース番組ではない
     private const float ZERO = 0f;
@@ -76,7 +75,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     // 現在の移動距離
     private float _nowRange = default;
 
-    // 矢の水平方向への移動速度の減衰率
+    // 現在の水平方向への移動速度の割合　どのぐらい速度減衰しているか
     private float _nowSpeedValue = default;
 
     // 矢の降下する速度　_arrowSpeed_Y に加算する
@@ -127,7 +126,9 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     // もし判定内に敵がいなかった時の直進用ターゲット
     private GameObject _tmpTarget = default;
 
-    // 定数
+
+
+    /***  ここから下　定数  ***/
 
     // 向きの速度係数　色々試してみてね
     private const float SPEED_COEF = 0.00074f;
@@ -142,25 +143,33 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     #endregion
 
-    public void ArrowMove_Nomal(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
+    #region プロパティ
+
+    #endregion
+
+    #region メソッド
+
+    #region イベント設定用メソッド
+
+    public void ArrowMove_Nomal(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
-    public void ArrowMove_Bomb(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
+    public void ArrowMove_Bomb(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
-    public void ArrowMove_Thunder(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
+    public void ArrowMove_Thunder(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, true); }
 
 
 
 
 
-    public void ArrowMove_KnockBack(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
+    public void ArrowMove_KnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
 
 
 
@@ -172,19 +181,19 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-    public void ArrowMove_Penetrate(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
+    public void ArrowMove_Penetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
-    public void ArrowMove_BombThunder(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
+    public void ArrowMove_BombThunder(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, true); }
 
 
 
 
 
-    public void ArrowMove_BombKnockBack(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
+    public void ArrowMove_BombKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
 
 
 
@@ -196,13 +205,13 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-    public void ArrowMove_BombPenetrate(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
+    public void ArrowMove_BombPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
-    public void ArrowMove_ThunderKnockBack(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
+    public void ArrowMove_ThunderKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, true); }
 
 
 
@@ -214,7 +223,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-    public void ArrowMove_ThunderPenetrate(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, true); }
+    public void ArrowMove_ThunderPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, true); }
 
 
 
@@ -226,13 +235,70 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
 
 
-    public void ArrowMove_KnockBackPenetrate(Transform arrowTransform) { NormalMove2(arrowTransform, _arrowSpeed, false); }
+    public void ArrowMove_KnockBackPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, false); }
 
 
 
 
 
     public void ArrowMove_HomingPenetrate(Transform arrowTransform) { HomingMove(arrowTransform, _arrowSpeed); }
+
+    #endregion
+
+
+
+    #endregion
+
+
+
+
+
+    /// <summary>
+    /// ノーマルの挙動をさせるメソッド
+    /// </summary>
+    /// <param name="arrowTransform">矢のトランスフォーム</param>
+    /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
+    /// <param name="isThunder">サンダーかそれ以外か</param>
+    private void NormalMove(Transform arrowTransform, float arrowSpeed, bool isThunder)
+    {
+        // 設定が終わっていなければ
+        if (!_endSetting)
+        {
+            // 設定用メソッドを実行
+            NormalSetting(arrowTransform, arrowSpeed, isThunder);
+        }
+
+        // 水平方向への移動速度の減衰率を計算　
+        _nowSpeedValue = MathN.Clamp_min( STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO );
+
+        _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);
+        _moveValue.y = (_arrowSpeed_Y + _addGravity);
+        _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);
+
+        arrowTransform.position +=  _moveValue * Time.deltaTime ;
+        arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
+
+        _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
+        _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
+    }
+
+    /// <summary>
+    /// NormalMove開始時の設定メソッド
+    /// </summary>
+    private void NormalSetting(Transform arrowTransform, float arrowSpeed, bool isThunder)
+    {
+        _arrowVector = arrowTransform.TransformVector(_forward).normalized;
+        _arrowSpeed_Horizontal = Mathf.Sqrt(MathN.Pow(_arrowVector.x) + MathN.Pow(_arrowVector.z)) * arrowSpeed;
+        _arrowSpeed_X = _arrowVector.x * arrowSpeed;
+        _arrowSpeed_Y = _arrowVector.y * arrowSpeed;
+        _arrowSpeed_Z = _arrowVector.z * arrowSpeed;
+        _maxRange = _arrowSpeed_Horizontal * SpeedToRangeCoefficient(isThunder);
+
+        _nowRange = default;
+        _addGravity = default;
+
+        _endSetting = true;
+    }
 
 
 
@@ -277,7 +343,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _firstAngle = new Vector3(arrowTransform.eulerAngles.x, arrowTransform.eulerAngles.y, arrowTransform.eulerAngles.z);
 
         // フラグの設定　一回代入したら今後代入しないように変更
-        _isSetAngle = !_isSetAngle;
+        _endSetting = true;
 
         // 追尾性能を速度によって差ができないように設定
         _lookSpeed = SPEED_COEF * arrowSpeed;
@@ -295,50 +361,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     }
 
 
-
-    /// <summary>
-    /// NormalMove開始時の設定メソッド
-    /// </summary>
-    private void NormalSetting(Transform arrowTransform, float arrowSpeed, bool isThunder)
-    {
-        _arrowVector = arrowTransform.TransformVector(_forward).normalized;
-        _arrowSpeed_Horizontal = Mathf.Sqrt(MathN.Pow(_arrowVector.x) + MathN.Pow(_arrowVector.z)) * arrowSpeed;
-        _arrowSpeed_X = _arrowVector.x * arrowSpeed;
-        _arrowSpeed_Y = _arrowVector.y * arrowSpeed;
-        _arrowSpeed_Z = _arrowVector.z * arrowSpeed;
-        _maxRange = _arrowSpeed_Horizontal * SpeedToRangeCoefficient(isThunder);
-
-        _nowRange = default;
-        _addGravity = default;
-
-        _endSetting = true;
-    }
-
-    /// <summary>
-    /// 通常の矢の挙動
-    /// </summary>
-    /// <param name="arrowTransform"></param>
-    /// <param name="arrowSpeed"></param>
-    /// <param name="isThunder"></param>
-    private void NormalMove2(Transform arrowTransform, float arrowSpeed, bool isThunder)
-    {
-        if (!_endSetting)
-        {
-            NormalSetting(arrowTransform, arrowSpeed, isThunder);
-        }
-
-        _nowSpeedValue = MathN.Clamp_min( STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO );
-
-        _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);
-        _moveValue.y = (_arrowSpeed_Y + _addGravity);
-        _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);
-
-        arrowTransform.position +=  _moveValue * Time.deltaTime ;
-        arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
-
-        _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
-        _addGravity = MathN.Clamp_max( _addGravity + GRAVITY * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
-    }
 
     /// <summary>
     /// 空気抵抗の設定プロパティ　通常かサンダーで変化
@@ -367,7 +389,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     {
         set
         {
-            _arrowSpeed = value / 10;
+            // 矢の速度を設定
+            _arrowSpeed = value;
         }
     }
 
@@ -376,8 +399,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     /// </summary>
     public void ResetsStart()
     {
-        _isSetAngle = false;
+        // 設定完了のフラグをリセット
         _endSetting = false;
     }
-
 }
