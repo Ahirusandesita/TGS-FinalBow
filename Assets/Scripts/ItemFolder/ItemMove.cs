@@ -279,10 +279,11 @@ public class ItemMove : MonoBehaviour
             // スコアの加算処理
             _scoreManager.NomalScore_EnchantScore();
             _scoreManager.BonusScore_AttractBonus();
+
+            // 
+            _attractSE.PlayAttractSE();
         }
 
-        // 
-        _attractSE.PlayAttractSE();
 
         // スタートフラグの初期化
         _isStart = false;
