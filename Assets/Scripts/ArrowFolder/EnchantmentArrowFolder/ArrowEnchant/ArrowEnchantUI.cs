@@ -25,7 +25,7 @@ public class ArrowEnchantUI : MonoBehaviour
     public void ArrowEnchantUI_Normal()
     {
         _enchantUIManager.EnchantImageReset();
-        _enchantUIManager.EnchantImage1Chenge(_EnchantUI._enchantUIs[0].UIImage);
+        //_enchantUIManager.EnchantImage1Chenge(_EnchantUI._enchantUIs[0].UIImage);
     }
     public void ArrowEnchantUI_Bomb()
     {

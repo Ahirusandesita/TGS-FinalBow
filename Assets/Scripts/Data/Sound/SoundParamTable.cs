@@ -15,8 +15,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SoundData", menuName = "Scriptables/CreateSoundTable")]
 public class SoundParamTable : ScriptableObject
 {
-    // SoundInfomationクラスの内容を持ったリストを生成
-    public List<SoundInformation> _scriptableSoundInformation = new List<SoundInformation>();
+    public string _name = default;
+    public AudioClip _audioClip = default;
 }
 
 /// <summary>

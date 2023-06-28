@@ -9,22 +9,24 @@ using System.Collections;
 public class ArrowEnchantSound : MonoBehaviour
 {
     #region variable 
-    public AudioClip _nomalSound;
-    public AudioClip _bombSound;
-    public AudioClip _thunderSound;
-    public AudioClip _knockBackSound;
-    public AudioClip _homingSound;
-    public AudioClip _penetrateSound;
-    public AudioClip _bombThunderSound;
-    public AudioClip _bombKnockBackSound;
-    public AudioClip _bombHomingSound;
-    public AudioClip _bombPenetrateSound;
-    public AudioClip _thunderKnockBackSound;
-    public AudioClip _thunderHomingSound;
-    public AudioClip _thunderPenetrateSound;
-    public AudioClip _knockBackHomingSound;
-    public AudioClip _knockBackPenetrateSound;
-    public AudioClip _homingPenetrateSound;
+    public SoundParamTable _nomalSound;
+    public SoundParamTable _bombSound;
+    public SoundParamTable _thunderSound;
+    public SoundParamTable _knockBackSound;
+    public SoundParamTable _homingSound;
+    public SoundParamTable _penetrateSound;
+    public SoundParamTable _bombThunderSound;
+    public SoundParamTable _bombKnockBackSound;
+    public SoundParamTable _bombHomingSound;
+    public SoundParamTable _bombPenetrateSound;
+    public SoundParamTable _thunderKnockBackSound;
+    public SoundParamTable _thunderHomingSound;
+    public SoundParamTable _thunderPenetrateSound;
+    public SoundParamTable _knockBackHomingSound;
+    public SoundParamTable _knockBackPenetrateSound;
+    public SoundParamTable _homingPenetrateSound;
+
+    public SoundParamTable _newEnchantSound;
 
     private AudioSource _audioSource;
     #endregion
@@ -38,87 +40,87 @@ public class ArrowEnchantSound : MonoBehaviour
     public void ArrowSound_Normal(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_nomalSound);
+        spawnAudioSource.PlayOneShot(_nomalSound._audioClip);
     }
     public void ArrowSound_Bomb(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_bombSound);
+        spawnAudioSource.PlayOneShot(_bombSound._audioClip);
     }
     public void ArrowSound_Thunder(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_thunderSound);
+        spawnAudioSource.PlayOneShot(_thunderSound._audioClip);
     }
     public void ArrowSound_KnockBack(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_knockBackSound);
+        spawnAudioSource.PlayOneShot(_knockBackSound._audioClip);
     }
     public void ArrowSound_Homing(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_homingSound);
+        spawnAudioSource.PlayOneShot(_homingSound._audioClip);
     }
     public void ArrowSound_Penetrate(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_penetrateSound);
+        spawnAudioSource.PlayOneShot(_penetrateSound._audioClip);
     }
     public void ArrowSound_BombThunder(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_bombThunderSound);
+        spawnAudioSource.PlayOneShot(_bombThunderSound._audioClip);
     }
     public void ArrowSound_BombKnockBack(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_bombKnockBackSound);
+        spawnAudioSource.PlayOneShot(_bombKnockBackSound._audioClip);
     }
     public void ArrowSound_BombHoming(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_bombHomingSound);
+        spawnAudioSource.PlayOneShot(_bombHomingSound._audioClip);
     }
     public void ArrowSound_BombPenetrate(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_bombPenetrateSound);
+        spawnAudioSource.PlayOneShot(_bombPenetrateSound._audioClip);
     }
     public void ArrowSound_ThunderKnockBack(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_thunderKnockBackSound);
+        spawnAudioSource.PlayOneShot(_thunderKnockBackSound._audioClip);
     }
     public void ArrowSound_ThunderHoming(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_thunderHomingSound);
+        spawnAudioSource.PlayOneShot(_thunderHomingSound._audioClip);
     }
     public void ArrowSound_ThunderPenetrate(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_thunderPenetrateSound);
+        spawnAudioSource.PlayOneShot(_thunderPenetrateSound._audioClip);
     }
     public void ArrowSound_KnockBackHoming(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_knockBackHomingSound);
+        spawnAudioSource.PlayOneShot(_knockBackHomingSound._audioClip);
     }
     public void ArrowSound_KnockBackPenetrate(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_knockBackPenetrateSound);
+        spawnAudioSource.PlayOneShot(_knockBackPenetrateSound._audioClip);
     }
     public void ArrowSound_HomingPenetrate(AudioSource spawnAudioSource)
     {
         spawnAudioSource = _audioSource;
-        spawnAudioSource.PlayOneShot(_homingPenetrateSound);
+        spawnAudioSource.PlayOneShot(_homingPenetrateSound._audioClip);
     }
 
-    public void ArrowSound_EnchantSound(AudioClip enchantSound)
+    public void ArrowSound_EnchantSound()
     {
-        _audioSource.PlayOneShot(enchantSound);
+        _audioSource.PlayOneShot(_newEnchantSound._audioClip);
     }
     #endregion
 }
