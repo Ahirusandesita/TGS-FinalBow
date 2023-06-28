@@ -472,7 +472,13 @@ public abstract class BirdMoveBase : MonoBehaviour
             case PoolEnum.PoolObjectType.penetrateBird:
                 return PoolEnum.PoolObjectType.penetrateBullet;
 
-            case PoolEnum.PoolObjectType.ThunderBird:
+            case PoolEnum.PoolObjectType.thunderBird:
+                return PoolEnum.PoolObjectType.thunderBullet;
+
+            case PoolEnum.PoolObjectType.bombBird2:
+                return PoolEnum.PoolObjectType.bombBullet;
+
+            case PoolEnum.PoolObjectType.thunderBird2:
                 return PoolEnum.PoolObjectType.thunderBullet;
         }
 
