@@ -124,7 +124,7 @@ public class ItemMove : MonoBehaviour
         // ScoreManagerの代入
         _scoreManager = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<ScoreManager>();
 
-        // se
+        // AttractSEの代入
         _attractSE = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<AttractSE>();
     }
 
@@ -276,11 +276,14 @@ public class ItemMove : MonoBehaviour
             // 削除するオブジェクトの属性をプレイヤーに渡す
             _playerManager.SetEnchantParameter(_itemStatus.GetState());
 
+            // ダメージの加算処理とメーターの加算処理メソッド
+            _playerManager.ArrowEnchantPlusDamage();
+
             // スコアの加算処理
             _scoreManager.NomalScore_EnchantScore();
             _scoreManager.BonusScore_AttractBonus();
 
-            // 
+            // 引き寄せた時のSEを呼ぶ
             _attractSE.PlayAttractSE();
         }
 
