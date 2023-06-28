@@ -81,9 +81,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     // 矢の降下する速度　_arrowSpeed_Y に加算する
     private float _addGravity = default;
 
-    // 設定が終わったかどうか判定するフラグ
-    private bool _endSetting = false;
-
 
 
     /***  ここから下　定数  ***/
