@@ -99,6 +99,8 @@ public class ItemMove : MonoBehaviour
 
     #endregion
 
+    private AttractSE _attractSE = default;
+
     /// <summary>
     /// 初期の代入処理
     /// </summary>
@@ -121,6 +123,9 @@ public class ItemMove : MonoBehaviour
 
         // ScoreManagerの代入
         _scoreManager = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<ScoreManager>();
+
+        // se
+        _attractSE = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<AttractSE>();
     }
 
     /// <summary>
@@ -275,6 +280,9 @@ public class ItemMove : MonoBehaviour
             _scoreManager.NomalScore_EnchantScore();
             _scoreManager.BonusScore_AttractBonus();
         }
+
+        // 
+        _attractSE.PlayAttractSE();
 
         // スタートフラグの初期化
         _isStart = false;

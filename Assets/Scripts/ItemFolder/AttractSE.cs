@@ -10,6 +10,7 @@ public class AttractSE : MonoBehaviour
 {
     #region 変数一覧
     // 使用するAudioSource
+    [SerializeField]
     AudioSource _myAudio = default;
 
     // 引き寄せた時のSE
@@ -34,8 +35,7 @@ public class AttractSE : MonoBehaviour
 
     private void Start()
     {
-        // 使用するAudioSourceを取得
-        _myAudio = this.GetComponent<AudioSource>();
+
     }
 
     private void Update()
