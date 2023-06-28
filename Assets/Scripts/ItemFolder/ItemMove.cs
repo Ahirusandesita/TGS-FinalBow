@@ -94,7 +94,7 @@ public class ItemMove : MonoBehaviour
     private TargeterSetParent targeterclass = default;
 
     // BowManager
-    private BowManager _bowManager = default;
+    private IFBowManager_GetStats _bowManager = default;
 
     // ScoreManagerの代入用変数
     private IFScoreManager_AllAttract _scoreManager = default;
@@ -130,7 +130,8 @@ public class ItemMove : MonoBehaviour
         // AttractSEの代入
         _attractSE = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<AttractSE>();
 
-        // 
+        // IFBowManager_GetStatsの代入
+        _bowManager = GameObject.FindGameObjectWithTag("BowController").GetComponent<IFBowManager_GetStats>();
     }
 
     /// <summary>
@@ -144,6 +145,7 @@ public class ItemMove : MonoBehaviour
             // 本処理と臨時処理の切り替え
             if (!_UseTemporary)
             {
+
                 //移動処理実行
                 ItemMovement();
             }
@@ -224,7 +226,7 @@ public class ItemMove : MonoBehaviour
         transform.position += _targetVector * (_attract_Power + _addAttractSpeed) * Time.deltaTime;
 
         // '追跡するターゲットが目標地点に到達している' かつ '自身がターゲットに追いついている' かの判定
-        if (targeterclass.IsTargeterArrivel && _targetDistance < _destroyDistance)
+        if (targeterclass.IsTargeterArrivel && _targetDistance < _destroyDistance || !_bowManager.IsHolding)
         {
             // 追跡するターゲットの削除及びリセット
             ReSetAll();
@@ -276,7 +278,7 @@ public class ItemMove : MonoBehaviour
     public void OnDisable()
     {
         // 移動処理を行っていた場合
-        if (_isStart)
+        if (_isStart && _bowManager.IsHolding)
         {
             // 削除するオブジェクトの属性をプレイヤーに渡す
             _playerManager.SetEnchantParameter(_itemStatus.GetState());
@@ -375,7 +377,7 @@ public class ItemMove : MonoBehaviour
 
         this.transform.localScale = startsize * _sizeValue;
 
-        if (_tmpdif < _destroyDistance)
+        if (_tmpdif < _destroyDistance || !_bowManager.IsHolding)
         {
             this.transform.localScale = startsize;
             PoolManager.ReturnObject(Cash);
