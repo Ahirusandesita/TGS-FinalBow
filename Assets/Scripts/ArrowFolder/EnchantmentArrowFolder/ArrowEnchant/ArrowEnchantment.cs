@@ -131,7 +131,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     public void EventSetting(Arrow arrow, bool needMoveChenge, EnchantmentEnum.EnchantmentState enchantmentState)
     {
         //エンチャントができない状態ならエンチャントしない
-        if (!arrow._needArrowEnchant)
+        if (!arrow.NeedArrowEnchant)
         {
             return;
         }
@@ -246,16 +246,16 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                arrowEnchantSoundMethod,
                arrowMoveMethod) =>
            {
-               arrow._EventArrow = arrowEnchantMethod;
-               arrow._EventArrowEffect = arrowEffectMethod;
-               arrow._EventArrowPassiveEffect = arrowPassiveEffectMethod;
-               arrow._EventArrowEffectPassiveDestroy = arrowPassiveEffectDestroyMethod;
-               arrow._ArrowEnchantSound = arrowEnchantSoundMethod;
+               arrow.EventArrow = arrowEnchantMethod;
+               arrow.EventArrowEffect = arrowEffectMethod;
+               arrow.EventArrowPassiveEffect = arrowPassiveEffectMethod;
+               arrow.EventArrowEffectPassiveDestroy = arrowPassiveEffectDestroyMethod;
+               arrow.ArrowEnchantSound = arrowEnchantSoundMethod;
 
                //移動を更新するか
                if (needMoveChenge)
                {
-                   arrow._MoveArrow = arrowMoveMethod;
+                   arrow.MoveArrow = arrowMoveMethod;
                }
            };
 

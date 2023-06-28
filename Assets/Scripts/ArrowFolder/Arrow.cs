@@ -16,12 +16,47 @@ interface IArrowMove
 　　/// 矢の移動を開始するインターフェース
     /// </summary>
     void ArrowMoveStart();
+    void SetArrowMoveSpeed(float moveSpeed);
+}
+
+public interface IArrowEnchant
+{
+    Arrow.ArrowEffectDelegateMethod EventArrowEffect { set; get; }
+
+    Arrow.ArrowEffectDestroyDelegateMethod EventArrowEffectDestroy { set; get; }
+
+    /// <summary>
+    /// 矢の常時発動するエフェクト用デリゲート変数
+    /// </summary>
+    Arrow.ArrowEffectDelegateMethod EventArrowPassiveEffect { set; get; }
+
+    /// <summary>
+    /// 矢の常時発動するエフェクトデストロイ用デリゲート変数
+    /// </summary>
+    Arrow.ArrowEffectDestroyDelegateMethod EventArrowEffectPassiveDestroy { set; get; }
+
+    /// <summary>
+    /// 矢のヒット時の効果音用デリゲート変数
+    /// </summary>
+    Arrow.ArrowEnchantSoundDeletgateMethod ArrowEnchantSound { set; get; }
+
+    /// <summary>
+    /// 矢の効果用デリゲート変数
+    /// </summary>
+    Arrow.ArrowEnchantmentDelegateMethod EventArrow { set; get; }
+
+    /// <summary>
+    /// 矢の移動用デリゲート変数
+    /// </summary>
+    Arrow.MoveDelegateMethod MoveArrow { set; get; }
+
+    bool NeedArrowEnchant { set; get; }
 }
 
 /// <summary>
 /// 矢
 /// </summary>
-public class Arrow : MonoBehaviour,IArrowMove
+public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
 {
 
 
@@ -56,34 +91,34 @@ public class Arrow : MonoBehaviour,IArrowMove
     /// <summary>
     /// 矢のエフェクト用デリゲート変数
     /// </summary>
-    public ArrowEffectDelegateMethod _EventArrowEffect;
+    public ArrowEffectDelegateMethod EventArrowEffect { set; get; }
 
-    public ArrowEffectDestroyDelegateMethod _EventArrowEffectDestroy;
+    public ArrowEffectDestroyDelegateMethod EventArrowEffectDestroy { set; get; }
 
     /// <summary>
     /// 矢の常時発動するエフェクト用デリゲート変数
     /// </summary>
-    public ArrowEffectDelegateMethod _EventArrowPassiveEffect;
+    public ArrowEffectDelegateMethod EventArrowPassiveEffect { set; get; }
 
     /// <summary>
     /// 矢の常時発動するエフェクトデストロイ用デリゲート変数
     /// </summary>
-    public ArrowEffectDestroyDelegateMethod _EventArrowEffectPassiveDestroy;
+    public ArrowEffectDestroyDelegateMethod EventArrowEffectPassiveDestroy { set; get; }
 
     /// <summary>
     /// 矢のヒット時の効果音用デリゲート変数
     /// </summary>
-    public ArrowEnchantSoundDeletgateMethod _ArrowEnchantSound;
+    public ArrowEnchantSoundDeletgateMethod ArrowEnchantSound { set; get; }
 
     /// <summary>
     /// 矢の効果用デリゲート変数
     /// </summary>
-    public ArrowEnchantmentDelegateMethod _EventArrow;
+    public ArrowEnchantmentDelegateMethod EventArrow { set; get; }
 
     /// <summary>
     /// 矢の移動用デリゲート変数
     /// </summary>
-    public MoveDelegateMethod _MoveArrow;
+    public MoveDelegateMethod MoveArrow { set; get; }
 
 
     /// <summary>
@@ -96,7 +131,7 @@ public class Arrow : MonoBehaviour,IArrowMove
     /// <summary>
     /// エンチャントできるか
     /// </summary>
-    public bool _needArrowEnchant = true;
+    public bool NeedArrowEnchant { set; get; }
 
 
     /// <summary>
@@ -184,7 +219,7 @@ public class Arrow : MonoBehaviour,IArrowMove
     }
     private void Start()
     {
-
+        NeedArrowEnchant = true;
         _playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
         _myTransform = gameObject.transform;
@@ -202,9 +237,9 @@ public class Arrow : MonoBehaviour,IArrowMove
     }
     private void Update()
     {
-        if (_EventArrowPassiveEffect != null)
+        if (EventArrowPassiveEffect != null)
         {
-            _EventArrowPassiveEffect(_myTransform);
+            EventArrowPassiveEffect(_myTransform);
         }
 
         if (_playerManager != null)
@@ -218,7 +253,7 @@ public class Arrow : MonoBehaviour,IArrowMove
         }
 
         //矢を移動する関数を呼ぶ
-        _MoveArrow(_myTransform);
+        MoveArrow(_myTransform);
 
         //矢がどこかにヒットしたら
         if (ArrowGetObject.ArrowHit(_myTransform,this))
@@ -231,13 +266,13 @@ public class Arrow : MonoBehaviour,IArrowMove
             _hitObjectLast = _hitObject;
 
             //ヒットしたオブジェクトとエンチャントEnumを渡す　ヒット処理開始
-            _EventArrow(_hitObject, _enchantState);
+            EventArrow(_hitObject, _enchantState);
 
             //ヒットエフェクトを発動
-            if (_EventArrowEffect != null)
+            if (EventArrowEffect != null)
             {
-                _EventArrowEffect(_myTransform);
-                _ArrowEnchantSound(_audioSource);
+                EventArrowEffect(_myTransform);
+                ArrowEnchantSound(_audioSource);
             }
             //矢をリセットする
             
@@ -265,10 +300,10 @@ public class Arrow : MonoBehaviour,IArrowMove
             _hitObjectLast = _hitObject;
 
             _hitObject.GetComponent<SceneMoveHitArrow>().SceneMove(_myTransform);
-            if (_EventArrowEffect != null)
+            if (EventArrowEffect != null)
             {
-                _EventArrowEffect(_myTransform);
-                _ArrowEnchantSound(_audioSource);
+                EventArrowEffect(_myTransform);
+                ArrowEnchantSound(_audioSource);
             }
             ReturnQue();
         }
@@ -283,10 +318,10 @@ public class Arrow : MonoBehaviour,IArrowMove
             _hitObjectLast = _hitObject;
 
             _hitObject.GetComponent<TargetAnimation>().TargetPushed();
-            if (_EventArrowEffect != null)
+            if (EventArrowEffect != null)
             {
-                _EventArrowEffect(_myTransform);
-                _ArrowEnchantSound(_audioSource);
+                EventArrowEffect(_myTransform);
+                ArrowEnchantSound(_audioSource);
             }
             ReturnQue();
         }
@@ -313,7 +348,7 @@ public class Arrow : MonoBehaviour,IArrowMove
         //時間で消滅にする
         StartCoroutine(IEArrowQue());
 
-        _needArrowEnchant = false;
+        NeedArrowEnchant = false;
     }
 
     /// <summary>
@@ -352,13 +387,13 @@ public class Arrow : MonoBehaviour,IArrowMove
         _isArrowMove = false;
         _hitObject = default;
         _enchantState = EnchantmentEnum.EnchantmentState.nomal;
-        _EventArrow = null;
-        _EventArrowEffect = null;
-        _EventArrowEffectDestroy = null;
-        _EventArrowEffectPassiveDestroy = null;
-        _EventArrowPassiveEffect = null;
-        _MoveArrow = null;
-        _needArrowEnchant = true;
+        EventArrow = null;
+        EventArrowEffect = null;
+        EventArrowEffectDestroy = null;
+        EventArrowEffectPassiveDestroy = null;
+        EventArrowPassiveEffect = null;
+        MoveArrow = null;
+        NeedArrowEnchant = true;
     }
 
     /// <summary>
@@ -367,9 +402,9 @@ public class Arrow : MonoBehaviour,IArrowMove
     private void ReturnQue()
     {
         //常時発動エフェクト削除を実行
-        if (_EventArrowEffectPassiveDestroy != null)
+        if (EventArrowEffectPassiveDestroy != null)
         {
-            _EventArrowEffectPassiveDestroy(this.gameObject);
+            EventArrowEffectPassiveDestroy(this.gameObject);
         }
         ArrowReset();
         _bowManagerQue.ArrowQue(_cashObjectInformation);

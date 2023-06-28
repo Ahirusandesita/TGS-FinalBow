@@ -42,6 +42,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     public TagObject _ChargeMeterControllerTagData;
 
     private Arrow _arrow;
+    private IArrowEnchant _arrowEnchant;
+    private IArrowMove _arrowMove;
 
     private GameObject _bowObject;
 
@@ -152,6 +154,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         {
             return;
         }
+        _arrowEnchant = arrow;
+        _arrowMove = arrow;
         _arrow = arrow;
         arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.nomal);
     }
