@@ -727,6 +727,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5547981372663469723, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
+      propertyPath: _myAudio
+      value: 
+      objectReference: {fileID: 1330083379}
+    - target: {fileID: 5547981372663469723, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
+      propertyPath: _attractSE
+      value: 
+      objectReference: {fileID: 8300000, guid: 005bab6582040624c997ffbf1e0c6af4, type: 3}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
@@ -735,6 +743,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3896496780618105880, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
   m_PrefabInstance: {fileID: 9051230437608299598}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5444655196114950235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3896496780618105877, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
+  m_PrefabInstance: {fileID: 9051230437608299598}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1330083379
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5444655196114950235}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &9051230437708182180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1096,7 +1205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5185129958207729088, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: add
-      value: 8000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5185129958207729088, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _traceValue
@@ -1185,7 +1294,7 @@ PrefabInstance:
     - target: {fileID: 5567233447467601185, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _attractClip
       value: 
-      objectReference: {fileID: 8300000, guid: 41b0f8329cc332e479617d0a4826bc24, type: 3}
+      objectReference: {fileID: 8300000, guid: 118ba537a8627ca478200875c719e8d6, type: 3}
     - target: {fileID: 5567233447467601185, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _getItemClip
       value: 
@@ -1201,7 +1310,7 @@ PrefabInstance:
     - target: {fileID: 5567233447467601185, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _attractStartClip
       value: 
-      objectReference: {fileID: 8300000, guid: deb7136929806fa4da4a4e416e9a30c1, type: 3}
+      objectReference: {fileID: 8300000, guid: d1f9999f900bc61408f118ae680120be, type: 3}
     - target: {fileID: 5567233447467601185, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _drawingClips.Array.size
       value: 3

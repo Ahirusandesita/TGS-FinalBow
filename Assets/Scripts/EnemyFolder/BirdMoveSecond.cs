@@ -114,7 +114,7 @@ public class BirdMoveSecond : BirdMoveBase
             {
                 _canStartAttack = false;
 
-                StartCoroutine(_birdAttack.NormalAttackLoop(_childSpawner));
+                StartCoroutine(_birdAttack.NormalAttackLoop(_childSpawner, ConversionToBulletType()));
             }
 
             return;

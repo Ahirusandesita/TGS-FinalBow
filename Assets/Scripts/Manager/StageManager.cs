@@ -127,6 +127,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// <returns></returns>
     private IEnumerator SpawnAndDelay()
     {
+        PoolEnum.PoolObjectType selectedPrefab;
+        BirdMoveBase temporaryMove;
+
+
         // 設定した数だけ雑魚をスポーンさせる
         for (int i = 0; i < _currentNumberOfObject; i++)
         {
@@ -134,13 +138,45 @@ public class StageManager : MonoBehaviour, IStageSpawn
             yield return new WaitForSeconds(_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._spawnDelay_s);
 
 
+            // どの敵をスポーンさせるか判定（Scriptableから取得）
+            switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._enemyType)
+            {
+                // 以下Enumの変換処理
+                case EnemyType.normalBird:
+                    selectedPrefab = PoolEnum.PoolObjectType.normalBird;
+
+                    break;
+
+                case EnemyType.bombBird:
+                    selectedPrefab = PoolEnum.PoolObjectType.normalBird;
+
+                    break;
+
+                case EnemyType.penetrateBird:
+                    selectedPrefab = PoolEnum.PoolObjectType.penetrateBird;
+
+                    break;
+
+                case EnemyType.thunderBird:
+                    selectedPrefab = PoolEnum.PoolObjectType.ThunderBird;
+
+                    break;
+
+                // 例外処理
+                default:
+                    selectedPrefab = PoolEnum.PoolObjectType.normalBird;
+
+                    break;
+            }
+
             // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
-            GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.bird,
+            GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab,
                 _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdSpawnPlace.position).gameObject;
             temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
-            BirdMoveBase temporaryMove;
 
+
+            // Scriptabeの設定に応じて、アタッチする挙動スクリプトを変える
             switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._moveType)
             {
                 case MoveType.linear:

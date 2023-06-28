@@ -23,12 +23,17 @@ public interface IFBowManagerQue
     /// <param name="arrow">キューするオブジェクト</param>
     public void ArrowQue(CashObjectInformation arrow);
 }
+
+public interface IFBowManager_GetStats
+{
+    public bool IsHolding { get; }
+}
 [RequireComponent(typeof(BowDraw), typeof(BowHold), typeof(BowShotAim))]
-[RequireComponent(typeof(BowVibe), typeof(AttractEffectCustom),typeof(AttractZone))]
+[RequireComponent(typeof(BowVibe), typeof(AttractEffectCustom), typeof(AttractZone))]
 [RequireComponent(typeof(Inhall), typeof(BowSE))]
 public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQue
 {
-    
+
     #region かつてpublicだった変数
     [SerializeField] TagObject _InputTagName = default;
 
@@ -266,20 +271,24 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         _poolSystem.ReturnObject(arrow);
     }
 
-
+    public bool IsHolding
+    {
+        get
+        { return _stats == HandStats.Hold; }
+    }
     /// <summary>
     /// 掴み中
     /// </summary>
     private void Holding()
     {
-        
+
         // ドローオブジェクト引いている手に移動
         _draw.BowDrawing(_handPositionDelegate(), _drawObject, _firstDrawObjectPositon);
 
         _vibe.StartDrawVibe(GetPercentDrawDistance());
         SetText(GetPercentDrawDistance().ToString());
         _inhallCustom.SetActive(true);
-        
+
         _inhallCustom.SetEffectSize(GetPercentDrawDistance());
 
         _attract.SetAngle(GetPercentDrawDistance());
@@ -361,7 +370,6 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
     /// </summary>
     private void ShotProcess()
     {
-        _bowSE.CallShotSE();
         _bowSE.StopAttractSE();
 
         _vibe.EndDrawVibe();
@@ -374,12 +382,6 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
 
         StartShotArrow(_aim.GetAim());
 
-        // ちゃんと弓引いてなければすぐにデキュー
-        if (GetDrawDistance() < cantShotDistance)
-        {
-            //Destroy(_arrow);
-            _poolSystem.ReturnObject(_arrow);
-        }
 
         _drawObject.transform.localPosition = _firstDrawObjectPositon;
 
@@ -388,6 +390,14 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         _attract.SetAngle(0f);
 
         _stats = HandStats.None;
+        // ちゃんと弓引いてなければすぐにデキュー
+        if (GetDrawDistance() < cantShotDistance)
+        {
+            //Destroy(_arrow);
+            _poolSystem.ReturnObject(_arrow);
+            return;
+        }
+        _bowSE.CallShotSE();
     }
 
     /// <summary>
@@ -493,7 +503,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         {
             X_Debug.Log("値追いモードつけて");
         }
-        
+
     }
 
     #region マウス関係
@@ -503,7 +513,7 @@ public class BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManagerQu
         Vector3 pos = Input.mousePosition;
 
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pos);
-        Vector3 finalPos =  _directionMainCameraLookToBow * _distanceCameraToDrawObject + worldPos;
+        Vector3 finalPos = _directionMainCameraLookToBow * _distanceCameraToDrawObject + worldPos;
 
         return finalPos;
 

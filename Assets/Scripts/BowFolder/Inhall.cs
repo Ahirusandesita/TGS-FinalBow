@@ -74,7 +74,6 @@ public class Inhall : MonoBehaviour, IInhall, IInhallDestroObject
         {
             //変更
             InhallItem(obj);
-            playerManager.ArrowEnchantPlusDamage();
         }
         //　消滅処理オブジェクトのセットActivをFalseにする　ObjectPool
 
