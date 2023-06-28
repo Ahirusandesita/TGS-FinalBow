@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8940654832585574392}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.34, y: -1.65, z: 23.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32,8 +32,9 @@ Transform:
   - {fileID: 4100931424385208182}
   - {fileID: 3180172999418024280}
   - {fileID: 8940654833043175604}
+  - {fileID: 7523221209751737911}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8940654833043175603
 GameObject:
@@ -79,6 +80,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3a99a7809b25942a1644c7d1db45f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &164761644
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 8940654832585574393}
+    m_Modifications:
+    - target: {fileID: 7523221209589073434, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_Name
+      value: SceneFadeController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 41.68334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 41.777893
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.389747
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+--- !u!4 &7523221209751737911 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+  m_PrefabInstance: {fileID: 164761644}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8940654831313204379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87,6 +152,22 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 8940654832585574393}
     m_Modifications:
+    - target: {fileID: 5778584847393236417, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _bombSideDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778584847393236417, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _bombSideAreaSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778584847393236417, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _bombMiddleAreaSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778584847393236418, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: TestEnchantGetEffect
+      value: 
+      objectReference: {fileID: 685761525852977892, guid: ebe39b43d938bfe4b895093125d18a87, type: 3}
     - target: {fileID: 5778584847393236419, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -132,13 +213,73 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _bombSound
+      value: 
+      objectReference: {fileID: 11400000, guid: c4add84f537c6ef4ab887694dc16777a, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
       propertyPath: _nomalSound
       value: 
-      objectReference: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
+      objectReference: {fileID: 11400000, guid: 52d42395cadd3a54ba2d14933db7d243, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _homingSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 478bfc09e0dee444b8a6ffb7a5da8076, type: 2}
     - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
       propertyPath: _thunderSound
       value: 
-      objectReference: {fileID: 8300000, guid: a4fd03749e40998499518e636a8253ba, type: 3}
+      objectReference: {fileID: 11400000, guid: 0fec55a2b1db8ff4f823303b2ab11213, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _knockBackSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f3efddc30865134eb3a8a6bdb03df39, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _penetrateSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a612053baca3d944a9d3bdbdce0c4df, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _bombHomingSound
+      value: 
+      objectReference: {fileID: 11400000, guid: b3896e8e103ea294389bb6ca47063346, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _newEnchantSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 500055d436868894e842460fd4f5fd96, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _bombThunderSound
+      value: 
+      objectReference: {fileID: 11400000, guid: c0f429da9d2ac984d8ca09eba42beeef, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _bombKnockBackSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 7672f1ee6b31c2244959401f9cf1446b, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _bombPenetrateSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 30b169a16f1b78843bf7257542ede6c6, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _thunderHomingSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 7baf4b13242830f41ba52889056f23b1, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _homingPenetrateSound
+      value: 
+      objectReference: {fileID: 11400000, guid: d44fc18d53d68f84798f11fe53673e3b, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _knockBackHomingSound
+      value: 
+      objectReference: {fileID: 11400000, guid: cfd8a3de1b220bf4985fd4d37107efe2, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _thunderKnockBackSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f41bb9098d56ce40ad45dfed0b8f73f, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _thunderPenetrateSound
+      value: 
+      objectReference: {fileID: 11400000, guid: d61747d3fa7877a40a782455d3252990, type: 2}
+    - target: {fileID: 5778584847393236420, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: _knockBackPenetrateSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 6d2d5db7a6a8cbc4eaec7bfbf1aad0a1, type: 2}
     - target: {fileID: 5778584847393236478, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
       propertyPath: m_Name
       value: ArrowEnchant (1)
@@ -151,6 +292,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5778584847393236419, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
   m_PrefabInstance: {fileID: 8940654831313204379}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3180172999418024293 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5778584847393236478, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+  m_PrefabInstance: {fileID: 8940654831313204379}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1953751832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180172999418024293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f180ecffb8f480b469894f9e13143eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _headShotSE: {fileID: 8300000, guid: 485ac48a563e2bf44bb4de7ead5a1f68, type: 3}
+  _particle: {fileID: 3507435510529669031, guid: 595813fcfd9b0ad48a93376e8bcbf127, type: 3}
 --- !u!1001 &8940654831362947932
 PrefabInstance:
   m_ObjectHideFlags: 0

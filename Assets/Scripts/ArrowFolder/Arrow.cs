@@ -21,8 +21,14 @@ interface IArrowMove
 
 public interface IArrowEnchant
 {
+    /// <summary>
+    /// 矢のヒットエフェクト
+    /// </summary>
     Arrow.ArrowEffectDelegateMethod EventArrowEffect { set; get; }
 
+    /// <summary>
+    /// 矢の常時エンチャント消える
+    /// </summary>
     Arrow.ArrowEffectDestroyDelegateMethod EventArrowEffectDestroy { set; get; }
 
     /// <summary>
@@ -50,6 +56,9 @@ public interface IArrowEnchant
     /// </summary>
     Arrow.MoveDelegateMethod MoveArrow { set; get; }
 
+    /// <summary>
+    /// エンチャントできるかどうか
+    /// </summary>
     bool NeedArrowEnchant { set; get; }
 }
 
