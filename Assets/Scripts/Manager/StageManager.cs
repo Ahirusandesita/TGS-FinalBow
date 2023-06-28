@@ -48,7 +48,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private ObjectPoolSystem _objectPoolSystem = default;
 
     [Tooltip("現在の雑魚/的の数")]
-    private int _currentNumberOfObject = default;
+    private int _currentNumberOfObject = 0;
 
     [Tooltip("現在のウェーブ数")]
     private WaveType _waveType = WaveType.zakoWave1_1;     // 初期値0
@@ -75,10 +75,14 @@ public class StageManager : MonoBehaviour, IStageSpawn
             }
 
             // EnemySpawnerTableで設定したスポナーの数を設定
-            _currentNumberOfObject = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count;
+            _currentNumberOfObject += _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count;
 
-            // プールから呼び出す
-            StartCoroutine(SpawnAndDelay());
+            // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
+            for (int i = 0; i < _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count; i++)
+            {
+                // プールから呼び出す
+                StartCoroutine(SpawnAndDelay(loopCount: i));
+            }
         }
         catch (Exception)
         {
@@ -98,6 +102,12 @@ public class StageManager : MonoBehaviour, IStageSpawn
             // ウェーブを進める
             IncrementWave();
             Spawn();
+
+            // こっち呼ばれたら時間で呼ばれる処理をオフにする
+            // こっち呼ばれたら時間で呼ばれる処理をオフにする
+            // こっち呼ばれたら時間で呼ばれる処理をオフにする
+            // こっち呼ばれたら時間で呼ばれる処理をオフにする
+            // こっち呼ばれたら時間で呼ばれる処理をオフにする
         }
     }
 
@@ -124,93 +134,88 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// 待機処理
     /// </summary>
     /// <returns></returns>
-    private IEnumerator SpawnAndDelay()
+    private IEnumerator SpawnAndDelay(int loopCount)
     {
         PoolEnum.PoolObjectType selectedPrefab;
         BirdMoveBase temporaryMove;
 
+        // 設定された秒数だけ待機する
+        yield return new WaitForSeconds(_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[loopCount]._spawnDelay_s);
 
-        // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
-        for (int i = 0; i < _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count; i++)
+
+        // どの敵をスポーンさせるか判定（Scriptableから取得）
+        switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[loopCount]._enemyType)
         {
-            // 設定された秒数だけ待機する
-            yield return new WaitForSeconds(_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._spawnDelay_s);
+            // 以下Enumの変換処理
+            case EnemyType.normalBird:
+                selectedPrefab = PoolEnum.PoolObjectType.normalBird;
 
+                break;
 
-            // どの敵をスポーンさせるか判定（Scriptableから取得）
-            switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._enemyType)
-            {
-                // 以下Enumの変換処理
-                case EnemyType.normalBird:
-                    selectedPrefab = PoolEnum.PoolObjectType.normalBird;
+            case EnemyType.bombBird:
+                selectedPrefab = PoolEnum.PoolObjectType.bombBird;
 
-                    break;
+                break;
 
-                case EnemyType.bombBird:
-                    selectedPrefab = PoolEnum.PoolObjectType.bombBird;
+            case EnemyType.penetrateBird:
+                selectedPrefab = PoolEnum.PoolObjectType.penetrateBird;
 
-                    break;
+                break;
 
-                case EnemyType.penetrateBird:
-                    selectedPrefab = PoolEnum.PoolObjectType.penetrateBird;
+            case EnemyType.thunderBird:
+                selectedPrefab = PoolEnum.PoolObjectType.thunderBird;
 
-                    break;
+                break;
 
-                case EnemyType.thunderBird:
-                    selectedPrefab = PoolEnum.PoolObjectType.thunderBird;
+            case EnemyType.bombBirdBig:
+                selectedPrefab = PoolEnum.PoolObjectType.bombBirdBig;
 
-                    break;
+                break;
 
-                case EnemyType.bombBird2:
-                    selectedPrefab = PoolEnum.PoolObjectType.bombBird2;
+            case EnemyType.thunderBirdBig:
+                selectedPrefab = PoolEnum.PoolObjectType.thunderBirdBig;
 
-                    break;
+                break;
 
-                case EnemyType.thunderBird2:
-                    selectedPrefab = PoolEnum.PoolObjectType.thunderBird2;
+            // 例外処理
+            default:
+                selectedPrefab = PoolEnum.PoolObjectType.normalBird;
 
-                    break;
-
-                // 例外処理
-                default:
-                    selectedPrefab = PoolEnum.PoolObjectType.normalBird;
-
-                    break;
-            }
-
-            // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
-            GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab,
-                _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdSpawnPlace.position).gameObject;
-            temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
-
-
-
-            // Scriptabeの設定に応じて、アタッチする挙動スクリプトを変える
-            switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._moveType)
-            {
-                case MoveType.linear:
-                    //呼び出した雑魚にコンポーネントを付与
-                    temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
-
-                    break;
-
-                case MoveType.curve:
-                    temporaryMove = temporaryObject.AddComponent<BirdMoveSecond>();
-
-                    break;
-
-                default:
-                    temporaryMove = null;
-
-                    break; ;
-            }
-
-            // 呼び出した雑魚の変数に設定
-            temporaryMove.ThisInstanceIndex = i;
-            temporaryMove.SpawnedWave = _waveType;
-            temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._birdGoalPlaces.Count;
-            temporaryMove.LinearMovementSpeed = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._speed;
-            temporaryMove.ReAttackTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[i]._waitTime_s;
+                break;
         }
+
+        // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
+        GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab,
+            _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[loopCount]._birdSpawnPlace.position).gameObject;
+        temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
+
+
+
+        // Scriptabeの設定に応じて、アタッチする挙動スクリプトを変える
+        switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._moveType)
+        {
+            case MoveType.linear:
+                //呼び出した雑魚にコンポーネントを付与
+                temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
+
+                break;
+
+            case MoveType.curve:
+                temporaryMove = temporaryObject.AddComponent<BirdMoveSecond>();
+
+                break;
+
+            default:
+                temporaryMove = null;
+
+                break; ;
+        }
+
+        // 呼び出した雑魚の変数に設定
+        temporaryMove.ThisInstanceIndex = loopCount;
+        temporaryMove.SpawnedWave = _waveType;
+        temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[loopCount]._birdGoalPlaces.Count;
+        temporaryMove.LinearMovementSpeed = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[loopCount]._speed;
+        temporaryMove.ReAttackTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[loopCount]._waitTime_s;
     }
 }

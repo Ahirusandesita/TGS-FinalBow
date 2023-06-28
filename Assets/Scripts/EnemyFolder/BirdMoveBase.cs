@@ -475,10 +475,10 @@ public abstract class BirdMoveBase : MonoBehaviour
             case PoolEnum.PoolObjectType.thunderBird:
                 return PoolEnum.PoolObjectType.thunderBullet;
 
-            case PoolEnum.PoolObjectType.bombBird2:
+            case PoolEnum.PoolObjectType.bombBirdBig:
                 return PoolEnum.PoolObjectType.bombBullet;
 
-            case PoolEnum.PoolObjectType.thunderBird2:
+            case PoolEnum.PoolObjectType.thunderBirdBig:
                 return PoolEnum.PoolObjectType.thunderBullet;
         }
 
