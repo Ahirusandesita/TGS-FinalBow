@@ -18,7 +18,7 @@ interface IArrowEventSetting : IArrowPlusDamage
     /// <param name="arrow">Arrowクラス</param>
     /// <param name="needMoveChenge">Move処理を更新するか</param>
     /// <param name="enchantmentState">エンチャントのEnum</param>
-    void EventSetting(Arrow arrow, bool needMoveChenge, EnchantmentEnum.EnchantmentState enchantmentState);
+    void EventSetting(IArrowEnchant arrow, bool needMoveChenge, EnchantmentEnum.EnchantmentState enchantmentState);
 
     /// <summary>
     /// 矢のエンチャントをリセットする
@@ -143,7 +143,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// <param name="arrow">Arrowクラス</param>
     /// <param name="needMoveChenge">Move処理を更新するか</param>
     /// <param name="enchantmentState">エンチャントのEnum</param>
-    public void EventSetting(Arrow arrow, bool needMoveChenge, EnchantmentEnum.EnchantmentState enchantmentState)
+    public void EventSetting(IArrowEnchant arrow, bool needMoveChenge, EnchantmentEnum.EnchantmentState enchantmentState)
     {
         //エンチャントができない状態ならエンチャントしない
         if (!arrow.NeedArrowEnchant)
@@ -166,7 +166,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
             {
                 //新しいエンチャントの効果音、エフェクトをだす
                 _arrowEnchantSound.ArrowSound_EnchantSound();
-                _arrowEnchantEffect.ArrowEffect_NewEnchantEffect(arrow.transform);
+                _arrowEnchantEffect.ArrowEffect_NewEnchantEffect(arrow.MyTransform);
             }
             //前回のEnum
             _enchantmentStateLast = enchantState;
@@ -272,7 +272,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// <param name="enchantState"></param>
     /// <param name="arrow"></param>
     /// <param name="needMoveChenge"></param>
-    private void EnchantmentPreparation(EnchantmentEnum.EnchantmentState enchantState, Arrow arrow, bool needMoveChenge)
+    private void EnchantmentPreparation(EnchantmentEnum.EnchantmentState enchantState, IArrowEnchant arrow, bool needMoveChenge)
     {
 
         //エンチャントの関数をArrowに代入するためのデリゲート
