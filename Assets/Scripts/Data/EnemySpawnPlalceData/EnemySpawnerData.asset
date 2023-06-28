@@ -29,29 +29,56 @@ MonoBehaviour:
   - _wave: zakoWave1-2
     _moveType: 0
     _enemysSpawner:
+    - _speed: 20
+      _waitTime_s: 1
     - _enemyType: 0
-      _speed: 20
-      _waitTime_s: 5
       _spawnDelay_s: 0
       _birdSpawnPlace: {fileID: 6624288524222944905, guid: 8c4d635b255dce04cb12309ff6858d1a, type: 3}
       _birdGoalPlaces:
       - {fileID: 2223794877020030422, guid: 1a5bd5c90a308984693eb9d2334bd314, type: 3}
+      - {fileID: 879955177882474145, guid: b52fb9aada69cd44bb4734dd664fa4b5, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
+    - _speed: 20
+      _waitTime_s: 1
+      _spawnDelay_s: 1
     - _enemyType: 0
-      _speed: 20
-      _waitTime_s: 5
-      _spawnDelay_s: 0
       _birdSpawnPlace: {fileID: 4184076981089469704, guid: d9a94ff89518e0e479315d714cb7b80c, type: 3}
       _birdGoalPlaces:
       - {fileID: 1567093400080375722, guid: 3623f9853dc869046a6f2a0f25b5ff2b, type: 3}
+      - {fileID: 2113669084091818984, guid: c21caebaf6cc1cc49acf9788c19285c5, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
+    - _speed: 20
+      _waitTime_s: 1
+      _spawnDelay_s: 1
     - _enemyType: 0
-      _speed: 20
-      _waitTime_s: 5
-      _spawnDelay_s: 0
       _birdSpawnPlace: {fileID: 1648998255630024935, guid: 70bfa5762b983374fa0e8062cd6a3050, type: 3}
       _birdGoalPlaces:
       - {fileID: 5051486603923050630, guid: 16c988c6f99416b4b97d3f5b049f2e4c, type: 3}
+      - {fileID: 7312814682323792739, guid: 29621c4e35836ae4e921a2470947fbcd, type: 3}
+      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
+    - _speed: 20
+      _waitTime_s: 1
+      _spawnDelay_s: 3
+      _birdSpawnPlace: {fileID: 4119766912194715233, guid: f5eb5e2ffac5f5745aaf5ce2a842ad9f, type: 3}
+      _birdGoalPlaces:
+      - {fileID: 4230843219101061294, guid: 93fd3b2cd2c3f404ba8ab09eaa139f6e, type: 3}
+      - {fileID: 4486125072898508979, guid: 1ebe826f6b69448439cc025dfa7678dd, type: 3}
+      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
+    - _speed: 20
+      _waitTime_s: 1
+      _spawnDelay_s: 1
+      _birdSpawnPlace: {fileID: 8710538551048900608, guid: 7dd8640426b0bd543aa3328ddc9e816b, type: 3}
+      _birdGoalPlaces:
+      - {fileID: 4445887862971937658, guid: d31f8294a4fc5f648966048f4c11090e, type: 3}
+      - {fileID: 8780855419235506970, guid: 70371c450f4982d438d1e17cf1128c3a, type: 3}
+      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
+    - _speed: 20
+      _waitTime_s: 1
+      _spawnDelay_s: 1
+      _birdSpawnPlace: {fileID: 2241095655997497228, guid: 4d4f283e05050e3438676e204f971f05, type: 3}
+      _birdGoalPlaces:
+      - {fileID: 4061371994395211962, guid: f76689c32a9088441ac481fe8474cebc, type: 3}
+      - {fileID: 3547360910617371518, guid: de6fc6bff3c84334bad1039c9b84e3f4, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
   - _wave: zakoWave2
     _moveType: 0
