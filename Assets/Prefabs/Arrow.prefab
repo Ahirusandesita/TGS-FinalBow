@@ -84,7 +84,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45ff222c06fc9e49bfa99765448284e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needArrowEnchant: 1
   _arrowActivTime: 5
 --- !u!114 &8904240445669873084
 MonoBehaviour:
@@ -98,9 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7957989f7b7abf4b8f9c570d169a399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SPEED_TO_RANGE_COEFFICIENT_NORMAL: 15
-  SPEED_TO_RANGE_COEFFICIENT_THUNDER: 30
-  GRAVITY: -50
+  GRAVITY_NORMAL: -50
+  GRAVITY_THUNDER: -10
+  SPEED_TO_RANGE_COEFFICIENT_NORMAL: 7
+  SPEED_TO_RANGE_COEFFICIENT_THUNDER: 100
   TERMINAL_VELOCITY: 100
 --- !u!114 &3084670092578774059
 MonoBehaviour:
