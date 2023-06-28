@@ -121,7 +121,7 @@ public class BossAttack : EnemyAttack
                 yield return _FG_attackRequiredWait;
 
                 // 火の玉をスポーンさせる
-                SpawnEAttackFanForm(PoolEnum.PoolObjectType.fireBullet, _FG_spawnPlace, numberOfFireBall);
+                SpawnEAttackFanForm(PoolEnum.PoolObjectType.bombBullet, _FG_spawnPlace, numberOfFireBall);
             }
 
             // 攻撃間のブレイク

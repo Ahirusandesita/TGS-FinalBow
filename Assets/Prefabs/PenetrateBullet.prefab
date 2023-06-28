@@ -4895,8 +4895,12 @@ GameObject:
   - component: {fileID: 3995925170779068669}
   - component: {fileID: 3995925170779068671}
   - component: {fileID: 3995925170779068668}
+  - component: {fileID: -6386952464085877701}
+  - component: {fileID: -6688168391900420219}
+  - component: {fileID: -3168518705095684918}
+  - component: {fileID: -8965221455096690833}
   m_Layer: 0
-  m_Name: bird_penetration
+  m_Name: PenetrateBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9770,6 +9774,63 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-6386952464085877701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3995925170779068658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b44f4b433675e4e936e81e77bddfbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isStart: 0
+  _UseTemporary: 1
+  _endSetting: 0
+  _destroyDistance: 1
+--- !u!114 &-6688168391900420219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3995925170779068658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee182ac232246c4993b4f283852d0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemState: 5
+--- !u!114 &-3168518705095684918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3995925170779068658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e2f60bc0f2b854db2fa49eb5c9c008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myObjectType: 0
+--- !u!114 &-8965221455096690833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3995925170779068658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189098e2e4b10334b978b87c35d3fc79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PoolSystemTagData: {fileID: 11400000, guid: 00e291fa0e47e8c4ab70d20233f8378b, type: 2}
+  _PlayerControllerTagData: {fileID: 11400000, guid: 66ccf49a8785c044a83e26f1b5f1accb, type: 2}
+  _attackMoveSpeed: 25
 --- !u!1 &3995925171287458369
 GameObject:
   m_ObjectHideFlags: 0

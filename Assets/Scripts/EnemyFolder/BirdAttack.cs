@@ -33,12 +33,12 @@ public class BirdAttack : EnemyAttack
     /// </summary>
     /// <param name="spawnPlace">スポーンさせる位置</param>
     /// <returns></returns>
-    public IEnumerator NormalAttackLoop(Transform spawnPlace)
+    public IEnumerator NormalAttackLoop(Transform spawnPlace, PoolEnum.PoolObjectType selectedType)
     {
         while (true)
         {
             // 通常の玉をスポーン
-            SpawnEAttackFanForm(PoolEnum.PoolObjectType.normalBullet, spawnPlace, _numberOfBullet);
+            SpawnEAttackFanForm(selectedType, spawnPlace, _numberOfBullet);
 
             // 攻撃間のブレイク
             yield return _attackIntervalWait;
@@ -49,9 +49,9 @@ public class BirdAttack : EnemyAttack
     /// 雑魚：通常攻撃
     /// </summary>
     /// <param name="spawnPlace">スポーンさせる位置</param>
-    public void NormalAttack(Transform spawnPlace)
+    public void NormalAttack(Transform spawnPlace, PoolEnum.PoolObjectType selectedType)
     {
         // 通常の玉をスポーン
-        SpawnEAttackFanForm(PoolEnum.PoolObjectType.normalBullet, spawnPlace, _numberOfBullet);
+        SpawnEAttackFanForm(selectedType, spawnPlace, _numberOfBullet);
     }
 }
