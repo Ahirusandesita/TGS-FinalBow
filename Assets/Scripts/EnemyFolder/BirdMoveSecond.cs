@@ -10,7 +10,7 @@ public class BirdMoveSecond : BirdMoveBase
 {
     #region variable 
 
-    const float SIDE_MOVE_SPEED = 20f;
+    const float SIDE_MOVE_SPEED = 12f;
 
     const float MOVE_SPEED_Y = 10f;
 
