@@ -22,14 +22,17 @@ public class EnemySpawnerTable : ScriptableObject
 }
 
 /// <summary>
-/// 各ウェーブの敵の情報
+/// 各Waveの敵の情報
 /// </summary>
 // Inspectorで変更した値がアセットとして保存される
 [System.Serializable]
 public class WaveEnemyInformation
 {
-    [Tooltip("ウェーブ名")]
+    [Tooltip("Wave名")]
     public string _wave;
+
+    [Header("Waveの開始時間（前Waveからの時間）"), Tooltip("Waveの開始時間（ex: Wave1に1.5を設定すると、ゲーム開始後1.5s後にWave1の敵がスポーンする")]
+    public float _startWaveTime_s;
 
     [Tooltip("動きの種類")]
     public MoveType _moveType;
@@ -52,7 +55,7 @@ public class EnemySpawnerInformation
     [Header("停止して攻撃する秒数（Linearのみ）"), Tooltip("停止して攻撃する秒数")]
     public float _waitTime_s;
 
-    [Header("スポーンディレイ（注意：Wave開始からの秒数）"), Tooltip("スポーンディレイ（注意：Wave開始からの秒数、　推奨：数秒程度）")]
+    [Header("スポーンディレイ（注意：Wave開始からの秒数）"), Tooltip("スポーンディレイ（注意：Wave開始からの秒数）")]
     // 大幅なディレイを付加したい場合は、Waveを分ける（全員倒さないと次のウェーブに進まないため）
     public float _spawnDelay_s;
 
