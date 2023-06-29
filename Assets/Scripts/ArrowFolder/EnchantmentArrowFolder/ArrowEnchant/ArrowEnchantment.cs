@@ -192,6 +192,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         _isEnchantments[ENCHANT_NORMAL_INDEX] = true;
 
         _enchantmentStateLast = EnchantmentEnum.EnchantmentState.nothing;
+        _arrowEnchantUI.ArrowEnchantUI_Normal();
     }
 
     /// <summary>
