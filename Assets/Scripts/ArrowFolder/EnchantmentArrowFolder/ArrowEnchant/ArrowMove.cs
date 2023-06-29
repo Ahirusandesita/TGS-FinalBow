@@ -32,7 +32,7 @@ interface IArrowMoveSettingReset : IArrowMoveSetting, IArrowMoveReset
 /// </summary>
 public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 {
-
+    float debtime = 0.1f;
     #region 変数一覧 グロ注意
 
     #region 共用変数
@@ -99,7 +99,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     // 通常時の重力加速度　絶対値が大きいほど降下するのが早くなる
     [Tooltip("重力加速度　大きいほど降下するのが早くなる　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
-    private float GRAVITY_NORMAL = -50f;
+    private float GRAVITY_NORMAL = -100f;
 
     // サンダーの時の重力加速度　絶対値が大きいほど降下するのが早くなる
     [Tooltip("重力加速度　大きいほど降下するのが早くなる　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
@@ -118,7 +118,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
     // 最大落下速度　落下速度が加速する頂点　これより速くは落下しない
     [Tooltip("最大落下速度　落下速度が加速する頂点　これより速くは落下しない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
-    private float TERMINAL_VELOCITY = 100f;
+    private float TERMINAL_VELOCITY = -1500f;
 
     #endregion
 
@@ -381,7 +381,15 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
             _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
 
             // 重力による下方向への移動量を算出
-            _addGravity = MathN.Clamp_max(_addGravity + GravityValue(isThunder) * Time.deltaTime, TERMINAL_VELOCITY + _arrowSpeed_Y);
+            _addGravity = MathN.Clamp_min(_addGravity + GravityValue(isThunder) * Time.deltaTime, TERMINAL_VELOCITY - _arrowSpeed_Y);
+
+            debtime -= Time.deltaTime;
+
+            if(debtime < 0)
+            {
+                print("速度　" + _arrowSpeed_Y + ", 移動量　" + _moveValue.y + ", 重力　" + _addGravity);
+                debtime = 0.1f;
+            }
         }
     }
 
