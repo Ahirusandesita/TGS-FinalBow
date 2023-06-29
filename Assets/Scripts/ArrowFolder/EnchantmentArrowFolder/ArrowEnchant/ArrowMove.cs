@@ -399,6 +399,15 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
             // 重力による下方向への移動量を算出
             _addGravity = MathN.Clamp_min(_addGravity + GravityValue(isThunder) * Time.deltaTime, _maxGravity);
+
+
+            /*
+             　追々実装する項目
+
+                Ｙ軸方向に対する空気抵抗
+                終端速度と空気抵抗、重力加速度の相互関係をはっきりさせる
+                物理的にどう調整しても不備が起こらないようにする
+             */
         }
     }
 
