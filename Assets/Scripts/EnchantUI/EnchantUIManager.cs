@@ -11,8 +11,8 @@ using UnityEngine.UI;
 public class EnchantUIManager : MonoBehaviour
 {
     #region variable 
-    private Image _image1;
-    private Image _image2;
+    private SpriteRenderer _renderer1;
+    private SpriteRenderer _renderer2;
     #endregion
     #region property
     #endregion
@@ -20,23 +20,23 @@ public class EnchantUIManager : MonoBehaviour
 
     private void Start()
     {
-        _image1 = this.transform.GetChild(0).GetComponent<Image>();
-        _image2 = this.transform.GetChild(1).GetComponent<Image>();
+        _renderer1 = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _renderer2 = this.transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
-    public void EnchantImage1Chenge(Image image)
+    public void EnchantImage1Chenge(SpriteRenderer renderer)
     {
-        _image1 = image;
+        _renderer1 = renderer;
     }
-    public void EnchantImage2Chenge(Image image)
+    public void EnchantImage2Chenge(SpriteRenderer renderer)
     {
-        _image2 = image;
+        _renderer2 = renderer;
     }
 
     public void EnchantImageReset()
     {
-        _image1 = null;
-        _image2 = null;
+        _renderer1 = null;
+        _renderer2 = null;
     }
 
 
