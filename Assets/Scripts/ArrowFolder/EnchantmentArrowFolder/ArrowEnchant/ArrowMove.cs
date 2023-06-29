@@ -7,6 +7,12 @@
 using UnityEngine;
 using Nekoslibrary;
 
+
+#region インターフェース
+
+/// <summary>
+/// 矢の挙動の設定のために必要なインターフェース
+/// </summary>
 interface IArrowMoveSetting
 {
     /// <summary>
@@ -14,6 +20,9 @@ interface IArrowMoveSetting
     /// </summary>
     float SetArrowSpeed { set; }
 }
+/// <summary>
+/// 矢の挙動のリセットのために必要なインターフェース
+/// </summary>
 interface IArrowMoveReset
 {
     /// <summary>
@@ -21,10 +30,16 @@ interface IArrowMoveReset
     /// </summary>
     void ResetsStart();
 }
+
+/// <summary>
+/// ArrowMoveに必要なインターフェース
+/// </summary>
 interface IArrowMoveSettingReset : IArrowMoveSetting, IArrowMoveReset
 {
 
 }
+
+#endregion
 
 
 /// <summary>
