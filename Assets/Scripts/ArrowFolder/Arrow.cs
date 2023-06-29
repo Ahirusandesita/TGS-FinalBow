@@ -233,8 +233,6 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
 
         _bowManagerQue = GameObject.FindGameObjectWithTag("BowController").GetComponent<BowManager>();
 
-        _myTrailRenderer.enabled = false;
-
     }
     private void OnDisable()
     {
@@ -259,7 +257,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         _waitArrowActivTime = new WaitForSeconds(_arrowActivTime);
 
         _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
-
+        _myTrailRenderer.enabled = false;
     }
     private void Update()
     {
@@ -435,6 +433,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
             EventArrowEffectPassiveDestroy(this.gameObject);
         }
         ArrowReset();
+        _myTrailRenderer.enabled = false;
         _bowManagerQue.ArrowQue(_cashObjectInformation);
     }
 
