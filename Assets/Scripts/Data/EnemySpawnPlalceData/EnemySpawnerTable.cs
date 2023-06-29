@@ -59,7 +59,6 @@ public class EnemySpawnerInformation
     public float _waitTime_s;
 
     [Header("スポーンディレイ（注意：Wave開始からの秒数）"), Tooltip("スポーンディレイ（注意：Wave開始からの秒数）")]
-    // 大幅なディレイを付加したい場合は、Waveを分ける（全員倒さないと次のウェーブに進まないため）
     public float _spawnDelay_s;
 
     [Header("雑魚のスポーン位置"), Tooltip("雑魚のスポーン位置")]

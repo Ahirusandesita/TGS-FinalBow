@@ -47,7 +47,7 @@ public class BirdMoveFirst : BirdMoveBase
         // ‚à‚µInspector‚ÅÝ’èƒ~ƒX‚ª‚ ‚Á‚½‚ç‰¼Ý’è‚·‚é
         if (_linearMovementSpeed == 0f)
         {
-            _linearMovementSpeed = 20;
+            _linearMovementSpeed = 20f;
             X_Debug.LogError("EnemySpawnPlaceData.Speed ‚ªÝ’è‚³‚ê‚Ä‚Ü‚¹‚ñ");
         }
 
@@ -144,16 +144,6 @@ public class BirdMoveFirst : BirdMoveBase
             }
 
             _currentTime2 = 0f;
-        }
-    }
-
-    private void IncrementGoalCount()
-    {
-        _nextSetGoalCount++;
-
-        if (_nextSetGoalCount > _numberOfGoal)
-        {
-            _isLastMove = true;
         }
     }
 }
