@@ -17,9 +17,9 @@ MonoBehaviour:
   _scriptableWaveEnemy:
   - _wave: zakoWave1
     _startWaveTime_s: 1.5
-    _moveType: 0
     _enemysSpawner:
     - _enemyType: 0
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 10
@@ -30,9 +30,9 @@ MonoBehaviour:
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
   - _wave: zakoWave2
     _startWaveTime_s: 60
-    _moveType: 0
     _enemysSpawner:
     - _enemyType: 0
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 1
@@ -43,6 +43,7 @@ MonoBehaviour:
       - {fileID: 879955177882474145, guid: b52fb9aada69cd44bb4734dd664fa4b5, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
     - _enemyType: 1
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 1
@@ -53,6 +54,7 @@ MonoBehaviour:
       - {fileID: 2113669084091818984, guid: c21caebaf6cc1cc49acf9788c19285c5, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 1
@@ -63,6 +65,7 @@ MonoBehaviour:
       - {fileID: 7312814682323792739, guid: 29621c4e35836ae4e921a2470947fbcd, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 1
@@ -73,8 +76,9 @@ MonoBehaviour:
       - {fileID: 4486125072898508979, guid: 1ebe826f6b69448439cc025dfa7678dd, type: 3}
       - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
     - _enemyType: 1
+      _moveType: 0
       _speed: 20
-      _bullet: 0
+      _bullet: 3
       _waitTime_s: 1
       _spawnDelay_s: 7
       _birdSpawnPlace: {fileID: 8710538551048900608, guid: 7dd8640426b0bd543aa3328ddc9e816b, type: 3}
@@ -83,6 +87,7 @@ MonoBehaviour:
       - {fileID: 8780855419235506970, guid: 70371c450f4982d438d1e17cf1128c3a, type: 3}
       - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 1
@@ -94,9 +99,9 @@ MonoBehaviour:
       - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
   - _wave: zakoWave3
     _startWaveTime_s: 60
-    _moveType: 1
     _enemysSpawner:
     - _enemyType: 1
+      _moveType: 1
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -105,6 +110,7 @@ MonoBehaviour:
       _birdGoalPlaces:
       - {fileID: 2837584766174745678, guid: 53080b38328446e4abdcdbcd26585b6b, type: 3}
     - _enemyType: 0
+      _moveType: 1
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -113,6 +119,7 @@ MonoBehaviour:
       _birdGoalPlaces:
       - {fileID: 8386383588135534129, guid: da0d0c7b6aabf054c9b60bd40032cf43, type: 3}
     - _enemyType: 5
+      _moveType: 1
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -121,6 +128,7 @@ MonoBehaviour:
       _birdGoalPlaces:
       - {fileID: 8477682339561181063, guid: eaf517f0565c9e64792bab00b61e1db2, type: 3}
     - _enemyType: 0
+      _moveType: 1
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -129,6 +137,7 @@ MonoBehaviour:
       _birdGoalPlaces:
       - {fileID: 3909060786148468590, guid: 478e4b5937ee0714b9230900b557c4b1, type: 3}
     - _enemyType: 1
+      _moveType: 1
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -138,9 +147,9 @@ MonoBehaviour:
       - {fileID: 907667879072106027, guid: 805524d4ebc2f5b43bb51d8a51e4b3a1, type: 3}
   - _wave: zakoWave4
     _startWaveTime_s: 30
-    _moveType: 0
     _enemysSpawner:
     - _enemyType: 0
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 1
@@ -150,6 +159,7 @@ MonoBehaviour:
       - {fileID: 4141912905756851721, guid: adb3755cf00f78247bd2f0cccf6e7c3d, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
     - _enemyType: 4
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -160,6 +170,7 @@ MonoBehaviour:
       - {fileID: 879955177882474145, guid: b52fb9aada69cd44bb4734dd664fa4b5, type: 3}
       - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
     - _enemyType: 1
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -170,6 +181,7 @@ MonoBehaviour:
       - {fileID: 2113669084091818984, guid: c21caebaf6cc1cc49acf9788c19285c5, type: 3}
       - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
     - _enemyType: 5
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -180,6 +192,7 @@ MonoBehaviour:
       - {fileID: 4486125072898508979, guid: 1ebe826f6b69448439cc025dfa7678dd, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
     - _enemyType: 3
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -190,6 +203,7 @@ MonoBehaviour:
       - {fileID: 8780855419235506970, guid: 70371c450f4982d438d1e17cf1128c3a, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 20
       _bullet: 3
       _waitTime_s: 5
@@ -200,6 +214,7 @@ MonoBehaviour:
       - {fileID: 3547360910617371518, guid: de6fc6bff3c84334bad1039c9b84e3f4, type: 3}
       - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 10
       _bullet: 3
       _waitTime_s: 0.1
@@ -209,6 +224,7 @@ MonoBehaviour:
       - {fileID: 4141912905756851721, guid: adb3755cf00f78247bd2f0cccf6e7c3d, type: 3}
       - {fileID: 2837584766174745678, guid: 53080b38328446e4abdcdbcd26585b6b, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 10
       _bullet: 3
       _waitTime_s: 0.1
@@ -218,6 +234,7 @@ MonoBehaviour:
       - {fileID: 4141912905756851721, guid: adb3755cf00f78247bd2f0cccf6e7c3d, type: 3}
       - {fileID: 8386383588135534129, guid: da0d0c7b6aabf054c9b60bd40032cf43, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 10
       _bullet: 3
       _waitTime_s: 0.1
@@ -227,6 +244,7 @@ MonoBehaviour:
       - {fileID: 4141912905756851721, guid: adb3755cf00f78247bd2f0cccf6e7c3d, type: 3}
       - {fileID: 8477682339561181063, guid: eaf517f0565c9e64792bab00b61e1db2, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 10
       _bullet: 3
       _waitTime_s: 0.1
@@ -236,6 +254,7 @@ MonoBehaviour:
       - {fileID: 4141912905756851721, guid: adb3755cf00f78247bd2f0cccf6e7c3d, type: 3}
       - {fileID: 3909060786148468590, guid: 478e4b5937ee0714b9230900b557c4b1, type: 3}
     - _enemyType: 0
+      _moveType: 0
       _speed: 10
       _bullet: 3
       _waitTime_s: 0.1
