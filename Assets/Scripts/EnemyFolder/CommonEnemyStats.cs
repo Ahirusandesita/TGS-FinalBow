@@ -21,6 +21,8 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     protected WaitForSeconds _paralysisWait = default;
 
+    protected GameObject _paralysisEffects = default;
+
     /// <summary>
     /// –ƒáƒŠÔ
     /// </summary>
@@ -43,6 +45,8 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     protected bool _isParalysis = false;
 
+    protected const int PARALYSIS_EFFECTS_INDEX = 4;
+
     protected override void Start()
     {
         base.Start();
@@ -56,6 +60,10 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         {
             X_Debug.LogError("ScoreManager‚ªƒƒ‹ƒT[4p98");
         }
+
+        _paralysisEffects = transform.GetChild(PARALYSIS_EFFECTS_INDEX).gameObject;
+
+        _paralysisEffects.SetActive(false);
 
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
 
@@ -155,11 +163,13 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     private IEnumerator ParalysisCoroutine()
     {
         print("–ƒáƒ’†");
+        _paralysisEffects.SetActive(true);
         _isParalysis = true;
 
         yield return _paralysisWait;
 
         print("–ƒáƒ‰ïê");
+        _paralysisEffects.SetActive(false);
         _isParalysis = false;
     }
 }
