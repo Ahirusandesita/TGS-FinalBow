@@ -207,6 +207,8 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     private WaitForSeconds _waitArrowActivTime;
 
     private bool _isStarEnable = true;
+
+    private TrailRenderer _myTrailRenderer;
     private void OnEnable()
     {
         if (_isStarEnable)
@@ -231,6 +233,8 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
 
         _bowManagerQue = GameObject.FindGameObjectWithTag("BowController").GetComponent<BowManager>();
 
+        _myTrailRenderer.enabled = false;
+
     }
     private void OnDisable()
     {
@@ -238,6 +242,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     }
     private void Start()
     {
+
         NeedArrowEnchant = true;
         _playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
@@ -252,6 +257,8 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         _audioSource = this.GetComponent<AudioSource>();
 
         _waitArrowActivTime = new WaitForSeconds(_arrowActivTime);
+
+        _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
 
     }
     private void Update()
@@ -368,6 +375,8 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         StartCoroutine(IEArrowQue());
 
         NeedArrowEnchant = false;
+
+        _myTrailRenderer.enabled = true;
     }
 
     /// <summary>
