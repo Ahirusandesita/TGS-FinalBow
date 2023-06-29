@@ -1672,6 +1672,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2025330549789940614, guid: 7694bcac54f4fa14ab3fe69186b1e8b4, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 9051230437103398912}
+    - target: {fileID: 5461689725117679432, guid: 7694bcac54f4fa14ab3fe69186b1e8b4, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 9051230437103398912}
+    - target: {fileID: 5461689726115696628, guid: 7694bcac54f4fa14ab3fe69186b1e8b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6899407124368825914, guid: 7694bcac54f4fa14ab3fe69186b1e8b4, type: 3}
       propertyPath: m_Name
       value: Manager (1)
@@ -1720,6 +1732,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7937419138593525050, guid: 7694bcac54f4fa14ab3fe69186b1e8b4, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 614966741}
+    - target: {fileID: 7955298121386124978, guid: 7694bcac54f4fa14ab3fe69186b1e8b4, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 614966741}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7694bcac54f4fa14ab3fe69186b1e8b4, type: 3}
