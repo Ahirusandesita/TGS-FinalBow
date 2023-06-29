@@ -184,7 +184,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
 
         // Scriptabeの設定に応じて、アタッチする挙動スクリプトを変える
-        switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._moveType)
+        switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._moveType)
         {
             case MoveType.linear:
                 //呼び出した雑魚にコンポーネントを付与

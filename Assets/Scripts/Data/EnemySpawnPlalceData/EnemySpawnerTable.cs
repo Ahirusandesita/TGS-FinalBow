@@ -34,9 +34,6 @@ public class WaveEnemyInformation
     [Header("Waveの開始時間（前Waveからの時間）"), Tooltip("Waveの開始時間（ex: Wave1に1.5を設定すると、ゲーム開始後1.5s後にWave1の敵がスポーンする")]
     public float _startWaveTime_s;
 
-    [Tooltip("動きの種類")]
-    public MoveType _moveType;
-
     public List<EnemySpawnerInformation> _enemysSpawner = new List<EnemySpawnerInformation>();
 }
 
@@ -48,6 +45,9 @@ public class EnemySpawnerInformation
 {
     [Header("敵の種類"), Tooltip("敵の種類")]
     public EnemyType _enemyType;
+
+    [Tooltip("動きの種類")]
+    public MoveType _moveType;
 
     [Header("移動スピード（Linearのみ）"), Tooltip("直線移動のスピード")]
     public float _speed;
