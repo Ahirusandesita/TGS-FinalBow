@@ -52,6 +52,9 @@ public class EnemySpawnerInformation
     [Header("移動スピード（Linearのみ）"), Tooltip("直線移動のスピード")]
     public float _speed;
 
+    [Header("出す弾の数（推奨：奇数）"), Tooltip("出す弾の数（推奨：奇数）")]
+    public int _bullet;
+
     [Header("停止して攻撃する秒数（Linearのみ）"), Tooltip("停止して攻撃する秒数")]
     public float _waitTime_s;
 

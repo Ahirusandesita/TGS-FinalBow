@@ -206,5 +206,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
         temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._birdGoalPlaces.Count;
         temporaryMove.LinearMovementSpeed = _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._speed;
         temporaryMove.ReAttackTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._waitTime_s;
+        temporaryMove.NumberOfBullet = _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._bullet;
     }
 }

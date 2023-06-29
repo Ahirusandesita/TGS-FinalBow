@@ -11,10 +11,6 @@ public class BirdAttack : EnemyAttack
     [Tooltip("攻撃間の休憩秒数")]
     private WaitForSeconds _attackIntervalWait = default;
 
-    // デバッグ用↓↓↓
-    [SerializeField, Tooltip("一度に出す玉の数")]
-    private int _numberOfBullet = 3;
-
     [SerializeField, Tooltip("攻撃の間隔")]
     private float _attackIntervalTime = 3f;
 
@@ -32,13 +28,15 @@ public class BirdAttack : EnemyAttack
     /// 雑魚：通常攻撃（ループ）
     /// </summary>
     /// <param name="spawnPlace">スポーンさせる位置</param>
+    /// <param name="selectedType">弾の種類</param>
+    /// <param name="numberOfBullet">弾の数</param>
     /// <returns></returns>
-    public IEnumerator NormalAttackLoop(Transform spawnPlace, PoolEnum.PoolObjectType selectedType)
+    public IEnumerator NormalAttackLoop(Transform spawnPlace, PoolEnum.PoolObjectType selectedType, int numberOfBullet)
     {
         while (true)
         {
             // 通常の玉をスポーン
-            SpawnEAttackFanForm(selectedType, spawnPlace, _numberOfBullet);
+            SpawnEAttackFanForm(selectedType, spawnPlace, numberOfBullet);
 
             // 攻撃間のブレイク
             yield return _attackIntervalWait;
@@ -49,9 +47,11 @@ public class BirdAttack : EnemyAttack
     /// 雑魚：通常攻撃
     /// </summary>
     /// <param name="spawnPlace">スポーンさせる位置</param>
-    public void NormalAttack(Transform spawnPlace, PoolEnum.PoolObjectType selectedType)
+    /// <param name="selectedType">弾の種類</param>
+    /// <param name="numberOfBullet">弾の数</param>
+    public void NormalAttack(Transform spawnPlace, PoolEnum.PoolObjectType selectedType, int numberOfBullet)
     {
         // 通常の玉をスポーン
-        SpawnEAttackFanForm(selectedType, spawnPlace, _numberOfBullet);
+        SpawnEAttackFanForm(selectedType, spawnPlace, numberOfBullet);
     }
 }
