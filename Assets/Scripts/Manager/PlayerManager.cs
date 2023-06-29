@@ -125,6 +125,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
         //チャージ画像
         _chargeMeterManager.Charging();
+
+        _arrow.ArrowPowerColor();
     }
     /// <summary>
     /// 矢を発射するメソッド

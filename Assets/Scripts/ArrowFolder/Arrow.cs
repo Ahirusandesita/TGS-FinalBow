@@ -209,6 +209,15 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     private bool _isStarEnable = true;
 
     private TrailRenderer _myTrailRenderer;
+
+    private Renderer _myArrowRenderer;
+
+    private Color _arrowStartColor;
+
+    private Color _colorEnd = Color.red;
+
+    private float _colorValue = default;
+
     private void OnEnable()
     {
         if (_isStarEnable)
@@ -258,9 +267,14 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
 
         _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
         _myTrailRenderer.enabled = false;
+
+        _myArrowRenderer = MyTransform.GetChild(2).gameObject.transform.GetChild(4).GetComponent<Renderer>();
+        _colorValue = _myArrowRenderer.material.color.g / 10;
     }
     private void Update()
     {
+        
+
         if (EventArrowPassiveEffect != null)
         {
             EventArrowPassiveEffect(MyTransform);
@@ -397,6 +411,20 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         this._enchantState = enchantment;
     }
 
+    public void ArrowPowerColor()
+    {
+        
+        Color color = _myArrowRenderer.material.color;
+        if(color.r >= 255)
+        {
+            return;
+        }
+        color.r += _colorValue;
+        color.g -= _colorValue;
+        _myArrowRenderer.material.color = color;
+    }
+
+
 
     /// <summary>
     /// 矢のparameterをリセットする
@@ -436,6 +464,9 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         _myTrailRenderer.enabled = false;
         _bowManagerQue.ArrowQue(_cashObjectInformation);
     }
+
+
+
 
     /// <summary>
     /// コールチンが終わるとプールに戻す

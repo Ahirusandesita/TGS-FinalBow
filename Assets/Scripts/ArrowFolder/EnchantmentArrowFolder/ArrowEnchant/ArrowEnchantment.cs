@@ -162,7 +162,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         if (enchantState != _enchantmentStateLast)
         {
             //＆ノーマル以外の時
-            if(enchantState != EnchantmentEnum.EnchantmentState.normal)
+            if (enchantState != EnchantmentEnum.EnchantmentState.normal)
             {
                 //新しいエンチャントの効果音、エフェクトをだす
                 _arrowEnchantSound.ArrowSound_EnchantSound();
@@ -177,15 +177,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
             //エンチャントの調合
             EnchantmentPreparation(enchantState, arrow, needMoveChenge);
         }
-
-        ////前回のEnum
-        //_enchantmentStateLast = enchantState;
-
-        ////矢にEnumをセット
-        //arrow.SetEnchantState(enchantState);
-
-        //EnchantmentPreparation(enchantState, arrow, needMoveChenge);
-
     }
 
     /// <summary>
@@ -260,19 +251,14 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                 }
             }
         }
-        //エンチャントが存在していなければNormalにする
-        //if (!exitisEnchantment)
-        //{
-        //    _enchantmentStateNow = EnchantmentEnum.EnchantmentState.normal;
-        //}
         return _enchantmentStateNow;
     }
 
     /// <summary>
     /// エンチャントを矢に代入する
     /// </summary>
-    /// <param name="enchantState"></param>
-    /// <param name="arrow"></param>
+    /// <param name="enchantState">enchant</param>
+    /// <param name="arrow">Arrow</param>
     /// <param name="needMoveChenge"></param>
     private void EnchantmentPreparation(EnchantmentEnum.EnchantmentState enchantState, IArrowEnchant arrow, bool needMoveChenge)
     {
