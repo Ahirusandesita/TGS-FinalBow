@@ -387,7 +387,7 @@ public class ArrowEnchant : MonoBehaviour
         }
         else
         {
-            addDamage++;
+            addDamage += 2;
         }
 
         if(addDamage > _limitAddDamage)
