@@ -24,19 +24,19 @@ public class EnchantUIManager : MonoBehaviour
         _renderer2 = this.transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
-    public void EnchantImage1Chenge(SpriteRenderer renderer)
+    public void EnchantImage1Chenge(Sprite sprite)
     {
-        _renderer1 = renderer;
+        _renderer1.sprite = sprite;
     }
-    public void EnchantImage2Chenge(SpriteRenderer renderer)
+    public void EnchantImage2Chenge(Sprite sprite)
     {
-        _renderer2 = renderer;
+        _renderer2.sprite = sprite;
     }
 
     public void EnchantImageReset()
     {
-        _renderer1 = null;
-        _renderer2 = null;
+        _renderer1.sprite = null;
+        _renderer2.sprite = null;
     }
 
 
