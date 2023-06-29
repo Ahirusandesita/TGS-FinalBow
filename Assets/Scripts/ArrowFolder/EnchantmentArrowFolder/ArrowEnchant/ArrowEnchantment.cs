@@ -232,12 +232,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// <returns>掛け合わせ完成EnchantState</returns>
     private EnchantmentEnum.EnchantmentState EnchantmentPreparation()
     {
-        //エンチャントが存在しているか
-        //bool exitisEnchantment = false;
-
         //現在のエンチャント
         EnchantmentEnum.EnchantmentState _enchantmentStateNow = EnchantmentEnum.EnchantmentState.normal;
-        //だめなら上にもどす
 
         for (int i = ENCHANT_NORMAL_INDEX; i < _isEnchantments.Length - 1; i++)
         {
@@ -248,7 +244,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                 {
                     //i,jに登録してあるEnchantをNowに代入
                     _enchantmentStateNow = _enchantPreparationNumbers[i, j];
-                    //exitisEnchantment = true;
                 }
             }
         }
