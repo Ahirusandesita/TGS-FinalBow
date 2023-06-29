@@ -18,5 +18,5 @@ public class EnchantUIData : ScriptableObject
 public class EnchantUI
 {
     public string UIName;
-    public Image UIImage;
+    public SpriteRenderer UIRenderer;
 }
