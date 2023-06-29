@@ -14,9 +14,9 @@ using UnityEngine;
 interface IStageSpawn
 {
     /// <summary>
-    /// 敵のスポーン処理
+    /// ウェーブの実行処理
     /// </summary>
-    void Spawn();
+    void WaveExecution();
 }
 
 /// <summary>
@@ -24,10 +24,10 @@ interface IStageSpawn
 /// </summary>
 public enum WaveType
 {
-    zakoWave1_1,
-    zakoWave1_2,
+    zakoWave1,
     zakoWave2,
     zakoWave3,
+    zakoWave4,
     boss
 }
 
@@ -50,8 +50,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [Tooltip("現在の雑魚/的の数")]
     private int _currentNumberOfObject = 0;
 
-    [Tooltip("現在のウェーブ数")]
-    private WaveType _waveType = WaveType.zakoWave1_1;     // 初期値0
+    [Tooltip("次のウェーブ数")]
+    private WaveType _nextWave = WaveType.zakoWave1;     // 初期値0
+
+    [Tooltip("現在実行中のコルーチン")]
+    private Coroutine _currentActiveCoroutine = default;
     #endregion
 
 
@@ -59,15 +62,19 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         _objectPoolSystem = GameObject.FindWithTag(_PoolSystemTagData.TagName).GetComponent<ObjectPoolSystem>();
 
-        StartCoroutine(GameStart());
+        // ゲームスタート
+        _currentActiveCoroutine = StartCoroutine(WaveStart());
     }
 
 
-    public void Spawn()
+    public void WaveExecution()
     {
+        // コルーチンが動いていたら止める
+        //StopCoroutine(_currentActiveCoroutine);
+
         try
         {
-            if (_waveType == WaveType.boss)
+            if (_nextWave == WaveType.boss)
             {
                 // ボスをスポーン
                 Instantiate(_bossPrefab);
@@ -75,14 +82,17 @@ public class StageManager : MonoBehaviour, IStageSpawn
             }
 
             // EnemySpawnerTableで設定したスポナーの数を設定
-            _currentNumberOfObject += _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count;
+            _currentNumberOfObject += _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner.Count;
 
             // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
-            for (int i = 0; i < _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner.Count; i++)
+            for (int i = 0; i < _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner.Count; i++)
             {
                 // プールから呼び出す
-                StartCoroutine(SpawnAndDelay(listIndex: i));
+                StartCoroutine(Spawn(listIndex: i));
             }
+
+            // 次のWaveの強制実行までのカウントダウンを開始する
+            //_currentActiveCoroutine = StartCoroutine(WaveStart());
         }
         catch (Exception)
         {
@@ -99,53 +109,41 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         if (_currentNumberOfObject <= 0)
         {
+            _nextWave++;
             // ウェーブを進める
-            IncrementWave();
-            Spawn();
-
-            // こっち呼ばれたら時間で呼ばれる処理をオフにする
-            // こっち呼ばれたら時間で呼ばれる処理をオフにする
-            // こっち呼ばれたら時間で呼ばれる処理をオフにする
-            // こっち呼ばれたら時間で呼ばれる処理をオフにする
-            // こっち呼ばれたら時間で呼ばれる処理をオフにする
+            WaveExecution();
         }
     }
 
     /// <summary>
-    /// ウェーブを進行させる処理
-    /// </summary>
-    private void IncrementWave()
-    {
-        _waveType++;
-    }
-
-    /// <summary>
-    /// ゲームスタート（一秒待ってからスポーンさせる）
+    /// Wave開始（n秒待ってからスポーンさせる）
     /// </summary>
     /// <returns></returns>
-    private IEnumerator GameStart()
+    private IEnumerator WaveStart()
     {
-        yield return new WaitForSeconds(1.5f);
+        // 設定された秒数が経過したら、強制的にウェーブを進行させる
+        float waitTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._startWaveTime_s;
+        yield return new WaitForSeconds(waitTime);
 
-        Spawn();
+        WaveExecution();
     }
 
     /// <summary>
-    /// 待機処理
+    /// 敵を出現させるコルーチン
     /// </summary>
     /// <param name="listIndex">リストの添え字（for文のiをそのまま渡す）</param>
     /// <returns></returns>
-    private IEnumerator SpawnAndDelay(int listIndex)
+    private IEnumerator Spawn(int listIndex)
     {
         PoolEnum.PoolObjectType selectedPrefab;
         BirdMoveBase temporaryMove;
 
         // 設定された秒数だけ待機する
-        yield return new WaitForSeconds(_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[listIndex]._spawnDelay_s);
+        yield return new WaitForSeconds(_enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._spawnDelay_s);
 
 
         // どの敵をスポーンさせるか判定（Scriptableから取得）
-        switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[listIndex]._enemyType)
+        switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._enemyType)
         {
             // 以下Enumの変換処理
             case EnemyType.normalBird:
@@ -180,13 +178,13 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
         GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab,
-            _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[listIndex]._birdSpawnPlace.position).gameObject;
+            _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._birdSpawnPlace.position).gameObject;
         temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
 
 
         // Scriptabeの設定に応じて、アタッチする挙動スクリプトを変える
-        switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._moveType)
+        switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._moveType)
         {
             case MoveType.linear:
                 //呼び出した雑魚にコンポーネントを付与
@@ -204,9 +202,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         // 呼び出した雑魚の変数に設定
         temporaryMove.ThisInstanceIndex = listIndex;
-        temporaryMove.SpawnedWave = _waveType;
-        temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[listIndex]._birdGoalPlaces.Count;
-        temporaryMove.LinearMovementSpeed = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[listIndex]._speed;
-        temporaryMove.ReAttackTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_waveType]._enemysSpawner[listIndex]._waitTime_s;
+        temporaryMove.SpawnedWave = _nextWave;
+        temporaryMove.NumberOfGoal = _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._birdGoalPlaces.Count;
+        temporaryMove.LinearMovementSpeed = _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._speed;
+        temporaryMove.ReAttackTime = _enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._waitTime_s;
     }
 }
