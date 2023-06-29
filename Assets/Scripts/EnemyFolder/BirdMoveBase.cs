@@ -110,6 +110,9 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("再び動き出すまでの時間")]
     protected float _reAttackTime = 10f;
 
+    [Tooltip("出す弾の数")]
+    protected int _numberOfBullet = default;
+
     [Tooltip("Scaleの加算/減算値")]
     protected readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
 
@@ -216,6 +219,14 @@ public abstract class BirdMoveBase : MonoBehaviour
         }
     }
 
+    public int NumberOfBullet
+    {
+        set
+        {
+            _numberOfBullet = value;
+        }
+    }
+
 
     #region method
 
@@ -264,6 +275,13 @@ public abstract class BirdMoveBase : MonoBehaviour
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
 
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
+
+        // もしInspectorで設定ミスがあったら仮設定する
+        if (_numberOfBullet == 0)
+        {
+            _numberOfBullet = 3;
+            X_Debug.LogError("EnemySpawnPlaceData.Bullet が設定されてません");
+        }
     }
 
     private void Update()

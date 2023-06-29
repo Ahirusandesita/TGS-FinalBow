@@ -4900,7 +4900,7 @@ GameObject:
   - component: {fileID: -3168518705095684918}
   - component: {fileID: -8965221455096690833}
   m_Layer: 0
-  m_Name: PenetrateBullet
+  m_Name: BulletPenetrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9830,7 +9830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PoolSystemTagData: {fileID: 11400000, guid: 00e291fa0e47e8c4ab70d20233f8378b, type: 2}
   _PlayerControllerTagData: {fileID: 11400000, guid: 66ccf49a8785c044a83e26f1b5f1accb, type: 2}
-  _attackMoveSpeed: 25
+  _attackMoveSpeed: 30
 --- !u!1 &3995925171287458369
 GameObject:
   m_ObjectHideFlags: 0

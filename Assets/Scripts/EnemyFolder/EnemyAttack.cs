@@ -15,11 +15,8 @@ public class EnemyAttack : MonoBehaviour
     [Tooltip("取得したObjectPoolSystemクラス")]
     protected ObjectPoolSystem _objectPoolSystem = default;
 
-    [Tooltip("スポーンのスタート角度を決める係数")]
-    private const float START_SPAWN_ANGLE_COEFFICIENT = 8.1f;
-
-    [Tooltip("スポーン時の玉の間隔")]
-    private const float SPACE_SPAWN_ANGLE_COEFFICIENT = 18f;
+    [Tooltip("弾の間隔の角度")]
+    private const float SPACE_ANGLE_COEFFICIENT = 8.1f;
 
 
     protected virtual void Start()
@@ -46,7 +43,7 @@ public class EnemyAttack : MonoBehaviour
                 spawnPlace.position,
                 Quaternion.Euler(
                     spawnPlace.eulerAngles.x, 
-                    spawnPlace.eulerAngles.y + (START_SPAWN_ANGLE_COEFFICIENT * numberOfSpawn) - i * SPACE_SPAWN_ANGLE_COEFFICIENT, 
+                    spawnPlace.eulerAngles.y + (SPACE_ANGLE_COEFFICIENT * (numberOfSpawn / 2)) - i * SPACE_ANGLE_COEFFICIENT, 
                     spawnPlace.eulerAngles.z));
         }
     }
