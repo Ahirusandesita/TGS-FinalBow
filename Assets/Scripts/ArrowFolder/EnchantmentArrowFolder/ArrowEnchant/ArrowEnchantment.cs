@@ -310,27 +310,26 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         switch (enchantState)
         {
             case EnchantmentEnum.EnchantmentState.normal:
-                //デリゲート代入用デリゲート変数
+                //デリゲート
                 ArrowEnchant(
                     //エンチャント処理関数代入
                     new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Normal),
                     //エンチャントエフェクト関数代入
                     new Arrow.ArrowEffectDelegateMethod(_arrowEnchantEffect.ArrowEffect_Normal),
-                    //エンチャントエフェクト削除関数代入
                     //エンチャント常時発動エフェクト関数代入
                     new Arrow.ArrowEffectDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffect_Normal),
                     //エンチャント常時発動エフェクト削除関数代入
                     new Arrow.ArrowEffectDestroyDelegateMethod(_arrowEnchantPassiveEffect.ArrowPassiveEffectDestroy_Normal),
-
+                    //エンチャントサウンド関数代入
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Normal),
-                //移動関数代入
-                new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Normal));
-
+                    //移動関数代入
+                    new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Normal)
+                    );
+                //エンチャントのUI表示
                 _arrowEnchantUI.ArrowEnchantUI_Normal();
 
                 break;
 
-            //以下やっていることは同じ　Enum対応した関数を代入している
             case EnchantmentEnum.EnchantmentState.bomb:
                 ArrowEnchant(
                     new Arrow.ArrowEnchantmentDelegateMethod(_arrowEnchant.ArrowEnchantment_Bomb),
