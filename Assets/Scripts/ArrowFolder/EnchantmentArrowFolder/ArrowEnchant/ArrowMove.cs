@@ -32,7 +32,6 @@ interface IArrowMoveSettingReset : IArrowMoveSetting, IArrowMoveReset
 /// </summary>
 public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 {
-    float debtime = 0.1f;
     #region 変数一覧 グロ注意
 
     #region 共用変数
@@ -90,8 +89,11 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     // 現在の水平方向への移動速度の割合　どのぐらい速度減衰しているか
     private float _nowSpeedValue = default;
 
-    // 矢の降下する速度　_arrowSpeed_Y に加算する
+    // 矢の落下速度の加算値　_arrowSpeed_Y に加算する
     private float _addGravity = default;
+
+    // 矢の落下速度の加算値の上限
+    private float _maxGravity = default;
 
 
 
@@ -381,15 +383,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
             _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
 
             // 重力による下方向への移動量を算出
-            _addGravity = MathN.Clamp_min(_addGravity + GravityValue(isThunder) * Time.deltaTime, TERMINAL_VELOCITY - _arrowSpeed_Y);
-
-            debtime -= Time.deltaTime;
-
-            if(debtime < 0)
-            {
-                print("速度　" + _arrowSpeed_Y + ", 移動量　" + _moveValue.y + ", 重力　" + _addGravity);
-                debtime = 0.1f;
-            }
+            _addGravity = MathN.Clamp_min(_addGravity + GravityValue(isThunder) * Time.deltaTime, _maxGravity);
         }
     }
 
@@ -414,6 +408,9 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
 
         // 速度から最大の移動距離を算出
         _maxRange = _arrowSpeed_Horizontal * SpeedToRangeCoefficient(isThunder);
+
+        // Ｙ軸の速度から降下量の上限値を算出
+        _maxGravity = MathN.Clamp_max(TERMINAL_VELOCITY - _arrowSpeed_Y, ZERO);
 
         // 現在の移動速度を初期化
         _nowRange = default;
@@ -504,5 +501,4 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     #endregion
 
     #endregion
-
 }
