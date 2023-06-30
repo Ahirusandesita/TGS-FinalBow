@@ -448,6 +448,8 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         EventArrowPassiveEffect = null;
         MoveArrow = null;
         NeedArrowEnchant = true;
+
+        _myArrowRenderer.material.color = Color.green;
     }
 
     /// <summary>
