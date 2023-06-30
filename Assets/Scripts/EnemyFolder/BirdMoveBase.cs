@@ -277,7 +277,7 @@ public abstract class BirdMoveBase : MonoBehaviour
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
 
         // ‚à‚µInspector‚Åİ’èƒ~ƒX‚ª‚ ‚Á‚½‚ç‰¼İ’è‚·‚é
-        if (_numberOfBullet == 0)
+        if (_numberOfBullet < 0)
         {
             _numberOfBullet = 3;
             X_Debug.LogError("EnemySpawnPlaceData.Bullet ‚ªİ’è‚³‚ê‚Ä‚Ü‚¹‚ñ");
@@ -498,6 +498,9 @@ public abstract class BirdMoveBase : MonoBehaviour
 
             case PoolEnum.PoolObjectType.thunderBirdBig:
                 return PoolEnum.PoolObjectType.thunderBullet;
+
+            case PoolEnum.PoolObjectType.penetrateBirdBig:
+                return PoolEnum.PoolObjectType.penetrateBullet;
         }
 
         // —áŠOˆ—

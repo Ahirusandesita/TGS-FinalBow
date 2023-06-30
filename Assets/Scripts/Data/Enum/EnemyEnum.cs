@@ -31,4 +31,5 @@ public enum EnemyType
     thunderBird,
     bombBirdBig,
     thunderBirdBig,
+    penetrateBirdBig
 }

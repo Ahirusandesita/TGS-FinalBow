@@ -69,5 +69,9 @@ public class PoolEnum : MonoBehaviour
         /// でかい雷ザコ鳥
         /// </summary>
         thunderBirdBig,
+        /// <summary>
+        /// でかい貫通ザコ鳥
+        /// </summary>
+        penetrateBirdBig,
     }
 }
