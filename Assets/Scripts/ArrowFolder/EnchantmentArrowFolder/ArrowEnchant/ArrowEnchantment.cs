@@ -24,6 +24,7 @@ interface IArrowEventSetting : IArrowPlusDamage
     /// 矢のエンチャントをリセットする
     /// </summary>
     void EnchantmentStateReset();
+    void EnchantUIReset();
 }
 
 /// <summary>
@@ -192,6 +193,10 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         _isEnchantments[ENCHANT_NORMAL_INDEX] = true;
 
         _enchantmentStateLast = EnchantmentEnum.EnchantmentState.nothing;
+    }
+
+    public void EnchantUIReset()
+    {
         _arrowEnchantUI.ArrowEnchantUI_Normal();
     }
 

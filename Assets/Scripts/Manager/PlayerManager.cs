@@ -156,6 +156,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         _arrow = arrow;
         arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.normal);
+        arrowEnchant.EnchantUIReset();
     }
 
     public void SetArrowMoveSpeed(float arrowMoveSpeed)
