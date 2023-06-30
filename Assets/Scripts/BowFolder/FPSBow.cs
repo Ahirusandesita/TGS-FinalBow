@@ -5,134 +5,93 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
-public class FPSBow : BowManager
+
+[RequireComponent(typeof(BowTransformControl), typeof(CamaraRoteNotMainCamera), typeof(BowSE))]
+public sealed class FPSBow : BowManager
 {
     #region variable 
-    [Header("ここからしたが使うやつ/このプレハブにはメインカメラ入っているんで")]
-    [SerializeField] float useDistance = 0.1f;
 
-    [SerializeField] GameObject inhall = default;
+    [SerializeField] float _moveSpeed = 10f;
 
-    [SerializeField] ObjectPoolSystem _poolSystemC = default;
+    [SerializeField] float _arrowOriginPercentPower = 1f;
 
-    [SerializeField] PlayerManager _playerManagerC = default;
+    [SerializeField] Transform _arrowPosition = default;
 
-    [SerializeField] float addC = 100000f;
+    [SerializeField] CamaraRoteNotMainCamera _rotationControl = default;
 
-    [SerializeField] float moveSpeed = 10f;
+    IFBowTransformControl_FPS _transformControl = default;
 
-    [SerializeField] Transform arrowPos = default;
+    const int LEFT_MOUSE_BUTTON = 0;
 
-    [SerializeField] CamaraRoteNotMainCamera _rote = default;
-
-    AttractZone _attractC;
-
-    CashObjectInformation _arrowC;
-
-    Transform _myTrans;
-
-    
-
+    Transform _myTransform;
 
     #endregion
     #region property
     #endregion
     #region method
 
-    private void Start()
+    // 初期化群
+    protected override void Start()
     {
+        _myTransform = transform;
 
-        _attractC = GetComponent<AttractZone>();
+        _transformControl = GetComponent<BowTransformControl>();
 
-        _myTrans = transform;
+        base.Start();
+
     }
+
+    // 入力受付&処理
     private void Update()
     {
+        BowUpdateCallProcess();
 
-        InputingMouse();
-        
-        WASDMove();
+        //wasdで移動 
+        _transformControl.WASDMove((_arrowPosition.position - _myTransform.position).normalized, _moveSpeed);
+
+        // カメラの回転
+        _rotationControl.CameraRote();
     }
 
-    private void InputingMouse()
+    // クリックした瞬間の処理
+    protected override void ProcessOfGrapObject()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            Shot();
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            _arrowC = _poolSystemC.CallObject(PoolEnum.PoolObjectType.arrow, arrowPos.position);
-
-            _arrowC.transform.rotation = arrowPos.rotation;
-
-            _arrowC.transform.parent = arrowPos;
-
-            
-
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            Charge();
-        }
-
+        BowGrapCreateArrow(_arrowPosition.position);
+        // 矢のトランスフォーム調整
+        _transformControl.SetArrowFirstTransform(_arrow.transform, _arrowPosition);
     }
 
-    private void Charge()
+    // クリック長押しの時の処理
+    protected override void ProcessOfHoldObject()
     {
-       
-        inhall.SetActive(true);
-
-        _attractC.SetAngle(useDistance);
+        // 吸い込み有効
+        BowHoldingSetAttract();
     }
 
-    private void Shot()
+    // クリック離した時の処理
+    protected override void ProcessOfReleaseObjcect()
     {
-        inhall.SetActive(false);
+        // 前方に矢を射撃
+        BowShotSetting(_myTransform.forward - _myTransform.position);
 
-        _playerManagerC.SetArrowMoveSpeed(useDistance * addC);
-
-        _playerManagerC.ShotArrow(arrowPos.forward - arrowPos.localPosition);
-
-        _attractC.SetAngle(0f);
     }
 
-    /// <summary>
-    /// 雑に作ったからバグるよ:)
-    /// </summary>
-    private void WASDMove()
+    // 矢の速度の設定(固定)
+    protected override float GetShotPercentPower()
     {
-        Vector3 foward = (arrowPos.position - _myTrans.position).normalized;
-
-        
-
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(moveSpeed * Time.deltaTime * foward,Space.World);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(moveSpeed * Time.deltaTime * - (Quaternion.Euler(0f,90f,0f) * foward),Space.World);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(moveSpeed * Time.deltaTime * (Quaternion.Euler(0f,90f,0f) * foward), Space.World);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(moveSpeed * Time.deltaTime * -foward , Space.World);
-        }
-
-        _rote.CameraRote();
+        return _arrowOriginPercentPower;
     }
 
-
-    private void OnDrawGizmos()
+    // インプットの設定
+    protected override void SetInputDelegate()
     {
-        Ray ray = new Ray(transform.position,transform.forward);
-        Gizmos.DrawRay(ray);
+        // 左クリック押した時
+        _grapTriggerInput = () => Input.GetMouseButton(LEFT_MOUSE_BUTTON);
+
+        // 左クリック離した時
+        _releaseTriggerInput = () => !Input.GetMouseButton(LEFT_MOUSE_BUTTON);
     }
+
+
     #endregion
 }

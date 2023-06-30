@@ -40,7 +40,7 @@ public class BossManager : MonoBehaviour
         _bossAttack = this.GetComponent<BossAttack>();
 
         _bossMove = this.GetComponent<BossMove>();
-
+     
         StartCoroutine(FGStart());
     }
 

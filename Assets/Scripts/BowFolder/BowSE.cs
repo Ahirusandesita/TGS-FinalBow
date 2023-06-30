@@ -6,13 +6,19 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 
-interface IFBowSE_CallToBow
+public interface IFBowSE_CallToBow
 {
     void CallDrawingSE(float drawPowerPercent);
 
     void CallDrawStart();
 
     void CallShotSE();
+
+    void CallAttractSE(float attractPowerPercent);
+
+    void CallAttractStartSE();
+
+    void StopAttractSE();
 
 }
 
@@ -77,7 +83,9 @@ public class BowSE : MonoBehaviour,IFBowSE_CallToBow,IFBowSE_CallToAttract
 
     public void CallDrawStart()
     {
+        X_Debug.LogError("start");
         _myAudio.PlayOneShot(_drawStartClips);
+        X_Debug.LogError("end");
     }
 
     public void CallAttractSE(float attractPowerPercent)
