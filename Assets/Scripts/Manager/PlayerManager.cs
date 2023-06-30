@@ -138,6 +138,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
         _arrow.ArrowMoveStart();
         arrowEnchant.EnchantmentStateReset();
+        arrowEnchant.EnchantUIReset();
 
         //チャージ画像リセット
         _chargeMeterManager.ChargeReset();
@@ -156,7 +157,6 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         _arrow = arrow;
         arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.normal);
-        arrowEnchant.EnchantUIReset();
     }
 
     public void SetArrowMoveSpeed(float arrowMoveSpeed)
