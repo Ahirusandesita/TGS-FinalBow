@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -423,6 +423,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 729088380}
   m_SourcePrefab: {fileID: 100100000, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+--- !u!20 &442522147 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9068951981225548295, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 430564347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &672237671
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +906,22 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4591247666130764356, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 442522147}
+    - target: {fileID: 5587674851669710072, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1978327831}
+    - target: {fileID: 5605553772125519728, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1978327831}
+    - target: {fileID: 7523221210866605706, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 442522147}
     - target: {fileID: 8940654832585574392, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: m_Name
       value: Manager
@@ -1204,6 +1225,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3896496780618105880, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
   m_PrefabInstance: {fileID: 903057880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1978327831 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 9068951983237088669, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 430564347}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2058768287
 GameObject:
