@@ -28,6 +28,7 @@ public enum WaveType
     zakoWave2,
     zakoWave3,
     zakoWave4,
+    zakoWave5,
     boss
 }
 
@@ -168,6 +169,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
             case EnemyType.thunderBirdBig:
                 selectedPrefab = PoolEnum.PoolObjectType.thunderBirdBig;
+                break;
+
+            case EnemyType.penetrateBirdBig:
+                selectedPrefab = PoolEnum.PoolObjectType.penetrateBirdBig;
                 break;
 
             // —áŠOˆ—

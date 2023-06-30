@@ -8,16 +8,13 @@ using UnityEngine;
 
 public class BossStats : EnemyStats
 {
-    [Tooltip("É{ÉXÇÃç≈ëÂHP")]
-    public const int MAX_BOSS_HP = 100;
-
     public SceneObject _sceneObject;
 
 
     private void OnEnable()
     {
         // HPÇÃê›íË
-        _hp = MAX_BOSS_HP;
+        _hp = _maxHp;
     }
 
     public override void TakeBomb(int damage)
