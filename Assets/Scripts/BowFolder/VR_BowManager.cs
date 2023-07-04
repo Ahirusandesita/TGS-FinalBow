@@ -47,6 +47,8 @@ public class VR_BowManager : CanDraw_BowManager
 
         _transformControl = base._transformControl as IFBowTransformControl_Bow;
 
+        SetHandTransform();
+
         // デバッグ用
         if (_traceValue)
         {
@@ -61,7 +63,7 @@ public class VR_BowManager : CanDraw_BowManager
 
     protected override void ProcessOfGrapObject()
     {
-        X_Debug.Log("aaa" + Vector3.Distance(_drawObject.position, _transformControl.GetHandPosition) + (grapLimitDistance > Vector3.Distance(_drawObject.position, _transformControl.GetHandPosition)));
+        
         // 手が弓の弦の近くにある場合引く
         if (grapLimitDistance > Vector3.Distance(_drawObject.position, _transformControl.GetHandPosition))
         {
@@ -95,7 +97,8 @@ public class VR_BowManager : CanDraw_BowManager
     }
 
     protected override void BowStringGrap()
-    {
+    {      
+
         base.BowStringGrap();
     }
 
@@ -104,8 +107,7 @@ public class VR_BowManager : CanDraw_BowManager
     /// </summary>
     protected override void BowStringHold()
     {
-        _vibe.StartDrawVibe(_percentDrawPower);
-
+        _vibe.HoldingVibe(_percentDrawPower);
         base.BowStringHold();
     }
 
@@ -149,6 +151,11 @@ public class VR_BowManager : CanDraw_BowManager
 
         }
 
+        SetHandTransform();
+    }
+
+    private void SetHandTransform()
+    {
         _transformControl.SetBowTransformInHand(_vrInput.P_EmptyHand);
 
         SetHandUseDelegate();

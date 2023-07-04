@@ -27,7 +27,7 @@ public class InputManagement : MonoBehaviour
     /// <summary>
     /// ‹|‚ğˆø‚­è
     /// </summary>
-    EmptyHand emptyHand = EmptyHand.Left;
+    [SerializeField] EmptyHand emptyHand = EmptyHand.Left;
     #endregion
 
     #region •Ï”
@@ -70,13 +70,17 @@ public class InputManagement : MonoBehaviour
             return emptyHand;
         }
     }
+
+    private void Awake()
+    {
+        X_Debug.Log("aaa" + stats.SaveHands);
+        emptyHand = stats.SaveHands;
+    }
     private void Start()
     {
         //•ÏX‚µ‚½Š
         trackingSpace = GameObject.FindGameObjectWithTag(_TrackingSpaceTagData.TagName).transform;
-
-        emptyHand = stats.SaveHands;
-
+        
         SetBeforeHandPosition();
     }
 

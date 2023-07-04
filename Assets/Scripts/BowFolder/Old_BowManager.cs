@@ -274,7 +274,7 @@ public class Old_BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManag
         // ドローオブジェクト引いている手に移動
         _draw.BowDrawing(_handPositionDelegate(), _drawObject, _firstDrawObjectPositon);
 
-        _vibe.StartDrawVibe(GetPercentDrawDistance());
+        _vibe.HoldingVibe(GetPercentDrawDistance());
         SetText(GetPercentDrawDistance().ToString());
         _inhallCustom.SetActive(true);
 

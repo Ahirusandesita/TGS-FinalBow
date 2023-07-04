@@ -110,7 +110,6 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
 
         #endregion
 
-
     }
 
     #region publicä÷êî
@@ -150,7 +149,6 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
     /// </summary>
     public void GrapSetTransform(Transform arrow)
     {
-        X_Debug.Log("transcall");
         arrow.transform.rotation = _transform.rotation;
 
         arrow.transform.parent = _drawObject.transform;
@@ -206,15 +204,15 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
         // ç∂éËÇ™ãÛÇ¢ÇƒÇ¢ÇΩÇÁ
         if (emptyHand == InputManagement.EmptyHand.Left)
         {
-            _transform.parent = _handLeftPosition.parent;
+            _transform.parent = _handRightPosition;
         }
         // âEéËÇ™ãÛÇ¢ÇƒÇ¢ÇΩÇÁ
         else
         {
-            _transform.parent = _handRightPosition.parent;
+            _transform.parent = _handLeftPosition;
 
         }
-
+        
         _transform.localPosition = Vector3.zero;
 
         _transform.localRotation = _myQuaternion;

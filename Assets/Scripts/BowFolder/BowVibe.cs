@@ -16,7 +16,7 @@ interface IFBowVibe
 
     void SetRightShotAction();
 
-    void StartDrawVibe(float power);
+    void HoldingVibe(float power);
 
     void EndDrawVibe();
 
@@ -103,7 +103,7 @@ public class BowVibe : MonoBehaviour, IFBowVibe
         }
     }
 
-    public void StartDrawVibe(float power)
+    public void HoldingVibe(float power)
     {
         // ÉoÉCÉué„ÇﬂÇÈ
         power = power / 2;

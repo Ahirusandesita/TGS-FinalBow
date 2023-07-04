@@ -89,10 +89,10 @@ public abstract class CanDraw_BowManager : BowManager
         _transformControl.HoldingSetTransform();
 
         BowHoldingSetAttract();
-
+ 
         // 円錐範囲外まで引くと強制的に矢をうつ
-        if (ConeDecision.ConeInObject(transform, _drawObject, drawLimitAngle, drawLimitDistance, BACK))
-        {
+        if (!ConeDecision.ConeInObject(transform,_drawObject, drawLimitAngle, drawLimitDistance, BACK))
+        {;
             ProcessOfReleaseObjcect();
         }
     }
@@ -111,11 +111,11 @@ public abstract class CanDraw_BowManager : BowManager
 
     sealed protected override void BowShotArrow(Vector3 shotDirection)
     {
-        X_Debug.LogError("as");
         // 連射防止
         if (_transformControl.GetDrawDistance() < cantShotDistance)
         {
-            X_Debug.LogError("aaa");
+            // 矢を撃つ/バグのため
+            _playerManager.ShotArrow(shotDirection);
             // キューにいれる(撃たれた瞬間に消滅)
             _poolSystem.ReturnObject(_arrow);
             return;

@@ -83,9 +83,9 @@ public class BowSE : MonoBehaviour,IFBowSE_CallToBow,IFBowSE_CallToAttract
 
     public void CallDrawStart()
     {
-        X_Debug.LogError("start");
+        
         _myAudio.PlayOneShot(_drawStartClips);
-        X_Debug.LogError("end");
+       
     }
 
     public void CallAttractSE(float attractPowerPercent)
