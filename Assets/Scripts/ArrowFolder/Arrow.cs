@@ -425,12 +425,11 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     /// <summary>
     /// 矢のparameterをリセットする
     /// </summary>
-    public void ArrowReset()
+    private void ArrowReset()
     {
         if (_arrowMove != null)
         {
             //矢のリセット処理
-            _arrowMove.ResetsStart();
             _arrowMove.ResetsStart();
         }
 
@@ -452,7 +451,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     /// <summary>
     /// プールに戻すメソッド
     /// </summary>
-    private void ReturnQue()
+    public void ReturnQue()
     {
         //常時発動エフェクト削除を実行
         if (EventArrowEffectPassiveDestroy != null)

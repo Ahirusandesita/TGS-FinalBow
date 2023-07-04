@@ -146,7 +146,11 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     }
     public void ResetArrow()
     {
-        _arrow.ArrowReset();
+        arrowEnchant.EnchantmentStateReset();
+        arrowEnchant.EnchantUIReset();
+        //チャージ画像リセット
+        _chargeMeterManager.ChargeReset();
+        _arrow.ReturnQue();
     }
 
 
