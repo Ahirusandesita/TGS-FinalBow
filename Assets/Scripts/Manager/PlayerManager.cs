@@ -17,6 +17,7 @@ public interface IFPlayerManagerEnchantParameter
 public interface IFPlayerManagerSetArrow
 {
     void SetArrow(Arrow arrow);
+
 }
 
 
@@ -143,6 +144,11 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         //チャージ画像リセット
         _chargeMeterManager.ChargeReset();
     }
+    public void ResetArrow()
+    {
+        _arrow.ArrowReset();
+    }
+
 
 
     /// <summary>
@@ -158,6 +164,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         _arrow = arrow;
         arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.normal);
     }
+
+   
 
     public void SetArrowMoveSpeed(float arrowMoveSpeed)
     {
