@@ -243,10 +243,6 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         _bowManagerQue = GameObject.FindGameObjectWithTag("BowController").GetComponent<BowManager>();
 
     }
-    private void OnDisable()
-    {
-        ArrowReset();
-    }
     private void Start()
     {
 
@@ -429,11 +425,12 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     /// <summary>
     /// 矢のparameterをリセットする
     /// </summary>
-    private void ArrowReset()
+    public void ArrowReset()
     {
         if (_arrowMove != null)
         {
             //矢のリセット処理
+            _arrowMove.ResetsStart();
             _arrowMove.ResetsStart();
         }
 
