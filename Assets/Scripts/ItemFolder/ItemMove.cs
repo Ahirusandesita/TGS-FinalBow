@@ -115,9 +115,6 @@ public class ItemMove : MonoBehaviour
         // CashObjectInformation‚Ì‘ã“ü
         Cash = this.GetComponent<CashObjectInformation>();
 
-        // TargeterMove‚Ì‘ã“ü
-        targeterMove = this.gameObject.GetComponent<TargeterMove>();
-
         // PlayerManager‚Ì‘ã“ü
         _playerManager = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerManager>();
 
