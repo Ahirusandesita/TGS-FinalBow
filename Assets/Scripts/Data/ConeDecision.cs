@@ -43,7 +43,7 @@ public static class ConeDecision
 
         //自分とターゲットの向きの内積
         float inner = Vector3.Dot(direction * myTransform.forward, dir.normalized);
-
+        
         return (inner > cosHalf && distance < size);
     }
     /// <summary>

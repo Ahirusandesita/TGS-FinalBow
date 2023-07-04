@@ -17,7 +17,9 @@ public class InputManagement : MonoBehaviour
 
     public TagObject _TrackingSpaceTagData;
 
-    public enum UsingHand
+    public GlobalHandStats stats;
+
+    public enum EmptyHand
     {
         Left,
         Right
@@ -25,7 +27,7 @@ public class InputManagement : MonoBehaviour
     /// <summary>
     /// ‹|‚ğˆø‚­è
     /// </summary>
-    public UsingHand usingHand = UsingHand.Left;
+    [SerializeField] EmptyHand emptyHand = EmptyHand.Left;
     #endregion
 
     #region •Ï”
@@ -56,11 +58,29 @@ public class InputManagement : MonoBehaviour
 
     #endregion
 
+    public EmptyHand P_EmptyHand
+    {
+        set
+        {
+            emptyHand = value;
+            stats.SaveHands = emptyHand;
+        }
+        get
+        {
+            return emptyHand;
+        }
+    }
+
+    private void Awake()
+    {
+        X_Debug.Log("aaa" + stats.SaveHands);
+        emptyHand = stats.SaveHands;
+    }
     private void Start()
     {
         //•ÏX‚µ‚½Š
         trackingSpace = GameObject.FindGameObjectWithTag(_TrackingSpaceTagData.TagName).transform;
-
+        
         SetBeforeHandPosition();
     }
 
