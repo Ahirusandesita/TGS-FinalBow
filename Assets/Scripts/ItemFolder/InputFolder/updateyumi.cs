@@ -12,6 +12,6 @@ public class updateyumi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bowManager.BowManagement();
+        //bowManager.BowManagement();
     }
 }

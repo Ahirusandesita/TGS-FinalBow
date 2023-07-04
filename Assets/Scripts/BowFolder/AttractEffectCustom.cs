@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 
-interface IFAttractEffectCustom
+public interface IFAttractEffectCustom
 {
     void SetActive(bool set);
 
