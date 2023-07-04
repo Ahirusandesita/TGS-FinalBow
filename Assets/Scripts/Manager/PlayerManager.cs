@@ -20,6 +20,11 @@ public interface IFPlayerManagerSetArrow
 
 }
 
+interface IFPlayerManagerShotArrow
+{
+    void ShotArrow(Vector3 aim);
+    void ResetArrow();
+}
 
 
 //H
@@ -32,7 +37,7 @@ interface IFPlayerManager
     public void AddEventArrow(GameObject obj);
 
 }
-public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFPlayerManagerSetArrow
+public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFPlayerManagerSetArrow,IFPlayerManagerShotArrow
 {
     #region •Ï”éŒ¾•”
     //public static bool AddTag = false;
