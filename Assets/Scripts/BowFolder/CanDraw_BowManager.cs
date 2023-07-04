@@ -53,7 +53,6 @@ public abstract class CanDraw_BowManager : BowManager
     protected override void Start()
     {
 
-
         _transformControl = GetComponent<BowTransformControl>();
 
         CastInterface();
@@ -114,10 +113,8 @@ public abstract class CanDraw_BowManager : BowManager
         // ˜AŽË–hŽ~
         if (_transformControl.GetDrawDistance() < cantShotDistance)
         {
-            // –î‚ðŒ‚‚Â/ƒoƒO‚Ì‚½‚ß
-            _playerManager.ShotArrow(shotDirection);
-            // ƒLƒ…[‚É‚¢‚ê‚é(Œ‚‚½‚ê‚½uŠÔ‚ÉÁ–Å)
-            _poolSystem.ReturnObject(_arrow);
+            _playerManager.ResetArrow();
+
             return;
         }
         else
