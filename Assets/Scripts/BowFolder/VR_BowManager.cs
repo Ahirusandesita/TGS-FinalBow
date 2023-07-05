@@ -4,7 +4,7 @@
 // CreateDay: 2023/06/08
 // Creator  : Sasaki
 // --------------------------------------------------------- 
-using System;
+
 using UnityEngine;
 
 [RequireComponent(typeof(BowVibe), typeof(AttractEffectCustom), typeof(AttractZone))]
@@ -15,6 +15,8 @@ public class VR_BowManager : CanDraw_BowManager
     #region かつてpublicだった変数
 
     [SerializeField] Transform _changeHandObjectTransform = default;
+
+    [SerializeField] SceneObject scene = default;
 
     /// <summary>
     /// VRで値追うモード、デバッグ用
@@ -35,9 +37,11 @@ public class VR_BowManager : CanDraw_BowManager
 
     #endregion
 
+    bool canHandChange = false;
 
     protected override void Start()
     {
+        IsTitleScene();
 
         _vibe = GetComponent<BowVibe>();
 
@@ -70,7 +74,7 @@ public class VR_BowManager : CanDraw_BowManager
             BowStringGrap();
         }
         // 手が、弓の持つ手の切り替えるポジションの近くにある場合
-        else if (grapLimitDistance > Vector3.Distance(_changeHandObjectTransform.position, _transformControl.GetHandPosition))
+        else if (grapLimitDistance > Vector3.Distance(_changeHandObjectTransform.position, _transformControl.GetHandPosition) && canHandChange)
         {
             ChangeHand();
         }
@@ -190,6 +194,13 @@ public class VR_BowManager : CanDraw_BowManager
         _transformControl.SetEmptyHandPositionDelegete(_vrInput.P_EmptyHand);
     }
 
+    private void IsTitleScene()
+    {
+        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == scene.SceneName)
+        {
+            canHandChange = true;
+        }
+    }
     /// <summary>
     /// デバッグ用
     /// </summary>
