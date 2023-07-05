@@ -144,7 +144,7 @@ public class AttractEffect : MonoBehaviour
 
 
 
-    public void AttractEffectEffect_KnockBackPenetrate(Transform spawnPosition)
+    public void AttractEffectEffect_KnockBackPenetrate()
     {
 
     }
@@ -153,7 +153,7 @@ public class AttractEffect : MonoBehaviour
 
 
 
-    public void AttractEffectEffect_HomingPenetrate(Transform spawnPosition)
+    public void AttractEffectEffect_HomingPenetrate()
     {
 
     }
