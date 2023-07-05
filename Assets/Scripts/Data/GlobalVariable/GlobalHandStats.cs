@@ -5,17 +5,17 @@
 //
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 [CreateAssetMenu(fileName = "GrobalHandStats", menuName = "Scriptables/GrobalHandStatsData")]
-public class GlobalHandStats:ScriptableObject
+public class GlobalHandStats : ScriptableObject
 {
 
-	public InputManagement.EmptyHand empty = default;
+    public InputManagement.EmptyHand empty = default;
 
     public InputManagement.EmptyHand firstEmptyHand = InputManagement.EmptyHand.Right;
 
-	public InputManagement.EmptyHand SaveHands
+    public InputManagement.EmptyHand SaveHands
     {
         set
         {
@@ -28,10 +28,13 @@ public class GlobalHandStats:ScriptableObject
         }
     }
 
-    private void OnEnable()
+    public void Initialize()
     {
-        X_Debug.Log("aaa�Ă΂ꂽ");
         empty = firstEmptyHand;
     }
 
+    public void Awake()
+    {
+        empty = firstEmptyHand;
+    }
 }
