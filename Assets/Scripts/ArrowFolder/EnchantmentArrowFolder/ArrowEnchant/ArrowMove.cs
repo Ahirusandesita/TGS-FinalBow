@@ -361,7 +361,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     #endregion
 
     #region ノーマルの挙動
-
+    float t = default;
+    float m = default;
     /// <summary>
     /// ノーマルの挙動をさせるメソッド
     /// </summary>
@@ -387,6 +388,15 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
             _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);    // Ｘ軸
             _moveValue.y = (_arrowSpeed_Y + _addGravity);       // Ｙ軸
             _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);    // Ｚ軸
+
+            /*-------------------------------デバッグ用-------------------------------*/
+            t += Time.deltaTime;
+            if(t> 0.1f)
+            {
+                print("減衰率:" + _nowSpeedValue + "　　減衰量:" + (m - _nowSpeedValue) + "　　現在速度:" + _arrowSpeed_Horizontal * _nowSpeedValue);
+                t = 0f;
+                m = _nowSpeedValue;
+            }
 
             // 各軸方向へ移動量の分だけ移動
             arrowTransform.position += _moveValue * Time.deltaTime;
