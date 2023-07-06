@@ -26,6 +26,8 @@ public class AttractEffectCustom : MonoBehaviour,IFAttractEffectCustom
 
     Vector3 startRootSize = default;
 
+    ParticleSystem.MainModule _particleColor = default;
+
 
     #endregion
     #region property
@@ -35,6 +37,8 @@ public class AttractEffectCustom : MonoBehaviour,IFAttractEffectCustom
     private void Start()
     {
         _particleSystem = _particleObject.GetComponent<ParticleSystem>();
+
+        _particleColor = _particleSystem.main;
 
         startRootSize = _particle.startSize3D;
     }
@@ -49,6 +53,8 @@ public class AttractEffectCustom : MonoBehaviour,IFAttractEffectCustom
         }
 
         _particle.startSize3D = startRootSize * size;
+
+        _particleColor.startColor = Color.white * size;
 
 
 

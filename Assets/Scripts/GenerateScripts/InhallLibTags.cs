@@ -22,6 +22,8 @@ public static class InhallLibTags
 	public const string ScoreController = "ScoreController";
 	public const string StageController = "StageController";
 	public const string BossController = "BossController";
+	public const string EnchantUIController = "EnchantUIController";
 	public const string SceneFade = "SceneFade";
 	public const string HeadPointTag = "HeadPointTag";
+	public const string AttractEffect = "AttractEffect";
 }
