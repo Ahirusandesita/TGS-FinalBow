@@ -32,9 +32,9 @@ public class BirdMoveFirst : BirdMoveBase
         base.EachMovement(ref movedDistance);
         
         // 移動する（移動方向のベクトル * 移動速度）
-        _transform.Translate((_goalPosition - _startPosition).normalized * _linearMovementSpeed * Time.deltaTime, Space.World); 　// 第二引数ないとバグる
+        _transform.Translate((_goalPosition - _startPosition).normalized * _movementSpeed * Time.deltaTime, Space.World); 　// 第二引数ないとバグる
         // 移動量を加算
-        movedDistance += ((_goalPosition - _startPosition).normalized * _linearMovementSpeed * Time.deltaTime).magnitude;
+        movedDistance += ((_goalPosition - _startPosition).normalized * _movementSpeed * Time.deltaTime).magnitude;
     }
 
 

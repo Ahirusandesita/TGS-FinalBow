@@ -47,16 +47,16 @@ public class BirdMoveSecond : BirdMoveBase
     #endregion
     #region method
 
-    protected override void OnEnable()
+    protected override void Start()
     {
-        base.OnEnable();
+        base.Start();
 
         InitializeVariables();
 
-        SetGoalPosition(WaveType.zakoWave2, _thisInstanceIndex);
+        //SetGoalPosition(WaveType.zakoWave2, _thisInstanceIndex);
 
         // 最初から正面を向かせる
-        _transform.rotation = FRONT_ANGLE;
+        //_transform.rotation = FRONT_ANGLE;
         // 横移動ベクトル
         _sideMoveNormalizedVector = GetSideMoveVector().normalized;
         // 横移動量
@@ -91,50 +91,51 @@ public class BirdMoveSecond : BirdMoveBase
 
         _canMoveDown = false;
 
-        IsFinishMovement = false;
-
         _canStartAttack = true;
     }
 
     protected override void EachMovement(ref float movedDistance)
     {
+        base.EachMovement(ref movedDistance);
 
+        // 移動処理
+        ArcMove();
     }
 
     // スタートからゴールへいく
     // 左行き:下　右行き:上
-    public override void MoveSequence()
-    {
-        if (Paralysing())
-        {
-            return;
-        }
+    //public override void MoveSequence()
+    //{
+    //    if (Paralysing())
+    //    {
+    //        return;
+    //    }
 
-        if (!_needDespawn)
-        {
-            // 向く処理
-            RotateToPlayer();
-            // 移動処理
-            ArcMove();
-            // チェック移動エンド
-            _needDespawn = CheckMoveFinish();
+    //    if (!_needDespawn)
+    //    {
+    //        // 向く処理
+    //        RotateToPlayer();
+    //        // 移動処理
+    //        ArcMove();
+    //        // チェック移動エンド
+    //        _needDespawn = CheckMoveFinish();
 
-            if (_canStartAttack && AttackCheck())
-            {
-                _canStartAttack = false;
+    //        if (_canStartAttack && AttackCheck())
+    //        {
+    //            _canStartAttack = false;
 
-                StartCoroutine(_birdAttack.NormalAttackLoop(_childSpawner, ConversionToBulletType(), _numberOfBullet));
-            }
+    //            //StartCoroutine(_birdAttack.NormalAttackLoop(_childSpawner, ConversionToBulletType(), _numberOfBullet));
+    //        }
 
-            return;
-        }
-        // 移動終了時
-        else
-        {
-            _transform.position = _goalPosition;
-        }
+    //        return;
+    //    }
+    //    // 移動終了時
+    //    else
+    //    {
+    //        _transform.position = _goalPosition;
+    //    }
 
-    }
+    //}
 
     /// <summary>
     /// アタックの条件を記述

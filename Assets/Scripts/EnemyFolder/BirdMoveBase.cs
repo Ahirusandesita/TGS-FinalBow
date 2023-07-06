@@ -40,19 +40,18 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     //private float _time = 0f;
     #endregion
-
-    #region protected変数
+    #region 新move変数
     [Tooltip("自身の敵の種類")]
-    protected CashObjectInformation _cashObjectInformation = default;
+    private CashObjectInformation _cashObjectInformation = default;
 
     [Tooltip("取得したStageManager")]
-    protected StageManager _stageManager = default;
+    private StageManager _stageManager = default;
 
     [Tooltip("子オブジェクトにあるスポナーを取得")]
-    protected Transform _childSpawner = default;
+    private Transform _childSpawner = default;
 
     [Tooltip("取得したBirdAttackクラス")]
-    protected BirdAttack _birdAttack = default;
+    private BirdAttack _birdAttack = default;
 
     [Tooltip("自身のTransformをキャッシュ")]
     protected Transform _transform = default;
@@ -63,61 +62,58 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("移動のゴール位置位置")]
     protected Vector3 _goalPosition = default;
 
-    [Tooltip("線形補完の割合")]
-    protected float _interpolationRatio = 0f;
-
     [Tooltip("スタートとゴール間の距離 = 目標移動量")]
     protected float _startToGoalDistance = default;
 
     [Tooltip("動いた距離")]
     protected float _movedDistance = default;
 
-    [Tooltip("直線移動のスピード")]
-    protected float _linearMovementSpeed = 20f;
+    [Tooltip("移動のスピード")]
+    protected float _movementSpeed = 20f;
 
     [Tooltip("プレイヤーの方向を向く速度")]
     protected float _rotateSpeed = 100f;
 
     [Tooltip("移動終了（ゴールに到達）")]
-    protected bool _isFinishMovement = false;
+    private bool _isFinishMovement = false;
 
     [Tooltip("消滅させる（倒せなかった場合）")]
-    protected bool _needDespawn = false;
+    private bool _needDespawn = false;
 
     [Tooltip("出現時/消滅時の大きさ")]
-    protected Vector3 _spawn_And_DespawnSize = default;
+    private Vector3 _spawn_And_DespawnSize = default;
 
     [Tooltip("通常の大きさ")]
-    protected Vector3 _normalSize = default;
+    private Vector3 _normalSize = default;
 
     [Tooltip("Scale変えるときのブレイク")]
     // これがないとループが速すぎて目に見えない
-    protected WaitForSeconds _changeSizeWait = new WaitForSeconds(0.01f);
+    private WaitForSeconds _changeSizeWait = new WaitForSeconds(0.01f);
 
     [Tooltip("Scaleの変更が完了")]
-    protected bool _isCompleteChangeScale = false;
+    private bool _isCompleteChangeScale = false;
 
     [Tooltip("このインスタンスのインデックス")]
     // ex) 同ウェーブに敵が2体いる場合、Instance_0 = 0, Instance_1 = 1が設定される
-    protected int _thisInstanceIndex = default;
+    private int _thisInstanceIndex = default;
 
     [Tooltip("どのウェーブでスポーンしたか")]
-    protected WaveType _spawnedWave = default;
+    private WaveType _spawnedWave = default;
 
     [Tooltip("設定されたゴールの数")]
-    protected int _numberOfGoal = default;
+    private int _numberOfGoal = default;
 
     [Tooltip("再び動き出すまでの時間")]
-    protected float _reAttackTime = 10f;
+    private float _reAttackTime = 10f;
 
     [Tooltip("出す弾の数")]
-    protected int _numberOfBullet = default;
+    private int _numberOfBullet = default;
 
     [Tooltip("Scaleの加算/減算値")]
-    protected readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
+    private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
 
     [Tooltip("正面の角度")]
-    protected readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
+    private readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
 
 
     [Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
@@ -129,36 +125,16 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("次の移動完了で処理終了")]
     private bool _isLastMove = default;
 
-    [Tooltip("次のゴール設定の回数")]
-    private int _nextSetGoalCount = 1;  // 初期値1
+    [Tooltip("何回目のゴール設定か")]
+    private int _howTimesSetGoal = 1;  // 初期値1
 
     [Tooltip("攻撃の頻度")]
+    // あとで設定可能なパラメータにする
     private const float ATTACK_INTERVAL_TIME = 2f;
     #endregion
 
 
     #region property
-    /// <summary>
-    /// 移動終了（ゴールに到達）
-    /// </summary>
-    protected bool IsFinishMovement
-    {
-        get
-        {
-            return _isFinishMovement;
-        }
-        set
-        {
-            _isFinishMovement = value;
-
-            // falseに設定されたとき、線形補完も同時にリセット
-            if (!_isFinishMovement)
-            {
-                _interpolationRatio = 0f;
-            }
-        }
-    }
-
     /// <summary>
     /// 消滅させる（倒せなかった場合）
     /// </summary>
@@ -221,7 +197,7 @@ public abstract class BirdMoveBase : MonoBehaviour
     {
         set
         {
-            _linearMovementSpeed = value;
+            _movementSpeed = value;
         }
     }
 
@@ -253,39 +229,45 @@ public abstract class BirdMoveBase : MonoBehaviour
     //    _offsetReverse = UnityEngine.Random.Range(0, OFFSET_TIME_RANGE);
     //}
 
-    protected virtual void OnEnable()
-    {
-        _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
+    //protected virtual void OnEnable()
+    //{
+    //    _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
 
-        // 移動のスタート位置を設定
-        try
-        {
-            _startPosition = _transform.position;
-        }
-        // プールが生成された瞬間の1回だけはこっちが動く
-        catch (Exception)
-        {
-            _transform = this.transform;
-            _startPosition = _transform.position;
-            _spawn_And_DespawnSize = _transform.localScale / 5f;
-            _normalSize = _transform.localScale;    // キャッシュ
-        }
+    //    // 移動のスタート位置を設定
+    //    try
+    //    {
+    //        _startPosition = _transform.position;
+    //    }
+    //    // プールが生成された瞬間の1回だけはこっちが動く
+    //    catch (Exception)
+    //    {
+    //        _transform = this.transform;
+    //        _startPosition = _transform.position;
+    //        _spawn_And_DespawnSize = _transform.localScale / 5f;
+    //        _normalSize = _transform.localScale;    // キャッシュ
+    //    }
 
-        // リセット
-        _interpolationRatio = 0f;
-        _needDespawn = false;
-        _isCompleteChangeScale = false;
-        _movedDistance = 0f;
-        _isLastMove = false;
-        _currentTime = 0f;
-        _currentTime2 = 0f;
+    //    // リセット
+    //    _needDespawn = false;
+    //    _isCompleteChangeScale = false;
+    //    _movedDistance = 0f;
+    //    _isLastMove = false;
+    //    _currentTime = 0f;
+    //    _currentTime2 = 0f;
 
-        // スポーン時に大きくする
-        StartCoroutine(LargerAtSpawn());
-    }
+    //    // スポーン時に大きくする
+    //    StartCoroutine(LargerAtSpawn());
+    //}
 
     protected virtual void Start()
     {
+        // Transform情報の取得
+        _transform = this.transform;
+        _startPosition = _transform.position;
+        _spawn_And_DespawnSize = _transform.localScale / 5f;
+        _normalSize = _transform.localScale;    // キャッシュ
+
+
         bird = GetComponent<BirdStats>();
 
         animator = GetComponent<Animator>();
@@ -297,10 +279,22 @@ public abstract class BirdMoveBase : MonoBehaviour
 
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
 
+        _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
+
+
+        // 変数の初期化
+        _isFinishMovement = false;
+        _needDespawn = false;
+        _isCompleteChangeScale = false;
+        _movedDistance = 0f;
+        _isLastMove = false;
+        _currentTime = 0f;
+        _currentTime2 = 0f;
+
 
         // 初期のゴールを設定
-        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
-        _nextSetGoalCount++;
+        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _howTimesSetGoal);
+        _howTimesSetGoal++;
 
 
         // もしInspectorで設定ミスがあったら仮設定する
@@ -310,9 +304,9 @@ public abstract class BirdMoveBase : MonoBehaviour
             X_Debug.LogError("EnemySpawnPlaceData.Bullet が設定されてません");
         }
 
-        if (_linearMovementSpeed == 0f)
+        if (_movementSpeed == 0f)
         {
-            _linearMovementSpeed = 20f;
+            _movementSpeed = 20f;
             X_Debug.LogError("EnemySpawnPlaceData.Speed が設定されてません");
         }
 
@@ -321,6 +315,10 @@ public abstract class BirdMoveBase : MonoBehaviour
             _reAttackTime = 5f;
             X_Debug.LogError("EnemySpawnPlaceData.WaitTime_s が設定されてません");
         }
+
+
+        // スポーン時に大きくする
+        StartCoroutine(LargerAtSpawn());
     }
 
     private void Update()
@@ -373,7 +371,7 @@ public abstract class BirdMoveBase : MonoBehaviour
 
         // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
 
-        if (!IsFinishMovement)
+        if (!_isFinishMovement)
         {
             //LinearMovement();
             EachMovement(ref _movedDistance);
@@ -418,7 +416,7 @@ public abstract class BirdMoveBase : MonoBehaviour
         if (_currentTime2 >= _reAttackTime)
         {
             // 設定されたゴールの数が1のとき AND すべてのゴールが設定されたら、次の行動が最後
-            if (_numberOfGoal == 1 && _nextSetGoalCount > _numberOfGoal)
+            if (_numberOfGoal == 1 && _howTimesSetGoal > _numberOfGoal)
             {
                 // 次の移動が最後
                 _isLastMove = true;
@@ -433,15 +431,15 @@ public abstract class BirdMoveBase : MonoBehaviour
                 return;
             }
 
-            IsFinishMovement = false;
+            _isFinishMovement = false;
 
             // スタート位置とゴール位置の再設定
             _startPosition = _transform.position;
-            SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
-            _nextSetGoalCount++;
+            SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _howTimesSetGoal);
+            _howTimesSetGoal++;
 
             // すべてのゴールが設定されたら、次の行動が最後
-            if (_nextSetGoalCount > _numberOfGoal)
+            if (_howTimesSetGoal > _numberOfGoal)
             {
                 _isLastMove = true;
             }
@@ -461,7 +459,7 @@ public abstract class BirdMoveBase : MonoBehaviour
         if (movedDistance >= _startToGoalDistance)
         {
             X_Debug.Log("鳥の移動完了");
-            IsFinishMovement = true;
+            _isFinishMovement = true;
             movedDistance = 0f;
 
             return;
@@ -477,16 +475,16 @@ public abstract class BirdMoveBase : MonoBehaviour
         if (_movedDistance >= _startToGoalDistance)
         {
             X_Debug.Log("鳥の移動完了");
-            IsFinishMovement = true;
+            _isFinishMovement = true;
             _movedDistance = 0f;
 
             return;
         }
 
         // 移動する（移動方向のベクトル * 移動速度）
-        _transform.Translate((_goalPosition - _startPosition).normalized * _linearMovementSpeed * Time.deltaTime, Space.World); 　// 第二引数ないとバグる
+        _transform.Translate((_goalPosition - _startPosition).normalized * _movementSpeed * Time.deltaTime, Space.World); 　// 第二引数ないとバグる
         // 移動量を加算
-        _movedDistance += ((_goalPosition - _startPosition).normalized * _linearMovementSpeed * Time.deltaTime).magnitude;
+        _movedDistance += ((_goalPosition - _startPosition).normalized * _movementSpeed * Time.deltaTime).magnitude;
 
 
         // 進行方向を向く（「目標位置」から「自分の位置」を減算したベクトルの方向を向く）
@@ -502,6 +500,9 @@ public abstract class BirdMoveBase : MonoBehaviour
         _transform.rotation = Quaternion.RotateTowards(_transform.rotation, _childSpawner.rotation, Time.deltaTime * _rotateSpeed);
     }
 
+    /// <summary>
+    /// ワールド正面を向く（Updateで呼ぶ）
+    /// </summary>
     protected void RotateToFront()
     {
         _transform.rotation = Quaternion.RotateTowards(_transform.rotation, FRONT_ANGLE, Time.deltaTime * _rotateSpeed);
