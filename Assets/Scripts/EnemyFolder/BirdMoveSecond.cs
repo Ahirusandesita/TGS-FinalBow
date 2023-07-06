@@ -96,6 +96,11 @@ public class BirdMoveSecond : BirdMoveBase
         _canStartAttack = true;
     }
 
+    protected override void EachMovement(ref float movedDistance)
+    {
+
+    }
+
     // スタートからゴールへいく
     // 左行き:下　右行き:上
     public override void MoveSequence()
