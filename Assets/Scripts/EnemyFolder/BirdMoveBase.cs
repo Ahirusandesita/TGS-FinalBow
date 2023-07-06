@@ -18,27 +18,27 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     [SerializeField] float _changeAngleSpeed = 1f;
 
-    const float IDLE_MOVE_Z_SPEED = 0f;
+    //const float IDLE_MOVE_Z_SPEED = 0f;
 
-    const int FOR_INFINITY = 2;
+    //const int FOR_INFINITY = 2;
 
-    const int OFFSET_VALUE = 180;
+    //const int OFFSET_VALUE = 180;
 
-    const float IDLE_PENDULUM_REVERSE_SPEED = 12f;
+    //const float IDLE_PENDULUM_REVERSE_SPEED = 12f;
 
-    const int OFFSET_TIME_RANGE = 1000;
+    //const int OFFSET_TIME_RANGE = 1000;
 
     IFCommonEnemyGetParalysis bird = default;
 
     Animator animator = default;
 
-    private Vector3 _idleMove = Vector3.zero;
+    //private Vector3 _idleMove = Vector3.zero;
 
-    private float _offsetReverse = 0f;
+    //private float _offsetReverse = 0f;
 
-    private float _moveAngle = 0f;
+    //private float _moveAngle = 0f;
 
-    private float _time = 0f;
+    //private float _time = 0f;
     #endregion
 
     #region protected変数
@@ -118,9 +118,26 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     [Tooltip("正面の角度")]
     protected readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
+
+
+    [Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
+    private float _currentTime = 0f;
+
+    [Tooltip("現在の経過時間（再び動き出すまでの時間に使う）")]
+    private float _currentTime2 = 0f;
+
+    [Tooltip("次の移動完了で処理終了")]
+    private bool _isLastMove = default;
+
+    [Tooltip("次のゴール設定の回数")]
+    private int _nextSetGoalCount = 1;  // 初期値1
+
+    [Tooltip("攻撃の頻度")]
+    private const float ATTACK_INTERVAL_TIME = 2f;
     #endregion
 
 
+    #region property
     /// <summary>
     /// 移動終了（ゴールに到達）
     /// </summary>
@@ -226,14 +243,15 @@ public abstract class BirdMoveBase : MonoBehaviour
             _numberOfBullet = value;
         }
     }
+    #endregion
 
 
     #region method
 
-    private void Awake()
-    {
-        _offsetReverse = UnityEngine.Random.Range(0, OFFSET_TIME_RANGE);
-    }
+    //private void Awake()
+    //{
+    //    _offsetReverse = UnityEngine.Random.Range(0, OFFSET_TIME_RANGE);
+    //}
 
     protected virtual void OnEnable()
     {
@@ -258,6 +276,9 @@ public abstract class BirdMoveBase : MonoBehaviour
         _needDespawn = false;
         _isCompleteChangeScale = false;
         _movedDistance = 0f;
+        _isLastMove = false;
+        _currentTime = 0f;
+        _currentTime2 = 0f;
 
         // スポーン時に大きくする
         StartCoroutine(LargerAtSpawn());
@@ -276,11 +297,29 @@ public abstract class BirdMoveBase : MonoBehaviour
 
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
 
+
+        // 初期のゴールを設定
+        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
+        _nextSetGoalCount++;
+
+
         // もしInspectorで設定ミスがあったら仮設定する
         if (_numberOfBullet < 0)
         {
             _numberOfBullet = 3;
             X_Debug.LogError("EnemySpawnPlaceData.Bullet が設定されてません");
+        }
+
+        if (_linearMovementSpeed == 0f)
+        {
+            _linearMovementSpeed = 20f;
+            X_Debug.LogError("EnemySpawnPlaceData.Speed が設定されてません");
+        }
+
+        if (_reAttackTime == 0f)
+        {
+            _reAttackTime = 5f;
+            X_Debug.LogError("EnemySpawnPlaceData.WaitTime_s が設定されてません");
         }
     }
 
@@ -303,32 +342,6 @@ public abstract class BirdMoveBase : MonoBehaviour
     }
 
     /// <summary>
-    /// いつもの動き
-    /// </summary>
-    private void IdleMove()
-    {
-        animator.speed = 1;
-
-        _time += Time.deltaTime * _changeAngleSpeed;
-
-        _idleMove = _idleMoveSpeedY * Mathf.Sin(_time) * Vector3.up;
-
-        transform.Translate(_idleMove * Time.deltaTime);
-    }
-
-    private void InfinityMode()
-    {
-        _moveAngle += Time.deltaTime * _changeAngleSpeed;
-
-        _idleMove = new Vector3(
-            Mathf.Sin(_moveAngle) * _idleMoveSpeedY,
-            Mathf.Sin((_moveAngle + OFFSET_VALUE) * FOR_INFINITY) * _idleMoveSpeedY,
-            0);
-
-        transform.Translate(Time.deltaTime * _idleMove);
-    }
-
-    /// <summary>
     /// 麻痺中
     /// </summary>
     protected bool Paralysing()
@@ -344,25 +357,116 @@ public abstract class BirdMoveBase : MonoBehaviour
         return false;
     }
 
-    private void Test()
-    {
-        // 左右の移動
-        _idleMove = Vector3.right * (Mathf.Sin((Time.time + _offsetReverse)
-            * IDLE_PENDULUM_REVERSE_SPEED) * _idleMoveSpeedY * Time.deltaTime);
-
-        // 正面の移動
-        _idleMove += IDLE_MOVE_Z_SPEED * Time.deltaTime * Vector3.forward;
-
-        _transform.Translate(_idleMove);
-    }
-    #endregion
-
-
     /// <summary>
     /// 各ウェーブの敵の一連の挙動（イベントとして進行をまとめる）
     /// <para>Updateで呼ばれる</para>
     /// </summary>
-    public abstract void MoveSequence();
+    public virtual void MoveSequence()
+    {
+        // 麻痺状態か判定する（麻痺だったら動かない）
+        if (Paralysing())
+        {
+            return;
+        }
+
+        _currentTime += Time.deltaTime;
+
+        // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
+
+        if (!IsFinishMovement)
+        {
+            //LinearMovement();
+            EachMovement(ref _movedDistance);
+
+            return;
+        }
+        else
+        {
+            // 最後の移動が終了したら、デスポーンさせる
+            if (_isLastMove)
+            {
+                _needDespawn = true;
+
+                // クラスをはがす
+                Destroy(this);
+
+                return;
+            }
+        }
+
+        // 攻撃処理（一定間隔で実行される）-----------------------------------------------------------------------------------
+
+        if (_currentTime >= ATTACK_INTERVAL_TIME)
+        {
+            // 攻撃前にプレイヤーの方向を向く
+            if (_transform.rotation != _childSpawner.rotation)
+            {
+                RotateToPlayer();
+                return;
+            }
+
+            //　攻撃を実行
+            _birdAttack.NormalAttack(_childSpawner, ConversionToBulletType(), _numberOfBullet);
+            _currentTime = 0f;
+        }
+
+        _currentTime2 += Time.deltaTime;
+
+        // 再移動のためのリセット処理（攻撃がスタートしてから一定時間後に実行）-----------------------------------------------
+
+        // 攻撃が終了
+        if (_currentTime2 >= _reAttackTime)
+        {
+            // 設定されたゴールの数が1のとき AND すべてのゴールが設定されたら、次の行動が最後
+            if (_numberOfGoal == 1 && _nextSetGoalCount > _numberOfGoal)
+            {
+                // 次の移動が最後
+                _isLastMove = true;
+
+                return;
+            }
+
+            // 再移動前に正面を向く
+            if (_transform.rotation != FRONT_ANGLE)
+            {
+                RotateToFront();
+                return;
+            }
+
+            IsFinishMovement = false;
+
+            // スタート位置とゴール位置の再設定
+            _startPosition = _transform.position;
+            SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
+            _nextSetGoalCount++;
+
+            // すべてのゴールが設定されたら、次の行動が最後
+            if (_nextSetGoalCount > _numberOfGoal)
+            {
+                _isLastMove = true;
+            }
+
+            _currentTime2 = 0f;
+        }
+    }
+
+    /// <summary>
+    /// 各敵の動き
+    /// <para>終了条件を変えない場合はbaseを呼ぶ</para>
+    /// </summary>
+    /// <param name="movedDistance">動いた距離</param>
+    protected virtual void EachMovement(ref float movedDistance)
+    {
+        // 移動が完了したら抜ける（実移動量と目標移動量を比較）
+        if (movedDistance >= _startToGoalDistance)
+        {
+            X_Debug.Log("鳥の移動完了");
+            IsFinishMovement = true;
+            movedDistance = 0f;
+
+            return;
+        }
+    }
 
     /// <summary>
     /// 直線移動（Updateで呼ぶ）
@@ -506,4 +610,43 @@ public abstract class BirdMoveBase : MonoBehaviour
         // 例外処理
         return PoolEnum.PoolObjectType.normalBullet;
     }
+
+    /// <summary>
+    /// いつもの動き
+    /// </summary>
+    //private void IdleMove()
+    //{
+    //    animator.speed = 1;
+
+    //    _time += Time.deltaTime * _changeAngleSpeed;
+
+    //    _idleMove = _idleMoveSpeedY * Mathf.Sin(_time) * Vector3.up;
+
+    //    transform.Translate(_idleMove * Time.deltaTime);
+    //}
+
+    //private void InfinityMode()
+    //{
+    //    _moveAngle += Time.deltaTime * _changeAngleSpeed;
+
+    //    _idleMove = new Vector3(
+    //        Mathf.Sin(_moveAngle) * _idleMoveSpeedY,
+    //        Mathf.Sin((_moveAngle + OFFSET_VALUE) * FOR_INFINITY) * _idleMoveSpeedY,
+    //        0);
+
+    //    transform.Translate(Time.deltaTime * _idleMove);
+    //}
+
+    //private void Test()
+    //{
+    //    // 左右の移動
+    //    _idleMove = Vector3.right * (Mathf.Sin((Time.time + _offsetReverse)
+    //        * IDLE_PENDULUM_REVERSE_SPEED) * _idleMoveSpeedY * Time.deltaTime);
+
+    //    // 正面の移動
+    //    _idleMove += IDLE_MOVE_Z_SPEED * Time.deltaTime * Vector3.forward;
+
+    //    _transform.Translate(_idleMove);
+    //}
+    #endregion
 }

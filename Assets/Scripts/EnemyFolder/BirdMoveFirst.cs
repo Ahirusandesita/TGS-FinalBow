@@ -10,140 +10,152 @@ using System;
 public class BirdMoveFirst : BirdMoveBase
 {
     #region 変数
-    [Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
-    private float _currentTime = 0f;
+    //[Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
+    //private float _currentTime = 0f;
 
-    [Tooltip("現在の経過時間（再び動き出すまでの時間に使う）")]
-    private float _currentTime2 = 0f;
+    //[Tooltip("現在の経過時間（再び動き出すまでの時間に使う）")]
+    //private float _currentTime2 = 0f;
 
-    [Tooltip("次の移動完了で処理終了")]
-    private bool _isLastMove = default;
+    //[Tooltip("次の移動完了で処理終了")]
+    //private bool _isLastMove = default;
 
-    [Tooltip("次のゴール設定の回数")]
-    private int _nextSetGoalCount = 1;  // 初期値1
+    //[Tooltip("次のゴール設定の回数")]
+    //private int _nextSetGoalCount = 1;  // 初期値1
 
-    [Tooltip("攻撃の頻度")]
-    private const float ATTACK_INTERVAL_TIME = 2f;
+    //[Tooltip("攻撃の頻度")]
+    //private const float ATTACK_INTERVAL_TIME = 2f;
     #endregion
 
-
-    protected override void OnEnable()
+    protected override void EachMovement(ref float movedDistance)
     {
-        base.OnEnable();
-
-        _isLastMove = false;
-        _currentTime = 0f;
-        _currentTime2 = 0f;
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-
-        //SetGoalPositionCentral();
-        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
-        _nextSetGoalCount++;
-
-        // もしInspectorで設定ミスがあったら仮設定する
-        if (_linearMovementSpeed == 0f)
-        {
-            _linearMovementSpeed = 20f;
-            X_Debug.LogError("EnemySpawnPlaceData.Speed が設定されてません");
-        }
-
-        if (_reAttackTime == 0f)
-        {
-            _reAttackTime = 5f;
-            X_Debug.LogError("EnemySpawnPlaceData.WaitTime_s が設定されてません");
-        }
+        // 終了条件分岐
+        base.EachMovement(ref movedDistance);
+        
+        // 移動する（移動方向のベクトル * 移動速度）
+        _transform.Translate((_goalPosition - _startPosition).normalized * _linearMovementSpeed * Time.deltaTime, Space.World); 　// 第二引数ないとバグる
+        // 移動量を加算
+        movedDistance += ((_goalPosition - _startPosition).normalized * _linearMovementSpeed * Time.deltaTime).magnitude;
     }
 
 
-    public override void MoveSequence()
-    {
-        // 麻痺状態か判定する（麻痺だったら動かない）
-        if (Paralysing())
-        {
-            return;
-        }
 
-        _currentTime += Time.deltaTime;
+    //protected override void OnEnable()
+    //{
+    //    base.OnEnable();
 
-        // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
+    //    _isLastMove = false;
+    //    _currentTime = 0f;
+    //    _currentTime2 = 0f;
+    //}
 
-        if (!IsFinishMovement)
-        {
-            LinearMovement();
+    //protected override void Start()
+    //{
+    //    base.Start();
 
-            return;
-        }
-        else
-        {
-            // 最後の移動が終了したら、デスポーンさせる
-            if (_isLastMove)
-            {
-                _needDespawn = true;
+    //    //SetGoalPositionCentral();
+    //    SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
+    //    _nextSetGoalCount++;
 
-                // クラスをはがす
-                Destroy(this);
+    //    // もしInspectorで設定ミスがあったら仮設定する
+    //    if (_linearMovementSpeed == 0f)
+    //    {
+    //        _linearMovementSpeed = 20f;
+    //        X_Debug.LogError("EnemySpawnPlaceData.Speed が設定されてません");
+    //    }
 
-                return;
-            }
-        }
+    //    if (_reAttackTime == 0f)
+    //    {
+    //        _reAttackTime = 5f;
+    //        X_Debug.LogError("EnemySpawnPlaceData.WaitTime_s が設定されてません");
+    //    }
+    //}
 
-        // 攻撃処理（一定間隔で実行される）-----------------------------------------------------------------------------------
 
-        if (_currentTime >= ATTACK_INTERVAL_TIME)
-        {
-            // 攻撃前にプレイヤーの方向を向く
-            if (_transform.rotation != _childSpawner.rotation)
-            {
-                RotateToPlayer();
-                return;
-            }
+    //public override void MoveSequence()
+    //{
+    //    // 麻痺状態か判定する（麻痺だったら動かない）
+    //    if (Paralysing())
+    //    {
+    //        return;
+    //    }
 
-            //　攻撃を実行
-            _birdAttack.NormalAttack(_childSpawner, ConversionToBulletType(), _numberOfBullet);
-            _currentTime = 0f;
-        }
+    //    _currentTime += Time.deltaTime;
 
-        _currentTime2 += Time.deltaTime;
+    //    // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
 
-        // 再移動のためのリセット処理（攻撃がスタートしてから一定時間後に実行）-----------------------------------------------
+    //    if (!IsFinishMovement)
+    //    {
+    //        LinearMovement();
 
-        // 攻撃が終了
-        if (_currentTime2 >= _reAttackTime)
-        {
-            // 設定されたゴールの数が1のとき AND すべてのゴールが設定されたら、次の行動が最後
-            if (_numberOfGoal == 1 && _nextSetGoalCount > _numberOfGoal)
-            {
-                // 次の移動が最後
-                _isLastMove = true;
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        // 最後の移動が終了したら、デスポーンさせる
+    //        if (_isLastMove)
+    //        {
+    //            _needDespawn = true;
 
-                return;
-            }
+    //            // クラスをはがす
+    //            Destroy(this);
 
-            // 再移動前に正面を向く
-            if (_transform.rotation != FRONT_ANGLE)
-            {
-                RotateToFront();
-                return;
-            }
+    //            return;
+    //        }
+    //    }
 
-            IsFinishMovement = false;
+    //    // 攻撃処理（一定間隔で実行される）-----------------------------------------------------------------------------------
 
-            // スタート位置とゴール位置の再設定
-            _startPosition = _transform.position;
-            SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
-            _nextSetGoalCount++;
+    //    if (_currentTime >= ATTACK_INTERVAL_TIME)
+    //    {
+    //        // 攻撃前にプレイヤーの方向を向く
+    //        if (_transform.rotation != _childSpawner.rotation)
+    //        {
+    //            RotateToPlayer();
+    //            return;
+    //        }
 
-            // すべてのゴールが設定されたら、次の行動が最後
-            if (_nextSetGoalCount > _numberOfGoal)
-            {
-                _isLastMove = true;
-            }
+    //        //　攻撃を実行
+    //        _birdAttack.NormalAttack(_childSpawner, ConversionToBulletType(), _numberOfBullet);
+    //        _currentTime = 0f;
+    //    }
 
-            _currentTime2 = 0f;
-        }
-    }
+    //    _currentTime2 += Time.deltaTime;
+
+    //    // 再移動のためのリセット処理（攻撃がスタートしてから一定時間後に実行）-----------------------------------------------
+
+    //    // 攻撃が終了
+    //    if (_currentTime2 >= _reAttackTime)
+    //    {
+    //        // 設定されたゴールの数が1のとき AND すべてのゴールが設定されたら、次の行動が最後
+    //        if (_numberOfGoal == 1 && _nextSetGoalCount > _numberOfGoal)
+    //        {
+    //            // 次の移動が最後
+    //            _isLastMove = true;
+
+    //            return;
+    //        }
+
+    //        // 再移動前に正面を向く
+    //        if (_transform.rotation != FRONT_ANGLE)
+    //        {
+    //            RotateToFront();
+    //            return;
+    //        }
+
+    //        IsFinishMovement = false;
+
+    //        // スタート位置とゴール位置の再設定
+    //        _startPosition = _transform.position;
+    //        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _nextSetGoalCount);
+    //        _nextSetGoalCount++;
+
+    //        // すべてのゴールが設定されたら、次の行動が最後
+    //        if (_nextSetGoalCount > _numberOfGoal)
+    //        {
+    //            _isLastMove = true;
+    //        }
+
+    //        _currentTime2 = 0f;
+    //    }
+    //}
 }
