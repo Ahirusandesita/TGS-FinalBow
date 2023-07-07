@@ -48,6 +48,12 @@ public class ArrowEnchant : MonoBehaviour
     [Tooltip("追加ダメージ上限")]
     [SerializeField] int _limitAddDamage = 10;
 
+    [Tooltip("１個目の追加ダメージ")]
+    [SerializeField] int _firstAddDamage = 10;
+
+    [Tooltip("２個目以降の追加ダメージ")]
+    [SerializeField] int _AddDamage = 10;
+
     [Tooltip("ヘッドショットダメージ倍率")]
     [SerializeField] float _headShotDamageMultiplier = 1.5f;
 
@@ -383,11 +389,11 @@ public class ArrowEnchant : MonoBehaviour
     {
         if(addDamage == 0)
         {
-            addDamage += 5; 
+            addDamage += _firstAddDamage; 
         }
         else
         {
-            addDamage += 2;
+            addDamage += addDamage;
         }
 
         if(addDamage > _limitAddDamage)
