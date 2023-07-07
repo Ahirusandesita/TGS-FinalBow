@@ -5,7 +5,6 @@
 // Creator  : TakayanagiSora
 // --------------------------------------------------------- 
 using UnityEngine;
-using System;
 
 public class BirdMoveFirst : BirdMoveBase
 {
