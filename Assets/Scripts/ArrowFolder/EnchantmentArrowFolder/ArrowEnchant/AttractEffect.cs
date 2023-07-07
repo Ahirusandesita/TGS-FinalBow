@@ -40,7 +40,7 @@ public class AttractEffect : MonoBehaviour
     }
     public void AttractEffectEffect_Normal()
     {
-        X_Debug.Log("aaa");
+
         _attractEffect.Play();
         _attractMain.startColor = color.list[0].attractColor;
     }
@@ -48,7 +48,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_Bomb()
     {
-        X_Debug.Log("aaab");
+
         _attractEffect.Play();
         _attractMain.startColor = color.list[1].attractColor;
     }

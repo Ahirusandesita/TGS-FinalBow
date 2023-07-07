@@ -12,7 +12,7 @@ public class BirdMoveSecond : BirdMoveBase
 
     const float SIDE_MOVE_SPEED = 12f;
 
-    const float MOVE_SPEED_Y = 10f;
+    const float MOVE_SPEED_ARC = 10f;
 
     const float PARABORA_ANGLE = 10f;
 
@@ -28,17 +28,16 @@ public class BirdMoveSecond : BirdMoveBase
 
     Vector3 objectViewPoint = default;
 
-    float _movingY = default;
+    Vector3 arcDirection = default;
+
+    float _movingArcDistance = default;
 
     float _cacheMoveValue = default;
 
     float _finishMoveValue = default;
 
     float percentMoveDistance = default;
-    [Tooltip("1or-1")]
-    float directionY = default;
-
-    bool _canMoveDown = default;
+ 
 
     enum ArcMoveDirection
     {
@@ -48,7 +47,7 @@ public class BirdMoveSecond : BirdMoveBase
         Back
     }
 
-    ArcMoveDirection arcMoveDirection = ArcMoveDirection.Up;
+    ArcMoveDirection arcMoveDirection = ArcMoveDirection.Front;
 
     #endregion
     #region property
@@ -67,10 +66,12 @@ public class BirdMoveSecond : BirdMoveBase
         //_transform.rotation = FRONT_ANGLE;
         // 横移動ベクトル
         _sideMoveNormalizedVector = GetSideMoveVector().normalized;
+
+        arcDirection = GetArcDirection(_sideMoveNormalizedVector);
+
         // 横移動量
         _finishMoveValue = GetSideMoveVector().magnitude;
-        // 下か上か決める
-        _canMoveDown = CheckDown();
+
     }
 
     // てすと
@@ -87,7 +88,7 @@ public class BirdMoveSecond : BirdMoveBase
 
         _movingSide = default;
 
-        _movingY = default;
+        _movingArcDistance = default;
 
         _cacheMoveValue = default;
 
@@ -95,10 +96,22 @@ public class BirdMoveSecond : BirdMoveBase
 
         percentMoveDistance = default;
 
-        directionY = default;
+    }
 
-        _canMoveDown = false;
+    private Vector3 GetArcDirection(Vector3 moveDirection)
+    {
+        Vector3 dir;
+        // 弧の方向を決める
+        dir = arcMoveDirection switch
+        {
+            ArcMoveDirection.Up => Vector3.Cross(moveDirection,Vector3.left),
+            ArcMoveDirection.Down => Vector3.Cross(moveDirection,Vector3.right),
+            ArcMoveDirection.Front => Vector3.Cross(moveDirection,Vector3.down),
+            ArcMoveDirection.Back => Vector3.Cross(moveDirection,Vector3.up),
+            _ => Vector3.up,
+        };
 
+        return dir.normalized;
     }
 
     protected override void EachMovement(ref float movedDistance)
@@ -190,7 +203,7 @@ public class BirdMoveSecond : BirdMoveBase
     /// <returns>横移動ベクトル</returns>
     private Vector3 GetSideMoveVector()
     {
-        return _goalPosition - _startPosition;
+        return _goalPosition - _transform.position;
     }
 
     /// <summary>
@@ -198,42 +211,36 @@ public class BirdMoveSecond : BirdMoveBase
     /// </summary>
     private void ArcMove()
     {
+        // 直線移動
         _movingSide = SIDE_MOVE_SPEED * Time.deltaTime * _sideMoveNormalizedVector;
         // 累計横移動量のキャッシュ
         _cacheMoveValue += _movingSide.magnitude;
 
-        _movingY = AddArc();
+        _movingArcDistance = AddArc();
 
-        _movingSide += Vector3.up * _movingY;
+        _movingSide += arcDirection * _movingArcDistance;
 
         _transform.Translate(_movingSide, Space.World);
 
     }
 
     /// <summary>
-    /// 現在の位置からYの移動量をもとめる
+    /// 現在の位置から弧の移動量をもとめる
     /// </summary>
     /// <returns>Y移動量</returns>
     private float AddArc()
     {
         percentMoveDistance = _cacheMoveValue / _finishMoveValue;
 
-        directionY = 1f;
-
-        if (_canMoveDown)
-        {
-            directionY = -1f;
-        }
-
         // 前半の動き
         if (percentMoveDistance < PERCENT_HALF)
         {
-            return directionY * MOVE_SPEED_Y * PrabolaMove() * Time.deltaTime;
+            return MOVE_SPEED_ARC * PrabolaMove() * Time.deltaTime;
         }
         // 後半の動き
         else
         {
-            return -directionY * MOVE_SPEED_Y * PrabolaMove() * Time.deltaTime;
+            return MOVE_SPEED_ARC * PrabolaMove() * Time.deltaTime;
         }
 
         float PrabolaMove()
