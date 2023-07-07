@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5778584847393236420}
   - component: {fileID: 2409460241002499135}
   - component: {fileID: 4673029608373597619}
+  - component: {fileID: 9191329357465614154}
   m_Layer: 0
   m_Name: ArrowEnchant (1)
   m_TagString: ArrowEnchantmentController
@@ -50,8 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df388f8a9ef89349854b97e87779cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _EnchantSound: {fileID: 8300000, guid: 240c9f89b5683ca4da4c1bd714d3f589, type: 3}
-  TestEnchantGetEffect: {fileID: 0}
 --- !u!114 &5778584847393236417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +74,8 @@ MonoBehaviour:
   _homingDamage: 20
   _penetrateDamage: 20
   _limitAddDamage: 10
+  _firstAddDamage: 10
+  _AddDamage: 10
   _headShotDamageMultiplier: 1.5
 --- !u!114 &5778584847393236416
 MonoBehaviour:
@@ -128,6 +129,7 @@ MonoBehaviour:
   _knockBackHomingSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
   _knockBackPenetrateSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
   _homingPenetrateSound: {fileID: 8300000, guid: 70022ca9fefd7f34eb0f4d7c1f4d2eb0, type: 3}
+  _newEnchantSound: {fileID: 0}
 --- !u!114 &2409460241002499135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,3 +239,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9191329357465614154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5778584847393236478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a118ed4d8e5ad174692578283d3a9b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {fileID: 11400000, guid: 2d63b0dba15bcc342a2e0ea1d95b8a23, type: 2}
