@@ -22,7 +22,7 @@ public class TestScri : MonoBehaviour
  
  private void Start ()
  {
-        sceneObject = (SceneObject)ScriptableFind.ScriptableObjectFind(ScriptableEnum.scriptableName.SceneObject,ScriptableEnum.name.Result);
+        //sceneObject = (SceneObject)ScriptableFind.ScriptableObjectFind(ScriptableEnum.scriptableName.SceneObject,ScriptableEnum.name.Result);
         Debug.Log(sceneObject._sceneName);
  }
 
