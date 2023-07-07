@@ -54,7 +54,7 @@ public class AttractEffectCustom : MonoBehaviour,IFAttractEffectCustom
 
         _particle.startSize3D = startRootSize * size;
 
-        _particleColor.startColor = Color.white * size;
+        //_particleColor.startColor = Color.white * size;
 
 
 

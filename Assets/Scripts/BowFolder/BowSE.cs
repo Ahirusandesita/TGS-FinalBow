@@ -110,6 +110,7 @@ public class BowSE : MonoBehaviour,IFBowSE_CallToBow,IFBowSE_CallToAttract
 
     public void CallShotSE()
     {
+        X_Debug.Log("shot");
         _myAudio.PlayOneShot(_shotClip);
     }
 
