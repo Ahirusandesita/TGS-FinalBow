@@ -90,6 +90,8 @@ public class HitZone
         this.hitDistanceScales[5] = hitDistanceScale6;
         this.hitDistanceScales[6] = hitDistanceScale7;
         this.hitDistanceScales[7] = hitDistanceScale8;
+
+        CreateHitZoneOriginal();
     }
     /// <summary>
     /// ÇWì_Ç≈éŒÇﬂÇÃå`ÇçÏê¨Ç≈Ç´ÇÈ
@@ -287,6 +289,15 @@ public class HitZone
         return true;
     }
 
+    private void CreateHitZoneOriginal()
+    {
+        for(int i = 0; i < hitDistanceScales.Length; i++)
+        {
+            _hitZone[i].x = hitDistanceScales[i]._hitDistanceX;
+            _hitZone[i].y = hitDistanceScales[i]._hitDistanceY;
+            _hitZone[i].z = hitDistanceScales[i]._hitDistanceZ;
+        }
+    }
 
 
     private void CreateHitZone(Vector3 hitPointCenter)
@@ -366,9 +377,6 @@ public class HitZone
         _hitZone[index].z = _hitZone[index].z + distance;
     }
 
-
-
-
     private bool CheckAttackPositionMinus(float position, float attackPosition)
     {
         if (position > attackPosition)
@@ -385,6 +393,8 @@ public class HitZone
         }
         return false;
     }
+
+
 
 
     public Vector3[] GetHitZoneVertexPositions()
