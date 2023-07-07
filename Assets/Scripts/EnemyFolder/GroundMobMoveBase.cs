@@ -28,6 +28,23 @@ public class GroundMobMoveBase : EnemyMoveBase
 
     }
 
+    private void Jump()
+    {
+
+    }
+
+    private void CrabWalk()
+    {
+
+    }
+
+    private void Stop()
+    {
+
+    }
+
+
+
     // 垂直ジャンプ
     // 前方に歩いてくる
     // 攻撃する（別スクリプトから呼ぶので保留）

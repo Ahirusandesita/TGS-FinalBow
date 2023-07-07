@@ -203,6 +203,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     public void EnchantUIReset()
     {
         _arrowEnchantUI.ArrowEnchantUI_Normal();
+        _atractEffect.AttractEffectEffect_Normal();
     }
 
     /// <summary>
