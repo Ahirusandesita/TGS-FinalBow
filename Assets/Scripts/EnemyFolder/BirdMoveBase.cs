@@ -41,6 +41,19 @@ public abstract class BirdMoveBase : MonoBehaviour
     //private float _time = 0f;
     #endregion
     #region 新move変数
+    [Tooltip("自身のTransformをキャッシュ")]
+    protected Transform _transform = default;
+
+    [Tooltip("移動のスタート位置")]
+    protected Vector3 _startPosition = default;
+
+    [Tooltip("移動のゴール位置位置")]
+    protected Vector3 _goalPosition = default;
+
+    [Tooltip("移動のスピード")]
+    protected float _movementSpeed = 20f;
+
+
     [Tooltip("自身の敵の種類")]
     private CashObjectInformation _cashObjectInformation = default;
 
@@ -53,26 +66,14 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("取得したBirdAttackクラス")]
     private BirdAttack _birdAttack = default;
 
-    [Tooltip("自身のTransformをキャッシュ")]
-    protected Transform _transform = default;
-
-    [Tooltip("移動のスタート位置")]
-    protected Vector3 _startPosition = default;
-
-    [Tooltip("移動のゴール位置位置")]
-    protected Vector3 _goalPosition = default;
-
     [Tooltip("スタートとゴール間の距離 = 目標移動量")]
-    protected float _startToGoalDistance = default;
+    private float _startToGoalDistance = default;
 
     [Tooltip("動いた距離")]
-    protected float _movedDistance = default;
-
-    [Tooltip("移動のスピード")]
-    protected float _movementSpeed = 20f;
+    private float _movedDistance = default;
 
     [Tooltip("プレイヤーの方向を向く速度")]
-    protected float _rotateSpeed = 100f;
+    private float _rotateSpeed = 100f;
 
     [Tooltip("移動終了（ゴールに到達）")]
     private bool _isFinishMovement = false;
@@ -114,7 +115,6 @@ public abstract class BirdMoveBase : MonoBehaviour
 
     [Tooltip("正面の角度")]
     private readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
-
 
     [Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
     private float _currentTime = 0f;
@@ -324,6 +324,7 @@ public abstract class BirdMoveBase : MonoBehaviour
     private void Update()
     {
         MoveSequence();
+        X_Debug.Log(_isLastMove);
     }
 
 

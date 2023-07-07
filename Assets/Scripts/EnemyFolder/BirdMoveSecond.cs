@@ -100,6 +100,8 @@ public class BirdMoveSecond : BirdMoveBase
 
         // 移動処理
         ArcMove();
+
+        movedDistance += _movingSide.magnitude;
     }
 
     // スタートからゴールへいく
