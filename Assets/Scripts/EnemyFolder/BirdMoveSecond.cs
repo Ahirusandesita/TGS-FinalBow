@@ -64,13 +64,7 @@ public class BirdMoveSecond : BirdMoveBase
 
         // 最初から正面を向かせる
         //_transform.rotation = FRONT_ANGLE;
-        // 横移動ベクトル
-        _sideMoveNormalizedVector = GetSideMoveVector().normalized;
-
-        arcDirection = GetArcDirection(_sideMoveNormalizedVector);
-
-        // 横移動量
-        _finishMoveValue = GetSideMoveVector().magnitude;
+       
 
     }
 
@@ -96,6 +90,13 @@ public class BirdMoveSecond : BirdMoveBase
 
         percentMoveDistance = default;
 
+        // 横移動ベクトル
+        _sideMoveNormalizedVector = GetSideMoveVector().normalized;
+
+        arcDirection = GetArcDirection(_sideMoveNormalizedVector);
+
+        // 横移動量
+        _finishMoveValue = GetSideMoveVector().magnitude;
     }
 
     private Vector3 GetArcDirection(Vector3 moveDirection)
@@ -203,7 +204,7 @@ public class BirdMoveSecond : BirdMoveBase
     /// <returns>横移動ベクトル</returns>
     private Vector3 GetSideMoveVector()
     {
-        return _goalPosition - _transform.position;
+        return _goalPosition - _startPosition;
     }
 
     /// <summary>
@@ -249,6 +250,14 @@ public class BirdMoveSecond : BirdMoveBase
             return PARABORA_ANGLE * Mathf.Pow(PERCENT_HALF - percentMoveDistance, 2);
 
         }
+
+    }
+
+    protected override void InitializeForRe_Movement()
+    {
+        base.InitializeForRe_Movement();
+
+        InitializeVariables();
 
     }
     /// <summary>
