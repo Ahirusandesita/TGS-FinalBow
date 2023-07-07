@@ -1,0 +1,19 @@
+// --------------------------------------------------------- 
+// EnemyMoveBase.cs 
+// 
+// CreateDay: 2023/07/07
+// Creator  : TakayanagiSora
+// --------------------------------------------------------- 
+using UnityEngine;
+
+/// <summary>
+/// 敵が持つ挙動クラスの定義
+/// </summary>
+public abstract class EnemyMoveBase : MonoBehaviour
+{
+    /// <summary>
+    /// 各ウェーブの敵の一連の挙動（イベントとして進行をまとめる）
+    /// <para>Updateで呼ばれる</para>
+    /// </summary>
+    protected abstract void MoveSequence();
+}

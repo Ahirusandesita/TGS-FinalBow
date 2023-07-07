@@ -8,8 +8,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-
-public abstract class BirdMoveBase : MonoBehaviour
+/// <summary>
+/// 鳥雑魚の挙動の基盤
+/// </summary>
+public abstract class BirdMoveBase : EnemyMoveBase
 {
     #region variable 
     [SerializeField] float _idleMoveSpeedX = 10f;
@@ -110,11 +112,8 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("出す弾の数")]
     private int _numberOfBullet = default;
 
-    [Tooltip("Scaleの加算/減算値")]
-    private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
-
-    [Tooltip("正面の角度")]
-    private readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
+    [Tooltip("攻撃の頻度")]
+    private float _attackIntervalTime = 2f;
 
     [Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
     private float _currentTime = 0f;
@@ -128,9 +127,12 @@ public abstract class BirdMoveBase : MonoBehaviour
     [Tooltip("何回目のゴール設定か")]
     private int _howTimesSetGoal = 1;  // 初期値1
 
-    [Tooltip("攻撃の頻度")]
-    // あとで設定可能なパラメータにする
-    private const float ATTACK_INTERVAL_TIME = 2f;
+
+    [Tooltip("Scaleの加算/減算値")]
+    private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
+
+    [Tooltip("正面の角度")]
+    private readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
     #endregion
 
 
@@ -212,11 +214,25 @@ public abstract class BirdMoveBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 出す弾の数
+    /// </summary>
     public int NumberOfBullet
     {
         set
         {
             _numberOfBullet = value;
+        }
+    }
+
+    /// <summary>
+    /// 攻撃の頻度
+    /// </summary>
+    public float AttackIntervalTime
+    {
+        set
+        {
+            _attackIntervalTime = value;
         }
     }
     #endregion
@@ -227,36 +243,6 @@ public abstract class BirdMoveBase : MonoBehaviour
     //private void Awake()
     //{
     //    _offsetReverse = UnityEngine.Random.Range(0, OFFSET_TIME_RANGE);
-    //}
-
-    //protected virtual void OnEnable()
-    //{
-    //    _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
-
-    //    // 移動のスタート位置を設定
-    //    try
-    //    {
-    //        _startPosition = _transform.position;
-    //    }
-    //    // プールが生成された瞬間の1回だけはこっちが動く
-    //    catch (Exception)
-    //    {
-    //        _transform = this.transform;
-    //        _startPosition = _transform.position;
-    //        _spawn_And_DespawnSize = _transform.localScale / 5f;
-    //        _normalSize = _transform.localScale;    // キャッシュ
-    //    }
-
-    //    // リセット
-    //    _needDespawn = false;
-    //    _isCompleteChangeScale = false;
-    //    _movedDistance = 0f;
-    //    _isLastMove = false;
-    //    _currentTime = 0f;
-    //    _currentTime2 = 0f;
-
-    //    // スポーン時に大きくする
-    //    StartCoroutine(LargerAtSpawn());
     //}
 
     protected virtual void Start()
@@ -316,6 +302,11 @@ public abstract class BirdMoveBase : MonoBehaviour
             X_Debug.LogError("EnemySpawnPlaceData.WaitTime_s が設定されてません");
         }
 
+        if (_attackIntervalTime == 0f)
+        {
+            _attackIntervalTime = 2f;
+            X_Debug.LogError("EnemySpawnPlaceData.////////// が設定されてません");
+        }
 
         // スポーン時に大きくする
         StartCoroutine(LargerAtSpawn());
@@ -324,7 +315,6 @@ public abstract class BirdMoveBase : MonoBehaviour
     private void Update()
     {
         MoveSequence();
-        X_Debug.Log(_isLastMove);
     }
 
 
@@ -356,11 +346,7 @@ public abstract class BirdMoveBase : MonoBehaviour
         return false;
     }
 
-    /// <summary>
-    /// 各ウェーブの敵の一連の挙動（イベントとして進行をまとめる）
-    /// <para>Updateで呼ばれる</para>
-    /// </summary>
-    public virtual void MoveSequence()
+    protected override void MoveSequence()
     {
         // 麻痺状態か判定する（麻痺だったら動かない）
         if (Paralysing())
@@ -374,7 +360,7 @@ public abstract class BirdMoveBase : MonoBehaviour
 
         if (!_isFinishMovement)
         {
-            //LinearMovement();
+            // 移動処理
             EachMovement(ref _movedDistance);
 
             return;
@@ -395,7 +381,7 @@ public abstract class BirdMoveBase : MonoBehaviour
 
         // 攻撃処理（一定間隔で実行される）-----------------------------------------------------------------------------------
 
-        if (_currentTime >= ATTACK_INTERVAL_TIME)
+        if (_currentTime >= _attackIntervalTime)
         {
             // 攻撃前にプレイヤーの方向を向く
             if (_transform.rotation != _childSpawner.rotation)
@@ -465,32 +451,6 @@ public abstract class BirdMoveBase : MonoBehaviour
 
             return;
         }
-    }
-
-    /// <summary>
-    /// 直線移動（Updateで呼ぶ）
-    /// </summary>
-    protected virtual void LinearMovement()
-    {
-        // 移動が完了したら抜ける（実移動量と目標移動量を比較）
-        if (_movedDistance >= _startToGoalDistance)
-        {
-            X_Debug.Log("鳥の移動完了");
-            _isFinishMovement = true;
-            _movedDistance = 0f;
-
-            return;
-        }
-
-        // 移動する（移動方向のベクトル * 移動速度）
-        _transform.Translate((_goalPosition - _startPosition).normalized * _movementSpeed * Time.deltaTime, Space.World); 　// 第二引数ないとバグる
-        // 移動量を加算
-        _movedDistance += ((_goalPosition - _startPosition).normalized * _movementSpeed * Time.deltaTime).magnitude;
-
-
-        // 進行方向を向く（「目標位置」から「自分の位置」を減算したベクトルの方向を向く）
-        // goalPositionだけだとなぜかちょっとずれた
-        //_transform.rotation = Quaternion.LookRotation(_goalPosition - _transform.position);
     }
 
     /// <summary>
