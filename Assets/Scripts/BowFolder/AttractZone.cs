@@ -57,6 +57,11 @@ public class AttractZone : MonoBehaviour
         //angle = 
         //ゾーンに含まれているオブジェクトのStatsEnumをPlayerManagerクラスにセットする
         
+        if(angle > 180f)
+        {
+            angle = 180f;
+        }
+
         _zoneObject = ConeDecision.ConeInObjects(transform, AttractObjectList.GetAttractObject(), angle, dictance, direction);
         for (int i = 0; i < _zoneObject.Count; i++)
         {
