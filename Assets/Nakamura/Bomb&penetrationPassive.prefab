@@ -24281,12 +24281,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 786889566517218708}
     m_Modifications:
     - target: {fileID: 755881250981771595, guid: 1ea489358ea9d134c91c57832d57746c, type: 3}
+      propertyPath: VelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 755881250981771595, guid: 1ea489358ea9d134c91c57832d57746c, type: 3}
       propertyPath: ShapeModule.m_Rotation.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 755881250981771595, guid: 1ea489358ea9d134c91c57832d57746c, type: 3}
       propertyPath: ShapeModule.m_Rotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 755881250981771595, guid: 1ea489358ea9d134c91c57832d57746c, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 0.079028964
+      objectReference: {fileID: 0}
+    - target: {fileID: 755881250981771595, guid: 1ea489358ea9d134c91c57832d57746c, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3546323821672877402, guid: 1ea489358ea9d134c91c57832d57746c, type: 3}
       propertyPath: m_IsActive
