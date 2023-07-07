@@ -18,14 +18,11 @@ public class EnemyDataTable : ScriptableObject
     [Tooltip("動きの種類")]
     public MoveType _moveType;
 
-    [Header("移動スピード（Linearのみ）"), Tooltip("直線移動のスピード")]
-    public float _speed;
-
     [Header("出す弾の数（推奨：奇数）"), Tooltip("出す弾の数（推奨：奇数）")]
     public int _bullet;
 
-    [Header("停止して攻撃する秒数（Linearのみ）"), Tooltip("停止して攻撃する秒数")]
-    public float _waitTime_s;
+    [Header("攻撃間隔"), Tooltip("攻撃間隔")]
+    public float _attackInterval_s;
 
     [Header("スポーンディレイ（注意：Wave開始からの秒数）"), Tooltip("スポーンディレイ（注意：Wave開始からの秒数）")]
     public float _spawnDelay_s;
@@ -34,5 +31,18 @@ public class EnemyDataTable : ScriptableObject
     public Transform _birdSpawnPlace;
 
     [Header("雑魚のゴール位置"), Tooltip("雑魚のゴール位置")]
-    public List<Transform> _birdGoalPlaces = new List<Transform>();
+    public List<EnemyGoalInformation> _birdGoalPlaces = new List<EnemyGoalInformation>();
+}
+
+[System.Serializable]
+public class EnemyGoalInformation
+{
+    [Header("雑魚のゴール位置"), Tooltip("雑魚のゴール位置")]
+    public Transform _birdGoalPlace;
+
+    [Header("このゴールまでの移動スピード"), Tooltip("このゴールまでの移動スピード")]
+    public float _speed;
+
+    [Header("このゴールで停止して攻撃する秒数"), Tooltip("このゴールで停止して攻撃する秒数")]
+    public float _stayTime_s;
 }

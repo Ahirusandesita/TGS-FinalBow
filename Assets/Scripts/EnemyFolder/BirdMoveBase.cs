@@ -299,13 +299,13 @@ public abstract class BirdMoveBase : EnemyMoveBase
         if (_reAttackTime == 0f)
         {
             _reAttackTime = 5f;
-            X_Debug.LogError("EnemySpawnPlaceData.WaitTime_s が設定されてません");
+            X_Debug.LogError("EnemySpawnPlaceData.StayTime_s が設定されてません");
         }
 
         if (_attackIntervalTime == 0f)
         {
             _attackIntervalTime = 2f;
-            X_Debug.LogError("EnemySpawnPlaceData.////////// が設定されてません");
+            X_Debug.LogError("EnemySpawnPlaceData.AttackInterval_S が設定されてません");
         }
 
         // スポーン時に大きくする
@@ -418,12 +418,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
                 return;
             }
 
-            _isFinishMovement = false;
-
-            // スタート位置とゴール位置の再設定
-            _startPosition = _transform.position;
-            SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _howTimesSetGoal);
-            _howTimesSetGoal++;
+            // 初期化
+            InitializeForRe_Movement();
 
             // すべてのゴールが設定されたら、次の行動が最後
             if (_howTimesSetGoal > _numberOfGoal)
@@ -451,6 +447,19 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
             return;
         }
+    }
+
+    /// <summary>
+    /// 2回目以降の移動処理のためのリセット処理
+    /// </summary>
+    protected virtual void InitializeForRe_Movement()
+    {
+        _isFinishMovement = false;
+
+        // スタート位置とゴール位置の再設定
+        _startPosition = _transform.position;
+        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _howTimesSetGoal);
+        _howTimesSetGoal++;
     }
 
     /// <summary>
