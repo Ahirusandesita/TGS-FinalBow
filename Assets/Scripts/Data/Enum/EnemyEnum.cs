@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 
 /// <summary>
-/// “G‚Ì“®‚«‚ÌŽí—Þ
+/// ’¹ŽG‹›‚Ì“®‚«‚ÌŽí—Þ
 /// </summary>
 public enum MoveType
 {
@@ -21,9 +21,9 @@ public enum MoveType
 }
 
 /// <summary>
-/// “G‚ÌŽí—Þ
+/// ’¹ŽG‹›‚ÌŽí—Þ
 /// </summary>
-public enum EnemyType
+public enum BirdType
 {
     normalBird,
     bombBird,

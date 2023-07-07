@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
   m_Name: TestEnemyData
   m_EditorClassIdentifier: 
-  _enemyType: 0
-  _moveType: 0
-  _speed: 0
+  _birdType: 0
+  _moveType: 1
+  _arcHeight: 20
   _bullet: 0
-  _waitTime_s: 0
+  _attackInterval_s: 0
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 0}
-  _birdGoalPlaces: []
+  _birdGoalPlaces:
+  - _birdGoalPlace: {fileID: 0}
+    _speed: 0
+    _stayTime_s: 0
