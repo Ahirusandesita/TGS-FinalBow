@@ -44,7 +44,7 @@ public class WaveEnemyInformation
 public class EnemySpawnerInformation
 {
     [Header("“G‚ÌŽí—Þ"), Tooltip("“G‚ÌŽí—Þ")]
-    public EnemyType _enemyType;
+    public BirdType _enemyType;
 
     [Tooltip("“®‚«‚ÌŽí—Þ")]
     public MoveType _moveType;

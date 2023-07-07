@@ -147,31 +147,31 @@ public class StageManager : MonoBehaviour, IStageSpawn
         switch (_enemySpawnerTable._scriptableWaveEnemy[(int)_nextWave]._enemysSpawner[listIndex]._enemyType)
         {
             // à»â∫EnumÇÃïœä∑èàóù
-            case EnemyType.normalBird:
+            case BirdType.normalBird:
                 selectedPrefab = PoolEnum.PoolObjectType.normalBird;
                 break;
 
-            case EnemyType.bombBird:
+            case BirdType.bombBird:
                 selectedPrefab = PoolEnum.PoolObjectType.bombBird;
                 break;
 
-            case EnemyType.penetrateBird:
+            case BirdType.penetrateBird:
                 selectedPrefab = PoolEnum.PoolObjectType.penetrateBird;
                 break;
 
-            case EnemyType.thunderBird:
+            case BirdType.thunderBird:
                 selectedPrefab = PoolEnum.PoolObjectType.thunderBird;
                 break;
 
-            case EnemyType.bombBirdBig:
+            case BirdType.bombBirdBig:
                 selectedPrefab = PoolEnum.PoolObjectType.bombBirdBig;
                 break;
 
-            case EnemyType.thunderBirdBig:
+            case BirdType.thunderBirdBig:
                 selectedPrefab = PoolEnum.PoolObjectType.thunderBirdBig;
                 break;
 
-            case EnemyType.penetrateBirdBig:
+            case BirdType.penetrateBirdBig:
                 selectedPrefab = PoolEnum.PoolObjectType.penetrateBirdBig;
                 break;
 
