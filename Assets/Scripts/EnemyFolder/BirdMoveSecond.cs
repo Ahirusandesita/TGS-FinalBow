@@ -40,7 +40,15 @@ public class BirdMoveSecond : BirdMoveBase
 
     bool _canMoveDown = default;
 
-    bool _canStartAttack = default;
+    enum ArcMoveDirection
+    {
+        Up,
+        Down,
+        Front,
+        Back
+    }
+
+    ArcMoveDirection arcMoveDirection = ArcMoveDirection.Up;
 
     #endregion
     #region property
@@ -91,7 +99,6 @@ public class BirdMoveSecond : BirdMoveBase
 
         _canMoveDown = false;
 
-        _canStartAttack = true;
     }
 
     protected override void EachMovement(ref float movedDistance)
@@ -195,7 +202,7 @@ public class BirdMoveSecond : BirdMoveBase
         // 累計横移動量のキャッシュ
         _cacheMoveValue += _movingSide.magnitude;
 
-        _movingY = MoveCalcY();
+        _movingY = AddArc();
 
         _movingSide += Vector3.up * _movingY;
 
@@ -207,7 +214,7 @@ public class BirdMoveSecond : BirdMoveBase
     /// 現在の位置からYの移動量をもとめる
     /// </summary>
     /// <returns>Y移動量</returns>
-    private float MoveCalcY()
+    private float AddArc()
     {
         percentMoveDistance = _cacheMoveValue / _finishMoveValue;
 
