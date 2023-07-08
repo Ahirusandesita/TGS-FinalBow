@@ -411,18 +411,23 @@ public class HitZone
         return vecs;
     }
 
-    public float Y_Max()
+    public float Y_Up()
     {
         return _hitZone[5].y;
     }
 
+    public float Y_Down()
+    {
+        return _hitZone[0].y;
+    }
+
     public float X_Right()
     {
-        return _hitZone[0].x;
+        return _hitZone[2].x;
     }
     public float X_Left()
     {
-        return _hitZone[2].x;
+        return _hitZone[0].x;
     }
 
     public float Z_Forward()
@@ -434,5 +439,52 @@ public class HitZone
     {
         return _hitZone[0].z;
     }
+
+    public Vector3[] Y_UpPosition()
+    {
+        Vector3[] yUpPositions = { _hitZone[4], _hitZone[5], _hitZone[6], _hitZone[7] };
+        return yUpPositions;
+    }
+
+    public Vector3[] Y_DownPosition()
+    {
+        Vector3[] yDownPositions = { _hitZone[0], _hitZone[1], _hitZone[2], _hitZone[3] };
+        return yDownPositions;
+    }
+
+    public Vector3[] X_RightPositon()
+    {
+        Vector3[] xRightPositions = { _hitZone[2], _hitZone[3], _hitZone[6], _hitZone[7] };
+        return xRightPositions;
+    }
+
+    public Vector3[] X_LeftPosition()
+    {
+        Vector3[] xLeftPositions = { _hitZone[0], _hitZone[1], _hitZone[4], _hitZone[5] };
+        return xLeftPositions;
+    }
+
+    public Vector3[] Z_ForwardPosition()
+    {
+        Vector3[] zForwardPositions = { _hitZone[1], _hitZone[2], _hitZone[5], _hitZone[6] };
+        return zForwardPositions;
+    }
+
+    public Vector3[] Z_BackPosition()
+    {
+        Vector3[] zBackPositions = { _hitZone[0], _hitZone[3], _hitZone[4], _hitZone[7] };
+        return zBackPositions;
+    }
+
+    /// <summary>
+    /// 動的コライダー
+    /// </summary>
+    /// <param name="hitPointCenter"></param>
+    public void SetPosition(Vector3 hitPointCenter)
+    {
+        CreateHitZone(hitPointCenter);
+    }
+
+
     #endregion
 }

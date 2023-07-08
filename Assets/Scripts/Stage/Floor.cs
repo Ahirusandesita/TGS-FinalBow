@@ -13,10 +13,6 @@ using System.Collections.Generic;
 /// </summary>
 public class Floor : ColliderObjectBase
 {
-    public float Y = 25f;
-    public float X = 0f;
-    public float Z = 0f;
-
     #region method
 
     private void Awake()
