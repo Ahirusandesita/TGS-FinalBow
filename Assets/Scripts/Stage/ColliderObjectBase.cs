@@ -14,6 +14,23 @@ public abstract class ColliderObjectBase : MonoBehaviour
     #region variable 
     protected HitZone _hitZone;
     protected HitZone.HitDistanceScale _hitDistanceScale = default;
+
+    public float Y = 25f;
+    public float X = 0f;
+    public float Z = 0f;
+
+    public struct AdjustmentPosint
+    {
+        /// <summary>
+        /// Up Right Forward
+        /// </summary>
+        public float onePoint;
+        /// <summary>
+        /// Down Left Back
+        /// </summary>
+        public float twoPoint;
+    }
+
     #endregion
     #region property
     #endregion
@@ -32,6 +49,8 @@ public abstract class ColliderObjectBase : MonoBehaviour
         {
             Instantiate(c, vecs[i], Quaternion.identity);
         }
+
+
     }
 
     /// <summary>
@@ -59,7 +78,20 @@ public abstract class ColliderObjectBase : MonoBehaviour
     /// <returns></returns>
     public virtual float PositionAdjustment()
     {
-        return _hitZone.Y_Max();
+        return _hitZone.Y_Up();
+    }
+
+    public virtual float PositionAdjustment2()
+    {
+        return _hitZone.Y_Down();
+    }
+
+    public virtual AdjustmentPosint PositionAdjustmentPoint()
+    {
+        AdjustmentPosint adjustmentPosint = default;
+        adjustmentPosint.onePoint = _hitZone.Y_Up();
+        adjustmentPosint.twoPoint = _hitZone.Y_Down();
+        return adjustmentPosint;
     }
     #endregion
 }
