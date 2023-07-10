@@ -44,6 +44,10 @@ public class ContainObject
 
     private Contain Contain_WallZ;
 
+    private delegate bool ContainAll(Vector3[] mes);
+
+    private ContainAll Contains;
+
     /// <summary>
     /// 埋まりこみ防止用変数取得デリゲート
     /// </summary>
@@ -62,6 +66,16 @@ public class ContainObject
 
 
     private Adjustment Adjustment_WallZ = default;
+
+    private delegate float AdjustmentAll(Vector3 me);
+
+    private AdjustmentAll AdjustmentY;
+    private AdjustmentAll AdjustmentX;
+    private AdjustmentAll AdjustmentZ;
+
+    private delegate HitZone.HitDistanceScale ColliderScale();
+
+    private ColliderScale Scale;
 
     #endregion
     #region property
@@ -95,6 +109,43 @@ public class ContainObject
             {
                 Contain_Floor = new Contain(floors[i].IsHit);
                 Adjustment_Floor = new Adjustment(floors[i].PositionAdjustmentPoint);
+
+                Contains = new ContainAll(floors[i].IsHit2);
+                AdjustmentY = new AdjustmentAll(floors[i].PushOutFromColliderY);
+                AdjustmentX = new AdjustmentAll(floors[i].PushOutFromColliderX);
+                AdjustmentZ = new AdjustmentAll(floors[i].PushOutFromColliderZ);
+                Scale = new ColliderScale(floors[i].GetDistanceScale);
+
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool IsContainObjectAll(Vector3[] mes)
+    {
+        //Contain型のデリゲートがNullではないとき
+        if (Contains != null)
+        {
+            //前回触れていた空間に触れているか
+            //触れていたらそれ以外の空間を検知する必要がないのでTrueを返す　オブジェクト分比較せずに済む
+            if (Contains(mes))
+            {
+                return true;
+            }
+        }
+
+        //触れていなかったらすべてのオブジェクトの中から触れているものがあるか検索する
+        for (int i = 0; i < floors.Count; i++)
+        {
+            //触れている空間があればそれを次から比較するために代入する　Trueを返す
+            if (floors[i].IsHit2(mes))
+            {
+                Contains = new ContainAll(floors[i].IsHit2);
+                AdjustmentY = new AdjustmentAll(floors[i].PushOutFromColliderY);
+                AdjustmentX = new AdjustmentAll(floors[i].PushOutFromColliderX);
+                AdjustmentZ = new AdjustmentAll(floors[i].PushOutFromColliderZ);
                 return true;
             }
         }
@@ -192,6 +243,24 @@ public class ContainObject
     public ColliderObjectBase.AdjustmentPosint GetAdjustmentPosition_WallZ()
     {
         return Adjustment_WallZ();
+    }
+
+    public float GetAdjustmentY(Vector3 me)
+    {
+        return AdjustmentY(me);
+    }
+    public float GetAdjustmentX(Vector3 me)
+    {
+        return AdjustmentX(me);
+    }
+    public float GetAdjustmentZ(Vector3 me)
+    {
+        return AdjustmentZ(me);
+    }
+
+    public HitZone.HitDistanceScale GetHitDistanceScale()
+    {
+        return Scale();
     }
 
 

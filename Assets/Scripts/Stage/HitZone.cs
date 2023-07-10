@@ -15,6 +15,7 @@ public class HitZone
 
     private HitDistanceScaleAllPoint hitDistanceScaleAllPoint;
 
+    private InterSectionDetection _interSectionDetection = new InterSectionDetection();
     /// <summary>
     /// “–‚½‚è”»’è‚ÌŒ`
     /// </summary>
@@ -289,6 +290,12 @@ public class HitZone
         return true;
     }
 
+    public bool IsHit2(Vector3[] points)
+    {
+        return _interSectionDetection.CheckIntersection(_hitZone, points);
+    }
+
+
     private void CreateHitZoneOriginal()
     {
         for(int i = 0; i < hitDistanceScales.Length; i++)
@@ -452,7 +459,7 @@ public class HitZone
         return yDownPositions;
     }
 
-    public Vector3[] X_RightPositon()
+    public Vector3[] X_RightPosition()
     {
         Vector3[] xRightPositions = { _hitZone[2], _hitZone[3], _hitZone[6], _hitZone[7] };
         return xRightPositions;
@@ -485,6 +492,11 @@ public class HitZone
         CreateHitZone(hitPointCenter);
     }
 
+
+    public Vector3[] GetHitZone()
+    {
+        return _hitZone;
+    }
 
     #endregion
 }

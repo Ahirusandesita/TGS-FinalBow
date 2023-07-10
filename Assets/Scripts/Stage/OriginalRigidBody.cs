@@ -70,17 +70,95 @@ public class OriginalRigidBody : MonoBehaviour
     {
         _hitZone.SetPosition(_myTransform.position);
 
-       
+
 
         for (int i = 0; i < _hitZone.Y_DownPosition().Length; i++)
         {
             if (_containObject.IsContainObjectFloor(_hitZone.Y_DownPosition()[i]))
             {
                 _myPosition = _myTransform.position;
-                _myPosition.y = _containObject.GetAdjustmentPosition_Floor().onePoint + _hitDistanceScale._hitDistanceY;
-                _myTransform.position = _myPosition;
+                if (_containObject.GetAdjustmentY(_myPosition) != 0f)
+                {
+                    _myPosition.y = _containObject.GetAdjustmentY(_myPosition) + _hitDistanceScale._hitDistanceY;
+                    _myTransform.position = _myPosition;
+                }
             }
         }
+
+        for (int i = 0; i < _hitZone.Y_UpPosition().Length; i++)
+        {
+            if (_containObject.IsContainObjectFloor(_hitZone.Y_UpPosition()[i]))
+            {
+                _myPosition = _myTransform.position;
+                if (_containObject.GetAdjustmentY(_myPosition) != 0f)
+                {
+                    _myPosition.y = _containObject.GetAdjustmentY(_myPosition) - _hitDistanceScale._hitDistanceY;
+                    _myTransform.position = _myPosition;
+                }
+            }
+        }
+
+        for (int i = 0; i < _hitZone.X_LeftPosition().Length; i++)
+        {
+            if (_containObject.IsContainObjectFloor(_hitZone.X_LeftPosition()[i]))
+            {
+                _myPosition = _myTransform.position;
+                if (_containObject.GetAdjustmentX(_myPosition) != 0f)
+                {
+                    _myPosition.x = _containObject.GetAdjustmentX(_myPosition) + _hitDistanceScale._hitDistanceX;
+                    _myTransform.position = _myPosition;
+                }
+            }
+        }
+
+        for (int i = 0; i < _hitZone.X_RightPosition().Length; i++)
+        {
+            if (_containObject.IsContainObjectFloor(_hitZone.X_RightPosition()[i]))
+            {
+                _myPosition = _myTransform.position;
+                if (_containObject.GetAdjustmentX(_myPosition) != 0f)
+                {
+                    _myPosition.x = _containObject.GetAdjustmentX(_myPosition) - _hitDistanceScale._hitDistanceX;
+                    _myTransform.position = _myPosition;
+                }
+            }
+        }
+
+        for (int i = 0; i < _hitZone.Z_BackPosition().Length; i++)
+        {
+            if (_containObject.IsContainObjectFloor(_hitZone.Z_BackPosition()[i]))
+            {
+                _myPosition = _myTransform.position;
+                if (_containObject.GetAdjustmentZ(_myPosition) != 0f)
+                {
+                    _myPosition.z = _containObject.GetAdjustmentZ(_myPosition) + _hitDistanceScale._hitDistanceZ;
+                    _myTransform.position = _myPosition;
+                }
+            }
+        }
+
+        for (int i = 0; i < _hitZone.Z_ForwardPosition().Length; i++)
+        {
+            if (_containObject.IsContainObjectFloor(_hitZone.Z_ForwardPosition()[i]))
+            {
+                _myPosition = _myTransform.position;
+                if (_containObject.GetAdjustmentZ(_myPosition) != 0f)
+                {
+                    _myPosition.z = _containObject.GetAdjustmentZ(_myPosition) - _hitDistanceScale._hitDistanceZ;
+                    _myTransform.position = _myPosition;
+                }
+            }
+        }
+
+
+        //if (_containObject.IsContainObjectAll(_hitZone.GetHitZone()))
+        //{
+
+        //    _myPosition = _myTransform.position;
+        //    _myPosition.y = _containObject.GetAdjustmentAll(_myPosition) + _hitDistanceScale._hitDistanceY;
+        //    _myTransform.position = _myPosition;
+
+        //}
 
         //for(int i = 0; i < _hitZone.X_LeftPosition().Length; i++)
         //{
