@@ -134,6 +134,39 @@ namespace Nekoslibrary
             return (endVector - startVector).normalized;
         }
 
+        /// <summary>
+        /// Vector3をXY軸のみの値に変化させる
+        /// </summary>
+        /// <param name="Vector"></param>
+        /// <returns></returns>
+        public static Vector3 Vector3To2_XY(Vector3 Vector)
+        {
+            Vector3 tmp = new Vector3(Vector.x, Vector.y, 0f);
+            return tmp;
+        }
+
+        /// <summary>
+        /// Vector3をXZ軸のみの値に変化させる
+        /// </summary>
+        /// <param name="Vector"></param>
+        /// <returns></returns>
+        public static Vector3 Vector3To2_XZ(Vector3 Vector)
+        {
+            Vector3 tmp = new Vector3(Vector.x, 0f, Vector.z);
+            return tmp;
+        }
+
+        /// <summary>
+        /// Vector3をYZ軸のみの値に変化させる
+        /// </summary>
+        /// <param name="Vector"></param>
+        /// <returns></returns>
+        public static Vector3 Vector3To2_YZ(Vector3 Vector)
+        {
+            Vector3 tmp = new Vector3(0f, Vector.y, Vector.z);
+            return tmp;
+        }
+
         public static float Chenge_DegToRad(float degree)
         {
             return (degree / 180) * PI;
