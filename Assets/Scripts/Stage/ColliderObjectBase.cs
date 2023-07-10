@@ -72,6 +72,15 @@ public abstract class ColliderObjectBase : MonoBehaviour
         return false;
     }
 
+    public bool IsHit2(Vector3[] mes)
+    {
+        if (_hitZone.IsHit2(mes))
+        {
+            return true;
+        }
+        return false;
+    }
+
     /// <summary>
     /// ŠÑ’Ê‚â–„‚Ü‚è‚±‚İ‚ğ–h‚®‚½‚ß‚ÌÀ•W‚ğæ“¾‚·‚é
     /// </summary>
@@ -92,6 +101,54 @@ public abstract class ColliderObjectBase : MonoBehaviour
         adjustmentPosint.onePoint = _hitZone.Y_Up();
         adjustmentPosint.twoPoint = _hitZone.Y_Down();
         return adjustmentPosint;
+    }
+
+    public HitZone.HitDistanceScale GetDistanceScale()
+    {
+        return _hitDistanceScale;
+    }
+
+    public float PushOutFromColliderX(Vector3 playerPosition)
+    {
+        if (_hitZone.X_Left() > playerPosition.x)
+        {
+            return _hitZone.X_Left();
+        }
+
+        if (_hitZone.X_Right() < playerPosition.x)
+        {
+            return _hitZone.X_Right();
+        }
+        return 0;
+    }
+
+
+    public float PushOutFromColliderY(Vector3 playerPosition)
+    {
+        if(_hitZone.Y_Up() < playerPosition.y)
+        {
+            return _hitZone.Y_Up();
+        }
+
+        if (_hitZone.Y_Down() > playerPosition.y)
+        {
+            return _hitZone.Y_Down();
+        }
+        return 0f;
+    }
+
+    public float PushOutFromColliderZ(Vector3 playerPosition)
+    {
+        if(_hitZone.Z_Back() > playerPosition.z)
+        {
+            return _hitZone.Z_Back();
+        }
+
+        if (_hitZone.Z_Forward() < playerPosition.z)
+        {
+            return _hitZone.Z_Forward();
+        }
+        return 0;
     }
     #endregion
 }
