@@ -19,6 +19,8 @@ public class OnGroundThrowMove : EnemyAttackBase
     [SerializeField, Tooltip("")]
     private float _imaginaryDistance = default;
 
+    [SerializeField, Tooltip("")]
+    private float _moveSpeed = 10f;
 
     private float _coefficient = default;
 
@@ -27,17 +29,18 @@ public class OnGroundThrowMove : EnemyAttackBase
     private float _standardHigh = default;
 
 
-    private float _peakLow = default;
-
-    private float _peakMiddle = default;
-
-    private float _peakHigh = default;
+    private float _peak = default;
 
     private float _trajectory = default;
 
     private float _sign = default;
 
     private float _checkHigh = default;
+
+    private float _difference = default;
+
+    private float _moveValue = default;
+
 
     private bool _isOver = default;
 
@@ -51,42 +54,45 @@ public class OnGroundThrowMove : EnemyAttackBase
     
     private bool _endSetting = true;
 
+    private Vector3 _targetVecter = default;
+
+    private Vector3 _addPosition = default;
+
+    private Vector3 _playerPosition = default;
+
+    private Vector3 _objectPosition = default;
+
 
     #endregion
     #region property
-    private float GetHigh(int number)
-    {
-        if (number == 0)
-        {
-            return _peakHigh;
-        }
-        else if (number == 1)
-        {
-            return _peakMiddle;
-        }
-        else
-        {
-            return _peakLow;
-        }
-    }
 
     #endregion
     #region method
     protected override void AttackMove()
     {
+        _targetVecter = MathN.Vector3To2_XZ(_playerPosition - _objectPosition).normalized;
+        _moveValue = _moveValue * Time.deltaTime;
 
+
+        _trajectory = _coefficient * MathN.Pow(_distance - _imaginaryDistance / 2f - _moveValue) + _peak;
+
+        _addPosition = _objectTransform.position + _targetVecter * _moveValue;
+        _addPosition.y = _playerTransform.position.y + _trajectory;
     }
 
     private void GetTrajectory()
     {
-        _distance = Mathf.Sqrt(MathN.Pow(MathN.Abs(_playerTransform.position.x + _objectTransform.position.x)) + MathN.Pow(MathN.Abs(_playerTransform.position.z + _objectTransform.position.z)));
+        _playerPosition = _playerTransform.position;
+        _objectPosition = _objectTransform.position;
+
+        _distance = Mathf.Sqrt(MathN.Pow(MathN.Abs(_playerPosition.x + _objectPosition.x)) + MathN.Pow(MathN.Abs(_playerPosition.z + _objectPosition.z)));
         _imaginaryDistance = _distance;
-        _standardHigh = _playerTransform.position.y;
-        if(_playerTransform.position.y == _objectTransform.position.y)
+        _standardHigh = _playerPosition.y;
+        if(_playerPosition.y == _objectPosition.y)
         {
-            _coefficient = (QUADRUPLE * GetHigh(0)) / MathN.Pow(_distance);
+            _coefficient = (QUADRUPLE * _peak) / MathN.Pow(_distance);
         }
-        else if(_playerTransform.position.y < _objectTransform.position.y)
+        else if(_playerPosition.y < _objectPosition.y)
         {
             _sign = 1f; //ƒvƒ‰ƒX
             _isOver = true;
@@ -104,9 +110,23 @@ public class OnGroundThrowMove : EnemyAttackBase
         while (_endSetting)
         {
             _imaginaryDistance += _counter[_counterNumber] * _sign;
-            _coefficient = (QUADRUPLE * GetHigh(0)) / MathN.Pow(_imaginaryDistance);
-            _checkHigh = _coefficient * MathN.Pow(_distance - _imaginaryDistance / 2f) + GetHigh(0);
-            
+            _coefficient = (QUADRUPLE * _peak) / MathN.Pow(_imaginaryDistance);
+            _checkHigh = _coefficient * MathN.Pow(_distance - _imaginaryDistance / 2f) + _peak;
+            if (_isOver && _objectPosition.y - _playerPosition.y < _checkHigh || !_isOver && _objectPosition.y - _playerPosition.y > _checkHigh)
+            {
+                // ’´‚¦‚½
+                if (_counterNumber < _counter.Length - 1)
+                {
+                    _imaginaryDistance -= _counter[_counterNumber] * _sign;
+                    _counterNumber++;
+                }
+                else
+                {
+                    _endSetting = true;
+                    _counterNumber = 0;
+                }
+
+            }
 
         }
     }
