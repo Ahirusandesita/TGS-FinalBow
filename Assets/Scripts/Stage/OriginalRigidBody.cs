@@ -1,8 +1,8 @@
 // --------------------------------------------------------- 
 // OriginalRigidBody.cs 
 // 
-// CreateDay: 
-// Creator  : 
+// CreateDay: 2023/07/9
+// Creator  : Nomura
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
@@ -28,7 +28,6 @@ public class OriginalRigidBody : MonoBehaviour
     #region property
     #endregion
     #region method
-
 
 
     private void Start()
