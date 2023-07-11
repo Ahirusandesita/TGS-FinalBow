@@ -9,7 +9,7 @@ using System.Collections;
 public class SIne : MonoBehaviour
 {
     #region variable 
-    public Floor floor;
+    public OriginalCollider floor;
 
     private ContainObject _containObject;
     #endregion

@@ -15,7 +15,7 @@ public abstract class ColliderObjectBase : MonoBehaviour
     protected HitZone _hitZone;
     protected HitZone.HitDistanceScale _hitDistanceScale = default;
 
-    public float Y = 25f;
+    public float Y = 0f; //25f
     public float X = 0f;
     public float Z = 0f;
 
