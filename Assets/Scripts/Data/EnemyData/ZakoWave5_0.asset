@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
+  m_Name: ZakoWave5_0
+  m_EditorClassIdentifier: 
+  _birdType: 6
+  _moveType: 0
+  _arcHeight: 10
+  _bullet: 3
+  _attackInterval_s: 2
+  _spawnDelay_s: 0
+  _birdSpawnPlace: {fileID: 6624288524222944905, guid: 8c4d635b255dce04cb12309ff6858d1a, type: 3}
+  _birdGoalPlaces:
+  - _birdGoalPlace: {fileID: 2223794877020030422, guid: 1a5bd5c90a308984693eb9d2334bd314, type: 3}
+    _speed: 20
+    _stayTime_s: 5
+  - _birdGoalPlace: {fileID: 879955177882474145, guid: b52fb9aada69cd44bb4734dd664fa4b5, type: 3}
+    _speed: 20
+    _stayTime_s: 5
+  - _birdGoalPlace: {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
+    _speed: 20
+    _stayTime_s: 0

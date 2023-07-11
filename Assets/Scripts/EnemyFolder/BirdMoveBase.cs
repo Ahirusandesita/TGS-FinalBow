@@ -488,27 +488,12 @@ public abstract class BirdMoveBase : EnemyMoveBase
     {
         try
         {
-            _goalPosition = _stageManager._enemySpawnerTable._scriptableWaveEnemy[(int)zakoWaveNumber]._enemysSpawner[spawnedNumber]._birdGoalPlaces[howManyTimes - 1].position;
+            _goalPosition = _stageManager._waveManagementTable._waveInformation[(int)zakoWaveNumber]._enemysData[spawnedNumber]._birdGoalPlaces[howManyTimes - 1]._birdGoalPlace.position;
             _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
         }
         catch (Exception)
         {
             X_Debug.LogError("ゴール座標がEnemySpawnerTable(Scriptable)に設定されていないか、呼び出し可能回数を超えています");
-        }
-    }
-
-    /// <summary>
-    /// _goalPosition変数にマップ中央の座標を代入する処理
-    /// </summary>
-    protected void SetGoalPositionCentral()
-    {
-        try
-        {
-            _goalPosition = _stageManager._enemySpawnerTable._centralInformation._centralTransform.position;
-        }
-        catch (Exception)
-        {
-            X_Debug.LogError("中心座標がEnemySpawnerTable(Screptable)に設定されていません");
         }
     }
 
