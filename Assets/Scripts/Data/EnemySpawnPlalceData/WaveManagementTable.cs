@@ -15,7 +15,6 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "WaveManagementData", menuName = "Scriptables/CreateWaveManagementTable")]
 public class WaveManagementTable : ScriptableObject
 {
-    [Header("ウェーブ情報"), Tooltip("ウェーブ情報")]
     public List<WaveInformation> _waveInformation = new List<WaveInformation>();
 }
 
@@ -32,6 +31,7 @@ public class WaveInformation
     [Header("Waveの開始時間（前Waveからの時間）"), Tooltip("Waveの開始時間（ex: Wave1に1.5を設定すると、ゲーム開始後1.5s後にWave1の敵がスポーンする")]
     public float _startWaveTime_s;
 
+    [Space]
     public List<BirdDataTable> _enemysData = new List<BirdDataTable>();
 }
 
