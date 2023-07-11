@@ -4,7 +4,6 @@
 // CreateDay: 2023/07/07
 // Creator  : TakayanagiSora
 // --------------------------------------------------------- 
-using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(BirdDataTable))]
@@ -18,7 +17,7 @@ public class EnemyDataEditor : Editor
 
         if (instance._moveType == MoveType.curve)
         {
-            instance._arcHeight = EditorGUILayout.FloatField("å ÇÃçÇÇ≥", instance._arcHeight);
+            instance._arcHeight = EditorGUILayout.Slider("ArcHeight Åiå ÇÃçÇÇ≥Åj", instance._arcHeight, 1f, 50f);
         }
     }
 }

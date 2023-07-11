@@ -20,7 +20,7 @@ public class BirdDataTable : ScriptableObject
 
     [Header("弧の高さ"), Tooltip("弧の高さ")]
     [HideInInspector]
-    public float _arcHeight;
+    public float _arcHeight = 10f;
 
     [Header("出す弾の数（推奨：奇数）"), Tooltip("出す弾の数（推奨：奇数）")]
     public int _bullet;
