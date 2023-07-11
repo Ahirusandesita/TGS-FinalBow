@@ -17,7 +17,7 @@ public class InputManagement : MonoBehaviour
 
     public TagObject _TrackingSpaceTagData;
 
-    public GlobalHandStats stats;
+    GlobalHandStats stats;
 
     public enum EmptyHand
     {
@@ -62,8 +62,10 @@ public class InputManagement : MonoBehaviour
     {
         set
         {
+            X_Debug.Log("aaa" + emptyHand);
             emptyHand = value;
             stats.SaveHands = emptyHand;
+            X_Debug.Log("aaaChanged" + emptyHand);
         }
         get
         {
@@ -73,8 +75,10 @@ public class InputManagement : MonoBehaviour
 
     private void Awake()
     {
-        X_Debug.Log("aaa" + stats.SaveHands);
+        stats = GlobalHandStats.Instance;
+        X_Debug.Log("aaaSetHand");
         emptyHand = stats.SaveHands;
+        X_Debug.Log("aaa" + emptyHand);
     }
     private void Start()
     {
