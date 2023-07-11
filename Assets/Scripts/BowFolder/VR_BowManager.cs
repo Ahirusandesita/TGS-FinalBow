@@ -37,11 +37,15 @@ public class VR_BowManager : CanDraw_BowManager
 
     #endregion
 
-    bool canHandChange = false;
+    const float CHANGE_COOL_TIME = 3f;
+
+    float cacheTime = 0f;
+
+    bool isTitle = false;
 
     protected override void Start()
     {
-        IsTitleScene();
+        isTitle = IsTitleScene();
 
         _vibe = GetComponent<BowVibe>();
 
@@ -74,7 +78,7 @@ public class VR_BowManager : CanDraw_BowManager
             BowStringGrap();
         }
         // 手が、弓の持つ手の切り替えるポジションの近くにある場合
-        else if (grapLimitDistance > Vector3.Distance(_changeHandObjectTransform.position, _transformControl.GetHandPosition) && canHandChange)
+        else if (grapLimitDistance > Vector3.Distance(_changeHandObjectTransform.position, _transformControl.GetHandPosition) && CanHandChange())
         {
             ChangeHand();
         }
@@ -194,12 +198,30 @@ public class VR_BowManager : CanDraw_BowManager
         _transformControl.SetEmptyHandPositionDelegete(_vrInput.P_EmptyHand);
     }
 
-    private void IsTitleScene()
+    private bool IsTitleScene()
     {
         if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == scene.SceneName)
         {
-            canHandChange = true;
+            return true;
         }
+
+        return false;
+    }
+
+    private bool CanHandChange()
+    {
+        if (!isTitle)
+        {
+            return false;
+        }
+
+        if(Time.time - cacheTime > CHANGE_COOL_TIME)
+        {
+            cacheTime = Time.time;
+            return true;
+        }
+
+        return false;
     }
     /// <summary>
     /// デバッグ用

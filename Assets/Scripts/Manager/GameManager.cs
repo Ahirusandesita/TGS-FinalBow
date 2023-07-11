@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
 
     void Awake()
     {
-
         if (Instance == null)
         {
             Instance = this;
@@ -53,6 +52,7 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
 
         DontDestroyOnLoad(gameObject);
 
+       
     }
 
     private void Start()

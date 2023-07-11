@@ -210,7 +210,6 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
         else
         {
             _transform.parent = _handLeftPosition;
-
         }
         
         _transform.localPosition = Vector3.zero;

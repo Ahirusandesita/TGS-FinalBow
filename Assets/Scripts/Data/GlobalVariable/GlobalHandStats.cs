@@ -1,40 +1,68 @@
-// 81-C# FactoryScript-FactoryScript.cs
-//
-//CreateDay:
-//Creator  :
-//
-
+// --------------------------------------------------------- 
+// GlobalHandStats.cs 
+// 
+// CreateDay: 
+// Creator  : 
+// --------------------------------------------------------- 
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "GrobalHandStats", menuName = "Scriptables/GrobalHandStatsData")]
-public class GlobalHandStats : ScriptableObject
+[CreateAssetMenu(fileName ="GlobalHandStats", menuName = "Scriptables/CreateGlobalHandStats")]
+public class GlobalHandStats : ScriptableObject,ISerializationCallbackReceiver
 {
+    #region variable 
+    [SerializeField] InputManagement.EmptyHand firstHand = InputManagement.EmptyHand.Right;
+    [SerializeField] InputManagement.EmptyHand save = InputManagement.EmptyHand.Right;
+    #endregion
+    #region property
 
-    public InputManagement.EmptyHand empty = default;
-
-    public InputManagement.EmptyHand firstEmptyHand = InputManagement.EmptyHand.Right;
-
-    public InputManagement.EmptyHand SaveHands
+    private static GlobalHandStats instance;
+    //シングルトンにするならスクリプタブルの意味ないなこれ
+    public static GlobalHandStats Instance
     {
-        set
-        {
-            empty = GameObject.FindGameObjectWithTag(InhallLibTags.InputController).GetComponent<InputManagement>().P_EmptyHand;
-
-        }
         get
         {
-            return empty;
+            if(instance == null)
+            {
+                instance = ScriptableObject.CreateInstance<GlobalHandStats>();
+            }
+            return instance;
         }
     }
-
-    public void Initialize()
+    public InputManagement.EmptyHand SaveHands
     {
-        empty = firstEmptyHand;
+        get 
+        {
+            return save;
+        }
+        set
+        {
+            save = value;
+        } 
     }
 
-    public void Awake()
+    // デバッグ開始時に初期化
+    public void OnAfterDeserialize()
     {
-        empty = firstEmptyHand;
+        Init();
     }
+
+    public void OnBeforeSerialize()
+    {
+        
+    }
+
+
+    #endregion
+    #region method
+
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    private void Init()
+    {
+        SaveHands = firstHand;
+    }
+
+
+    #endregion
 }
