@@ -53,16 +53,6 @@ public class OriginalRigidBody : MonoBehaviour
 
         _hitZone = new HitZone(_hitDistanceScale, _myTransform.position);
 
-        Vector3[] vecs = _hitZone.GetHitZoneVertexPositions();
-
-        for (int i = 0; i < vecs.Length; i++)
-        {
-            Instantiate(c, vecs[i], Quaternion.identity);
-        }
-        for (int i = 0; i < ContainObject.floors.Count; i++)
-        {
-            Debug.Log(ContainObject.floors[i]);
-        }
     }
 
     private void Update()

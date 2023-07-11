@@ -11,7 +11,7 @@ using System.Collections.Generic;
 /// <summary>
 /// ステージ２の床に使用するクラス
 /// </summary>
-public class Floor : ColliderObjectBase
+public class OriginalCollider : ColliderObjectBase
 {
     #region method
 

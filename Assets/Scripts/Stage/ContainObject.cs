@@ -16,7 +16,7 @@ public class ContainObject
     /// <summary>
     /// 全フロアクラスのオブジェクト
     /// </summary>
-    public static List<Floor> floors = new List<Floor>();
+    public static List<OriginalCollider> floors = new List<OriginalCollider>();
 
     /// <summary>
     /// 全壁クラスのオブジェクト
@@ -117,6 +117,20 @@ public class ContainObject
                 Scale = new ColliderScale(floors[i].GetDistanceScale);
 
 
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool IsNowContainAll(Vector3 me)
+    {
+        if (Contain_Floor != null)
+        {
+            //前回触れていた空間に触れているか
+            //触れていたらそれ以外の空間を検知する必要がないのでTrueを返す　オブジェクト分比較せずに済む
+            if (Contain_Floor(me))
+            {
                 return true;
             }
         }
@@ -271,7 +285,7 @@ public class ContainObject
     /// <param name="me"></param>
     /// <param name="colliderObjectBases"></param>
     /// <returns></returns>
-    private bool IsContain(ref Contain contain, Vector3 me, List<Floor> colliderObjectBases,ref Adjustment adjustment)
+    private bool IsContain(ref Contain contain, Vector3 me, List<OriginalCollider> colliderObjectBases,ref Adjustment adjustment)
     {
         //Contain型のデリゲートがNullではないとき
         if (contain != null)
