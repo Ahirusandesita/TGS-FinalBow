@@ -167,11 +167,21 @@ namespace Nekoslibrary
             return tmp;
         }
 
+        /// <summary>
+        /// 単位変換　度数法から弧度法に
+        /// </summary>
+        /// <param name="degree">度数法の角度</param>
+        /// <returns></returns>
         public static float Chenge_DegToRad(float degree)
         {
             return (degree / 180) * PI;
         }
 
+        /// <summary>
+        /// 単位変換　弧度法から度数法に
+        /// </summary>
+        /// <param name="radian">弧度法の角度</param>
+        /// <returns></returns>
         public static float Chenge_RadToDeg(float radian)
         {
             return (radian / PI) * 180;
