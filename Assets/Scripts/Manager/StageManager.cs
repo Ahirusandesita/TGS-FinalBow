@@ -186,7 +186,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
             _waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._birdSpawnPlace.position).gameObject;
         temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
-
+        X_Debug.Log(temporaryObject.name);
 
         // Scriptabeの設定に応じて、アタッチする挙動スクリプトを変える
         switch (_waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._moveType)

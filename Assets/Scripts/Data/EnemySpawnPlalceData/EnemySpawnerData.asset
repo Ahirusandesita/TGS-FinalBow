@@ -12,328 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5cbee3ea3fcce54299e4185dc52f8fc, type: 3}
   m_Name: EnemySpawnerData
   m_EditorClassIdentifier: 
-  _centralInformation:
-    _centralTransform: {fileID: 4472435608552212666, guid: 5795edc4ce8b8b54f83bf1cdad2087f9, type: 3}
-  _scriptableWaveEnemy:
-  - _wave: zakoWave1
+  _waveInformation:
+  - _wave: ZakoWave1
     _startWaveTime_s: 1.5
-    _enemysSpawner:
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 1
-      _waitTime_s: 10
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 4222516434383631783, guid: b31b66e4be1e06f4eafe0cdf18bbaa58, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4141912905756851721, guid: adb3755cf00f78247bd2f0cccf6e7c3d, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-  - _wave: zakoWave2
-    _startWaveTime_s: 60
-    _enemysSpawner:
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 6624288524222944905, guid: 8c4d635b255dce04cb12309ff6858d1a, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 2223794877020030422, guid: 1a5bd5c90a308984693eb9d2334bd314, type: 3}
-      - {fileID: 879955177882474145, guid: b52fb9aada69cd44bb4734dd664fa4b5, type: 3}
-      - {fileID: 879955177882474145, guid: 226b5da7811362a42a6d0e0c992a2c30, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 1
-      _moveType: 0
-      _speed: 20
-      _bullet: 1
-      _waitTime_s: 1
-      _spawnDelay_s: 1
-      _birdSpawnPlace: {fileID: 4184076981089469704, guid: d9a94ff89518e0e479315d714cb7b80c, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 1567093400080375722, guid: 3623f9853dc869046a6f2a0f25b5ff2b, type: 3}
-      - {fileID: 2113669084091818984, guid: c21caebaf6cc1cc49acf9788c19285c5, type: 3}
-      - {fileID: 2113669084091818984, guid: 328a611d5a9bbba42bafdfe912478bb4, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 2
-      _birdSpawnPlace: {fileID: 1648998255630024935, guid: 70bfa5762b983374fa0e8062cd6a3050, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 5051486603923050630, guid: 16c988c6f99416b4b97d3f5b049f2e4c, type: 3}
-      - {fileID: 7312814682323792739, guid: 29621c4e35836ae4e921a2470947fbcd, type: 3}
-      - {fileID: 7312814682323792739, guid: ce3980fb17d79584e9f3367872913925, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 3
-      _birdSpawnPlace: {fileID: 4119766912194715233, guid: f5eb5e2ffac5f5745aaf5ce2a842ad9f, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4230843219101061294, guid: 93fd3b2cd2c3f404ba8ab09eaa139f6e, type: 3}
-      - {fileID: 4486125072898508979, guid: 1ebe826f6b69448439cc025dfa7678dd, type: 3}
-      - {fileID: 4486125072898508979, guid: df8be12a20f989249a5396b6cdb3cd68, type: 3}
-      - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
-    - _enemyType: 1
-      _moveType: 0
-      _speed: 20
-      _bullet: 3
-      _waitTime_s: 1
-      _spawnDelay_s: 4
-      _birdSpawnPlace: {fileID: 8710538551048900608, guid: 7dd8640426b0bd543aa3328ddc9e816b, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4445887862971937658, guid: d31f8294a4fc5f648966048f4c11090e, type: 3}
-      - {fileID: 8780855419235506970, guid: 70371c450f4982d438d1e17cf1128c3a, type: 3}
-      - {fileID: 8780855419235506970, guid: cdb811b66bd45a341aa80e761547a9f6, type: 3}
-      - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 5
-      _birdSpawnPlace: {fileID: 2241095655997497228, guid: 4d4f283e05050e3438676e204f971f05, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4061371994395211962, guid: f76689c32a9088441ac481fe8474cebc, type: 3}
-      - {fileID: 3547360910617371518, guid: de6fc6bff3c84334bad1039c9b84e3f4, type: 3}
-      - {fileID: 3547360910617371518, guid: 364a5841f4fd44143b96469b6e8e6688, type: 3}
-      - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
-  - _wave: zakoWave3
-    _startWaveTime_s: 60
-    _enemysSpawner:
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 6624288524222944905, guid: 8c4d635b255dce04cb12309ff6858d1a, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 2223794877020030422, guid: 1a5bd5c90a308984693eb9d2334bd314, type: 3}
-      - {fileID: 879955177882474145, guid: b52fb9aada69cd44bb4734dd664fa4b5, type: 3}
-      - {fileID: 879955177882474145, guid: 226b5da7811362a42a6d0e0c992a2c30, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 2
-      _moveType: 0
-      _speed: 20
-      _bullet: 1
-      _waitTime_s: 1
-      _spawnDelay_s: 1
-      _birdSpawnPlace: {fileID: 4184076981089469704, guid: d9a94ff89518e0e479315d714cb7b80c, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 1567093400080375722, guid: 3623f9853dc869046a6f2a0f25b5ff2b, type: 3}
-      - {fileID: 2113669084091818984, guid: c21caebaf6cc1cc49acf9788c19285c5, type: 3}
-      - {fileID: 2113669084091818984, guid: 328a611d5a9bbba42bafdfe912478bb4, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 2
-      _birdSpawnPlace: {fileID: 1648998255630024935, guid: 70bfa5762b983374fa0e8062cd6a3050, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 5051486603923050630, guid: 16c988c6f99416b4b97d3f5b049f2e4c, type: 3}
-      - {fileID: 7312814682323792739, guid: 29621c4e35836ae4e921a2470947fbcd, type: 3}
-      - {fileID: 7312814682323792739, guid: ce3980fb17d79584e9f3367872913925, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 3
-      _birdSpawnPlace: {fileID: 4119766912194715233, guid: f5eb5e2ffac5f5745aaf5ce2a842ad9f, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4230843219101061294, guid: 93fd3b2cd2c3f404ba8ab09eaa139f6e, type: 3}
-      - {fileID: 4486125072898508979, guid: 1ebe826f6b69448439cc025dfa7678dd, type: 3}
-      - {fileID: 4486125072898508979, guid: df8be12a20f989249a5396b6cdb3cd68, type: 3}
-      - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
-    - _enemyType: 2
-      _moveType: 0
-      _speed: 20
-      _bullet: 1
-      _waitTime_s: 1
-      _spawnDelay_s: 4
-      _birdSpawnPlace: {fileID: 8710538551048900608, guid: 7dd8640426b0bd543aa3328ddc9e816b, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4445887862971937658, guid: d31f8294a4fc5f648966048f4c11090e, type: 3}
-      - {fileID: 8780855419235506970, guid: 70371c450f4982d438d1e17cf1128c3a, type: 3}
-      - {fileID: 8780855419235506970, guid: cdb811b66bd45a341aa80e761547a9f6, type: 3}
-      - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 5
-      _birdSpawnPlace: {fileID: 2241095655997497228, guid: 4d4f283e05050e3438676e204f971f05, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4061371994395211962, guid: f76689c32a9088441ac481fe8474cebc, type: 3}
-      - {fileID: 3547360910617371518, guid: de6fc6bff3c84334bad1039c9b84e3f4, type: 3}
-      - {fileID: 3547360910617371518, guid: 364a5841f4fd44143b96469b6e8e6688, type: 3}
-      - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
-  - _wave: zakoWave4
-    _startWaveTime_s: 60
-    _enemysSpawner:
-    - _enemyType: 1
-      _moveType: 1
-      _speed: 20
-      _bullet: 1
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 7824139213854377881, guid: 73f11d3838af42c4fa80a137562c19ad, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 2837584766174745678, guid: 53080b38328446e4abdcdbcd26585b6b, type: 3}
-    - _enemyType: 0
-      _moveType: 1
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 3358542231590692203, guid: 1692fed4691b9164eae25a4369c4f94c, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 8386383588135534129, guid: da0d0c7b6aabf054c9b60bd40032cf43, type: 3}
-    - _enemyType: 0
-      _moveType: 1
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 3358542231590692203, guid: 1692fed4691b9164eae25a4369c4f94c, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 8386383588135534129, guid: da0d0c7b6aabf054c9b60bd40032cf43, type: 3}
-    - _enemyType: 5
-      _moveType: 1
-      _speed: 20
-      _bullet: 3
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 5148036912754844408, guid: cc68ee1953b10ad45891fdd19f771316, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 8477682339561181063, guid: eaf517f0565c9e64792bab00b61e1db2, type: 3}
-    - _enemyType: 0
-      _moveType: 1
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 2172307743971507015, guid: 763dd714d344f794b910764e86fec5e8, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 3909060786148468590, guid: 478e4b5937ee0714b9230900b557c4b1, type: 3}
-    - _enemyType: 1
-      _moveType: 1
-      _speed: 20
-      _bullet: 1
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 8522215115180050153, guid: 5e669ff268523dd43a59ede30c1c4aaa, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 907667879072106027, guid: 805524d4ebc2f5b43bb51d8a51e4b3a1, type: 3}
-  - _wave: zakoWave5
+    _enemysData:
+    - {fileID: 11400000, guid: 7c702b420799adc4591566fb63ed2fc0, type: 2}
+  - _wave: ZakoWave2
     _startWaveTime_s: 30
-    _enemysSpawner:
-    - _enemyType: 6
-      _moveType: 0
-      _speed: 20
-      _bullet: 3
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 6624288524222944905, guid: 8c4d635b255dce04cb12309ff6858d1a, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 2223794877020030422, guid: 1a5bd5c90a308984693eb9d2334bd314, type: 3}
-      - {fileID: 879955177882474145, guid: b52fb9aada69cd44bb4734dd664fa4b5, type: 3}
-      - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
-    - _enemyType: 2
-      _moveType: 0
-      _speed: 20
-      _bullet: 1
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 4184076981089469704, guid: d9a94ff89518e0e479315d714cb7b80c, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 1567093400080375722, guid: 3623f9853dc869046a6f2a0f25b5ff2b, type: 3}
-      - {fileID: 2113669084091818984, guid: c21caebaf6cc1cc49acf9788c19285c5, type: 3}
-      - {fileID: 5856820294744456439, guid: fcdb0f95ef279d24bb3e7de09a61499c, type: 3}
-    - _enemyType: 5
-      _moveType: 0
-      _speed: 20
-      _bullet: 3
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 4119766912194715233, guid: f5eb5e2ffac5f5745aaf5ce2a842ad9f, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4230843219101061294, guid: 93fd3b2cd2c3f404ba8ab09eaa139f6e, type: 3}
-      - {fileID: 4486125072898508979, guid: 1ebe826f6b69448439cc025dfa7678dd, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 3
-      _moveType: 0
-      _speed: 20
-      _bullet: 1
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 8710538551048900608, guid: 7dd8640426b0bd543aa3328ddc9e816b, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4445887862971937658, guid: d31f8294a4fc5f648966048f4c11090e, type: 3}
-      - {fileID: 8780855419235506970, guid: 70371c450f4982d438d1e17cf1128c3a, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 0
-      _moveType: 0
-      _speed: 20
-      _bullet: 0
-      _waitTime_s: 5
-      _spawnDelay_s: 0
-      _birdSpawnPlace: {fileID: 2241095655997497228, guid: 4d4f283e05050e3438676e204f971f05, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 4061371994395211962, guid: f76689c32a9088441ac481fe8474cebc, type: 3}
-      - {fileID: 5856820294744456439, guid: e26b3891bb75dc44a9b4a5ca9a8ca1b6, type: 3}
-    - _enemyType: 0
-      _moveType: 1
-      _speed: 10
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 1
-      _birdSpawnPlace: {fileID: 7824139213854377881, guid: 73f11d3838af42c4fa80a137562c19ad, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 2837584766174745678, guid: 53080b38328446e4abdcdbcd26585b6b, type: 3}
-    - _enemyType: 0
-      _moveType: 1
-      _speed: 10
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 1.5
-      _birdSpawnPlace: {fileID: 3358542231590692203, guid: 1692fed4691b9164eae25a4369c4f94c, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 8386383588135534129, guid: da0d0c7b6aabf054c9b60bd40032cf43, type: 3}
-    - _enemyType: 0
-      _moveType: 1
-      _speed: 10
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 1.5
-      _birdSpawnPlace: {fileID: 5148036912754844408, guid: cc68ee1953b10ad45891fdd19f771316, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 8477682339561181063, guid: eaf517f0565c9e64792bab00b61e1db2, type: 3}
-    - _enemyType: 0
-      _moveType: 1
-      _speed: 10
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 2
-      _birdSpawnPlace: {fileID: 3909060786148468590, guid: 478e4b5937ee0714b9230900b557c4b1, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 2172307743971507015, guid: 763dd714d344f794b910764e86fec5e8, type: 3}
-    - _enemyType: 0
-      _moveType: 1
-      _speed: 10
-      _bullet: 0
-      _waitTime_s: 1
-      _spawnDelay_s: 2
-      _birdSpawnPlace: {fileID: 907667879072106027, guid: 805524d4ebc2f5b43bb51d8a51e4b3a1, type: 3}
-      _birdGoalPlaces:
-      - {fileID: 8522215115180050153, guid: 5e669ff268523dd43a59ede30c1c4aaa, type: 3}
+    _enemysData:
+    - {fileID: 11400000, guid: 4ee0ec832ec772542a3b775a4c65d59e, type: 2}
+    - {fileID: 11400000, guid: b4de041d93f67384a86e3ffb7887c137, type: 2}
+    - {fileID: 11400000, guid: a5f87ed6e7cdfcb48ab6ef14dd3ee9e9, type: 2}
+    - {fileID: 11400000, guid: 6901050c8f282504f980426a6f569536, type: 2}
+    - {fileID: 11400000, guid: 6ab22e11f3feb4f4b91156024e93a45b, type: 2}
+    - {fileID: 11400000, guid: a9958078a1512f245b79a454147ebac8, type: 2}
+  - _wave: ZakoWave3
+    _startWaveTime_s: 30
+    _enemysData:
+    - {fileID: 11400000, guid: b4bacd62b94f8c842848def396a78540, type: 2}
+    - {fileID: 11400000, guid: 746b9c1d9c50385468227be75f1c5028, type: 2}
+    - {fileID: 11400000, guid: 617dfce7651767547b28ad393f167f3c, type: 2}
+    - {fileID: 11400000, guid: 5e22b627e9426f24087de6d8050f57e6, type: 2}
+    - {fileID: 11400000, guid: e69c2967c52c1d24dbd5706f0951e49f, type: 2}
+    - {fileID: 11400000, guid: 5546cead8feb8de4ab88c71b9409195d, type: 2}
+  - _wave: ZakoWave4
+    _startWaveTime_s: 30
+    _enemysData:
+    - {fileID: 11400000, guid: f6b2b0aa4bcd179449c65766ea6edd3d, type: 2}
+    - {fileID: 11400000, guid: ac920159cf2f7e446800b4fe08873577, type: 2}
+    - {fileID: 11400000, guid: 9d46af6bf24cdda4ca58f0efaec18af9, type: 2}
+    - {fileID: 11400000, guid: 72744a4d1f6c87c4d8efbb64a5179f8b, type: 2}
+    - {fileID: 11400000, guid: 0e6ace7d838816449b9d1af126796e4d, type: 2}
+    - {fileID: 11400000, guid: 09cd5edd76a9cbb4db2dfafa5cb8e30c, type: 2}
+  - _wave: ZakoWave5
+    _startWaveTime_s: 30
+    _enemysData:
+    - {fileID: 11400000, guid: bae94f7484463ea4f8cd31c9ffde34d3, type: 2}
+    - {fileID: 11400000, guid: 9737da355275d1049b6bb388ddac6fe9, type: 2}
+    - {fileID: 11400000, guid: 000979aa8c21dee46b4a0cdd1c04599e, type: 2}
+    - {fileID: 11400000, guid: 19bf3ff69f461824aa28daca2eae7533, type: 2}
+    - {fileID: 11400000, guid: 2b9ea0a53c851ab49b9a49fb0704490d, type: 2}
+    - {fileID: 11400000, guid: 858dcdb73fb7bbb46b4b66bc8d4c2621, type: 2}
+    - {fileID: 11400000, guid: 1c8cd86e55f1e43418958beb7c684f04, type: 2}
+    - {fileID: 11400000, guid: 1344ed04a82dc7b48bdbf0bdca14abc5, type: 2}
+    - {fileID: 11400000, guid: 55efdf9ea4856214fa1d45f86be2ade0, type: 2}
+    - {fileID: 11400000, guid: 8a8122f90d371484cb94d361cc4cebe5, type: 2}

@@ -47,6 +47,6 @@ public class BirdGoalInformation
     [Header("このゴールまでの移動スピード"), Tooltip("このゴールまでの移動スピード")]
     public float _speed;
 
-    [Header("このゴールで停止して攻撃する秒数"), Tooltip("このゴールで停止して攻撃する秒数")]
+    [Header("このゴールで停止して攻撃する秒数"), Tooltip("このゴールで停止して攻撃する秒数（注：ゴールが複数設定された場合、最後のゴールのこの変数は無視される）")]
     public float _stayTime_s;
 }
