@@ -49,11 +49,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("移動のスタート位置")]
     protected Vector3 _startPosition = default;
 
-    [Tooltip("移動のゴール位置位置")]
+    [Tooltip("移動のゴール位置")]
     protected Vector3 _goalPosition = default;
 
     [Tooltip("移動のスピード")]
-    protected float _movementSpeed = 20f;
+    protected float _movementSpeed = default;
 
 
     [Tooltip("自身の敵の種類")]

@@ -137,14 +137,15 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private IEnumerator Spawn(int listIndex)
     {
         PoolEnum.PoolObjectType selectedPrefab;
-        BirdMoveBase temporaryMove;
+        BirdMoveBase baseMove;
+        BirdDataTable enemyDataPath = _waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex];
 
         // 設定された秒数だけ待機する
-        yield return new WaitForSeconds(_waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._spawnDelay_s);
+        yield return new WaitForSeconds(enemyDataPath._spawnDelay_s);
 
 
         // どの敵をスポーンさせるか判定（Scriptableから取得）
-        switch (_waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._birdType)
+        switch (enemyDataPath._birdType)
         {
             // 以下Enumの変換処理
             case BirdType.normalBird:
@@ -181,27 +182,29 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 break;
         }
 
+
         // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
-        GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab,
-            _waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._birdSpawnPlace.position).gameObject;
+        GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab, enemyDataPath._birdSpawnPlace.position).gameObject;
         temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
-        X_Debug.Log(temporaryObject.name);
 
         // Scriptabeの設定に応じて、アタッチする挙動スクリプトを変える
-        switch (_waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._moveType)
+        switch (enemyDataPath._moveType)
         {
             case MoveType.linear:
                 //呼び出した雑魚にコンポーネントを付与
-                temporaryMove = temporaryObject.AddComponent<BirdMoveFirst>();
+                baseMove = temporaryObject.AddComponent<BirdMoveFirst>();
                 break;
 
             case MoveType.curve:
-                temporaryMove = temporaryObject.AddComponent<BirdMoveSecond>();
+                BirdMoveSecond subMove = temporaryObject.AddComponent<BirdMoveSecond>();
+                // 弧の高さを設定
+                subMove.MoveSpeedArc = enemyDataPath._arcHeight;
+                baseMove = subMove;
                 break;
 
             default:
-                temporaryMove = null;
+                baseMove = null;
                 break;
         }
 
@@ -210,11 +213,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
         ///////////////////////////////////////////////////////
 
         // 呼び出した雑魚の変数に設定
-        temporaryMove.ThisInstanceIndex = listIndex;
-        temporaryMove.SpawnedWave = _currentWave;
-        temporaryMove.NumberOfGoal = _waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._birdGoalPlaces.Count;
-        temporaryMove.LinearMovementSpeed = _waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._birdGoalPlaces[0]._speed;
-        temporaryMove.ReAttackTime = _waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._birdGoalPlaces[0]._stayTime_s;
-        temporaryMove.NumberOfBullet = _waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex]._bullet;
+        baseMove.ThisInstanceIndex = listIndex;
+        baseMove.SpawnedWave = _currentWave;
+        baseMove.NumberOfGoal = enemyDataPath._birdGoalPlaces.Count;
+        baseMove.LinearMovementSpeed = enemyDataPath._birdGoalPlaces[0]._speed;
+        baseMove.ReAttackTime = enemyDataPath._birdGoalPlaces[0]._stayTime_s;
+        baseMove.NumberOfBullet = enemyDataPath._bullet;
     }
 }
