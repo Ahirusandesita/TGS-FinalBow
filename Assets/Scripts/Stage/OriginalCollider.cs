@@ -17,11 +17,14 @@ public class OriginalCollider : ColliderObjectBase
 
     private void Awake()
     {
-        ContainObject.floors.Add(this);
+        //自クラスをAddする　同期の問題を解決するLockはまだ
+        ContainObject.originalColliders.Add(this);
     }
 
     protected override void HitScaleSizeSetting()
     {
+
+        //レンダラーに合わせたコライダーを作成する
         Bounds bounds = GetComponent<Renderer>().bounds;
         Vector3 size = bounds.size;
         //_hitDistanceScale._hitDistanceX = 95.35f;
@@ -36,6 +39,8 @@ public class OriginalCollider : ColliderObjectBase
         vector.x = X;
         vector.y = Y;
         vector.z = Z;
+
+        //コライダーをインスタンス
         _hitZone = new HitZone(_hitDistanceScale, this.transform.position + vector);
     }
     #endregion
