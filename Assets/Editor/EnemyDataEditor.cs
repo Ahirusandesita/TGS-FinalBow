@@ -17,7 +17,7 @@ public class EnemyDataEditor : Editor
 
         if (instance._moveType == MoveType.curve)
         {
-            instance._arcHeight = EditorGUILayout.Slider("ArcHeight （弧の高さ）", instance._arcHeight, 1f, 50f);
+            instance._arcHeight = EditorGUILayout.Slider("ArcHeight （弧の高さ）", instance._arcHeight, 1f, 100f);
         }
     }
 }
