@@ -31,6 +31,8 @@ public class BirdMoveSecond : BirdMoveBase
 
     Vector3 arcDirection = default;
 
+    Vector3 _movingVector = default;
+
     float _movingArcDistance = default;
 
     float _cacheMoveValue = default;
@@ -40,7 +42,7 @@ public class BirdMoveSecond : BirdMoveBase
     float percentMoveDistance = default;
  
 
-    enum ArcMoveDirection
+    public enum ArcMoveDirection
     {
         Up,
         Down,
@@ -48,7 +50,7 @@ public class BirdMoveSecond : BirdMoveBase
         Back
     }
 
-    ArcMoveDirection arcMoveDirection = ArcMoveDirection.Front;
+    public ArcMoveDirection arcMoveDirection = ArcMoveDirection.Front;
 
     #endregion
     #region property
@@ -92,6 +94,8 @@ public class BirdMoveSecond : BirdMoveBase
 
         _movingArcDistance = default;
 
+        _movingVector = default;
+
         _cacheMoveValue = default;
 
         _finishMoveValue = default;
@@ -115,8 +119,8 @@ public class BirdMoveSecond : BirdMoveBase
         {
             ArcMoveDirection.Up => Vector3.Cross(moveDirection,Vector3.left),
             ArcMoveDirection.Down => Vector3.Cross(moveDirection,Vector3.right),
-            ArcMoveDirection.Front => Vector3.Cross(moveDirection,Vector3.down),
-            ArcMoveDirection.Back => Vector3.Cross(moveDirection,Vector3.up),
+            ArcMoveDirection.Back => Vector3.Cross(moveDirection,Vector3.down),
+            ArcMoveDirection.Front => Vector3.Cross(moveDirection,Vector3.up),
             _ => Vector3.up,
         };
 
@@ -226,10 +230,13 @@ public class BirdMoveSecond : BirdMoveBase
         _cacheMoveValue += _movingSide.magnitude;
 
         _movingArcDistance = AddArc();
+        X_Debug.Log(_movingArcDistance);
 
-        _movingSide += arcDirection * _movingArcDistance;
+        _movingVector = _movingSide;
 
-        _transform.Translate(_movingSide, Space.World);
+        _movingVector += arcDirection * _movingArcDistance;
+
+        _transform.Translate(_movingVector, Space.World);
     }
 
     /// <summary>
@@ -250,7 +257,7 @@ public class BirdMoveSecond : BirdMoveBase
         else
         {
             X_Debug.Log("Œã”¼");
-            return _moveSpeedArc * PrabolaMove() * Time.deltaTime;
+            return -_moveSpeedArc * PrabolaMove() * Time.deltaTime;
         }
 
         float PrabolaMove()
