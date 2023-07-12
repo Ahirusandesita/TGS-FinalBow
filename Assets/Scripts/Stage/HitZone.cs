@@ -5,17 +5,34 @@
 // Creator  : Nomura
 // --------------------------------------------------------- 
 using UnityEngine;
+/// <summary>
+/// 当たり判定を計算するクラス
+/// </summary>
 public class HitZone
 {
     #region variable
 
+    /// <summary>
+    /// 立方体の頂点座標
+    /// </summary>
     private Vector3[] _hitZone = new Vector3[8];
 
+    /// <summary>
+    /// 立方体の中心点から各辺までの距離
+    /// </summary>
     private HitDistanceScale hitDistanceScale;
 
+    /// <summary>
+    /// 立方体の各頂点の座標　使わない
+    /// </summary>
     private HitDistanceScaleAllPoint hitDistanceScaleAllPoint;
 
+    /// <summary>
+    /// 立方体の辺が交差しているか計算する
+    /// 今はまだ使っていない
+    /// </summary>
     private InterSectionDetection _interSectionDetection = new InterSectionDetection();
+
     /// <summary>
     /// 当たり判定の形
     /// </summary>
@@ -26,9 +43,14 @@ public class HitZone
         public float _hitDistanceZ;
     }
 
+    /// <summary>
+    /// 立方体の各頂点の座標
+    /// </summary>
     private HitDistanceScale[] hitDistanceScales = new HitDistanceScale[8];
 
-
+    /// <summary>
+    /// 使わない
+    /// </summary>
     public struct HitDistanceScaleAllPoint
     {
         public HitDistanceScale hitDistanceScale1;
@@ -43,8 +65,6 @@ public class HitZone
     }
 
 
-    #endregion
-    #region property
     #endregion
     #region method
     /// <summary>
@@ -127,7 +147,12 @@ public class HitZone
     }
 
 
-
+    /// <summary>
+    /// 立方体を作成するための頂点座標を代入する<br />
+    /// 各頂点が設定されていない場合に使用する
+    /// </summary>
+    /// <param name="hitDistanceScale"></param>
+    /// <param name="hitPointCeneter"></param>
     private void CreateHitDistanceAllPoint(HitDistanceScale hitDistanceScale, Vector3 hitPointCeneter)
     {
         //未使用
@@ -223,6 +248,8 @@ public class HitZone
     /// <returns></returns>
     public bool IsHit(Vector3 attackPosition)
     {
+        //ポイントが範囲内にいたらtrue
+
         if (
             CheckAttackPositionMinus(_hitZone[0].x, attackPosition.x) ||
             CheckAttackPositionMinus(_hitZone[0].y, attackPosition.y) ||
@@ -290,12 +317,19 @@ public class HitZone
         return true;
     }
 
+    /// <summary>
+    /// まだ使っていない
+    /// </summary>
+    /// <param name="points"></param>
+    /// <returns></returns>
     public bool IsHit2(Vector3[] points)
     {
         return _interSectionDetection.CheckIntersection(_hitZone, points);
     }
 
-
+    /// <summary>
+    /// すべての頂点を設定するときに使用する
+    /// </summary>
     private void CreateHitZoneOriginal()
     {
         for(int i = 0; i < hitDistanceScales.Length; i++)
@@ -306,9 +340,14 @@ public class HitZone
         }
     }
 
-
+    /// <summary>
+    /// ヒットゾーンの作成
+    /// </summary>
+    /// <param name="hitPointCenter"></param>
     private void CreateHitZone(Vector3 hitPointCenter)
     {
+
+        //立方体の中心座標を代入
         for (int i = 0; i < _hitZone.Length; i++)
         {
             _hitZone[i] = hitPointCenter;
@@ -371,19 +410,42 @@ public class HitZone
         }
     }
 
+    /// <summary>
+    /// X軸頂点の設定
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="distance"></param>
     private void SettingX(int index, float distance)
     {
         _hitZone[index].x = _hitZone[index].x + distance;
     }
+
+    /// <summary>
+    /// Y軸頂点の設定
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="distance"></param>
     private void SettingY(int index, float distance)
     {
         _hitZone[index].y = _hitZone[index].y + distance;
     }
+
+    /// <summary>
+    /// Z軸頂点の設定
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="distance"></param>
     private void SettingZ(int index, float distance)
     {
         _hitZone[index].z = _hitZone[index].z + distance;
     }
 
+    /// <summary>
+    /// ポイントが頂点座標より小さいか
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="attackPosition"></param>
+    /// <returns></returns>
     private bool CheckAttackPositionMinus(float position, float attackPosition)
     {
         if (position > attackPosition)
@@ -392,6 +454,13 @@ public class HitZone
         }
         return false;
     }
+
+    /// <summary>
+    /// ポイントが頂点座標より大きいか
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="attackPosition"></param>
+    /// <returns></returns>
     private bool CheckAttackPositionPlus(float position, float attackPosition)
     {
         if (position < attackPosition)

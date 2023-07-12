@@ -18,6 +18,7 @@ public abstract class ColliderObjectBase : MonoBehaviour
     public float Y = 0f; //25f
     public float X = 0f;
     public float Z = 0f;
+    public bool needVertexPoint = false;
 
     public struct AdjustmentPosint
     {
@@ -41,13 +42,16 @@ public abstract class ColliderObjectBase : MonoBehaviour
     {
         HitScaleSizeSetting();
 
-
-        //当たり判定ゾーンの頂点にオブジェクトを出して当たり判定ゾーンを可視化する
-        Vector3[] vecs = _hitZone.GetHitZoneVertexPositions();
-
-        for (int i = 0; i < vecs.Length; i++)
+        //頂点を可視化するかどうか
+        if (needVertexPoint)
         {
-            Instantiate(c, vecs[i], Quaternion.identity);
+            //当たり判定ゾーンの頂点にオブジェクトを出して当たり判定ゾーンを可視化する
+            Vector3[] vecs = _hitZone.GetHitZoneVertexPositions();
+
+            for (int i = 0; i < vecs.Length; i++)
+            {
+                Instantiate(c, vecs[i], Quaternion.identity);
+            }
         }
 
 
@@ -72,6 +76,11 @@ public abstract class ColliderObjectBase : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// まだ使ってない当たり判定
+    /// </summary>
+    /// <param name="mes"></param>
+    /// <returns></returns>
     public bool IsHit2(Vector3[] mes)
     {
         if (_hitZone.IsHit2(mes))

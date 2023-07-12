@@ -58,7 +58,7 @@ public class OriginalRigidBody : MonoBehaviour
         _hitZone.SetPosition(_myTransform.position);
 
 
-
+        //é≤Ç≤Ç∆Ç…ñÑÇ‹ÇËÇ±Ç›ñhé~êßå‰ÇçsÇ§
         for (int i = 0; i < _hitZone.Y_DownPosition().Length; i++)
         {
             if (_containObject.IsContainObjectFloor(_hitZone.Y_DownPosition()[i]))
