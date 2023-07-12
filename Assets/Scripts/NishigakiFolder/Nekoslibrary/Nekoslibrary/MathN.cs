@@ -11,7 +11,7 @@ namespace Nekoslibrary
     {
         /// <summary>
         /// <para>目次　効果はない</para>
-        /// <para>Clamp ( _min / _max )</para>
+        /// <para>Clamp (Both ,Min ,Max)</para>
         /// <para>Pow , Abs</para>
         /// <para>Vector3系 (Distance / Normalize)</para>
         /// <para></para>
@@ -30,85 +30,98 @@ namespace Nekoslibrary
         #region Clamp系関数　制限する関数
 
         /// <summary>
-        /// 値の範囲を制限する関数
-        /// <para>制限した値を返す</para>
+        /// 制限関数群
         /// </summary>
-        /// <param name="Value">制限する値</param>
-        /// <param name="Minimun">下限値</param>
-        /// <param name="Maximum">上限値</param>
-        /// <returns></returns>
-        public static float Clamp(float Value, float Minimun, float Maximum)
+        public static class Clamp
         {
-            if (Maximum < Value)
+            /// <summary>
+            /// 上限と下限の両方を制限
+            /// <para>制限した値を返す</para>
+            /// </summary>
+            /// <param name="Value">制限する値</param>
+            /// <param name="Minimun">下限値</param>
+            /// <param name="Maximum">上限値</param>
+            /// <returns></returns>
+            public static float Both(float Value, float Minimun, float Maximum)
             {
-                Value = Maximum;
-            }
-            else if (Value < Minimun)
-            {
-                Value = Minimun;
-            }
+                if (Maximum < Value)
+                {
+                    Value = Maximum;
+                }
+                else if (Value < Minimun)
+                {
+                    Value = Minimun;
+                }
 
-            return Value;
-        }
-
-        /// <summary>
-        /// Clamp関数
-        /// <para>下限のみ指定する</para>
-        /// </summary>
-        /// <param name="Value">制限する値</param>
-        /// <param name="Minimun">下限値</param>
-        /// <returns></returns>
-        public static float Clamp_min(float Value, float Minimun)
-        {
-            if (Value < Minimun)
-            {
-                Value = Minimun;
+                return Value;
             }
 
-            return Value;
-        }
-
-        /// <summary>
-        /// Clamp関数
-        /// <para>上限のみ指定する</para>
-        /// </summary>
-        /// <param name="Value">制限する値</param>
-        /// <param name="Maximum">上限値</param>
-        /// <returns></returns>
-        public static float Clamp_max(float Value, float Maximum)
-        {
-            if (Maximum < Value)
+            /// <summary>
+            /// 下限のみ制限
+            /// <para>制限した値を返す</para>
+            /// </summary>
+            /// <param name="Value">制限する値</param>
+            /// <param name="Minimun">下限値</param>
+            /// <returns></returns>
+            public static float Min(float Value, float Minimun)
             {
-                Value = Maximum;
+                if (Value < Minimun)
+                {
+                    Value = Minimun;
+                }
+
+                return Value;
             }
 
-            return Value;
+            /// <summary>
+            /// 上限のみ制限
+            /// <para>制限した値を返す</para>
+            /// </summary>
+            /// <param name="Value">制限する値</param>
+            /// <param name="Maximum">上限値</param>
+            /// <returns></returns>
+            public static float Max(float Value, float Maximum)
+            {
+                if (Maximum < Value)
+                {
+                    Value = Maximum;
+                }
+
+                return Value;
+            }
+
         }
 
         #endregion
 
         /// <summary>
-        /// ２乗する関数
+        /// 基本演算群
         /// </summary>
-        /// <param name="Value">２乗する値</param>
-        /// <returns></returns>
-        public static float Pow(float Value)
+        public static class Art // Art は Arithmetic の略
         {
-            return Value * Value;
-        }
-
-        /// <summary>
-        /// 絶対値を取得する関数
-        /// </summary>
-        /// <param name="Value">取得する値</param>
-        /// <returns></returns>
-        public static float Abs(float Value)
-        {
-            if (Value < 0)
+            /// <summary>
+            /// ２乗する関数
+            /// </summary>
+            /// <param name="Value">２乗する値</param>
+            /// <returns></returns>
+            public static float Pow(float Value)
             {
-                Value = Value * -1f;
+                return Value * Value;
             }
-            return Value;
+
+            /// <summary>
+            /// 絶対値を取得する関数
+            /// </summary>
+            /// <param name="Value">取得する値</param>
+            /// <returns></returns>
+            public static float Abs(float Value)
+            {
+                if (Value < 0)
+                {
+                    Value = Value * -1f;
+                }
+                return Value;
+            }
         }
 
         /// <summary>
@@ -119,8 +132,8 @@ namespace Nekoslibrary
         /// <returns></returns>
         public static float Vector3_Distance(Vector3 startVector, Vector3 endVector)
         {
-            float value = Pow(endVector.x - startVector.x) + Pow((endVector.y - startVector.y));
-            value = (float)Math.Sqrt(value + Pow((endVector.z - startVector.z)));
+            float value = Art.Pow(endVector.x - startVector.x) + Art.Pow((endVector.y - startVector.y));
+            value = (float)Math.Sqrt(value + Art.Pow((endVector.z - startVector.z)));
             return value;
         }
 

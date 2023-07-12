@@ -40,6 +40,12 @@ public class OnGroundThrowMove : EnemyAttackBase
 
     private float _moveValue = default;
 
+    private float _checkLoop_Under = -1f;
+
+    private float _checkLoop_Over = default;
+
+
+    private bool _isLoop = false;
 
     private bool _isOver = default;
 
@@ -71,7 +77,7 @@ public class OnGroundThrowMove : EnemyAttackBase
         _moveValue += _moveSpeed * Time.deltaTime;
 
 
-        _trajectory = _coefficient * MathN.Pow(_distance - _imaginaryDistance / 2f - _moveValue) + _peak;
+        _trajectory = _coefficient * MathN.Art.Pow(_distance - _imaginaryDistance / 2f - _moveValue) + _peak;
 
         _newPosition = _objectPosition + (_targetVecter * _moveValue);
         _newPosition.y = _standardHigh + _trajectory;
@@ -87,15 +93,14 @@ public class OnGroundThrowMove : EnemyAttackBase
         _objectPosition = _objectTransform.position;
 
         _targetVecter = MathN.Vector3To2_XZ(_playerPosition - _objectPosition).normalized;
-        print(_targetVecter);
 
 
-        _distance = Mathf.Sqrt(MathN.Pow(MathN.Abs(_playerPosition.x + _objectPosition.x)) + MathN.Pow(MathN.Abs(_playerPosition.z + _objectPosition.z)));
+        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Art.Abs(_playerPosition.x + _objectPosition.x)) + MathN.Art.Pow(MathN.Art.Abs(_playerPosition.z + _objectPosition.z)));
         _imaginaryDistance = _distance;
         _standardHigh = _playerPosition.y;
         if(_playerPosition.y == _objectPosition.y)
         {
-            _coefficient = -(QUADRUPLE * _peak) / MathN.Pow(_distance);
+            _coefficient = -(QUADRUPLE * _peak) / MathN.Art.Pow(_distance);
         }
         else if(_playerPosition.y < _objectPosition.y)
         {
@@ -103,6 +108,7 @@ public class OnGroundThrowMove : EnemyAttackBase
             _isOver = true;
             _endSetting = false;
             _counterNumber = 0;
+            _checkLoop_Over = _distance * 2 + 1f;
         }
         else
         {
@@ -110,14 +116,21 @@ public class OnGroundThrowMove : EnemyAttackBase
             _isOver = false;
             _endSetting = false;
             _counterNumber = 0;
+            _checkLoop_Over = _distance * 2 + 1f;
         }
 
         while (!_endSetting)
         {
             _imaginaryDistance += _counter[_counterNumber] * _sign;
-            _coefficient = -(QUADRUPLE * _peak) / MathN.Pow(_imaginaryDistance);
-            _checkHigh = _coefficient * MathN.Pow(_distance - _imaginaryDistance / 2f) + _peak;
-            if (_isOver && _objectPosition.y - _playerPosition.y < _checkHigh || !_isOver && _objectPosition.y - _playerPosition.y > _checkHigh)
+            _coefficient = -(QUADRUPLE * _peak) / MathN.Art.Pow(_imaginaryDistance);
+            _checkHigh = _coefficient * MathN.Art.Pow(_distance - _imaginaryDistance / 2f) + _peak;
+            if (_imaginaryDistance < _checkLoop_Under || _imaginaryDistance > _checkLoop_Over)
+            {
+                EscapeLoop(_playerPosition, _objectPosition);
+                _counterNumber = _counter.Length;
+                _isLoop = true;
+            }
+            if (_isOver && _objectPosition.y - _playerPosition.y < _checkHigh || !_isOver && _objectPosition.y - _playerPosition.y > _checkHigh || _isLoop)
             {
                 // ’´‚¦‚½
                 if (_counterNumber < _counter.Length - 1)
@@ -128,6 +141,7 @@ public class OnGroundThrowMove : EnemyAttackBase
                 else
                 {
                     _endSetting = true;
+                    _isLoop = false;
                     _counterNumber = 0;
                 }
 
@@ -136,14 +150,23 @@ public class OnGroundThrowMove : EnemyAttackBase
         }
     }
 
+    private void EscapeLoop(Vector3 playerPosition ,Vector3 objectPosition)
+    {
+        _peak = objectPosition.y - playerPosition.y;
+        _imaginaryDistance = _distance * 2f;
+        _coefficient = -(QUADRUPLE * _peak) / MathN.Art.Pow(_imaginaryDistance);
+    }
+
     private void OnEnable()
     {
+        _playerTransform = GameObject.Find("Player").GetComponent<Transform>();
+
         GetTrajectory();
     }
 
     private void OnDisable()
     {
-        
+        _moveValue = default;
     }
 
     #endregion
