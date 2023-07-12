@@ -216,7 +216,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         baseMove.ThisInstanceIndex = listIndex;
         baseMove.SpawnedWave = _currentWave;
         baseMove.NumberOfGoal = enemyDataPath._birdGoalPlaces.Count;
-        baseMove.LinearMovementSpeed = enemyDataPath._birdGoalPlaces[0]._speed;
+        baseMove.MovementSpeed = enemyDataPath._birdGoalPlaces[0]._speed;
         baseMove.ReAttackTime = enemyDataPath._birdGoalPlaces[0]._stayTime_s;
         baseMove.NumberOfBullet = enemyDataPath._bullet;
     }
