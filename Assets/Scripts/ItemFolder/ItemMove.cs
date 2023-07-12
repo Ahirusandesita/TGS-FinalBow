@@ -217,7 +217,7 @@ public class ItemMove : MonoBehaviour
         _targetDistance = MathN.Vector3_Distance(this.transform.position, _targeterObject.transform.position);
 
         // 追跡するターゲットとの距離を基に速度の加算値を求める
-        _addAttractSpeed = MathN.Clamp_max(SPEED_UP_COEFFICIENT * _targetDistance, SPEED_UP_MAXVARUE);
+        _addAttractSpeed = MathN.Clamp.Max(SPEED_UP_COEFFICIENT * _targetDistance, SPEED_UP_MAXVARUE);
 
         // 自信をターゲットに向けて移動
         transform.position += _targetVector * (_attract_Power + _addAttractSpeed) * Time.deltaTime;
@@ -370,7 +370,7 @@ public class ItemMove : MonoBehaviour
         this.transform.Translate(_tmpDistance * _attract_Power * Time.deltaTime);
         _tmpdif = _tmpdif - _attract_Power * Time.deltaTime;
 
-        _sizeValue = MathN.Clamp_min(_tmpdif / _tmpStartDif, SIZE_MINIMUM);
+        _sizeValue = MathN.Clamp.Min(_tmpdif / _tmpStartDif, SIZE_MINIMUM);
 
         this.transform.localScale = startsize * _sizeValue;
 
