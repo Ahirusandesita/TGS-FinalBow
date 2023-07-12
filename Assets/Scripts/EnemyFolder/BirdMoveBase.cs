@@ -43,9 +43,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
     //private float _time = 0f;
     #endregion
     #region 新move変数
-    [Tooltip("自身のTransformをキャッシュ")]
-    protected Transform _transform = default;
-
     [Tooltip("移動のスタート位置")]
     protected Vector3 _startPosition = default;
 
@@ -195,7 +192,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
     /// <summary>
     /// 直線移動のスピード
     /// </summary>
-    public float LinearMovementSpeed
+    public float MovementSpeed
     {
         set
         {
@@ -245,10 +242,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
     //    _offsetReverse = UnityEngine.Random.Range(0, OFFSET_TIME_RANGE);
     //}
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
+
         // Transform情報の取得
-        _transform = this.transform;
         _startPosition = _transform.position;
         _spawn_And_DespawnSize = _transform.localScale / 5f;
         _normalSize = _transform.localScale;    // キャッシュ
