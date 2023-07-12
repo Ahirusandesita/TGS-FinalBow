@@ -10,9 +10,10 @@ public class BirdMoveSecond : BirdMoveBase
 {
     #region variable 
 
-    const float SIDE_MOVE_SPEED = 12f;
+    // 基底クラスの_movementSpeedに変更したよ
+    //public float _sideMoveSpeed = 12f;
 
-    const float MOVE_SPEED_ARC = 10f;
+    float _moveSpeedArc = 10f;
 
     const float PARABORA_ANGLE = 10f;
 
@@ -51,6 +52,13 @@ public class BirdMoveSecond : BirdMoveBase
 
     #endregion
     #region property
+    public float MoveSpeedArc
+    {
+        set
+        {
+            _moveSpeedArc = value;
+        }
+    }
     #endregion
     #region method
 
@@ -213,7 +221,7 @@ public class BirdMoveSecond : BirdMoveBase
     private void ArcMove()
     {
         // 直線移動
-        _movingSide = SIDE_MOVE_SPEED * Time.deltaTime * _sideMoveNormalizedVector;
+        _movingSide = _movementSpeed * Time.deltaTime * _sideMoveNormalizedVector;
         // 累計横移動量のキャッシュ
         _cacheMoveValue += _movingSide.magnitude;
 
@@ -222,7 +230,6 @@ public class BirdMoveSecond : BirdMoveBase
         _movingSide += arcDirection * _movingArcDistance;
 
         _transform.Translate(_movingSide, Space.World);
-
     }
 
     /// <summary>
@@ -236,12 +243,14 @@ public class BirdMoveSecond : BirdMoveBase
         // 前半の動き
         if (percentMoveDistance < PERCENT_HALF)
         {
-            return MOVE_SPEED_ARC * PrabolaMove() * Time.deltaTime;
+            X_Debug.Log("前半");
+            return _moveSpeedArc * PrabolaMove() * Time.deltaTime;
         }
         // 後半の動き
         else
         {
-            return MOVE_SPEED_ARC * PrabolaMove() * Time.deltaTime;
+            X_Debug.Log("後半");
+            return _moveSpeedArc * PrabolaMove() * Time.deltaTime;
         }
 
         float PrabolaMove()
