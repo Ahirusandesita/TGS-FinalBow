@@ -19,13 +19,6 @@ public class ContainObject
     public static List<OriginalCollider> floors = new List<OriginalCollider>();
 
     /// <summary>
-    /// 全壁クラスのオブジェクト
-    /// </summary>
-    public static List<Wall> walls = new List<Wall>();
-
-    public static List<WallZ> wallZs = new List<WallZ>();
-
-    /// <summary>
     /// ヒットしているかを判定するためのデリゲート
     /// </summary>
     /// <param name="me"></param>
@@ -167,74 +160,9 @@ public class ContainObject
     }
 
 
-    /// <summary>
-    /// 壁に触れているか
-    /// </summary>
-    /// <param name="me"></param>
-    /// <returns></returns>
-    public bool IsContainObjectWall(Vector3 me)
-    {
-        //if (IsContain(ref Contain_Wall, me, walls, ref Adjustment_Wall))
-        //{
-        //    return true;
-        //}
-        //return false;
 
-        if (Contain_Wall != null)
-        {
-            //前回触れていた空間に触れているか
-            //触れていたらそれ以外の空間を検知する必要がないのでTrueを返す　オブジェクト分比較せずに済む
-            if (Contain_Wall(me))
-            {
-                return true;
-            }
-        }
 
-        //触れていなかったらすべてのオブジェクトの中から触れているものがあるか検索する
-        for (int i = 0; i < walls.Count; i++)
-        {
-            //触れている空間があればそれを次から比較するために代入する　Trueを返す
-            if (walls[i].IsHit(me))
-            {
-                Contain_Wall = new Contain(walls[i].IsHit);
-                Adjustment_Wall = new Adjustment(walls[i].PositionAdjustmentPoint);
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    public bool IsContainObjectWallZ(Vector3 me)
-    {
-        //if (IsContain(ref Contain_WallZ, me, wallZs, ref Adjustment_WallZ))
-        //{
-        //    return true;
-        //}
-        //return false;
-        if (Contain_WallZ != null)
-        {
-            //前回触れていた空間に触れているか
-            //触れていたらそれ以外の空間を検知する必要がないのでTrueを返す　オブジェクト分比較せずに済む
-            if (Contain_WallZ(me))
-            {
-                return true;
-            }
-        }
-
-        //触れていなかったらすべてのオブジェクトの中から触れているものがあるか検索する
-        for (int i = 0; i < wallZs.Count; i++)
-        {
-            //触れている空間があればそれを次から比較するために代入する　Trueを返す
-            if (wallZs[i].IsHit(me))
-            {
-                Contain_WallZ = new Contain(wallZs[i].IsHit);
-                Adjustment_WallZ = new Adjustment(wallZs[i].PositionAdjustmentPoint);
-                return true;
-            }
-        }
-        return false;
-    }
+   
 
     /// <summary>
     /// 埋まりこみ防止用の変数を取得する
@@ -286,59 +214,6 @@ public class ContainObject
     /// <param name="colliderObjectBases"></param>
     /// <returns></returns>
     private bool IsContain(ref Contain contain, Vector3 me, List<OriginalCollider> colliderObjectBases,ref Adjustment adjustment)
-    {
-        //Contain型のデリゲートがNullではないとき
-        if (contain != null)
-        {
-            //前回触れていた空間に触れているか
-            //触れていたらそれ以外の空間を検知する必要がないのでTrueを返す　オブジェクト分比較せずに済む
-            if (contain(me))
-            {
-                return true;
-            }
-        }
-
-        //触れていなかったらすべてのオブジェクトの中から触れているものがあるか検索する
-        for (int i = 0; i < colliderObjectBases.Count; i++)
-        {
-            //触れている空間があればそれを次から比較するために代入する　Trueを返す
-            if (colliderObjectBases[i].IsHit(me))
-            {
-                contain = new Contain(colliderObjectBases[i].IsHit);
-                adjustment = new Adjustment(colliderObjectBases[i].PositionAdjustmentPoint);
-                return true;
-            }
-        }
-        return false;
-    }
-    private bool IsContain(ref Contain contain, Vector3 me, List<Wall> colliderObjectBases, ref Adjustment adjustment)
-    {
-        //Contain型のデリゲートがNullではないとき
-        if (contain != null)
-        {
-            //前回触れていた空間に触れているか
-            //触れていたらそれ以外の空間を検知する必要がないのでTrueを返す　オブジェクト分比較せずに済む
-            if (contain(me))
-            {
-                return true;
-            }
-        }
-
-        //触れていなかったらすべてのオブジェクトの中から触れているものがあるか検索する
-        for (int i = 0; i < colliderObjectBases.Count; i++)
-        {
-            //触れている空間があればそれを次から比較するために代入する　Trueを返す
-            if (colliderObjectBases[i].IsHit(me))
-            {
-                contain = new Contain(colliderObjectBases[i].IsHit);
-                adjustment = new Adjustment(colliderObjectBases[i].PositionAdjustmentPoint);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private bool IsContain(ref Contain contain, Vector3 me, List<WallZ> colliderObjectBases, ref Adjustment adjustment)
     {
         //Contain型のデリゲートがNullではないとき
         if (contain != null)

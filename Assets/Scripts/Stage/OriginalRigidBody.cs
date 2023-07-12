@@ -22,8 +22,6 @@ public class OriginalRigidBody : MonoBehaviour
     private ContainObject _containObject;
 
     private Vector3 _myPosition;
-
-    public GameObject c;
     #endregion
     #region property
     #endregion
