@@ -267,6 +267,15 @@ public class ArrowEnchant : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// ギミックにヒットした時に呼ばれる
+    /// </summary>
+    /// <param name="hitObj"></param>
+    public void HitGimmick(GameObject hitObj)
+    {
+
+    }
+
 
     /// <summary>
     /// 直撃ダメージを与えてhitObjのEnemyStatsをかえす
