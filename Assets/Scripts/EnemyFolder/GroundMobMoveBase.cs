@@ -12,6 +12,8 @@ using System.Collections;
 /// </summary>
 public class GroundMobMoveBase : EnemyMoveBase
 {
+
+
     private void Start()
     {
         
@@ -39,6 +41,16 @@ public class GroundMobMoveBase : EnemyMoveBase
     }
 
     private void Stop()
+    {
+
+    }
+
+    public override void OrignalOnCollisionEnter_HitFloor()
+    {
+
+    }
+
+    public override void OrignalOnCollisionEnter()
     {
 
     }
