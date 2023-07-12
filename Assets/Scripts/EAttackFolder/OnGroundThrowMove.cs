@@ -159,8 +159,6 @@ public class OnGroundThrowMove : EnemyAttackBase
 
     private void OnEnable()
     {
-        _playerTransform = GameObject.Find("Player").GetComponent<Transform>();
-
         GetTrajectory();
     }
 
