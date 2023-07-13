@@ -101,6 +101,40 @@ public class ContainObject
         return false;
     }
 
+
+    public bool IsContainObjectFloor2(Vector3[] mes)
+    {
+        if(Contains != null)
+        {
+            if (Contains(mes))
+            {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < originalColliders.Count; i++)
+        {
+            //G‚ê‚Ä‚¢‚é‹óŠÔ‚ª‚ ‚ê‚Î‚»‚ê‚ðŽŸ‚©‚ç”äŠr‚·‚é‚½‚ß‚É‘ã“ü‚·‚é@True‚ð•Ô‚·
+            if (originalColliders[i].IsHit2(mes))
+            {
+                Contain_Collider = new Contain(originalColliders[i].IsHit);
+                Adjustment_Collider = new Adjustment(originalColliders[i].PositionAdjustmentPoint);
+
+                Contains = new ContainAll(originalColliders[i].IsHit2);
+                AdjustmentY = new AdjustmentAll(originalColliders[i].PushOutFromColliderY);
+                AdjustmentX = new AdjustmentAll(originalColliders[i].PushOutFromColliderX);
+                AdjustmentZ = new AdjustmentAll(originalColliders[i].PushOutFromColliderZ);
+                Scale = new ColliderScale(originalColliders[i].GetDistanceScale);
+
+
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
     public bool IsNowContainAll(Vector3 me)
     {
         if (Contain_Collider != null)
