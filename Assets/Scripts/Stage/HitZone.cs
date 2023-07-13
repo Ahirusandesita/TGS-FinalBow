@@ -22,6 +22,7 @@ public class HitZone
     /// </summary>
     private HitDistanceScale hitDistanceScale;
 
+    private Vector3 _hitPointCenter;
     /// <summary>
     /// 立方体の各頂点の座標　使わない
     /// </summary>
@@ -79,6 +80,8 @@ public class HitZone
         this.hitDistanceScale._hitDistanceZ = distance;
 
         CreateHitDistanceAllPoint(this.hitDistanceScale, hitPointCenter);
+
+        _hitPointCenter = hitPointCenter;
     }
     /// <summary>
     /// 長方形の作成
@@ -89,6 +92,7 @@ public class HitZone
     {
         this.hitDistanceScale = hitDistanceScale;
         CreateHitDistanceAllPoint(this.hitDistanceScale, hitPointCenter);
+        _hitPointCenter = hitPointCenter;
     }
     /// <summary>
     /// ８点で斜めの形を作成できる
@@ -325,6 +329,16 @@ public class HitZone
     public bool IsHit2(Vector3[] points)
     {
         return _interSectionDetection.CheckIntersection(_hitZone, points);
+    }
+
+
+    public bool IsHit3(Vector3 point ,Vector3 size)
+    {
+        Vector3 meSize = new Vector3(this.hitDistanceScale._hitDistanceX, this.hitDistanceScale._hitDistanceY, this.hitDistanceScale._hitDistanceZ);
+        float distance = Vector3.Distance(point, _hitPointCenter);
+        float totalSize = size.magnitude + meSize.magnitude;
+
+        return distance < totalSize;
     }
 
     /// <summary>
