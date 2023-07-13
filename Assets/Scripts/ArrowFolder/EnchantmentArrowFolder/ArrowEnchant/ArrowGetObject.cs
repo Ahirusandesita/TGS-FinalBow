@@ -20,8 +20,12 @@ public static class ArrowGetObject
     private static int _layerMask_Button = 1 << 7;
     private static int _layerMask_TitleObject = 1 << 8;
 
+    private static int _layerMask_BarrierObject = 1 << 9;
+
     private static float ARROW_THICK = 0.4f;
     private static int ARROW_END_INDEX = 0;
+    private static ContainObject _containObject = new ContainObject();
+
     public static bool ArrowHit(Transform arrowTransform,Arrow arrow)
     {
         /*
@@ -76,6 +80,15 @@ public static class ArrowGetObject
             }
         }
 
+        return false;
+    }
+
+    public static bool ArrowHit_BarrierObject(Transform arrowTransfrom,Arrow arrow)
+    {
+        if (_containObject.IsContainObjectFloor(arrowTransfrom.position) && _containObject.GetHitObjectLayerNumber() == _layerMask_BarrierObject)
+        { 
+            return true;
+        }
         return false;
     }
 

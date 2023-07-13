@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -43,24 +44,18 @@ public abstract class BirdMoveBase : EnemyMoveBase
     //private float _time = 0f;
     #endregion
     #region 新move変数
-    [Tooltip("自身のTransformをキャッシュ")]
-    protected Transform _transform = default;
-
     [Tooltip("移動のスタート位置")]
     protected Vector3 _startPosition = default;
 
     [Tooltip("移動のゴール位置")]
     protected Vector3 _goalPosition = default;
 
-    [Tooltip("移動のスピード")]
+    [Tooltip("移動スピード")]
     protected float _movementSpeed = default;
 
 
     [Tooltip("自身の敵の種類")]
     private CashObjectInformation _cashObjectInformation = default;
-
-    [Tooltip("取得したStageManager")]
-    private StageManager _stageManager = default;
 
     [Tooltip("子オブジェクトにあるスポナーを取得")]
     private Transform _childSpawner = default;
@@ -72,7 +67,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
     private float _startToGoalDistance = default;
 
     [Tooltip("動いた距離")]
-    private float _movedDistance = default;
+    private float _movedDistance = 0f;
 
     [Tooltip("プレイヤーの方向を向く速度")]
     private float _rotateSpeed = 100f;
@@ -96,19 +91,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("Scaleの変更が完了")]
     private bool _isCompleteChangeScale = false;
 
-    [Tooltip("このインスタンスのインデックス")]
-    // ex) 同ウェーブに敵が2体いる場合、Instance_0 = 0, Instance_1 = 1が設定される
-    private int _thisInstanceIndex = default;
-
-    [Tooltip("どのウェーブでスポーンしたか")]
-    private WaveType _spawnedWave = default;
-
-    [Tooltip("設定されたゴールの数")]
-    private int _numberOfGoal = default;
-
-    [Tooltip("再び動き出すまでの時間")]
-    private float _reAttackTime = 10f;
-
     [Tooltip("出す弾の数")]
     private int _numberOfBullet = default;
 
@@ -122,11 +104,19 @@ public abstract class BirdMoveBase : EnemyMoveBase
     private float _currentTime2 = 0f;
 
     [Tooltip("次の移動完了で処理終了")]
-    private bool _isLastMove = default;
+    private bool _isLastMove = false;
 
-    [Tooltip("何回目のゴール設定か")]
-    private int _howTimesSetGoal = 1;  // 初期値1
+    [Tooltip("行動（ゴール設定）の繰り返しカウント")]
+    private int _repeatCount = 0;
 
+    [Tooltip("ゴールリスト")]
+    private List<Vector3> _goalPositions = new List<Vector3>();
+
+    [Tooltip("ゴール間のスピードリスト")]
+    private List<float> _movementSpeeds = new List<float>();
+
+    [Tooltip("再び動き出すまでの時間リスト")]
+    private List<float> _reAttackTimes = new List<float>();
 
     [Tooltip("Scaleの加算/減算値")]
     private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
@@ -160,61 +150,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
-    /// このインスタンスのインデックス
-    /// </summary>
-    public int ThisInstanceIndex
-    {
-        set
-        {
-            _thisInstanceIndex = value;
-        }
-    }
-
-    /// <summary>
-    /// どのウェーブでスポーンしたか
-    /// </summary>
-    public WaveType SpawnedWave
-    {
-        set
-        {
-            _spawnedWave = value;
-        }
-    }
-
-    /// <summary>
-    /// 設定されたゴールの数
-    /// </summary>
-    public int NumberOfGoal
-    {
-        set
-        {
-            _numberOfGoal = value;
-        }
-    }
-
-    /// <summary>
-    /// 直線移動のスピード
-    /// </summary>
-    public float LinearMovementSpeed
-    {
-        set
-        {
-            _movementSpeed = value;
-        }
-    }
-
-    /// <summary>
-    /// 再び動き出すまでの時間
-    /// </summary>
-    public float ReAttackTime
-    {
-        set
-        {
-            _reAttackTime = value;
-        }
-    }
-
-    /// <summary>
     /// 出す弾の数
     /// </summary>
     public int NumberOfBullet
@@ -235,6 +170,39 @@ public abstract class BirdMoveBase : EnemyMoveBase
             _attackIntervalTime = value;
         }
     }
+
+    /// <summary>
+    /// ゴールリスト
+    /// </summary>
+    public Vector3 GoalPositions
+    {
+        set
+        {
+            _goalPositions.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// ゴール間のスピードリスト
+    /// </summary>
+    public float MovementSpeeds
+    {
+        set
+        {
+            _movementSpeeds.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// ゴールの停止（攻撃）時間リスト
+    /// </summary>
+    public float ReAttackTimes
+    {
+        set
+        {
+            _reAttackTimes.Add(value);
+        }
+    }
     #endregion
 
 
@@ -245,13 +213,19 @@ public abstract class BirdMoveBase : EnemyMoveBase
     //    _offsetReverse = UnityEngine.Random.Range(0, OFFSET_TIME_RANGE);
     //}
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
+
         // Transform情報の取得
-        _transform = this.transform;
         _startPosition = _transform.position;
-        _spawn_And_DespawnSize = _transform.localScale / 5f;
+        _goalPosition = _goalPositions[_repeatCount];
         _normalSize = _transform.localScale;    // キャッシュ
+
+        // 変数の初期化
+        _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
+        _spawn_And_DespawnSize = _normalSize / 5f;
+        _movementSpeed = _movementSpeeds[_repeatCount];
 
 
         bird = GetComponent<BirdStats>();
@@ -265,48 +239,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
 
-        _stageManager = GameObject.FindWithTag("StageController").GetComponent<StageManager>();
-
-
-        // 変数の初期化
-        _isFinishMovement = false;
-        _needDespawn = false;
-        _isCompleteChangeScale = false;
-        _movedDistance = 0f;
-        _isLastMove = false;
-        _currentTime = 0f;
-        _currentTime2 = 0f;
-
-
-        // 初期のゴールを設定
-        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _howTimesSetGoal);
-        _howTimesSetGoal++;
-
-
-        // もしInspectorで設定ミスがあったら仮設定する
-        if (_numberOfBullet < 0)
-        {
-            _numberOfBullet = 3;
-            X_Debug.LogError("EnemySpawnPlaceData.Bullet が設定されてません");
-        }
-
-        if (_movementSpeed == 0f)
-        {
-            _movementSpeed = 20f;
-            X_Debug.LogError("EnemySpawnPlaceData.Speed が設定されてません");
-        }
-
-        if (_reAttackTime == 0f)
-        {
-            _reAttackTime = 5f;
-            X_Debug.LogError("EnemySpawnPlaceData.StayTime_s が設定されてません");
-        }
-
-        if (_attackIntervalTime == 0f)
-        {
-            _attackIntervalTime = 2f;
-            X_Debug.LogError("EnemySpawnPlaceData.AttackInterval_S が設定されてません");
-        }
 
         // スポーン時に大きくする
         StartCoroutine(LargerAtSpawn());
@@ -372,9 +304,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
             {
                 _needDespawn = true;
 
-                // クラスをはがす
-                Destroy(this);
-
                 return;
             }
         }
@@ -400,10 +329,10 @@ public abstract class BirdMoveBase : EnemyMoveBase
         // 再移動のためのリセット処理（攻撃がスタートしてから一定時間後に実行）-----------------------------------------------
 
         // 攻撃が終了
-        if (_currentTime2 >= _reAttackTime)
+        if (_currentTime2 >= _reAttackTimes[_repeatCount])
         {
-            // 設定されたゴールの数が1のとき AND すべてのゴールが設定されたら、次の行動が最後
-            if (_numberOfGoal == 1 && _howTimesSetGoal > _numberOfGoal)
+            // 設定されたゴールの数が1のとき、次の行動が最後
+            if (_goalPositions.Count == 1)
             {
                 // 次の移動が最後
                 _isLastMove = true;
@@ -422,7 +351,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             InitializeForRe_Movement();
 
             // すべてのゴールが設定されたら、次の行動が最後
-            if (_howTimesSetGoal > _numberOfGoal)
+            if (_repeatCount + 1 >= _goalPositions.Count)
             {
                 _isLastMove = true;
             }
@@ -455,11 +384,13 @@ public abstract class BirdMoveBase : EnemyMoveBase
     protected virtual void InitializeForRe_Movement()
     {
         _isFinishMovement = false;
+        _repeatCount++;
 
         // スタート位置とゴール位置の再設定
         _startPosition = _transform.position;
-        SetGoalPosition(_spawnedWave, _thisInstanceIndex, howManyTimes: _howTimesSetGoal);
-        _howTimesSetGoal++;
+        _goalPosition = _goalPositions[_repeatCount];
+        _movementSpeed = _movementSpeeds[_repeatCount];
+        _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
     }
 
     /// <summary>
@@ -476,25 +407,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
     protected void RotateToFront()
     {
         _transform.rotation = Quaternion.RotateTowards(_transform.rotation, FRONT_ANGLE, Time.deltaTime * _rotateSpeed);
-    }
-
-    /// <summary>
-    /// _goalPosition変数の代入処理
-    /// </summary>
-    /// <param name="zakoWaveNumber">どのウェーブの敵の動きかenumで指定（ex: BirdMoveFirstはzakoWave1）</param>
-    /// <param name="spawnedNumber">インスタンス番号（_spawnedNumberを渡す）（_spawn</param>
-    /// <param name="howManyTimes">この関数を呼ぶのは何回目？（推奨：名前付き引数）</param>
-    protected virtual void SetGoalPosition(WaveType zakoWaveNumber, int spawnedNumber ,int howManyTimes = 1)
-    {
-        try
-        {
-            _goalPosition = _stageManager._waveManagementTable._waveInformation[(int)zakoWaveNumber]._enemysData[spawnedNumber]._birdGoalPlaces[howManyTimes - 1]._birdGoalPlace.position;
-            _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
-        }
-        catch (Exception)
-        {
-            X_Debug.LogError("ゴール座標がEnemySpawnerTable(Scriptable)に設定されていないか、呼び出し可能回数を超えています");
-        }
     }
 
     /// <summary>

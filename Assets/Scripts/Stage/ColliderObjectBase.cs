@@ -159,5 +159,15 @@ public abstract class ColliderObjectBase : MonoBehaviour
         }
         return 0;
     }
+
+    public int GetGameObjectLayer()
+    {
+        return this.gameObject.layer;
+    }
+    public string GetGameObjectLayerString()
+    {
+        return LayerMask.LayerToName(this.gameObject.layer);
+    }
+
     #endregion
 }

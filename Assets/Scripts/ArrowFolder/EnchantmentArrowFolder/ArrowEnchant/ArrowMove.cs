@@ -382,7 +382,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         else
         {
             // 水平方向への移動速度の減衰率を算出
-            _nowSpeedValue = MathN.Clamp_min(STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO);
+            _nowSpeedValue = MathN.Clamp.Min(STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO);
 
             // 各軸方向への移動量を算出
             _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);    // Ｘ軸
@@ -408,7 +408,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
             _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
 
             // 重力による下方向への移動量を算出
-            _addGravity = MathN.Clamp_min(_addGravity + GravityValue(isThunder) * Time.deltaTime, _maxGravity);
+            _addGravity = MathN.Clamp.Min(_addGravity + GravityValue(isThunder) * Time.deltaTime, _maxGravity);
 
 
             /*
@@ -433,7 +433,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _arrowVector = arrowTransform.TransformVector(_forward).normalized;
 
         // 矢の水平方向への移動速度を算出
-        _arrowSpeed_Horizontal = Mathf.Sqrt(MathN.Pow(_arrowVector.x) + MathN.Pow(_arrowVector.z)) * arrowSpeed;
+        _arrowSpeed_Horizontal = Mathf.Sqrt(MathN.Art.Pow(_arrowVector.x) + MathN.Art.Pow(_arrowVector.z)) * arrowSpeed;
 
         // 矢の各軸方向への移動速度を算出
         _arrowSpeed_X = _arrowVector.x * arrowSpeed;    // Ｘ軸
@@ -444,7 +444,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
         _maxRange = _arrowSpeed_Horizontal * SpeedToRangeCoefficient(isThunder);
 
         // Ｙ軸の速度から降下量の上限値を算出
-        _maxGravity = MathN.Clamp_max(TERMINAL_VELOCITY - _arrowSpeed_Y, ZERO);
+        _maxGravity = MathN.Clamp.Max(TERMINAL_VELOCITY - _arrowSpeed_Y, ZERO);
 
         // 現在の移動速度を初期化
         _nowRange = default;

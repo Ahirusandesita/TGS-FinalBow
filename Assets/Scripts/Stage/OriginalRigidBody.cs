@@ -22,6 +22,28 @@ public class OriginalRigidBody : MonoBehaviour
     private ContainObject _containObject;
 
     private Vector3 _myPosition;
+
+    private OriginalMonoBehaviour[] _originalMonoBehaviours = default;
+
+    private bool _isCollision = false;
+    private bool[,] _isHits =
+    {
+        {false,false },//Y軸　Up、Down
+        {false,false },//X軸　Left、Right
+        {false,false },//Z軸　Forward、Back
+    };
+
+    private bool[,] _needCollisions =
+    {
+        {false,false },//Y軸　Up、Down
+        {false,false },//X軸　Left、Right
+        {false,false },//Z軸　Forward、Back
+    };
+
+    private delegate void OriginalCollision();
+
+    OriginalCollision _originalCollision = default;
+
     #endregion
     #region property
     #endregion
@@ -51,11 +73,31 @@ public class OriginalRigidBody : MonoBehaviour
 
         _hitZone = new HitZone(_hitDistanceScale, _myTransform.position);
 
+        _originalMonoBehaviours = this.GetComponents<OriginalMonoBehaviour>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         _hitZone.SetPosition(_myTransform.position);
+
+        //if (_containObject.IsContainObjectFloor2(_hitZone.GetHitZone()))
+        //{
+        //    _myPosition = _myTransform.position;
+        //    if (_containObject.GetAdjustmentY(_myPosition) != 0f)
+        //    {
+        //        _myPosition.y = _containObject.GetAdjustmentY(_myPosition) + _hitDistanceScale._hitDistanceY;
+        //        _myTransform.position = _myPosition;
+        //        if (!_needCollisions[0, 1])
+        //        {
+        //            _isHits[0, 1] = true;
+        //            _needCollisions[0, 1] = true;
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    _needCollisions[0, 1] = false;
+        //}
 
 
         //軸ごとに埋まりこみ防止制御を行う
@@ -68,7 +110,16 @@ public class OriginalRigidBody : MonoBehaviour
                 {
                     _myPosition.y = _containObject.GetAdjustmentY(_myPosition) + _hitDistanceScale._hitDistanceY;
                     _myTransform.position = _myPosition;
+                    if (!_needCollisions[0, 1])
+                    {
+                        _isHits[0, 1] = true;
+                        _needCollisions[0, 1] = true;
+                    }
                 }
+            }
+            else
+            {
+                _needCollisions[0, 1] = false;
             }
         }
 
@@ -81,7 +132,16 @@ public class OriginalRigidBody : MonoBehaviour
                 {
                     _myPosition.y = _containObject.GetAdjustmentY(_myPosition) - _hitDistanceScale._hitDistanceY;
                     _myTransform.position = _myPosition;
+                    if (!_needCollisions[0, 0])
+                    {
+                        _isHits[0, 0] = true;
+                        _needCollisions[0, 0] = true;
+                    }
                 }
+            }
+            else
+            {
+                _needCollisions[0, 0] = false;
             }
         }
 
@@ -94,7 +154,16 @@ public class OriginalRigidBody : MonoBehaviour
                 {
                     _myPosition.x = _containObject.GetAdjustmentX(_myPosition) + _hitDistanceScale._hitDistanceX;
                     _myTransform.position = _myPosition;
+                    if (!_needCollisions[1, 0])
+                    {
+                        _isHits[1, 0] = true;
+                        _needCollisions[1, 0] = true;
+                    }
                 }
+            }
+            else
+            {
+                _needCollisions[1, 0] = false;
             }
         }
 
@@ -107,7 +176,16 @@ public class OriginalRigidBody : MonoBehaviour
                 {
                     _myPosition.x = _containObject.GetAdjustmentX(_myPosition) - _hitDistanceScale._hitDistanceX;
                     _myTransform.position = _myPosition;
+                    if (!_needCollisions[1, 1])
+                    {
+                        _isHits[1, 1] = true;
+                        _needCollisions[1, 1] = true;
+                    }
                 }
+            }
+            else
+            {
+                _needCollisions[1, 1] = false;
             }
         }
 
@@ -120,7 +198,16 @@ public class OriginalRigidBody : MonoBehaviour
                 {
                     _myPosition.z = _containObject.GetAdjustmentZ(_myPosition) + _hitDistanceScale._hitDistanceZ;
                     _myTransform.position = _myPosition;
+                    if (!_needCollisions[2, 1])
+                    {
+                        _isHits[2, 1] = true;
+                        _needCollisions[2, 1] = true;
+                    }
                 }
+            }
+            else
+            {
+                _needCollisions[2, 1] = false;
             }
         }
 
@@ -133,10 +220,69 @@ public class OriginalRigidBody : MonoBehaviour
                 {
                     _myPosition.z = _containObject.GetAdjustmentZ(_myPosition) - _hitDistanceScale._hitDistanceZ;
                     _myTransform.position = _myPosition;
+                    if (!_needCollisions[2, 0])
+                    {
+                        _isHits[2, 0] = true;
+                        _needCollisions[2, 0] = true;
+                    }
+                }
+            }
+            else
+            {
+                _needCollisions[2, 0] = false;
+            }
+        }
+
+
+
+        if (_isHits[0, 0] || _isHits[0, 1] || _isHits[1, 0] || _isHits[1, 1] || _isHits[2, 0] || _isHits[2, 1])
+        {
+            for (int i = 0; i < _originalMonoBehaviours.Length; i++)
+            {
+                _originalCollision += new OriginalCollision(_originalMonoBehaviours[i].OrignalOnCollisionEnter);
+            }
+        }
+
+
+        if (_isHits[0, 0] || _isHits[0, 1])
+        {
+            for (int i = 0; i < _originalMonoBehaviours.Length; i++)
+            {
+                _originalCollision += new OriginalCollision(_originalMonoBehaviours[i].OrignalOnCollisionEnter_HitFloor);
+                _originalCollision += new OriginalCollision(_originalMonoBehaviours[i].OrignalOnCollisionEnter_HitWall_AxisY);
+            }
+        }
+
+        if (_isHits[1, 0] || _isHits[1, 1] || _isHits[2, 0] || _isHits[2, 1])
+        {
+            for (int i = 0; i < _originalMonoBehaviours.Length; i++)
+            {
+                _originalCollision += new OriginalCollision(_originalMonoBehaviours[i].OrignalOnCollisionEnter_HitWall);
+                if (_isHits[1, 0] || _isHits[1, 1])
+                {
+                    _originalCollision += new OriginalCollision(_originalMonoBehaviours[i].OrignalOnCollisionEnter_HitWall_AxisX);
+                }
+                if (_isHits[2, 0] || _isHits[2, 1])
+                {
+                    _originalCollision += new OriginalCollision(_originalMonoBehaviours[i].OrignalOnCollisionEnter_HitWall_AxisZ);
                 }
             }
         }
 
+        if (_originalCollision != null)
+        {
+            _originalCollision();
+        }
+
+        _originalCollision = null;
+
+        for (int i = 0; i < _isHits.GetLength(0); i++)
+        {
+            for (int j = 0; j < _isHits.GetLength(1); j++)
+            {
+                _isHits[i, j] = false;
+            }
+        }
 
         //if (_containObject.IsContainObjectAll(_hitZone.GetHitZone()))
         //{

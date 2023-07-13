@@ -55,6 +55,9 @@ public class ContainObject
 
     private ColliderScale Scale;
 
+    private delegate int ColliderObjectLayer();
+    ColliderObjectLayer ColliderObjectLayerNumber;
+
     #endregion
     #region property
     #endregion
@@ -93,13 +96,47 @@ public class ContainObject
                 AdjustmentX = new AdjustmentAll(originalColliders[i].PushOutFromColliderX);
                 AdjustmentZ = new AdjustmentAll(originalColliders[i].PushOutFromColliderZ);
                 Scale = new ColliderScale(originalColliders[i].GetDistanceScale);
-
+                ColliderObjectLayerNumber = new ColliderObjectLayer(originalColliders[i].GetGameObjectLayer);
 
                 return true;
             }
         }
         return false;
     }
+
+
+    public bool IsContainObjectFloor2(Vector3[] mes)
+    {
+        if(Contains != null)
+        {
+            if (Contains(mes))
+            {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < originalColliders.Count; i++)
+        {
+            //触れている空間があればそれを次から比較するために代入する　Trueを返す
+            if (originalColliders[i].IsHit2(mes))
+            {
+                Contain_Collider = new Contain(originalColliders[i].IsHit);
+                Adjustment_Collider = new Adjustment(originalColliders[i].PositionAdjustmentPoint);
+
+                Contains = new ContainAll(originalColliders[i].IsHit2);
+                AdjustmentY = new AdjustmentAll(originalColliders[i].PushOutFromColliderY);
+                AdjustmentX = new AdjustmentAll(originalColliders[i].PushOutFromColliderX);
+                AdjustmentZ = new AdjustmentAll(originalColliders[i].PushOutFromColliderZ);
+                Scale = new ColliderScale(originalColliders[i].GetDistanceScale);
+
+
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 
     public bool IsNowContainAll(Vector3 me)
     {
@@ -199,6 +236,15 @@ public class ContainObject
         return Scale();
     }
 
+
+    public int GetHitObjectLayerNumber()
+    {
+        if (ColliderObjectLayerNumber != null)
+        {
+            return ColliderObjectLayerNumber();
+        }
+        return 0;
+    }
 
     /// <summary>
     /// 無駄にすべてのオブジェクトを検索して比較しないようにするために使う関数

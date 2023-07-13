@@ -11,9 +11,11 @@ namespace Nekoslibrary
     {
         /// <summary>
         /// <para>目次　効果はない</para>
-        /// <para>Clamp ( _min / _max )</para>
-        /// <para>Pow , Abs</para>
-        /// <para>Vector3系 (Distance / Normalize)</para>
+        /// <para>PI</para>
+        /// <para>Art (Pow)</para>
+        /// <para>Mod (Abs ,Red)</para>
+        /// <para>Clamp (Both ,Min ,Max)</para>
+        /// <para>Vector (Distance ,Normalize)</para>
         /// <para></para>
         /// </summary>
         /// <returns></returns>
@@ -27,164 +29,193 @@ namespace Nekoslibrary
         /// </summary>
         public static float PI = 3.14159f;
 
-        #region Clamp系関数　制限する関数
-
         /// <summary>
-        /// 値の範囲を制限する関数
-        /// <para>制限した値を返す</para>
+        /// 基本演算関数群
         /// </summary>
-        /// <param name="Value">制限する値</param>
-        /// <param name="Minimun">下限値</param>
-        /// <param name="Maximum">上限値</param>
-        /// <returns></returns>
-        public static float Clamp(float Value, float Minimun, float Maximum)
+        public static class Art // Art は Arithmetic の略
         {
-            if (Maximum < Value)
+            /// <summary>
+            /// ２乗する関数
+            /// </summary>
+            /// <param name="Value">２乗する値</param>
+            /// <returns></returns>
+            public static float Pow(float Value)
             {
-                Value = Maximum;
-            }
-            else if (Value < Minimun)
-            {
-                Value = Minimun;
+                return Value * Value;
             }
 
-            return Value;
+            public static float Sqrt() 
+            {
+                // floatは上位７桁（８桁目四捨五入を用いている）
+                return 0f;
+            }
         }
 
         /// <summary>
-        /// Clamp関数
-        /// <para>下限のみ指定する</para>
+        /// 単位・数値変換関数群
         /// </summary>
-        /// <param name="Value">制限する値</param>
-        /// <param name="Minimun">下限値</param>
-        /// <returns></returns>
-        public static float Clamp_min(float Value, float Minimun)
+        public static class Mod
         {
-            if (Value < Minimun)
+            /// <summary>
+            /// 絶対値を取得する関数
+            /// </summary>
+            /// <param name="Value">取得する値</param>
+            /// <returns></returns>
+            public static float Abs(float Value)
             {
-                Value = Minimun;
+                if (Value < 0)
+                {
+                    Value = Value * -1f;
+                }
+                return Value;
             }
 
-            return Value;
-        }
-
-        /// <summary>
-        /// Clamp関数
-        /// <para>上限のみ指定する</para>
-        /// </summary>
-        /// <param name="Value">制限する値</param>
-        /// <param name="Maximum">上限値</param>
-        /// <returns></returns>
-        public static float Clamp_max(float Value, float Maximum)
-        {
-            if (Maximum < Value)
+            /// <summary>
+            /// 単位変換　度数法から弧度法に
+            /// </summary>
+            /// <param name="degree">度数法の角度</param>
+            /// <returns></returns>
+            public static float Chenge_DegToRad(float degree)
             {
-                Value = Maximum;
+                return (degree / 180) * PI;
             }
 
-            return Value;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// ２乗する関数
-        /// </summary>
-        /// <param name="Value">２乗する値</param>
-        /// <returns></returns>
-        public static float Pow(float Value)
-        {
-            return Value * Value;
-        }
-
-        /// <summary>
-        /// 絶対値を取得する関数
-        /// </summary>
-        /// <param name="Value">取得する値</param>
-        /// <returns></returns>
-        public static float Abs(float Value)
-        {
-            if (Value < 0)
+            /// <summary>
+            /// 単位変換　弧度法から度数法に
+            /// </summary>
+            /// <param name="radian">弧度法の角度</param>
+            /// <returns></returns>
+            public static float Chenge_RadToDeg(float radian)
             {
-                Value = Value * -1f;
+                return (radian / PI) * 180;
             }
-            return Value;
         }
 
         /// <summary>
-        /// ２つの座標の直線距離を取得する関数
+        /// 制限関数群
         /// </summary>
-        /// <param name="startVector">始点の座標</param>
-        /// <param name="endVector">目標の座標</param>
-        /// <returns></returns>
-        public static float Vector3_Distance(Vector3 startVector, Vector3 endVector)
+        public static class Clamp
         {
-            float value = Pow(endVector.x - startVector.x) + Pow((endVector.y - startVector.y));
-            value = (float)Math.Sqrt(value + Pow((endVector.z - startVector.z)));
-            return value;
+            /// <summary>
+            /// 上限と下限の両方を制限
+            /// <para>制限した値を返す</para>
+            /// </summary>
+            /// <param name="Value">制限する値</param>
+            /// <param name="Minimun">下限値</param>
+            /// <param name="Maximum">上限値</param>
+            /// <returns></returns>
+            public static float Both(float Value, float Minimun, float Maximum)
+            {
+                if (Maximum < Value)
+                {
+                    Value = Maximum;
+                }
+                else if (Value < Minimun)
+                {
+                    Value = Minimun;
+                }
+
+                return Value;
+            }
+
+            /// <summary>
+            /// 下限のみ制限
+            /// <para>制限した値を返す</para>
+            /// </summary>
+            /// <param name="Value">制限する値</param>
+            /// <param name="Minimun">下限値</param>
+            /// <returns></returns>
+            public static float Min(float Value, float Minimun)
+            {
+                if (Value < Minimun)
+                {
+                    Value = Minimun;
+                }
+
+                return Value;
+            }
+
+            /// <summary>
+            /// 上限のみ制限
+            /// <para>制限した値を返す</para>
+            /// </summary>
+            /// <param name="Value">制限する値</param>
+            /// <param name="Maximum">上限値</param>
+            /// <returns></returns>
+            public static float Max(float Value, float Maximum)
+            {
+                if (Maximum < Value)
+                {
+                    Value = Maximum;
+                }
+
+                return Value;
+            }
+
         }
 
-        /// <summary>
-        /// ２つの座標間のベクトルのノーマライズした値を取得する関数
-        /// </summary>
-        /// <param name="startVector">始点の座標</param>
-        /// <param name="endVector">目標の座標</param>
-        public static Vector3 Vector3_Normalize(Vector3 startVector, Vector3 endVector)
-        {
-            return (endVector - startVector).normalized;
-        }
 
         /// <summary>
-        /// Vector3をXY軸のみの値に変化させる
+        /// ベクトル関数群
         /// </summary>
-        /// <param name="Vector"></param>
-        /// <returns></returns>
-        public static Vector3 Vector3To2_XY(Vector3 Vector)
+        public static class Vector
         {
-            Vector3 tmp = new Vector3(Vector.x, Vector.y, 0f);
-            return tmp;
-        }
+            /// <summary>
+            /// ２つの座標の直線距離を取得する関数
+            /// </summary>
+            /// <param name="startVector">始点の座標</param>
+            /// <param name="endVector">目標の座標</param>
+            /// <returns></returns>
+            public static float Distance(Vector3 startVector, Vector3 endVector)
+            {
+                float value = Art.Pow(endVector.x - startVector.x) + Art.Pow((endVector.y - startVector.y));
+                value = (float)Math.Sqrt(value + Art.Pow((endVector.z - startVector.z)));
+                return value;
+            }
 
-        /// <summary>
-        /// Vector3をXZ軸のみの値に変化させる
-        /// </summary>
-        /// <param name="Vector"></param>
-        /// <returns></returns>
-        public static Vector3 Vector3To2_XZ(Vector3 Vector)
-        {
-            Vector3 tmp = new Vector3(Vector.x, 0f, Vector.z);
-            return tmp;
-        }
+            /// <summary>
+            /// ２つの座標間のベクトルのノーマライズした値を取得する関数
+            /// </summary>
+            /// <param name="startVector">始点の座標</param>
+            /// <param name="endVector">目標の座標</param>
+            public static Vector3 Normalize(Vector3 startVector, Vector3 endVector)
+            {
+                return (endVector - startVector).normalized;
+            }
 
-        /// <summary>
-        /// Vector3をYZ軸のみの値に変化させる
-        /// </summary>
-        /// <param name="Vector"></param>
-        /// <returns></returns>
-        public static Vector3 Vector3To2_YZ(Vector3 Vector)
-        {
-            Vector3 tmp = new Vector3(0f, Vector.y, Vector.z);
-            return tmp;
-        }
+            /// <summary>
+            /// Vector3をXY軸のみの値に変化させる
+            /// </summary>
+            /// <param name="Vector"></param>
+            /// <returns></returns>
+            public static Vector3 XY(Vector3 Vector)
+            {
+                Vector3 tmp = new Vector3(Vector.x, Vector.y, 0f);
+                return tmp;
+            }
 
-        /// <summary>
-        /// 単位変換　度数法から弧度法に
-        /// </summary>
-        /// <param name="degree">度数法の角度</param>
-        /// <returns></returns>
-        public static float Chenge_DegToRad(float degree)
-        {
-            return (degree / 180) * PI;
-        }
+            /// <summary>
+            /// Vector3をXZ軸のみの値に変化させる
+            /// </summary>
+            /// <param name="Vector"></param>
+            /// <returns></returns>
+            public static Vector3 XZ(Vector3 Vector)
+            {
+                Vector3 tmp = new Vector3(Vector.x, 0f, Vector.z);
+                return tmp;
+            }
 
-        /// <summary>
-        /// 単位変換　弧度法から度数法に
-        /// </summary>
-        /// <param name="radian">弧度法の角度</param>
-        /// <returns></returns>
-        public static float Chenge_RadToDeg(float radian)
-        {
-            return (radian / PI) * 180;
+            /// <summary>
+            /// Vector3をYZ軸のみの値に変化させる
+            /// </summary>
+            /// <param name="Vector"></param>
+            /// <returns></returns>
+            public static Vector3 YZ(Vector3 Vector)
+            {
+                Vector3 tmp = new Vector3(0f, Vector.y, Vector.z);
+                return tmp;
+            }
+
         }
 
     }
