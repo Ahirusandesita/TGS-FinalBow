@@ -16,6 +16,8 @@ using System.Collections.Generic;
 public class WaveManagementTable : ScriptableObject
 {
     public List<WaveInformation> _waveInformation = new List<WaveInformation>();
+
+    public List<GroundEnemyDataTable> _groundEnemyInformation = new List<GroundEnemyDataTable>();
 }
 
 /// <summary>
@@ -32,7 +34,7 @@ public class WaveInformation
     public float _startWaveTime_s;
 
     [Space]
-    public List<EnemyDataTable> _enemysData = new List<EnemyDataTable>();
+    public List<BirdDataTable> _birdsData = new List<BirdDataTable>();
 }
 
 /// <summary>

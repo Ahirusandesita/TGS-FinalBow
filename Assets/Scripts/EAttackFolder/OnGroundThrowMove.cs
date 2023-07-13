@@ -65,7 +65,8 @@ public class OnGroundThrowMove : EnemyAttackBase
 
     private Vector3 _objectPosition = default;
 
-
+    [Tooltip("一度目（プールが生成されたとき）")]
+    private bool _isFirstTime = true;
     #endregion
     #region property
 
@@ -74,8 +75,15 @@ public class OnGroundThrowMove : EnemyAttackBase
 
     protected override void OnEnable()
     {
-        GetTrajectory();
-        _objectPosition = _transform.position;
+        if (_isFirstTime)
+        {
+            _objectTransform = _transform;
+            _isFirstTime = false;
+        }
+        else
+        {
+            GetTrajectory();
+        }
     }
 
     private void OnDisable()
@@ -109,11 +117,11 @@ public class OnGroundThrowMove : EnemyAttackBase
         _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x + _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.z + _objectPosition.z)));
         _imaginaryDistance = _distance;
         _standardHigh = _playerPosition.y;
-        if(_playerPosition.y == _objectPosition.y)
+        if (_playerPosition.y == _objectPosition.y)
         {
             _coefficient = -(QUADRUPLE * _peak) / MathN.Art.Pow(_distance);
         }
-        else if(_playerPosition.y < _objectPosition.y)
+        else if (_playerPosition.y < _objectPosition.y)
         {
             _sign = 1f; //プラス
             _isOver = true;
@@ -159,7 +167,7 @@ public class OnGroundThrowMove : EnemyAttackBase
         }
     }
 
-    private void EscapeLoop(Vector3 playerPosition ,Vector3 objectPosition)
+    private void EscapeLoop(Vector3 playerPosition, Vector3 objectPosition)
     {
         _peak = objectPosition.y - playerPosition.y;
         _imaginaryDistance = _distance * 2f;
