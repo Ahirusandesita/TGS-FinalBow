@@ -13,7 +13,7 @@ using UnityEngine;
 interface IArrowMove
 {
     /// <summary>
-　　/// 矢の移動を開始するインターフェース
+    　　/// 矢の移動を開始するインターフェース
     /// </summary>
     void ArrowMoveStart();
     void SetArrowMoveSpeed(float moveSpeed);
@@ -74,7 +74,7 @@ public interface IArrowEnchant
 /// <summary>
 /// 矢
 /// </summary>
-public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
+public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 {
 
 
@@ -91,7 +91,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     /// </summary>
     /// <param name="hitObject">ヒットしたオブジェクト</param>
     /// <param name="enchantmentState">矢のEnum</param>
-    public delegate void ArrowEnchantmentDelegateMethod(GameObject hitObject,EnchantmentEnum.EnchantmentState enchantmentState);
+    public delegate void ArrowEnchantmentDelegateMethod(GameObject hitObject, EnchantmentEnum.EnchantmentState enchantmentState);
 
     /// <summary>
     /// 矢のサウンド
@@ -269,7 +269,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
     }
     private void Update()
     {
-        
+
 
         if (EventArrowPassiveEffect != null)
         {
@@ -278,7 +278,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
 
         if (_playerManager != null)
         {
-  
+
         }
         //スタートされたら矢を移動させる
         if (!_isArrowMove)
@@ -290,10 +290,10 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         MoveArrow(MyTransform);
 
         //矢がどこかにヒットしたら
-        if (ArrowGetObject.ArrowHit(MyTransform,this))
+        if (ArrowGetObject.ArrowHit(MyTransform, this))
         {
             //ヒットしたオブジェクトが同じオブジェクトならヒットしていないことにする
-            if(_hitObject == _hitObjectLast)
+            if (_hitObject == _hitObjectLast)
             {
                 return;
             }
@@ -309,7 +309,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
                 ArrowEnchantSound(_audioSource);
             }
             //矢をリセットする
-            
+
 
             //貫通系ならプールに戻さない
             if (
@@ -325,7 +325,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
             ReturnQue();
         }
         //仮
-        if (ArrowGetObject.ArrowHit_Object(MyTransform,this))
+        if (ArrowGetObject.ArrowHit_Object(MyTransform, this))
         {
             if (_hitObject == _hitObjectLast)
             {
@@ -343,7 +343,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
         }
 
         //仮
-        if (ArrowGetObject.ArrowHit_TitleObject(MyTransform,this))
+        if (ArrowGetObject.ArrowHit_TitleObject(MyTransform, this))
         {
             if (_hitObject == _hitObjectLast)
             {
@@ -360,6 +360,21 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
             ReturnQue();
         }
 
+        //バリアオブジェクトに触れたらリターン
+        if (ArrowGetObject.ArrowHit_BarrierObject(MyTransform, this))
+        {
+            if (
+                _enchantState == EnchantmentEnum.EnchantmentState.penetrate ||
+                _enchantState == EnchantmentEnum.EnchantmentState.thunderPenetrate ||
+                _enchantState == EnchantmentEnum.EnchantmentState.homingPenetrate ||
+                _enchantState == EnchantmentEnum.EnchantmentState.bombPenetrate ||
+                _enchantState == EnchantmentEnum.EnchantmentState.knockBackpenetrate)
+            {
+                return;
+            }
+            ReturnQue();
+        }
+
 
     }
 
@@ -372,7 +387,7 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
 
         //親オブジェクトをNullにする
         MyTransform.parent = null;
-       
+
         //移動スピードをセットする
         _arrowMove.SetArrowSpeed = _moveSpeed;
 
@@ -409,9 +424,9 @@ public class Arrow : MonoBehaviour,IArrowMove,IArrowEnchant
 
     public void ArrowPowerColor()
     {
-        
+
         Color color = _myArrowRenderer.material.color;
-        if(color.r >= 255)
+        if (color.r >= 255)
         {
             return;
         }

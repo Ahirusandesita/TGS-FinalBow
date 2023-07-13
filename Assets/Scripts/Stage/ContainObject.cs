@@ -55,6 +55,9 @@ public class ContainObject
 
     private ColliderScale Scale;
 
+    private delegate int ColliderObjectLayer();
+    ColliderObjectLayer ColliderObjectLayerNumber;
+
     #endregion
     #region property
     #endregion
@@ -93,7 +96,7 @@ public class ContainObject
                 AdjustmentX = new AdjustmentAll(originalColliders[i].PushOutFromColliderX);
                 AdjustmentZ = new AdjustmentAll(originalColliders[i].PushOutFromColliderZ);
                 Scale = new ColliderScale(originalColliders[i].GetDistanceScale);
-
+                ColliderObjectLayerNumber = new ColliderObjectLayer(originalColliders[i].GetGameObjectLayer);
 
                 return true;
             }
@@ -233,6 +236,15 @@ public class ContainObject
         return Scale();
     }
 
+
+    public int GetHitObjectLayerNumber()
+    {
+        if (ColliderObjectLayerNumber != null)
+        {
+            return ColliderObjectLayerNumber();
+        }
+        return 0;
+    }
 
     /// <summary>
     /// 無駄にすべてのオブジェクトを検索して比較しないようにするために使う関数
