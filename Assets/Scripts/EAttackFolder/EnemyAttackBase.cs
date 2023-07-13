@@ -45,13 +45,13 @@ public abstract class EnemyAttackBase : MonoBehaviour
 
     #region method
 
-    private void Awake()
+    protected virtual void Awake()
     {
         SetAttackStartDelay();
         _attackDelayWait = new WaitForSeconds(_attackStartDelay);
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         // UŒ‚‚Ì¶‘¶ŠÔ‚ğİ’è
         _lifeTime = 8f;
@@ -62,7 +62,7 @@ public abstract class EnemyAttackBase : MonoBehaviour
         StartCoroutine(AttackStartWait());
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         _transform = this.transform;
 

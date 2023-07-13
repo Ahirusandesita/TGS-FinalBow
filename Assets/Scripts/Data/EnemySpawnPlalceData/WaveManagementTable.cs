@@ -32,7 +32,7 @@ public class WaveInformation
     public float _startWaveTime_s;
 
     [Space]
-    public List<BirdDataTable> _enemysData = new List<BirdDataTable>();
+    public List<EnemyDataTable> _enemysData = new List<EnemyDataTable>();
 }
 
 /// <summary>

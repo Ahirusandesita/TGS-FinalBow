@@ -31,7 +31,7 @@ public class BirdAttack : EnemyAttack
     /// <param name="selectedType">弾の種類</param>
     /// <param name="numberOfBullet">弾の数</param>
     /// <returns></returns>
-    public IEnumerator NormalAttackLoop(Transform spawnPlace, PoolEnum.PoolObjectType selectedType, int numberOfBullet)
+    public IEnumerator NormalAttackLoop(Transform spawnPlace, PoolEnum.PoolObjectType selectedType, int numberOfBullet = 1)
     {
         while (true)
         {
@@ -46,10 +46,10 @@ public class BirdAttack : EnemyAttack
     /// <summary>
     /// 雑魚：通常攻撃
     /// </summary>
-    /// <param name="spawnPlace">スポーンさせる位置</param>
     /// <param name="selectedType">弾の種類</param>
+    /// <param name="spawnPlace">スポーンさせる位置</param>
     /// <param name="numberOfBullet">弾の数</param>
-    public void NormalAttack(Transform spawnPlace, PoolEnum.PoolObjectType selectedType, int numberOfBullet)
+    public void NormalAttack(PoolEnum.PoolObjectType selectedType, Transform spawnPlace, int numberOfBullet = 1)
     {
         // 通常の玉をスポーン
         SpawnEAttackFanForm(selectedType, spawnPlace, numberOfBullet);

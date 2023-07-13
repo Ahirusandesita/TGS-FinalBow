@@ -10,7 +10,7 @@ using System.Collections;
 /// <summary>
 /// ínè„éGãõÇÃãììÆÇÃäÓî’
 /// </summary>
-public class GroundMobMoveBase : EnemyMoveBase
+public class GroundEnemyMoveBase : EnemyMoveBase
 {
     private enum CrabWalkState {left,right };
 
@@ -36,12 +36,17 @@ public class GroundMobMoveBase : EnemyMoveBase
     }
     private JumpDirection _jumpDirection;
 
+    private GroundEnemyAttack _groundEnemyAttack = default;
+
     protected override void Start()
     {
         base.Start();
+
         _crabWalk = CrabWalkState.left;
         WalkDirectionState();
         _jumpPowerMax = _jumpPower;
+
+        _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
     }
 
     private void Update()
@@ -52,6 +57,8 @@ public class GroundMobMoveBase : EnemyMoveBase
 
     protected override void MoveSequence()
     {
+        _groundEnemyAttack.Attack(PoolEnum.PoolObjectType.normalBullet, _transform);
+
         //CrabWalk();
         Jump();
     }
