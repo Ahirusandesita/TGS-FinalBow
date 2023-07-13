@@ -273,10 +273,17 @@ public class ArrowEnchant : MonoBehaviour
     /// <param name="hitObj"></param>
     public void HitGimmick(GameObject hitObj)
     {
-
+        if(hitObj.TryGetComponent<IFCanTakeArrowButton>(out IFCanTakeArrowButton button))
+        {
+            button.ButtonPush();
+        }
+        else
+        {
+            X_Debug.LogError("それ本当にボタン？");
+        }
     }
 
-
+    
     /// <summary>
     /// 直撃ダメージを与えてhitObjのEnemyStatsをかえす
     /// </summary>
