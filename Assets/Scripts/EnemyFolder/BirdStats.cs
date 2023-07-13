@@ -69,8 +69,6 @@ public class BirdStats : CommonEnemyStats
         // 変数のデクリメント
         _onDeathBird();
 
-        // 小さくなる演出
-
         // プールに返す
         _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }

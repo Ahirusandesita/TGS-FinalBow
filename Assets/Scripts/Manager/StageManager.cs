@@ -188,7 +188,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
 
-        // Scriptabeの設定に応じて、アタッチする挙動スクリプトを変える
+        // Scriptableの設定に応じて、アタッチする挙動スクリプトを変える
         switch (enemyDataPath._moveType)
         {
             case MoveType.linear:
@@ -198,8 +198,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
             case MoveType.curve:
                 BirdMoveSecond subMove = temporaryObject.AddComponent<BirdMoveSecond>();
-                // 弧の高さを設定
+
+                // 弧の高さ/向きを設定
                 subMove.MoveSpeedArc = enemyDataPath._arcHeight;
+                subMove.ArcMoveDirection = enemyDataPath._arcMoveDirection;
+
                 baseMove = subMove;
                 break;
 
@@ -208,16 +211,14 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 break;
         }
 
-        ///////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////
-
         // 呼び出した雑魚の変数に設定
-        baseMove.ThisInstanceIndex = listIndex;
-        baseMove.SpawnedWave = _currentWave;
-        baseMove.NumberOfGoal = enemyDataPath._birdGoalPlaces.Count;
-        baseMove.MovementSpeed = enemyDataPath._birdGoalPlaces[0]._speed;
-        baseMove.ReAttackTime = enemyDataPath._birdGoalPlaces[0]._stayTime_s;
         baseMove.NumberOfBullet = enemyDataPath._bullet;
+
+        for (int i = 0; i < enemyDataPath._birdGoalPlaces.Count; i++)
+        {
+            baseMove.GoalPositions = enemyDataPath._birdGoalPlaces[i]._birdGoalPlace.position;
+            baseMove.MovementSpeeds = enemyDataPath._birdGoalPlaces[i]._speed;
+            baseMove.ReAttackTimes = enemyDataPath._birdGoalPlaces[i]._stayTime_s;
+        }
     }
 }

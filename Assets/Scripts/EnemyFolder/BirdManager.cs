@@ -36,6 +36,7 @@ public class BirdManager : MonoBehaviour
         // HP‚ª0‚É‚È‚Á‚½‚çŽ€‚Ê
         if (_birdStats.HP <= 0)
         {
+            Destroy(_birdMoveBase);
             _birdStats.Death();
         }
         // “|‚¹‚È‚©‚Á‚½‚ç“¦‚°‚é
@@ -45,6 +46,7 @@ public class BirdManager : MonoBehaviour
 
             if (_birdMoveBase.IsChangeScaleComplete)
             {
+                Destroy(_birdMoveBase);
                 _birdStats.Despawn();
             }
         }

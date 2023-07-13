@@ -6,6 +6,16 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+
+
+public enum ArcMoveDirection
+{
+    Up,
+    Down,
+    Front,
+    Back
+}
+
 public class BirdMoveSecond : BirdMoveBase
 {
     #region variable 
@@ -40,17 +50,8 @@ public class BirdMoveSecond : BirdMoveBase
     float _finishMoveValue = default;
 
     float percentMoveDistance = default;
- 
 
-    public enum ArcMoveDirection
-    {
-        Up,
-        Down,
-        Front,
-        Back
-    }
-
-    public ArcMoveDirection arcMoveDirection = ArcMoveDirection.Front;
+    ArcMoveDirection _arcMoveDirection = default;
 
     #endregion
     #region property
@@ -62,6 +63,14 @@ public class BirdMoveSecond : BirdMoveBase
         }
     }
     #endregion
+
+    public ArcMoveDirection ArcMoveDirection
+    {
+        set
+        {
+            _arcMoveDirection = value;
+        }
+    }
     #region method
 
     protected override void Start()
@@ -74,17 +83,10 @@ public class BirdMoveSecond : BirdMoveBase
 
         // Å‰‚©‚ç³–Ê‚ðŒü‚©‚¹‚é
         //_transform.rotation = FRONT_ANGLE;
-       
 
     }
 
-    // ‚Ä‚·‚Æ
-    //private void Awake()
-    //{
-    //    _startPosition = new Vector3(0, 0, 0);
 
-    //    _goalPosition = new Vector3(-100, 0, 0);
-    //}
     protected void InitializeVariables()
     {
 
@@ -115,12 +117,12 @@ public class BirdMoveSecond : BirdMoveBase
     {
         Vector3 dir;
         // ŒÊ‚Ì•ûŒü‚ðŒˆ‚ß‚é
-        dir = arcMoveDirection switch
+        dir = _arcMoveDirection switch
         {
-            ArcMoveDirection.Up => Vector3.Cross(moveDirection,Vector3.left),
-            ArcMoveDirection.Down => Vector3.Cross(moveDirection,Vector3.right),
-            ArcMoveDirection.Back => Vector3.Cross(moveDirection,Vector3.down),
-            ArcMoveDirection.Front => Vector3.Cross(moveDirection,Vector3.up),
+            ArcMoveDirection.Up => Vector3.Cross(moveDirection, Vector3.left),
+            ArcMoveDirection.Down => Vector3.Cross(moveDirection, Vector3.right),
+            ArcMoveDirection.Back => Vector3.Cross(moveDirection, Vector3.down),
+            ArcMoveDirection.Front => Vector3.Cross(moveDirection, Vector3.up),
             _ => Vector3.up,
         };
 
