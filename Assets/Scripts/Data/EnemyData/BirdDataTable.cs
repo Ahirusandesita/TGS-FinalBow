@@ -22,6 +22,10 @@ public class BirdDataTable : ScriptableObject
     [HideInInspector]
     public float _arcHeight = 10f;
 
+    [Header("弧の向き"), Tooltip("弧の向き")]
+    [HideInInspector]
+    public ArcMoveDirection _arcMoveDirection;
+
     [Header("出す弾の数（推奨：奇数）"), Tooltip("出す弾の数（推奨：奇数）")]
     public int _bullet;
 
