@@ -11,9 +11,11 @@ namespace Nekoslibrary
     {
         /// <summary>
         /// <para>目次　効果はない</para>
+        /// <para>PI</para>
+        /// <para>Art (Pow)</para>
+        /// <para>Mod (Abs ,Red)</para>
         /// <para>Clamp (Both ,Min ,Max)</para>
-        /// <para>Pow , Abs</para>
-        /// <para>Vector3系 (Distance / Normalize)</para>
+        /// <para>Vector (Distance ,Normalize)</para>
         /// <para></para>
         /// </summary>
         /// <returns></returns>
@@ -27,7 +29,67 @@ namespace Nekoslibrary
         /// </summary>
         public static float PI = 3.14159f;
 
-        #region Clamp系関数　制限する関数
+        /// <summary>
+        /// 基本演算関数群
+        /// </summary>
+        public static class Art // Art は Arithmetic の略
+        {
+            /// <summary>
+            /// ２乗する関数
+            /// </summary>
+            /// <param name="Value">２乗する値</param>
+            /// <returns></returns>
+            public static float Pow(float Value)
+            {
+                return Value * Value;
+            }
+
+            public static float Sqrt() 
+            {
+                // floatは上位７桁（８桁目四捨五入を用いている）
+                return 0f;
+            }
+        }
+
+        /// <summary>
+        /// 単位・数値変換関数群
+        /// </summary>
+        public static class Mod
+        {
+            /// <summary>
+            /// 絶対値を取得する関数
+            /// </summary>
+            /// <param name="Value">取得する値</param>
+            /// <returns></returns>
+            public static float Abs(float Value)
+            {
+                if (Value < 0)
+                {
+                    Value = Value * -1f;
+                }
+                return Value;
+            }
+
+            /// <summary>
+            /// 単位変換　度数法から弧度法に
+            /// </summary>
+            /// <param name="degree">度数法の角度</param>
+            /// <returns></returns>
+            public static float Chenge_DegToRad(float degree)
+            {
+                return (degree / 180) * PI;
+            }
+
+            /// <summary>
+            /// 単位変換　弧度法から度数法に
+            /// </summary>
+            /// <param name="radian">弧度法の角度</param>
+            /// <returns></returns>
+            public static float Chenge_RadToDeg(float radian)
+            {
+                return (radian / PI) * 180;
+            }
+        }
 
         /// <summary>
         /// 制限関数群
@@ -92,112 +154,68 @@ namespace Nekoslibrary
 
         }
 
-        #endregion
 
         /// <summary>
-        /// 基本演算群
+        /// ベクトル関数群
         /// </summary>
-        public static class Art // Art は Arithmetic の略
+        public static class Vector
         {
             /// <summary>
-            /// ２乗する関数
+            /// ２つの座標の直線距離を取得する関数
             /// </summary>
-            /// <param name="Value">２乗する値</param>
+            /// <param name="startVector">始点の座標</param>
+            /// <param name="endVector">目標の座標</param>
             /// <returns></returns>
-            public static float Pow(float Value)
+            public static float Distance(Vector3 startVector, Vector3 endVector)
             {
-                return Value * Value;
+                float value = Art.Pow(endVector.x - startVector.x) + Art.Pow((endVector.y - startVector.y));
+                value = (float)Math.Sqrt(value + Art.Pow((endVector.z - startVector.z)));
+                return value;
             }
 
             /// <summary>
-            /// 絶対値を取得する関数
+            /// ２つの座標間のベクトルのノーマライズした値を取得する関数
             /// </summary>
-            /// <param name="Value">取得する値</param>
-            /// <returns></returns>
-            public static float Abs(float Value)
+            /// <param name="startVector">始点の座標</param>
+            /// <param name="endVector">目標の座標</param>
+            public static Vector3 Normalize(Vector3 startVector, Vector3 endVector)
             {
-                if (Value < 0)
-                {
-                    Value = Value * -1f;
-                }
-                return Value;
+                return (endVector - startVector).normalized;
             }
-        }
 
-        /// <summary>
-        /// ２つの座標の直線距離を取得する関数
-        /// </summary>
-        /// <param name="startVector">始点の座標</param>
-        /// <param name="endVector">目標の座標</param>
-        /// <returns></returns>
-        public static float Vector3_Distance(Vector3 startVector, Vector3 endVector)
-        {
-            float value = Art.Pow(endVector.x - startVector.x) + Art.Pow((endVector.y - startVector.y));
-            value = (float)Math.Sqrt(value + Art.Pow((endVector.z - startVector.z)));
-            return value;
-        }
+            /// <summary>
+            /// Vector3をXY軸のみの値に変化させる
+            /// </summary>
+            /// <param name="Vector"></param>
+            /// <returns></returns>
+            public static Vector3 XY(Vector3 Vector)
+            {
+                Vector3 tmp = new Vector3(Vector.x, Vector.y, 0f);
+                return tmp;
+            }
 
-        /// <summary>
-        /// ２つの座標間のベクトルのノーマライズした値を取得する関数
-        /// </summary>
-        /// <param name="startVector">始点の座標</param>
-        /// <param name="endVector">目標の座標</param>
-        public static Vector3 Vector3_Normalize(Vector3 startVector, Vector3 endVector)
-        {
-            return (endVector - startVector).normalized;
-        }
+            /// <summary>
+            /// Vector3をXZ軸のみの値に変化させる
+            /// </summary>
+            /// <param name="Vector"></param>
+            /// <returns></returns>
+            public static Vector3 XZ(Vector3 Vector)
+            {
+                Vector3 tmp = new Vector3(Vector.x, 0f, Vector.z);
+                return tmp;
+            }
 
-        /// <summary>
-        /// Vector3をXY軸のみの値に変化させる
-        /// </summary>
-        /// <param name="Vector"></param>
-        /// <returns></returns>
-        public static Vector3 Vector3To2_XY(Vector3 Vector)
-        {
-            Vector3 tmp = new Vector3(Vector.x, Vector.y, 0f);
-            return tmp;
-        }
+            /// <summary>
+            /// Vector3をYZ軸のみの値に変化させる
+            /// </summary>
+            /// <param name="Vector"></param>
+            /// <returns></returns>
+            public static Vector3 YZ(Vector3 Vector)
+            {
+                Vector3 tmp = new Vector3(0f, Vector.y, Vector.z);
+                return tmp;
+            }
 
-        /// <summary>
-        /// Vector3をXZ軸のみの値に変化させる
-        /// </summary>
-        /// <param name="Vector"></param>
-        /// <returns></returns>
-        public static Vector3 Vector3To2_XZ(Vector3 Vector)
-        {
-            Vector3 tmp = new Vector3(Vector.x, 0f, Vector.z);
-            return tmp;
-        }
-
-        /// <summary>
-        /// Vector3をYZ軸のみの値に変化させる
-        /// </summary>
-        /// <param name="Vector"></param>
-        /// <returns></returns>
-        public static Vector3 Vector3To2_YZ(Vector3 Vector)
-        {
-            Vector3 tmp = new Vector3(0f, Vector.y, Vector.z);
-            return tmp;
-        }
-
-        /// <summary>
-        /// 単位変換　度数法から弧度法に
-        /// </summary>
-        /// <param name="degree">度数法の角度</param>
-        /// <returns></returns>
-        public static float Chenge_DegToRad(float degree)
-        {
-            return (degree / 180) * PI;
-        }
-
-        /// <summary>
-        /// 単位変換　弧度法から度数法に
-        /// </summary>
-        /// <param name="radian">弧度法の角度</param>
-        /// <returns></returns>
-        public static float Chenge_RadToDeg(float radian)
-        {
-            return (radian / PI) * 180;
         }
 
     }

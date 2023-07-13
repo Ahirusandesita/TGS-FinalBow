@@ -164,16 +164,16 @@ public class ItemMove : MonoBehaviour
     public void StartSetting(Transform goalTransform, float attractPower)
     {
         // 目標地点との直線距離を求める
-        _distance = MathN.Vector3_Distance(goalTransform.position, this.transform.position);
+        _distance = MathN.Vector.Distance(goalTransform.position, this.transform.position);
 
         // 目標地点の向きを代入
         _goalVector = goalTransform.TransformVector(Vector3.forward);
 
         // 目標地点から見たアイテムへの向きを求める
-        _betweenVector = MathN.Vector3_Normalize(goalTransform.position, this.transform.position);
+        _betweenVector = MathN.Vector.Normalize(goalTransform.position, this.transform.position);
 
         // 目標地点の向きと目標地点から見たアイテムへの向きの差を求めて弧度法に変換
-        _differenceAngle = MathN.Chenge_DegToRad(Vector3.Angle(_goalVector, _betweenVector));
+        _differenceAngle = MathN.Mod.Chenge_DegToRad(Vector3.Angle(_goalVector, _betweenVector));
 
         // ローカル座標Ｚ軸 = 距離 × Cosθ
         _goalLocal_z = _distance * Mathf.Cos(_differenceAngle);
@@ -211,10 +211,10 @@ public class ItemMove : MonoBehaviour
         }
 
         // 自身から見た追跡するターゲットへの向きを求める
-        _targetVector = MathN.Vector3_Normalize(this.transform.position, _targeterObject.transform.position);
+        _targetVector = MathN.Vector.Normalize(this.transform.position, _targeterObject.transform.position);
 
         // 追跡するターゲットとの距離を求める
-        _targetDistance = MathN.Vector3_Distance(this.transform.position, _targeterObject.transform.position);
+        _targetDistance = MathN.Vector.Distance(this.transform.position, _targeterObject.transform.position);
 
         // 追跡するターゲットとの距離を基に速度の加算値を求める
         _addAttractSpeed = MathN.Clamp.Max(SPEED_UP_COEFFICIENT * _targetDistance, SPEED_UP_MAXVARUE);
@@ -390,7 +390,7 @@ public class ItemMove : MonoBehaviour
     {
         //臨時用
         _tmpDistance = (_goalTransform.position - this.transform.position).normalized;
-        _tmpdif = MathN.Vector3_Distance(this.transform.position, _goalTransform.position);
+        _tmpdif = MathN.Vector.Distance(this.transform.position, _goalTransform.position);
         _tmpStartDif = _tmpdif;
         startsize = this.transform.localScale;
     }
