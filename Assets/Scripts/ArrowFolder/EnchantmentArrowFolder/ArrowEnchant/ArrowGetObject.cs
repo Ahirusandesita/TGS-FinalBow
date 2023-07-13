@@ -5,7 +5,6 @@
 // Creator  : Sasaki
 // --------------------------------------------------------- 
 using UnityEngine;
-
 public static class ArrowGetObject
 {
     private static GameObject target;
