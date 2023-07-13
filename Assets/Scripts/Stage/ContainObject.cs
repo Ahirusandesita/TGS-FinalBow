@@ -103,6 +103,18 @@ public class ContainObject
         }
         return false;
     }
+    public bool IsContainObjectTrigger(Vector3 me)
+    {
+        for (int i = 0; i < originalColliders.Count; i++)
+        {
+            //G‚ê‚Ä‚¢‚é‹óŠÔ‚ª‚ ‚ê‚Î‚»‚ê‚ðŽŸ‚©‚ç”äŠr‚·‚é‚½‚ß‚É‘ã“ü‚·‚é@True‚ð•Ô‚·
+            if (originalColliders[i].IsHit(me))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public bool IsContainObjectFloor2(Vector3[] mes)
@@ -241,7 +253,12 @@ public class ContainObject
     {
         if (ColliderObjectLayerNumber != null)
         {
-            return ColliderObjectLayerNumber();
+            int layerNumber = 1;
+            for(int i = 0; i < ColliderObjectLayerNumber(); i++)
+            {
+                layerNumber = layerNumber << 1;
+            }
+            return layerNumber;
         }
         return 0;
     }
