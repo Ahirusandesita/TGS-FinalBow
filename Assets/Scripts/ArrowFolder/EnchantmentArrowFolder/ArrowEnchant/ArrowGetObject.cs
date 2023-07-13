@@ -25,7 +25,7 @@ public static class ArrowGetObject
     private static int ARROW_END_INDEX = 0;
     private static ContainObject _containObject = new ContainObject();
 
-    public static bool ArrowHit(Transform arrowTransform,Arrow arrow)
+    public static bool ArrowHit(Transform arrowTransform, Arrow arrow)
     {
         /*
         Ray ray = new Ray(arrowTransform.position, arrowTransform.forward * 0.01f);
@@ -36,16 +36,16 @@ public static class ArrowGetObject
             return true;
         }
         */
-        if (Physics.CheckCapsule(arrowTransform.position,arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK,_layerMask)) 
+        if (Physics.CheckCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK, _layerMask))
         {
-            Collider[] co = Physics.OverlapCapsule(arrowTransform.position,arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK);
+            Collider[] co = Physics.OverlapCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK);
             if (co != null)
             {
                 arrow._hitObject = co[0].gameObject;
                 return true;
             }
         }
-       
+
         return false;
     }
 
@@ -67,7 +67,7 @@ public static class ArrowGetObject
 
 
 
-    public static bool ArrowHit_TitleObject(Transform arrowTransform,Arrow arrow)
+    public static bool ArrowHit_TitleObject(Transform arrowTransform, Arrow arrow)
     {
         if (Physics.CheckCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK, _layerMask_TitleObject))
         {
@@ -82,14 +82,19 @@ public static class ArrowGetObject
         return false;
     }
 
-    public static bool ArrowHit_BarrierObject(HitZone hitZone,Arrow arrow)
+    public static bool ArrowHit_BarrierObject(HitZone hitZone, Arrow arrow)
     {
-        for(int i = 0; i < hitZone.GetHitZone().Length; i++)
+        for (int i = 0; i < hitZone.GetHitZone().Length; i++)
         {
-            if(_containObject.IsContainObjectFloor(hitZone.GetHitZone()[i]) && _containObject.GetHitObjectLayerNumber() == _layerMask_BarrierObject)
+            if (_containObject.IsContainObjectFloor(hitZone.GetHitZone()[i])&&_containObject.GetHitObjectLayerNumber() == _layerMask_BarrierObject)
             {
                 return true;
             }
+        }
+
+        if (_containObject.IsContainObjectFloor2(hitZone.GetHitZone())&&_containObject.GetHitObjectLayerNumber() == _layerMask_BarrierObject)
+        {
+            return true;
         }
         return false;
     }

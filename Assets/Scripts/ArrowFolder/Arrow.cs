@@ -247,13 +247,13 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     }
     private void Start()
     {
-        _hitZone = new HitZone(5f, MyTransform.position);
 
         NeedArrowEnchant = true;
         _playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
         MyTransform = gameObject.transform;
 
+        _hitZone = new HitZone(2f, MyTransform.position);
         //矢のクラスをゲットコンポーネントする
         _arrowMove = EnchantArrowMove;
 

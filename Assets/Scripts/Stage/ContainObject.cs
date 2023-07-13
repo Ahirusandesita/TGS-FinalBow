@@ -140,6 +140,7 @@ public class ContainObject
                 AdjustmentX = new AdjustmentAll(originalColliders[i].PushOutFromColliderX);
                 AdjustmentZ = new AdjustmentAll(originalColliders[i].PushOutFromColliderZ);
                 Scale = new ColliderScale(originalColliders[i].GetDistanceScale);
+                ColliderObjectLayerNumber = new ColliderObjectLayer(originalColliders[i].GetGameObjectLayer);
 
 
                 return true;
