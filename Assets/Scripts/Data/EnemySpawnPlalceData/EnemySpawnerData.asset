@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: EnemySpawnerData
   m_EditorClassIdentifier: 
   _waveInformation:
+  - _wave: ZakoWave4
+    _startWaveTime_s: 1.5
+    _enemysData:
+    - {fileID: 11400000, guid: f6b2b0aa4bcd179449c65766ea6edd3d, type: 2}
   - _wave: ZakoWave1
     _startWaveTime_s: 1.5
     _enemysData:
@@ -35,14 +39,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5e22b627e9426f24087de6d8050f57e6, type: 2}
     - {fileID: 11400000, guid: e69c2967c52c1d24dbd5706f0951e49f, type: 2}
     - {fileID: 11400000, guid: 5546cead8feb8de4ab88c71b9409195d, type: 2}
-  - _wave: ZakoWave4
-    _startWaveTime_s: 30
-    _enemysData:
-    - {fileID: 11400000, guid: f6b2b0aa4bcd179449c65766ea6edd3d, type: 2}
-    - {fileID: 11400000, guid: ac920159cf2f7e446800b4fe08873577, type: 2}
-    - {fileID: 11400000, guid: 72744a4d1f6c87c4d8efbb64a5179f8b, type: 2}
-    - {fileID: 11400000, guid: 0e6ace7d838816449b9d1af126796e4d, type: 2}
-    - {fileID: 11400000, guid: 09cd5edd76a9cbb4db2dfafa5cb8e30c, type: 2}
+
   - _wave: ZakoWave5
     _startWaveTime_s: 30
     _enemysData:
