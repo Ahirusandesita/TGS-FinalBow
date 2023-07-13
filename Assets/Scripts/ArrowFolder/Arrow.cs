@@ -379,7 +379,23 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
             ReturnQue();
         }
 
+        //ボタン押した時
+        if(ArrowGetObject.ArrowHit_ButtonObject(MyTransform, this))
+        {
+            if (_hitObject == _hitObjectLast)
+            {
+                return;
+            }
+            _hitObjectLast = _hitObject;
 
+            _hitObject.GetComponent<IFCanTakeArrowButton>().ButtonPush();
+            if (EventArrowEffect != null)
+            {
+                EventArrowEffect(MyTransform);
+                ArrowEnchantSound(_audioSource);
+            }
+            ReturnQue();
+        }
     }
 
 

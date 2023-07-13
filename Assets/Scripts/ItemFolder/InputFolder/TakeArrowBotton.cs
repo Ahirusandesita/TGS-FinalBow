@@ -22,6 +22,7 @@ public class TakeArrowBotton : MonoBehaviour, IFCanTakeArrowButton
     #endregion
     public void ButtonPush()
     {
+        transform.Translate(Vector3.one);
         XDebug.Log("");
     }
 }
