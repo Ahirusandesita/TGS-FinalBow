@@ -57,9 +57,9 @@ namespace Nekoslibrary
 
         static readonly float[] _maxValueInteger =  { 38f,  37f,  36f,  35f,   34f,   33f,   32f,   31f,   30f,   29f,   28f,   27f,   26f,   25f,   24f,   23f,   22f,   21f,   20f,   19f};
 
-        static readonly float[] _compHalfInteger =  {}
+        static readonly float[] _compHalfInteger = { 0f};
 
-        static readonly float[] _halfValueInteger = {}
+        static readonly float[] _halfValueInteger = { 0f};
 
         // 以下
         static readonly float[] _comparisonDecimal = {1E-2f , 1E-4f , 1E-6f , 1E-8f, 1E-10f , 1E-12f , 1E-14f , 1E-16f , 1E-18f , 1E-20f , 1E-22f , 1E-24f, 1E-26f , 1E-28f , 1E-30f , 1E-32f , 1E-34f , 1E-36f , 1E-38f , 1E-40f , 1E-42f , 1E-44f , 1E-46f };
