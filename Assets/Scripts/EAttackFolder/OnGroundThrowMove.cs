@@ -13,7 +13,7 @@ public class OnGroundThrowMove : EnemyAttackBase
     [SerializeField, Tooltip("")]
     private Transform _playerTransform = default;
 
-    [SerializeField, Tooltip("")]
+    [Tooltip("")]
     private Transform _objectTransform = default;
 
     [SerializeField, Tooltip("")]
@@ -72,6 +72,18 @@ public class OnGroundThrowMove : EnemyAttackBase
     #endregion
     #region method
 
+    protected override void OnEnable()
+    {
+        GetTrajectory();
+        _objectPosition = _transform.position;
+    }
+
+    private void OnDisable()
+    {
+        _moveValue = default;
+    }
+
+
     protected override void AttackMove()
     {
         _moveValue += _moveSpeed * Time.deltaTime;
@@ -83,12 +95,11 @@ public class OnGroundThrowMove : EnemyAttackBase
         _newPosition.y = _standardHigh + _trajectory;
 
 
-        this.transform.position = _newPosition;
+        _transform.position = _newPosition;
     }
 
     private void GetTrajectory()
     {
-
         _playerPosition = _playerTransform.position;
         _objectPosition = _objectTransform.position;
 
@@ -144,9 +155,7 @@ public class OnGroundThrowMove : EnemyAttackBase
                     _isLoop = false;
                     _counterNumber = 0;
                 }
-
             }
-
         }
     }
 
@@ -156,16 +165,5 @@ public class OnGroundThrowMove : EnemyAttackBase
         _imaginaryDistance = _distance * 2f;
         _coefficient = -(QUADRUPLE * _peak) / MathN.Art.Pow(_imaginaryDistance);
     }
-
-    private void OnEnable()
-    {
-        GetTrajectory();
-    }
-
-    private void OnDisable()
-    {
-        _moveValue = default;
-    }
-
     #endregion
 }

@@ -73,5 +73,13 @@ public class PoolEnum : MonoBehaviour
         /// ‚Å‚©‚¢ŠÑ’ÊƒUƒR’¹
         /// </summary>
         penetrateBirdBig,
+        /// <summary>
+        /// ’nã‚Ì“G
+        /// </summary>
+        groundEnemy,
+        /// <summary>
+        /// “Š±‚·‚é’e
+        /// </summary>
+        groundBullet,
     }
 }

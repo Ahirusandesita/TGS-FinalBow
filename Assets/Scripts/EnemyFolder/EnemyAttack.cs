@@ -47,4 +47,14 @@ public class EnemyAttack : MonoBehaviour
                     spawnPlace.eulerAngles.z));
         }
     }
+
+    /// <summary>
+    /// 敵の攻撃をひとつだけスポーンさせる
+    /// </summary>
+    /// <param name="spawnObjectType">呼び出すオブジェクトの種類</param>
+    /// <param name="spawnPlace">スポーンさせるオブジェクトのTransform情報</param>
+    protected virtual void SpawnEAttackOne(PoolEnum.PoolObjectType spawnObjectType, Transform spawnPlace)
+    {
+        _objectPoolSystem.CallObject(spawnObjectType, spawnPlace.position);
+    }
 }

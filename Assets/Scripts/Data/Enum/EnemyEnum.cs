@@ -31,5 +31,5 @@ public enum BirdType
     thunderBird,
     bombBirdBig,
     thunderBirdBig,
-    penetrateBirdBig
+    penetrateBirdBig,
 }

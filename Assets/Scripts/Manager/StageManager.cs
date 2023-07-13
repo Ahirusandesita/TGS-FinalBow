@@ -137,15 +137,15 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private IEnumerator Spawn(int listIndex)
     {
         PoolEnum.PoolObjectType selectedPrefab;
-        BirdMoveBase baseMove;
-        BirdDataTable enemyDataPath = _waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex];
+        BirdMoveBase birdBaseMove;
+        BirdDataTable birdDataPath = (BirdDataTable)_waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex];
 
         // 設定された秒数だけ待機する
-        yield return new WaitForSeconds(enemyDataPath._spawnDelay_s);
+        yield return new WaitForSeconds(birdDataPath._spawnDelay_s);
 
 
         // どの敵をスポーンさせるか判定（Scriptableから取得）
-        switch (enemyDataPath._birdType)
+        switch (birdDataPath._birdType)
         {
             // 以下Enumの変換処理
             case BirdType.normalBird:
@@ -184,41 +184,41 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
 
         // 雑魚をプールから呼び出し、呼び出した各雑魚のデリゲート変数にデクリメント関数を登録
-        GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab, enemyDataPath._birdSpawnPlace.position).gameObject;
+        GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab, birdDataPath._birdSpawnPlace.position).gameObject;
         temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
 
         // Scriptableの設定に応じて、アタッチする挙動スクリプトを変える
-        switch (enemyDataPath._moveType)
+        switch (birdDataPath._moveType)
         {
             case MoveType.linear:
                 //呼び出した雑魚にコンポーネントを付与
-                baseMove = temporaryObject.AddComponent<BirdMoveFirst>();
+                birdBaseMove = temporaryObject.AddComponent<BirdMoveFirst>();
                 break;
 
             case MoveType.curve:
                 BirdMoveSecond subMove = temporaryObject.AddComponent<BirdMoveSecond>();
 
                 // 弧の高さ/向きを設定
-                subMove.MoveSpeedArc = enemyDataPath._arcHeight;
-                subMove.ArcMoveDirection = enemyDataPath._arcMoveDirection;
+                subMove.MoveSpeedArc = birdDataPath._arcHeight;
+                subMove.ArcMoveDirection = birdDataPath._arcMoveDirection;
 
-                baseMove = subMove;
+                birdBaseMove = subMove;
                 break;
 
             default:
-                baseMove = null;
+                birdBaseMove = null;
                 break;
         }
 
         // 呼び出した雑魚の変数に設定
-        baseMove.NumberOfBullet = enemyDataPath._bullet;
+        birdBaseMove.NumberOfBullet = birdDataPath._bullet;
 
-        for (int i = 0; i < enemyDataPath._birdGoalPlaces.Count; i++)
+        for (int i = 0; i < birdDataPath._birdGoalPlaces.Count; i++)
         {
-            baseMove.GoalPositions = enemyDataPath._birdGoalPlaces[i]._birdGoalPlace.position;
-            baseMove.MovementSpeeds = enemyDataPath._birdGoalPlaces[i]._speed;
-            baseMove.ReAttackTimes = enemyDataPath._birdGoalPlaces[i]._stayTime_s;
+            birdBaseMove.GoalPositions = birdDataPath._birdGoalPlaces[i]._birdGoalPlace.position;
+            birdBaseMove.MovementSpeeds = birdDataPath._birdGoalPlaces[i]._speed;
+            birdBaseMove.ReAttackTimes = birdDataPath._birdGoalPlaces[i]._stayTime_s;
         }
     }
 }

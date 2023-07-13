@@ -320,7 +320,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             }
 
             //Å@çUåÇÇé¿çs
-            _birdAttack.NormalAttack(_childSpawner, ConversionToBulletType(), _numberOfBullet);
+            _birdAttack.NormalAttack(ConversionToBulletType(), _childSpawner, _numberOfBullet);
             _currentTime = 0f;
         }
 
