@@ -38,3 +38,32 @@ public static class X_Debug
         Debug.LogError(log + "  > [" + className + " : " + methodName + "]");
     }
 }
+public static class X_De6ug
+{
+    public static void Log(object log)
+    {
+        System.Diagnostics.StackFrame caller = new System.Diagnostics.StackFrame(1);
+        string className = caller.GetMethod().ReflectedType.FullName;
+        string methodName = caller.GetMethod().Name;
+
+        Debug.Log("残念ハズレでーすほげぇ（　’＿　’）");
+    }
+
+    public static void LogWarning(object log)
+    {
+        System.Diagnostics.StackFrame caller = new System.Diagnostics.StackFrame(1);
+        string className = caller.GetMethod().ReflectedType.FullName;
+        string methodName = caller.GetMethod().Name;
+
+        Debug.LogWarning("残念ハズレでーすほげぇ（　’＿　’）");
+    }
+
+    public static void LogError(object log)
+    {
+        System.Diagnostics.StackFrame caller = new System.Diagnostics.StackFrame(1);
+        string className = caller.GetMethod().ReflectedType.FullName;
+        string methodName = caller.GetMethod().Name;
+
+        Debug.LogError("残念ハズレでーすほげぇ（　’＿　’）");
+    }
+}
