@@ -150,6 +150,31 @@ public class ContainObject
 
     }
 
+    public bool IsContainObjectFloor3(Vector3 point,Vector3 size)
+    {
+
+        for (int i = 0; i < originalColliders.Count; i++)
+        {
+            //G‚ê‚Ä‚¢‚é‹óŠÔ‚ª‚ ‚ê‚Î‚»‚ê‚ðŽŸ‚©‚ç”äŠr‚·‚é‚½‚ß‚É‘ã“ü‚·‚é@True‚ð•Ô‚·
+            if (originalColliders[i].IsHit3(point,size))
+            {
+                Contain_Collider = new Contain(originalColliders[i].IsHit);
+                Adjustment_Collider = new Adjustment(originalColliders[i].PositionAdjustmentPoint);
+
+                Contains = new ContainAll(originalColliders[i].IsHit2);
+                AdjustmentY = new AdjustmentAll(originalColliders[i].PushOutFromColliderY);
+                AdjustmentX = new AdjustmentAll(originalColliders[i].PushOutFromColliderX);
+                AdjustmentZ = new AdjustmentAll(originalColliders[i].PushOutFromColliderZ);
+                Scale = new ColliderScale(originalColliders[i].GetDistanceScale);
+                ColliderObjectLayerNumber = new ColliderObjectLayer(originalColliders[i].GetGameObjectLayer);
+
+
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public bool IsNowContainAll(Vector3 me)
     {

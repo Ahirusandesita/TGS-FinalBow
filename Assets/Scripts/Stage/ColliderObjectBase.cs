@@ -90,6 +90,15 @@ public abstract class ColliderObjectBase : MonoBehaviour
         return false;
     }
 
+    public bool IsHit3(Vector3 point,Vector3 size)
+    {
+        if (_hitZone.IsHit3(point, size))
+        {
+            return true;
+        }
+        return false;
+    }
+
     /// <summary>
     /// ŠÑ’Ê‚â–„‚Ü‚è‚±‚İ‚ğ–h‚®‚½‚ß‚ÌÀ•W‚ğæ“¾‚·‚é
     /// </summary>
