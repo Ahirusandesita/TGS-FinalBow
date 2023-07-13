@@ -92,10 +92,10 @@ public class OnGroundThrowMove : EnemyAttackBase
         _playerPosition = _playerTransform.position;
         _objectPosition = _objectTransform.position;
 
-        _targetVecter = MathN.Vector3To2_XZ(_playerPosition - _objectPosition).normalized;
+        _targetVecter = MathN.Vector.XZ(_playerPosition - _objectPosition).normalized;
 
 
-        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Art.Abs(_playerPosition.x + _objectPosition.x)) + MathN.Art.Pow(MathN.Art.Abs(_playerPosition.z + _objectPosition.z)));
+        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x + _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.z + _objectPosition.z)));
         _imaginaryDistance = _distance;
         _standardHigh = _playerPosition.y;
         if(_playerPosition.y == _objectPosition.y)
