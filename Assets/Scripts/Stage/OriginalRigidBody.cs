@@ -80,6 +80,25 @@ public class OriginalRigidBody : MonoBehaviour
     {
         _hitZone.SetPosition(_myTransform.position);
 
+        //if (_containObject.IsContainObjectFloor2(_hitZone.GetHitZone()))
+        //{
+        //    _myPosition = _myTransform.position;
+        //    if (_containObject.GetAdjustmentY(_myPosition) != 0f)
+        //    {
+        //        _myPosition.y = _containObject.GetAdjustmentY(_myPosition) + _hitDistanceScale._hitDistanceY;
+        //        _myTransform.position = _myPosition;
+        //        if (!_needCollisions[0, 1])
+        //        {
+        //            _isHits[0, 1] = true;
+        //            _needCollisions[0, 1] = true;
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    _needCollisions[0, 1] = false;
+        //}
+
 
         //é≤Ç≤Ç∆Ç…ñÑÇ‹ÇËÇ±Ç›ñhé~êßå‰ÇçsÇ§
         for (int i = 0; i < _hitZone.Y_DownPosition().Length; i++)
