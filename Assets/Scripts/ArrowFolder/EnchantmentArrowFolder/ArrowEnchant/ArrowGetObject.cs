@@ -21,6 +21,8 @@ public static class ArrowGetObject
 
     private static int _layerMask_BarrierObject = 1 << 9;
 
+    private static int _layerMask_ButtonGimmick = 1 << 10;
+
     private static float ARROW_THICK = 0.4f;
     private static int ARROW_END_INDEX = 0;
     private static ContainObject _containObject = new ContainObject();
@@ -99,5 +101,18 @@ public static class ArrowGetObject
         return false;
     }
 
+    public static bool ArrowHit_ButtonObject(Transform arrowTransform, Arrow arrow)
+    {
+        if (Physics.CheckCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK, _layerMask_ButtonGimmick))
+        {
+            Collider[] co = Physics.OverlapCapsule(arrowTransform.position, arrowTransform.GetChild(ARROW_END_INDEX).position, ARROW_THICK);
+            if (co != null)
+            {
+                arrow._hitObject = co[0].gameObject;
+                return true;
+            }
+        }
 
+        return false;
+    }
 }

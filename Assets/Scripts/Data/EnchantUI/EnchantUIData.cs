@@ -19,4 +19,5 @@ public class EnchantUI
 {
     public string UIName;
     public Sprite UISprite;
+    public Color UIColor;
 }
