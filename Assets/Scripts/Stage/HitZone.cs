@@ -341,6 +341,15 @@ public class HitZone
         return distance < totalSize;
     }
 
+
+    public bool IsHit4(Vector3[] points)
+    {
+
+
+        return false;
+    }
+
+
     /// <summary>
     /// ‚·‚×‚Ä‚Ì’¸“_‚ğİ’è‚·‚é‚Æ‚«‚Ég—p‚·‚é
     /// </summary>
