@@ -218,6 +218,8 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 
     private float _colorValue = default;
 
+    private HitZone _hitZone = default;
+
     private void OnEnable()
     {
         if (_isStarEnable)
@@ -245,6 +247,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     }
     private void Start()
     {
+        _hitZone = new HitZone(5f, MyTransform.position);
 
         NeedArrowEnchant = true;
         _playerManager = StaticPlayerManager.PlayerManager;
@@ -270,6 +273,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     private void Update()
     {
 
+        _hitZone.SetPosition(MyTransform.position);
 
         if (EventArrowPassiveEffect != null)
         {
@@ -361,7 +365,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         }
 
         //バリアオブジェクトに触れたらリターン
-        if (ArrowGetObject.ArrowHit_BarrierObject(MyTransform, this))
+        if (ArrowGetObject.ArrowHit_BarrierObject(_hitZone, this))
         {
             if (
                 _enchantState == EnchantmentEnum.EnchantmentState.penetrate ||

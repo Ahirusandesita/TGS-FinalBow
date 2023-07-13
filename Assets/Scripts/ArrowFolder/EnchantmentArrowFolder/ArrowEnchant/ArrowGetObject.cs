@@ -82,11 +82,14 @@ public static class ArrowGetObject
         return false;
     }
 
-    public static bool ArrowHit_BarrierObject(Transform arrowTransfrom,Arrow arrow)
+    public static bool ArrowHit_BarrierObject(HitZone hitZone,Arrow arrow)
     {
-        if (_containObject.IsContainObjectFloor(arrowTransfrom.position) && _containObject.GetHitObjectLayerNumber() == _layerMask_BarrierObject)
-        { 
-            return true;
+        for(int i = 0; i < hitZone.GetHitZone().Length; i++)
+        {
+            if(_containObject.IsContainObjectFloor(hitZone.GetHitZone()[i]) && _containObject.GetHitObjectLayerNumber() == _layerMask_BarrierObject)
+            {
+                return true;
+            }
         }
         return false;
     }
