@@ -12,9 +12,9 @@ using System.Collections;
 /// </summary>
 public class GroundEnemyMoveBase : EnemyMoveBase
 {
-    private enum CrabWalkState {left,right };
+    private enum CrabWalkState { left, right };
 
-    public enum JumpDirectionState {zero,one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve };
+    public enum JumpDirectionState { zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve };
     public JumpDirectionState _jumpDirectionState;
 
     private int _crabWalkDirection = 0;
@@ -38,6 +38,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     private GroundEnemyAttack _groundEnemyAttack = default;
 
+
     protected override void Start()
     {
         base.Start();
@@ -57,7 +58,19 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     protected override void MoveSequence()
     {
-        _groundEnemyAttack.Attack(PoolEnum.PoolObjectType.normalBullet, _transform);
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            _groundEnemyAttack.Attack(PoolEnum.PoolObjectType.groundBullet, _transform);
+        }
+
+        if (Input.GetKey(KeyCode.J))
+        {
+            _isJump = true;
+        }
+        else
+        {
+            _isJump = false;
+        }
 
         //CrabWalk();
         Jump();
@@ -84,7 +97,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     private void WalkDirectionState()
     {
-        if(_crabWalk == CrabWalkState.left)
+        if (_crabWalk == CrabWalkState.left)
         {
             _crabWalkDirection = 1;
         }
@@ -149,7 +162,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
             case JumpDirectionState.twelve:
                 _jumpDirection.X = 0f;
                 _jumpDirection.Z = 1f;
-                
+
                 break;
 
         }

@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e751bf7a9f6e8e244b0ba09b1a7f2019, type: 3}
   m_Name: TestGroundEnemyData
   m_EditorClassIdentifier: 
+  _spawnDelay_s: 0
+  _moveDelay_s: 0
   _groundEnemySpawnPlace: {fileID: 0}
+  _groundEnemyActionInformation:
+  - _groundEnemyActionType: 1
+    _jumpDirectionState: 0
+  - _groundEnemyActionType: 4
+    _jumpDirectionState: 0

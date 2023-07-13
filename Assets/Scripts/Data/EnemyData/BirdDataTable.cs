@@ -10,7 +10,7 @@ using System.Collections.Generic;
 // Assets > Create > Scriptables > CreateBirdDataTableでアセット化
 [CreateAssetMenu(fileName = "BirdData", menuName = "Scriptables/CreateBirdDataTable")]
 [System.Serializable]
-public class BirdDataTable : EnemyDataTable
+public class BirdDataTable : ScriptableObject
 {
     [Header("鳥雑魚の種類"), Tooltip("鳥雑魚の種類")]
     public BirdType _birdType;

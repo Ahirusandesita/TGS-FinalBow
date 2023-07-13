@@ -1322,6 +1322,7 @@ GameObject:
   - component: {fileID: 8592156782917564589}
   - component: {fileID: -8135708007568359350}
   - component: {fileID: 7901047905192769757}
+  - component: {fileID: -8548087275678476943}
   m_Layer: 6
   m_Name: GroundEnemy_Temp
   m_TagString: Untagged
@@ -1423,6 +1424,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PoolSystemTagData: {fileID: 11400000, guid: 00e291fa0e47e8c4ab70d20233f8378b, type: 2}
+--- !u!114 &-8548087275678476943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2844ab3207d609b4fb819addb1fb12e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5144204438039530197
 GameObject:
   m_ObjectHideFlags: 0

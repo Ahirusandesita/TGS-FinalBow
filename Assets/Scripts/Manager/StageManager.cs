@@ -65,6 +65,13 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         // ゲームスタート
         _currentActiveCoroutine = StartCoroutine(WaveStart());
+
+        _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, transform.position + Vector3.forward * 100f);
+
+        //for (int i = 0; i < _waveManagementTable._groundEnemyInformation.Count; i++)
+        //{
+        //    StartCoroutine(GroundEnemySpawn(listIndex: i));
+        //}
     }
 
 
@@ -83,10 +90,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
             }
 
             // EnemySpawnerTableで設定したスポナーの数を設定
-            _currentNumberOfObject += _waveManagementTable._waveInformation[(int)_currentWave]._enemysData.Count;
+            _currentNumberOfObject += _waveManagementTable._waveInformation[(int)_currentWave]._birdsData.Count;
 
             // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
-            for (int i = 0; i < _waveManagementTable._waveInformation[(int)_currentWave]._enemysData.Count; i++)
+            for (int i = 0; i < _waveManagementTable._waveInformation[(int)_currentWave]._birdsData.Count; i++)
             {
                 // プールから呼び出す
                 StartCoroutine(Spawn(listIndex: i));
@@ -138,7 +145,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         PoolEnum.PoolObjectType selectedPrefab;
         BirdMoveBase birdBaseMove;
-        BirdDataTable birdDataPath = (BirdDataTable)_waveManagementTable._waveInformation[(int)_currentWave]._enemysData[listIndex];
+        BirdDataTable birdDataPath = _waveManagementTable._waveInformation[(int)_currentWave]._birdsData[listIndex];
 
         // 設定された秒数だけ待機する
         yield return new WaitForSeconds(birdDataPath._spawnDelay_s);
@@ -220,5 +227,14 @@ public class StageManager : MonoBehaviour, IStageSpawn
             birdBaseMove.MovementSpeeds = birdDataPath._birdGoalPlaces[i]._speed;
             birdBaseMove.ReAttackTimes = birdDataPath._birdGoalPlaces[i]._stayTime_s;
         }
+    }
+
+    private IEnumerator GroundEnemySpawn(int listIndex)
+    {
+        GroundEnemyDataTable dataPath = _waveManagementTable._groundEnemyInformation[listIndex];
+
+        yield return new WaitForSeconds(dataPath._spawnDelay_s);
+
+        _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position);
     }
 }
