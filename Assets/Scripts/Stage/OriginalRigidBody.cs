@@ -80,7 +80,7 @@ public class OriginalRigidBody : MonoBehaviour
     {
         _hitZone.SetPosition(_myTransform.position);
 
-        //if (_containObject.IsContainObjectFloor2(_hitZone.GetHitZone()))
+        //if (_containObject.IsContainObjectFloor3(_myPosition,new Vector3(_hitDistanceScale._hitDistanceX,_hitDistanceScale._hitDistanceY,_hitDistanceScale._hitDistanceZ)))
         //{
         //    _myPosition = _myTransform.position;
         //    if (_containObject.GetAdjustmentY(_myPosition) != 0f)
