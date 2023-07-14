@@ -25,7 +25,7 @@ public class AutoScroll : MonoBehaviour
     {
         _currentTime += Time.deltaTime;
 
-        if (_currentTime <= 60f)
+        if (_currentTime <= 40f)
         {
             _transform.Translate(_movedirection * 5.8f * Time.deltaTime);
         }
@@ -33,7 +33,7 @@ public class AutoScroll : MonoBehaviour
         {
             if (this.gameObject.name == "OVRCameraRig Variant" && !_isCompleted)
             {
-                Instantiate(_bossPrefab, new Vector3(0f, 7f, 390f), new Quaternion(0,180,0,0));
+                Instantiate(_bossPrefab, new Vector3(0f, 7f, -390f), Quaternion.identity);
                 _isCompleted = true;
             }
         }
