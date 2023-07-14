@@ -48359,17 +48359,49 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8666646183045755647, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 15
+    - target: {fileID: 4208937216684494474, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9822873
       objectReference: {fileID: 0}
-    - target: {fileID: 8666646183342712273, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 4208937216684494474, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.18738131
+      objectReference: {fileID: 0}
+    - target: {fileID: 4208937216684494474, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8666646183342712287, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 15
+    - target: {fileID: 4208937216684494474, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4208937216684494474, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835635840820671621, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835635840820671623, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835635840820671623, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835635840820671623, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835635840820671623, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8835635840820671623, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9051230437966575151, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_Name
@@ -70672,6 +70704,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 38234588}
+    - target: {fileID: 6729373321326770340, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: _EnchantUI
+      value: 
+      objectReference: {fileID: 11400000, guid: 7814474dc0323874ba0029bce6a6e740, type: 2}
     - target: {fileID: 7523221210866605706, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: m_Camera
       value: 
