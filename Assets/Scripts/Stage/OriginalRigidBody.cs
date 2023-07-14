@@ -15,6 +15,9 @@ public class OriginalRigidBody : MonoBehaviour
     #region variable 
     public GameObject c;
 
+    public float ColliderSize = default;
+    public Vector3 ColliderPivot = default;
+
     private HitZone _hitZone;
 
     private HitZone.HitDistanceScale _hitDistanceScale;
@@ -72,8 +75,14 @@ public class OriginalRigidBody : MonoBehaviour
         _hitDistanceScale._hitDistanceY = size.y / 2f;
         _hitDistanceScale._hitDistanceZ = size.z / 2f;
 
+        if(ColliderSize != 0f)
+        {
+            _hitDistanceScale._hitDistanceX = ColliderSize;
+            _hitDistanceScale._hitDistanceY = ColliderSize;
+            _hitDistanceScale._hitDistanceZ = ColliderSize;
+        }
 
-        _hitZone = new HitZone(_hitDistanceScale, _myTransform.position);
+        _hitZone = new HitZone(_hitDistanceScale, _myTransform.position + ColliderPivot);
 
         _originalMonoBehaviours = this.GetComponents<OriginalMonoBehaviour>();
 
@@ -88,7 +97,7 @@ public class OriginalRigidBody : MonoBehaviour
 
     private void LateUpdate()
     {
-        _hitZone.SetPosition(_myTransform.position);
+        _hitZone.SetPosition(_myTransform.position + ColliderPivot);
 
         //if (_containObject.IsContainObjectFloor3(_myPosition,new Vector3(_hitDistanceScale._hitDistanceX,_hitDistanceScale._hitDistanceY,_hitDistanceScale._hitDistanceZ)))
         //{
