@@ -53,15 +53,7 @@ public class BirdStats : CommonEnemyStats
         // 変数のデクリメント
         _onDeathBird();
 
-        // スコアを加算
-        _score.NomalScore_NomalEnemyScore();
-        _combo.NomalScore_ComboScore();
-
-        // 死んだときのエフェクト呼び出し
-        _objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _myTransform.position, Quaternion.identity);
-
-        // プールに返す
-        _objectPoolSystem.ReturnObject(_cashObjectInformation);
+        base.Death();
     }
 
     public override void Despawn()
@@ -69,7 +61,6 @@ public class BirdStats : CommonEnemyStats
         // 変数のデクリメント
         _onDeathBird();
 
-        // プールに返す
-        _objectPoolSystem.ReturnObject(_cashObjectInformation);
+        base.Despawn();
     }
 }

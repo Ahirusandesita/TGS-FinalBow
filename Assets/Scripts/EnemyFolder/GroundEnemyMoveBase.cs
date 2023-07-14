@@ -40,6 +40,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
 
     private float _currentTime = 0f;
+    [HideInInspector]
     public float _reAttackTime_s = default;
     private bool _completedAttack = true;
 
@@ -54,6 +55,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         /// </summary>
         consecutive,
     }
+    [HideInInspector]
     public AttackType _attackType = default;
 
     protected override void Start()
