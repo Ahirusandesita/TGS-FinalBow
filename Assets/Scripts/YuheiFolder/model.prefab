@@ -1093,6 +1093,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 5185129958207729095}
     m_Modifications:
+    - target: {fileID: 5133261963139492208, guid: e482672440c661044a4b9a19d505bc19, type: 3}
+      propertyPath: materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 6537069724229630551, guid: 0acc4bc964afab346b298787c0eb276a, type: 3}
+    - target: {fileID: 5133261963139492208, guid: e482672440c661044a4b9a19d505bc19, type: 3}
+      propertyPath: materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2377376760783321371, guid: 7d0f08c00471bfa4e8366be4e491795a, type: 3}
     - target: {fileID: 5274329459250736986, guid: e482672440c661044a4b9a19d505bc19, type: 3}
       propertyPath: m_Name
       value: ChargeMater
