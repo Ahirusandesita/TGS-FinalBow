@@ -56,7 +56,7 @@ public abstract class EnemyAttackBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         // UŒ‚‚Ì¶‘¶ŠÔ‚ğİ’è
-        _lifeTime = 8f;
+        _lifeTime = 12f;
 
         // ƒtƒ‰ƒO‚ğ‰Šú‰»
         _canMove = false;

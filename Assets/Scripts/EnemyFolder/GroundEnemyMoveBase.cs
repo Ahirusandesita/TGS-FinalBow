@@ -40,9 +40,14 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
 
     private float _currentTime = 0f;
+    private float _currentTime2 = 0f;
     [HideInInspector]
     public float _reAttackTime_s = default;
     private bool _completedAttack = true;
+    [HideInInspector]
+    public float _despawnTime_s = default;
+    [HideInInspector]
+    public bool _needDespawn = false;
 
     public enum AttackType
     {
@@ -57,6 +62,13 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     }
     [HideInInspector]
     public AttackType _attackType = default;
+
+    private void OnEnable()
+    {
+        _currentTime = 0f;
+        _currentTime2 = 0f;
+        _needDespawn = false;
+    }
 
     protected override void Start()
     {
@@ -78,6 +90,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     protected override void MoveSequence()
     {
         _currentTime += Time.deltaTime;
+        _currentTime2 += Time.deltaTime;
 
         if (_currentTime >= _reAttackTime_s && _completedAttack)
         {
@@ -93,6 +106,11 @@ public class GroundEnemyMoveBase : EnemyMoveBase
             }
 
             _currentTime = 0f;
+        }
+
+        if (_currentTime2 >= _despawnTime_s)
+        {
+            _needDespawn = true;
         }
 
         //CrabWalk();
