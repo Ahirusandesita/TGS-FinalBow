@@ -48359,50 +48359,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 12376445614386183, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 12376446053047350, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 12376446053047350, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: VelocityModule.inWorldSpace
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 12376446053047351, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 12376446053047351, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 12376446053047351, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 12376446053047352, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2179851151147466737, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536911417463397266, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531668945955350205, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8998789802309472506, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9051230437966575151, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_Name
       value: OVRCameraRig Variant
@@ -59119,6 +59075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 0
   _sceneObject: {fileID: 0}
+  _sceneObject2: {fileID: 0}
 --- !u!95 &1565388626
 Animator:
   serializedVersion: 4
@@ -62252,6 +62209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 0
   _sceneObject: {fileID: 0}
+  _sceneObject2: {fileID: 0}
 --- !u!95 &1687118122
 Animator:
   serializedVersion: 4
@@ -62634,6 +62592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 0
   _sceneObject: {fileID: 0}
+  _sceneObject2: {fileID: 0}
 --- !u!95 &1730704981
 Animator:
   serializedVersion: 4
@@ -85678,6 +85637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 0
   _sceneObject: {fileID: 0}
+  _sceneObject2: {fileID: 0}
 --- !u!1 &5144204436506067403
 GameObject:
   m_ObjectHideFlags: 0
