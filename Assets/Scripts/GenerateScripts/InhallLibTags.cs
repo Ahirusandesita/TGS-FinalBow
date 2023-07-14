@@ -26,4 +26,5 @@ public static class InhallLibTags
 	public const string SceneFade = "SceneFade";
 	public const string HeadPointTag = "HeadPointTag";
 	public const string AttractEffect = "AttractEffect";
+	public const string MaaterialController = "MaaterialController";
 }

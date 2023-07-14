@@ -46,6 +46,11 @@ public class AttractEffect : MonoBehaviour
 
         pool = GameObject.FindGameObjectWithTag(InhallLibTags.PoolSystem).GetComponent<ObjectPoolSystem>();
 
+        if(controller == null)
+        {
+            controller = GameObject.FindGameObjectWithTag(InhallLibTags.MaaterialController).GetComponent<Yumi_Material_Controller>();
+        }
+
         int firstNum = (int)EffectPoolEnum.EffectPoolState.newEnchantEffectBomb;
 
         Vector3 pos = _attractEffect.transform.position;

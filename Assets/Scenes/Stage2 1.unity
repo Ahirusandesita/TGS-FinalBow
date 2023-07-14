@@ -17412,6 +17412,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1071341483715802032, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_TagString
+      value: MaaterialController
+      objectReference: {fileID: 0}
     - target: {fileID: 3536911417463397266, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -17532,6 +17536,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 9068951981225548295, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
   m_PrefabInstance: {fileID: 375570881}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &375570883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7345464688426573948, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 375570881}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c19df19f2058f2499628acf32a16818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &375570884 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 9068951983237088669, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
@@ -75736,6 +75751,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 260574812669658065, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 375570883}
     - target: {fileID: 3180172999418024282, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: _bombSideDamage
       value: 20
