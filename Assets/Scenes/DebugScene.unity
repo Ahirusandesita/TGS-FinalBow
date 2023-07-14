@@ -32003,6 +32003,17 @@ Transform:
   m_Father: {fileID: 959614083}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &759698108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7345464688426573948, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 1125460665}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c19df19f2058f2499628acf32a16818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &767722969
 GameObject:
   m_ObjectHideFlags: 0
@@ -70665,6 +70676,10 @@ PrefabInstance:
       propertyPath: _headShotSE
       value: 
       objectReference: {fileID: 8300000, guid: 2b5b31ed530acda47b40d5c4f72e73c4, type: 3}
+    - target: {fileID: 260574812669658065, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 759698108}
     - target: {fileID: 3180172999418024282, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: _AddDamage
       value: 4
