@@ -13,13 +13,17 @@ MonoBehaviour:
   m_Name: ZakoWave4_2
   m_EditorClassIdentifier: 
   _birdType: 5
-  _moveType: 1
+  _moveType: 0
   _arcHeight: 10
+  _arcMoveDirection: 0
   _bullet: 3
   _attackInterval_s: 2
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 5148036912754844408, guid: cc68ee1953b10ad45891fdd19f771316, type: 3}
   _birdGoalPlaces:
-  - _birdGoalPlace: {fileID: 8477682339561181063, guid: eaf517f0565c9e64792bab00b61e1db2, type: 3}
+  - _birdGoalPlace: {fileID: 1235531400617916324, guid: 8b9181b273ce2294f86f61b2f0e55daf, type: 3}
     _speed: 20
     _stayTime_s: 5
+  - _birdGoalPlace: {fileID: 8477682339561181063, guid: eaf517f0565c9e64792bab00b61e1db2, type: 3}
+    _speed: 20
+    _stayTime_s: 0
