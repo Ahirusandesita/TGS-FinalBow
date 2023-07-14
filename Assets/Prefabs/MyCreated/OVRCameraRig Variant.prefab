@@ -793,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 504990139425019848, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1907521636311857107, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: scene
@@ -814,7 +814,7 @@ PrefabInstance:
     - target: {fileID: 4157859459975954091, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _drawObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8657866832188359346}
     - target: {fileID: 4157859459975954091, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: _handLeftPosition
       value: 
@@ -921,6 +921,11 @@ PrefabInstance:
 --- !u!4 &4208937216684494474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5185129958207729095, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
+  m_PrefabInstance: {fileID: 9051230438505554765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8657866832188359346 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 412785406693270015, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
   m_PrefabInstance: {fileID: 9051230438505554765}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &9051230438450541951 stripped
