@@ -13,6 +13,8 @@ using System.Collections;
 public class OriginalRigidBody : MonoBehaviour
 {
     #region variable 
+    public GameObject c;
+
     private HitZone _hitZone;
 
     private HitZone.HitDistanceScale _hitDistanceScale;
@@ -74,6 +76,14 @@ public class OriginalRigidBody : MonoBehaviour
         _hitZone = new HitZone(_hitDistanceScale, _myTransform.position);
 
         _originalMonoBehaviours = this.GetComponents<OriginalMonoBehaviour>();
+
+        Vector3[] vecs = _hitZone.GetHitZoneVertexPositions();
+
+        for (int i = 0; i < vecs.Length; i++)
+        {
+            Instantiate(c, vecs[i], Quaternion.identity).transform.parent = this.transform;
+        }
+
     }
 
     private void LateUpdate()

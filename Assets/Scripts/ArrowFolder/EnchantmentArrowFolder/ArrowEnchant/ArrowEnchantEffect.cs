@@ -131,6 +131,10 @@ public class ArrowEnchantEffect : MonoBehaviour
         EffectCall(EffectPoolEnum.EffectPoolState.newEnchantEffect, spawnPosition);
     }
 
+
+
+
+
     /// <summary>
     /// エフェクト生成
     /// </summary>

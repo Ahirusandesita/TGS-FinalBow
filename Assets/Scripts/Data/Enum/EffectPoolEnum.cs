@@ -54,6 +54,22 @@ public class EffectPoolEnum
         enemyDeath,
 
         newEnchantEffect,
+        newEnchantEffectBomb,
+        newEnchantEffectThunder,
+        newEnchantEffectKnockBack,
+        newEnchantEffectHoming,
+        newEnchantEffectPenetrate,
+        newEnchantEffectBombThunder,
+        newEnchantEffectBombKnockBack,
+        newEnchantEffectBombHoming,
+        newEnchantEffectBombPenetrate,
+        newEnchantEffectThunderKnockBack,
+        newEnchantEffectThunderHoming,
+        newEnchantEffectThunderPenetrate,
+        newEnchantEffectKnockBackhoming,
+        newEnchantEffectKnockBackPenetrate,
+        newEnchantEffectHomingPenetrate
+
 
     }
 }
