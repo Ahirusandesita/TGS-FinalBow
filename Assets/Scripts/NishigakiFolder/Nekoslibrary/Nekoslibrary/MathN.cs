@@ -30,42 +30,46 @@ namespace Nekoslibrary
         public static float PI = 3.14159f;
 
         #region Sqrt用変数
-        
-        static readonly float[] _SqrtValue = {  1E38f , 1E37f , 1E36f , 1E35f , 1E34f , // 　０～　４
-                                                1E33f , 1E32f , 1E31f , 1E30f , 1E29f , // 　５～　９
-                                                1E28f , 1E27f , 1E26f , 1E25f , 1E24f , // １０～１４
-                                                1E23f , 1E22f , 1E21f , 1E20f , 1E19f , // １５～１９
-                                                1E18f , 1E17f , 1E16f , 1E15f , 1E14f , // ２０～２４
-                                                1E13f , 1E12f , 1E11f , 1E10f ,  1E9f , // ２５～２９
-                                                 1E8f ,  1E7f ,  1E6f ,  1E5f ,  1E4f , // ３０～３４
-                                                 1E3f ,  1E2f ,  1E1f ,  1E0f , 1E-1f , // ３５～３９
-                                                1E-2f , 1E-3f , 1E-4f , 1E-5f , 1E-6f , // ４０～４４
-                                                1E-7f , 1E-8f , 1E-9f ,1E-10f ,1E-11f , // ４５～４９
-                                               1E-12f ,1E-13f ,1E-14f ,1E-15f ,1E-16f , // ５０～５４
-                                               1E-17f ,1E-18f ,1E-19f ,1E-20f ,1E-21f , // ５５～５９
-                                               1E-22f ,1E-23f ,1E-24f ,1E-25f ,1E-26f , // ６０～６４
-                                               1E-27f ,1E-28f ,1E-29f ,1E-30f ,1E-31f , // ６５～６９
-                                               1E-32f ,1E-33f ,1E-34f ,1E-35f ,1E-36f , // ７０～７４
-                                               1E-37f ,1E-38f ,1E-39f ,1E-40f ,1E-41f , // ７５～７９
-                                               1E-42f ,1E-43f ,1E-44f ,1E-45f ,1E-46f , // ８０～８４
-                                               1E-47f ,1E-48f ,1E-49f ,1E-50f ,1E-51f , // ８５～８９
-                                               1E-52f ,1E-53f ,1E-54f ,1E-55f ,1E-56f , // ９０～９４
-                                               1E-57f ,1E-58f                         };// ９５～９６
+
+        static readonly float[] _SqrtValue = {  1E19f ,  1E18f ,  1E17f ,  1E16f ,  1E15f ,  //　０～　４
+                                                1E14f ,  1E13f ,  1E12f ,  1E11f ,  1E10f ,  //　５～　９
+                                                 1E9f ,   1E8f ,   1E7f ,   1E6f ,   1E5f ,  //１０～１４
+                                                 1E4f ,   1E3f ,   1E2f ,   1E1f ,   1E0f ,  //１５～１９
+                                                1E-1f ,  1E-2f ,  1E-3f ,  1E-4f ,  1E-5f ,  //２０～２４
+                                                1E-6f ,  1E-7f ,  1E-8f ,  1E-9f , 1E-10f ,  //２５～２９
+                                               1E-11f , 1E-12f , 1E-13f , 1E-14f , 1E-15f ,  //３０～３４
+                                               1E-16f , 1E-17f , 1E-18f , 1E-19f , 1E-20f ,  //３５～３９
+                                               1E-21f , 1E-22f , 1E-23f , 1E-24f , 1E-25f ,  //４０～４４
+                                               1E-26f , 1E-27f , 1E-28f , 1E-29f , 1E-30f ,  //４５～４９
+                                               1E-31f , 1E-32f , 1E-33f , 1E-34f , 1E-35f }; //５０～５４
+
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         // 未満
-        static readonly float[] _comparisonInteger ={1E2f, 1E4f, 1E6f, 1E8f, 1E10f, 1E12f, 1E14f, 1E16f, 1E18f, 1E20f, 1E22f, 1E24f, 1E26f, 1E28f, 1E30f, 1E32f, 1E34f, 1E36f, 1E38f};
+        static readonly float[] _comparisonInteger = {   1E2f,   1E4f,   1E6f,   1E8f,  1E10f,  1E12f,  1E14f,  1E16f,  1E18f,  1E20f,  1E22f,  1E24f,  1E26f,  1E28f,  1E30f,  1E32f,  1E34f,  1E36f,  1E38f        }; // ０～１８
 
-        static readonly float[] _maxValueInteger =  { 38f,  37f,  36f,  35f,   34f,   33f,   32f,   31f,   30f,   29f,   28f,   27f,   26f,   25f,   24f,   23f,   22f,   21f,   20f,   19f};
+        static readonly float[] _maxValueInteger   = {    38f,    37f,    36f,    35f,    34f,    33f,    32f,    31f,    30f,    29f,    28f,    27f,    26f,    25f,    24f,    23f,    22f,    21f,    20f,    19f}; // ０～１９
 
-        static readonly float[] _compHalfInteger = { 0f};
+        static readonly float[] _compHalfInteger   = {  25E0f,  25E2f,  25E4f,  25E5f,  25E8f, 25E10f, 25E12f, 25E14f, 25E16f, 25E18f, 25E20f, 25E22f, 25E24f, 25E26f, 25E28f, 25E30f, 25E32f, 25E34f, 25E36f,  1f/0f}; // ０～１９
 
-        static readonly float[] _halfValueInteger = { 0f};
+        static readonly float[] _halfValueInteger  = {   5E0f,   5E1f,   5E2f,   5E3f,   5E4f,   5E5f,   5E6f,   5E7f,   5E8f,   5E9f,  5E10f,  5E11f,  5E12f,  5E13f,  5E14f,  5E15f,  5E16f,  5E17f,  5E18f,  1f/0f}; // ０～１９
+
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         // 以下
-        static readonly float[] _comparisonDecimal = {1E-2f , 1E-4f , 1E-6f , 1E-8f, 1E-10f , 1E-12f , 1E-14f , 1E-16f , 1E-18f , 1E-20f , 1E-22f , 1E-24f, 1E-26f , 1E-28f , 1E-30f , 1E-32f , 1E-34f , 1E-36f , 1E-38f , 1E-40f , 1E-42f , 1E-44f , 1E-46f };
+        static readonly float[] _comparisonDecimal = {  1E-2f,  1E-4f,  1E-6f,  1E-8f, 1E-10f, 1E-12f, 1E-14f, 1E-16f, 1E-18f, 1E-20f, 1E-22f, 1E-24f, 1E-26f, 1E-28f, 1E-30f, 1E-32f, 1E-34f, 1E-36f, 1E-38f, 1E-40f, 1E-42f, 1E-44f, 1E-46f        }; //　０～２２
+
+        static readonly float[] _maxValueDecimal   = {    39f,    40f,    41f,    42f,    43f,    44f,    45f,    46f,    47f,    48f,    49f,    50f,    51f,    52f,    53f,    54f,    55f,    56f,    57f,    58f,    59f,    60f,    61f,    62f}; //　０～２３
+
+        static readonly float[] _compHalfDecimal   = { 25E-2f, 25E-4f, 25E-6f, 25E-8f,25E-10f,25E-12f,25E-14f,25E-16f,25E-18f,25E-20f,25E-22f,25E-24f,25E-26f,25E-28f,25E-30f,25E-32f,25E-34f,25E-36f,25E-38f,25E-40f,25E-42f,25E-44f,25E-46f,     0f}; //　０～２３
+
+        static readonly float[] _halfValueDecimal  = {  5E-1f,  5E-2f,  5E-3f,  5E-4f,  5E-5f,  5E-6f,  5E-7f,  5E-8f,  5E-9f, 5E-10f, 5E-11f, 5E-12f, 5E-13f, 5E-14f, 5E-15f, 5E-16f, 5E-17f, 5E-18f, 5E-19f, 5E-20f, 5E-21f, 5E-22f, 5E-23f,     0f}; //　０～２３
+
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        
 
         #endregion
-
 
         /// <summary>
         /// 基本演算関数群
@@ -75,15 +79,17 @@ namespace Nekoslibrary
             /// <summary>
             /// ２乗する関数
             /// </summary>
-            /// <param name="Value">２乗する値</param>
+            /// <param name="value">２乗する値</param>
             /// <returns></returns>
-            public static float Pow(float Value)
+            public static float Pow(float value)
             {
-                return Value * Value;
+                return value * value;
             }
 
-            public static float Sqrt() 
+            public static float Sqrt(float value) 
             {
+                bool _isOver = default;
+
                 // floatは上位10桁 以下切り捨て
                 // 1.5E-45 ～ 3.4E38  が 範囲
                 // 分岐は　１. １より大きいか小さいか
@@ -93,7 +99,14 @@ namespace Nekoslibrary
 
                 // 3.40000000000000000000000000000000000000 ～ 0.0000000000000000000000000000000000000000000015~
 
-
+                if (value > 1)
+                {
+                    _isOver = true;
+                }
+                else
+                {
+                    _isOver = false;
+                }
 
 
 
