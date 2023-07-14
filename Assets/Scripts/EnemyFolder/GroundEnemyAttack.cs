@@ -16,13 +16,13 @@ public class GroundEnemyAttack : EnemyAttack
     #region method
 
     /// <summary>
-    /// 地上雑魚
+    /// 地上雑魚：投擲攻撃
     /// </summary>
     /// <param name="spawnObjectType">呼び出すオブジェクトの種類</param>
     /// <param name="spawnPlace">スポーンさせるオブジェクトのTransform情報</param>
-    public void Attack(PoolEnum.PoolObjectType spawnObjectType, Transform spawnPlace)
+    public void ThrowingAttack(Transform spawnPlace)
     {
-        SpawnEAttackOne(spawnObjectType, spawnPlace);
+        SpawnEAttackOne(PoolEnum.PoolObjectType.groundBullet, spawnPlace);
     }
     #endregion
 }

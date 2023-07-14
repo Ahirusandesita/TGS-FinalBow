@@ -22,6 +22,12 @@ public class GroundEnemyDataTable : ScriptableObject
     [Header("地上雑魚のスポーン位置"), Tooltip("地上雑魚のスポーン位置")]
     public Transform _groundEnemySpawnPlace;
 
+    [Header("攻撃の種類"), Tooltip("攻撃の種類")]
+    public GroundEnemyMoveBase.AttackType _attackType;
+
+    [Header("攻撃間隔"), Tooltip("攻撃間隔")]
+    public float _reAttackTime_s;
+
     [Space]
     [Header("行動リスト"), Tooltip("行動リスト")]
     public List<GroundEnemyActionInformation> _groundEnemyActionInformation = new List<GroundEnemyActionInformation>();

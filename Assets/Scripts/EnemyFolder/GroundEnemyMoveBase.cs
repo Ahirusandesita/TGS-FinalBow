@@ -39,6 +39,23 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     private GroundEnemyAttack _groundEnemyAttack = default;
 
 
+    private float _currentTime = 0f;
+    public float _reAttackTime_s = default;
+    private bool _completedAttack = true;
+
+    public enum AttackType
+    {
+        /// <summary>
+        /// àÍâÒ
+        /// </summary>
+        once,
+        /// <summary>
+        /// òAî≠
+        /// </summary>
+        consecutive,
+    }
+    public AttackType _attackType = default;
+
     protected override void Start()
     {
         base.Start();
@@ -58,18 +75,22 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     protected override void MoveSequence()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _groundEnemyAttack.Attack(PoolEnum.PoolObjectType.groundBullet, _transform);
-        }
+        _currentTime += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.J))
+        if (_currentTime >= _reAttackTime_s && _completedAttack)
         {
-            _isJump = true;
-        }
-        else
-        {
-            _isJump = false;
+            switch (_attackType)
+            {
+                case AttackType.once:
+                    _groundEnemyAttack.ThrowingAttack(_transform);
+                    break;
+
+                case AttackType.consecutive:
+                    StartCoroutine(ConsecutiveAttack());
+                    break;
+            }
+
+            _currentTime = 0f;
         }
 
         //CrabWalk();
@@ -93,6 +114,26 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     private void Stop()
     {
 
+    }
+
+    /// <summary>
+    /// òAë±çUåÇ
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ConsecutiveAttack()
+    {
+        _completedAttack = false;
+
+        int count = 0;
+        while (count < 3)
+        {
+            _groundEnemyAttack.ThrowingAttack(_transform);
+            count++;
+
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        _completedAttack = true;
     }
 
     private void WalkDirectionState()
