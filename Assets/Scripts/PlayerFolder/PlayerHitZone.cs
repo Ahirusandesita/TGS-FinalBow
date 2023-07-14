@@ -35,6 +35,11 @@ public class PlayerHitZone : MonoBehaviour
         }
         _playerStats = this.GetComponent<PlayerStats>();
     }
+
+    private void Update()
+    {
+        hitZone.SetPosition(_playerTransform.position);
+    }
     public void HitZone(Vector3 attackPosition)
     {
         if (hitZone.IsHit(attackPosition))
