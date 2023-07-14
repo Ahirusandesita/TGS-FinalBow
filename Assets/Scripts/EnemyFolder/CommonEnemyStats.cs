@@ -95,15 +95,24 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     public override void Death()
     {
-        print("死にました");
-        gameObject.SetActive(false);
-        //_objPoolSys.ReturnObject(this.gameObject);
+        // スコアを加算
+        _score.NomalScore_NomalEnemyScore();
+        _combo.NomalScore_ComboScore();
+
+        // 死んだときのエフェクト呼び出し
+        _objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _myTransform.position, Quaternion.identity);
+
+        _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
 
     /// <summary>
     /// 逃走（消滅）する
     /// </summary>
-    public abstract void Despawn();
+    public virtual void Despawn()
+    {
+        // プールに返す
+        _objectPoolSystem.ReturnObject(_cashObjectInformation);
+    }
 
     public override int HP
     {

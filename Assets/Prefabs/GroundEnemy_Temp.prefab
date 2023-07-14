@@ -1323,6 +1323,8 @@ GameObject:
   - component: {fileID: -8135708007568359350}
   - component: {fileID: 7901047905192769757}
   - component: {fileID: -8548087275678476943}
+  - component: {fileID: 1529655992924154886}
+  - component: {fileID: -8342506448575016710}
   m_Layer: 6
   m_Name: GroundEnemy_Temp
   m_TagString: Untagged
@@ -1411,6 +1413,8 @@ MonoBehaviour:
   _jumpDirectionState: 0
   _crabWalkingSpeed: 0
   _jumpPower: 150
+  _reAttackTime_s: 0
+  _attackType: 0
 --- !u!114 &7901047905192769757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,6 +1438,31 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2844ab3207d609b4fb819addb1fb12e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1529655992924154886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6324b2f4d24c13448f9617cd26b83ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 21
+--- !u!114 &-8342506448575016710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae7dd25a3de1674fbf0b74772b5426f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5144204438039530197
