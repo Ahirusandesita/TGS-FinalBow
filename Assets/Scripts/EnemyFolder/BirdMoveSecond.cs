@@ -232,7 +232,6 @@ public class BirdMoveSecond : BirdMoveBase
         _cacheMoveValue += _movingSide.magnitude;
 
         _movingArcDistance = AddArc();
-        X_Debug.Log(_movingArcDistance);
 
         _movingVector = _movingSide;
 
@@ -252,13 +251,11 @@ public class BirdMoveSecond : BirdMoveBase
         // ‘O”¼‚Ì“®‚«
         if (percentMoveDistance < PERCENT_HALF)
         {
-            X_Debug.Log("‘O”¼");
             return _moveSpeedArc * PrabolaMove() * Time.deltaTime;
         }
         // Œã”¼‚Ì“®‚«
         else
         {
-            X_Debug.Log("Œã”¼");
             return -_moveSpeedArc * PrabolaMove() * Time.deltaTime;
         }
 
