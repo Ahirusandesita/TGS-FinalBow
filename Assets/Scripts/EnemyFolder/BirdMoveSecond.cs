@@ -119,13 +119,12 @@ public class BirdMoveSecond : BirdMoveBase
         // ŒÊ‚Ì•ûŒü‚ðŒˆ‚ß‚é
         dir = _arcMoveDirection switch
         {
-            ArcMoveDirection.Up => Vector3.Cross(moveDirection, Vector3.left),
-            ArcMoveDirection.Down => Vector3.Cross(moveDirection, Vector3.right),
+            ArcMoveDirection.Up => Vector3.Cross(moveDirection, Vector3.forward),
+            ArcMoveDirection.Down => Vector3.Cross(moveDirection, Vector3.back),
             ArcMoveDirection.Back => Vector3.Cross(moveDirection, Vector3.down),
             ArcMoveDirection.Front => Vector3.Cross(moveDirection, Vector3.up),
             _ => Vector3.up,
         };
-
         return dir.normalized;
     }
 
