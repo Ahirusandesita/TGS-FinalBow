@@ -18,7 +18,7 @@ public class ChargeMeterManager : MonoBehaviour, IChargeMeterManager
     #region variable 
     private Transform _myTransform = default;
 
-    private IChargeMeter[] _chargeMeters = new IChargeMeter[2];
+    private IChargeMeter[] _chargeMeters = new IChargeMeter[1];
     #endregion
     #region property
     #endregion
@@ -30,7 +30,7 @@ public class ChargeMeterManager : MonoBehaviour, IChargeMeterManager
         {
             for (int i = 0; i < _chargeMeters.Length; i++)
             {
-                _chargeMeters[i] = _myTransform.GetChild(i).GetComponent<ChargeMeterLight>();
+                _chargeMeters[i] = _myTransform.GetChild(i).GetComponent<IChargeMeter>();
             }
         }
         catch (System.NullReferenceException)
