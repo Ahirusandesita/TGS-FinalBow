@@ -19,7 +19,8 @@ public abstract class ColliderObjectBase : MonoBehaviour
     public float X = 0f;
     public float Z = 0f;
     public bool needVertexPoint = false;
-
+    private Transform _myTransform;
+    public bool _isDynamic = false;
     public struct AdjustmentPosint
     {
         /// <summary>
@@ -53,8 +54,16 @@ public abstract class ColliderObjectBase : MonoBehaviour
                 Instantiate(c, vecs[i], Quaternion.identity);
             }
         }
+        _myTransform = this.transform;
 
+    }
 
+    private void Update()
+    {
+        if (_isDynamic)
+        {
+            _hitZone.SetPosition(_myTransform.position);
+        }
     }
 
     /// <summary>

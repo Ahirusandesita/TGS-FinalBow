@@ -1,8 +1,8 @@
 // --------------------------------------------------------- 
 // Floor.cs 
 // 
-// CreateDay: 
-// Creator  : 
+// CreateDay: 2023/07/14
+// Creator  : Nomura
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
