@@ -17389,6 +17389,10 @@ PrefabInstance:
       propertyPath: _particleObject
       value: 
       objectReference: {fileID: 1326727180}
+    - target: {fileID: 4913357952457285094, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: _drawObject
+      value: 
+      objectReference: {fileID: 375570885}
     - target: {fileID: 6024039608172830582, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 10
@@ -17443,7 +17447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9051230437966575151, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9051230437966670351, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_RootOrder
@@ -17508,6 +17512,11 @@ Transform:
 --- !u!20 &375570884 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 9068951983237088669, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 375570881}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &375570885 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8657866832188359346, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
   m_PrefabInstance: {fileID: 375570881}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &382677072
