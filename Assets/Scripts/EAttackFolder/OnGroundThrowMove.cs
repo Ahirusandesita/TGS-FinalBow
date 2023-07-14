@@ -20,9 +20,6 @@ public class OnGroundThrowMove : EnemyAttackBase
     private float _imaginaryDistance = default;
 
     [SerializeField, Tooltip("")]
-    private float _moveSpeed = 10f;
-
-    [SerializeField, Tooltip("")]
     private float _peak = 10f;
 
 
@@ -75,6 +72,8 @@ public class OnGroundThrowMove : EnemyAttackBase
 
     protected override void OnEnable()
     {
+        base.OnEnable();
+
         if (_isFirstTime)
         {
             _objectTransform = _transform;
@@ -94,7 +93,7 @@ public class OnGroundThrowMove : EnemyAttackBase
 
     protected override void AttackMove()
     {
-        _moveValue += _moveSpeed * Time.deltaTime;
+        _moveValue += _attackMoveSpeed * Time.deltaTime;
 
 
         _trajectory = _coefficient * MathN.Art.Pow(_distance - _imaginaryDistance / 2f - _moveValue) + _peak;

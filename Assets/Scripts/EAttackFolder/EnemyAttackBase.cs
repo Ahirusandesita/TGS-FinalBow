@@ -49,6 +49,8 @@ public abstract class EnemyAttackBase : MonoBehaviour
     {
         SetAttackStartDelay();
         _attackDelayWait = new WaitForSeconds(_attackStartDelay);
+
+        _transform = this.transform;
     }
 
     protected virtual void OnEnable()
@@ -64,8 +66,6 @@ public abstract class EnemyAttackBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        _transform = this.transform;
-
         // ボスの攻撃をプールするオブジェクトからプールを取得
         _objectPoolSystem = GameObject.FindWithTag(_PoolSystemTagData.TagName).GetComponent<ObjectPoolSystem>();
 
