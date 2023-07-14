@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomb_Suikomi
       objectReference: {fileID: 0}
+    - target: {fileID: 4318618621697162104, guid: ec2378b50d757344cbac512779e86d56, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: ec2378b50d757344cbac512779e86d56, type: 3}
@@ -90,15 +94,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4410549743155440418, guid: 4aa9743ed3554da46a7fa41a6ff8a404, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4410549743155440418, guid: 4aa9743ed3554da46a7fa41a6ff8a404, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4410549743155440418, guid: 4aa9743ed3554da46a7fa41a6ff8a404, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4410549743155440418, guid: 4aa9743ed3554da46a7fa41a6ff8a404, type: 3}
       propertyPath: m_LocalPosition.x
@@ -140,9 +144,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4410549743155440419, guid: 4aa9743ed3554da46a7fa41a6ff8a404, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4410549743155440429, guid: 4aa9743ed3554da46a7fa41a6ff8a404, type: 3}
       propertyPath: m_Name
       value: Horming_Suikomi
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410549743155440429, guid: 4aa9743ed3554da46a7fa41a6ff8a404, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -220,6 +232,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thunder_Suikomi
       objectReference: {fileID: 0}
+    - target: {fileID: 4820964763871877162, guid: 547765977ad26fa4782f37a33462b44c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 547765977ad26fa4782f37a33462b44c, type: 3}
@@ -239,6 +255,10 @@ PrefabInstance:
     - target: {fileID: 5789062231062035204, guid: 4cc444ac37e784b47afba52c1f52b73c, type: 3}
       propertyPath: m_Name
       value: Penetrate_Suikomi
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789062231062035204, guid: 4cc444ac37e784b47afba52c1f52b73c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5789062231062035211, guid: 4cc444ac37e784b47afba52c1f52b73c, type: 3}
       propertyPath: m_RootOrder
@@ -786,6 +806,10 @@ PrefabInstance:
       propertyPath: _chargeMeterMeshes.Array.data[4]
       value: 
       objectReference: {fileID: 2040127910134614683}
+    - target: {fileID: 7195640814306679996, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5185129958207729095, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
