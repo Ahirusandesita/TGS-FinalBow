@@ -48,7 +48,7 @@ namespace Nekoslibrary
         // 未満
         static readonly float[] _comparisonInteger = {   1E2f,   1E4f,   1E6f,   1E8f,  1E10f,  1E12f,  1E14f,  1E16f,  1E18f,  1E20f,  1E22f,  1E24f,  1E26f,  1E28f,  1E30f,  1E32f,  1E34f,  1E36f,  1E38f        }; // ０～１８
 
-        static readonly float[] _maxValueInteger   = {    38f,    37f,    36f,    35f,    34f,    33f,    32f,    31f,    30f,    29f,    28f,    27f,    26f,    25f,    24f,    23f,    22f,    21f,    20f,    19f}; // ０～１９
+        static readonly float[] _maxValueInteger   = {    19f,    18f,    17f,    16f,    15f,    14f,    13f,    12f,    11f,    10f,     9f,     8f,     7f,     6f,     5f,     4f,     3f,     2f,     1f,     0f}; // ０～１９
 
         static readonly float[] _compHalfInteger   = {  25E0f,  25E2f,  25E4f,  25E5f,  25E8f, 25E10f, 25E12f, 25E14f, 25E16f, 25E18f, 25E20f, 25E22f, 25E24f, 25E26f, 25E28f, 25E30f, 25E32f, 25E34f, 25E36f,  1f/0f}; // ０～１９
 
@@ -59,7 +59,7 @@ namespace Nekoslibrary
         // 以下
         static readonly float[] _comparisonDecimal = {  1E-2f,  1E-4f,  1E-6f,  1E-8f, 1E-10f, 1E-12f, 1E-14f, 1E-16f, 1E-18f, 1E-20f, 1E-22f, 1E-24f, 1E-26f, 1E-28f, 1E-30f, 1E-32f, 1E-34f, 1E-36f, 1E-38f, 1E-40f, 1E-42f, 1E-44f, 1E-46f        }; //　０～２２
 
-        static readonly float[] _maxValueDecimal   = {    39f,    40f,    41f,    42f,    43f,    44f,    45f,    46f,    47f,    48f,    49f,    50f,    51f,    52f,    53f,    54f,    55f,    56f,    57f,    58f,    59f,    60f,    61f,    62f}; //　０～２３
+        static readonly float[] _maxValueDecimal   = {    20f,    21f,    22f,    23f,    24f,    25f,    26f,    27f,    28f,    29f,    30f,    31f,    32f,    33f,    34f,    35f,    36f,    37f,    38f,    39f,    40f,    41f,    42f,    43f}; //　０～２３
 
         static readonly float[] _compHalfDecimal   = { 25E-2f, 25E-4f, 25E-6f, 25E-8f,25E-10f,25E-12f,25E-14f,25E-16f,25E-18f,25E-20f,25E-22f,25E-24f,25E-26f,25E-28f,25E-30f,25E-32f,25E-34f,25E-36f,25E-38f,25E-40f,25E-42f,25E-44f,25E-46f,     0f}; //　０～２３
 
@@ -67,7 +67,7 @@ namespace Nekoslibrary
 
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        
+        static readonly float _checkLangth = 11f;
 
         #endregion
 
@@ -86,6 +86,7 @@ namespace Nekoslibrary
                 return value * value;
             }
 
+
             public static float Sqrt(float value) 
             {
                 bool _isOver = default;
@@ -93,7 +94,7 @@ namespace Nekoslibrary
                 // floatは上位10桁 以下切り捨て
                 // 1.5E-45 ～ 3.4E38  が 範囲
                 // 分岐は　１. １より大きいか小さいか
-                //         ２．大きい場合は比較する配列よりちいさいか、小さい場合は配列以上か
+                //         ２．大きい場合は比較する配列よりちいさいか、小さい場合は配列以下か
                 //         ３．最大桁数を求めたら、半数をこえる（最上桁が５の値以上）かを判定（１０が最大桁なら２５００と比較、１０００なら２５００００００と比較など）
                 //         ４．加算して超えるまで、を繰り返して求める　最後に８桁目を四捨五入して終わり
 
@@ -110,7 +111,7 @@ namespace Nekoslibrary
 
                 if (_isOver)
                 {
-
+                    
                 }
                 else
                 {
@@ -291,8 +292,6 @@ namespace Nekoslibrary
                 Vector3 tmp = new Vector3(0f, Vector.y, Vector.z);
                 return tmp;
             }
-
         }
-
     }
 }
