@@ -359,6 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 0
   _sceneObject: {fileID: 0}
+  _sceneObject2: {fileID: 0}
 --- !u!114 &17091559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7996,7 +7997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04820661f7524164da7f1b5f4a2844ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneObject: {fileID: 11400000, guid: 287b39c697d377747be63c3048e5c802, type: 2}
   _bossPrefab: {fileID: 7289886223458851598, guid: 7edc165c292eb8f488de86ca582d7f88, type: 3}
 --- !u!1001 &146563573
 PrefabInstance:
@@ -17412,10 +17412,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1851896594118851917, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: _particleObject
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3536911417463397266, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -17423,10 +17419,6 @@ PrefabInstance:
     - target: {fileID: 4531668945955350205, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4913357952457285094, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-      propertyPath: _drawObject
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6024039608172830582, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
@@ -50231,6 +50223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 0
   _sceneObject: {fileID: 0}
+  _sceneObject2: {fileID: 0}
 --- !u!95 &1147989866
 Animator:
   serializedVersion: 4
@@ -75759,10 +75752,26 @@ PrefabInstance:
       propertyPath: _bombThunderSound
       value: 
       objectReference: {fileID: 8300000, guid: d5917b312e19e2c43938f2b2d71bc89e, type: 3}
+    - target: {fileID: 4591247666130764356, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 375570882}
     - target: {fileID: 5332461099750760267, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5587674851669710072, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 375570884}
+    - target: {fileID: 5605553772125519728, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 375570884}
+    - target: {fileID: 7523221210866605706, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 375570882}
     - target: {fileID: 8940654832585574392, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: m_Name
       value: Manager
@@ -77109,7 +77118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04820661f7524164da7f1b5f4a2844ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneObject: {fileID: 11400000, guid: 287b39c697d377747be63c3048e5c802, type: 2}
   _bossPrefab: {fileID: 7289886223458851598, guid: 7edc165c292eb8f488de86ca582d7f88, type: 3}
 --- !u!1001 &1926579891
 PrefabInstance:
