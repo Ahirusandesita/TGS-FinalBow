@@ -5,10 +5,12 @@
 // Creator  : TakayanagiSora
 // --------------------------------------------------------- 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossStats : EnemyStats
 {
     public SceneObject _sceneObject;
+    public SceneObject _sceneObject2;
 
 
     private void OnEnable()
@@ -24,7 +26,7 @@ public class BossStats : EnemyStats
 
     public override void TakeThunder()
     {
-        
+
     }
 
     public override void TakeKnockBack()
@@ -36,8 +38,16 @@ public class BossStats : EnemyStats
     {
         print("ƒ{ƒX‚ð“|‚µ‚Ü‚µ‚½");
         this.gameObject.SetActive(false);
+        SceneManagement scene = GameObject.FindWithTag("SceneController").GetComponent<SceneManagement>();
 
-        GameObject.FindWithTag("SceneController").GetComponent<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
+        if (SceneManager.GetActiveScene().name == "DebugScene")
+        {
+            scene.SceneLoadSpecifyMove(_sceneObject);
+        }
+        else
+        {
+            scene.SceneLoadSpecifyMove(_sceneObject2);
+        }
     }
 
     public override int HP
