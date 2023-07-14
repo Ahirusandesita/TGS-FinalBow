@@ -53,6 +53,9 @@ public class AttractEffect : MonoBehaviour
         {
             _subParticles[i] = pool.CallObject((EffectPoolEnum.EffectPoolState)firstNum + i, pos).GetComponent<ParticleSystem>();
             _subParticles[i].gameObject.SetActive(false);
+            _subParticles[i].transform.parent = bow;
+            _subParticles[i].transform.localScale = Vector3.one;
+            _subParticles[i].transform.localPosition = new Vector3(0f, -4.43620443f, 20.5781441f);
         }
     }
     public void AttractEffectEffect_Normal()
