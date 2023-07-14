@@ -3505,6 +3505,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2844ab3207d609b4fb819addb1fb12e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  c: {fileID: 0}
+  ColliderSize: 0
+  ColliderPivot: {x: 0, y: 0, z: 0}
+  GravityScale: 0
 --- !u!114 &93653626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7992,6 +7996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04820661f7524164da7f1b5f4a2844ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sceneObject: {fileID: 11400000, guid: b6f34b86a34648f49a8baf2a6464a294, type: 2}
 --- !u!1001 &146563573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17409,7 +17414,7 @@ PrefabInstance:
     - target: {fileID: 4913357952457285094, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: _drawObject
       value: 
-      objectReference: {fileID: 375570885}
+      objectReference: {fileID: 0}
     - target: {fileID: 6024039608172830582, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 10
@@ -17529,11 +17534,6 @@ Transform:
 --- !u!20 &375570884 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 9068951983237088669, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-  m_PrefabInstance: {fileID: 375570881}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &375570885 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8657866832188359346, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
   m_PrefabInstance: {fileID: 375570881}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &382677072
@@ -63409,6 +63409,7 @@ MonoBehaviour:
   X: 0
   Z: 0
   needVertexPoint: 0
+  _isDynamic: 0
   c: {fileID: 8339131191861037598, guid: 80da1040a5022894cb7d91feba7e18ab, type: 3}
 --- !u!1 &1529912358
 GameObject:
@@ -71166,6 +71167,7 @@ MonoBehaviour:
   X: 0
   Z: 0
   needVertexPoint: 0
+  _isDynamic: 0
   c: {fileID: 8339131191861037598, guid: 80da1040a5022894cb7d91feba7e18ab, type: 3}
 --- !u!1001 &1757137028
 PrefabInstance:
@@ -77568,6 +77570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04820661f7524164da7f1b5f4a2844ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sceneObject: {fileID: 11400000, guid: b6f34b86a34648f49a8baf2a6464a294, type: 2}
 --- !u!1001 &1926579891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81285,6 +81288,7 @@ MonoBehaviour:
   X: 0
   Z: 0
   needVertexPoint: 0
+  _isDynamic: 0
   c: {fileID: 8339131191861037598, guid: 80da1040a5022894cb7d91feba7e18ab, type: 3}
 --- !u!23 &2030992691
 MeshRenderer:
@@ -81694,6 +81698,7 @@ MonoBehaviour:
   X: 0
   Z: 0
   needVertexPoint: 0
+  _isDynamic: 0
   c: {fileID: 8339131191861037598, guid: 80da1040a5022894cb7d91feba7e18ab, type: 3}
 --- !u!23 &2073525886
 MeshRenderer:
