@@ -63,8 +63,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         _objectPoolSystem = GameObject.FindWithTag(_PoolSystemTagData.TagName).GetComponent<ObjectPoolSystem>();
 
-        // ゲームスタート
-        _currentActiveCoroutine = StartCoroutine(WaveStart());
+        if (_waveManagementTable._waveInformation.Count > 0)
+        {
+            // ゲームスタート
+            _currentActiveCoroutine = StartCoroutine(WaveStart());
+        }
 
         for (int i = 0; i < _waveManagementTable._groundEnemyInformation.Count; i++)
         {
