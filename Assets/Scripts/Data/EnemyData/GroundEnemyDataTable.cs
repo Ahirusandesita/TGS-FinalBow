@@ -26,7 +26,7 @@ public class GroundEnemyDataTable : ScriptableObject
     public GroundEnemyMoveBase.AttackType _attackType;
 
     [Header("UŒ‚ŠÔŠu"), Tooltip("UŒ‚ŠÔŠu")]
-    public float _reAttackTime_s;
+    public float _reAttackTime_s = 2f;
 
     [Space]
     [Header("s“®ƒŠƒXƒg"), Tooltip("s“®ƒŠƒXƒg")]

@@ -10,7 +10,7 @@ using System.Collections;
 public class OnGroundThrowMove : EnemyAttackBase
 {
     #region variable 
-    [SerializeField, Tooltip("")]
+    [Tooltip("")]
     private Transform _playerTransform = default;
 
     [Tooltip("")]
@@ -78,6 +78,7 @@ public class OnGroundThrowMove : EnemyAttackBase
         {
             _objectTransform = _transform;
             _isFirstTime = false;
+            _playerTransform = GameObject.FindWithTag("PlayerController").transform;
         }
         else
         {
