@@ -66,12 +66,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
         // ゲームスタート
         _currentActiveCoroutine = StartCoroutine(WaveStart());
 
-        _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, transform.position + Vector3.forward * 100f);
-
-        //for (int i = 0; i < _waveManagementTable._groundEnemyInformation.Count; i++)
-        //{
-        //    StartCoroutine(GroundEnemySpawn(listIndex: i));
-        //}
+        for (int i = 0; i < _waveManagementTable._groundEnemyInformation.Count; i++)
+        {
+            StartCoroutine(GroundEnemySpawn(listIndex: i));
+        }
     }
 
 
@@ -235,6 +233,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         yield return new WaitForSeconds(dataPath._spawnDelay_s);
 
-        _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position);
+        GroundEnemyMoveBase temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position).GetComponent<GroundEnemyMoveBase>();
+        temporaryObject._attackType = dataPath._attackType;
+        temporaryObject._reAttackTime_s = dataPath._reAttackTime_s;
+        //temporaryObject._jumpDirectionState = dataPath._groundEnemyActionInformation[listIndex]._jumpDirectionState;
     }
 }

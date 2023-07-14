@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e751bf7a9f6e8e244b0ba09b1a7f2019, type: 3}
   m_Name: TestGroundEnemyData
   m_EditorClassIdentifier: 
-  _spawnDelay_s: 0
+  _spawnDelay_s: 2
   _moveDelay_s: 0
-  _groundEnemySpawnPlace: {fileID: 0}
-  _groundEnemyActionInformation:
-  - _groundEnemyActionType: 1
-    _jumpDirectionState: 0
-  - _groundEnemyActionType: 4
-    _jumpDirectionState: 0
+  _groundEnemySpawnPlace: {fileID: 4222516434383631783, guid: b31b66e4be1e06f4eafe0cdf18bbaa58, type: 3}
+  _attackType: 1
+  _reAttackTime_s: 3
+  _groundEnemyActionInformation: []
