@@ -105,7 +105,58 @@ public class Yumi_Material_Controller : MonoBehaviour
 
     #endregion
 
+    List<List<Material>> _materialsListLists = new List<List<Material>>();
+
+    List<List<MeshRenderer>> _meshRenderersListLists = new List<List<MeshRenderer>>();
+
     #region method
 
+    private void Start()
+    {
+        _materialsListLists = new List<List<Material>> { _normal,_bomb,_thunder,_penetrate,_horming,_another,_bomb_thunder,_bomb_penetrate,_bomb_horming,_bomb_another,
+        _thunder_penetrate,_thunder_horming,_thunder_another,_penetrate_horming,_penetrate_another,_horming_another};
+
+        // materは一つ一つ違うマテリアルを使用するため除外
+        _meshRenderersListLists = new List<List<MeshRenderer>> { _upObj, _upObj_Crystal, _downObj, _downObj_Crystal };
+    }
+
+    public void ChangeMaterialProcess(EnchantmentEnum.EnchantmentState state)
+    {
+        // エンチャントによって使用するlistを設定
+        List<Material> setStateMaterials = _materialsListLists[(int)state];
+
+        int index = -1;
+        // メッシュグループを抽出(obj系)
+        foreach (List<MeshRenderer> list in _meshRenderersListLists)
+        {
+            // グループでマテリアル変更が終わるとマテリアルlistのインデックスを1増やす
+            // 3で打ち止めのはず
+            index++;
+
+            // グループから一つメッシュ選ぶ
+            foreach(MeshRenderer mesh in list)
+            {
+               
+                mesh.material = setStateMaterials[index];
+
+            }
+
+        }
+
+        // meter系のマテリアル変更開始
+        foreach(MeshRenderer mesh in _meter)
+        {
+            index++;
+            mesh.material = setStateMaterials[index];
+        }
+
+        // genのマテリアル変更
+        for(int i = 0; i < _gen.materials.Length;i++)
+        {
+            index++;
+            _gen.materials[i] = setStateMaterials[index];
+            
+        }
+    }
     #endregion
 }
