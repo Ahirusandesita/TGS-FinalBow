@@ -208,7 +208,6 @@ public class AttractEffect : MonoBehaviour
         {
             _subParticles[num - 1].gameObject.SetActive(true);
             _subParticles[num - 1].Play();
-            XDebug.Log("");
            
         }
             
