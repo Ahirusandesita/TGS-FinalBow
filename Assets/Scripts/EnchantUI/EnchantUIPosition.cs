@@ -10,6 +10,7 @@ public class EnchantUIPosition : MonoBehaviour
     #region variable 
     Transform _myTransform = default;
     Quaternion _myQuaternion;
+    Transform _main;
     #endregion
     #region property
     #endregion
@@ -17,11 +18,12 @@ public class EnchantUIPosition : MonoBehaviour
     private void Start()
     {
         _myTransform = this.transform;
+        _main = Camera.main.transform;
     }
 
     private void Update()
     {
-        _myQuaternion = _myTransform.rotation;
+        _myQuaternion = Quaternion.LookRotation(_main.position,Vector3.up);
         _myQuaternion.z = 0f;
         _myTransform.rotation = _myQuaternion;
     }
