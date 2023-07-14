@@ -18,6 +18,10 @@ public class OriginalRigidBody : MonoBehaviour
     public float ColliderSize = 0f;
     public Vector3 ColliderPivot = Vector3.zero;
 
+    public float GravityScale = 0f;
+    private float _gravityScaleNow = 0f;
+    private float _gravityScaleMax = 0f;
+
     private HitZone _hitZone;
 
     private HitZone.HitDistanceScale _hitDistanceScale;
@@ -87,15 +91,33 @@ public class OriginalRigidBody : MonoBehaviour
 
         _originalMonoBehaviours = this.GetComponents<OriginalMonoBehaviour>();
 
-        Vector3[] vecs = _hitZone.GetHitZoneVertexPositions();
-
-        for (int i = 0; i < vecs.Length; i++)
+        if (c != null)
         {
-            GameObject a = Instantiate(c, vecs[i], Quaternion.identity);
-            a.transform.parent = this.transform;
+
+            Vector3[] vecs = _hitZone.GetHitZoneVertexPositions();
+
+            for (int i = 0; i < vecs.Length; i++)
+            {
+                GameObject a = Instantiate(c, vecs[i], Quaternion.identity);
+                a.transform.parent = this.transform;
+            }
         }
 
+        _gravityScaleMax = GravityScale * 10f;
+
     }
+
+    private void Update()
+    {
+        _myTransform.Translate(0f, -_gravityScaleNow * Time.deltaTime, 0f);
+        _gravityScaleNow += GravityScale * Time.deltaTime;
+        if(_gravityScaleNow > _gravityScaleMax)
+        {
+            _gravityScaleNow = _gravityScaleMax;
+        }
+        
+    }
+
 
     private void LateUpdate()
     {
@@ -272,6 +294,7 @@ public class OriginalRigidBody : MonoBehaviour
                 _originalCollision += new OriginalCollision(_originalMonoBehaviours[i].OrignalOnCollisionEnter_HitFloor);
                 _originalCollision += new OriginalCollision(_originalMonoBehaviours[i].OrignalOnCollisionEnter_HitWall_AxisY);
             }
+            _gravityScaleNow = 0f;
         }
 
         if (_isHits[1, 0] || _isHits[1, 1] || _isHits[2, 0] || _isHits[2, 1])

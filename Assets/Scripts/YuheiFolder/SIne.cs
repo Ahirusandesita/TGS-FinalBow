@@ -45,8 +45,6 @@ public class SIne : MonoBehaviour
         //    return;
         //}
 
-        transform.Translate(0f, -100f * Time.deltaTime, 0f);
-
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(200f * Time.deltaTime, 0f, 0f);
