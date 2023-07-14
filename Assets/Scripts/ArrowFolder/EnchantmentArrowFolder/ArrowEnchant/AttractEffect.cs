@@ -14,6 +14,10 @@ public class AttractEffect : MonoBehaviour
     ParticleSystem.MainModule _attractMain = default;
 
     [SerializeField] ScriptableEffectsColor color = default;
+
+    ParticleSystem[] _subParticles = new ParticleSystem[15];
+
+    ObjectPoolSystem pool = default;
     #endregion
     #region property
     #endregion
@@ -37,30 +41,36 @@ public class AttractEffect : MonoBehaviour
 
         _attractMain = _attractEffect.main;
 
+        // エフェクト取得
+
+        pool = GameObject.FindGameObjectWithTag(InhallLibTags.PoolSystem).GetComponent<ObjectPoolSystem>();
+
+        int firstNum = (int)EffectPoolEnum.EffectPoolState.newEnchantEffectBomb;
+
+        Vector3 pos = _attractEffect.transform.position;
+
+        for (int i = 0; i < _subParticles.Length; i++)
+        {
+            _subParticles[i] = pool.CallObject((EffectPoolEnum.EffectPoolState)firstNum + i, pos).GetComponent<ParticleSystem>();
+            _subParticles[i].gameObject.SetActive(false);
+        }
     }
     public void AttractEffectEffect_Normal()
     {
-
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[0].attractColor;
+        PlayEffect(0);
     }
 
 
     public void AttractEffectEffect_Bomb()
     {
-
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[1].attractColor;
+        PlayEffect(1);
     }
-
-
 
 
 
     public void AttractEffectEffect_Thunder()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[2].attractColor;
+        PlayEffect(2);
     }
 
 
@@ -69,8 +79,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_KnockBack()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[3].attractColor;
+        PlayEffect(3);
     }
 
 
@@ -79,8 +88,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_Homing()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[4].attractColor;
+        PlayEffect(4);
     }
 
 
@@ -90,8 +98,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_Penetrate()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[5].attractColor;
+        PlayEffect(5);
     }
 
 
@@ -100,8 +107,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_BombThunder()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[6].attractColor;
+        PlayEffect(6);
     }
 
 
@@ -111,8 +117,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_BombKnockBack()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[7].attractColor;
+        PlayEffect(7);
     }
 
 
@@ -122,8 +127,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_BombHoming()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[8].attractColor;
+        PlayEffect(8);
     }
 
 
@@ -133,8 +137,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_BombPenetrate()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[9].attractColor;
+        PlayEffect(9);
     }
 
 
@@ -144,8 +147,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_ThunderKnockBack()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[10].attractColor;
+        PlayEffect(10);
     }
 
 
@@ -155,8 +157,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_ThunderHoming()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[11].attractColor;
+        PlayEffect(11);
     }
 
 
@@ -166,8 +167,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_ThunderPenetrate()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[12].attractColor;
+        PlayEffect(12);
     }
 
 
@@ -177,8 +177,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_KnockBackHoming()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[13].attractColor;
+        PlayEffect(13);
     }
 
 
@@ -188,8 +187,7 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_KnockBackPenetrate()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[14].attractColor;
+        PlayEffect(14);
     }
 
 
@@ -198,10 +196,23 @@ public class AttractEffect : MonoBehaviour
 
     public void AttractEffectEffect_HomingPenetrate()
     {
-        _attractEffect.Play();
-        _attractMain.startColor = color.list[15].attractColor;
+        PlayEffect(15);
     }
 
 
+    private void PlayEffect(int num)
+    {
+        _attractEffect.Play();
+        _attractMain.startColor = color.list[num].attractColor;
+        if (num > 0)
+        {
+            _subParticles[num - 1].gameObject.SetActive(true);
+            _subParticles[num - 1].Play();
+            XDebug.Log("");
+           
+        }
+            
+        
+    }
     #endregion
 }
