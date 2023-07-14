@@ -13,7 +13,8 @@ public class AutoScroll : MonoBehaviour
     private Transform _transform = default;
     private Vector3 _movedirection = Vector3.forward;
     private float _currentTime = 0f;
-    public SceneObject _sceneObject = default;
+    public GameObject _bossPrefab;
+    private bool _isCompleted = false;
 
     private void Start()
     {
@@ -30,9 +31,10 @@ public class AutoScroll : MonoBehaviour
         }
         else
         {
-            if (this.gameObject.name == "OVRCameraRig Variant")
+            if (this.gameObject.name == "OVRCameraRig Variant" && !_isCompleted)
             {
-                GameObject.FindWithTag("SceneController").GetComponent<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
+                Instantiate(_bossPrefab, new Vector3(0f, 7f, 390f), Quaternion.identity);
+                _isCompleted = true;
             }
         }
     }
