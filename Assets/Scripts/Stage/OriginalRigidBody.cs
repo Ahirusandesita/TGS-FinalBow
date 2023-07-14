@@ -15,8 +15,8 @@ public class OriginalRigidBody : MonoBehaviour
     #region variable 
     public GameObject c;
 
-    public float ColliderSize = default;
-    public Vector3 ColliderPivot = default;
+    public float ColliderSize = 0f;
+    public Vector3 ColliderPivot = Vector3.zero;
 
     private HitZone _hitZone;
 
@@ -64,18 +64,19 @@ public class OriginalRigidBody : MonoBehaviour
         _hitDistanceScale._hitDistanceZ = 3f;
 
         _containObject = new ContainObject();
+        if (ColliderSize == 0f)
+        {
+            Bounds bounds = GetComponent<Renderer>().bounds;
+            Vector3 size = bounds.size;
+            //_hitDistanceScale._hitDistanceX = 95.35f;
+            //_hitDistanceScale._hitDistanceY = 23.3f;
+            //_hitDistanceScale._hitDistanceZ = 96.41f;
 
-        Bounds bounds = GetComponent<Renderer>().bounds;
-        Vector3 size = bounds.size;
-        //_hitDistanceScale._hitDistanceX = 95.35f;
-        //_hitDistanceScale._hitDistanceY = 23.3f;
-        //_hitDistanceScale._hitDistanceZ = 96.41f;
-
-        _hitDistanceScale._hitDistanceX = size.x / 2f;
-        _hitDistanceScale._hitDistanceY = size.y / 2f;
-        _hitDistanceScale._hitDistanceZ = size.z / 2f;
-
-        if(ColliderSize != 0f)
+            _hitDistanceScale._hitDistanceX = size.x / 2f;
+            _hitDistanceScale._hitDistanceY = size.y / 2f;
+            _hitDistanceScale._hitDistanceZ = size.z / 2f;
+        }
+        else
         {
             _hitDistanceScale._hitDistanceX = ColliderSize;
             _hitDistanceScale._hitDistanceY = ColliderSize;
@@ -90,7 +91,8 @@ public class OriginalRigidBody : MonoBehaviour
 
         for (int i = 0; i < vecs.Length; i++)
         {
-            Instantiate(c, vecs[i], Quaternion.identity).transform.parent = this.transform;
+            GameObject a = Instantiate(c, vecs[i], Quaternion.identity);
+            a.transform.parent = this.transform;
         }
 
     }
