@@ -15,11 +15,15 @@ MonoBehaviour:
   _birdType: 1
   _moveType: 1
   _arcHeight: 10
+  _arcMoveDirection: 0
   _bullet: 1
   _attackInterval_s: 2
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 8522215115180050153, guid: 5e669ff268523dd43a59ede30c1c4aaa, type: 3}
   _birdGoalPlaces:
-  - _birdGoalPlace: {fileID: 907667879072106027, guid: 805524d4ebc2f5b43bb51d8a51e4b3a1, type: 3}
+  - _birdGoalPlace: {fileID: 4484611731546120894, guid: 06a2fd6da4beb9144bbd0650b524695f, type: 3}
     _speed: 20
     _stayTime_s: 5
+  - _birdGoalPlace: {fileID: 907667879072106027, guid: 805524d4ebc2f5b43bb51d8a51e4b3a1, type: 3}
+    _speed: 20
+    _stayTime_s: 0

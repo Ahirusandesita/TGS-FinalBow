@@ -5301,7 +5301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4322187274722487020}
   m_LocalRotation: {x: -0, y: 0.9950382, z: -0, w: 0.09949349}
-  m_LocalPosition: {x: 1.846259, y: -4.009994, z: 100.99793}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5416,6 +5416,8 @@ MonoBehaviour:
   _crabWalkingSpeed: 0
   _jumpPower: 150
   _reAttackTime_s: 0
+  _despawnTime_s: 0
+  _needDespawn: 0
   _attackType: 0
 --- !u!114 &8033760593043381323
 MonoBehaviour:

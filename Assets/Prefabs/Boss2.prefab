@@ -383,7 +383,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7289886223458851598}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 9.57, z: 80}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
@@ -394,7 +394,7 @@ Transform:
   - {fileID: 1702894032347591955}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &7289886223458851584
 Animator:
   serializedVersion: 4
@@ -465,16 +465,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PoolSystemTagData: {fileID: 11400000, guid: 00e291fa0e47e8c4ab70d20233f8378b, type: 2}
   _FG_birdSpawnPlaces:
-  - {fileID: 2698523859919355036, guid: 6f1d8f2900dae0a41bc6399f20c7ea13, type: 3}
-  - {fileID: 1420375639837548194, guid: fb947279e242e2747bbbd1616d7d06d4, type: 3}
-  - {fileID: 1903356579816441545, guid: 3087434117f578b4f84dde89ef47cc7f, type: 3}
-  - {fileID: 2458036828665484310, guid: 4f14a2dad3ba2c64d8c093737056c5ad, type: 3}
-  - {fileID: 2857299606274323930, guid: eade0f2e76c2b4444aea464b3f01a986, type: 3}
-  - {fileID: 4674463364469094400, guid: 4916032f7665d97499b452492d8d817f, type: 3}
-  - {fileID: 6403560393115109900, guid: 5708077f4be484044a4f9967e3dec477, type: 3}
-  - {fileID: 5657758214287475719, guid: abe85bdf88c8bb346b292898579d876d, type: 3}
-  - {fileID: 599129638887548120, guid: 3bba875c8951e8043922254f273f9938, type: 3}
-  - {fileID: 8044261829789025999, guid: c25adddfeceaf9449919bb6b0ef7867a, type: 3}
+  - {fileID: 6597488383608764290, guid: ca8a2fe9bd662434d90e14adb5b04de9, type: 3}
+  - {fileID: 123048483030401344, guid: e458eef419eb4ea44a04bd9136eb7cd4, type: 3}
+  - {fileID: 5907468796219755984, guid: 08aaffb4a48d4334bb71e5092080bfd9, type: 3}
+  - {fileID: 4541816619607950051, guid: 463c071c12bf74342b986710b454bfd9, type: 3}
+  - {fileID: 8566755602186331253, guid: 03adc33b24a55ec46aa1ed660bd98924, type: 3}
+  - {fileID: 1027648133436340021, guid: f557b6d5887e22343ad1853230345417, type: 3}
+  - {fileID: 1604247893795412575, guid: 22d50531f47b1d347944337eb9c8cdae, type: 3}
+  - {fileID: 489531827675962725, guid: e77df5e312b260d4892f4c4d15843f16, type: 3}
+  - {fileID: 3566085532566984565, guid: 29a0d9d0afccb7e48acb7691f4e603c7, type: 3}
+  - {fileID: 7595741057689208973, guid: 585ae3152a9fb63458979668b8213cb2, type: 3}
   _FG_spawnPlace: {fileID: 7289886225248051201}
   _FG_numberOfAttack: 5
   _FG_attackIntervalTime: 2.5

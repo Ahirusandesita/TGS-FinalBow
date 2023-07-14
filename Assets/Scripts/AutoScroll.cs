@@ -33,7 +33,7 @@ public class AutoScroll : MonoBehaviour
         {
             if (this.gameObject.name == "OVRCameraRig Variant" && !_isCompleted)
             {
-                Instantiate(_bossPrefab, new Vector3(0f, 7f, 390f), Quaternion.identity);
+                Instantiate(_bossPrefab, new Vector3(0f, 7f, 390f), new Quaternion(0,180,0,0));
                 _isCompleted = true;
             }
         }
