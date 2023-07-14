@@ -108,6 +108,15 @@ namespace Nekoslibrary
                     _isOver = false;
                 }
 
+                if (_isOver)
+                {
+
+                }
+                else
+                {
+
+                }
+
 
 
 

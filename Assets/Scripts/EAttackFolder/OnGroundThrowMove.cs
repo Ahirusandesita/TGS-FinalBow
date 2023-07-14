@@ -41,6 +41,12 @@ public class OnGroundThrowMove : EnemyAttackBase
 
     private float _checkLoop_Over = default;
 
+    private float _needHitTime = default;
+
+    private float _playerSpeed = 5.8f;
+
+    private float _playerMoveValue = default;
+
 
     private bool _isLoop = false;
 
@@ -113,8 +119,30 @@ public class OnGroundThrowMove : EnemyAttackBase
 
         _targetVecter = MathN.Vector.XZ(_playerPosition - _objectPosition).normalized;
 
+        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x - _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.z - _objectPosition.z)));
 
-        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x + _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.z + _objectPosition.z)));
+        //------‚ ‚Æ‚Å’¼‚·----------------------
+
+        _needHitTime = _distance / _attackMoveSpeed;
+
+        _playerMoveValue = _playerSpeed * _needHitTime;
+
+        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x - _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z))) ;
+
+        _needHitTime = _distance / _attackMoveSpeed;
+
+        _playerMoveValue = _playerSpeed * _needHitTime;
+
+        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x - _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z)));
+
+        ; _needHitTime = _distance / _attackMoveSpeed;
+
+        _playerMoveValue = _playerSpeed * _needHitTime;
+
+        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x - _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z)));
+
+        //------------------------------------
+
         _imaginaryDistance = _distance;
         _standardHigh = _playerPosition.y;
         if (_playerPosition.y == _objectPosition.y)
