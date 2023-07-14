@@ -62,7 +62,7 @@ public class AttractZone : MonoBehaviour
             angle = 180f;
         }
 
-        _zoneObject = ConeDecision.ConeInObjects(transform, AttractObjectList.GetAttractObject(), 20, dictance, direction);
+        _zoneObject = ConeDecision.ConeInObjects(transform, AttractObjectList.GetAttractObject(), angle, dictance, direction);
         for (int i = 0; i < _zoneObject.Count; i++)
         {
             //Update•¶‚¾‚©‚ç‚¨‚È‚¶‚â‚Â‚Å‚à‰½‰ñ‚àŒÄ‚Ô@’ˆÓ

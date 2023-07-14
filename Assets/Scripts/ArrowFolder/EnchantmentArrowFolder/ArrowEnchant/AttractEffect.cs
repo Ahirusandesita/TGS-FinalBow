@@ -14,6 +14,7 @@ public class AttractEffect : MonoBehaviour
     ParticleSystem.MainModule _attractMain = default;
 
     [SerializeField] ScriptableEffectsColor color = default;
+    [SerializeField] Yumi_Material_Controller controller = default;
 
     ParticleSystem[] _subParticles = new ParticleSystem[15];
 
@@ -207,6 +208,8 @@ public class AttractEffect : MonoBehaviour
     {
         _attractEffect.Play();
         _attractMain.startColor = color.list[num].attractColor;
+        // マテリアル変更
+        controller.ChangeMaterialProcess((EnchantmentEnum.EnchantmentState)num);
         if (num > 0)
         {
             _subParticles[num - 1].gameObject.SetActive(true);
