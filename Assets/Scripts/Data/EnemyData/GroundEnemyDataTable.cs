@@ -28,6 +28,9 @@ public class GroundEnemyDataTable : ScriptableObject
     [Header("攻撃間隔"), Tooltip("攻撃間隔")]
     public float _reAttackTime_s = 2f;
 
+    [Header("デスポーンまでの秒数"), Tooltip("デスポーンまでの秒数")]
+    public float _despawnTime_s = 10f;
+
     [Space]
     [Header("行動リスト"), Tooltip("行動リスト")]
     public List<GroundEnemyActionInformation> _groundEnemyActionInformation = new List<GroundEnemyActionInformation>();
