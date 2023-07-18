@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
   m_Name: Stage2_F 10
   m_EditorClassIdentifier: 
-  _birdType: 0
+  _birdType: 1
   _moveType: 0
   _arcHeight: 10
   _arcMoveDirection: 2
   _bullet: 1
   _attackInterval_s: 3
-  _spawnDelay_s: 3
-  _birdSpawnPlace: {fileID: 970474622447432673, guid: cb787a2b5bb938e4e811801937d5ba66, type: 3}
+  _spawnDelay_s: 12
+  _birdSpawnPlace: {fileID: 6473995629556649492, guid: 4919ddc70fb85fa468062f83f67566d5, type: 3}
   _birdGoalPlaces:
-  - _birdGoalPlace: {fileID: 970474622447432673, guid: cb787a2b5bb938e4e811801937d5ba66, type: 3}
+  - _birdGoalPlace: {fileID: 6473995629556649492, guid: 4919ddc70fb85fa468062f83f67566d5, type: 3}
     _speed: 10
     _stayTime_s: 5
-  - _birdGoalPlace: {fileID: 970474622447432673, guid: cb787a2b5bb938e4e811801937d5ba66, type: 3}
+  - _birdGoalPlace: {fileID: 6473995629556649492, guid: 4919ddc70fb85fa468062f83f67566d5, type: 3}
     _speed: 10
     _stayTime_s: 0
