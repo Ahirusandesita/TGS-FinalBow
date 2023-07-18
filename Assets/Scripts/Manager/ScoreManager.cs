@@ -337,7 +337,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     public void BonusValue_Time(int time)
     {
-        _valueTimeBonus = time;
+        _valueTimeBonus += time;
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
     }
 

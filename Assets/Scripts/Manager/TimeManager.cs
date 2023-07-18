@@ -59,7 +59,7 @@ public class TimeManager :MonoBehaviour , ITime
             yield return new WaitForSeconds(1f);
             time++;
             _gameManager.TimeManager = this;
-            _scoreManager.BonusValue_Time(time);
+            _scoreManager.BonusValue_Time(1);
 
             if(time % ONE_MINUTES == MINUTES_COUNTTIME && time != START_TIME)
             {
