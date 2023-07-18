@@ -180,7 +180,8 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         //_scoreHpBonus = ÉvÉåÉCÉÑÅ[ÇÃHpÇÃêî * _ScoreHpBonus;
         _scoreTimeBonus = 4000;
-        IFScoreManager_AllGetScore scoreAll = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager;
+        IFScoreManager_AllGetScore scoreAll = GameObject.FindGameObjectWithTag(InhallLibTags.GameController).GetComponent<GameManager>().ScoreManager;
+        
         if (scoreAll != null)
         {
             _scoreNomalEnemy = scoreAll.NomalScore_NomalEnemyGetScore();
@@ -201,6 +202,8 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
                 _scoreTimeBonus = 4000;
             }
         }
+        Debug.Log(BonusScore_AttractGetBonus());
+
     }
 
     /// <summary>
@@ -332,6 +335,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void BonusValue_Time(int time)
     {
         _valueTimeBonus = time;
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
     }
 
     public int BonusScore_GetTime()
