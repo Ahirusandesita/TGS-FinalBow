@@ -14746,6 +14746,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: bird_penetration
       objectReference: {fileID: 0}
+    - target: {fileID: 1959872037649520872, guid: be83028b03736b34286de3f3595157da, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 5.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1959872037649520872, guid: be83028b03736b34286de3f3595157da, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4291065524041069060, guid: be83028b03736b34286de3f3595157da, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -14789,6 +14797,14 @@ PrefabInstance:
     - target: {fileID: 4291065524041069060, guid: be83028b03736b34286de3f3595157da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658511361911940715, guid: be83028b03736b34286de3f3595157da, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658511361911940715, guid: be83028b03736b34286de3f3595157da, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7658511361911940715, guid: be83028b03736b34286de3f3595157da, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime0
