@@ -192,6 +192,11 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
             _scoreAttractBonus = scoreAll.BonusScore_AttractGetBonus();
             _scoreTimeBonus = scoreAll.BonusScore_GetTime();
             _scoreComboBonus = scoreAll.NomalScore_ComboGetScore();
+
+            _valueAttractBonus = scoreAll.BonusValue_GetAttract();
+            _valueHpBonus = scoreAll.BonusValue_GetHp();
+            _valueTimeBonus = scoreAll.BonusValue_TimeGetScore();
+
             if (_scoreHpBonus == 0)
             {
                 //_scoreHpBonus = ÉvÉåÉCÉÑÅ[ÇÃHpÇÃêî * _ScoreHpBonus;
@@ -202,8 +207,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
                 _scoreTimeBonus = 4000;
             }
         }
-        Debug.Log(BonusScore_AttractGetBonus());
-
     }
 
     /// <summary>
