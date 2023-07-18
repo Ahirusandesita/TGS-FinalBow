@@ -30,7 +30,6 @@ public static class AttractObjectList
         lock (lockObject)
         {
             _attractLists.Add(attractObject);
-            Debug.Log("SetAttractObject");
             _nowAttractCount++;
         }
     }
