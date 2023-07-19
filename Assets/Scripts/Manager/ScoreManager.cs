@@ -273,7 +273,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         _scoreBossEnemy += _ScoreEnemy_BossEnemy;
 
-        ScorePoint.scoreBossEnemy += _scoreBossEnemy;
+        ScorePoint.scoreBossEnemy += _ScoreEnemy_BossEnemy;
     }
 
     public int NomalScore_BossEnemyGetScore()
@@ -303,7 +303,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         _scoreEnchant += _ScoreEnchant;
 
-        ScorePoint.scoreEnchant += _scoreEnchant;
+        ScorePoint.scoreEnchant += _ScoreEnchant;
     }
 
     public int NomalScore_EnchantGetScore()
@@ -429,6 +429,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         _valueTimeBonus = 0;
 
         ScorePoint = new Score();
+        ScorePoint.scoreTimeBonus = 4000;
 
     }
 
