@@ -170,6 +170,26 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     private int _scoreTimeBonus = 0;
     private int _valueTimeBonus = 0;
 
+    public struct Score
+    {
+        public int scoreNormalEnemy;
+        public int scoreBossEnemy;
+        public int scoreEnchant;
+        public int scoreCoin;
+        public int scoreComboBonus;
+
+        public int scoreHpBonus;
+        public int valueHpBonus;
+
+        public int scoreAttractBonus;
+        public int valueAttractBonus;
+
+        public int scoreTimeBonus;
+        public int valueTimeBonus;
+    }
+
+    public Score ScorePoint;
+
     //private int _scoreSum = 0;
     #endregion
     #region property
@@ -180,10 +200,24 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         //_scoreHpBonus = ÉvÉåÉCÉÑÅ[ÇÃHpÇÃêî * _ScoreHpBonus;
         _scoreTimeBonus = 4000;
-        IFScoreManager_AllGetScore scoreAll = GameObject.FindGameObjectWithTag(InhallLibTags.GameController).GetComponent<GameManager>().ScoreManager;
-        
+        ScoreManager scoreAll = GameObject.FindGameObjectWithTag(InhallLibTags.GameController).GetComponent<GameManager>().ScoreManager;
+       
+
         if (scoreAll != null)
         {
+
+            ScorePoint = scoreAll.ScorePoint;
+
+            if(ScorePoint.scoreHpBonus == 0)
+            {
+                ScorePoint.scoreHpBonus = _ScoreHpBonus;
+            }
+            if(ScorePoint.scoreTimeBonus == 0)
+            {
+                ScorePoint.scoreTimeBonus = 4000;
+            }
+
+
             _scoreNomalEnemy = scoreAll.NomalScore_NomalEnemyGetScore();
             _scoreBossEnemy = scoreAll.NomalScore_BossEnemyGetScore();
             _scoreEnchant = scoreAll.NomalScore_EnchantGetScore();
@@ -215,12 +249,13 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void NomalScore_NomalEnemyScore()
     {
         _scoreNomalEnemy += _ScoreEnemy_NomalEnemy;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+
+        ScorePoint.scoreNormalEnemy += _ScoreEnemy_NomalEnemy;
     }
 
     public int NomalScore_NomalEnemyGetScore()
     {
-        return _scoreNomalEnemy;
+        return ScorePoint.scoreNormalEnemy;
     }
 
 
@@ -232,12 +267,13 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void NomalScore_BossEnemyScore()
     {
         _scoreBossEnemy += _ScoreEnemy_BossEnemy;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+
+        ScorePoint.scoreBossEnemy += _scoreBossEnemy;
     }
 
     public int NomalScore_BossEnemyGetScore()
     {
-        return _scoreBossEnemy;
+        return ScorePoint.scoreBossEnemy;
     }
 
     /// <summary>
@@ -246,12 +282,13 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void NomalScore_CoinScore()
     {
         _scoreCoin += _ScoreCoin;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+
+        ScorePoint.scoreCoin += _ScoreCoin;
     }
 
     public int NomalScore_CoinGetScore()
     {
-        return _scoreCoin;
+        return ScorePoint.scoreCoin;
     }
 
     /// <summary>
@@ -260,12 +297,13 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void NomalScore_EnchantScore()
     {
         _scoreEnchant += _ScoreEnchant;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+
+        ScorePoint.scoreEnchant += _scoreEnchant;
     }
 
     public int NomalScore_EnchantGetScore()
     {
-        return _scoreEnchant;
+        return ScorePoint.scoreEnchant;
     }
 
     /// <summary>
@@ -274,12 +312,13 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void NomalScore_ComboScore()
     {
         _scoreComboBonus += _ScoreComboBonus;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+
+        ScorePoint.scoreComboBonus += _ScoreComboBonus;
     }
 
     public int NomalScore_ComboGetScore()
     {
-        return _scoreComboBonus;
+        return ScorePoint.scoreComboBonus;
     }
 
     /// <summary>
@@ -289,21 +328,23 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
 
         _scoreHpBonus -= _ScoreHpBonus;
-        if (_scoreHpBonus < 0)
+        ScorePoint.scoreHpBonus -= _ScoreHpBonus;
+        if (ScorePoint.scoreHpBonus < 0)
         {
-            _scoreHpBonus = 0;
+            ScorePoint.scoreHpBonus = 0;
         }
 
         _valueHpBonus++;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+        ScorePoint.valueHpBonus++;
     }
     public void BonusScore_HpValueSetting(int hp)
     {
         _scoreHpBonus = hp * 200;
+        ScorePoint.scoreHpBonus = hp * 200;
     }
     public int BonusScore_HpGetScore()
     {
-        return _scoreHpBonus;
+        return ScorePoint.scoreHpBonus;
     }
 
     /// <summary>
@@ -313,12 +354,14 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         _scoreAttractBonus += _ScoreAttractBonus;
         _valueAttractBonus++;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+
+        ScorePoint.scoreAttractBonus += _ScoreAttractBonus;
+        ScorePoint.valueAttractBonus++;
     }
 
     public int BonusScore_AttractGetBonus()
     {
-        return _scoreAttractBonus;
+        return ScorePoint.scoreAttractBonus;
     }
 
     /// <summary>
@@ -327,38 +370,37 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void BonusScore_TimeScore()
     {
         _scoreTimeBonus -= _ScoreTimeBonus;
-        if (_scoreTimeBonus < 0)
+        ScorePoint.scoreTimeBonus -= _ScoreTimeBonus;
+        if (ScorePoint.scoreTimeBonus < 0)
         {
-            _scoreTimeBonus = 0;
+            ScorePoint.scoreTimeBonus = 0;
         }
-
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
     }
 
     public void BonusValue_Time(int time)
     {
         _valueTimeBonus += time;
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+        ScorePoint.valueTimeBonus += time;
     }
 
     public int BonusScore_GetTime()
     {
-        return _scoreTimeBonus;
+        return ScorePoint.scoreTimeBonus;
     }
 
     public int BonusValue_TimeGetScore()
     {
-        return _valueTimeBonus;
+        return ScorePoint.valueTimeBonus;
     }
 
 
     public int BonusValue_GetHp()
     {
-        return _valueHpBonus;
+        return ScorePoint.valueHpBonus;
     }
     public int BonusValue_GetAttract()
     {
-        return _valueAttractBonus;
+        return ScorePoint.valueAttractBonus;
     }
 
     public void ScoreReset()
@@ -380,6 +422,15 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
         _scoreTimeBonus = 4000;
         _valueTimeBonus = 0;
+
+        ScorePoint = new Score();
+
     }
+
+    public void ScoreSave()
+    {
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
+    }
+
     #endregion
 }
