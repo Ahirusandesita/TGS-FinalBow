@@ -190,6 +190,8 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     public Score ScorePoint;
 
+    IGameManagerScore _gameManager;
+
     //private int _scoreSum = 0;
     #endregion
     #region property
@@ -200,7 +202,9 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         //_scoreHpBonus = ÉvÉåÉCÉÑÅ[ÇÃHpÇÃêî * _ScoreHpBonus;
         _scoreTimeBonus = 4000;
-        ScoreManager scoreAll = GameObject.FindGameObjectWithTag(InhallLibTags.GameController).GetComponent<GameManager>().ScoreManager;
+        _gameManager = GameObject.FindGameObjectWithTag(InhallLibTags.GameController).GetComponent<GameManager>();
+
+        ScoreManager scoreAll = _gameManager.ScoreManager;
        
 
         if (scoreAll != null)
@@ -241,6 +245,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
                 _scoreTimeBonus = 4000;
             }
         }
+        _gameManager.ScoreManager = this;
     }
 
     /// <summary>
@@ -426,11 +431,5 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         ScorePoint = new Score();
 
     }
-
-    public void ScoreSave()
-    {
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().ScoreManager = this;
-    }
-
     #endregion
 }

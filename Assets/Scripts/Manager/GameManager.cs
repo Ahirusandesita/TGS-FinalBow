@@ -23,12 +23,18 @@ interface IGameManagerSceneMoveNameGet
     //string GetSceneMoveName();
     SceneManagement SceneManagement { set; get; }
 }
+interface IGameManagerScore
+{
+    ScoreManager ScoreManager { get; set; }
+}
+interface IGameManagerScoreGetOnly
+{
+    ScoreManager ScoreManager { get; }
+}
 
 
 
-
-
-public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, IGameManagerSceneMoveNameGet
+public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, IGameManagerSceneMoveNameGet,IGameManagerScoreGetOnly,IGameManagerScore
 {
 
     public ScoreManager ScoreManager { set; get; }
