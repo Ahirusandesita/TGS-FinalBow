@@ -165,8 +165,8 @@ namespace Nekoslibrary
                         root += _SqrtValue[digit + i];
                         if (Pow(root) > value)
                         {
-                            root -= _SqrtValue[digit];
-                            i = 10;
+                            root -= _SqrtValue[digit + i];
+                            k = 10;
                         }
                     }
                 }
