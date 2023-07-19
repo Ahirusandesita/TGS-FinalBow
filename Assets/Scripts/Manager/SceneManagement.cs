@@ -36,7 +36,6 @@ public class SceneManagement : MonoBehaviour,ISceneManager
     {
         SceneName = sceneObject;
         _gameManager.SceneManagement = this;
-        GameObject.FindGameObjectWithTag(InhallLibTags.ScoreController).GetComponent<ScoreManager>().ScoreSave();
         StartCoroutine(SceneMoveFadeIn());
     }
 
