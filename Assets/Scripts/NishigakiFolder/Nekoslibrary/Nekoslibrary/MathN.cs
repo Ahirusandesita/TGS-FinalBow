@@ -46,9 +46,9 @@ namespace Nekoslibrary
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         // 未満
-        static readonly float[] _comparisonInteger = {   1E2f,   1E4f,   1E6f,   1E8f,  1E10f,  1E12f,  1E14f,  1E16f,  1E18f,  1E20f,  1E22f,  1E24f,  1E26f,  1E28f,  1E30f,  1E32f,  1E34f,  1E36f,  1E38f        }; // ０～１８
+        static readonly float[] _comparisonInteger = {   1E2f,   1E4f,   1E6f,   1E8f,  1E10f,  1E12f,  1E14f,  1E16f,  1E18f,  1E20f,  1E22f,  1E24f,  1E26f,  1E28f,  1E30f,  1E32f,  1E34f,  1E36f,  1E38f,  1f/0f}; // ０～１９
 
-        static readonly float[] _maxValueInteger   = {    19f,    18f,    17f,    16f,    15f,    14f,    13f,    12f,    11f,    10f,     9f,     8f,     7f,     6f,     5f,     4f,     3f,     2f,     1f,     0f}; // ０～１９
+        static readonly   int[] _maxValueInteger   = {     19,     18,    17,     16,      15,     14,     13,     12,     11,     10,      9,      8,      7,      6,      5,      4,      3,      2,      1,      0}; // ０～１９
 
         static readonly float[] _compHalfInteger   = {  25E0f,  25E2f,  25E4f,  25E5f,  25E8f, 25E10f, 25E12f, 25E14f, 25E16f, 25E18f, 25E20f, 25E22f, 25E24f, 25E26f, 25E28f, 25E30f, 25E32f, 25E34f, 25E36f,  1f/0f}; // ０～１９
 
@@ -57,9 +57,9 @@ namespace Nekoslibrary
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         // 以下
-        static readonly float[] _comparisonDecimal = {  1E-2f,  1E-4f,  1E-6f,  1E-8f, 1E-10f, 1E-12f, 1E-14f, 1E-16f, 1E-18f, 1E-20f, 1E-22f, 1E-24f, 1E-26f, 1E-28f, 1E-30f, 1E-32f, 1E-34f, 1E-36f, 1E-38f, 1E-40f, 1E-42f, 1E-44f, 1E-46f        }; //　０～２２
+        static readonly float[] _comparisonDecimal = {  1E-2f,  1E-4f,  1E-6f,  1E-8f, 1E-10f, 1E-12f, 1E-14f, 1E-16f, 1E-18f, 1E-20f, 1E-22f, 1E-24f, 1E-26f, 1E-28f, 1E-30f, 1E-32f, 1E-34f, 1E-36f, 1E-38f, 1E-40f, 1E-42f, 1E-44f, 1E-46f,     0f}; //　０～２３
 
-        static readonly float[] _maxValueDecimal   = {    20f,    21f,    22f,    23f,    24f,    25f,    26f,    27f,    28f,    29f,    30f,    31f,    32f,    33f,    34f,    35f,    36f,    37f,    38f,    39f,    40f,    41f,    42f,    43f}; //　０～２３
+        static readonly   int[] _maxValueDecimal   = {     20,     21,     22,     23,     24,     25,     26,     27,     28,     29,     30,     31,     32,     33,     34,     35,     36,     37,     38,     39,     40,     41,     42,     43}; //　０～２３
 
         static readonly float[] _compHalfDecimal   = { 25E-2f, 25E-4f, 25E-6f, 25E-8f,25E-10f,25E-12f,25E-14f,25E-16f,25E-18f,25E-20f,25E-22f,25E-24f,25E-26f,25E-28f,25E-30f,25E-32f,25E-34f,25E-36f,25E-38f,25E-40f,25E-42f,25E-44f,25E-46f,     0f}; //　０～２３
 
@@ -68,6 +68,8 @@ namespace Nekoslibrary
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         static readonly float _checkLangth = 11f;
+        static private int _startDigit = default;
+        static private int _SearchCounter = 0;
 
         #endregion
 
@@ -86,10 +88,22 @@ namespace Nekoslibrary
                 return value * value;
             }
 
-
-            public static float Sqrt(float value) 
+            public static float Pow(float value,float exponent)
             {
+                float result = value;
+                for(int i = 1; i < exponent; i++)
+                {
+                    result *= value;
+                }
+                return result;
+            }
+
+
+            public static float Sqrt(float value)
+            {
+                float _sign = 1f;
                 bool _isOver = default;
+                float _root = default;
 
                 // floatは上位10桁 以下切り捨て
                 // 1.5E-45 ～ 3.4E38  が 範囲
@@ -100,31 +114,154 @@ namespace Nekoslibrary
 
                 // 3.40000000000000000000000000000000000000 ～ 0.0000000000000000000000000000000000000000000015~
 
+                // 値の正負を確認
+                if (value < 0)
+                {
+                    // 負数なら正数に直し符号を記録
+                    value = -value;
+                    _sign = -1f;
+                }
+
+                // 値が小数点を超えているかどうか
                 if (value > 1)
                 {
+                    // 超えている
                     _isOver = true;
                 }
                 else
                 {
+                    // 超えていない
                     _isOver = false;
                 }
 
-                if (_isOver)
+                // 最大桁
+                GetMaxDigit(value , _isOver);
+
+                // ５の倍数
+                CheckOverHalf(value , _isOver);
+
+                // 比較と加算
+                _root = CheckBorder(value, _root, _startDigit);
+
+                // 値を返す
+                return _root * _sign;
+            }
+
+            /// <summary>
+            /// 比較と加算を行い各桁の値を求める
+            /// </summary>
+            /// <param name="value">元の値</param>
+            /// <param name="root">平方根</param>
+            /// <param name="digit">最上桁</param>
+            /// <returns></returns>
+            private static float CheckBorder(float value , float root , int digit)
+            {
+                const int MAX_DIGIT = 10;
+
+                for (int i = 0; i < MAX_DIGIT; i++)
                 {
-                    
+                    for (int k = 0; k < 10; k++)
+                    {
+                        root += _SqrtValue[digit + i];
+                        if (Pow(root) > value)
+                        {
+                            root -= _SqrtValue[digit];
+                            i = 10;
+                        }
+                    }
+                }
+                return root;
+            }
+
+            private static void GetMaxDigit(float value , bool isOver)
+            {
+                bool endSearch = false;
+
+                if (isOver)
+                {
+                    for (_SearchCounter = 0 ; !endSearch ; _SearchCounter++)
+                    {
+                        // 
+                        if (value < _comparisonInteger[_SearchCounter])
+                        {
+                            _startDigit = _maxValueInteger[_SearchCounter];
+                            endSearch = true;
+                        }
+                    }
                 }
                 else
                 {
-
+                    for (_SearchCounter = 0 ; !endSearch ; _SearchCounter++)
+                    {
+                        // 
+                        if (value >= _comparisonDecimal[_SearchCounter])
+                        {
+                            _startDigit = _maxValueDecimal[_SearchCounter];
+                            endSearch = true;
+                        }
+                    }
                 }
+            }
+
+            private static float CheckOverHalf(float value , bool isOver)
+            {
+                if (isOver)
+                {
+                    if(value > _compHalfInteger[_SearchCounter])
+                    {
+                        return _halfValueInteger[_SearchCounter];
+                    }
+                    else
+                    {
+                        return 0f;
+                    }
+                }
+                else
+                {
+                    if (value > _compHalfDecimal[_SearchCounter])
+                    {
+                        return _halfValueDecimal[_SearchCounter];
+                    }
+                    else
+                    {
+                        return 0f;
+                    }
+                }
+            }
+
+            /// <summary>
+            /// 平方根の最上桁が５を超えるか
+            /// </summary>
+            /// <param name="isOver">小数点を超えているか</param>
+            /// <returns></returns>
+            private static float[] ComparisonHalfValue(bool isOver)
+            {
+                if (isOver)
+                {
+                    return _compHalfInteger;
+                }
+                else
+                {
+                    return _compHalfDecimal;
+                }
+            }
 
 
-
-
-
-
-
-                return 0f;
+            /// <summary>
+            /// 最上桁が５を超える時の初期値
+            /// </summary>
+            /// <param name="isOver">小数点を超えているか</param>
+            /// <returns></returns>
+            private static float[] HalfValue(bool isOver)
+            {
+                if (isOver)
+                {
+                    return _halfValueInteger;
+                }
+                else
+                {
+                    return _halfValueDecimal;
+                }
             }
         }
 
@@ -142,7 +279,7 @@ namespace Nekoslibrary
             {
                 if (Value < 0)
                 {
-                    Value = Value * -1f;
+                    Value = -Value;
                 }
                 return Value;
             }
