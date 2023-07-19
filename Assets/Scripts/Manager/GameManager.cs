@@ -68,6 +68,6 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
 
     private void Update()
     {
-
+        Debug.LogError(ScoreManager.ScorePoint.scoreNormalEnemy);
     }
 }

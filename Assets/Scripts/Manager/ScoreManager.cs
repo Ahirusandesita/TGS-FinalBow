@@ -431,5 +431,10 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         ScorePoint = new Score();
 
     }
+
+    public void ScoreSave()
+    {
+        _gameManager.ScoreManager = this;
+    }
     #endregion
 }
