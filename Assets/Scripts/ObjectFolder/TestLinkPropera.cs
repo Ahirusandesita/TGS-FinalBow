@@ -5,7 +5,6 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
 public class TestLinkPropera : MonoBehaviour, IFProperaLinkObject
 {
     #region variable 

@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-interface IFProperaLinkObject
+public interface IFProperaLinkObject
 {
     /// <summary>
     /// パワーが必要かどうか
@@ -34,6 +34,10 @@ public class ProperaGimmick : ObjectParent
     [SerializeField] float _addRotateSpeed = 600f;
     [SerializeField] RotateDirection direction = RotateDirection.Right;
     [SerializeField] List<GameObject> setLinkObject = default;
+
+
+    public GimmickData _gimmickData;
+
     List<IFProperaLinkObject> linkObjects = default;
 
     List<bool> isNeedPowerLinkObjects = default;
@@ -54,10 +58,10 @@ public class ProperaGimmick : ObjectParent
         Initialize();
     }
 
-    private void OnValidate()
-    {
-        Initialize();
-    }
+    //private void OnValidate()
+    //{
+    //    Initialize();
+    //}
 
     private void Update()
     {
@@ -145,17 +149,34 @@ public class ProperaGimmick : ObjectParent
 
             List<GameObject> removeObj = new List<GameObject>();
 
-            if (setLinkObject.Count > 0)
+
+
+            //処理追加予定１　スクリプタブルのゲームオブジェクトをインスタンス　いつかプールを使用する
+
+            if (_gimmickData.gimmickLinkObjectDataBases.Count > 0)
             {
-                foreach (GameObject obj in setLinkObject)
+                //foreach (GameObject obj in setLinkObject)
+                //{
+                //    if (obj.TryGetComponent<IFProperaLinkObject>(out IFProperaLinkObject canAddListObject))
+                //    {
+                //        linkObjects.Add(canAddListObject);
+                //    }
+                //    else
+                //    {
+                //        removeObj.Add(obj);
+                //    }
+                //}
+
+                for (int i = 0; i < _gimmickData.gimmickLinkObjectDataBases.Count; i++)
                 {
-                    if (obj.TryGetComponent<IFProperaLinkObject>(out IFProperaLinkObject canAddListObject))
+                    GameObject gimmickObject = Instantiate(_gimmickData.gimmickLinkObjectDataBases[i].gimmickLinkObject);
+                    if (gimmickObject.TryGetComponent<IFProperaLinkObject>(out IFProperaLinkObject canAddListObject))
                     {
                         linkObjects.Add(canAddListObject);
                     }
                     else
                     {
-                        removeObj.Add(obj);
+                        removeObj.Add(gimmickObject);
                     }
                 }
 
@@ -163,6 +184,7 @@ public class ProperaGimmick : ObjectParent
                 {
                     setLinkObject.Remove(obj);
                 }
+
             }
         }
     }
