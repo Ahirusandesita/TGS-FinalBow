@@ -49,6 +49,8 @@ public class BowSE : MonoBehaviour,IFBowSE_CallToBow,IFBowSE_CallToAttract
 
     [SerializeField] float _drawSE_MaxWaitTime = 0.7f;
 
+    [SerializeField] bool playDrawingSE = true;
+
     const int MAX_PERCENT = 1;
 
     const int SE_INDEX_DRAW = 0;
@@ -74,7 +76,7 @@ public class BowSE : MonoBehaviour,IFBowSE_CallToBow,IFBowSE_CallToAttract
 
     public void CallDrawingSE(float drawPowerPercent)
     {
-        if (LoopSEControlToPercent(drawPowerPercent, _drawSE_MaxWaitTime, SE_INDEX_DRAW))
+        if (LoopSEControlToPercent(drawPowerPercent, _drawSE_MaxWaitTime, SE_INDEX_DRAW) && playDrawingSE)
         {
             _myAudio.PlayOneShot(_drawingClips[Random.Range(0, _drawingClips.Length)], drawPowerPercent);
 

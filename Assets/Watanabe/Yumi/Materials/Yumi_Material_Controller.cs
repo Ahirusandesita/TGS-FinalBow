@@ -7,6 +7,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+interface IFMaterialChanger_Bow
+{
+    void ChangeMaterialProcess(EnchantmentEnum.EnchantmentState state);
+}
 /// <summary>
 /// エンチャントを取得したときに弓のマテリアルを変更する
 /// 上オブジェクト群
@@ -22,7 +26,7 @@ using System.Collections.Generic;
 /// 弦下（２つ目のマテリアル）
 /// の順で変更してね
 /// </summary>
-public class Yumi_Material_Controller : MonoBehaviour
+public class Yumi_Material_Controller : MonoBehaviour,IFMaterialChanger_Bow
 {
     /// <summary>
     /// 上から
