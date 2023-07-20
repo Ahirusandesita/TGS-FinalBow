@@ -4,24 +4,25 @@
 // CreateDay: 2023/06/18
 // Creator  : Nomura
 // --------------------------------------------------------- 
+using System;
 using UnityEngine;
 
 public interface IFScoreManager_NomalEnemy
 {
-    void NomalScore_NomalEnemyScore();
+    void NormalScore_NormalEnemyScore();
 }
 public interface IFScoreManager_NomalEnemyGetScore
 {
-    int NomalScore_NomalEnemyGetScore();
+    int NormalScore_NomalEnemyGetScore();
 }
 
 public interface IFScoreManager_BossEnemy
 {
-    void NomalScore_BossEnemyScore();
+    void NormalScore_BossEnemyScore();
 }
 public interface IFScoreManager_BossEnemyGetScore
 {
-    int NomalScore_BossEnemyGetScore();
+    int NormalScore_BossEnemyGetScore();
 }
 
 
@@ -32,32 +33,32 @@ interface IFScoreManager_AllEnemyGetScore : IFScoreManager_NomalEnemyGetScore, I
 
 public interface IFScoreManager_Coin
 {
-    void NomalScore_CoinScore();
+    void NormalScore_CoinScore();
 }
 
 public interface IFScoreManager_CoinGetScore
 {
-    int NomalScore_CoinGetScore();
+    int NormalScore_CoinGetScore();
 }
 
 public interface IFScoreManager_Enchant
 {
-    void NomalScore_EnchantScore();
+    void NormalScore_EnchantScore();
 }
 
 public interface IFScoreManager_EnchantGetScore
 {
-    int NomalScore_EnchantGetScore();
+    int NormalScore_EnchantGetScore();
 }
 
 public interface IFScoreManager_Combo
 {
-    void NomalScore_ComboScore();
+    void NormalScore_ComboScore();
 }
 
 public interface IFScoreManager_ComboGetScore
 {
-    int NomalScore_ComboGetScore();
+    int NormalScore_ComboGetScore();
 }
 
 public interface IFScoreManager_Hp
@@ -139,18 +140,37 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     IFScoreManager_AllGetScore
 {
     #region variable 
-    public int _ScoreEnemy_NomalEnemy = 100;
-    public int _ScoreEnemy_BossEnemy = 1000;
-    public int _ScoreEnchant = 100;
-    public int _ScoreCoin = 100;
-    public int _ScoreHpBonus = 200;
-    public int _ScoreAttractBonus = 100;
-    public int _ScoreTimeBonus = 1000;
-    public int _ScoreComboBonus = 100;
+    [System.Serializable]
+    public struct ScoreStructure
+    {
+        public string name;
+        public ScoreData scoreDatas;
+    }
+    public ScoreStructure[] _scoreStructures;
     
 
-
     public ScoreNumber.Score ScorePoint;
+
+    public struct DefaultScoreStructure
+    {
+        public DefaultScoreStructure(int score)
+        {
+            DEFAULT_SCORE = score;
+        }
+        public readonly int DEFAULT_SCORE;
+    }
+
+    public DefaultScoreStructure[] defaultScoreStructures;
+
+    private const int DEFAULT_NORMAL_ENEMY = 0;
+    private const int DEFAULT_BOSS_ENEMY = 1;
+    private const int DEFAULT_ENCHANT = 2;
+    private const int DEFAULT_COIN = 3;
+    private const int DEFAULT_HP_BONUS = 4;
+    private const int DEFALUT_ATTRACT_BONUS = 5;
+    private const int DEFAULT_TIME_BONUS = 6;
+    private const int DEFALUT_COMBO_BONUS = 7;
+
 
     IGameManagerScore _gameManager;
 
@@ -166,7 +186,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         ScorePoint = ScoreNumber.ScorePoint;
         if(ScorePoint.scoreHpBonus == 0)
         {
-            ScorePoint.scoreHpBonus = _ScoreHpBonus;
+            //ScorePoint.scoreHpBonus = _ScoreHpBonus;
         }
         if(ScorePoint.scoreTimeBonus == 0)
         {
@@ -175,62 +195,134 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
        
         _gameManager.ScoreManager = this;
         ScoreNumber.ScorePoint = ScorePoint;
+
+
+        defaultScoreStructures = new DefaultScoreStructure[_scoreStructures.Length];
+        for(int i = 0; i < _scoreStructures.Length; i++)
+        {
+            Action<int,int> action = (structerNumber,stateNumber) =>
+            {
+                defaultScoreStructures[structerNumber] = new DefaultScoreStructure(_scoreStructures[stateNumber].scoreDatas.score);
+            };
+
+            for (int j=0;j< Enum.GetNames(typeof(ScoreState)).Length; j++)
+            {
+                if((int)_scoreStructures[i].scoreDatas.scoreState == j)
+                {
+                    action(j,i);
+                }
+            }
+        }
+
+
+
+
     }
 
     /// <summary>
-    /// 雑魚敵を倒すごとに呼ぶメソッド　加点する
+    /// 雑魚敵を倒すごとに呼ぶメソッド　加点する　デフォルトのスコア
     /// </summary>
-    public void NomalScore_NomalEnemyScore()
+    public void NormalScore_NormalEnemyScore()
     {
-        ScorePoint.scoreNormalEnemy += _ScoreEnemy_NomalEnemy;
+        ScorePoint.scoreNormalEnemy += _scoreStructures[DEFAULT_NORMAL_ENEMY].scoreDatas.score;
     }
 
-    public int NomalScore_NomalEnemyGetScore()
+    /// <summary>
+    /// 雑魚的のスコアがデフォルトのスコアでないときに使用する
+    /// </summary>
+    /// <param name="score"></param>
+    public void NormalScore_NormalEnemyScore(ScoreData score)
+    {
+        ScorePoint.scoreNormalEnemy += score.score;
+    }
+
+    /// <summary>
+    /// 雑魚敵の合計スコアを取得する
+    /// </summary>
+    /// <returns></returns>
+    public int NormalScore_NomalEnemyGetScore()
     {
         return ScorePoint.scoreNormalEnemy;
-        //return _scoreNomalEnemy;
     }
 
 
 
 
     /// <summary>
-    /// ボスを倒すごとに呼ぶメソッド　加点する
+    /// ボスを倒すごとに呼ぶメソッド　加点する  デフォルトスコア
     /// </summary>
-    public void NomalScore_BossEnemyScore()
+    public void NormalScore_BossEnemyScore()
     {
-        ScorePoint.scoreBossEnemy += _ScoreEnemy_BossEnemy;
+        ScorePoint.scoreBossEnemy += _scoreStructures[DEFAULT_BOSS_ENEMY].scoreDatas.score;
     }
 
-    public int NomalScore_BossEnemyGetScore()
+    /// <summary>
+    /// ボスのスコアがデフォルトではないときに使用する
+    /// </summary>
+    /// <param name="scoreData"></param>
+    public void NormalScore_BossEnemyScore(ScoreData scoreData)
+    {
+        ScorePoint.scoreBossEnemy += scoreData.score;
+    }
+
+    /// <summary>
+    /// ボスの合計スコアを取得する
+    /// </summary>
+    /// <returns></returns>
+    public int NormalScore_BossEnemyGetScore()
     {
         return ScorePoint.scoreBossEnemy;
-        //return _scoreBossEnemy;
+    }
+
+
+    /// <summary>
+    /// コインを取るたびに呼ぶメソッド　加点する  デフォルトスコア
+    /// </summary>
+    public void NormalScore_CoinScore()
+    {
+        ScorePoint.scoreCoin += _scoreStructures[DEFAULT_COIN].scoreDatas.score;
     }
 
     /// <summary>
-    /// コインを取るたびに呼ぶメソッド　加点する
+    /// コインのスコアがデフォルトではないとき
     /// </summary>
-    public void NomalScore_CoinScore()
+    /// <param name="scoreData"></param>
+    public void NormalScore_CoinScore(ScoreData scoreData)
     {
-        ScorePoint.scoreCoin += _ScoreCoin;
+        ScorePoint.scoreCoin += scoreData.score;
     }
 
-    public int NomalScore_CoinGetScore()
+    /// <summary>
+    /// コインの合計スコアを取得する
+    /// </summary>
+    /// <returns></returns>
+    public int NormalScore_CoinGetScore()
     {
         return ScorePoint.scoreCoin;
-        //return _scoreCoin;
     }
 
     /// <summary>
     /// エンチャントする度に呼ぶメソッド　加点する
     /// </summary>
-    public void NomalScore_EnchantScore()
+    public void NormalScore_EnchantScore()
     {
-        ScorePoint.scoreEnchant += _ScoreEnchant;
+        ScorePoint.scoreEnchant += _scoreStructures[DEFAULT_ENCHANT].scoreDatas.score;
     }
 
-    public int NomalScore_EnchantGetScore()
+    /// <summary>
+    /// エンチャントのスコアがデフォルトではないとき
+    /// </summary>
+    /// <param name="scoreData"></param>
+    public void NormalScore_EnchantScore(ScoreData scoreData)
+    {
+        ScorePoint.scoreEnchant += scoreData.score;
+    }
+
+    /// <summary>
+    /// エンチャントの合計スコアを取得する
+    /// </summary>
+    /// <returns></returns>
+    public int NormalScore_EnchantGetScore()
     {
         return ScorePoint.scoreEnchant;
     }
@@ -238,12 +330,21 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// <summary>
     /// コンボで倒すたびに呼ぶメソッド　加点する
     /// </summary>
-    public void NomalScore_ComboScore()
+    public void NormalScore_ComboScore()
     {
-        ScorePoint.scoreComboBonus += _ScoreComboBonus;
+        ScorePoint.scoreComboBonus += _scoreStructures[DEFALUT_COMBO_BONUS].scoreDatas.score;
     }
 
-    public int NomalScore_ComboGetScore()
+    /// <summary>
+    /// コンボスコアがデフォルトではないとき
+    /// </summary>
+    /// <param name="scoreData"></param>
+    public void NormalScore_ComboScore(ScoreData scoreData)
+    {
+        ScorePoint.scoreComboBonus += scoreData.score;
+    }
+
+    public int NormalScore_ComboGetScore()
     {
         return ScorePoint.scoreComboBonus;
     }
@@ -253,13 +354,14 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void BonusScore_HpScore()
     {
-        ScorePoint.scoreHpBonus -= _ScoreHpBonus;
+        ScorePoint.scoreHpBonus -= _scoreStructures[DEFAULT_HP_BONUS].scoreDatas.score;
         if (ScorePoint.scoreHpBonus < 0)
         {
             ScorePoint.scoreHpBonus = 0;
         }
         ScorePoint.valueHpBonus++;
     }
+
     public void BonusScore_HpValueSetting(int hp)
     {
         ScorePoint.scoreHpBonus = hp * 200;
@@ -275,7 +377,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void BonusScore_AttractBonus()
     {
-        ScorePoint.scoreAttractBonus += _ScoreAttractBonus;
+        ScorePoint.scoreAttractBonus += _scoreStructures[DEFALUT_ATTRACT_BONUS].scoreDatas.score;
         ScorePoint.valueAttractBonus++;
     }
 
@@ -290,7 +392,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void BonusScore_TimeScore()
     {
-        ScorePoint.scoreTimeBonus -= _ScoreTimeBonus;
+        ScorePoint.scoreTimeBonus -= _scoreStructures[DEFAULT_TIME_BONUS].scoreDatas.score;
         if (ScorePoint.scoreTimeBonus < 0)
         {
             ScorePoint.scoreTimeBonus = 0;

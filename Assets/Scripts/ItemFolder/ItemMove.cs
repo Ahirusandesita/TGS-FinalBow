@@ -284,7 +284,7 @@ public class ItemMove : MonoBehaviour
             _playerManager.ArrowEnchantPlusDamage();
 
             // ƒXƒRƒA‚Ì‰ÁZˆ—
-            _scoreManager.NomalScore_EnchantScore();
+            _scoreManager.NormalScore_EnchantScore();
             _scoreManager.BonusScore_AttractBonus();
 
             // ˆø‚«Šñ‚¹‚½‚ÌSE‚ğŒÄ‚Ô

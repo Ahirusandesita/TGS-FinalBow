@@ -96,8 +96,8 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     public override void Death()
     {
         // スコアを加算
-        _score.NomalScore_NomalEnemyScore();
-        _combo.NomalScore_ComboScore();
+        _score.NormalScore_NormalEnemyScore();
+        _combo.NormalScore_ComboScore();
 
         // 死んだときのエフェクト呼び出し
         _objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _myTransform.position, Quaternion.identity);
