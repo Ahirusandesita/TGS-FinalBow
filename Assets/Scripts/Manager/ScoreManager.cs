@@ -172,8 +172,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     private const int DEFALUT_COMBO_BONUS = 7;
 
 
-    IGameManagerScore _gameManager;
-
     //private int _scoreSum = 0;
     #endregion
     #region property
@@ -192,8 +190,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         {
             ScorePoint.scoreTimeBonus = 4000;
         }
-       
-        _gameManager.ScoreManager = this;
         ScoreNumber.ScorePoint = ScorePoint;
 
 

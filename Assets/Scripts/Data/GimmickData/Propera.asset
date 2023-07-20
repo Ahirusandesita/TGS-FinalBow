@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80512a2de4a96c744a93ff821ec5962c, type: 3}
+  m_Name: Propera
+  m_EditorClassIdentifier: 
+  _maxRotateSpeed: 1000
+  _dicreaceRotateSpeed: -300
+  _addRotateSpeed: 600
+  direction: 1
+  gimmickLinkObjectDataBases:
+  - name: 
+    gimmickLinkObject: {fileID: 964872798579911485, guid: 8fb06c2030b33bc41b1a739fd2ea14e9, type: 3}
+    spawnPosition: {x: 8.8, y: 7.59, z: 23.53}
+    gimmickObjectRotation: {x: 0, y: 0, z: 0}
+  - name: 
+    gimmickLinkObject: {fileID: 8050750277930802962, guid: ed2315bf676ac804ebcf0a076527da15, type: 3}
+    spawnPosition: {x: -17.01, y: 7.59, z: 23.54}
+    gimmickObjectRotation: {x: 0, y: 0, z: 0}
