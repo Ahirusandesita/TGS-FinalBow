@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5915760870943019672
 MonoBehaviour:
@@ -50,5 +50,22 @@ MonoBehaviour:
   _ScoreCoin: 100
   _ScoreHpBonus: 200
   _ScoreAttractBonus: 100
-  _ScoreTineBonus: 1000
+  _ScoreTimeBonus: 1000
   _ScoreComboBonus: 100
+  _scoreStructures:
+  - name: NormalEnemy
+    scoreDatas: {fileID: 11400000, guid: c8bb313f8b0c30b4ba29aa81fe3b8d58, type: 2}
+  - name: BossEnemy
+    scoreDatas: {fileID: 11400000, guid: ac5ffc150533d1e45a53d3094f090dca, type: 2}
+  - name: Enchant
+    scoreDatas: {fileID: 11400000, guid: ead4291ea9ce3eb498def3366e6f2156, type: 2}
+  - name: Coin
+    scoreDatas: {fileID: 11400000, guid: a4da8ed61ba7aae448ef35d9cfcffd10, type: 2}
+  - name: HpBonus
+    scoreDatas: {fileID: 11400000, guid: 29f2556b6acf8194f82c7f4befff9b47, type: 2}
+  - name: AttractBonus
+    scoreDatas: {fileID: 11400000, guid: 146095e51a060f34ebe2bef18436330a, type: 2}
+  - name: TimeBonus
+    scoreDatas: {fileID: 11400000, guid: 63cb5424d5db6804fbadb577ead76ac4, type: 2}
+  - name: ComboBonus
+    scoreDatas: {fileID: 11400000, guid: 805ebe69bf82c514db76c0facbf8a4e9, type: 2}

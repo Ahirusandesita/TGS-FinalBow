@@ -707,6 +707,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreController
       objectReference: {fileID: 0}
+    - target: {fileID: 5915760870943019672, guid: 04e40085be0e04c4085793492724c530, type: 3}
+      propertyPath: a
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915760870943019672, guid: 04e40085be0e04c4085793492724c530, type: 3}
+      propertyPath: scoreData1.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915760870943019672, guid: 04e40085be0e04c4085793492724c530, type: 3}
+      propertyPath: scoreData1.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c8bb313f8b0c30b4ba29aa81fe3b8d58, type: 2}
+    - target: {fileID: 5915760870943019672, guid: 04e40085be0e04c4085793492724c530, type: 3}
+      propertyPath: _scoreStructures.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915760870943019672, guid: 04e40085be0e04c4085793492724c530, type: 3}
+      propertyPath: _scoreStructures.Array.data[8].name
+      value: ComboBonus
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915760870943019672, guid: 04e40085be0e04c4085793492724c530, type: 3}
+      propertyPath: _scoreStructures.Array.data[8].scoreDatas
+      value: 
+      objectReference: {fileID: 11400000, guid: 805ebe69bf82c514db76c0facbf8a4e9, type: 2}
     - target: {fileID: 8366554376561498753, guid: 04e40085be0e04c4085793492724c530, type: 3}
       propertyPath: m_RootOrder
       value: 19

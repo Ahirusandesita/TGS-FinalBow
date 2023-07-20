@@ -23,7 +23,7 @@ public class TestScore : MonoBehaviour
  private void Start ()
  {
         scoreManager = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<ScoreManager>();
-        scoreManager.NomalScore_NomalEnemyScore();
+        scoreManager.NormalScore_NormalEnemyScore();
         scoreManager.BonusScore_AttractBonus();
         scoreManager.BonusScore_AttractBonus();
         scoreManager.BonusScore_AttractBonus();

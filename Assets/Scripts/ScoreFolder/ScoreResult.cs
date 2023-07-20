@@ -58,11 +58,11 @@ public class ScoreResult : MonoBehaviour
             //ノーマルスコア
             case ScoreType.nomal:
                 nomalScore +=
-                    _scoerManager.NomalScore_NomalEnemyGetScore() +
-                    _scoerManager.NomalScore_BossEnemyGetScore() +
-                    _scoerManager.NomalScore_EnchantGetScore() +
-                    _scoerManager.NomalScore_CoinGetScore() +
-                    _scoerManager.NomalScore_ComboGetScore();
+                    _scoerManager.NormalScore_NomalEnemyGetScore() +
+                    _scoerManager.NormalScore_BossEnemyGetScore() +
+                    _scoerManager.NormalScore_EnchantGetScore() +
+                    _scoerManager.NormalScore_CoinGetScore() +
+                    _scoerManager.NormalScore_ComboGetScore();
 
                 ScoreDigits(nomalScore,DisplayType.nomal);
                 break;
