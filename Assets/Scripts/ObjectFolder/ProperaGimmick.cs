@@ -169,7 +169,11 @@ public class ProperaGimmick : ObjectParent
 
                 for (int i = 0; i < _gimmickData.gimmickLinkObjectDataBases.Count; i++)
                 {
-                    GameObject gimmickObject = Instantiate(_gimmickData.gimmickLinkObjectDataBases[i].gimmickLinkObject);
+                    GameObject gimmickObject = Instantiate(
+                        _gimmickData.gimmickLinkObjectDataBases[i].gimmickLinkObject,
+                        _gimmickData.gimmickLinkObjectDataBases[i].spawnPosition,Quaternion.Euler(_gimmickData.gimmickLinkObjectDataBases[i].gimmickObjectRotation)
+                        );
+
                     if (gimmickObject.TryGetComponent<IFProperaLinkObject>(out IFProperaLinkObject canAddListObject))
                     {
                         linkObjects.Add(canAddListObject);

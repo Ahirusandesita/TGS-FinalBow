@@ -27,4 +27,6 @@ public class GimmickLinkObjectDataBase
 {
     public string name;
     public GameObject gimmickLinkObject;
+    public Vector3 spawnPosition;
+    public Vector3 gimmickObjectRotation;
 }
