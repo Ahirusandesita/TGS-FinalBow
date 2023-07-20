@@ -10,18 +10,39 @@ public class ArrowEnchantUI : MonoBehaviour
 {
     #region variable 
     public EnchantUIData _EnchantUI;
-    private EnchantUIManager _enchantUIManager;
+    private IFEnchantUIManager _enchantUIManager;
 
     #endregion
     #region property
     #endregion
     #region method
+    class NullObject : IFEnchantUIManager
+    {
+        public void EnchantImage1Chenge(Sprite sprite, Color color)
+        {
+            return;
+        }
+
+        public void EnchantImage2Chenge(Sprite sprite, Color color)
+        {
+            return;
+        }
+
+        public void EnchantImageReset()
+        {
+            return;
+        }
+    }
 
     private void Start()
     {
-        _enchantUIManager = GameObject.FindGameObjectWithTag("EnchantUIController").GetComponent<EnchantUIManager>();
+        GameObject obj = GameObject.FindGameObjectWithTag("EnchantUIController");
+        if (obj is not null && obj.TryGetComponent<EnchantUIManager>(out EnchantUIManager mng))
+            _enchantUIManager = mng;
+        else
+            _enchantUIManager = new NullObject();
     }
-
+    
     public void ArrowEnchantUI_Normal()
     {
         _enchantUIManager.EnchantImageReset();

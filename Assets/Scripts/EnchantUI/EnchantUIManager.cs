@@ -8,7 +8,15 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class EnchantUIManager : MonoBehaviour
+interface IFEnchantUIManager
+{
+    void EnchantImage1Chenge(Sprite sprite, Color color);
+
+    void EnchantImage2Chenge(Sprite sprite, Color color);
+
+    void EnchantImageReset();
+}
+public class EnchantUIManager : MonoBehaviour,IFEnchantUIManager
 {
     #region variable 
     private SpriteRenderer _renderer1;

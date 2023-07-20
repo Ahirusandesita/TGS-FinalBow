@@ -39,6 +39,15 @@ public sealed class FPSBow : BowManager
 
         base.Start();
 
+        GameObject[] deleteObjects = GameObject.FindGameObjectsWithTag(InhallLibTags.FPSDelete);
+
+        if (deleteObjects.Length > 0)
+        {
+            foreach(GameObject obj in deleteObjects)
+            {
+                obj.SetActive(false);
+            }
+        }
     }
 
     // “ü—Íó•t&ˆ—

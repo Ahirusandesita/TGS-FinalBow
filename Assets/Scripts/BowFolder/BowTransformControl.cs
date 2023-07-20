@@ -104,6 +104,11 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
 
         _transform = transform;
 
+        if(_drawObject is null)
+        {
+            _drawObject = this.transform;
+        }
+
         _firstDrawObjectPositon = _drawObject.localPosition;
 
         _myQuaternion = _transform.localRotation;

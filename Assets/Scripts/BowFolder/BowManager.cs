@@ -241,9 +241,15 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
         // 矢のスピードセット、弓を引いた量によって変える
         _playerManager.SetArrowMoveSpeed(_percentDrawPower * arrowSpeed);
-
-        // 矢を撃つ
-        _playerManager.ShotArrow(shotDirection);
+        try
+        {
+            // 矢を撃つ
+            _playerManager.ShotArrow(shotDirection);
+        }
+        catch (NullReferenceException)
+        {
+            Debug.LogError("ShotArrowエラースルー");
+        }
 
     }
 

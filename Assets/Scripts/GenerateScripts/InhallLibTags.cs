@@ -27,4 +27,5 @@ public static class InhallLibTags
 	public const string HeadPointTag = "HeadPointTag";
 	public const string AttractEffect = "AttractEffect";
 	public const string MaaterialController = "MaaterialController";
+	public const string FPSDelete = "FPSDelete";
 }

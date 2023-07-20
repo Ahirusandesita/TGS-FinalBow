@@ -14,7 +14,7 @@ public class AttractEffect : MonoBehaviour
     ParticleSystem.MainModule _attractMain = default;
 
     [SerializeField] ScriptableEffectsColor color = default;
-    [SerializeField] Yumi_Material_Controller controller = default;
+    IFMaterialChanger_Bow controller = default;
 
     ParticleSystem[] _subParticles = new ParticleSystem[15];
 
@@ -46,9 +46,15 @@ public class AttractEffect : MonoBehaviour
 
         pool = GameObject.FindGameObjectWithTag(InhallLibTags.PoolSystem).GetComponent<ObjectPoolSystem>();
 
-        if(controller == null)
+        GameObject find = GameObject.FindGameObjectWithTag(InhallLibTags.MaaterialController);
+
+        if (find is not null && find.TryGetComponent<Yumi_Material_Controller>(out Yumi_Material_Controller obj))
         {
-            controller = GameObject.FindGameObjectWithTag(InhallLibTags.MaaterialController).GetComponent<Yumi_Material_Controller>();
+            controller = obj;
+        }
+        else
+        {
+            controller = new NullObject();
         }
 
         int firstNum = (int)EffectPoolEnum.EffectPoolState.newEnchantEffectBomb;
@@ -62,6 +68,15 @@ public class AttractEffect : MonoBehaviour
             _subParticles[i].transform.parent = bow;
             _subParticles[i].transform.localScale = Vector3.one;
             _subParticles[i].transform.localPosition = new Vector3(0f, -4.43620443f, 20.5781441f);
+        }
+
+    }
+
+    class NullObject : IFMaterialChanger_Bow
+    {
+        public void ChangeMaterialProcess(EnchantmentEnum.EnchantmentState state)
+        {
+            return;
         }
     }
     public void AttractEffectEffect_Normal()
@@ -219,10 +234,19 @@ public class AttractEffect : MonoBehaviour
         {
             _subParticles[num - 1].gameObject.SetActive(true);
             _subParticles[num - 1].Play();
-           
+
         }
-            
-        
+
+
     }
     #endregion
+}
+
+
+class NullObject : IFMaterialChanger_Bow
+{
+    public void ChangeMaterialProcess(EnchantmentEnum.EnchantmentState state)
+    {
+
+    }
 }
