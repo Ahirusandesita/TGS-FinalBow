@@ -147,46 +147,8 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public int _ScoreAttractBonus = 100;
     public int _ScoreTimeBonus = 1000;
     public int _ScoreComboBonus = 100;
+    
 
-    private int _scoreNomalEnemy = 0;
-
-    private int _scoreBossEnemy = 0;
-
-    private int _scoreEnchant = 0;
-
-    private int _scoreCoin = 0;
-
-    private int _scoreComboBonus = 0;
-
-
-
-    //仮
-    private int _scoreHpBonus = 0;
-    private int _valueHpBonus = 0;
-
-    private int _scoreAttractBonus = 0;
-    private int _valueAttractBonus = 0;
-
-    private int _scoreTimeBonus = 0;
-    private int _valueTimeBonus = 0;
-
-    public struct Score
-    {
-        public int scoreNormalEnemy;
-        public int scoreBossEnemy;
-        public int scoreEnchant;
-        public int scoreCoin;
-        public int scoreComboBonus;
-
-        public int scoreHpBonus;
-        public int valueHpBonus;
-
-        public int scoreAttractBonus;
-        public int valueAttractBonus;
-
-        public int scoreTimeBonus;
-        public int valueTimeBonus;
-    }
 
     public ScoreNumber.Score ScorePoint;
 
@@ -200,13 +162,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     private void Start()
     {
-        //_scoreHpBonus = プレイヤーのHpの数 * _ScoreHpBonus;
-        _scoreTimeBonus = 4000;
         ScorePoint.scoreTimeBonus = 4000;
-        _gameManager = GameObject.FindWithTag(InhallLibTags.GameController).GetComponent<GameManager>();
-
-        ScoreManager scoreAll = _gameManager.ScoreManager;
-
         ScorePoint = ScoreNumber.ScorePoint;
         if(ScorePoint.scoreHpBonus == 0)
         {
@@ -216,42 +172,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         {
             ScorePoint.scoreTimeBonus = 4000;
         }
-        //if (scoreAll != null)
-        //{
-
-        //    if(ScorePoint.scoreHpBonus == 0)
-        //    {
-        //        ScorePoint.scoreHpBonus = _ScoreHpBonus;
-        //    }
-        //    if(ScorePoint.scoreTimeBonus == 0)
-        //    {
-        //        ScorePoint.scoreTimeBonus = 4000;
-        //    }
-
-
-        //    _scoreNomalEnemy = scoreAll.NomalScore_NomalEnemyGetScore();
-        //    _scoreBossEnemy = scoreAll.NomalScore_BossEnemyGetScore();
-        //    _scoreEnchant = scoreAll.NomalScore_EnchantGetScore();
-        //    _scoreCoin = scoreAll.NomalScore_CoinGetScore();
-        //    _scoreHpBonus = scoreAll.BonusScore_HpGetScore();
-        //    _scoreAttractBonus = scoreAll.BonusScore_AttractGetBonus();
-        //    _scoreTimeBonus = scoreAll.BonusScore_GetTime();
-        //    _scoreComboBonus = scoreAll.NomalScore_ComboGetScore();
-
-        //    _valueAttractBonus = scoreAll.BonusValue_GetAttract();
-        //    _valueHpBonus = scoreAll.BonusValue_GetHp();
-        //    _valueTimeBonus = scoreAll.BonusValue_TimeGetScore();
-
-        //    if (_scoreHpBonus == 0)
-        //    {
-        //        //_scoreHpBonus = プレイヤーのHpの数 * _ScoreHpBonus;
-        //        _scoreHpBonus = _ScoreHpBonus;
-        //    }
-        //    if (_scoreTimeBonus == 0)
-        //    {
-        //        _scoreTimeBonus = 4000;
-        //    }
-        //}
+       
         _gameManager.ScoreManager = this;
         ScoreNumber.ScorePoint = ScorePoint;
     }
@@ -261,8 +182,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void NomalScore_NomalEnemyScore()
     {
-        _scoreNomalEnemy += _ScoreEnemy_NomalEnemy;
-
         ScorePoint.scoreNormalEnemy += _ScoreEnemy_NomalEnemy;
     }
 
@@ -280,8 +199,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void NomalScore_BossEnemyScore()
     {
-        _scoreBossEnemy += _ScoreEnemy_BossEnemy;
-
         ScorePoint.scoreBossEnemy += _ScoreEnemy_BossEnemy;
     }
 
@@ -296,8 +213,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void NomalScore_CoinScore()
     {
-        _scoreCoin += _ScoreCoin;
-
         ScorePoint.scoreCoin += _ScoreCoin;
     }
 
@@ -312,15 +227,12 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void NomalScore_EnchantScore()
     {
-        _scoreEnchant += _ScoreEnchant;
-
         ScorePoint.scoreEnchant += _ScoreEnchant;
     }
 
     public int NomalScore_EnchantGetScore()
     {
         return ScorePoint.scoreEnchant;
-        //return _scoreEnchant;
     }
 
     /// <summary>
@@ -328,15 +240,12 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void NomalScore_ComboScore()
     {
-        _scoreComboBonus += _ScoreComboBonus;
-
         ScorePoint.scoreComboBonus += _ScoreComboBonus;
     }
 
     public int NomalScore_ComboGetScore()
     {
         return ScorePoint.scoreComboBonus;
-        //return _scoreComboBonus;
     }
 
     /// <summary>
@@ -344,25 +253,15 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void BonusScore_HpScore()
     {
-
-        _scoreHpBonus -= _ScoreHpBonus;
         ScorePoint.scoreHpBonus -= _ScoreHpBonus;
         if (ScorePoint.scoreHpBonus < 0)
         {
             ScorePoint.scoreHpBonus = 0;
         }
-
-        if(_scoreHpBonus < 0)
-        {
-            _scoreHpBonus = 0;
-        }
-
-        _valueHpBonus++;
         ScorePoint.valueHpBonus++;
     }
     public void BonusScore_HpValueSetting(int hp)
     {
-        _scoreHpBonus = hp * 200;
         ScorePoint.scoreHpBonus = hp * 200;
     }
     public int BonusScore_HpGetScore()
@@ -376,9 +275,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void BonusScore_AttractBonus()
     {
-        _scoreAttractBonus += _ScoreAttractBonus;
-        _valueAttractBonus++;
-
         ScorePoint.scoreAttractBonus += _ScoreAttractBonus;
         ScorePoint.valueAttractBonus++;
     }
@@ -394,21 +290,15 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// </summary>
     public void BonusScore_TimeScore()
     {
-        _scoreTimeBonus -= _ScoreTimeBonus;
         ScorePoint.scoreTimeBonus -= _ScoreTimeBonus;
         if (ScorePoint.scoreTimeBonus < 0)
         {
             ScorePoint.scoreTimeBonus = 0;
         }
-        if(_scoreTimeBonus < 0)
-        {
-            _scoreTimeBonus = 0;
-        }
     }
 
     public void BonusValue_Time(int time)
     {
-        _valueTimeBonus += time;
         ScorePoint.valueTimeBonus += time;
     }
 
@@ -438,24 +328,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     public void ScoreReset()
     {
-        _scoreNomalEnemy = 0;
-
-        _scoreBossEnemy = 0;
-
-        _scoreEnchant = 0;
-
-        _scoreCoin = 0;
-
-        _scoreComboBonus = 0;
-        _scoreHpBonus = _ScoreHpBonus;
-        _valueHpBonus = 0;
-
-        _scoreAttractBonus = 0;
-        _valueAttractBonus = 0;
-
-        _scoreTimeBonus = 4000;
-        _valueTimeBonus = 0;
-
         ScorePoint = new ScoreNumber.Score();
         ScorePoint.scoreTimeBonus = 4000;
 
