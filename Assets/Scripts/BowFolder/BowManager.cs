@@ -19,7 +19,7 @@ public interface IFBowManagerQue
     /// <summary>
     /// 矢の連射イベント通知
     /// </summary>
-    public void SetArrowMachineGun(int arrowValue,float delayTime);
+    public void SetArrowMachineGun(int arrowValue, float delayTime);
 }
 
 public interface IFBowManagerUpdate
@@ -66,16 +66,16 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     protected Func<bool> _releaseTriggerInput = default;
 
- 
+
     protected bool _canMachineGun;
 
     protected int _valueMachineGun;
 
     protected WaitForSeconds _delayTime;
 
+    float _setedArrowSpeed = 0f;
 
-    
-    
+
 
     /// <summary>
     /// 手の状態管理型
@@ -105,14 +105,14 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
     {
         get
         {
-            return _handStats == HandStats.Hold; 
+            return _handStats == HandStats.Hold;
         }
     }
 
     protected abstract Transform GetSpawnPosition { get; }
 
     protected abstract Vector3 GetShotDirection { get; }
-   
+
 
     /// <summary>
     /// 必須変数のゲットコンポーネントとSetInputDelegate()を行う
@@ -142,28 +142,28 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
     /// </summary>
     public void BowUpdateCallProcess()
     {
-            // 物を掴む入力があった場合
-            if (_grapTriggerInput() && _handStats == HandStats.None)
-            {
-                // 掴む
-                ProcessOfGrapObject();
-            }
-            // 何かしら掴んでいた場合
-            else if (_handStats == HandStats.Hold)
-            {
-                // 引いたパワー(%)で取得(0-1)
-                _percentDrawPower = GetShotPercentPower();
+        // 物を掴む入力があった場合
+        if (_grapTriggerInput() && _handStats == HandStats.None)
+        {
+            // 掴む
+            ProcessOfGrapObject();
+        }
+        // 何かしら掴んでいた場合
+        else if (_handStats == HandStats.Hold)
+        {
+            // 引いたパワー(%)で取得(0-1)
+            _percentDrawPower = GetShotPercentPower();
 
-                if (!_releaseTriggerInput())
-                {
-                    // 物を掴み続ける
-                    ProcessOfHoldObject();
+            if (!_releaseTriggerInput())
+            {
+                // 物を掴み続ける
+                ProcessOfHoldObject();
 
-                    return;
-                }
-                // 物を離す
-                ProcessOfReleaseObjcect();
+                return;
             }
+            // 物を離す
+            ProcessOfReleaseObjcect();
+        }
 
     }
 
@@ -241,7 +241,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
         // 再生されていたエフェクトを無効
         _inhallCustom.SetActive(false);
-
+        _setedArrowSpeed = _percentDrawPower * arrowSpeed;
         BowShotArrow(shotDirection);
 
         // 吸込み判定初期化
@@ -259,7 +259,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         _bowSE.CallShotSE();
 
         // 矢のスピードセット、弓を引いた量によって変える
-        _playerManager.SetArrowMoveSpeed(_percentDrawPower * arrowSpeed);
+        _playerManager.SetArrowMoveSpeed(_setedArrowSpeed);
+
         try
         {
             // 矢を撃つ
@@ -270,7 +271,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
                 StartCoroutine(MachineGun());
 
             }
-            else if(_valueMachineGun < 0)
+            else if (_valueMachineGun < 0)
             {
                 _playerManager.CanRapid = false;
                 _canMachineGun = false;
@@ -305,12 +306,12 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
     /// <returns></returns>
     protected abstract float GetShotPercentPower();
 
-    public void SetArrowMachineGun(int arrowValue,float delayTime)
+    public void SetArrowMachineGun(int arrowValue, float delayTime)
     {
         _canMachineGun = true;
         _valueMachineGun = arrowValue;
         _delayTime = new WaitForSeconds(delayTime);
         _playerManager.CanRapid = true;
     }
-   
+
 }
