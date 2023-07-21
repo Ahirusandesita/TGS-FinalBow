@@ -19,6 +19,11 @@ public abstract class EnemyMoveBase : OriginalMonoBehaviour
         _transform = this.transform;
     }
 
+    protected virtual void Update()
+    {
+        MoveSequence();
+    }
+
     /// <summary>
     /// 各ウェーブの敵の一連の挙動（イベントとして進行をまとめる）
     /// <para>Updateで呼ばれる</para>

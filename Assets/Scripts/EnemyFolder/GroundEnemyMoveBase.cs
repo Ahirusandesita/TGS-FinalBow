@@ -81,11 +81,6 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
     }
 
-    private void Update()
-    {
-        MoveSequence();
-    }
-
 
     protected override void MoveSequence()
     {
