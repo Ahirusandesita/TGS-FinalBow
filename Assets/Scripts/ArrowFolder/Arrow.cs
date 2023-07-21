@@ -222,6 +222,12 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 
     private void OnEnable()
     {
+        NeedArrowEnchant = true;
+        MyTransform = gameObject.transform;
+        _hitZone = new HitZone(2f, MyTransform.position);
+        //矢のクラスをゲットコンポーネントする
+        _arrowMove = EnchantArrowMove;
+
         if (_isStarEnable)
         {
             EnchantArrowMove = this.gameObject.GetComponent<ArrowMove>();
@@ -248,15 +254,8 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     private void Start()
     {
 
-        NeedArrowEnchant = true;
-        _playerManager = StaticPlayerManager.PlayerManager;
+        //_playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
-        MyTransform = gameObject.transform;
-
-        _hitZone = new HitZone(2f, MyTransform.position);
-        //矢のクラスをゲットコンポーネントする
-        _arrowMove = EnchantArrowMove;
-
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
 
 
