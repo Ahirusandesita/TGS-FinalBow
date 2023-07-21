@@ -56,7 +56,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     protected ObjectPoolSystem _poolSystem = default;
 
-    protected PlayerManager _playerManager = default;
+    protected IFPlayerManagerShotArrow _playerManager = default;
 
     protected CashObjectInformation _arrow = default;
 
@@ -273,6 +273,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
             else if(_valueMachineGun < 0)
             {
                 _playerManager.CanRapid = false;
+                _canMachineGun = false;
             }
         }
         catch (NullReferenceException)
