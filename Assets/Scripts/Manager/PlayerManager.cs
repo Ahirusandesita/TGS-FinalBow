@@ -20,7 +20,7 @@ public interface IFPlayerManagerSetArrow
 
 }
 
-interface IFPlayerManagerShotArrow
+public interface IFPlayerManagerShotArrow
 {
     void ShotArrow(Vector3 aim);
     void ResetArrow();
@@ -66,7 +66,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     IArrowEventSetting arrowEnchant;
 
-    RapidParam a;
+    IFBowManagerQue _bowManagerQue;
+
     /// <summary>
     /// デバック用
     /// </summary>
@@ -88,6 +89,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         try
         {
             _bowObject = GameObject.FindWithTag(InhallLibTags.BowController);
+            _bowManagerQue = _bowObject.GetComponent<BowManager>();
         }
         catch (System.NullReferenceException)
         {
@@ -168,8 +170,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
                     }
                 }
             }
-
-            //Bowの連射に数を渡す
+            _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);            
         }
 
         if (CanRapid)
