@@ -132,83 +132,18 @@ public class BirdMoveSecond : BirdMoveBase
     {
         base.EachMovement(ref movedDistance);
 
-        // 移動処理
-        ArcMove();
-
-        movedDistance += _movingSide.magnitude;
-    }
-
-    // スタートからゴールへいく
-    // 左行き:下　右行き:上
-    //public override void MoveSequence()
-    //{
-    //    if (Paralysing())
-    //    {
-    //        return;
-    //    }
-
-    //    if (!_needDespawn)
-    //    {
-    //        // 向く処理
-    //        RotateToPlayer();
-    //        // 移動処理
-    //        ArcMove();
-    //        // チェック移動エンド
-    //        _needDespawn = CheckMoveFinish();
-
-    //        if (_canStartAttack && AttackCheck())
-    //        {
-    //            _canStartAttack = false;
-
-    //            //StartCoroutine(_birdAttack.NormalAttackLoop(_childSpawner, ConversionToBulletType(), _numberOfBullet));
-    //        }
-
-    //        return;
-    //    }
-    //    // 移動終了時
-    //    else
-    //    {
-    //        _transform.position = _goalPosition;
-    //    }
-
-    //}
-
-    /// <summary>
-    /// アタックの条件を記述
-    /// </summary>
-    /// <returns>アタックできるならtrue</returns>
-    private bool AttackCheck()
-    {
-        objectViewPoint = Camera.main.WorldToViewportPoint(_transform.position);
-
-        return IsBetween(objectViewPoint.x, VIEW_PORT_MIN, VIEW_PORT_MAX) &&
-            (IsBetween(objectViewPoint.y, VIEW_PORT_MIN, VIEW_PORT_MAX) &&
-            objectViewPoint.z > VIEW_PORT_MIN);
-
-        bool IsBetween(float look, float min, float max) => min <= look && look <= max;
-    }
-
-
-    /// <summary>
-    /// カメラのポジションから見て左に行くか調べる
-    /// </summary>
-    /// <returns>左行きならtrue</returns>
-    private bool CheckDown()
-    {
-        // 敵からプレイヤーの方向ベクトル
-        Vector3 enemyToPlayerVector = Camera.main.transform.position - _transform.position;
-
-        // 前方ベクトルと敵とプレイヤー方向ベクトルの外積をもとめる
-        Vector3 cross = Vector3.Cross(_transform.forward, enemyToPlayerVector);
-
-        // 外積から左右判定
-        if (cross.y < 0)
+        switch (_moveType)
         {
-            // 敵から見て右にプレイヤーがいるので下に行く
-            return true;
-        }
+            case MoveType.linear:
+                break;
 
-        return false;
+            case MoveType.curve:
+                // 移動処理
+                ArcMove();
+                movedDistance += _movingSide.magnitude;
+
+                break;
+        }
     }
 
     /// <summary>
@@ -274,15 +209,90 @@ public class BirdMoveSecond : BirdMoveBase
         InitializeVariables();
 
     }
+
+
     /// <summary>
     /// 移動終わったか調べる
     /// </summary>
     /// <returns>ゴール着いたらtrue</returns>
-    private bool CheckMoveFinish()
-    {
-        return _finishMoveValue < _cacheMoveValue;
-    }
+    //private bool CheckMoveFinish()
+    //{
+    //    return _finishMoveValue < _cacheMoveValue;
+    //}
 
+
+    // スタートからゴールへいく
+    // 左行き:下　右行き:上
+    //public override void MoveSequence()
+    //{
+    //    if (Paralysing())
+    //    {
+    //        return;
+    //    }
+
+    //    if (!_needDespawn)
+    //    {
+    //        // 向く処理
+    //        RotateToPlayer();
+    //        // 移動処理
+    //        ArcMove();
+    //        // チェック移動エンド
+    //        _needDespawn = CheckMoveFinish();
+
+    //        if (_canStartAttack && AttackCheck())
+    //        {
+    //            _canStartAttack = false;
+
+    //            //StartCoroutine(_birdAttack.NormalAttackLoop(_childSpawner, ConversionToBulletType(), _numberOfBullet));
+    //        }
+
+    //        return;
+    //    }
+    //    // 移動終了時
+    //    else
+    //    {
+    //        _transform.position = _goalPosition;
+    //    }
+
+    //}
+
+    /// <summary>
+    /// アタックの条件を記述
+    /// </summary>
+    /// <returns>アタックできるならtrue</returns>
+    //private bool AttackCheck()
+    //{
+    //    objectViewPoint = Camera.main.WorldToViewportPoint(_transform.position);
+
+    //    return IsBetween(objectViewPoint.x, VIEW_PORT_MIN, VIEW_PORT_MAX) &&
+    //        (IsBetween(objectViewPoint.y, VIEW_PORT_MIN, VIEW_PORT_MAX) &&
+    //        objectViewPoint.z > VIEW_PORT_MIN);
+
+    //    bool IsBetween(float look, float min, float max) => min <= look && look <= max;
+    //}
+
+
+    /// <summary>
+    /// カメラのポジションから見て左に行くか調べる
+    /// </summary>
+    /// <returns>左行きならtrue</returns>
+    //private bool CheckDown()
+    //{
+    //    // 敵からプレイヤーの方向ベクトル
+    //    Vector3 enemyToPlayerVector = Camera.main.transform.position - _transform.position;
+
+    //    // 前方ベクトルと敵とプレイヤー方向ベクトルの外積をもとめる
+    //    Vector3 cross = Vector3.Cross(_transform.forward, enemyToPlayerVector);
+
+    //    // 外積から左右判定
+    //    if (cross.y < 0)
+    //    {
+    //        // 敵から見て右にプレイヤーがいるので下に行く
+    //        return true;
+    //    }
+
+    //    return false;
+    //}
 
     #endregion
 }

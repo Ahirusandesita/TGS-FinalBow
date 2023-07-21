@@ -53,6 +53,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("移動スピード")]
     protected float _movementSpeed = default;
 
+    [Tooltip("鳥の動き")]
+    protected MoveType _moveType = default;
+
 
     [Tooltip("自身の敵の種類")]
     private CashObjectInformation _cashObjectInformation = default;
@@ -117,6 +120,10 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
     [Tooltip("再び動き出すまでの時間リスト")]
     private List<float> _reAttackTimes = new List<float>();
+
+    [Tooltip("ゴール間の鳥の動きリスト")]
+    private List<MoveType> _moveTypes = new List<MoveType>();
+
 
     [Tooltip("Scaleの加算/減算値")]
     private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
@@ -244,47 +251,27 @@ public abstract class BirdMoveBase : EnemyMoveBase
         StartCoroutine(LargerAtSpawn());
     }
 
-    private void Update()
-    {
-        MoveSequence();
-    }
-
-
-    public void MoveSelect()
-    {
-        if (bird.Get_isParalysis)
-        {
-            Paralysing();
-        }
-        else
-        {
-            //IdleMove();
-        }
-    }
 
     /// <summary>
-    /// 麻痺中
+    /// 麻痺判定
     /// </summary>
-    protected bool Paralysing()
+    protected void Paralysing()
     {
         if (bird.Get_isParalysis)
         {
             animator.speed = 0;
-
-            return true;
+            return;
         }
-
-        animator.speed = 1;
-        return false;
+        else
+        {
+            animator.speed = 1;
+        }
     }
 
     protected override void MoveSequence()
     {
         // 麻痺状態か判定する（麻痺だったら動かない）
-        if (Paralysing())
-        {
-            return;
-        }
+        Paralysing();
 
         _currentTime += Time.deltaTime;
 
@@ -377,6 +364,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             return;
         }
     }
+
 
     /// <summary>
     /// 2回目以降の移動処理のためのリセット処理
