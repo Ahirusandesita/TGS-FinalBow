@@ -41,11 +41,6 @@ public class LinkWall : MonoBehaviour, IFProperaLinkObject
         else if (needPower && !aaa)
             transform.Translate(-speed * power * Time.deltaTime, 0f, 0f);
 
-        if(aaa)
-            transform.Translate(-speed * power/2 * Time.deltaTime, 0f, 0f);
-        else
-            transform.Translate(+speed * power/2 * Time.deltaTime, 0f, 0f);
-
         if (transform.position.x < startPos.x && aaa)
             transform.position = startPos;
         else if (transform.position.x > startPos.x && !aaa)
