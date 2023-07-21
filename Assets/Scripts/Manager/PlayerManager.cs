@@ -24,7 +24,11 @@ interface IFPlayerManagerShotArrow
 {
     void ShotArrow(Vector3 aim);
     void ResetArrow();
+
+    void SetArrowMoveSpeed(float speed);
+    bool CanRapid { get; set; }
 }
+
 
 
 //H
@@ -40,6 +44,8 @@ interface IFPlayerManager
 public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFPlayerManagerSetArrow,IFPlayerManagerShotArrow
 {
     #region •Ï”éŒ¾•”
+    public bool CanRapid { get; set; }
+
     //public static bool AddTag = false;
     public RapidData _rapidData;
 
@@ -54,7 +60,6 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     private IChargeMeterManager _chargeMeterManager;
 
-    public bool _canRapid = false;
     private EnchantmentEnum.EnchantmentState _rapidSubEnchantment = default;
 
     //public GameObject testArrowObject;
@@ -143,7 +148,6 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         //˜AË
         if (arrowEnchant.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
         {
-            _canRapid = true;
             _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
             int index = default;
             if (attractCount > 5)
@@ -166,7 +170,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
             //Bow‚Ì˜AË‚É”‚ğ“n‚·
         }
 
-        if (_canRapid)
+        if (CanRapid)
         {
             arrowEnchant.EventSetting(_arrow, true, (_rapidSubEnchantment));
         }
