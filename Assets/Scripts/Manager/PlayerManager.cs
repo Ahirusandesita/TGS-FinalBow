@@ -180,19 +180,33 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
         _arrow.ArrowMoveStart();
-        arrowEnchant.EnchantmentStateReset();
-        arrowEnchant.EnchantUIReset();
-        attractCount = 0;
-        //チャージ画像リセット
-        _chargeMeterManager.ChargeReset();
+        try
+        {
+            arrowEnchant.EnchantmentStateReset();
+            arrowEnchant.EnchantUIReset();
+            attractCount = 0;
+            //チャージ画像リセット
+            _chargeMeterManager.ChargeReset();
+        }
+        catch(System.NullReferenceException)
+        {
+            Debug.LogError("UInai");
+        }
 
     }
     public void ResetArrow()
     {
-        arrowEnchant.EnchantmentStateReset();
-        arrowEnchant.EnchantUIReset();
-        //チャージ画像リセット
-        _chargeMeterManager.ChargeReset();
+        try
+        {
+            arrowEnchant.EnchantmentStateReset();
+            arrowEnchant.EnchantUIReset();
+            //チャージ画像リセット
+            _chargeMeterManager.ChargeReset();
+        }
+        catch(System.NullReferenceException)
+        {
+            Debug.LogError("UInai");
+        }
         _arrow.ReturnQue();
     }
 
