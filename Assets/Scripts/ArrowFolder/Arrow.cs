@@ -442,6 +442,11 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         this._enchantState = enchantment;
     }
 
+    public EnchantmentEnum.EnchantmentState GetEncantState()
+    {
+        return _enchantState;
+    }
+
     public void ArrowPowerColor()
     {
 
