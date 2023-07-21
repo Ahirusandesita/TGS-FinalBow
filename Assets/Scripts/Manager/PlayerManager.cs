@@ -65,6 +65,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     //public GameObject testArrowObject;
 
     IArrowEventSetting arrowEnchant;
+
+    RapidParam a;
     /// <summary>
     /// デバック用
     /// </summary>
@@ -158,7 +160,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
             {
                 for (int i = 0; i < _rapidData.rapids.rapidParams.Count; i++)
                 {
-                    RapidParam rapidCheckPoint = _rapidData.rapids.rapidParams[i];
+                    RapidParam.RapidArrowIndex rapidCheckPoint = _rapidData.rapids.rapidParams[i];
                     if (rapidCheckPoint.rapidCheckPoint == attractCount)
                     {
                         index = i;
