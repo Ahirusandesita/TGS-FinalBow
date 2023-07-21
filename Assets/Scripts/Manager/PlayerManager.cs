@@ -154,7 +154,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         {
             _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
             int index = default;
-            if (attractCount > 5)
+            if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count-1].rapidCheckPoint)
             {
                 index = _rapidData.rapids.rapidParams.Count - 1;
             }
