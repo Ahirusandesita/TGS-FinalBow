@@ -136,8 +136,14 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         arrowEnchant.ArrowEnchantPlusDamage();
 
         //ƒ`ƒƒ[ƒW‰æ‘œ
-        _chargeMeterManager.Charging();
-
+        try
+        {
+            _chargeMeterManager.Charging();
+        }
+        catch (System.NullReferenceException)
+        {
+            Debug.LogError("UInai");
+        }
         _arrow.ArrowPowerColor();
 
         attractCount++;
