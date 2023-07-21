@@ -154,7 +154,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         {
             _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
             int index = default;
-            if (attractCount > 5)
+            if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count-1].rapidCheckPoint)
             {
                 index = _rapidData.rapids.rapidParams.Count - 1;
             }
@@ -163,10 +163,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
                 for (int i = 0; i < _rapidData.rapids.rapidParams.Count; i++)
                 {
                     RapidParam.RapidArrowIndex rapidCheckPoint = _rapidData.rapids.rapidParams[i];
-                    if (rapidCheckPoint.rapidCheckPoint == attractCount)
+                    if (rapidCheckPoint.rapidCheckPoint < attractCount)
                     {
                         index = i;
-                        break;
                     }
                 }
             }
