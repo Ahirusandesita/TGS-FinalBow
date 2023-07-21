@@ -25,8 +25,14 @@ public sealed class FPSBow : BowManager
 
     Transform _myTransform;
 
+
     #endregion
     #region property
+    protected override Transform GetSpawnPosition => _arrowPosition;
+
+    protected override Vector3 GetShotDirection => _myTransform.forward - _myTransform.position;
+
+
     #endregion
     #region method
 
@@ -81,7 +87,7 @@ public sealed class FPSBow : BowManager
     protected override void ProcessOfReleaseObjcect()
     {
         // ‘O•û‚É–î‚ðŽËŒ‚
-        BowShotSetting(_myTransform.forward - _myTransform.position);
+        BowShotSetting(GetShotDirection);
 
     }
 
