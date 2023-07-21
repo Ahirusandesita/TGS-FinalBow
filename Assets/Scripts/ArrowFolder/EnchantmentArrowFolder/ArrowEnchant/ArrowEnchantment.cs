@@ -184,6 +184,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 
             //ƒGƒ“ƒ`ƒƒƒ“ƒg‚Ì’²‡
             EnchantmentPreparation(enchantState, arrow, needMoveChenge);
+            
         }
     }
 
@@ -197,7 +198,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         {
             _isEnchantments[i] = false;
         }
-        _isEnchantments[ENCHANT_NORMAL_INDEX] = true;
+       // _isEnchantments[ENCHANT_NORMAL_INDEX] = true;
 
         _enchantmentStateLast = EnchantmentEnum.EnchantmentState.nothing;
     }

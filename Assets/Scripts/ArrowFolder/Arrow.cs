@@ -222,9 +222,6 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 
     private void OnEnable()
     {
-        NeedArrowEnchant = true;
-        MyTransform = gameObject.transform;
-        _hitZone = new HitZone(2f, MyTransform.position);
         //矢のクラスをゲットコンポーネントする
 
         if (_isStarEnable)
@@ -248,17 +245,19 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         //エラー無ければ削除
         //_bowManagerQue = StaticBowObject.BowManagerQue;
 
-        _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
-        _myTrailRenderer.enabled = false;
-
         _bowManagerQue = GameObject.FindGameObjectWithTag("BowController").GetComponent<BowManager>();
 
     }
     private void Start()
     {
-
+        NeedArrowEnchant = true;
+        MyTransform = gameObject.transform;
+        _hitZone = new HitZone(2f, MyTransform.position);
         //_playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
+        _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
+        _myTrailRenderer.enabled = false;
+
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
 
 
@@ -290,7 +289,10 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         }
 
         //矢を移動する関数を呼ぶ
-        MoveArrow(MyTransform);
+        if (MoveArrow != null)
+            MoveArrow(MyTransform);
+        else
+            Debug.LogError(_enchantState);
 
         //矢がどこかにヒットしたら
         if (ArrowGetObject.ArrowHit(MyTransform, this))
@@ -403,7 +405,10 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     /// </summary>
     public void ArrowMoveStart()
     {
-
+        if(MyTransform == null)
+        {
+            MyTransform = gameObject.transform;
+        }
         //親オブジェクトをNullにする
         MyTransform.parent = null;
 
@@ -417,6 +422,12 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         StartCoroutine(IEArrowQue());
 
         NeedArrowEnchant = false;
+
+        if(_myTrailRenderer == null)
+        {
+            _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
+            _myTrailRenderer.enabled = false;
+        }
 
         _myTrailRenderer.enabled = true;
     }

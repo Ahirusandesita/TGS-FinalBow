@@ -41,7 +41,7 @@ interface IFPlayerManager
     public void AddEventArrow(GameObject obj);
 
 }
-public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFPlayerManagerSetArrow,IFPlayerManagerShotArrow
+public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFPlayerManagerSetArrow, IFPlayerManagerShotArrow
 {
     #region 変数宣言部
     public bool CanRapid { get; set; }
@@ -160,7 +160,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         {
             _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
             int index = default;
-            if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count-1].rapidCheckPoint)
+            if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count - 1].rapidCheckPoint)
             {
                 index = _rapidData.rapids.rapidParams.Count - 1;
             }
@@ -175,7 +175,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
                     }
                 }
             }
-            _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);            
+            _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);
         }
 
         if (CanRapid)
@@ -186,15 +186,15 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
         _arrow.ArrowMoveStart();
+        arrowEnchant.EnchantmentStateReset();
         try
         {
-            arrowEnchant.EnchantmentStateReset();
             arrowEnchant.EnchantUIReset();
             attractCount = 0;
             //チャージ画像リセット
             _chargeMeterManager.ChargeReset();
         }
-        catch(System.NullReferenceException)
+        catch (System.NullReferenceException)
         {
             Debug.LogError("UInai");
         }
@@ -202,14 +202,14 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     }
     public void ResetArrow()
     {
+        arrowEnchant.EnchantmentStateReset();
         try
         {
-            arrowEnchant.EnchantmentStateReset();
             arrowEnchant.EnchantUIReset();
             //チャージ画像リセット
             _chargeMeterManager.ChargeReset();
         }
-        catch(System.NullReferenceException)
+        catch (System.NullReferenceException)
         {
             Debug.LogError("UInai");
         }
@@ -232,7 +232,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.normal);
     }
 
-   
+
 
     public void SetArrowMoveSpeed(float arrowMoveSpeed)
     {
