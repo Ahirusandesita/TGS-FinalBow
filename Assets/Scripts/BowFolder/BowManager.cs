@@ -261,34 +261,28 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         // 矢のスピードセット、弓を引いた量によって変える
         _playerManager.SetArrowMoveSpeed(_setedArrowSpeed);
 
-        try
-        {
-            // 矢を撃つ
-            _playerManager.ShotArrow(shotDirection);
+        // 矢を撃つ
+        _playerManager.ShotArrow(shotDirection);
 
-            if (_canMachineGun && --_valueMachineGun > 0)
-            {
-                StartCoroutine(MachineGun());
-
-            }
-            else if (_valueMachineGun < 0)
-            {
-                _playerManager.CanRapid = false;
-                _canMachineGun = false;
-            }
-        }
-        catch (NullReferenceException)
+        if (_canMachineGun && --_valueMachineGun > 0)
         {
-            Debug.LogError("ShotArrowエラースルー");
+            StartCoroutine(MachineGun());
+
         }
+        else if (_valueMachineGun <= 0)
+        {
+            _playerManager.CanRapid = false;
+            _canMachineGun = false;
+        }
+
 
     }
 
     protected virtual IEnumerator MachineGun()
     {
-        _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, GetSpawnPosition.position);
 
         yield return _delayTime;
+        _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, GetSpawnPosition.position);
 
         BowShotArrow(GetShotDirection);
     }
