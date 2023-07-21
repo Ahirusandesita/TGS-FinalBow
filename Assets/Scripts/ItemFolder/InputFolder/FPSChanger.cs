@@ -28,7 +28,7 @@ public class FPSChanger : MonoBehaviour
             if (child.CompareTag(InhallLibTags.SceneFade))
             {
                 fade = child.gameObject;
-                fade.SetActive(false);
+                //fade.SetActive(false);
             }
         }
     }
@@ -44,7 +44,7 @@ public class FPSChanger : MonoBehaviour
             }
 
             fps.SetActive(true);
-            fade.SetActive(false);
+            //fade.SetActive(false);
         }
 
         if (Input.GetMouseButton(1))

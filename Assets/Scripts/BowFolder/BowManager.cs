@@ -143,7 +143,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
     public void BowUpdateCallProcess()
     {
         // •¨‚ğ’Í‚Ş“ü—Í‚ª‚ ‚Á‚½ê‡
-        if (_grapTriggerInput() && _handStats == HandStats.None)
+        if ((_grapTriggerInput() && _handStats == HandStats.None) && !_canMachineGun)
         {
             // ’Í‚Ş
             ProcessOfGrapObject();
@@ -283,7 +283,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
         yield return _delayTime;
         _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, GetSpawnPosition.position);
-
+        yield return null;
         BowShotArrow(GetShotDirection);
     }
 
