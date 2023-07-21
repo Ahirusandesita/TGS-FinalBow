@@ -25,6 +25,8 @@ interface IArrowEventSetting : IArrowPlusDamage
     /// </summary>
     void EnchantmentStateReset();
     void EnchantUIReset();
+
+    EnchantmentEnum.EnchantmentState GetSubEnchantment();
 }
 
 /// <summary>
@@ -299,6 +301,12 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
            };
 
 
+        if(GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
+        {
+            enchantState = GetSubEnchantment();
+        }
+
+
         //Enum‚É‡‚í‚¹‚Äˆ—‚ğ‘ã“ü‚µ‚Ä‚¢‚­
         switch (enchantState)
         {
@@ -506,5 +514,37 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                 _atractEffect.AttractEffectEffect_HomingPenetrate();
                 break;
         }
+    }
+
+    public EnchantmentEnum.EnchantmentState GetSubEnchantment()
+    {
+        if(_enchantmentStateLast == EnchantmentEnum.EnchantmentState.knockBack)
+        {
+            return EnchantmentEnum.EnchantmentState.normal;
+        }
+
+        if(_enchantmentStateLast == EnchantmentEnum.EnchantmentState.bombKnockBack)
+        {
+            return EnchantmentEnum.EnchantmentState.bomb;
+        }
+
+        if(_enchantmentStateLast == EnchantmentEnum.EnchantmentState.thunderKnockBack)
+        {
+            return EnchantmentEnum.EnchantmentState.thunder;
+        }
+
+        if(_enchantmentStateLast == EnchantmentEnum.EnchantmentState.knockBackHoming)
+        {
+            return EnchantmentEnum.EnchantmentState.homing;
+        }
+
+        if(_enchantmentStateLast == EnchantmentEnum.EnchantmentState.knockBackpenetrate)
+        {
+            return EnchantmentEnum.EnchantmentState.penetrate;
+        }
+
+        //ŠÔˆá‚¢
+        return EnchantmentEnum.EnchantmentState.nothing;
+
     }
 }

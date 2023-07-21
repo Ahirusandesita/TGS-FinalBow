@@ -56,8 +56,10 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     private IChargeMeterManager _chargeMeterManager;
 
-
-
+    private int _rapidFireCount = 0;
+    private int _rapidFireCountMax = default;
+    private bool _canRapid = false;
+    private EnchantmentEnum.EnchantmentState _rapidSubEnchantment = default;
 
     //public GameObject testArrowObject;
 
@@ -80,6 +82,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     private void Start()
     {
+        _rapidFireCountMax = _rapidFireCount;
 
         try
         {
@@ -140,6 +143,26 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// <param name="aim"></param>
     public void ShotArrow(Vector3 aim)
     {
+        //連射
+        if (arrowEnchant.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
+        {
+            _canRapid = true;
+            _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
+            //Bowの連射に数を渡す
+        }
+
+        if (_canRapid)
+        {
+            _rapidFireCount--;
+            arrowEnchant.EventSetting(_arrow, true, (_rapidSubEnchantment));
+            if(_rapidFireCount < 0)
+            {
+                _rapidFireCount = _rapidFireCountMax;
+                _canRapid = false;
+            }
+
+        }
+
         arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
         _arrow.ArrowMoveStart();
@@ -148,6 +171,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
         //チャージ画像リセット
         _chargeMeterManager.ChargeReset();
+
     }
     public void ResetArrow()
     {
