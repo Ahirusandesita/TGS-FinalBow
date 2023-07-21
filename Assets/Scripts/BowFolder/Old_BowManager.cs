@@ -517,5 +517,15 @@ public class Old_BowManager : MonoBehaviour, IFBowManagerGetDistance, IFBowManag
 
     bool GetMouseUpButton() => Input.GetMouseButtonUp(0);
 
+    public void SetArrowMachineGun(int arrowValue)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetArrowMachineGun(int arrowValue, float delayTime)
+    {
+        throw new NotImplementedException();
+    }
+
     #endregion
 }

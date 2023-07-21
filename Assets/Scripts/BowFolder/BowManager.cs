@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using System;
 using UnityEngine;
+using System.Collections;
 
 public interface IFBowManagerQue
 {
@@ -14,6 +15,11 @@ public interface IFBowManagerQue
     /// </summary>
     /// <param name="arrow">キューにいれるオブジェクト</param>
     public void ArrowQue(CashObjectInformation arrow);
+
+    /// <summary>
+    /// 矢の連射イベント通知
+    /// </summary>
+    public void SetArrowMachineGun(int arrowValue,float delayTime);
 }
 
 public interface IFBowManagerUpdate
@@ -33,7 +39,6 @@ public interface IFBowManager_GetStats
 
 public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerUpdate, IFBowManager_GetStats
 {
-
     #region かつてpublicだった変数
     [SerializeField] protected TagObject _InputTagName = default;
 
@@ -61,6 +66,17 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     protected Func<bool> _releaseTriggerInput = default;
 
+ 
+    protected bool _canMachineGun;
+
+    protected int _valueMachineGun;
+
+    protected WaitForSeconds _delayTime;
+
+
+    
+    
+
     /// <summary>
     /// 手の状態管理型
     /// </summary>
@@ -71,7 +87,6 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
     }
 
     protected HandStats _handStats = HandStats.None;
-
 
     #endregion
 
@@ -94,6 +109,10 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         }
     }
 
+    protected abstract Transform GetSpawnPosition { get; }
+
+    protected abstract Vector3 GetShotDirection { get; }
+   
 
     /// <summary>
     /// 必須変数のゲットコンポーネントとSetInputDelegate()を行う
@@ -245,12 +264,31 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         {
             // 矢を撃つ
             _playerManager.ShotArrow(shotDirection);
+
+            if (_canMachineGun && --_valueMachineGun > 0)
+            {
+                StartCoroutine(MachineGun());
+
+            }
+            else if(_valueMachineGun < 0)
+            {
+                _playerManager.CanRapid = false;
+            }
         }
         catch (NullReferenceException)
         {
             Debug.LogError("ShotArrowエラースルー");
         }
 
+    }
+
+    protected virtual IEnumerator MachineGun()
+    {
+        _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, GetSpawnPosition.position);
+
+        yield return _delayTime;
+
+        BowShotArrow(GetShotDirection);
     }
 
     /// <summary>
@@ -266,5 +304,12 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
     /// <returns></returns>
     protected abstract float GetShotPercentPower();
 
-
+    public void SetArrowMachineGun(int arrowValue,float delayTime)
+    {
+        _canMachineGun = true;
+        _valueMachineGun = arrowValue;
+        _delayTime = new WaitForSeconds(delayTime);
+        _playerManager.CanRapid = true;
+    }
+   
 }

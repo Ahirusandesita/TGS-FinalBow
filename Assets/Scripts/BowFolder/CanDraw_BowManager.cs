@@ -46,6 +46,11 @@ public abstract class CanDraw_BowManager : BowManager
 
     #endregion
     #region property
+    protected override Transform GetSpawnPosition => _drawObject;
+
+    protected override Vector3 GetShotDirection => _transformControl.GetBowFoward();
+
+
     #endregion
     #region method
 
@@ -102,7 +107,7 @@ public abstract class CanDraw_BowManager : BowManager
     protected virtual void BowShotStart()
     {
         // 矢を撃つ
-        BowShotSetting(_transformControl.GetBowFoward());
+        BowShotSetting(GetShotDirection);
 
         // 矢を撃った後のトランスフォーム設定
         _transformControl.AfterShotResetTransform();
