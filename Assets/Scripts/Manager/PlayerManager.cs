@@ -41,11 +41,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 {
     #region 変数宣言部
     //public static bool AddTag = false;
-    public TagObject _BowControllerTagData;
+    public RapidData _rapidData;
 
-    public TagObject _ArrowEnchantmentControllerTagData;
-
-    public TagObject _ChargeMeterControllerTagData;
+    private int attractCount = 0;
 
     private Arrow _arrow;
 
@@ -56,9 +54,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     private IChargeMeterManager _chargeMeterManager;
 
-    private int _rapidFireCount = 0;
-    private int _rapidFireCountMax = default;
-    private bool _canRapid = false;
+    public bool _canRapid = false;
     private EnchantmentEnum.EnchantmentState _rapidSubEnchantment = default;
 
     //public GameObject testArrowObject;
@@ -82,11 +78,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     private void Start()
     {
-        _rapidFireCountMax = _rapidFireCount;
-
         try
         {
-            _bowObject = GameObject.FindWithTag(_BowControllerTagData.TagName);
+            _bowObject = GameObject.FindWithTag(InhallLibTags.BowController);
         }
         catch (System.NullReferenceException)
         {
@@ -94,7 +88,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         try
         {
-            _arrowEnchantObject = GameObject.FindWithTag(_ArrowEnchantmentControllerTagData.TagName);
+            _arrowEnchantObject = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController);
         }
         catch (System.NullReferenceException)
         {
@@ -102,7 +96,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         try
         {
-            _chargeMeterManager = GameObject.FindWithTag(_ChargeMeterControllerTagData.TagName).GetComponent<ChargeMeterManager>();
+            _chargeMeterManager = GameObject.FindWithTag(InhallLibTags.ChargeMeterController).GetComponent<ChargeMeterManager>();
         }
         catch (System.NullReferenceException)
         {
@@ -136,6 +130,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         _chargeMeterManager.Charging();
 
         _arrow.ArrowPowerColor();
+
+        attractCount++;
+
     }
     /// <summary>
     /// 矢を発射するメソッド
@@ -148,19 +145,30 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         {
             _canRapid = true;
             _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
+            int index = default;
+            if (attractCount > 5)
+            {
+                index = _rapidData.rapids.rapidParams.Count - 1;
+            }
+            else
+            {
+                for (int i = 0; i < _rapidData.rapids.rapidParams.Count; i++)
+                {
+                    RapidParam rapidCheckPoint = _rapidData.rapids.rapidParams[i];
+                    if (rapidCheckPoint.rapidCheckPoint == attractCount)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+
             //Bowの連射に数を渡す
         }
 
         if (_canRapid)
         {
-            _rapidFireCount--;
             arrowEnchant.EventSetting(_arrow, true, (_rapidSubEnchantment));
-            if(_rapidFireCount < 0)
-            {
-                _rapidFireCount = _rapidFireCountMax;
-                _canRapid = false;
-            }
-
         }
 
         arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
@@ -168,7 +176,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         _arrow.ArrowMoveStart();
         arrowEnchant.EnchantmentStateReset();
         arrowEnchant.EnchantUIReset();
-
+        attractCount = 0;
         //チャージ画像リセット
         _chargeMeterManager.ChargeReset();
 
