@@ -42,7 +42,6 @@ public class ArrowEnchantUI : MonoBehaviour
         else
             _enchantUIManager = new NullObject();
     }
-    
     public void ArrowEnchantUI_Normal()
     {
         _enchantUIManager.EnchantImageReset();
