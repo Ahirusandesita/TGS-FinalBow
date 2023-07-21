@@ -226,13 +226,13 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         MyTransform = gameObject.transform;
         _hitZone = new HitZone(2f, MyTransform.position);
         //矢のクラスをゲットコンポーネントする
-        _arrowMove = EnchantArrowMove;
 
         if (_isStarEnable)
         {
             EnchantArrowMove = this.gameObject.GetComponent<ArrowMove>();
             EnchantArrowPassiveEffect = this.gameObject.GetComponent<ArrowPassiveEffect>();
             _isStarEnable = false;
+            _arrowMove = EnchantArrowMove;
         }
 
         _playerManager = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerManager>();
@@ -248,6 +248,9 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         //エラー無ければ削除
         //_bowManagerQue = StaticBowObject.BowManagerQue;
 
+        _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
+        _myTrailRenderer.enabled = false;
+
         _bowManagerQue = GameObject.FindGameObjectWithTag("BowController").GetComponent<BowManager>();
 
     }
@@ -262,9 +265,6 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         _audioSource = this.GetComponent<AudioSource>();
 
         _waitArrowActivTime = new WaitForSeconds(_arrowActivTime);
-
-        _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
-        _myTrailRenderer.enabled = false;
 
         _myArrowRenderer = MyTransform.GetChild(2).gameObject.transform.GetChild(4).GetComponent<Renderer>();
         _colorValue = _myArrowRenderer.material.color.g / 10;
