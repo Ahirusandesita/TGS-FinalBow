@@ -163,10 +163,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
                 for (int i = 0; i < _rapidData.rapids.rapidParams.Count; i++)
                 {
                     RapidParam.RapidArrowIndex rapidCheckPoint = _rapidData.rapids.rapidParams[i];
-                    if (rapidCheckPoint.rapidCheckPoint == attractCount)
+                    if (rapidCheckPoint.rapidCheckPoint < attractCount)
                     {
                         index = i;
-                        break;
                     }
                 }
             }
