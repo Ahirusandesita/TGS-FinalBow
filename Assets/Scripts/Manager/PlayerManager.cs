@@ -20,7 +20,7 @@ public interface IFPlayerManagerSetArrow
 
 }
 
-interface IFPlayerManagerShotArrow
+public interface IFPlayerManagerShotArrow
 {
     void ShotArrow(Vector3 aim);
     void ResetArrow();
