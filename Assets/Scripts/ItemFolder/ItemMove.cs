@@ -25,6 +25,15 @@ public class ItemMove : MonoBehaviour
 
     #region　Unity変数一覧
 
+    // アイテム自身のtransform
+    private Transform _itemTransform = default;
+
+    // ターゲットのtransform
+    private Transform _targeterTransform = default;
+
+    // プレイヤーのtransform
+    private Transform _playerTransform = default;
+
     // 目標地点が向いている向き
     private Vector3 _goalVector = default;
 
@@ -34,9 +43,6 @@ public class ItemMove : MonoBehaviour
     // アイテムから見たターゲットの向き
     private Vector3 _targetVector = default;
 
-    // 
-    private Vector3 _spawnPosition = default;
-
     // 追跡するターゲットのオブジェクト
     private GameObject _targeterObject = null;
 
@@ -44,11 +50,14 @@ public class ItemMove : MonoBehaviour
 
     #region　float変数一覧　グロ注意
 
+    // 引き寄せる速度の係数　速度は距離に応じて比例的に上昇するためその係数
+    private float _attractSpeed = 50f;
+
     // 調整用変数　引き寄せる力の大きさ　いずれは定数化したい
     private float _attract_Power = 1f;
 
-    // 目標地点との直線距離
-    private float _distance = default;
+    // 開始時の目標地点との直線距離
+    private float _startDistance = default;
 
     // 追跡するターゲットとの距離
     private float _targetDistance = default;
@@ -62,6 +71,8 @@ public class ItemMove : MonoBehaviour
     // 目標地点の向きとアイテムへの向きの差　弧度法で代入
     private float _differenceAngle = default;
 
+    // プレイヤーとアイテムの距離
+    private float _playerDistance = default;
     #endregion
 
     #region　float定数一覧
@@ -71,6 +82,9 @@ public class ItemMove : MonoBehaviour
 
     // 距離による速度加算値の上昇係数
     private const float SPEED_UP_COEFFICIENT = 1f;
+
+    // 到達判定距離　プレイヤーとの距離で判定
+    private const float CHECK_ALLIVE_DISTANCE = 1f;
     #endregion
 
     #region クラスの代入用変数
@@ -109,6 +123,12 @@ public class ItemMove : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        // アイテムのTransformの代入
+        _itemTransform = this.gameObject.transform;
+
+        // プレイヤーのTransformの代入
+        _playerTransform = GameObject.FindGameObjectWithTag("PlayerController").transform;
+
         // PoolManagerの代入
         PoolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
 
@@ -129,6 +149,8 @@ public class ItemMove : MonoBehaviour
 
         // IFBowManager_GetStatsの代入
         _bowManager = GameObject.FindGameObjectWithTag("BowController").GetComponent<BowManager>();
+
+
     }
 
     /// <summary>
@@ -161,40 +183,13 @@ public class ItemMove : MonoBehaviour
     /// </summary>
     /// <param name="goalTransform">引き寄せる対象のオブジェクト</param>
     /// <param name="attractPower">引き寄せる力の大きさ</param>
-    public void StartSetting(Transform goalTransform, float attractPower)
+    public void StartSetting()
     {
-        // 目標地点との直線距離を求める
-        _distance = MathN.Vector.Distance(goalTransform.position, this.transform.position);
+        _targeterObject = PoolManager.CallObject(PoolEnum.PoolObjectType.targeter, this.gameObject.transform.position).gameObject;
 
-        // 目標地点の向きを代入
-        _goalVector = goalTransform.TransformVector(Vector3.forward);
+        _targeterTransform = _targeterObject.transform;
 
-        // 目標地点から見たアイテムへの向きを求める
-        _betweenVector = MathN.Vector.Normalize(goalTransform.position, this.transform.position);
-
-        // 目標地点の向きと目標地点から見たアイテムへの向きの差を求めて弧度法に変換
-        _differenceAngle = MathN.Mod.Chenge_DegToRad(Vector3.Angle(_goalVector, _betweenVector));
-
-        // ローカル座標Ｚ軸 = 距離 × Cosθ
-        _goalLocal_z = _distance * Mathf.Cos(_differenceAngle);
-
-        // 目標地点の向きにローカルＺ軸分離れた地点を求める
-        _spawnPosition = goalTransform.TransformVector(Vector3.forward) * _goalLocal_z;
-
-        // 目標地点を基準に離れた分を加算してスポーン位置を求める
-        _spawnPosition = goalTransform.localPosition + _spawnPosition;
-
-        // 求めた位置に追跡するターゲットの作成する
-        CreateTargeter(_spawnPosition);
-
-        //ターゲットのクラスを代入
-        targeterclass = _targeterObject.GetComponent<TargeterSetParent>();
-
-        // 自身の移動速度を設定
-        _attract_Power = attractPower;
-
-        // ターゲットの移動速度を設定
-        targeterclass.SetAttractPower = attractPower;
+        _startDistance = Vector3.Distance(_playerTransform.position, _itemTransform.position);
 
         //設定完了
         _endSetting = true;
@@ -207,23 +202,23 @@ public class ItemMove : MonoBehaviour
     {
         if (!_endSetting)
         {
-            StartSetting(_goalTransform, _attract_Power);
+            StartSetting();
         }
 
-        // 自身から見た追跡するターゲットへの向きを求める
-        _targetVector = MathN.Vector.Normalize(this.transform.position, _targeterObject.transform.position);
+        // ターゲットへのベクトルを取得する
+        _targetVector = _targeterTransform.position - _itemTransform.position;
 
-        // 追跡するターゲットとの距離を求める
-        _targetDistance = MathN.Vector.Distance(this.transform.position, _targeterObject.transform.position);
+        // 自身をターゲットに向けて移動
+        transform.position += _targetVector.normalized * (_targetVector.magnitude * _attractSpeed * Time.deltaTime) ;
 
-        // 追跡するターゲットとの距離を基に速度の加算値を求める
-        _addAttractSpeed = MathN.Clamp.Max(SPEED_UP_COEFFICIENT * _targetDistance, SPEED_UP_MAXVARUE);
+        // プレイヤーとアイテムの距離を取得する
+        _playerDistance = Vector3.Distance(_playerTransform.position , _itemTransform.position);
 
-        // 自信をターゲットに向けて移動
-        transform.position += _targetVector * (_attract_Power + _addAttractSpeed) * Time.deltaTime;
+        // 距離でサイズ変更
+        _itemTransform.localScale = startsize * (_playerDistance / _startDistance);
 
         // '追跡するターゲットが目標地点に到達している' かつ '自身がターゲットに追いついている' かの判定
-        if (targeterclass.IsTargeterArrivel && _targetDistance < _destroyDistance || !_bowManager.IsHolding)
+        if (_targetVector.magnitude < CHECK_ALLIVE_DISTANCE && _playerDistance < CHECK_ALLIVE_DISTANCE)
         {
             // 追跡するターゲットの削除及びリセット
             ReSetAll();
@@ -245,7 +240,6 @@ public class ItemMove : MonoBehaviour
     /// </summary>
     public void ReSetAll()
     {
-        targeterclass.ReSetTargeter();
         this.transform.localScale = startsize;
         PoolManager.ReturnObject(Cash);
     }
@@ -297,9 +291,6 @@ public class ItemMove : MonoBehaviour
 
         // 追跡するターゲットの初期化
         _targeterObject = null;
-
-        // 引き寄せる速度の初期化
-        _attract_Power = default;
 
         //設定フラグの初期化
         _endSetting = false;

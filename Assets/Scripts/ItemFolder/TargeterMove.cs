@@ -11,28 +11,70 @@ interface ITargeterMove
 }
 public class TargeterMove : MonoBehaviour
 {
-    private Vector3 _spawnPosition = default;
-
-    private ObjectPoolSystem PoolManager = default;
-    private CashObjectInformation Cash = default;
     private ItemMove _itemMove = default;
+
+    GameObject _object = default;
+
+    GameObject _player = default;
+
+    float _time = default;
+
+    [SerializeField]
+    float _radius = default;
+
+    float _distance = default;
+
+    [SerializeField]
+    float _speed = default;
+
+
+    float _startRotation = default;
+    Vector3 _nextPosition = default;
+
+    bool _doMove = false;
+
+    bool _isArrive = false;
+
 
     private void Start()
     {
-        PoolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
-        Cash = this.GetComponent<CashObjectInformation>();
+        _object = this.gameObject;
+        _player = GameObject.FindWithTag("PlayerController");
         _itemMove = this.GetComponent<ItemMove>();
     }
 
-    public void CreateTargeter(float distance_z, Transform goalTransform)
+
+    private void Update()
     {
-        _spawnPosition = goalTransform.TransformVector(Vector3.forward) * distance_z;
-        _spawnPosition = goalTransform.localPosition + _spawnPosition;
-        _itemMove.SetTargeter = PoolManager.CallObject(PoolEnum.PoolObjectType.targeter, _spawnPosition).gameObject;
+        if (_doMove)
+        {
+            TargeterMovement();
+        }
     }
 
-    public void Re_setTargeter()
+    private void TargeterMovement()
     {
-        PoolManager.ReturnObject(Cash);
+        _time += Time.deltaTime * Mathf.PI;
+        _nextPosition.x = Mathf.Cos(_startRotation + _time) * (_radius * _distance);
+        _nextPosition.y = Mathf.Sin(_startRotation + _time) * (_radius * _distance);
+        _nextPosition.z = _distance;
+        _object.transform.localPosition = _nextPosition;
+
+        _distance -= Time.deltaTime * _speed;
+        if (_distance < 0f)
+        {
+            _doMove = false;
+            _isArrive = true;
+        }
+    }
+
+    private void OnEnable()
+    {
+        _object.transform.parent = _player.transform;
+        _startRotation = Mathf.Atan2(_object.transform.position.y, _object.transform.position.x);
+
+        _distance = _object.transform.localPosition.z;
+
+        _doMove = true;
     }
 }
