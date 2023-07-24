@@ -26,6 +26,10 @@ public static class ScoreNumber
         public int valueTimeBonus;
     }
 
+    public static void ResetScore()
+    {
+        ScorePoint = new Score();
+    }
 
 
 }

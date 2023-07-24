@@ -11,7 +11,9 @@ using System.Collections.Generic;
 public class ScoreResult : MonoBehaviour
 {
     #region variable 
-    private IFScoreManager_AllGetScore _scoerManager;
+
+    private ScoreNumber.Score _scorePoint = default;
+         
     
     private enum ScoreType { nomal, hp, attract, time ,all,hpValue,attractValue,timeValue};
 
@@ -23,16 +25,19 @@ public class ScoreResult : MonoBehaviour
     List<GameObject> _bonusScoreObjects = new List<GameObject>();
 
     //スコアを出すポジション
-    private Vector3 _scorePosition = new Vector3(121f, 140.6f, 44f);
+    private Vector3 _scorePosition = new Vector3(51f,108.3f,-133f);//new Vector3(121f, 140.6f, 44f);
     private Vector3 _scorePositionStart;
     //ボーナスを出すポジション
-    private Vector3[] _bonusPositions = { new Vector3(114f, 91.7f, 44f), new Vector3(114f, 66f, 44f), new Vector3(114f, 43.3f, 44f) };
-    private Vector3 _bonusPosition = new Vector3(125f, 160.4f, 44f);
+    private Vector3[] _bonusPositions = {new Vector3(47.2f,88.4f,-132.5f), new Vector3(47.2f, 78.4f, -132.5f), new Vector3(47.2f, 68.4f, -132.5f) };//{ new Vector3(114f, 91.7f, 44f), new Vector3(114f, 66f, 44f), new Vector3(114f, 43.3f, 44f) };
+    private Vector3 _bonusPosition = new Vector3(52f,118.3f,-133f);//new Vector3(125f, 160.4f, 44f);
     private Vector3[] _bonusPositionStarts;
     private Vector3 _bonusPositionStart;
     private int _bonusScoreIndex = 0;
-    private float _scorePlusXPosition = 20f;
-    private float _scorePlusXPosition_bonus = 10f;
+    private float _scorePlusXPosition = 10f;//20f;
+    private float _scorePlusXPosition_bonus = 5f;
+
+    private float size1 = 30f;
+    private float size2 = 15f;
 
     #endregion
     #region property
@@ -40,7 +45,8 @@ public class ScoreResult : MonoBehaviour
     #region method
     private void Start()
     {
-        _scoerManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>().ScoreManager;
+        //_scoerManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>().ScoreManager;
+        _scorePoint = ScoreNumber.ScorePoint;
         _numberObject = transform.parent.GetComponent<ScoreUIManager>()._NumberObjectData;
         StartCoroutine(ScoreTimer());
 
@@ -58,32 +64,32 @@ public class ScoreResult : MonoBehaviour
             //ノーマルスコア
             case ScoreType.nomal:
                 nomalScore +=
-                    _scoerManager.NormalScore_NomalEnemyGetScore() +
-                    _scoerManager.NormalScore_BossEnemyGetScore() +
-                    _scoerManager.NormalScore_EnchantGetScore() +
-                    _scoerManager.NormalScore_CoinGetScore() +
-                    _scoerManager.NormalScore_ComboGetScore();
+                    _scorePoint.scoreNormalEnemy +
+                    _scorePoint.scoreBossEnemy +
+                    _scorePoint.scoreEnchant +
+                    _scorePoint.scoreCoin +
+                    _scorePoint.scoreComboBonus;
 
                 ScoreDigits(nomalScore,DisplayType.nomal);
                 break;
 
             case ScoreType.hp:
                 //Hpスコアを出す
-                ScoreDigits(_scoerManager.BonusScore_HpGetScore(),DisplayType.bonus);
-                nomalScore += _scoerManager.BonusScore_HpGetScore();
+                ScoreDigits(_scorePoint.scoreHpBonus,DisplayType.bonus);
+                nomalScore += _scorePoint.scoreHpBonus;
                 //Hpスコアを足したボーナススコア
                 ScoreDigits(nomalScore, DisplayType.nomal);
                 break;
 
             case ScoreType.attract:
-                ScoreDigits(_scoerManager.BonusScore_AttractGetBonus(), DisplayType.bonus);
-                nomalScore += _scoerManager.BonusScore_AttractGetBonus();
+                ScoreDigits(_scorePoint.scoreAttractBonus, DisplayType.bonus);
+                nomalScore += _scorePoint.scoreAttractBonus;
                 ScoreDigits(nomalScore, DisplayType.nomal);
                 break;
 
             case ScoreType.time:
-                ScoreDigits(_scoerManager.BonusScore_GetTime(), DisplayType.bonus);
-                nomalScore += _scoerManager.BonusScore_GetTime();
+                ScoreDigits(_scorePoint.scoreTimeBonus, DisplayType.bonus);
+                nomalScore += _scorePoint.scoreTimeBonus;
                 ScoreDigits(nomalScore, DisplayType.nomal);
                 break;
 
@@ -92,13 +98,13 @@ public class ScoreResult : MonoBehaviour
                 break;
 
             case ScoreType.hpValue:
-                ScoreDigits(_scoerManager.BonusValue_GetHp(),DisplayType.valueHp);
+                ScoreDigits(_scorePoint.valueHpBonus,DisplayType.valueHp);
                 break;
             case ScoreType.attractValue:
-                ScoreDigits(_scoerManager.BonusValue_GetAttract(), DisplayType.valueAttract);
+                ScoreDigits(_scorePoint.valueAttractBonus, DisplayType.valueAttract);
                 break;
             case ScoreType.timeValue:
-                ScoreDigits(_scoerManager.BonusValue_TimeGetScore(),DisplayType.valueTime);
+                ScoreDigits(_scorePoint.valueTimeBonus,DisplayType.valueTime);
                 break;
         }
     }
@@ -121,7 +127,7 @@ public class ScoreResult : MonoBehaviour
         yield return new WaitForSeconds(1f);
         ScoreDigits(-1, DisplayType.bonus);
 
-        _scoerManager.ScoreReset();
+        //_scorePoint.ScoreReset();
     }
 
     private void ScoreDigits(int score,DisplayType displayType)
@@ -212,7 +218,7 @@ public class ScoreResult : MonoBehaviour
             {
                 _bonusPositions[_bonusScoreIndex].x += 5;
                 GameObject bonusScore = Instantiate(_numberObject.numberObject[12].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
-                bonusScore.transform.localScale *= 70f;
+                bonusScore.transform.localScale *= size1;
                 _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
             }
 
@@ -222,13 +228,13 @@ public class ScoreResult : MonoBehaviour
                 if (displayType == DisplayType.valueHp)
                 {
                     GameObject bonusScore = Instantiate(_numberObject.numberObject[10].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
-                    bonusScore.transform.localScale *= 70f;
+                    bonusScore.transform.localScale *= size1;
                     _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
                 }
                 if (displayType == DisplayType.valueAttract)
                 {
                     GameObject bonusScore = Instantiate(_numberObject.numberObject[11].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
-                    bonusScore.transform.localScale *= 70f;
+                    bonusScore.transform.localScale *= size1;
                     _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
                 }
                 //秒　個　などの感じを出す場合はこれを使用する
@@ -238,7 +244,7 @@ public class ScoreResult : MonoBehaviour
             if (displayType == DisplayType.nomal)
             {
                 GameObject nomalScore = Instantiate(_numberObject.numberObject[digitsList[i]].numberObject, _scorePosition, Quaternion.Euler(0f, 180f, 0f));
-                nomalScore.transform.localScale *= 70f;
+                nomalScore.transform.localScale *= size1;
                 _nomalScoreObjects.Add(nomalScore);
                 _scorePosition.x -= _scorePlusXPosition;
             }
@@ -246,7 +252,7 @@ public class ScoreResult : MonoBehaviour
             {
                 GameObject bonusScore = Instantiate(_numberObject.numberObject[digitsList[i]].numberObject, _bonusPosition, Quaternion.Euler(0f, 180f, 0f));
 
-                bonusScore.transform.localScale *= 35f;
+                bonusScore.transform.localScale *= size2;
                 _bonusScoreObjects.Add(bonusScore);
                 //_bonusPositions[_bonusScoreIndex].x += _scorePlusXPosition;
                 _bonusPosition.x -= _scorePlusXPosition_bonus;
@@ -254,7 +260,7 @@ public class ScoreResult : MonoBehaviour
             else
             {
                 GameObject bonusScore = Instantiate(_numberObject.numberObject[digitsList[i]].numberObject, _bonusPositions[_bonusScoreIndex], Quaternion.Euler(0f, 180f, 0f));
-                bonusScore.transform.localScale *= 70f;
+                bonusScore.transform.localScale *= size1;
                 _bonusPositions[_bonusScoreIndex].x -= _scorePlusXPosition;
             }
             
