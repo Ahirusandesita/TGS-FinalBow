@@ -33,7 +33,6 @@ public class TargeterMove : MonoBehaviour
 
     bool _doMove = false;
 
-    bool _isArrive = false;
 
 
     private void Start()
@@ -64,7 +63,6 @@ public class TargeterMove : MonoBehaviour
         if (_distance < 0f)
         {
             _doMove = false;
-            _isArrive = true;
         }
     }
 
@@ -76,5 +74,11 @@ public class TargeterMove : MonoBehaviour
         _distance = _object.transform.localPosition.z;
 
         _doMove = true;
+    }
+
+    private void OnDisable()
+    {
+        _object.transform.parent = null;
+        _time = default;
     }
 }

@@ -209,7 +209,7 @@ public class ItemMove : MonoBehaviour
         _targetVector = _targeterTransform.position - _itemTransform.position;
 
         // 自身をターゲットに向けて移動
-        transform.position += _targetVector.normalized * (_targetVector.magnitude * _attractSpeed * Time.deltaTime) ;
+        _itemTransform.position += _targetVector.normalized * (_targetVector.magnitude * _attractSpeed * Time.deltaTime) ;
 
         // プレイヤーとアイテムの距離を取得する
         _playerDistance = Vector3.Distance(_playerTransform.position , _itemTransform.position);
@@ -223,16 +223,6 @@ public class ItemMove : MonoBehaviour
             // 追跡するターゲットの削除及びリセット
             ReSetAll();
         }
-    }
-
-    /// <summary>
-    /// 追跡するターゲットの生成メソッド
-    /// </summary>
-    /// <param name="distance_z">ローカル座標における目標地点との距離のＺ軸</param>
-    /// <param name="goalTransform">目標地点のTransform</param>
-    public void CreateTargeter(Vector3 spawnPosition)
-    {
-        SetTargeter = PoolManager.CallObject(PoolEnum.PoolObjectType.targeter, spawnPosition).gameObject;
     }
 
     /// <summary>
@@ -306,7 +296,7 @@ public class ItemMove : MonoBehaviour
     public void SetAttractPower(float set)
     {
         // 引き寄せ速度を設定
-        _attract_Power = set;
+        _attractSpeed = set;
 
 
         //その他初期設定 後で消す
@@ -358,8 +348,8 @@ public class ItemMove : MonoBehaviour
     #region てんぽらりー
     public void ItemAttractTemporary()
     {
-        this.transform.Translate(_tmpDistance * _attract_Power * Time.deltaTime);
-        _tmpdif = _tmpdif - _attract_Power * Time.deltaTime;
+        this.transform.Translate(_tmpDistance * _attractSpeed * Time.deltaTime);
+        _tmpdif = _tmpdif - _attractSpeed * Time.deltaTime;
 
         _sizeValue = MathN.Clamp.Min(_tmpdif / _tmpStartDif, SIZE_MINIMUM);
 
