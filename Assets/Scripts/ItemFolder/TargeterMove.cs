@@ -38,7 +38,7 @@ public class TargeterMove : MonoBehaviour
     private void Start()
     {
         _object = this.gameObject;
-        _player = GameObject.FindWithTag("PlayerController");
+        _player = GameObject.FindWithTag("BowController");
         _itemMove = this.GetComponent<ItemMove>();
     }
 
@@ -68,17 +68,23 @@ public class TargeterMove : MonoBehaviour
 
     private void OnEnable()
     {
-        _object.transform.parent = _player.transform;
-        _startRotation = Mathf.Atan2(_object.transform.position.y, _object.transform.position.x);
+        if(_object != null)
+        {
+            _object.transform.parent = _player.transform;
+            _startRotation = Mathf.Atan2(_object.transform.position.y, _object.transform.position.x);
 
-        _distance = _object.transform.localPosition.z;
+            _distance = _object.transform.localPosition.z;
 
-        _doMove = true;
+            _doMove = true;
+        }
     }
 
     private void OnDisable()
     {
-        _object.transform.parent = null;
-        _time = default;
+        if(_object != null)
+        {
+            _object.transform.parent = null;
+            _time = default;
+        }
     }
 }
