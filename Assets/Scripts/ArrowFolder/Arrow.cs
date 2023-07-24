@@ -220,6 +220,9 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 
     private HitZone _hitZone = default;
 
+    private bool _isStart = false;
+
+
     private void OnEnable()
     {
         //矢のクラスをゲットコンポーネントする
@@ -267,9 +270,22 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 
         _myArrowRenderer = MyTransform.GetChild(2).gameObject.transform.GetChild(4).GetComponent<Renderer>();
         _colorValue = _myArrowRenderer.material.color.g / 10;
+
+        _isStart = true;
     }
+
+
+    //いつかupdate 動的生成する
+
     private void Update()
     {
+
+        if (!_isStart)
+        {
+            return;
+        }
+
+
 
         _hitZone.SetPosition(MyTransform.position);
 
