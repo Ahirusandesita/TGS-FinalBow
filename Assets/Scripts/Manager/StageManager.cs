@@ -205,7 +205,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 break;
 
             case MoveType.curve:
-                BirdMoveSecond subMove = temporaryObject.AddComponent<BirdMoveSecond>();
+                BirdMoveComponents subMove = temporaryObject.AddComponent<BirdMoveComponents>();
 
                 // ŒÊ‚Ì‚‚³/Œü‚«‚ğİ’è
                 subMove.MoveSpeedArc = birdDataPath._arcHeight;

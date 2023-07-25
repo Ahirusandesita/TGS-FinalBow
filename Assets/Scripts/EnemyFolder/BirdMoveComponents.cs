@@ -16,7 +16,7 @@ public enum ArcMoveDirection
     Back
 }
 
-public class BirdMoveSecond : BirdMoveBase
+public class BirdMoveComponents : BirdMoveBase
 {
     #region variable 
 
@@ -130,11 +130,18 @@ public class BirdMoveSecond : BirdMoveBase
 
     protected override void EachMovement(ref float movedDistance)
     {
+        // 終了条件
         base.EachMovement(ref movedDistance);
 
+        // 現在設定されている状態によって、動きの種類を変える
         switch (_moveType)
         {
             case MoveType.linear:
+                // 移動する（移動方向のベクトル * 移動速度）
+                _transform.Translate((_goalPosition - _startPosition).normalized * _movementSpeed * Time.deltaTime, Space.World);  // 第二引数ないとバグる
+                // 移動量を加算
+                movedDistance += ((_goalPosition - _startPosition).normalized * _movementSpeed * Time.deltaTime).magnitude;
+
                 break;
 
             case MoveType.curve:

@@ -23,6 +23,6 @@ public class TakeArrowBotton : MonoBehaviour, IFCanTakeArrowButton
     public void ButtonPush()
     {
         transform.Translate(Vector3.one);
-        XDebug.Log("");
+        X_Debug.Log("");
     }
 }
