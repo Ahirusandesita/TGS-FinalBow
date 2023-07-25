@@ -80,8 +80,22 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         if (Input.GetKeyDown(KeyCode.K))
         {
             SetEnchantParameter(EnchantmentEnum.ItemAttributeState.knockBack);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
             SetEnchantParameter(EnchantmentEnum.ItemAttributeState.thunder);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SetEnchantParameter(EnchantmentEnum.ItemAttributeState.bomb);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetEnchantParameter(EnchantmentEnum.ItemAttributeState.penetrate);
+        }
+
+        arrowEnchant.TestRapid = CanRapid ;
+
     }
 
     private void Start()

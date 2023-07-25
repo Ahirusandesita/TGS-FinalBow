@@ -27,6 +27,8 @@ interface IArrowEventSetting : IArrowPlusDamage
     void EnchantUIReset();
 
     EnchantmentEnum.EnchantmentState GetSubEnchantment();
+
+    bool TestRapid { get; set; }
 }
 
 /// <summary>
@@ -115,6 +117,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// Normalの添え字
     /// </summary>
     private const int ENCHANT_NORMAL_INDEX = 0;
+
+    private IFPlayerManagerShotArrow playerManager;
     #endregion
 
 
@@ -135,6 +139,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 
     private void Start()
     {
+        playerManager = GameObject.FindWithTag(InhallLibTags.PlayerController).GetComponent<PlayerManager>();
+
         //矢の効果　エフェクト　サウンドを取得する
         _arrowEnchant = this.GetComponent<ArrowEnchant>();
         _arrowEnchantEffect = this.GetComponent<ArrowEnchantEffect>();
@@ -144,6 +150,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     }
 
 
+    public bool TestRapid { get; set; }
 
     /// <summary>
     /// 矢のエンチャント処理を代入する
@@ -153,6 +160,14 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// <param name="enchantmentState">エンチャントのEnum</param>
     public void EventSetting(IArrowEnchant arrow, bool needMoveChenge, EnchantmentEnum.EnchantmentState enchantmentState)
     {
+        if (TestRapid)
+        {
+            arrow.SetEnchantState(enchantmentState);
+            EnchantmentPreparation(enchantmentState,arrow, needMoveChenge);
+            return;
+        }
+
+
         //エンチャントができない状態ならエンチャントしない
         if (!arrow.NeedArrowEnchant)
         {
@@ -248,11 +263,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     {
         //現在のエンチャント
         EnchantmentEnum.EnchantmentState _enchantmentStateNow = EnchantmentEnum.EnchantmentState.normal;
-
-        if (_enchantmentStateNow == EnchantmentEnum.EnchantmentState.normal)
-        {
-            _isEnchantments[0] = true;
-        }
+        _isEnchantments[0] = true;
 
         for (int i = ENCHANT_NORMAL_INDEX; i < _isEnchantments.Length - 1; i++)
         {
