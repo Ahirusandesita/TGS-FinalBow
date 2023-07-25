@@ -99,6 +99,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     protected float _percentDrawPower = 0f;
 
+    Vector3 _shotStartRoteCache = Vector3.zero;
+
     #endregion
 
     public bool IsHolding
@@ -242,6 +244,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         // 再生されていたエフェクトを無効
         _inhallCustom.SetActive(false);
         _setedArrowSpeed = _percentDrawPower * arrowSpeed;
+        _shotStartRoteCache = shotDirection;
         BowShotArrow(shotDirection);
 
         // 吸込み判定初期化
@@ -283,6 +286,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         yield return _delayTime;
         _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, GetSpawnPosition.position);
         yield return null;
+
         BowShotArrow(GetShotDirection);
     }
 

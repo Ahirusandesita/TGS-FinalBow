@@ -14,6 +14,8 @@ public abstract class CanDraw_BowManager : BowManager
 
     protected IFBowTransformControl _transformControl = default;
 
+    protected Quaternion _machineGunRotation = default;
+
     #region パラメータ
 
     /// <summary>
@@ -96,7 +98,7 @@ public abstract class CanDraw_BowManager : BowManager
  
         // 円錐範囲外まで引くと強制的に矢をうつ
         if (!ConeDecision.ConeInObject(transform,_drawObject, drawLimitAngle, drawLimitDistance, BACK))
-        {;
+        {
             ProcessOfReleaseObjcect();
         }
     }
@@ -109,8 +111,7 @@ public abstract class CanDraw_BowManager : BowManager
         // 矢を撃つ
         BowShotSetting(GetShotDirection);
 
-        // 矢を撃った後のトランスフォーム設定
-        _transformControl.AfterShotResetTransform();
+       
     }
 
     sealed protected override void BowShotArrow(Vector3 shotDirection)
@@ -127,6 +128,12 @@ public abstract class CanDraw_BowManager : BowManager
             
             base.BowShotArrow(shotDirection);
 
+        }
+        // マシンガンでなければトランスフォームセット
+        if (!_canMachineGun)
+        {
+            // 矢を撃った後のトランスフォーム設定
+            _transformControl.AfterShotResetTransform();
         }
     }
 
