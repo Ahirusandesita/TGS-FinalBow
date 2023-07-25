@@ -116,7 +116,7 @@ public abstract class CanDraw_BowManager : BowManager
     sealed protected override void BowShotArrow(Vector3 shotDirection)
     {
         // ˜AŽË–hŽ~
-        if (_transformControl.GetDrawDistance() < cantShotDistance)
+        if (_transformControl.GetDrawDistance() < cantShotDistance && !_canMachineGun)
         {
             _playerManager.ResetArrow();
 
