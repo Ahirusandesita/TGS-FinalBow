@@ -210,6 +210,17 @@ public abstract class BirdMoveBase : EnemyMoveBase
             _reAttackTimes.Add(value);
         }
     }
+
+    /// <summary>
+    /// ÉSÅ[Éãä‘ÇÃíπÇÃìÆÇ´ÉäÉXÉg
+    /// </summary>
+    public MoveType MoveTypes
+    {
+        set
+        {
+            _moveTypes.Add(value);
+        }
+    }
     #endregion
 
 
@@ -233,6 +244,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
         _spawn_And_DespawnSize = _normalSize / 5f;
         _movementSpeed = _movementSpeeds[_repeatCount];
+        _moveType = _moveTypes[_repeatCount];
 
 
         bird = GetComponent<BirdStats>();
@@ -379,6 +391,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _goalPosition = _goalPositions[_repeatCount];
         _movementSpeed = _movementSpeeds[_repeatCount];
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
+        _moveType = _moveTypes[_repeatCount];
     }
 
     /// <summary>
