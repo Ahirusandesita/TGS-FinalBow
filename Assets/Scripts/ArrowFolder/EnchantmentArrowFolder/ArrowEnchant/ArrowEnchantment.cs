@@ -165,7 +165,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 
         //取得したEnchantのEnumを掛け合わせて代入
         EnchantmentEnum.EnchantmentState enchantState = EnchantmentStateSetting(enchantmentState);
-
+        Debug.Log("こんにちは"+enchantState);
         //前回のエンチャントと現在のエンチャントが違うとき
         if (enchantState != _enchantmentStateLast)
         {
@@ -249,6 +249,11 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         //現在のエンチャント
         EnchantmentEnum.EnchantmentState _enchantmentStateNow = EnchantmentEnum.EnchantmentState.normal;
 
+        if (_enchantmentStateNow == EnchantmentEnum.EnchantmentState.normal)
+        {
+            _isEnchantments[0] = true;
+        }
+
         for (int i = ENCHANT_NORMAL_INDEX; i < _isEnchantments.Length - 1; i++)
         {
             for (int j = i + 1; j < _isEnchantments.Length; j++)
@@ -261,6 +266,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                 }
             }
         }
+
         return _enchantmentStateNow;
     }
 
@@ -300,7 +306,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                    arrow.MoveArrow = arrowMoveMethod;
                }
            };
-
 
         if(GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
         {
