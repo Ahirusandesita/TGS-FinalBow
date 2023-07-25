@@ -287,6 +287,8 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
 
     public void WASDMove(Vector3 foward, float moveSpeed)
     {
+        foward.y = 0;
+        foward = foward.normalized;
         // wasd‚ÅˆÚ“®
         if (Input.GetKey(KeyCode.W))
         {
@@ -304,7 +306,14 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
         {
             transform.Translate(moveSpeed * Time.deltaTime * -foward, Space.World);
         }
-
+        if (Input.GetKey(KeyCode.Space))
+        {
+            transform.Translate(moveSpeed * Time.deltaTime * Vector3.up, Space.World);
+        }
+        if (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.Translate(moveSpeed * Time.deltaTime * Vector3.down, Space.World);
+        }
     }
 
     public Quaternion GetShotingRotetion()

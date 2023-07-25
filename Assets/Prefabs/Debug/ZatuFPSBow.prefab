@@ -259,9 +259,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inhallC: {fileID: 1478716941563017530}
   angleSizeMagnification: 100000
-  dictance: 0
-  direction: 0
-  attractPower: 0
+  dictance: 10
+  direction: 30
+  attractPower: 1
 --- !u!114 &1478716941563017530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,8 +334,8 @@ MonoBehaviour:
   sensitivityY: 15
   minimumX: -360
   maximumX: 360
-  minimumY: -60
-  maximumY: 60
+  minimumY: -90
+  maximumY: 90
 --- !u!114 &246447457777701701
 MonoBehaviour:
   m_ObjectHideFlags: 0
