@@ -160,12 +160,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     /// <param name="enchantmentState">エンチャントのEnum</param>
     public void EventSetting(IArrowEnchant arrow, bool needMoveChenge, EnchantmentEnum.EnchantmentState enchantmentState)
     {
-        if (TestRapid)
-        {
-            arrow.SetEnchantState(enchantmentState);
-            EnchantmentPreparation(enchantmentState,arrow, needMoveChenge);
-            return;
-        }
 
 
         //エンチャントができない状態ならエンチャントしない
@@ -185,7 +179,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         if (enchantState != _enchantmentStateLast)
         {
             //＆ノーマル以外の時
-            if (enchantState != EnchantmentEnum.EnchantmentState.normal)
+            if (enchantState != EnchantmentEnum.EnchantmentState.normal && !TestRapid)
             {
                 //新しいエンチャントの効果音、エフェクトをだす
                 _arrowEnchantSound.ArrowSound_EnchantSound();
