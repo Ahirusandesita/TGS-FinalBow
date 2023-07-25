@@ -29,6 +29,8 @@ public interface IFBowTransformControl
 
     void AfterShotResetTransform();
 
+    Quaternion GetShotingRotetion();
+
     Vector3 GetHandPosition { get; }
 
 }
@@ -302,6 +304,12 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
         {
             transform.Translate(moveSpeed * Time.deltaTime * -foward, Space.World);
         }
+
+    }
+
+    public Quaternion GetShotingRotetion()
+    {
+        return _transform.rotation;
     }
     #endregion
 }
