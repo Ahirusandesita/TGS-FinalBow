@@ -226,7 +226,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     private void OnEnable()
     {
         //矢のクラスをゲットコンポーネントする
-
+        NeedArrowEnchant = true;
         if (_isStarEnable)
         {
             EnchantArrowMove = this.gameObject.GetComponent<ArrowMove>();
@@ -509,8 +509,6 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         EventArrowEffectPassiveDestroy = null;
         EventArrowPassiveEffect = null;
         MoveArrow = null;
-        NeedArrowEnchant = true;
-
         _myArrowRenderer.material.color = Color.green;
     }
 
