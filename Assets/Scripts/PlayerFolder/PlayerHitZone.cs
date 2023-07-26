@@ -45,6 +45,7 @@ public class PlayerHitZone : MonoBehaviour
         if (hitZone.IsHit(attackPosition))
         {
             _playerStats.PlayerDamage(1);
+            Debug.LogError("Hit‚µ‚½‚æ");
         }
     }
     #endregion
