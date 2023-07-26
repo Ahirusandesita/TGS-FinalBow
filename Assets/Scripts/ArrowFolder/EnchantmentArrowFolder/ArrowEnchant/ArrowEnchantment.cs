@@ -539,7 +539,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                 break;
         }
 
-        if (TestRapid)
+        if (!TestRapid)
         {
             _newEnchantEffect();
         }
