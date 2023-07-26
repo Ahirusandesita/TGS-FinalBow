@@ -236,6 +236,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         }
 
         _playerManager = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerManager>();
+
         //PlayerManagerにGameObjectをセットする
         if (_playerManager != null)
         {
@@ -510,6 +511,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         EventArrowPassiveEffect = null;
         MoveArrow = null;
         _myArrowRenderer.material.color = Color.green;
+        NeedArrowEnchant = false;
     }
 
     /// <summary>

@@ -120,6 +120,8 @@ public abstract class CanDraw_BowManager : BowManager
         if (_transformControl.GetDrawDistance() < cantShotDistance && !_canMachineGun)
         {
             _playerManager.ResetArrow();
+            _playerManager.CanRapid = false;
+            _canMachineGun = false;
 
             return;
         }
