@@ -49,6 +49,12 @@ interface IArrowPlusDamage
 public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 {
     #region 変数宣言部
+
+    private delegate void NewEnchantEffect();
+
+    private NewEnchantEffect _newEnchantEffect;
+
+
     /// <summary>
     /// 矢の効果クラス
     /// </summary>
@@ -215,7 +221,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
     public void EnchantUIReset()
     {
         _arrowEnchantUI.ArrowEnchantUI_Normal();
-        _atractEffect.AttractEffectEffect_Normal();
+        _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_Normal);
+        _newEnchantEffect();
     }
 
     /// <summary>
@@ -312,6 +319,12 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                }
            };
 
+        Action<bool> NewEnchantEffect = isNewEnchantEffect =>
+        {
+
+        };
+
+
         if(GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
         {
             enchantState = GetSubEnchantment();
@@ -341,7 +354,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                 _arrowEnchantUI.ArrowEnchantUI_Normal();
 
                 //吸い込みのエフェクト
-                _atractEffect.AttractEffectEffect_Normal();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_Normal);
 
                 break;
 
@@ -354,7 +367,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Bomb),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Bomb));
                 _arrowEnchantUI.ArrowEnchantUI_Bomb();
-                _atractEffect.AttractEffectEffect_Bomb();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_Bomb);
                 break;
 
             case EnchantmentEnum.EnchantmentState.thunder:
@@ -366,7 +379,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Thunder),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Thunder));
                 _arrowEnchantUI.ArrowEnchantUI_Thunder();
-                _atractEffect.AttractEffectEffect_Thunder();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_Thunder);
                 break;
 
             case EnchantmentEnum.EnchantmentState.knockBack:
@@ -378,7 +391,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBack),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_KnockBack));
                 _arrowEnchantUI.ArrowEnchantUI_KnockBack();
-                _atractEffect.AttractEffectEffect_KnockBack();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_KnockBack);
                 break;
 
             case EnchantmentEnum.EnchantmentState.homing:
@@ -390,7 +403,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Homing),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Homing));
                 _arrowEnchantUI.ArrowEnchantUI_Homing();
-                _atractEffect.AttractEffectEffect_Homing();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_Homing);
                 break;
 
             case EnchantmentEnum.EnchantmentState.penetrate:
@@ -402,7 +415,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_Penetrate),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_Penetrate));
                 _arrowEnchantUI.ArrowEnchantUI_Penetrate();
-                _atractEffect.AttractEffectEffect_Penetrate();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_Penetrate);
                 break;
 
             case EnchantmentEnum.EnchantmentState.bombThunder:
@@ -414,7 +427,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombThunder),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_BombThunder));
                 _arrowEnchantUI.ArrowEnchantUI_BombThunder();
-                _atractEffect.AttractEffectEffect_BombThunder();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_BombThunder);
                 break;
 
             case EnchantmentEnum.EnchantmentState.bombKnockBack:
@@ -426,7 +439,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombKnockBack),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_BombKnockBack));
                 _arrowEnchantUI.ArrowEnchantUI_BombKnockBack();
-                _atractEffect.AttractEffectEffect_BombKnockBack();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_BombKnockBack);
                 break;
 
             case EnchantmentEnum.EnchantmentState.bombHoming:
@@ -438,7 +451,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombHoming),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_BombHoming));
                 _arrowEnchantUI.ArrowEnchantUI_BombHoming();
-                _atractEffect.AttractEffectEffect_BombHoming();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_BombHoming);
                 break;
 
             case EnchantmentEnum.EnchantmentState.bombPenetrate:
@@ -450,7 +463,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_BombPenetrate),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_BombPenetrate));
                 _arrowEnchantUI.ArrowEnchantUI_BombPenetrate();
-                _atractEffect.AttractEffectEffect_BombPenetrate();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_BombPenetrate);
                 break;
 
             case EnchantmentEnum.EnchantmentState.thunderKnockBack:
@@ -462,7 +475,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderKnockBack),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_ThunderKnockBack));
                 _arrowEnchantUI.ArrowEnchantUI_ThunderKnockBack();
-                _atractEffect.AttractEffectEffect_ThunderKnockBack();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_ThunderKnockBack);
                 break;
 
             case EnchantmentEnum.EnchantmentState.thunderHoming:
@@ -474,7 +487,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderHoming),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_ThunderHoming));
                 _arrowEnchantUI.ArrowEnchantUI_ThunderHoming();
-                _atractEffect.AttractEffectEffect_ThunderHoming();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_ThunderHoming);
                 break;
 
             case EnchantmentEnum.EnchantmentState.thunderPenetrate:
@@ -486,7 +499,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_ThunderPenetrate),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_ThunderPenetrate));
                 _arrowEnchantUI.ArrowEnchantUI_ThunderPenetrate();
-                _atractEffect.AttractEffectEffect_ThunderPenetrate();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_ThunderPenetrate);
                 break;
 
             case EnchantmentEnum.EnchantmentState.knockBackHoming:
@@ -498,7 +511,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBackHoming),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_KnockBackHoming));
                 _arrowEnchantUI.ArrowEnchantUI_KnockBackHoming();
-                _atractEffect.AttractEffectEffect_KnockBackHoming();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_KnockBackHoming);
                 break;
 
             case EnchantmentEnum.EnchantmentState.knockBackpenetrate:
@@ -510,7 +523,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_KnockBackPenetrate),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_KnockBackPenetrate));
                 _arrowEnchantUI.ArrowEnchantUI_KnockBackPenetrate();
-                _atractEffect.AttractEffectEffect_KnockBackPenetrate();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_KnockBackPenetrate);
                 break;
 
             case EnchantmentEnum.EnchantmentState.homingPenetrate:
@@ -522,9 +535,15 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_arrowEnchantSound.ArrowSound_HomingPenetrate),
                     new Arrow.MoveDelegateMethod(arrowMove.ArrowMove_HomingPenetrate));
                 _arrowEnchantUI.ArrowEnchantUI_HomingPenetrate();
-                _atractEffect.AttractEffectEffect_HomingPenetrate();
+                _newEnchantEffect = new NewEnchantEffect(_atractEffect.AttractEffectEffect_HomingPenetrate);
                 break;
         }
+
+        if (TestRapid)
+        {
+            _newEnchantEffect();
+        }
+
     }
 
     public EnchantmentEnum.EnchantmentState GetSubEnchantment()
