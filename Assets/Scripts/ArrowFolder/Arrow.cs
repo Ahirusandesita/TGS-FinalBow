@@ -429,6 +429,18 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         //親オブジェクトをNullにする
         MyTransform.parent = null;
 
+        //float untitti = 1.5f;
+
+        //float x = Random.Range(-untitti, untitti);
+        //float y = Random.Range(-untitti, untitti);
+        //float z = Random.Range(-untitti, untitti);
+        //x = MyTransform.rotation.eulerAngles.x + x;
+        //y = MyTransform.rotation.eulerAngles.y + y;
+        //z = MyTransform.rotation.eulerAngles.z + z;
+
+       // MyTransform.rotation = Quaternion.Euler(new Vector3(x, y, z));
+
+
         //移動スピードをセットする
         _arrowMove.SetArrowSpeed = _moveSpeed;
 
