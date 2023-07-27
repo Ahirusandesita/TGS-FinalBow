@@ -108,6 +108,7 @@ public abstract class CanDraw_BowManager : BowManager
     /// </summary>
     protected virtual void BowShotStart()
     {
+        _transformControl.ResetDrawObject();
         // –î‚ðŒ‚‚Â
         BowShotSetting(GetShotDirection);
 

@@ -29,6 +29,8 @@ public interface IFBowTransformControl
 
     void AfterShotResetTransform();
 
+    void ResetDrawObject();
+
     Quaternion GetShotingRotetion();
 
     Vector3 GetHandPosition { get; }
@@ -196,10 +198,18 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
     public void AfterShotResetTransform()
     {
 
-        _drawObject.transform.localPosition = _firstDrawObjectPositon;
+        ResetDrawObject();
 
         _transform.localRotation = _myQuaternion;
 
+    }
+
+    /// <summary>
+    /// Œ·‚ÌˆÊ’u‚ðŒ³‚É‚à‚Ç‚·
+    /// </summary>
+    public void ResetDrawObject()
+    {
+        _drawObject.transform.localPosition = _firstDrawObjectPositon;
     }
 
     /// <summary>
