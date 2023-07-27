@@ -228,14 +228,18 @@ public class AttractEffect : MonoBehaviour
     {
         _attractEffect.Play();
         _attractMain.startColor = color.list[num].attractColor;
-        // マテリアル変更
-        controller.ChangeMaterialProcess((EnchantmentEnum.EnchantmentState)num);
-        if (num > 0)
+        if(controller is not null)
         {
-            _subParticles[num - 1].gameObject.SetActive(true);
-            _subParticles[num - 1].Play();
+            // マテリアル変更
+            controller.ChangeMaterialProcess((EnchantmentEnum.EnchantmentState)num);
+            if (num > 0)
+            {
+                _subParticles[num - 1].gameObject.SetActive(true);
+                _subParticles[num - 1].Play();
 
+            }
         }
+       
 
 
     }
