@@ -196,28 +196,36 @@ public class StageManager : MonoBehaviour, IStageSpawn
         temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
 
-        // Scriptableの設定に応じて、アタッチする挙動スクリプトを変える
-        switch (birdDataPath._moveType)
-        {
-            case MoveType.linear:
-                //呼び出した雑魚にコンポーネントを付与
-                birdBaseMove = temporaryObject.AddComponent<BirdMoveFirst>();
-                break;
+        BirdMoveComponents subMove = temporaryObject.AddComponent<BirdMoveComponents>();
+        // 弧の高さ/向きを設定
+        subMove.MoveSpeedArc = birdDataPath._arcHeight;
+        subMove.ArcMoveDirection = birdDataPath._arcMoveDirection;
 
-            case MoveType.curve:
-                BirdMoveComponents subMove = temporaryObject.AddComponent<BirdMoveComponents>();
+        birdBaseMove = subMove;
 
-                // 弧の高さ/向きを設定
-                subMove.MoveSpeedArc = birdDataPath._arcHeight;
-                subMove.ArcMoveDirection = birdDataPath._arcMoveDirection;
 
-                birdBaseMove = subMove;
-                break;
+        //// Scriptableの設定に応じて、アタッチする挙動スクリプトを変える
+        //switch (birdDataPath._moveType)
+        //{
+        //    case MoveType.linear:
+        //        //呼び出した雑魚にコンポーネントを付与
+        //        birdBaseMove = temporaryObject.AddComponent<BirdMoveFirst>();
+        //        break;
 
-            default:
-                birdBaseMove = null;
-                break;
-        }
+        //    case MoveType.curve:
+        //        BirdMoveComponents subMove = temporaryObject.AddComponent<BirdMoveComponents>();
+
+        //        // 弧の高さ/向きを設定
+        //        subMove.MoveSpeedArc = birdDataPath._arcHeight;
+        //        subMove.ArcMoveDirection = birdDataPath._arcMoveDirection;
+
+        //        birdBaseMove = subMove;
+        //        break;
+
+        //    default:
+        //        birdBaseMove = null;
+        //        break;
+        //}
 
         // 呼び出した雑魚の変数に設定
         birdBaseMove.NumberOfBullet = birdDataPath._bullet;
