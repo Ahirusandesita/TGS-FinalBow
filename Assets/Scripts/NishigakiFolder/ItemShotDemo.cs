@@ -21,7 +21,7 @@ public class ItemShotDemo : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             Instantiate(_itemObject,_spawner.position , Quaternion.identity);
         }
