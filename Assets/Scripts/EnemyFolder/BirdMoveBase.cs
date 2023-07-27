@@ -391,7 +391,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _goalPosition = _goalPositions[_repeatCount];
         _movementSpeed = _movementSpeeds[_repeatCount];
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
-        _moveType = _moveTypes[_repeatCount];
+        //_moveType = _moveTypes[_repeatCount];
     }
 
     /// <summary>
