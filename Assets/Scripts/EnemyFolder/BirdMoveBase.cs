@@ -244,7 +244,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
         _spawn_And_DespawnSize = _normalSize / 5f;
         _movementSpeed = _movementSpeeds[_repeatCount];
-        _moveType = _moveTypes[_repeatCount];
+        //_moveType = _moveTypes[_repeatCount];
 
 
         bird = GetComponent<BirdStats>();
