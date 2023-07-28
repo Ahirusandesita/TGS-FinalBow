@@ -273,6 +273,9 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         _colorValue = _myArrowRenderer.material.color.g / 10;
 
         _isStart = true;
+
+        //プール
+        this.gameObject.SetActive(false);
     }
 
 
