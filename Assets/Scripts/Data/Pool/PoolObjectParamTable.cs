@@ -34,6 +34,8 @@ public class PoolInformation
     public CashObjectInformation _prefab = default;
     [Tooltip("キューの最大容量")]
     public int _queueMax = default;
+    [Tooltip("プールオブジェクトの生成方法")]
+    public CreateType _createType = CreateType.automatic;
 }
 
 /// <summary>
