@@ -1,12 +1,28 @@
 // --------------------------------------------------------- 
-// ArrowPassiveEffect.cs 
+// ObjectPoolSystem.cs 
 // 
 // CreateDay: 2023/06/08
 // Creator  : TakayanagiSora
 // --------------------------------------------------------- 
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// プールオブジェクト生成方法
+/// </summary>
+public enum CreateType
+{
+    /// <summary>
+    /// 自動的に非表示にする
+    /// </summary>
+    automatic,
+    /// <summary>
+    /// 手動での非表示が必要
+    /// </summary>
+    manual
+}
 
 
 /// <summary>
@@ -186,8 +202,12 @@ public class ObjectPoolSystem : MonoBehaviour
                 // オブジェクトを生成する
                 _temporaryObject = Instantiate(_poolObjectParamTable._scriptablePoolInformation[i]._prefab);
 
-                // 生成したオブジェクトを非表示にする
-                _temporaryObject.gameObject.SetActive(false);
+                // 設定されたenumによって処理をスキップ
+                if (_poolObjectParamTable._scriptablePoolInformation[i]._createType == CreateType.automatic)
+                {
+                    // 生成したオブジェクトを非表示にする
+                    _temporaryObject.gameObject.SetActive(false);
+                }
 
                 // 生成したオブジェクトに、どのプールオブジェクトかの情報を持たせる
                 _temporaryObject.GetComponent<CashObjectInformation>()._myObjectType = (PoolEnum.PoolObjectType)i;
