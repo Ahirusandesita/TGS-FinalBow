@@ -19,7 +19,6 @@ interface IArrowEventSetting : IArrowPlusDamage
     /// <param name="needMoveChenge">Move処理を更新するか</param>
     /// <param name="enchantmentState">エンチャントのEnum</param>
     void EventSetting(IArrowEnchant arrow, bool needMoveChenge, EnchantmentEnum.EnchantmentState enchantmentState);
-
     /// <summary>
     /// 矢のエンチャントをリセットする
     /// </summary>
@@ -30,6 +29,7 @@ interface IArrowEventSetting : IArrowPlusDamage
 
     bool TestRapid { get; set; }
 }
+
 
 /// <summary>
 /// 矢のダメージをプラスする
@@ -180,7 +180,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
 
         //取得したEnchantのEnumを掛け合わせて代入
         EnchantmentEnum.EnchantmentState enchantState = EnchantmentStateSetting(enchantmentState);
-        Debug.Log("こんにちは"+enchantState);
         //前回のエンチャントと現在のエンチャントが違うとき
         if (enchantState != _enchantmentStateLast)
         {
