@@ -40,7 +40,7 @@ public class Select : MonoBehaviour
 
     private void Update()
     {
-        //SetInput();
+        SetInput();
 
         if (selectDirection.x < 0)
         {
