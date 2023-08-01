@@ -7,6 +7,7 @@
 using System;
 using UnityEngine;
 
+//プラスダメージがまだない
 
 interface IArrowEnchantSet:IArrowEnchantReset
 {
@@ -17,7 +18,7 @@ interface IArrowEnchantPlusSet:IArrowEnchantReset
     void EnchantSetting(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 
-interface IArrowEventSet
+interface IArrowEventSet:IArrowEnchantPlusSet,IArrowEnchantSet
 {
     void EventSetting(IArrowEnchant arrow);
 }
