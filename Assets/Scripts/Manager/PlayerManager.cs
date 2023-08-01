@@ -64,7 +64,10 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     //public GameObject testArrowObject;
 
-    IArrowEventSetting arrowEnchant;
+    //IArrowEventSetting arrowEnchant;
+
+    IArrowEventSet arrowEnchant2;
+
 
     IFBowManagerQue _bowManagerQue;
 
@@ -94,7 +97,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
             SetEnchantParameter(EnchantmentEnum.ItemAttributeState.penetrate);
         }
 
-        arrowEnchant.TestRapid = CanRapid ;
+        //arrowEnchant.TestRapid = CanRapid ;
 
     }
 
@@ -127,13 +130,20 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         try
         {
-            arrowEnchant = _arrowEnchantObject.GetComponent<ArrowEnchantment>();
+            //arrowEnchant = _arrowEnchantObject.GetComponent<ArrowEnchantment>();
         }
         catch (System.NullReferenceException)
         {
             Debug.LogError("ArrowEnchantControllerタグのオブジェクトにArrowEnchantmentクラスがアタッチされていません");
         }
-
+        try
+        {
+            arrowEnchant2 = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<ArrowEnchantment2>();
+        }
+        catch (System.NullReferenceException)
+        {
+            Debug.LogError("Helloー");
+        }
 
     }
 
@@ -143,11 +153,13 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// <param name="ItemAttributeState"></param>
     public void SetEnchantParameter(EnchantmentEnum.ItemAttributeState ItemAttributeState)
     {
-        arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState)ItemAttributeState);
+        //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState)ItemAttributeState);
+        arrowEnchant2.EnchantMixSetting((EnchantmentEnum.EnchantmentState)ItemAttributeState);
     }
     public void ArrowEnchantPlusDamage()
     {
-        arrowEnchant.ArrowEnchantPlusDamage();
+        //arrowEnchant.ArrowEnchantPlusDamage();
+
 
         //チャージ画像
         try
@@ -170,40 +182,54 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     public void ShotArrow(Vector3 aim)
     {
         //連射
-        if (arrowEnchant.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
-        {
-            _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
-            int index = default;
-            if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count - 1].rapidCheckPoint)
-            {
-                index = _rapidData.rapids.rapidParams.Count - 1;
-            }
-            else
-            {
-                for (int i = 0; i < _rapidData.rapids.rapidParams.Count; i++)
-                {
-                    RapidParam.RapidArrowIndex rapidCheckPoint = _rapidData.rapids.rapidParams[i];
-                    if (rapidCheckPoint.rapidCheckPoint < attractCount)
-                    {
-                        index = i;
-                    }
-                }
-            }
-            _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);
-        }
+        //if (arrowEnchant.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
+        //{
+        //    _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
+        //    int index = default;
+        //    if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count - 1].rapidCheckPoint)
+        //    {
+        //        index = _rapidData.rapids.rapidParams.Count - 1;
+        //    }
+        //    else
+        //    {
+        //        for (int i = 0; i < _rapidData.rapids.rapidParams.Count; i++)
+        //        {
+        //            RapidParam.RapidArrowIndex rapidCheckPoint = _rapidData.rapids.rapidParams[i];
+        //            if (rapidCheckPoint.rapidCheckPoint < attractCount)
+        //            {
+        //                index = i;
+        //            }
+        //        }
+        //    }
+        //    _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);
+        //}
 
-        if (CanRapid)
-        {
-            arrowEnchant.EventSetting(_arrow, true, (_rapidSubEnchantment));
-        }
+        //if (CanRapid)
+        //{
+        //    arrowEnchant.EventSetting(_arrow, true, (_rapidSubEnchantment));
+        //}
 
-        arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
+        //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
+        arrowEnchant2.EnchantMixSetting((EnchantmentEnum.EnchantmentState.normal));
+        arrowEnchant2.EventSetting(_arrow);
+
+
         _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
         _arrow.ArrowMoveStart();
-        arrowEnchant.EnchantmentStateReset();
+        //arrowEnchant.EnchantmentStateReset();
         try
         {
-            arrowEnchant.EnchantUIReset();
+            arrowEnchant2.EnchantmentReset();
+        }
+        catch
+        {
+
+        }
+
+
+        try
+        {
+            //arrowEnchant.EnchantUIReset();
             attractCount = 0;
             //チャージ画像リセット
             _chargeMeterManager.ChargeReset();
@@ -216,10 +242,21 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     }
     public void ResetArrow()
     {
-        arrowEnchant.EnchantmentStateReset();
+        //arrowEnchant.EnchantmentStateReset();
+
         try
         {
-            arrowEnchant.EnchantUIReset();
+            arrowEnchant2.EnchantmentReset();
+        }
+        catch
+        {
+
+        }
+
+
+        try
+        {
+            //arrowEnchant.EnchantUIReset();
             //チャージ画像リセット
             _chargeMeterManager.ChargeReset();
         }
@@ -238,12 +275,14 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// <param name="arrowObj"></param>
     public void SetArrow(Arrow arrow)
     {
-        if (arrowEnchant == null)
-        {
-            return;
-        }
+        //if (arrowEnchant == null)
+        //{
+        //    return;
+        //}
         _arrow = arrow;
-        arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.normal);
+        //arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.normal);
+        arrowEnchant2.EnchantMixSetting(EnchantmentEnum.EnchantmentState.normal);
+        arrowEnchant2.EventSetting(_arrow);
     }
 
 
