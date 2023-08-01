@@ -120,6 +120,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         _enchantMix.EnchantmentStateReset();
         _enchantmentStateNow = EnchantmentEnum.EnchantmentState.nothing;
         _enchantEventParameter.EnchantEventReset();
+        _enchantmentStateLast = EnchantmentEnum.EnchantmentState.nothing;
     }
 
     public void ArrowEnchantPlusDamage()
