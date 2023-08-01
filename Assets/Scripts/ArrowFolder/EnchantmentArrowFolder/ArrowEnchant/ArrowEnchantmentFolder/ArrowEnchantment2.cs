@@ -76,6 +76,10 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
     /// <param name="arrow"></param>
     public void EventSetting(IArrowEnchant arrow)
     {
+        if(_enchantEventParameter == null)
+        {
+            return;
+        }
         _enchantEventParameter.EnchantEventAttribute(_enchantmentStateLast, arrow);
     }
 

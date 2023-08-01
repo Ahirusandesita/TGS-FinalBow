@@ -113,6 +113,8 @@ public class EnchantEventParameter : IEnchantEventParameter
 
     public void EnchantEventAttribute(EnchantmentEnum.EnchantmentState enchantState, IArrowEnchant arrow)
     {
+        _enchantEvents.arrowMove = arrow.EnchantArrowMove;
+        _enchantEvents._arrowEnchantPassiveEffect = arrow.EnchantArrowPassiveEffect;
         switch (enchantState)
         {
             case EnchantmentEnum.EnchantmentState.normal:
