@@ -108,7 +108,7 @@ public class EnchantEventParameter : IEnchantEventParameter
            arrow.EventArrowPassiveEffect = arrowPassiveEffectMethod;
            arrow.EventArrowEffectPassiveDestroy = arrowPassiveEffectDestroyMethod;
            arrow.ArrowEnchantSound = arrowEnchantSoundMethod;
-
+           arrow.MoveArrow = arrowMoveMethod;
        };
 
     public void EnchantEventAttribute(EnchantmentEnum.EnchantmentState enchantState, IArrowEnchant arrow)
