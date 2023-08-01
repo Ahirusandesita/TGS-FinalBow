@@ -45,6 +45,9 @@ public class BirdDataTable : ScriptableObject
 [System.Serializable]
 public class BirdGoalInformation
 {
+    [Tooltip("“®‚«‚Ìí—Ş")]
+    public MoveType _moveType;
+
     [Header("’¹G‹›‚ÌƒS[ƒ‹ˆÊ’u"), Tooltip("’¹G‹›‚ÌƒS[ƒ‹ˆÊ’u")]
     public Transform _birdGoalPlace;
 

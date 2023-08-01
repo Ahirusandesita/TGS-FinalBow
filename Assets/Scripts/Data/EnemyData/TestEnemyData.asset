@@ -15,11 +15,9 @@ MonoBehaviour:
   _birdType: 0
   _moveType: 1
   _arcHeight: 20
+  _arcMoveDirection: 0
   _bullet: 0
   _attackInterval_s: 0
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 0}
-  _birdGoalPlaces:
-  - _birdGoalPlace: {fileID: 0}
-    _speed: 0
-    _stayTime_s: 0
+  _birdGoalPlaces: []
