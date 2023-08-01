@@ -283,7 +283,6 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 
     private void Update()
     {
-
         if (!_isStart)
         {
             return;
