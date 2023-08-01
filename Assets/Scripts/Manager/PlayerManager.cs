@@ -280,6 +280,10 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         //    return;
         //}
         _arrow = arrow;
+        if(arrowEnchant2 == null)
+        {
+            return;
+        }
         //arrowEnchant.EventSetting(_arrow, true, EnchantmentEnum.EnchantmentState.normal);
         arrowEnchant2.EnchantMixSetting(EnchantmentEnum.EnchantmentState.normal);
         arrowEnchant2.EventSetting(_arrow);

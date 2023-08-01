@@ -68,6 +68,8 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
         _enchantEventParameter = new EnchantEventParameter(_enchantEvents);
 
+        _playerManager = GameObject.FindWithTag(InhallLibTags.PlayerController).GetComponent<PlayerManager>();
+
     }
 
     public void EnchantMixSetting(EnchantmentEnum.EnchantmentState enchantmentState)
