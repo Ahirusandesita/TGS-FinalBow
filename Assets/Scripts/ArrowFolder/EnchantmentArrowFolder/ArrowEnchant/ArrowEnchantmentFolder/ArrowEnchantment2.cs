@@ -54,7 +54,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     private EnchantmentEnum.EnchantmentState _enchantmentStateLast = default;
 
-
+    private PlayerManager _playerManager;
 
     private void Start()
     {
@@ -72,6 +72,11 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     public void EnchantMixSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
+        if (_playerManager.CanRapid)
+        {
+            return;
+        }
+
         _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState);
         NewEnchantState();
         _enchantmentStateLast = _enchantmentStateNow;
@@ -79,6 +84,11 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     public void EnchantSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
+        if (_playerManager.CanRapid)
+        {
+            return;
+        }
+
         _enchantmentStateNow = enchantmentState;
         NewEnchantState();
         _enchantmentStateLast = _enchantmentStateNow;
