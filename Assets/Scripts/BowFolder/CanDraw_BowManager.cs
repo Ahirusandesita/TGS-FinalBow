@@ -108,7 +108,7 @@ public abstract class CanDraw_BowManager : BowManager
     /// </summary>
     protected virtual void BowShotStart()
     {
-        _transformControl.ResetDrawObject();
+        
         // –î‚ðŒ‚‚Â
         BowShotSetting(GetShotDirection);
 
@@ -123,12 +123,12 @@ public abstract class CanDraw_BowManager : BowManager
             _playerManager.ResetArrow();
             _playerManager.CanRapid = false;
             _canMachineGun = false;
-
+            X_Debug.Log(_transformControl.GetDrawDistance() + "," + cantShotDistance + "aaa");
             return;
         }
         else
         {
-            
+            _transformControl.ResetDrawObject();
             base.BowShotArrow(shotDirection);
 
         }
