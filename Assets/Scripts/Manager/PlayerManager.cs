@@ -158,7 +158,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     }
     public void ArrowEnchantPlusDamage()
     {
-        //arrowEnchant.ArrowEnchantPlusDamage();
+        arrowEnchant2.ArrowEnchantPlusDamage();
 
 
         //チャージ画像
@@ -182,32 +182,33 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     public void ShotArrow(Vector3 aim)
     {
         //連射
-        //if (arrowEnchant.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
-        //{
-        //    _rapidSubEnchantment = arrowEnchant.GetSubEnchantment();
-        //    int index = default;
-        //    if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count - 1].rapidCheckPoint)
-        //    {
-        //        index = _rapidData.rapids.rapidParams.Count - 1;
-        //    }
-        //    else
-        //    {
-        //        for (int i = 0; i < _rapidData.rapids.rapidParams.Count; i++)
-        //        {
-        //            RapidParam.RapidArrowIndex rapidCheckPoint = _rapidData.rapids.rapidParams[i];
-        //            if (rapidCheckPoint.rapidCheckPoint < attractCount)
-        //            {
-        //                index = i;
-        //            }
-        //        }
-        //    }
-        //    _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);
-        //}
+        if (arrowEnchant2.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
+        {
+            _rapidSubEnchantment = arrowEnchant2.GetSubEnchantment();
+            int index = default;
+            if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count - 1].rapidCheckPoint)
+            {
+                index = _rapidData.rapids.rapidParams.Count - 1;
+            }
+            else
+            {
+                for (int i = 0; i < _rapidData.rapids.rapidParams.Count; i++)
+                {
+                    RapidParam.RapidArrowIndex rapidCheckPoint = _rapidData.rapids.rapidParams[i];
+                    if (rapidCheckPoint.rapidCheckPoint < attractCount)
+                    {
+                        index = i;
+                    }
+                }
+            }
+            _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);
+        }
 
-        //if (CanRapid)
-        //{
-        //    arrowEnchant.EventSetting(_arrow, true, (_rapidSubEnchantment));
-        //}
+        if (CanRapid)
+        {
+            arrowEnchant2.EnchantSetting((_rapidSubEnchantment));
+            arrowEnchant2.EventSetting(_arrow);
+        }
 
         //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         arrowEnchant2.EnchantMixSetting((EnchantmentEnum.EnchantmentState.normal));
