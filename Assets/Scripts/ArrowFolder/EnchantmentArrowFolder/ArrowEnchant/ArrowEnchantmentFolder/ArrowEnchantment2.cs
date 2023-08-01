@@ -27,6 +27,8 @@ interface IArrowEventSet:IArrowEnchantPlusSet,IArrowEnchantSet,IArrowPlusDamage
     /// </summary>
     /// <returns></returns>
     EnchantmentEnum.EnchantmentState GetSubEnchantment();
+
+    void EnchantRapidSetting(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 
 interface IArrowEnchantReset
@@ -82,10 +84,16 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         _enchantmentStateLast = _enchantmentStateNow;
     }
 
+    public void EnchantRapidSetting(EnchantmentEnum.EnchantmentState enchantmentState)
+    {
+        _enchantmentStateNow = enchantmentState;
+        _enchantmentStateLast = _enchantmentStateNow;
+    }
+
 
     private void NewEnchantState()
     {
-        if(_enchantmentStateNow != _enchantmentStateLast)
+        if(_enchantmentStateNow != _enchantmentStateLast && _enchantmentStateNow != EnchantmentEnum.EnchantmentState.normal)
         {
             _enchantEvents._arrowEnchantSound.ArrowSound_EnchantSound();
             _enchantEventParameter.NewEnchantEvent(_enchantmentStateNow);
