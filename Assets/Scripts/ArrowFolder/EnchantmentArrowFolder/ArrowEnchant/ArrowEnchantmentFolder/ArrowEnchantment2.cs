@@ -9,13 +9,13 @@ using UnityEngine;
 
 //プラスダメージがまだない
 
-interface IArrowEnchantSet:IArrowEnchantReset
-{
-    void EnchantMixSetting(EnchantmentEnum.EnchantmentState enchantmentState);
-}
-interface IArrowEnchantPlusSet:IArrowEnchantReset
+interface IArrowEnchantSet : IArrowEnchantReset
 {
     void EnchantSetting(EnchantmentEnum.EnchantmentState enchantmentState);
+}
+interface IArrowEnchantPlusSet : IArrowEnchantReset
+{
+    void EnchantMixSetting(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 
 interface IArrowEventSet:IArrowEnchantPlusSet,IArrowEnchantSet,IArrowPlusDamage

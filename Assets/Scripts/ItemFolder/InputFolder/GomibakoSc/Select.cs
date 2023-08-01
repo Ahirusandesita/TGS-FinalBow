@@ -6,25 +6,32 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 public class Select : MonoBehaviour
 {
     #region variable 
     InputManagement mng;
-    FakePlayerManager player;
-    BowManager bow;
+    IArrowEnchantSet enchantSetter;
     [SerializeField] Vector2 selectDirection;
-    [SerializeField] LineRenderer line;
 
-
-    const float up = 2 / 3;
-    const float down = -up;
-    [OVRNamedArray(new string[] { "LeftUp", "Left", "LeftDown", "RightUp", "Right", "RightDown" }), SerializeField]
-    EnchantmentEnum.ItemAttributeState[] enchantments;
-    [OVRNamedArray(new string[] { "LeftUp", "Left", "LeftDown", "RightUp", "Right", "RightDown" }), SerializeField]
-    SpriteRenderer[] sprites;
+    [SerializeField]
+    EnchantSetting[] setting;
     [SerializeField] SpriteRenderer main;
     [SerializeField] int mode = -1;
+    [SerializeField] GameObject bar;
+    [SerializeField] Transform barParent;
     float linez = 0;
+    float[] circleLinesAngle = default;
+    [System.Serializable]
+    struct EnchantSetting
+    {
+        [SerializeField]
+        public EnchantmentEnum.EnchantmentState state;
+        [SerializeField]
+        public Color color;
+
+    }
     #endregion
     #region property
     #endregion
@@ -32,60 +39,46 @@ public class Select : MonoBehaviour
     private void Start()
     {
         mng = GameObject.FindWithTag(InhallLibTags.InputController).GetComponent<InputManagement>();
-        player = GameObject.FindWithTag(InhallLibTags.PlayerController).GetComponent<FakePlayerManager>();
-        bow = GameObject.FindWithTag(InhallLibTags.BowController).GetComponent<BowManager>();
+        enchantSetter = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<IArrowEnchantSet>();
 
-        linez = line.GetPosition(0).z;
+        circleLinesAngle = CircleDivide(setting.Length);
+
+        foreach(float a in circleLinesAngle)
+        {
+            print(a);
+        }
+
+        //for(int i = 0; i < circleLinesAngle.Length; i++)
+        //{
+        //    Instantiate(bar,)
+        //}
     }
 
     private void Update()
     {
-        SetInput();
 
-        if (selectDirection.x < 0)
+        Vector2 inputVR = SetInput();
+
+        float input = Mathf.Atan2(inputVR.y, inputVR.x);
+
+        for (int i = 0; i < circleLinesAngle.Length; i++)
         {
-            if (selectDirection.y > up)
+            if (circleLinesAngle[i] <= input && input < circleLinesAngle[i + 1])
             {
-                mode = 0;
-            }
-            else if (selectDirection.y < down)
-            {
-                mode = 2;
-            }
-            else
-            {
-                mode = 1;
+                mode = i;
+                break;
             }
         }
-        else if (selectDirection.x > 0)
-        {
-            if (selectDirection.y > up)
-            {
-                mode = 3;
-            }
-            else if (selectDirection.y < down)
-            {
-                mode = 5;
-            }
-            else
-            {
-                mode = 4;
-            }
-        }
-        else
-        {
-            return;
-        }
 
-        if (mode > 0 && bow.IsHolding)
+        if (mode >= 0)
         {
-            player.SetEnchant(enchantments[mode]);
 
-            Graphics(selectDirection);
+            //enchantSetter.EnchantSetting(setting[mode].state);
+            Graphics(input);
 
         }
 
-        void SetInput()
+        Vector2 SetInput()
         {
             //try
             {
@@ -98,6 +91,7 @@ public class Select : MonoBehaviour
                 {
                     selectDirection = mng.Axis2RightStick();
                 }
+                return selectDirection;
             }
             //finally
             //{
@@ -107,31 +101,57 @@ public class Select : MonoBehaviour
         }
     }
 
-    private void Graphics(Vector3 input)
+    private void Graphics(float input)
     {
         LineMove(input);
 
         ColorChange();
 
-        void LineMove(Vector3 vec)
+        void LineMove(float vec)
         {
-            vec = vec.normalized * 0.5f + (Vector3.forward * linez);
-
-            line.SetPosition(1, vec);
+            Quaternion trans;
+            if(input != 0f)
+            {
+                trans = Quaternion.Euler(0, 0, vec);
+            }
+            else
+            {
+                trans = Quaternion.Euler(0, 0, (circleLinesAngle[mode] + circleLinesAngle[mode + 1]) / 2);
+            }
+            barParent.localRotation = trans;
         }
 
         void ColorChange()
         {
-            main.color = sprites[mode].color;
+            //main.color = setting[mode].color;
         }
     }
 
-    void CircleDivide(int count)
+    float[] CircleDivide(int count)
     {
         float angle = 360 / count;
 
+        const float UP = 90;
 
+        //float firstDivide = (angle / 2);
+
+        List<float> angleLines = new List<float>();
+
+        angleLines.Add(UP);
+
+        for (int i = 0; i < count - 1; i++)
+        {
+            float setAngle = angleLines[i] + angle;
+            if (setAngle >= 360)
+            {
+                setAngle -= 360;
+            }
+            angleLines.Add(setAngle);
+        }
+
+        return angleLines.ToArray();
     }
+
 
 
     #endregion
