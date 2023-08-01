@@ -111,6 +111,9 @@ public class EnchantEventParameter : IEnchantEventParameter
            arrow.MoveArrow = arrowMoveMethod;
        };
 
+
+
+
     public void EnchantEventAttribute(EnchantmentEnum.EnchantmentState enchantState, IArrowEnchant arrow)
     {
         _enchantEvents.arrowMove = arrow.EnchantArrowMove;
@@ -135,11 +138,6 @@ public class EnchantEventParameter : IEnchantEventParameter
 
                     arrow
                     );
-                //エンチャントのUI表示
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Normal();
-
-                //吸い込みのエフェクト
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Normal);
 
                 break;
 
@@ -152,8 +150,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_Bomb),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_Bomb),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Bomb();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Bomb);
                 break;
 
             case EnchantmentEnum.EnchantmentState.thunder:
@@ -165,8 +161,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_Thunder),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_Thunder),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Thunder();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Thunder);
                 break;
 
             case EnchantmentEnum.EnchantmentState.knockBack:
@@ -178,8 +172,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_KnockBack),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_KnockBack),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_KnockBack();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_KnockBack);
                 break;
 
             case EnchantmentEnum.EnchantmentState.homing:
@@ -191,8 +183,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_Homing),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_Homing),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Homing();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Homing);
                 break;
 
             case EnchantmentEnum.EnchantmentState.penetrate:
@@ -204,8 +194,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_Penetrate),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_Penetrate),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Penetrate();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Penetrate);
                 break;
 
             case EnchantmentEnum.EnchantmentState.bombThunder:
@@ -217,8 +205,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_BombThunder),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_BombThunder),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_BombThunder();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_BombThunder);
                 break;
 
             case EnchantmentEnum.EnchantmentState.bombKnockBack:
@@ -230,8 +216,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_BombKnockBack),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_BombKnockBack),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_BombKnockBack();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_BombKnockBack);
                 break;
 
             case EnchantmentEnum.EnchantmentState.bombHoming:
@@ -243,8 +227,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_BombHoming),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_BombHoming),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_BombHoming();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_BombHoming);
                 break;
 
             case EnchantmentEnum.EnchantmentState.bombPenetrate:
@@ -256,8 +238,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_BombPenetrate),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_BombPenetrate),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_BombPenetrate();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_BombPenetrate);
                 break;
 
             case EnchantmentEnum.EnchantmentState.thunderKnockBack:
@@ -269,8 +249,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_ThunderKnockBack),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_ThunderKnockBack),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_ThunderKnockBack();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_ThunderKnockBack);
                 break;
 
             case EnchantmentEnum.EnchantmentState.thunderHoming:
@@ -282,8 +260,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_ThunderHoming),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_ThunderHoming),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_ThunderHoming();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_ThunderHoming);
                 break;
 
             case EnchantmentEnum.EnchantmentState.thunderPenetrate:
@@ -295,8 +271,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_ThunderPenetrate),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_ThunderPenetrate),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_ThunderPenetrate();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_ThunderPenetrate);
                 break;
 
             case EnchantmentEnum.EnchantmentState.knockBackHoming:
@@ -308,8 +282,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_KnockBackHoming),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_KnockBackHoming),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_KnockBackHoming();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_KnockBackHoming);
                 break;
 
             case EnchantmentEnum.EnchantmentState.knockBackpenetrate:
@@ -321,8 +293,6 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_KnockBackPenetrate),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_KnockBackPenetrate),
                     arrow);
-                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_KnockBackPenetrate();
-                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_KnockBackPenetrate);
                 break;
 
             case EnchantmentEnum.EnchantmentState.homingPenetrate:
@@ -334,6 +304,110 @@ public class EnchantEventParameter : IEnchantEventParameter
                     new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound.ArrowSound_HomingPenetrate),
                     new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove.ArrowMove_HomingPenetrate),
                     arrow);
+                break;
+        }
+    }
+
+    public void NewEnchantEvent(EnchantmentEnum.EnchantmentState enchantState)
+    {
+        switch (enchantState)
+        {
+            case EnchantmentEnum.EnchantmentState.normal:
+               
+                //エンチャントのUI表示
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Normal();
+
+                //吸い込みのエフェクト
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Normal);
+
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bomb:
+
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Bomb();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Bomb);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.thunder:
+             
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Thunder();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Thunder);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.knockBack:
+              
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_KnockBack();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_KnockBack);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.homing:
+              
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Homing();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Homing);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.penetrate:
+               
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_Penetrate();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Penetrate);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bombThunder:
+               
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_BombThunder();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_BombThunder);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bombKnockBack:
+               
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_BombKnockBack();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_BombKnockBack);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bombHoming:
+               
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_BombHoming();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_BombHoming);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.bombPenetrate:
+               
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_BombPenetrate();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_BombPenetrate);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.thunderKnockBack:
+               
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_ThunderKnockBack();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_ThunderKnockBack);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.thunderHoming:
+               
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_ThunderHoming();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_ThunderHoming);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.thunderPenetrate:
+               
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_ThunderPenetrate();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_ThunderPenetrate);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.knockBackHoming:
+                
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_KnockBackHoming();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_KnockBackHoming);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.knockBackpenetrate:
+                
+                _enchantEvents._arrowEnchantUI.ArrowEnchantUI_KnockBackPenetrate();
+                _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_KnockBackPenetrate);
+                break;
+
+            case EnchantmentEnum.EnchantmentState.homingPenetrate:
+              
                 _enchantEvents._arrowEnchantUI.ArrowEnchantUI_HomingPenetrate();
                 _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_HomingPenetrate);
                 break;
