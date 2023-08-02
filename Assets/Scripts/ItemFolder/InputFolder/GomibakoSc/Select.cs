@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 public class Select : MonoBehaviour
 {
+    private const int around = 360;
     #region variable 
     InputManagement mng;
     IArrowEnchantSet enchantSetter;
@@ -22,6 +23,8 @@ public class Select : MonoBehaviour
     [SerializeField] GameObject bar;
     [SerializeField] Transform barParent;
     float linez = 0;
+    float minAngle = default;
+    float nextAngle = default;
     float[] circleLinesAngle = default;
     [System.Serializable]
     struct EnchantSetting
@@ -60,36 +63,39 @@ public class Select : MonoBehaviour
         Vector2 inputVR = SetInput();
 
         float input = Mathf.Atan2(inputVR.y, inputVR.x) * Mathf.Rad2Deg;
-        if (input < 0)
+        if (input != 0)
         {
-            input = 360 + input;
-        }
-        print("input:" + input);
-        for (int i = 0; i < circleLinesAngle.Length; i++)
-        {
-            float minAngle = default;
-            float nextAngle = default;
 
-            if (i == circleLinesAngle.Length - 1)
+            if (input < 0)
             {
-                minAngle = circleLinesAngle[i];
-                nextAngle = circleLinesAngle[0];
+                input = around + input;
             }
-            else
+            print("input:" + input);
+            for (int i = 0; i < circleLinesAngle.Length; i++)
             {
-                minAngle = circleLinesAngle[i];
-                nextAngle = circleLinesAngle[i + 1];
-            }
 
-            if (minAngle > nextAngle)
-            {
-                nextAngle += 360f;
-            }
 
-            if (circleLinesAngle[i] <= input && input < nextAngle)
-            {
-                mode = i;
-                break;
+                if (i == circleLinesAngle.Length - 1)
+                {
+                    minAngle = circleLinesAngle[i];
+                    nextAngle = circleLinesAngle[0];
+                }
+                else
+                {
+                    minAngle = circleLinesAngle[i];
+                    nextAngle = circleLinesAngle[i + 1];
+                }
+
+                if (minAngle > nextAngle)
+                {
+                    nextAngle += around;
+                }
+
+                if (minAngle <= input && input < nextAngle)
+                {
+                    mode = i;
+                    break;
+                }
             }
         }
 
@@ -134,16 +140,9 @@ public class Select : MonoBehaviour
             }
             else
             {
-                if (mode + 1 >= circleLinesAngle.Length)
-                {
-                    trans = Quaternion.Euler(0, 0, (circleLinesAngle[0] + circleLinesAngle[mode]) / 2);
+                print(minAngle + "," + nextAngle + "aaa");
+                trans = Quaternion.Euler(0, 0, (minAngle + nextAngle) / 2);
 
-                }
-                else
-                {
-
-                    trans = Quaternion.Euler(0, 0, (circleLinesAngle[mode] + circleLinesAngle[mode + 1]) / 2);
-                }
             }
             barParent.localRotation = trans;
         }
@@ -156,7 +155,7 @@ public class Select : MonoBehaviour
 
     float[] CircleDivide(int count)
     {
-        float angle = 360 / count;
+        float angle = around / count;
 
         const float UP = 90;
 
@@ -169,9 +168,9 @@ public class Select : MonoBehaviour
         for (int i = 0; i < count - 1; i++)
         {
             float setAngle = angleLines[i] + angle;
-            if (setAngle >= 360)
+            if (setAngle >= around)
             {
-                setAngle -= 360;
+                setAngle -= around;
             }
             angleLines.Add(setAngle);
         }
