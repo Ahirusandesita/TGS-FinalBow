@@ -8,7 +8,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Select : MonoBehaviour
+public class SelectEnchant : MonoBehaviour
 {
     private const int around = 360;
     #region variable 
@@ -20,8 +20,8 @@ public class Select : MonoBehaviour
     EnchantSetting[] setting;
     [SerializeField] SpriteRenderer main;
     [SerializeField] int mode = -1;
-    [SerializeField] GameObject bar;
     [SerializeField] Transform barParent;
+    [SerializeField] GameObject image;
     float linez = 0;
     float minAngle = default;
     float nextAngle = default;
@@ -70,7 +70,7 @@ public class Select : MonoBehaviour
             {
                 input = around + input;
             }
-            print("input:" + input);
+
             for (int i = 0; i < circleLinesAngle.Length; i++)
             {
 
@@ -112,12 +112,12 @@ public class Select : MonoBehaviour
 
             if (mng.P_EmptyHand == InputManagement.EmptyHand.Left)
             {
-                selectDirection = mng.Axis2LeftStick();
+                selectDirection = mng.Axis2RightStick();
 
             }
             else
             {
-                selectDirection = mng.Axis2RightStick();
+                selectDirection = mng.Axis2LeftStick();
             }
             return selectDirection;
             //print("x:" + Mathf.Cos(Time.time)+"y:"+ Mathf.Sin(Time.time));
@@ -137,11 +137,12 @@ public class Select : MonoBehaviour
             if (input != 0f)
             {
                 trans = Quaternion.Euler(0, 0, vec);
+                image.SetActive(true);
             }
             else
             {
-                print(minAngle + "," + nextAngle + "aaa");
                 trans = Quaternion.Euler(0, 0, (minAngle + nextAngle) / 2);
+                image.SetActive(false);
 
             }
             barParent.localRotation = trans;

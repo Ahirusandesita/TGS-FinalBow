@@ -73,6 +73,11 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
 
     [SerializeField] Transform _changeHandObjectTransform = default;
 
+    [SerializeField] Transform _selectUI;
+
+    [SerializeField] Transform _selectUILeftPosition = default;
+
+    [SerializeField] Transform _selectUIRightPosition = default;
 
     #endregion
 
@@ -222,16 +227,23 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
         if (emptyHand == InputManagement.EmptyHand.Left)
         {
             _transform.parent = _handRightPosition;
+            _selectUI.parent = _selectUIRightPosition;
+            
         }
         // ‰EŽè‚ª‹ó‚¢‚Ä‚¢‚½‚ç
         else
         {
             _transform.parent = _handLeftPosition;
+            _selectUI.parent = _selectUILeftPosition;
         }
         
         _transform.localPosition = Vector3.zero;
 
         _transform.localRotation = _myQuaternion;
+
+        _selectUI.localPosition = Vector3.zero;
+
+        _selectUI.localRotation = Quaternion.identity;
 
     }
 
