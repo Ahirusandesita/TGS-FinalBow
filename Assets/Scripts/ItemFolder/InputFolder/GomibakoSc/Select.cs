@@ -43,7 +43,7 @@ public class Select : MonoBehaviour
 
         circleLinesAngle = CircleDivide(setting.Length);
 
-        foreach(float a in circleLinesAngle)
+        foreach (float a in circleLinesAngle)
         {
             print(a);
         }
@@ -60,7 +60,7 @@ public class Select : MonoBehaviour
         Vector2 inputVR = SetInput();
 
         float input = Mathf.Atan2(inputVR.y, inputVR.x) * Mathf.Rad2Deg;
-        if(input < 0)
+        if (input < 0)
         {
             input = 360 + input;
         }
@@ -70,7 +70,7 @@ public class Select : MonoBehaviour
             float minAngle = default;
             float nextAngle = default;
 
-            if(i == circleLinesAngle.Length - 1)
+            if (i == circleLinesAngle.Length - 1)
             {
                 minAngle = circleLinesAngle[i];
                 nextAngle = circleLinesAngle[0];
@@ -81,7 +81,7 @@ public class Select : MonoBehaviour
                 nextAngle = circleLinesAngle[i + 1];
             }
 
-            if(minAngle > nextAngle)
+            if (minAngle > nextAngle)
             {
                 nextAngle += 360f;
             }
@@ -128,13 +128,22 @@ public class Select : MonoBehaviour
         void LineMove(float vec)
         {
             Quaternion trans;
-            if(input != 0f)
+            if (input != 0f)
             {
                 trans = Quaternion.Euler(0, 0, vec);
             }
             else
             {
-                trans = Quaternion.Euler(0, 0, (circleLinesAngle[mode] + circleLinesAngle[mode + 1]) / 2);
+                if (mode + 1 >= circleLinesAngle.Length)
+                {
+                    trans = Quaternion.Euler(0, 0, (circleLinesAngle[0] + circleLinesAngle[mode]) / 2);
+
+                }
+                else
+                {
+
+                    trans = Quaternion.Euler(0, 0, (circleLinesAngle[mode] + circleLinesAngle[mode + 1]) / 2);
+                }
             }
             barParent.localRotation = trans;
         }
