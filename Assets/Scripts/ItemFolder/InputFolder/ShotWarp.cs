@@ -15,7 +15,7 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
     [SerializeField] bool moveWarp = false;
     [SerializeField] float moveTime = 0.1f;
     [SerializeField] bool canLight = false;
-    [SerializeField] bool allLightToMove = true;
+    bool allLightToMove = true;
     [SerializeField] SpriteRenderer lightAlpha;
     [SerializeField] float fadeIn = 0.2f;
     [SerializeField] float stop = 0.3f;
@@ -44,20 +44,23 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
     }
     private void Init()
     {
-
+        transrate = () => { };
+        lightCoroutine = () => { };
         moveCoroutine = () => player.position = transform.position;
+
+
+        if (canLight)
+        {
+            lightOut = new Func<float, float, float, IEnumerator>(LightOut);
+            lightCoroutine = () => StartCoroutine(lightOut(fadeIn,stop,fadeOut));
+            moveCoroutine = () => { };
+        }
 
         if (moveWarp)
         {
             move = new Func<float, IEnumerator>(WarpMove);
             allLightToMove = false;
             moveCoroutine = () => StartCoroutine(move(moveTime));
-        }
-
-        if (canLight)
-        {
-            lightOut = new Func<float, float, float, IEnumerator>(LightOut);
-            lightCoroutine = () => StartCoroutine(lightOut(fadeIn,stop,fadeOut));
         }
 
         if (allLightToMove)
