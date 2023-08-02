@@ -165,6 +165,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5778584847393236418, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5778584847393236418, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
       propertyPath: TestEnchantGetEffect
       value: 
       objectReference: {fileID: 685761525852977892, guid: ebe39b43d938bfe4b895093125d18a87, type: 3}
@@ -311,6 +315,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _headShotSE: {fileID: 8300000, guid: 3dd7b958145cf944e990f3cfdc8631c6, type: 3}
   _particle: {fileID: 3507435510529669031, guid: 595813fcfd9b0ad48a93376e8bcbf127, type: 3}
+--- !u!114 &2400682819527714240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180172999418024293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f077d97d90d89fd4eaabfdbe592297bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8940654831362947932
 PrefabInstance:
   m_ObjectHideFlags: 0

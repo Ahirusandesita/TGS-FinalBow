@@ -281,6 +281,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEventSetting
         return _enchantmentStateNow;
     }
 
+
+
     /// <summary>
     /// ƒGƒ“ƒ`ƒƒƒ“ƒg‚ð–î‚É‘ã“ü‚·‚é
     /// </summary>

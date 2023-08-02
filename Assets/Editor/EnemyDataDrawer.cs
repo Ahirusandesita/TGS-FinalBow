@@ -19,10 +19,27 @@ public class EnemyDataDrawer : PropertyDrawer
         {
             position.height = EditorGUIUtility.singleLineHeight;
 
-            Rect actionTypeRect = new Rect(position)
+            Rect moveTypeRect = new Rect(position)
             {
                 y = position.y
             };
+
+            var moveTypeProperty = property.FindPropertyRelative("_moveType");
+            moveTypeProperty.enumValueIndex = EditorGUI.Popup(position, "“®‚«‚ÌŽí—Þ", moveTypeProperty.enumValueIndex, Enum.GetNames(typeof(MoveType)));
+
+            Rect goalPlaceRect = new Rect(moveTypeRect)
+            {
+                y = moveTypeRect.y + EditorGUIUtility.singleLineHeight + 2f
+            };
+
+            var goalPlaceProperty = property.FindPropertyRelative("_birdGoalPlace");
+            //EditorGUI.
+
+            switch ((MoveType)moveTypeProperty.enumValueIndex)
+            {
+                case MoveType.linear:
+                    break;
+            }
         }
     }
 }
