@@ -59,11 +59,34 @@ public class Select : MonoBehaviour
 
         Vector2 inputVR = SetInput();
 
-        float input = Mathf.Atan2(inputVR.y, inputVR.x);
-
+        float input = Mathf.Atan2(inputVR.y, inputVR.x) * Mathf.Rad2Deg;
+        if(input < 0)
+        {
+            input = 360 + input;
+        }
+        print("input:" + input);
         for (int i = 0; i < circleLinesAngle.Length; i++)
         {
-            if (circleLinesAngle[i] <= input && input < circleLinesAngle[i + 1])
+            float minAngle = default;
+            float nextAngle = default;
+
+            if(i == circleLinesAngle.Length - 1)
+            {
+                minAngle = circleLinesAngle[i];
+                nextAngle = circleLinesAngle[0];
+            }
+            else
+            {
+                minAngle = circleLinesAngle[i];
+                nextAngle = circleLinesAngle[i + 1];
+            }
+
+            if(minAngle > nextAngle)
+            {
+                nextAngle += 360f;
+            }
+
+            if (circleLinesAngle[i] <= input && input < nextAngle)
             {
                 mode = i;
                 break;
@@ -73,31 +96,26 @@ public class Select : MonoBehaviour
         if (mode >= 0)
         {
 
-            //enchantSetter.EnchantSetting(setting[mode].state);
+            enchantSetter.EnchantSetting(setting[mode].state);
             Graphics(input);
 
         }
 
         Vector2 SetInput()
         {
-            //try
+
+            if (mng.P_EmptyHand == InputManagement.EmptyHand.Left)
             {
-                if (mng.P_EmptyHand == InputManagement.EmptyHand.Left)
-                {
-                    selectDirection = mng.Axis2LeftStick();
+                selectDirection = mng.Axis2LeftStick();
 
-                }
-                else
-                {
-                    selectDirection = mng.Axis2RightStick();
-                }
-                return selectDirection;
             }
-            //finally
-            //{
-            //    X_Debug.Log("InputManagementnのアクセスに異常があります");
-            //}
-
+            else
+            {
+                selectDirection = mng.Axis2RightStick();
+            }
+            return selectDirection;
+            //print("x:" + Mathf.Cos(Time.time)+"y:"+ Mathf.Sin(Time.time));
+            //return new Vector2(Mathf.Cos(Time.time), Mathf.Sin(Time.time));
         }
     }
 
