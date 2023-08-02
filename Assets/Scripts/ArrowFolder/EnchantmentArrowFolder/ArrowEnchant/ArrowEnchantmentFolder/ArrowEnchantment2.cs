@@ -93,6 +93,11 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
         _playerManager = GameObject.FindWithTag(InhallLibTags.PlayerController).GetComponent<PlayerManager>();
 
+        ActiveClass activeClass = new ActiveClass();
+        activeClass.SetClass(this);
+        activeClass.SetClass(_enchantEvents._arrowEnchant);
+         PoolActiveSelect poolActiveSelect = GameObject.Find("TestActiveObjects").GetComponent<PoolActiveSelect>();
+        poolActiveSelect.Enabled(activeClass);
     }
 
     /// <summary>
