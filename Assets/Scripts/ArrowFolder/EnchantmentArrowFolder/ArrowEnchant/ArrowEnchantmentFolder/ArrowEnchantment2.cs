@@ -11,15 +11,29 @@ using UnityEngine;
 
 interface IArrowEnchantSet : IArrowEnchantReset
 {
+
+    /// <summary>
+    /// エンチャントを代入する
+    /// </summary>
+    /// <param name="enchantmentState"></param>
     void EnchantSetting(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 interface IArrowEnchantPlusSet : IArrowEnchantReset
 {
+    /// <summary>
+    /// エンチャントをミックスする
+    /// </summary>
+    /// <param name="enchantmentState"></param>
     void EnchantMixSetting(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 
 interface IArrowEventSet:IArrowEnchantPlusSet,IArrowEnchantSet,IArrowPlusDamage
 {
+
+    /// <summary>
+    /// エンチャントを確定させる
+    /// </summary>
+    /// <param name="arrow"></param>
     void EventSetting(IArrowEnchant arrow);
 
     /// <summary>
@@ -28,11 +42,18 @@ interface IArrowEventSet:IArrowEnchantPlusSet,IArrowEnchantSet,IArrowPlusDamage
     /// <returns></returns>
     EnchantmentEnum.EnchantmentState GetSubEnchantment();
 
+    /// <summary>
+    /// エンチャントラピット
+    /// </summary>
+    /// <param name="enchantmentState"></param>
     void EnchantRapidSetting(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 
 interface IArrowEnchantReset
 {
+    /// <summary>
+    /// エンチャントをリセットする
+    /// </summary>
     void EnchantmentReset();
 }
 
@@ -54,7 +75,9 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     private EnchantmentEnum.EnchantmentState _enchantmentStateLast = default;
 
-    private PlayerManager _playerManager;
+    private IFPlayerManagerHave _playerManager;
+
+    private delegate void EnchantStatePreparation();
 
     private void Start()
     {
@@ -72,29 +95,44 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     }
 
+    /// <summary>
+    /// エンチャントをミックスする
+    /// </summary>
+    /// <param name="enchantmentState"></param>
     public void EnchantMixSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
-        if (_playerManager.CanRapid)
-        {
-            return;
-        }
-
-        _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState);
-        NewEnchantState();
-        _enchantmentStateLast = _enchantmentStateNow;
+        EnchantDecision(
+            new EnchantStatePreparation(
+                () => 
+                { _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState); }));
     }
 
     public void EnchantSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
+        EnchantDecision(
+            new EnchantStatePreparation(
+                () =>
+                { _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState); }));
+    }
+
+
+    private void EnchantDecision(EnchantStatePreparation enchantStatePreparation)
+    {
         if (_playerManager.CanRapid)
         {
             return;
         }
-
-        _enchantmentStateNow = enchantmentState;
+        enchantStatePreparation();
         NewEnchantState();
         _enchantmentStateLast = _enchantmentStateNow;
+
+        if(_playerManager.GetOnlyArrow != default)
+        {
+            EventSetting(_playerManager.GetOnlyArrow);
+        }
+
     }
+
 
     public void EnchantRapidSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {

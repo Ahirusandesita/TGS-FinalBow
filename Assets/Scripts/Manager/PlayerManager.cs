@@ -20,13 +20,22 @@ public interface IFPlayerManagerSetArrow
 
 }
 
-public interface IFPlayerManagerShotArrow
+public interface IFPlayerManagerShotArrow : IFPlayerManagerRapid
 {
     void ShotArrow(Vector3 aim);
     void ResetArrow();
 
     void SetArrowMoveSpeed(float speed);
+}
+
+public interface IFPlayerManagerRapid
+{
     bool CanRapid { get; set; }
+}
+
+public interface IFPlayerManagerHave : IFPlayerManagerRapid
+{
+    Arrow GetOnlyArrow { get; }
 }
 
 
@@ -41,7 +50,7 @@ interface IFPlayerManager
     public void AddEventArrow(GameObject obj);
 
 }
-public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFPlayerManagerSetArrow, IFPlayerManagerShotArrow
+public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFPlayerManagerSetArrow, IFPlayerManagerShotArrow, IFPlayerManagerHave
 {
     #region 変数宣言部
     public bool CanRapid { get; set; }
@@ -75,6 +84,15 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// デバック用
     /// </summary>
     private ClickInput _clickInput = new ClickInput();
+
+    public Arrow GetOnlyArrow
+    {
+
+        get
+        {
+            return _arrow;
+        }
+    }
     #endregion
 
     private void Update()
@@ -239,6 +257,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
             Debug.LogError("UInai");
         }
 
+        _arrow = default;
     }
     public void ResetArrow()
     {
@@ -280,7 +299,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         //    return;
         //}
         _arrow = arrow;
-        if(arrowEnchant2 == null)
+        if (arrowEnchant2 == null)
         {
             return;
         }
