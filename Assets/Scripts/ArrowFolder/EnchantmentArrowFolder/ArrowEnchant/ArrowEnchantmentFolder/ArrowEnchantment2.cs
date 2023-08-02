@@ -112,7 +112,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         EnchantDecision(
             new EnchantStatePreparation(
                 () =>
-                { _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState); }));
+                { _enchantmentStateNow = enchantmentState }));
     }
 
 
