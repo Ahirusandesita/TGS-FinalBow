@@ -29,11 +29,11 @@ public class EnemyDataDrawer : PropertyDrawer
 
             Rect goalPlaceRect = new Rect(moveTypeRect)
             {
-                y = moveTypeRect.y + EditorGUIUtility.singleLineHeight + 2f
+                y = moveTypeRect.y + EditorGUIUtility.singleLineHeight
             };
 
             var goalPlaceProperty = property.FindPropertyRelative("_birdGoalPlace");
-            //EditorGUI.
+            EditorGUILayout.ObjectField(goalPlaceProperty, typeof(Transform));
 
             switch ((MoveType)moveTypeProperty.enumValueIndex)
             {
@@ -41,5 +41,22 @@ public class EnemyDataDrawer : PropertyDrawer
                     break;
             }
         }
+    }
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        float height = EditorGUIUtility.singleLineHeight;
+
+        switch ((MoveType)property.FindPropertyRelative("_moveType").enumValueIndex)
+        {
+            case MoveType.linear:
+                height = 100f;
+                break;
+            case MoveType.curve:
+                height = 150f;
+                break;
+        }
+
+        return height;
     }
 }
