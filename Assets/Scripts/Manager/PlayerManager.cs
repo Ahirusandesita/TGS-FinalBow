@@ -241,7 +241,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         catch
         {
-
+            Debug.LogError("ResetDekinai");
         }
 
 
@@ -269,7 +269,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         catch
         {
-
+            Debug.LogError("ResetDekinai");
         }
 
 
