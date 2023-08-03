@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -300,12 +300,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163615237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.84}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 2071122562}
+  m_Father: {fileID: 593180958}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &324598440
@@ -590,6 +590,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f4855dad3d1f7b4429a23fe28ebe2b62, type: 3}
+--- !u!4 &593180958 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9051230437966670345, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 2071122561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &652422728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,15 +1567,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 9051230437966738253, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 9051230437966670345, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 163615239}
   m_SourcePrefab: {fileID: 100100000, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
---- !u!4 &2071122562 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9051230437966738253, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-  m_PrefabInstance: {fileID: 2071122561}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2071122563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051230437966670351, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
