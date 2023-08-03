@@ -258,6 +258,8 @@ interface IArrowEventSet:IArrowEnchantPlusSet,IArrowEnchantSet,IArrowPlusDamage
     /// </summary>
     /// <param name="enchantmentState"></param>
     void EnchantRapidSetting(EnchantmentEnum.EnchantmentState enchantmentState);
+
+    IFPlayerManagerHave _playerManager { get; set; }
 }
 
 interface IArrowEnchantReset
@@ -274,6 +276,7 @@ interface IArrowEnchantReset
 public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowEnchantPlusSet, IArrowEventSet,IArrowPlusDamage
 {
 
+    public IFPlayerManagerHave _playerManager { get; set; }
 
     private EnchantMix _enchantMix = new EnchantMix();
 
@@ -286,7 +289,6 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     private EnchantmentEnum.EnchantmentState _enchantmentStateLast = default;
 
-    private IFPlayerManagerHave _playerManager;
 
     private delegate void EnchantStatePreparation();
 
@@ -312,7 +314,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         _enchantEventParameter = new EnchantEventParameter(_enchantEvents);
 
 
-        _playerManager = GameObject.FindWithTag(InhallLibTags.PlayerController).GetComponent<PlayerManager>();
+        
 
     }
 
