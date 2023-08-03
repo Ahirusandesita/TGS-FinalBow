@@ -160,14 +160,15 @@ public class EnchantEventParameter : IEnchantEventParameter
         _enchantEvents._arrowEnchantPassiveEffect2 = arrow.EnchantArrowPassiveEffect;
         _enchantEvents._arrowEnchantPassiveEffectDestroy = arrow.EnchantArrowPassiveEffect;
 
-        ArrowEnchantDecision(new EnchantDelegateData(
-            new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantPassiveEffect2.EnchantLevel(enchantState)),
-            new Arrow.ArrowEffectDestroyDelegateMethod(_enchantEvents._arrowEnchantPassiveEffectDestroy.EnchantLevel(enchantState)),
-            new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove2.EnchantLevel(enchantState)),
-            new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound2.EnchantLevel(enchantState)),
-            new Arrow.ArrowEnchantmentDelegateMethod(_enchantEvents._arrowEnchant2.EnchantLevel(enchantState)),
-            new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantEffect2.EnchantLevel(enchantState))
-            ),arrow);
+        EnchantDelegateData enchantDelegateData = default;
+
+        enchantDelegateData.arrowEffectDelegateMethod = new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantEffect2.EnchantLevel(enchantState));
+        enchantDelegateData.arrowEnchantDelegateMethod = new Arrow.ArrowEnchantmentDelegateMethod(_enchantEvents._arrowEnchant2.EnchantLevel(enchantState));
+        enchantDelegateData.arrowMoveDelegateMethod = new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove2.EnchantLevel(enchantState));
+        enchantDelegateData.arrowPassiveEffectDelegateMethod = new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantPassiveEffect2.EnchantLevel(enchantState));
+        enchantDelegateData.arrowPassiveEffectDestroyDelegateMethod = new Arrow.ArrowEffectDestroyDelegateMethod(_enchantEvents._arrowEnchantPassiveEffectDestroy.EnchantLevel(enchantState));
+        enchantDelegateData.arrowSoundDelegateMethod = new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound2.EnchantLevel(enchantState));
+        ArrowEnchantDecision(enchantDelegateData,arrow);
 
     }
 
