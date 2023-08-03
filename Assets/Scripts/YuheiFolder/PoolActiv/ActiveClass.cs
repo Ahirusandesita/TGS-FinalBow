@@ -10,24 +10,38 @@ interface IFActiveClass
 {
     void SetClass<T>(T t) where T : Behaviour;
 }
+
 public class ActiveClass : IFActiveClass
 {
-    List<Behaviour> ActiveComponents = new List<Behaviour>();
 
-    public List<Behaviour> GetOnlyActiveConponents
+    public struct ActiveData
+    {
+        public Behaviour ActiveCompoent;
+        public GameObject ActiveGameObject;
+
+        public ActiveData(Behaviour behaviour,GameObject activeObject)
+        {
+            ActiveCompoent = behaviour;
+            ActiveGameObject = activeObject;
+        }
+
+    }
+
+    public List<ActiveData> activeDatas = new List<ActiveData>();
+
+    public ActiveClass() { }
+    public List<ActiveData> GetOnlyActiveConponents
     {
         get
         {
-            return ActiveComponents;
+            return activeDatas;
         }
     }
 
 
-    public ActiveClass() { }
-
-    public void SetClass<T>(T t) where T : Behaviour
+    public void SetClass<T>(T t) where T :  Behaviour
     {
-        ActiveComponents.Add(t);
+        activeDatas.Add(new ActiveData(t,t.gameObject));
     }
 
 }

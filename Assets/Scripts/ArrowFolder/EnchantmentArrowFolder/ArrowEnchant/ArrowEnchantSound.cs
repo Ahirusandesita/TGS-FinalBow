@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ArrowEnchantSound : MonoBehaviour
+public class ArrowEnchantSound : MonoBehaviour,IArrowEnchantable<AudioSource>
 {
     #region variable 
     public SoundParamTable _nomalSound;
@@ -121,6 +121,102 @@ public class ArrowEnchantSound : MonoBehaviour
     public void ArrowSound_EnchantSound()
     {
         _audioSource.PlayOneShot(_newEnchantSound._audioClip);
+    }
+
+    public void Normal(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_nomalSound._audioClip);
+    }
+
+    public void Bomb(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_bombSound._audioClip);
+    }
+
+    public void Thunder(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_thunderSound._audioClip);
+    }
+
+    public void KnockBack(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_knockBackSound._audioClip);
+    }
+
+    public void Penetrate(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_penetrateSound._audioClip);
+    }
+
+    public void Homing(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_homingSound._audioClip);
+    }
+
+    public void BombThunder(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_bombThunderSound._audioClip);
+    }
+
+    public void BombKnockBack(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_bombKnockBackSound._audioClip);
+    }
+
+    public void BombPenetrate(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_bombPenetrateSound._audioClip);
+    }
+
+    public void BombHoming(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_bombHomingSound._audioClip);
+    }
+
+    public void ThunderKnockBack(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_thunderKnockBackSound._audioClip);
+    }
+
+    public void ThunderPenetrate(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_thunderPenetrateSound._audioClip);
+    }
+
+    public void ThunderHoming(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_thunderHomingSound._audioClip);
+    }
+
+    public void KnockBackPenetrate(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_knockBackPenetrateSound._audioClip);
+    }
+
+    public void KnockBackHoming(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_knockBackHomingSound._audioClip);
+    }
+
+    public void PenetrateHoming(AudioSource t)
+    {
+        t = _audioSource;
+        t.PlayOneShot(_homingPenetrateSound._audioClip);
     }
     #endregion
 }

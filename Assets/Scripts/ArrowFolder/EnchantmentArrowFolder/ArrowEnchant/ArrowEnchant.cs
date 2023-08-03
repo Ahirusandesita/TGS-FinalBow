@@ -9,7 +9,7 @@ using UnityEngine;
 
 // “–‚½‚Á‚½‚ÉŒÄ‚Î‚ê‚é‚â‚Â‚ç
 // î•ñ“n‚·“G‚ğŒˆ‚ß‚Äˆø”‚Ì’†g‚í‚½‚·
-public class ArrowEnchant : MonoBehaviour
+public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,EnchantmentEnum.EnchantmentState>
 {
     private int _layerMask = 1 << 6 | 1 << 7;
 
@@ -424,5 +424,87 @@ public class ArrowEnchant : MonoBehaviour
     {
         GameObject obj = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), hi.transform.position, Quaternion.identity);
         obj.transform.localScale = Vector3.one * _bombSideAreaSize * 2;
+    }
+
+    public void Normal(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        stats = NormalHitDamage(t1, _normalDamage + addDamage);
+    }
+
+    public void Bomb(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _normalDamage + addDamage);
+
+        BombHitDamage(t1, Enchant.none);
+    }
+
+    public void Thunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void KnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void Penetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void Homing(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+       
+    }
+
+    public void BombThunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void BombKnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void BombPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void BombHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+       
+    }
+
+    public void ThunderKnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void ThunderPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void ThunderHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void KnockBackPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+       
+    }
+
+    public void KnockBackHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
+    }
+
+    public void PenetrateHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    {
+        
     }
 }
