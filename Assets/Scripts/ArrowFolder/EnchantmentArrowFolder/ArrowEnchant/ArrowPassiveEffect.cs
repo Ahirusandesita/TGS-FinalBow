@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections.Generic;
-public class ArrowPassiveEffect : MonoBehaviour
+public class ArrowPassiveEffect : MonoBehaviour,IArrowEnchantable<Transform>,IArrowEnchantable<GameObject>
 {
     private ObjectPoolSystem _objectPoosSystem;
 
@@ -264,6 +264,172 @@ public class ArrowPassiveEffect : MonoBehaviour
         //エフェクトを消す
         _workEffect.transform.parent = null;
         _objectPoosSystem.ReturnObject(_workEnchantState, _workEffect);
+    }
+
+
+
+
+    public void Normal(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.nomalPassive);
+    }
+
+    public void Bomb(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.bombPassive);
+    }
+
+    public void Thunder(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.thunderPassive);
+    }
+
+    public void KnockBack(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.knockBackPassive);
+    }
+
+    public void Penetrate(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.penetratePassive);
+    }
+
+    public void Homing(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.homingPassive);
+    }
+
+    public void BombThunder(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.bombThunderPassive);
+    }
+
+    public void BombKnockBack(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.bombKnockBackPassive);
+    }
+
+    public void BombPenetrate(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.bombPenetratePassive);
+    }
+
+    public void BombHoming(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.bombHomingPassive);
+    }
+
+    public void ThunderKnockBack(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.thunderKnockBackPassive);
+    }
+
+    public void ThunderPenetrate(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.thunderPenetratePassive);
+    }
+
+    public void ThunderHoming(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.thunderHomingPassive);
+    }
+
+    public void KnockBackPenetrate(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.knockBackpenetratePassive);
+    }
+
+    public void KnockBackHoming(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.knockBackHomingPassive);
+    }
+
+    public void PenetrateHoming(Transform t)
+    {
+        PassiveEffectCreate(t, EffectPoolEnum.EffectPoolState.homingPenetratePassive);
+    }
+
+
+
+
+    public void Normal(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.nomalPassive);
+    }
+
+    public void Bomb(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.bombPassive);
+    }
+
+    public void Thunder(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.thunderPassive);
+    }
+
+    public void KnockBack(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.knockBackPassive);
+    }
+
+    public void Penetrate(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.penetratePassive);
+    }
+
+    public void Homing(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.homingPassive);
+    }
+
+    public void BombThunder(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.bombThunderPassive);
+    }
+
+    public void BombKnockBack(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.bombKnockBackPassive);
+    }
+
+    public void BombPenetrate(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.bombPenetratePassive);
+    }
+
+    public void BombHoming(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.bombHomingPassive);
+    }
+
+    public void ThunderKnockBack(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.thunderKnockBackPassive);
+    }
+
+    public void ThunderPenetrate(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.thunderPenetratePassive);
+    }
+
+    public void ThunderHoming(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.thunderHomingPassive);
+    }
+
+    public void KnockBackPenetrate(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.knockBackpenetratePassive);
+    }
+
+    public void KnockBackHoming(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.knockBackHomingPassive);
+    }
+
+    public void PenetrateHoming(GameObject t)
+    {
+        PassiveEffectDestroy(t, EffectPoolEnum.EffectPoolState.homingPenetratePassive);
     }
 
 

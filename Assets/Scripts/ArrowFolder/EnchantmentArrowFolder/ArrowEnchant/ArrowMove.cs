@@ -45,7 +45,7 @@ interface IArrowMoveSettingReset : IArrowMoveSetting, IArrowMoveReset
 /// <summary>
 /// 矢の動きのクラス　通常とホーミングの挙動を行う
 /// </summary>
-public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
+public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable<Transform>
 {
     #region 変数一覧 グロ注意
 
@@ -530,6 +530,86 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset
     {
         // 矢の初期設定完了のフラグをリセット
         _endSetting = false;
+    }
+
+    public void Normal(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+    }
+
+    public void Bomb(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+    }
+
+    public void Thunder(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, THUNDER);
+    }
+
+    public void KnockBack(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+    }
+
+    public void Penetrate(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+    }
+
+    public void Homing(Transform t)
+    {
+        HomingMove(t, _arrowSpeed);
+    }
+
+    public void BombThunder(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, THUNDER);
+    }
+
+    public void BombKnockBack(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+    }
+
+    public void BombPenetrate(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+    }
+
+    public void BombHoming(Transform t)
+    {
+        HomingMove(t, _arrowSpeed);
+    }
+
+    public void ThunderKnockBack(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, THUNDER);
+    }
+
+    public void ThunderPenetrate(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, THUNDER);
+    }
+
+    public void ThunderHoming(Transform t)
+    {
+        HomingMove(t, _arrowSpeed);
+    }
+
+    public void KnockBackPenetrate(Transform t)
+    {
+        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+    }
+
+    public void KnockBackHoming(Transform t)
+    {
+        HomingMove(t, _arrowSpeed);
+    }
+
+    public void PenetrateHoming(Transform t)
+    {
+        HomingMove(t, _arrowSpeed);
     }
 
     #endregion
