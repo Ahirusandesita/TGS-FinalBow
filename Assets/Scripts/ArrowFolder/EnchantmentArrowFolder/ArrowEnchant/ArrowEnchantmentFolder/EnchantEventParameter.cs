@@ -96,12 +96,28 @@ public class EnchantEventParameter : IEnchantEventParameter
 
     private struct EnchantDelegateData
     {
-        public Arrow.ArrowEffectDelegateMethod arrowEffectPassiveDelegateMethod;
-        public Arrow.ArrowEffectDestroyDelegateMethod arrowEffectPassiveDestroyDelegateMethod;
+        public Arrow.ArrowEffectDelegateMethod arrowPassiveEffectDelegateMethod;
+        public Arrow.ArrowEffectDestroyDelegateMethod arrowPassiveEffectDestroyDelegateMethod;
         public Arrow.MoveDelegateMethod arrowMoveDelegateMethod;
         public Arrow.ArrowEnchantSoundDeletgateMethod arrowSoundDelegateMethod;
         public Arrow.ArrowEnchantmentDelegateMethod arrowEnchantDelegateMethod;
         public Arrow.ArrowEffectDelegateMethod arrowEffectDelegateMethod;
+
+        public EnchantDelegateData(
+            Arrow.ArrowEffectDelegateMethod arrowPassiveEffectDelegateMethod,
+            Arrow.ArrowEffectDestroyDelegateMethod arrowPassiveEffectDestroyDelegateMethod,
+            Arrow.MoveDelegateMethod moveDelegateMethod,
+            Arrow.ArrowEnchantSoundDeletgateMethod arrowEnchantSoundDeletgateMethod,
+            Arrow.ArrowEnchantmentDelegateMethod arrowEnchantmentDelegateMethod,
+            Arrow.ArrowEffectDelegateMethod arrowEffectDelegateMethod)
+        {
+            this.arrowPassiveEffectDelegateMethod = arrowPassiveEffectDelegateMethod;
+            this.arrowPassiveEffectDestroyDelegateMethod = arrowPassiveEffectDestroyDelegateMethod;
+            this.arrowMoveDelegateMethod = moveDelegateMethod;
+            this.arrowSoundDelegateMethod = arrowEnchantSoundDeletgateMethod;
+            this.arrowEnchantDelegateMethod = arrowEnchantmentDelegateMethod;
+            this.arrowEffectDelegateMethod = arrowEffectDelegateMethod;
+        }
     }
 
 
@@ -121,12 +137,12 @@ public class EnchantEventParameter : IEnchantEventParameter
 
 
 
-    Action<EnchantDelegateData, IArrowEnchant> ArrowEnchant2 = (
+    Action<EnchantDelegateData, IArrowEnchant> ArrowEnchantDecision = (
           enchantDelegateDeta,
           arrow) =>
       {
-          arrow.EventArrowPassiveEffect = enchantDelegateDeta.arrowEffectPassiveDelegateMethod;
-          arrow.EventArrowEffectDestroy = enchantDelegateDeta.arrowEffectPassiveDestroyDelegateMethod;
+          arrow.EventArrowPassiveEffect = enchantDelegateDeta.arrowPassiveEffectDelegateMethod;
+          arrow.EventArrowEffectDestroy = enchantDelegateDeta.arrowPassiveEffectDestroyDelegateMethod;
           arrow.MoveArrow = enchantDelegateDeta.arrowMoveDelegateMethod;
           arrow.ArrowEnchantSound = enchantDelegateDeta.arrowSoundDelegateMethod;
           arrow.EventArrow = enchantDelegateDeta.arrowEnchantDelegateMethod;
@@ -144,16 +160,14 @@ public class EnchantEventParameter : IEnchantEventParameter
         _enchantEvents._arrowEnchantPassiveEffect2 = arrow.EnchantArrowPassiveEffect;
         _enchantEvents._arrowEnchantPassiveEffectDestroy = arrow.EnchantArrowPassiveEffect;
 
-        EnchantDelegateData enchantDelegateData = default;
-
-
-        enchantDelegateData.arrowEffectDelegateMethod = new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantPassiveEffect2.EnchantLevel(enchantState));
-        enchantDelegateData.arrowEffectPassiveDestroyDelegateMethod = new Arrow.ArrowEffectDestroyDelegateMethod(_enchantEvents._arrowEnchantPassiveEffectDestroy.EnchantLevel(enchantState));
-        enchantDelegateData.arrowMoveDelegateMethod = new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove2.EnchantLevel(enchantState));
-        enchantDelegateData.arrowEnchantDelegateMethod = new Arrow.ArrowEnchantmentDelegateMethod(_enchantEvents._arrowEnchant2.EnchantLevel(enchantState));
-        enchantDelegateData.arrowEffectDelegateMethod = new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantEffect2.EnchantLevel(enchantState));
-        enchantDelegateData.arrowSoundDelegateMethod = new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound2.EnchantLevel(enchantState));
-        ArrowEnchant2(enchantDelegateData, arrow);
+        ArrowEnchantDecision(new EnchantDelegateData(
+            new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantPassiveEffect2.EnchantLevel(enchantState)),
+            new Arrow.ArrowEffectDestroyDelegateMethod(_enchantEvents._arrowEnchantPassiveEffectDestroy.EnchantLevel(enchantState)),
+            new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove2.EnchantLevel(enchantState)),
+            new Arrow.ArrowEnchantSoundDeletgateMethod(_enchantEvents._arrowEnchantSound2.EnchantLevel(enchantState)),
+            new Arrow.ArrowEnchantmentDelegateMethod(_enchantEvents._arrowEnchant2.EnchantLevel(enchantState)),
+            new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantEffect2.EnchantLevel(enchantState))
+            ),arrow);
 
     }
 
