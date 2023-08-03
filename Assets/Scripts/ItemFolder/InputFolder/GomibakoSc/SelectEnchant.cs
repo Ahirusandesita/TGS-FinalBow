@@ -45,7 +45,7 @@ public class SelectEnchant : MonoBehaviour
         enchantSetter = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<IArrowEnchantSet>();
 
         circleLinesAngle = CircleDivide(setting.Length);
-
+        image.SetActive(false);
         foreach (float a in circleLinesAngle)
         {
             print(a);
