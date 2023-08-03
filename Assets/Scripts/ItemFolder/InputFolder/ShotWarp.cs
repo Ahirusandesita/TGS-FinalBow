@@ -11,7 +11,7 @@ using System;
 public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
 {
     #region variable 
-    [SerializeField] Transform player;
+    Transform player;
     [SerializeField] bool moveWarp = false;
     [SerializeField] float moveTime = 0.1f;
     [SerializeField] bool canLight = false;
@@ -48,6 +48,7 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
         lightCoroutine = () => { };
         moveCoroutine = () => player.position = transform.position;
 
+        player = GameObject.FindWithTag(InhallLibTags.Player).transform.root;
 
         if (canLight)
         {
