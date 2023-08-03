@@ -11,7 +11,13 @@ using UnityEngine;
 
 public interface IArrowEnchantLevelable<T>
 {
-    
+    public delegate void EnchantDelegate(T t);
+    EnchantDelegate EnchantLevel(EnchantmentEnum.EnchantmentState enchantmentState);
+}
+public interface IArrowEnchantLevelable<T1, T2>
+{
+    public delegate void EnchantDelegate(T1 t1,T2 t2);
+    EnchantDelegate EnchantLevel(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 
 public interface IArrowEnchantable
@@ -114,7 +120,7 @@ public interface IArrowEnchantable<T>
             case EnchantmentEnum.EnchantmentState.bombThunder:
                 return new EnchantDelegate(BombThunder);
             case EnchantmentEnum.EnchantmentState.bombKnockBack:
-                return new EnchantDelegate(BombThunder);
+                return new EnchantDelegate(BombKnockBack);
             case EnchantmentEnum.EnchantmentState.bombPenetrate:
                 return new EnchantDelegate(BombPenetrate);
             case EnchantmentEnum.EnchantmentState.bombHoming:
@@ -175,7 +181,7 @@ public interface IArrowEnchantable<T1, T2>
             case EnchantmentEnum.EnchantmentState.bombThunder:
                 return new EnchantDelegate(BombThunder);
             case EnchantmentEnum.EnchantmentState.bombKnockBack:
-                return new EnchantDelegate(BombThunder);
+                return new EnchantDelegate(BombKnockBack);
             case EnchantmentEnum.EnchantmentState.bombPenetrate:
                 return new EnchantDelegate(BombPenetrate);
             case EnchantmentEnum.EnchantmentState.bombHoming:

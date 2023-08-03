@@ -461,6 +461,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         }
 
         _myTrailRenderer.enabled = true;
+
     }
 
     /// <summary>
