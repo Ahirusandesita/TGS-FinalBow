@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-interface IArrowSound : IArrowEnchantable<AudioSource>
+interface IArrowSound
 {
     void ArrowSound_EnchantSound();
 }

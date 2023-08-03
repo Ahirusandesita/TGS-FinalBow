@@ -7,9 +7,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+interface IArrowEnchantDamageable
+{
+    void SetAttackDamage();
+}
 // “–‚½‚Á‚½‚ÉŒÄ‚Î‚ê‚é‚â‚Â‚ç
 // î•ñ“n‚·“G‚ğŒˆ‚ß‚Äˆø”‚Ì’†g‚í‚½‚·
-public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,EnchantmentEnum.EnchantmentState>
+public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,EnchantmentEnum.EnchantmentState>, IArrowEnchantDamageable
 {
     private int _layerMask = 1 << 6 | 1 << 7;
 
