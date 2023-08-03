@@ -440,71 +440,80 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
     public void Thunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1,_thunderDamage + _normalDamage + addDamage);
     }
 
     public void KnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _knockBackDamage + _normalDamage + addDamage);
     }
 
     public void Penetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _penetrateDamage + _normalDamage + addDamage);
     }
 
     public void Homing(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-       
+        stats = NormalHitDamage(t1, _homingDamage + _normalDamage + addDamage);
     }
 
     public void BombThunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _thunderDamage + _normalDamage + addDamage);
+
+        BombHitDamage(t1, Enchant.thunder);
     }
 
     public void BombKnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _knockBackDamage + _normalDamage + addDamage);
+
+        BombHitDamage(t1, Enchant.knockBack);
     }
 
     public void BombPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _penetrateDamage + _normalDamage + addDamage);
+
+        BombHitDamage(t1, Enchant.penetrate);
     }
 
     public void BombHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-       
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _homingDamage + _normalDamage + addDamage);
+
+        BombHitDamage(t1, Enchant.homing);
     }
 
     public void ThunderKnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _thunderDamage + _knockBackDamage + _normalDamage + addDamage);
+
     }
 
     public void ThunderPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1,_thunderDamage + _penetrateDamage + _normalDamage + addDamage);
     }
 
     public void ThunderHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _thunderDamage + _homingDamage + _normalDamage + addDamage);
     }
 
     public void KnockBackPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-       
+        stats = NormalHitDamage(t1, _knockBackDamage + _penetrateDamage + _normalDamage + addDamage);
     }
 
     public void KnockBackHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _knockBackDamage + _homingDamage + _normalDamage + addDamage);
     }
 
     public void PenetrateHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        
+        stats = NormalHitDamage(t1, _penetrateDamage + _homingDamage + _normalDamage + addDamage);
     }
 }
