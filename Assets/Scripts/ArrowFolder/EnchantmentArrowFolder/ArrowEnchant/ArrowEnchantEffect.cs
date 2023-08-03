@@ -7,7 +7,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ArrowEnchantEffect : MonoBehaviour
+public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>
 {
     private ObjectPoolSystem _objectPoolSystem;
 
@@ -156,5 +156,85 @@ public class ArrowEnchantEffect : MonoBehaviour
         yield return _waitSeconds;
 
         _objectPoolSystem.ReturnObject(effectPoolState,effectObject);
+    }
+
+    public void Normal(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.nomal, t);
+    }
+
+    public void Bomb(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.bomb, t);
+    }
+
+    public void Thunder(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.thunder, t);
+    }
+
+    public void KnockBack(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.knockBack, t);
+    }
+
+    public void Penetrate(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.penetrate, t);
+    }
+
+    public void Homing(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.homing, t);
+    }
+
+    public void BombThunder(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.bombThunder, t);
+    }
+
+    public void BombKnockBack(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.bombKnockBack, t);
+    }
+
+    public void BombPenetrate(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.bombPenetrate, t);
+    }
+
+    public void BombHoming(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.bombHoming, t);
+    }
+
+    public void ThunderKnockBack(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.thunderKnockBack, t);
+    }
+
+    public void ThunderPenetrate(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.thunderPenetrate, t);
+    }
+
+    public void ThunderHoming(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.thunderHoming, t);
+    }
+
+    public void KnockBackPenetrate(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.knockBackpenetrate, t);
+    }
+
+    public void KnockBackHoming(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.knockBackHoming, t);
+    }
+
+    public void PenetrateHoming(Transform t)
+    {
+        EffectCall(EffectPoolEnum.EffectPoolState.homingPenetrate, t);
     }
 }

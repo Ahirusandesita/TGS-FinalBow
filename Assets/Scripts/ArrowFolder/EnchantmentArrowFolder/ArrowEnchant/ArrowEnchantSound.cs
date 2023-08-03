@@ -6,7 +6,13 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ArrowEnchantSound : MonoBehaviour,IArrowEnchantable<AudioSource>
+
+interface IArrowSound : IArrowEnchantable<AudioSource>
+{
+    void ArrowSound_EnchantSound();
+}
+
+public class ArrowEnchantSound : MonoBehaviour,IArrowSound,IArrowEnchantable<AudioSource>
 {
     #region variable 
     public SoundParamTable _nomalSound;
