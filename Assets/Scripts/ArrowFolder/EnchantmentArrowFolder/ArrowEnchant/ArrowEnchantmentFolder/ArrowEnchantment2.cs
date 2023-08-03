@@ -94,6 +94,46 @@ public interface IArrowEnchantable
 
 public interface IArrowEnchantable<T>
 {
+    public delegate void EnchantDelegate(T t);
+    public EnchantDelegate EnchantLevel(EnchantmentEnum.EnchantmentState enchantmentState)
+    {
+        switch (enchantmentState)
+        {
+            case EnchantmentEnum.EnchantmentState.normal:
+                return new EnchantDelegate(Normal);
+            case EnchantmentEnum.EnchantmentState.bomb:
+                return new EnchantDelegate(Bomb);
+            case EnchantmentEnum.EnchantmentState.thunder:
+                return new EnchantDelegate(Thunder);
+            case EnchantmentEnum.EnchantmentState.knockBack:
+                return new EnchantDelegate(KnockBack);
+            case EnchantmentEnum.EnchantmentState.penetrate:
+                return new EnchantDelegate(Penetrate);
+            case EnchantmentEnum.EnchantmentState.homing:
+                return new EnchantDelegate(Homing);
+            case EnchantmentEnum.EnchantmentState.bombThunder:
+                return new EnchantDelegate(BombThunder);
+            case EnchantmentEnum.EnchantmentState.bombKnockBack:
+                return new EnchantDelegate(BombThunder);
+            case EnchantmentEnum.EnchantmentState.bombPenetrate:
+                return new EnchantDelegate(BombPenetrate);
+            case EnchantmentEnum.EnchantmentState.bombHoming:
+                return new EnchantDelegate(BombHoming);
+            case EnchantmentEnum.EnchantmentState.thunderKnockBack:
+                return new EnchantDelegate(ThunderKnockBack);
+            case EnchantmentEnum.EnchantmentState.thunderPenetrate:
+                return new EnchantDelegate(ThunderPenetrate);
+            case EnchantmentEnum.EnchantmentState.thunderHoming:
+                return new EnchantDelegate(ThunderHoming);
+            case EnchantmentEnum.EnchantmentState.knockBackpenetrate:
+                return new EnchantDelegate(KnockBackPenetrate);
+            case EnchantmentEnum.EnchantmentState.knockBackHoming:
+                return new EnchantDelegate(KnockBackHoming);
+            case EnchantmentEnum.EnchantmentState.homingPenetrate:
+                return new EnchantDelegate(PenetrateHoming);
+        }
+        return null;
+    }
 
     void Normal(T t);
     void Bomb(T t);
@@ -114,6 +154,47 @@ public interface IArrowEnchantable<T>
 }
 public interface IArrowEnchantable<T1, T2>
 {
+
+    public delegate void EnchantDelegate(T1 t,T2 t2);
+    public EnchantDelegate EnchantLevel(EnchantmentEnum.EnchantmentState enchantmentState)
+    {
+        switch (enchantmentState)
+        {
+            case EnchantmentEnum.EnchantmentState.normal:
+                return new EnchantDelegate(Normal);
+            case EnchantmentEnum.EnchantmentState.bomb:
+                return new EnchantDelegate(Bomb);
+            case EnchantmentEnum.EnchantmentState.thunder:
+                return new EnchantDelegate(Thunder);
+            case EnchantmentEnum.EnchantmentState.knockBack:
+                return new EnchantDelegate(KnockBack);
+            case EnchantmentEnum.EnchantmentState.penetrate:
+                return new EnchantDelegate(Penetrate);
+            case EnchantmentEnum.EnchantmentState.homing:
+                return new EnchantDelegate(Homing);
+            case EnchantmentEnum.EnchantmentState.bombThunder:
+                return new EnchantDelegate(BombThunder);
+            case EnchantmentEnum.EnchantmentState.bombKnockBack:
+                return new EnchantDelegate(BombThunder);
+            case EnchantmentEnum.EnchantmentState.bombPenetrate:
+                return new EnchantDelegate(BombPenetrate);
+            case EnchantmentEnum.EnchantmentState.bombHoming:
+                return new EnchantDelegate(BombHoming);
+            case EnchantmentEnum.EnchantmentState.thunderKnockBack:
+                return new EnchantDelegate(ThunderKnockBack);
+            case EnchantmentEnum.EnchantmentState.thunderPenetrate:
+                return new EnchantDelegate(ThunderPenetrate);
+            case EnchantmentEnum.EnchantmentState.thunderHoming:
+                return new EnchantDelegate(ThunderHoming);
+            case EnchantmentEnum.EnchantmentState.knockBackpenetrate:
+                return new EnchantDelegate(KnockBackPenetrate);
+            case EnchantmentEnum.EnchantmentState.knockBackHoming:
+                return new EnchantDelegate(KnockBackHoming);
+            case EnchantmentEnum.EnchantmentState.homingPenetrate:
+                return new EnchantDelegate(PenetrateHoming);
+        }
+        return null;
+    }
     void Normal(T1 t1,T2 t2);
     void Bomb(T1 t1, T2 t2);
     void Thunder(T1 t1, T2 t2);
@@ -203,23 +284,24 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     private delegate void EnchantStatePreparation();
 
+    private IArrowSound arrowSound;
+
     private void Start()
     {
 
         //矢の効果　エフェクト　サウンドを取得する
-        _enchantEvents._arrowEnchant = this.GetComponent<ArrowEnchant>();
-        _enchantEvents._arrowEnchantEffect = this.GetComponent<ArrowEnchantEffect>();
-        _enchantEvents._arrowEnchantSound = this.GetComponent<ArrowEnchantSound>();
+
         _enchantEvents._arrowEnchantUI = this.GetComponent<ArrowEnchantUI>();
         _enchantEvents._atractEffect = this.GetComponent<AttractEffect>();
 
-        ArrowPassiveEffect arrowPassiveEffect = this.GetComponent<ArrowPassiveEffect>();
-        _enchantEvents._arrowEnchantPassiveEffect2 = arrowPassiveEffect;
-        _enchantEvents._arrowEnchantPassiveEffectDestroy = arrowPassiveEffect;
+        arrowSound = this.GetComponent<ArrowEnchantSound>();
 
-        _enchantEvents._arrowEnchantSound = this.GetComponent<ArrowEnchantSound>();
+        _enchantEvents._arrowEnchantSound2 = this.GetComponent<ArrowEnchantSound>();
+        _enchantEvents._arrowEnchant2 = this.GetComponent<ArrowEnchant>();
+        _enchantEvents._arrowEnchantEffect2 = this.GetComponent<ArrowEnchantEffect>();
 
         _enchantEventParameter = new EnchantEventParameter(_enchantEvents);
+
 
         _playerManager = GameObject.FindWithTag(InhallLibTags.PlayerController).GetComponent<PlayerManager>();
 
@@ -275,7 +357,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
     {
         if(_enchantmentStateNow != _enchantmentStateLast && _enchantmentStateNow != EnchantmentEnum.EnchantmentState.normal)
         {
-            _enchantEvents._arrowEnchantSound.ArrowSound_EnchantSound();
+            arrowSound.ArrowSound_EnchantSound();
             _enchantEventParameter.NewEnchantEvent(_enchantmentStateNow);
            //_arrowEnchantEffect.ArrowEffect_NewEnchantEffect(arrow.MyTransform);
         }
@@ -305,7 +387,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     public void ArrowEnchantPlusDamage()
     {
-        _enchantEvents._arrowEnchant.SetAttackDamage();
+        //_enchantEvents._arrowEnchant.SetAttackDamage();
 
         //_enchantEvents._arrowEnchantPassiveEffect
 
