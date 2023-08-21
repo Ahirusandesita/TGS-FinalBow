@@ -26,7 +26,7 @@ public class Drop : MonoBehaviour
     {
         for(int i = 0; i < _dropData.DropValue; i++)
         {
-            Instantiate(_dropData.DropItem.gameObject, this.transform.position, Quaternion.identity);
+            GameObject dropItem = Instantiate(_dropData.DropItem.gameObject, this.transform.position, Quaternion.identity);
         }
     }
     #endregion

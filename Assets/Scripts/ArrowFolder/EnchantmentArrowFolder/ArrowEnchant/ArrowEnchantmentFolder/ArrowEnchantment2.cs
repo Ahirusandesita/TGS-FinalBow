@@ -341,18 +341,23 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     private void EnchantDecision(EnchantStatePreparation enchantStatePreparation)
     {
+        if (!_playerManager.CanRapid)
+        {
+            enchantStatePreparation();
+        }
+            _enchantmentStateLast = _enchantmentStateNow;
+        if (_playerManager.GetOnlyArrow != default)
+        {
+            EventSetting(_playerManager.GetOnlyArrow);
+        }
+
         if (_playerManager.CanRapid)
         {
             return;
         }
-        enchantStatePreparation();
         NewEnchantState();
-        _enchantmentStateLast = _enchantmentStateNow;
 
-        if(_playerManager.GetOnlyArrow != default)
-        {
-            EventSetting(_playerManager.GetOnlyArrow);
-        }
+        
 
     }
 
