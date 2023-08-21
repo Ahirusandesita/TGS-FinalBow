@@ -22,22 +22,7 @@ public class ItemShotObjectScriptable : ScriptableObject
 {
     [SerializeField] public GameObject[] shotObjects = default;
     [SerializeField] public float rapidSpeed = 1f;
-    [SerializeField] public Component physicsClassComponent = default;
-    public IFItemShoterObjectPhysics itemPhysics { get; private set; }
 
-    private void OnValidate()
-    {
-        if(physicsClassComponent.TryGetComponent<IFItemShoterObjectPhysics>(out IFItemShoterObjectPhysics physics))
-        {
-            itemPhysics = physics;
-            Debug.Log(physics + "ÇÉZÉbÉg");
-        }
-        else
-        {
-            Debug.Log(physicsClassComponent + "ÇÕIFItemShoterObjectPhysicsÇåpè≥ÇµÇƒÇ¢Ç‹ÇπÇÒ");
-            physicsClassComponent = default;
-        }
-    }
 }
 
 
