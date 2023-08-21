@@ -145,7 +145,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private IEnumerator Spawn(int listIndex)
     {
         PoolEnum.PoolObjectType selectedPrefab;
-        BirdMoveBase birdBaseMove;
         BirdDataTable birdDataPath = _waveManagementTable._waveInformation[(int)_currentWave]._birdsData[listIndex];
 
         // 設定された秒数だけ待機する
@@ -195,47 +194,21 @@ public class StageManager : MonoBehaviour, IStageSpawn
         GameObject temporaryObject = _objectPoolSystem.CallObject(selectedPrefab, birdDataPath._birdSpawnPlace.position).gameObject;
         temporaryObject.GetComponent<BirdStats>()._onDeathBird = DecrementNumberOfObject;
 
-
-        BirdMoveComponents subMove = temporaryObject.AddComponent<BirdMoveComponents>();
-        // 弧の高さ/向きを設定
-        subMove.MoveSpeedArc = birdDataPath._arcHeight;
-        subMove.ArcMoveDirection = birdDataPath._arcMoveDirection;
-
-        birdBaseMove = subMove;
-
-
-        //// Scriptableの設定に応じて、アタッチする挙動スクリプトを変える
-        //switch (birdDataPath._moveType)
-        //{
-        //    case MoveType.linear:
-        //        //呼び出した雑魚にコンポーネントを付与
-        //        birdBaseMove = temporaryObject.AddComponent<BirdMoveFirst>();
-        //        break;
-
-        //    case MoveType.curve:
-        //        BirdMoveComponents subMove = temporaryObject.AddComponent<BirdMoveComponents>();
-
-        //        // 弧の高さ/向きを設定
-        //        subMove.MoveSpeedArc = birdDataPath._arcHeight;
-        //        subMove.ArcMoveDirection = birdDataPath._arcMoveDirection;
-
-        //        birdBaseMove = subMove;
-        //        break;
-
-        //    default:
-        //        birdBaseMove = null;
-        //        break;
-        //}
+        BirdMoveComponents birdMove = temporaryObject.GetComponent<BirdMoveComponents>();
 
         // 呼び出した雑魚の変数に設定
-        birdBaseMove.NumberOfBullet = birdDataPath._bullet;
-        birdBaseMove.AttackIntervalTime = birdDataPath._attackInterval_s;
+        birdMove.NumberOfBullet = birdDataPath._bullet;
+        birdMove.AttackIntervalTime = birdDataPath._attackInterval_s;
 
         for (int i = 0; i < birdDataPath._birdGoalPlaces.Count; i++)
         {
-            birdBaseMove.GoalPositions = birdDataPath._birdGoalPlaces[i]._birdGoalPlace.position;
-            birdBaseMove.MovementSpeeds = birdDataPath._birdGoalPlaces[i]._speed;
-            birdBaseMove.ReAttackTimes = birdDataPath._birdGoalPlaces[i]._stayTime_s;
+            birdMove.MoveTypes = birdDataPath._birdGoalPlaces[i]._moveType;
+            birdMove.GoalPositions = birdDataPath._birdGoalPlaces[i]._birdGoalPlace.position;
+            birdMove.MovementSpeeds = birdDataPath._birdGoalPlaces[i]._speed;
+            birdMove.ReAttackTimes = birdDataPath._birdGoalPlaces[i]._stayTime_s;
+
+            birdMove.MoveSpeedArcs = birdDataPath._birdGoalPlaces[i]._arcHeight;
+            birdMove.ArcMoveDirections = birdDataPath._birdGoalPlaces[i]._arcMoveDirection;
         }
     }
 
