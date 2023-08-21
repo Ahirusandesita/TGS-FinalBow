@@ -6,7 +6,9 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public abstract class EnemyAttackBase : MonoBehaviour
+
+
+public abstract class EnemyAttackBase : MonoBehaviour,IFItemMove
 {
     #region variable 
     public TagObject _PoolSystemTagData = default;
@@ -42,6 +44,8 @@ public abstract class EnemyAttackBase : MonoBehaviour
     [Tooltip("UŒ‚‚ª“®‚­‚Ü‚Å‚Ì‘Ò‹@ŠÔ")]
     protected WaitForSeconds _attackDelayWait = default;
     #endregion
+
+    public bool CanMove { get; set; }
 
     #region method
 
@@ -79,7 +83,7 @@ public abstract class EnemyAttackBase : MonoBehaviour
     protected void Update()
     {
         // “®‚¯‚È‚¯‚ê‚Î•Ô‚·
-        if (!_canMove)
+        if (!CanMove)
         {
             return;
         }
@@ -122,6 +126,7 @@ public abstract class EnemyAttackBase : MonoBehaviour
     {
         yield return _attackDelayWait;
         _canMove = true;
+        CanMove = true;
     }
 
     /// <summary>
