@@ -19,6 +19,11 @@ public class Drop : MonoBehaviour
     #endregion
     #region method
 
+    private void Start()
+    {
+        DropStart();
+    }
+
     /// <summary>
     /// Drop
     /// </summary>
