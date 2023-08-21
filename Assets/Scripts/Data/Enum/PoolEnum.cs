@@ -81,5 +81,9 @@ public class PoolEnum : MonoBehaviour
         /// 投擲する弾
         /// </summary>
         groundBullet,
+        /// <summary>
+        /// ドロップアイテム1
+        /// </summary>
+        dropItem_1,
     }
 }

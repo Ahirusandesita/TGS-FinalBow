@@ -109,7 +109,8 @@ public class Inhall : MonoBehaviour, IInhall, IInhallDestroObject
         itemMove.SetAttractPower(attractPower);
 
         //デバック用
-        itemMove.gameObject.GetComponent<EnemyAttackBase>().CanNotMove();
+        itemMove.gameObject.TryGetComponent<IFItemMove>(out IFItemMove fItemMove);
+        fItemMove.CanMove = false;
         itemMove._isStart = true;
         //itemMove.isStart = true;
         AttractObjectList.RemoveAttractObject(obj);
