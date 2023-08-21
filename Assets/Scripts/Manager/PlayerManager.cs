@@ -225,13 +225,12 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
         if (CanRapid)
         {
-            arrowEnchant2.EnchantRapidSetting((_rapidSubEnchantment));
+            arrowEnchant2.EnchantSetting((_rapidSubEnchantment));
         }
-
-        //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
+            //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         arrowEnchant2.EnchantMixSetting((EnchantmentEnum.EnchantmentState.normal));
-        arrowEnchant2.EventSetting(_arrow);
 
+        arrowEnchant2.EventSetting(_arrow);
 
         _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
         _arrow.ArrowMoveStart();
