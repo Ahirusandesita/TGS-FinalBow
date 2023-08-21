@@ -37,6 +37,12 @@ public class BirdGoalInformation
     [Tooltip("“®‚«‚Ìí—Ş")]
     public MoveType _moveType;
 
+    [HideInInspector, Tooltip("ŒÊ‚Ì‚‚³")]
+    public float _arcHeight;
+
+    [HideInInspector, Tooltip("ŒÊ‚ÌŒü‚«")]
+    public ArcMoveDirection _arcMoveDirection;
+
     [Tooltip("’¹G‹›‚ÌƒS[ƒ‹ˆÊ’u")]
     public Transform _birdGoalPlace;
 
@@ -46,9 +52,6 @@ public class BirdGoalInformation
     [Tooltip("‚±‚ÌƒS[ƒ‹‚Å’â~‚µ‚ÄUŒ‚‚·‚é•b”i’FƒS[ƒ‹‚ª•¡”İ’è‚³‚ê‚½ê‡AÅŒã‚ÌƒS[ƒ‹‚Ì‚±‚Ì•Ï”‚Í–³‹‚³‚ê‚éj")]
     public float _stayTime_s;
 
-    [HideInInspector, Tooltip("ŒÊ‚Ì‚‚³")]
-    public float _arcHeight;
-
-    [HideInInspector, Tooltip("ŒÊ‚ÌŒü‚«")]
-    public ArcMoveDirection _arcMoveDirection;
+    [Tooltip("UŒ‚•û–@‚Ìí—Ş")]
+    public BirdAttackType _birdAttackType;
 }
