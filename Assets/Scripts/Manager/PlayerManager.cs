@@ -157,6 +157,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         try
         {
             arrowEnchant2 = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<ArrowEnchantment2>();
+            arrowEnchant2._playerManager = this;
         }
         catch (System.NullReferenceException)
         {

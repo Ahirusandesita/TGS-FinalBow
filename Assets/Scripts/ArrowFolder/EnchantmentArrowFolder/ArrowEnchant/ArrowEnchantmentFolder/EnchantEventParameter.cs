@@ -162,6 +162,7 @@ public class EnchantEventParameter : IEnchantEventParameter
 
         EnchantDelegateData enchantDelegateData = default;
 
+
         enchantDelegateData.arrowEffectDelegateMethod = new Arrow.ArrowEffectDelegateMethod(_enchantEvents._arrowEnchantEffect2.EnchantLevel(enchantState));
         enchantDelegateData.arrowEnchantDelegateMethod = new Arrow.ArrowEnchantmentDelegateMethod(_enchantEvents._arrowEnchant2.EnchantLevel(enchantState));
         enchantDelegateData.arrowMoveDelegateMethod = new Arrow.MoveDelegateMethod(_enchantEvents.arrowMove2.EnchantLevel(enchantState));
