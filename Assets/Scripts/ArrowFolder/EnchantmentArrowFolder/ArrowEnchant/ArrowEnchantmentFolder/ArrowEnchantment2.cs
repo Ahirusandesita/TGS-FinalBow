@@ -16,7 +16,7 @@ public interface IArrowEnchantLevelable<T>
 }
 public interface IArrowEnchantLevelable<T1, T2>
 {
-    public delegate void EnchantDelegate(T1 t1,T2 t2);
+    public delegate void EnchantDelegate(T1 t1, T2 t2);
     EnchantDelegate EnchantLevel(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 
@@ -79,23 +79,23 @@ public interface IArrowEnchantable
 
     }
 
-        void Normal();
-        void Bomb();
-        void Thunder();
-        void KnockBack();
-        void Penetrate();
-        void Homing();
-        void BombThunder();
-        void BombKnockBack();
-        void BombPenetrate();
-        void BombHoming();
-        void ThunderKnockBack();
-        void ThunderPenetrate();
-        void ThunderHoming();
-        void KnockBackPenetrate();
-        void KnockBackHoming();
-        void PenetrateHoming();
-    
+    void Normal();
+    void Bomb();
+    void Thunder();
+    void KnockBack();
+    void Penetrate();
+    void Homing();
+    void BombThunder();
+    void BombKnockBack();
+    void BombPenetrate();
+    void BombHoming();
+    void ThunderKnockBack();
+    void ThunderPenetrate();
+    void ThunderHoming();
+    void KnockBackPenetrate();
+    void KnockBackHoming();
+    void PenetrateHoming();
+
 }
 
 public interface IArrowEnchantable<T>
@@ -137,6 +137,9 @@ public interface IArrowEnchantable<T>
                 return new EnchantDelegate(KnockBackHoming);
             case EnchantmentEnum.EnchantmentState.homingPenetrate:
                 return new EnchantDelegate(PenetrateHoming);
+            case EnchantmentEnum.EnchantmentState.nothing:
+                Debug.LogError("Nothing!");
+                break;
         }
         return null;
     }
@@ -161,7 +164,7 @@ public interface IArrowEnchantable<T>
 public interface IArrowEnchantable<T1, T2>
 {
 
-    public delegate void EnchantDelegate(T1 t,T2 t2);
+    public delegate void EnchantDelegate(T1 t, T2 t2);
     public EnchantDelegate EnchantLevel(EnchantmentEnum.EnchantmentState enchantmentState)
     {
         switch (enchantmentState)
@@ -198,10 +201,13 @@ public interface IArrowEnchantable<T1, T2>
                 return new EnchantDelegate(KnockBackHoming);
             case EnchantmentEnum.EnchantmentState.homingPenetrate:
                 return new EnchantDelegate(PenetrateHoming);
+            case EnchantmentEnum.EnchantmentState.nothing:
+                Debug.LogError("Nothing!");
+                break;
         }
         return null;
     }
-    void Normal(T1 t1,T2 t2);
+    void Normal(T1 t1, T2 t2);
     void Bomb(T1 t1, T2 t2);
     void Thunder(T1 t1, T2 t2);
     void KnockBack(T1 t1, T2 t2);
@@ -238,7 +244,7 @@ interface IArrowEnchantPlusSet : IArrowEnchantReset
     void EnchantMixSetting(EnchantmentEnum.EnchantmentState enchantmentState);
 }
 
-interface IArrowEventSet:IArrowEnchantPlusSet,IArrowEnchantSet,IArrowPlusDamage
+interface IArrowEventSet : IArrowEnchantPlusSet, IArrowEnchantSet, IArrowPlusDamage
 {
 
     /// <summary>
@@ -273,7 +279,7 @@ interface IArrowEnchantReset
 /// <summary>
 /// 矢のエンチャントの組み合わせを作るクラス
 /// </summary>
-public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowEnchantPlusSet, IArrowEventSet,IArrowPlusDamage
+public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowEnchantPlusSet, IArrowEventSet, IArrowPlusDamage
 {
 
     public IFPlayerManagerHave _playerManager { get; set; }
@@ -295,7 +301,6 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
     private IArrowSound arrowSound;
 
     private IArrowEnchantDamageable arrowEnchant;
-
     private void Start()
     {
 
@@ -314,7 +319,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         _enchantEventParameter = new EnchantEventParameter(_enchantEvents);
 
 
-        
+
 
     }
 
@@ -326,7 +331,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
     {
         EnchantDecision(
             new EnchantStatePreparation(
-                () => 
+                () =>
                 { _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState); }));
     }
 
@@ -341,11 +346,9 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
 
     private void EnchantDecision(EnchantStatePreparation enchantStatePreparation)
     {
-        if (!_playerManager.CanRapid)
-        {
-            enchantStatePreparation();
-        }
-            _enchantmentStateLast = _enchantmentStateNow;
+
+        enchantStatePreparation();
+        _enchantmentStateLast = _enchantmentStateNow;
         if (_playerManager.GetOnlyArrow != default)
         {
             EventSetting(_playerManager.GetOnlyArrow);
@@ -357,25 +360,28 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         }
         NewEnchantState();
 
-        
+
 
     }
 
 
     public void EnchantRapidSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
-        _enchantmentStateNow = enchantmentState;
-        _enchantmentStateLast = _enchantmentStateNow;
+
+        EnchantDecision(
+            new EnchantStatePreparation(
+                () =>
+                { _enchantmentStateNow = enchantmentState; }));
     }
 
 
     private void NewEnchantState()
     {
-        if(_enchantmentStateNow != _enchantmentStateLast && _enchantmentStateNow != EnchantmentEnum.EnchantmentState.normal)
+        if (_enchantmentStateNow != _enchantmentStateLast && _enchantmentStateNow != EnchantmentEnum.EnchantmentState.normal)
         {
             arrowSound.ArrowSound_EnchantSound();
             _enchantEventParameter.NewEnchantEvent(_enchantmentStateNow);
-           //_arrowEnchantEffect.ArrowEffect_NewEnchantEffect(arrow.MyTransform);
+            //_arrowEnchantEffect.ArrowEffect_NewEnchantEffect(arrow.MyTransform);
         }
     }
 
@@ -385,7 +391,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
     /// <param name="arrow"></param>
     public void EventSetting(IArrowEnchant arrow)
     {
-        if(_enchantEventParameter == null)
+        if (_enchantEventParameter == null)
         {
             return;
         }
