@@ -35,6 +35,29 @@ public enum BirdType
 }
 
 /// <summary>
+/// ’¹G‹›‚ÌUŒ‚•û–@‚Ìí—Ş
+/// </summary>
+public enum BirdAttackType
+{
+    /// <summary>
+    /// “™ŠÔŠu
+    /// </summary>
+    equalIntervals,
+    /// <summary>
+    /// •b”w’è
+    /// </summary>
+    specifySeconds,
+    /// <summary>
+    /// ˜A‘±UŒ‚
+    /// </summary>
+    consecutive,
+    /// <summary>
+    /// UŒ‚‚µ‚È‚¢
+    /// </summary>
+    none
+}
+
+/// <summary>
 /// ’nãG‹›‚Ìs“®‚Ìí—Ş
 /// </summary>
 public enum GroundEnemyActionType
