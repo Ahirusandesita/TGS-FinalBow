@@ -11,6 +11,11 @@ public static class DropFinalPositon
     public const float DROP_Y_FINALPOSITION = -1000f;
 }
 
+public interface IFItemMove
+{
+    bool CanMove { get; set; }
+}
+
 [RequireComponent(typeof(CashObjectInformation))]
 public class DropItem : MonoBehaviour,IFItemMove
 {
