@@ -416,6 +416,24 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
             }
             ReturnQue();
         }
+
+        //矢消えないボタン押した時
+        if (ArrowGetObject.ArrowHit_CantDestroyObject(MyTransform, this))
+        {
+            if (_hitObject == _hitObjectLast)
+            {
+                return;
+            }
+            _hitObjectLast = _hitObject;
+
+            if (EventArrowEffect != null)
+            {
+                EventArrowEffect(MyTransform);
+                ArrowEnchantSound(_audioSource);
+            }
+            _hitObject.GetComponent<IFCanTakeArrowButtonCantDestroy>().ButtonPush(MyTransform);
+            
+        }
     }
 
 
