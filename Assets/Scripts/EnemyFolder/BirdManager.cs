@@ -11,7 +11,7 @@ using System.Collections;
 /// 鳥雑魚の管理クラス
 /// </summary>
 // コンポーネントのアタッチを強制
-[RequireComponent(typeof(BirdStats), typeof(CashObjectInformation))]
+[RequireComponent(typeof(BirdStats), typeof(CashObjectInformation), typeof(BirdMoveComponents))]
 public class BirdManager : MonoBehaviour
 {
     [Tooltip("取得したBirdMoveクラス")]
@@ -36,7 +36,6 @@ public class BirdManager : MonoBehaviour
         // HPが0になったら死ぬ
         if (_birdStats.HP <= 0)
         {
-            Destroy(_birdMoveBase);
             _birdStats.Death();
         }
         // 倒せなかったら逃げる
@@ -46,7 +45,6 @@ public class BirdManager : MonoBehaviour
 
             if (_birdMoveBase.IsChangeScaleComplete)
             {
-                Destroy(_birdMoveBase);
                 _birdStats.Despawn();
             }
         }

@@ -56,6 +56,12 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("鳥の動き")]
     protected MoveType _moveType = default;
 
+    [Tooltip("カーブ挙動時の縦軸の移動速度")]
+    protected float _moveSpeedArc = default;
+
+    [Tooltip("カーブ挙動時の弧を描く方向")]
+    protected ArcMoveDirection _arcMoveDirection = default;
+
 
     [Tooltip("自身の敵の種類")]
     private CashObjectInformation _cashObjectInformation = default;
@@ -123,6 +129,12 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
     [Tooltip("ゴール間の鳥の動きリスト")]
     private List<MoveType> _moveTypes = new List<MoveType>();
+
+    [Tooltip("カーブ挙動時の縦軸の移動速度リスト")]
+    private List<float> _moveSpeedArcs = new();
+
+    [Tooltip("カーブ挙動時の弧を描く方向リスト")]
+    private List<ArcMoveDirection> _arcMoveDirections = new();
 
 
     [Tooltip("Scaleの加算/減算値")]
@@ -219,6 +231,28 @@ public abstract class BirdMoveBase : EnemyMoveBase
         set
         {
             _moveTypes.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// カーブ挙動時の縦軸の移動速度リスト
+    /// </summary>
+    public float MoveSpeedArcs
+    {
+        set
+        {
+            _moveSpeedArcs.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// カーブ挙動時の弧を描く方向リスト
+    /// </summary>
+    public ArcMoveDirection ArcMoveDirections
+    {
+        set
+        {
+            _arcMoveDirections.Add(value);
         }
     }
     #endregion
@@ -391,7 +425,13 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _goalPosition = _goalPositions[_repeatCount];
         _movementSpeed = _movementSpeeds[_repeatCount];
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
-        //_moveType = _moveTypes[_repeatCount];
+        _moveType = _moveTypes[_repeatCount];
+
+        if (_moveType == MoveType.curve)
+        {
+            _moveSpeedArc = _moveSpeedArcs[_repeatCount];
+            _arcMoveDirection = _arcMoveDirections[_repeatCount];
+        }
     }
 
     /// <summary>

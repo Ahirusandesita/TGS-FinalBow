@@ -5,7 +5,7 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 
 public enum ArcMoveDirection
@@ -22,8 +22,6 @@ public class BirdMoveComponents : BirdMoveBase
 
     // äÓíÍÉNÉâÉXÇÃ_movementSpeedÇ…ïœçXÇµÇΩÇÊ
     //public float _sideMoveSpeed = 12f;
-
-    float _moveSpeedArc = 10f;
 
     const float PARABORA_ANGLE = 10f;
 
@@ -51,26 +49,8 @@ public class BirdMoveComponents : BirdMoveBase
 
     float percentMoveDistance = default;
 
-    ArcMoveDirection _arcMoveDirection = default;
-
-    #endregion
-    #region property
-    public float MoveSpeedArc
-    {
-        set
-        {
-            _moveSpeedArc = value;
-        }
-    }
     #endregion
 
-    public ArcMoveDirection ArcMoveDirection
-    {
-        set
-        {
-            _arcMoveDirection = value;
-        }
-    }
     #region method
 
     protected override void Start()
