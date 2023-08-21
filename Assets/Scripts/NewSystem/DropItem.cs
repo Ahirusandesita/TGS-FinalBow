@@ -6,27 +6,45 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+using System;
+
+public static class DropFinalPositon
+{
+    public const float DROP_Y_FINALPOSITION = 0f;
+}
+
+
 public class DropItem : MonoBehaviour
 {
- #region variable 
- #endregion
- #region property
- #endregion
- #region method
- 
- private void Awake()
- {
+    #region variable 
+    private float Angle { get; set; }
 
- }
- 
- private void Start ()
- {
+    private Transform myTransform = default;
 
- }
+    [SerializeField]
+    private float y_FinalPosition_Local = 0f;
 
- private void Update ()
- {
+    #endregion
+    #region property
+    #endregion
+    #region method
+    public void SetAngle(float angle) => Angle = angle;
+    public void SetAngle(DropItemData dropItemData) => Angle = dropItemData.DropAngle;
 
- }
- #endregion
+    private void Start()
+    {
+        myTransform = this.transform;
+        y_FinalPosition_Local = myTransform.position.y - y_FinalPosition_Local;
+    }
+
+    private void Update()
+    {
+        if (myTransform.position.y < DropFinalPositon.DROP_Y_FINALPOSITION) return;
+
+        //if (myTransform.position.y < y_FinalPosition_Local) return;
+    }
+
+
+
+    #endregion
 }
