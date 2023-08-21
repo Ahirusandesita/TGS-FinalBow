@@ -14,6 +14,9 @@ public class Drop : MonoBehaviour
 {
     #region variable 
     public DropData _dropData;
+
+
+    ObjectPoolSystem ObjectPoolSystem;
     #endregion
     #region property
     #endregion
@@ -21,17 +24,16 @@ public class Drop : MonoBehaviour
 
     private void Start()
     {
-        DropStart();
+        ObjectPoolSystem = GameObject.FindObjectOfType<ObjectPoolSystem>();
     }
-
     /// <summary>
     /// Drop
     /// </summary>
-    public void DropStart()
+    public void DropStart(Vector3 spawnPosition)
     {
         for(int i = 0; i < _dropData.DropValue; i++)
         {
-            GameObject dropItem = Instantiate(_dropData.DropItem.gameObject, this.transform.position, Quaternion.identity);
+            ObjectPoolSystem.CallObject(PoolEnum.PoolObjectType.dropItem_1, spawnPosition);
         }
     }
     #endregion

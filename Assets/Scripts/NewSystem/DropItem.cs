@@ -8,11 +8,11 @@ using UnityEngine;
 
 public static class DropFinalPositon
 {
-    public const float DROP_Y_FINALPOSITION = 0f;
+    public const float DROP_Y_FINALPOSITION = -1000f;
 }
 
-
-public class DropItem : MonoBehaviour
+[RequireComponent(typeof(CashObjectInformation))]
+public class DropItem : MonoBehaviour,IFItemMove
 {
     #region variable 
     private float angle = default;
@@ -40,6 +40,7 @@ public class DropItem : MonoBehaviour
 
     #endregion
     #region property
+    public bool CanMove { get; set; }
     #endregion
     #region method
     //public void SetAngle(float angle) => Angle = angle;
@@ -59,11 +60,12 @@ public class DropItem : MonoBehaviour
 
     private void Update()
     {
-        if (myTransform.position.y < DropFinalPositon.DROP_Y_FINALPOSITION)
+        if (myTransform.position.y < DropFinalPositon.DROP_Y_FINALPOSITION || !CanMove)
         {
-            Destroy(this);
-            DropItem dropItem = this;
-            dropItem = null;
+            //Destroy(this);
+            //DropItem dropItem = this;
+            //dropItem = null;
+            return;
         }
         myTransform.Translate(Vector3.forward * speed * Time.deltaTime);
         if (dropLotation.x < 90f)
@@ -75,6 +77,10 @@ public class DropItem : MonoBehaviour
 
 
         //if (myTransform.position.y < y_FinalPosition_Local) return;
+    }
+    private void OnDisable()
+    {
+        CanMove = true;
     }
 
 
