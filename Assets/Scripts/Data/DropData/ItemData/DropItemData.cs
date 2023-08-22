@@ -16,4 +16,12 @@ public class DropItemData : ScriptableObject
     public int DropVectorMin;
     [Tooltip("向きの上限")]
     public int DropVectorMax;
+    [Tooltip("下降速度の下限")]
+    public int DropSpeedMin;
+    [Tooltip("下降速度の上限")]
+    public int DropSpeedMax;
+    [Tooltip("移動速度の下限")]
+    public int MoveSpeedMin;
+    [Tooltip("移動速度の上限")]
+    public int MoveSpeedMax;
 }

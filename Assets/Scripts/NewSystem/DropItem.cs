@@ -24,22 +24,24 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private float vector = default;
 
-    [SerializeField]
-    private float downForce = default;
+    private float _dropSpeedMin = default;
+
+    private float _dropSpeedMax = default;
 
     private Vector3 dropLotation = default;
 
     private Transform myTransform = default;
 
-    [SerializeField]
-    private float y_FinalPosition_Local = 0f;
+    //[SerializeField]
+    //private float y_FinalPosition_Local = 0f;
 
-    [SerializeField]
-    private float speedMin = 0.1f;
-    [SerializeField]
-    private float speedMax = 0.1f;
+    private float _moveSpeedMin = default;
 
-    private float speed = 0.1f;
+    private float _moveSpeedMax = default;
+
+    private float speed = default;
+
+    private float downSpeed = default;
 
     public DropItemData DropItemData;
 
@@ -53,14 +55,20 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private void Start()
     {
+        _dropSpeedMin = DropItemData.DropSpeedMin;
+        _dropSpeedMax = DropItemData.DropSpeedMax;
+        _moveSpeedMin = DropItemData.MoveSpeedMin;
+        _moveSpeedMax = DropItemData.MoveSpeedMax;
+
         myTransform = this.transform;
-        y_FinalPosition_Local = myTransform.position.y - y_FinalPosition_Local;
+        //y_FinalPosition_Local = myTransform.position.y - y_FinalPosition_Local;
         angle = -Random.Range(0f, DropItemData.DropAngle);
         vector = Random.Range(DropItemData.DropVectorMin, DropItemData.DropVectorMax);
         dropLotation.x = angle;
         dropLotation.y = vector;
         myTransform.rotation = Quaternion.Euler(dropLotation);
-        speed = Random.Range(speedMin, speedMax);
+        downSpeed = Random.Range(_dropSpeedMin, _dropSpeedMax);
+        speed = Random.Range(_moveSpeedMin, _moveSpeedMax);
     }
 
     private void Update()
@@ -75,7 +83,7 @@ public class DropItem : MonoBehaviour,IFItemMove
         myTransform.Translate(Vector3.forward * speed * Time.deltaTime);
         if (dropLotation.x < 90f)
         {
-            dropLotation.x += downForce * Time.deltaTime;
+            dropLotation.x += downSpeed * Time.deltaTime;
             myTransform.rotation = Quaternion.Euler(dropLotation);
         }
 

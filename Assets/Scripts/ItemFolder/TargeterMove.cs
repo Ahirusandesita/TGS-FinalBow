@@ -66,7 +66,7 @@ public class TargeterMove : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    public void StartSetting()
     {
         if(_object != null)
         {
