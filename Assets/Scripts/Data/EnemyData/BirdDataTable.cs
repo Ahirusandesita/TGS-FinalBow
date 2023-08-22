@@ -18,9 +18,6 @@ public class BirdDataTable : ScriptableObject
     [Header("出す弾の数（推奨：奇数）"), Tooltip("出す弾の数（推奨：奇数）")]
     public int _bullet;
 
-    [Header("攻撃間隔"), Tooltip("攻撃間隔")]
-    public float _attackInterval_s;
-
     [Header("スポーンディレイ（注意：Wave開始からの秒数）"), Tooltip("スポーンディレイ（注意：Wave開始からの秒数）")]
     public float _spawnDelay_s;
 
@@ -54,4 +51,16 @@ public class BirdGoalInformation
 
     [Tooltip("攻撃方法の種類")]
     public BirdAttackType _birdAttackType;
+
+    [Tooltip("攻撃間隔")]
+    public float _attackInterval_s;
+
+    [Tooltip("攻撃を行うタイミング（秒）")]
+    public float[] _attackTimings_s = new float[5];
+
+    [Tooltip("連続攻撃回数")]
+    public int _attackTimes;
+
+    [Tooltip("攻撃クールタイム（秒）")]
+    public float _cooldownTime_s;
 }

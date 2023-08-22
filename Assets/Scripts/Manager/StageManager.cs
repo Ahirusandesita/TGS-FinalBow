@@ -198,7 +198,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         // ŒÄ‚Ño‚µ‚½G‹›‚Ì•Ï”‚Éİ’è
         birdMove.NumberOfBullet = birdDataPath._bullet;
-        birdMove.AttackIntervalTime = birdDataPath._attackInterval_s;
+        //birdMove.AttackIntervalTime = birdDataPath._attackInterval_s;
 
         for (int i = 0; i < birdDataPath._birdGoalPlaces.Count; i++)
         {
