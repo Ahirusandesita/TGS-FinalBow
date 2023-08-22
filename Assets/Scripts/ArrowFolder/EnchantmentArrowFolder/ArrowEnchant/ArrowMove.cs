@@ -137,6 +137,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     [Tooltip("最大落下速度　落下速度が加速する頂点　これより速くは落下しない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
     private float TERMINAL_VELOCITY = -1500f;
 
+    // ワープ後の矢の初期速度
+    [SerializeField, Tooltip("ワープ後の矢の初期速度")]
+    private float AFTER_WARP_SPEED = 100f;
+
     #endregion
 
     #region ホーミングで使用している変数
@@ -456,6 +460,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         _endSetting = true;
     }
 
+    private void ReSetNormalSetting()
+    {
+        NormalSetting(this.transform, AFTER_WARP_SPEED, false);
+    }
     #endregion
 
     #region ホーミングの挙動

@@ -62,13 +62,6 @@ public class DropItem : MonoBehaviour,IFItemMove
 
         myTransform = this.transform;
         //y_FinalPosition_Local = myTransform.position.y - y_FinalPosition_Local;
-        angle = -Random.Range(0f, DropItemData.DropAngle);
-        vector = Random.Range(DropItemData.DropVectorMin, DropItemData.DropVectorMax);
-        dropLotation.x = angle;
-        dropLotation.y = vector;
-        myTransform.rotation = Quaternion.Euler(dropLotation);
-        downSpeed = Random.Range(_dropSpeedMin, _dropSpeedMax);
-        speed = Random.Range(_moveSpeedMin, _moveSpeedMax);
     }
 
     private void Update()
@@ -91,6 +84,18 @@ public class DropItem : MonoBehaviour,IFItemMove
 
         //if (myTransform.position.y < y_FinalPosition_Local) return;
     }
+
+    private void OnEnable()
+    {
+        angle = -Random.Range(0f, DropItemData.DropAngle);
+        vector = Random.Range(DropItemData.DropVectorMin, DropItemData.DropVectorMax);
+        dropLotation.x = angle;
+        dropLotation.y = vector;
+        myTransform.rotation = Quaternion.Euler(dropLotation);
+        downSpeed = Random.Range(_dropSpeedMin, _dropSpeedMax);
+        speed = Random.Range(_moveSpeedMin, _moveSpeedMax);
+    }
+
     private void OnDisable()
     {
         CanMove = true;
