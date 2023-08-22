@@ -301,6 +301,8 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
     private IArrowSound arrowSound;
 
     private IArrowEnchantDamageable arrowEnchant;
+
+    private bool canMix = true;
     private void Start()
     {
 
@@ -329,10 +331,15 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
     /// <param name="enchantmentState"></param>
     public void EnchantMixSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
+        if (!canMix) return;
+
         EnchantDecision(
             new EnchantStatePreparation(
                 () =>
-                { _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState); }));
+                { 
+                    _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState);
+                }
+                ));
     }
 
     public void EnchantSetting(EnchantmentEnum.EnchantmentState enchantmentState)
@@ -340,7 +347,9 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         EnchantDecision(
             new EnchantStatePreparation(
                 () =>
-                { _enchantmentStateNow = enchantmentState; }));
+                { _enchantmentStateNow = enchantmentState;
+                    canMix = false;
+                }));
     }
 
 
@@ -405,6 +414,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         _enchantmentStateNow = EnchantmentEnum.EnchantmentState.nothing;
         _enchantEventParameter.EnchantEventReset();
         _enchantmentStateLast = EnchantmentEnum.EnchantmentState.nothing;
+        canMix = true;
     }
 
     public void ArrowEnchantPlusDamage()
