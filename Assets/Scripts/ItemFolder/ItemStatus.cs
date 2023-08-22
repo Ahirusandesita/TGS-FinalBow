@@ -10,6 +10,7 @@ public class ItemStatus : MonoBehaviour
 {
     //アイテムにEnumをセットする
     public EnchantmentEnum.ItemAttributeState itemState;
+    public bool DropItem;
     
     IStats<EnchantmentEnum.ItemAttributeState> stats;
     private void Awake()
