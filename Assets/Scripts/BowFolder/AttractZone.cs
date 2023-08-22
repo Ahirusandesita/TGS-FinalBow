@@ -69,7 +69,7 @@ public class AttractZone : MonoBehaviour
         {
             if (dropItems[i].TryGetComponent<ItemStatus>(out ItemStatus itemStatus))
             {
-                if (itemStatus.DropItem)
+                if (!itemStatus.DropItem)
                 {
                     dropItems.Remove(dropItems[i]);
                 }
