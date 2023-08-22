@@ -20,6 +20,7 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
     [SerializeField] float fadeIn = 0.2f;
     [SerializeField] float stop = 0.3f;
     [SerializeField] float fadeOut = 0.2f;
+    [SerializeField] Vector3 warpedRotation = default;
     Color rgb = default;
     WaitForFixedUpdate wait = new WaitForFixedUpdate();
     Func<float, IEnumerator> move = f => null;
@@ -47,6 +48,7 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
         transrate = () => { };
         lightCoroutine = () => { };
         moveCoroutine = () => player.position = transform.position;
+        moveCoroutine += () => player.rotation = Quaternion.Euler(warpedRotation);
 
         player = GameObject.FindWithTag(InhallLibTags.PlayerController).transform.root;
 
@@ -67,6 +69,7 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
         if (allLightToMove)
         {
             transrate = () => player.position = transform.position;
+            transrate += () => player.rotation = Quaternion.Euler(warpedRotation);
         }
         rgb = lightAlpha.color;
         lightAlpha.color = new Color(rgb.r, rgb.g, rgb.b, 0);
@@ -94,7 +97,8 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
             moved += move.magnitude;
             if(moved > distance)
             {
-                //player.position = transform.position;
+                player.position = transform.position;
+                player.rotation = Quaternion.Euler(warpedRotation);
                 break;
             }
 
