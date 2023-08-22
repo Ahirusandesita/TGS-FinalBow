@@ -225,7 +225,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
         if (CanRapid)
         {
-            arrowEnchant2.EnchantSetting((_rapidSubEnchantment));
+            arrowEnchant2.EnchantMixSetting((_rapidSubEnchantment));
         }
             //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         arrowEnchant2.EnchantMixSetting((EnchantmentEnum.EnchantmentState.normal));

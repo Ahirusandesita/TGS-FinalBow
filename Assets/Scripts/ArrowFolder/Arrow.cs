@@ -7,6 +7,17 @@
 using System.Collections;
 using UnityEngine;
 
+public struct A
+{
+    bool arrowHit;
+    bool arrowHitObject;
+    bool arrowHitTitleObject;
+    bool arrowHitBarrierObject;
+    bool arrowHitBottonObject;
+    bool arrowHitCantDestroyObject;
+}
+
+
 /// <summary>
 /// 矢の移動を開始する
 /// </summary>
@@ -145,6 +156,9 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     [System.NonSerialized]
     public GameObject _hitObject;
 
+    [System.NonSerialized]
+    public GameObject[] _hitObjects = new GameObject[6];
+
 
     /// <summary>
     /// エンチャントできるか
@@ -203,6 +217,8 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     private AudioSource _audioSource;
 
     private GameObject _hitObjectLast;
+
+    private GameObject[] _hitObjectLasts = new GameObject[6];
 
     private WaitForSeconds _waitArrowActivTime;
 
@@ -313,18 +329,21 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         else
             Debug.LogError(_enchantState);
 
+
+        bool[] isArrowHits = ArrowGetObject.ArrowHitFinalultraピーポー(MyTransform, this);
+
         //矢がどこかにヒットしたら
-        if (ArrowGetObject.ArrowHit(MyTransform, this))
+        if (isArrowHits[0])
         {
             //ヒットしたオブジェクトが同じオブジェクトならヒットしていないことにする
-            if (_hitObject == _hitObjectLast)
+            if (_hitObjects[0] == _hitObjectLasts[0])
             {
                 return;
             }
-            _hitObjectLast = _hitObject;
+            _hitObjectLasts[0] = _hitObjects[0];
 
             //ヒットしたオブジェクトとエンチャントEnumを渡す　ヒット処理開始
-            EventArrow(_hitObject, _enchantState);
+            EventArrow(_hitObjects[0], _enchantState);
 
             //ヒットエフェクトを発動
             if (EventArrowEffect != null)
@@ -349,15 +368,15 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
             ReturnQue();
         }
         //仮
-        if (ArrowGetObject.ArrowHit_Object(MyTransform, this))
+        if (_hitObjects[1])
         {
-            if (_hitObject == _hitObjectLast)
+            if (_hitObjects[1] == _hitObjectLasts[1])
             {
                 return;
             }
-            _hitObjectLast = _hitObject;
+            _hitObjectLasts[1] = _hitObjects[1];
 
-            _hitObject.GetComponent<SceneMoveHitArrow>().SceneMove(MyTransform);
+            _hitObjects[1].GetComponent<SceneMoveHitArrow>().SceneMove(MyTransform);
             if (EventArrowEffect != null)
             {
                 EventArrowEffect(MyTransform);
@@ -367,15 +386,15 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         }
 
         //仮
-        if (ArrowGetObject.ArrowHit_TitleObject(MyTransform, this))
+        if (_hitObjects[2])
         {
-            if (_hitObject == _hitObjectLast)
+            if (_hitObjects[2] == _hitObjectLasts[2])
             {
                 return;
             }
-            _hitObjectLast = _hitObject;
+            _hitObjectLasts[2] = _hitObjects[2];
 
-            _hitObject.GetComponent<TargetAnimation>().TargetPushed();
+            _hitObjects[2].GetComponent<TargetAnimation>().TargetPushed();
             if (EventArrowEffect != null)
             {
                 EventArrowEffect(MyTransform);
@@ -385,7 +404,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         }
 
         //バリアオブジェクトに触れたらリターン
-        if (ArrowGetObject.ArrowHit_BarrierObject(_hitZone, this))
+        if (_hitObjects[3])
         {
             if (
                 _enchantState == EnchantmentEnum.EnchantmentState.penetrate ||
@@ -400,15 +419,15 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         }
 
         //ボタン押した時
-        if(ArrowGetObject.ArrowHit_ButtonObject(MyTransform, this))
+        if (_hitObjects[4])
         {
-            if (_hitObject == _hitObjectLast)
+            if (_hitObjects[4] == _hitObjectLasts[4])
             {
                 return;
             }
-            _hitObjectLast = _hitObject;
+            _hitObjectLasts[4] = _hitObjects[4];
 
-            _hitObject.GetComponent<IFCanTakeArrowButton>().ButtonPush();
+            _hitObjects[4].GetComponent<IFCanTakeArrowButton>().ButtonPush();
             if (EventArrowEffect != null)
             {
                 EventArrowEffect(MyTransform);
@@ -418,21 +437,21 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         }
 
         //矢消えないボタン押した時
-        if (ArrowGetObject.ArrowHit_CantDestroyObject(MyTransform, this))
+        if (_hitObjects[5])
         {
-            if (_hitObject == _hitObjectLast)
+            if (_hitObjects[5] == _hitObjectLasts[5])
             {
                 return;
             }
-            _hitObjectLast = _hitObject;
+            _hitObjectLasts[5] = _hitObjects[5];
 
             if (EventArrowEffect != null)
             {
                 EventArrowEffect(MyTransform);
                 ArrowEnchantSound(_audioSource);
             }
-            _hitObject.GetComponent<IFCanTakeArrowButtonCantDestroy>().ButtonPush(MyTransform);
-            
+            _hitObjects[5].GetComponent<IFCanTakeArrowButtonCantDestroy>().ButtonPush(MyTransform);
+
         }
     }
 
@@ -442,7 +461,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     /// </summary>
     public void ArrowMoveStart()
     {
-        if(MyTransform == null)
+        if (MyTransform == null)
         {
             MyTransform = gameObject.transform;
         }
@@ -458,7 +477,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         //y = MyTransform.rotation.eulerAngles.y + y;
         //z = MyTransform.rotation.eulerAngles.z + z;
 
-       // MyTransform.rotation = Quaternion.Euler(new Vector3(x, y, z));
+        // MyTransform.rotation = Quaternion.Euler(new Vector3(x, y, z));
 
 
         //移動スピードをセットする
@@ -472,7 +491,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 
         NeedArrowEnchant = false;
 
-        if(_myTrailRenderer == null)
+        if (_myTrailRenderer == null)
         {
             _myTrailRenderer = MyTransform.GetChild(1).GetComponent<TrailRenderer>();
             _myTrailRenderer.enabled = false;

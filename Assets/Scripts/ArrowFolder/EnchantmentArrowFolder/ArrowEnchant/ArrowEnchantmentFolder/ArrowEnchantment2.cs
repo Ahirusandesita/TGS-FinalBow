@@ -395,6 +395,7 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
         {
             return;
         }
+        Debug.LogError(_enchantmentStateNow);
         _enchantEventParameter.EnchantEventAttribute(_enchantmentStateNow, arrow);
     }
 
