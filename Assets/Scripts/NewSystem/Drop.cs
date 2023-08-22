@@ -13,10 +13,7 @@ using System.Collections;
 public class Drop : MonoBehaviour
 {
     #region variable 
-    public DropData _dropData;
-
-
-    ObjectPoolSystem ObjectPoolSystem;
+    private ObjectPoolSystem objectPoolSystem;
     #endregion
     #region property
     #endregion
@@ -24,16 +21,16 @@ public class Drop : MonoBehaviour
 
     private void Start()
     {
-        ObjectPoolSystem = GameObject.FindObjectOfType<ObjectPoolSystem>();
+        objectPoolSystem = GameObject.FindWithTag(InhallLibTags.PoolSystem).GetComponent<ObjectPoolSystem>();
     }
     /// <summary>
     /// Drop
     /// </summary>
-    public void DropStart(Vector3 spawnPosition)
+    public void DropStart(DropData dropData,Vector3 spawnPosition)
     {
-        for(int i = 0; i < _dropData.DropValue; i++)
+        for(int i = 0; i < dropData.DropValue; i++)
         {
-            ObjectPoolSystem.CallObject(PoolEnum.PoolObjectType.dropItem_1, spawnPosition);
+            objectPoolSystem.CallObject(PoolEnum.PoolObjectType.dropItem_1, spawnPosition);
         }
     }
     #endregion
