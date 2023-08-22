@@ -20,6 +20,11 @@ public class BirdManager : MonoBehaviour
     [Tooltip("Žæ“¾‚µ‚½BirdStatsƒNƒ‰ƒX")]
     private BirdStats _birdStats = default;
 
+    [SerializeField]
+    private DropData dropData;
+
+    private Drop drop;
+
 
     private void Start()
     {
@@ -29,6 +34,7 @@ public class BirdManager : MonoBehaviour
         {
             _birdMoveBase = this.GetComponent<BirdMoveBase>();
         }
+        drop = GameObject.FindObjectOfType<Drop>();
     }
 
     private void Update()
@@ -37,6 +43,7 @@ public class BirdManager : MonoBehaviour
         if (_birdStats.HP <= 0)
         {
             _birdStats.Death();
+            drop.DropStart(dropData, this.transform.position);
         }
         // “|‚¹‚È‚©‚Á‚½‚ç“¦‚°‚é
         else if (!_birdStats.IsSummmon && _birdMoveBase.NeedDespawn)

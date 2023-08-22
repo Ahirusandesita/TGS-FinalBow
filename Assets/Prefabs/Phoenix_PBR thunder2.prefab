@@ -1367,6 +1367,7 @@ GameObject:
   - component: {fileID: 8971920768907346053}
   - component: {fileID: 952767148615529407}
   - component: {fileID: 806870882670808515}
+  - component: {fileID: 5047778023432979386}
   m_Layer: 6
   m_Name: Phoenix_PBR thunder2
   m_TagString: Untagged
@@ -1452,6 +1453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropData: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
 --- !u!135 &806870882670808515
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1465,6 +1467,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.5
   m_Center: {x: 0, y: 1.87, z: -0.59}
+--- !u!114 &5047778023432979386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff8f1d15e2f0a849b926a31ce0ca7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _idleMoveSpeedX: 10
+  _idleMoveSpeedY: 10
+  _changeAngleSpeed: 1
 --- !u!1 &5144204438039530197
 GameObject:
   m_ObjectHideFlags: 0
