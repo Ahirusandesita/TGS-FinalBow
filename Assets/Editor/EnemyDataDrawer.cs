@@ -8,6 +8,7 @@
 using System;
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
 
 [CustomPropertyDrawer(typeof(BirdGoalInformation))]
 public class EnemyDataDrawer : PropertyDrawer
@@ -86,7 +87,7 @@ public class EnemyDataDrawer : PropertyDrawer
             var speedProperty = property.FindPropertyRelative("_speed");
             speedProperty.floatValue = EditorGUI.FloatField(speedRect, "à⁄ìÆÉXÉsÅ[Éh", speedProperty.floatValue);
 
-            // _stayTime_sÅií‚é~ÇµÇƒçUåÇÇ∑ÇÈïbêîÅj---------------------------------------------------------------------------------------------------------------------------------
+            // _stayTime_sÅií‚é~Ç∑ÇÈïbêîÅj---------------------------------------------------------------------------------------------------------------------------------
 
             Rect stayTimeRect = new(speedRect)
             {
@@ -94,25 +95,41 @@ public class EnemyDataDrawer : PropertyDrawer
             };
 
             var stayTimeProperty = property.FindPropertyRelative("_stayTime_s");
-            stayTimeProperty.floatValue = EditorGUI.FloatField(stayTimeRect, "í‚é~ÇµÇƒçUåÇÇ∑ÇÈïbêî", stayTimeProperty.floatValue);
+            stayTimeProperty.floatValue = EditorGUI.FloatField(stayTimeRect, "í‚é~Ç∑ÇÈïbêî", stayTimeProperty.floatValue);
 
             // _birdAttackTypeÅiçUåÇï˚ñ@ÇÃéÌóﬁÅj-----------------------------------------------------------------------------------------------------------------------------------
 
-            Rect AttackTypeRect = new(stayTimeRect)
+            Rect attackTypeRect = new(stayTimeRect)
             {
                 y = stayTimeRect.y + EditorGUIUtility.singleLineHeight + 3f
             };
 
-            var AttackTypeProperty = property.FindPropertyRelative("_birdAttackType");
-            AttackTypeProperty.enumValueIndex = EditorGUI.Popup(AttackTypeRect, "çUåÇï˚ñ@ÇÃéÌóﬁ", AttackTypeProperty.enumValueIndex, Enum.GetNames(typeof(BirdAttackType)));
+            var attackTypeProperty = property.FindPropertyRelative("_birdAttackType");
+            attackTypeProperty.enumValueIndex = EditorGUI.Popup(attackTypeRect, "çUåÇï˚ñ@ÇÃéÌóﬁ", attackTypeProperty.enumValueIndex, Enum.GetNames(typeof(BirdAttackType)));
 
-            switch ((BirdAttackType)AttackTypeProperty.enumValueIndex)
+            switch ((BirdAttackType)attackTypeProperty.enumValueIndex)
             {
                 case BirdAttackType.equalIntervals:
+
+                    Rect attackIntervalRect = new(attackTypeRect)
+                    {
+                        y = attackTypeRect.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var attackIntervalProperty = property.FindPropertyRelative("_attackInterval_s");
+                    attackIntervalProperty.floatValue = EditorGUI.FloatField(attackIntervalRect, "çUåÇä‘äu", attackIntervalProperty.floatValue);
 
                     break;
 
                 case BirdAttackType.specifySeconds:
+
+                    Rect attackTimingsRect = new(attackTypeRect)
+                    {
+                        y = attackTypeRect.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var attackTimingsProperty = property.FindPropertyRelative("_attackTimings_s");
+                    //attackIntervalProperty.floatValue = EditorGUI.FloatField(attackTimingsRect, )
 
                     break;
 
@@ -126,7 +143,7 @@ public class EnemyDataDrawer : PropertyDrawer
             }
 
             // ç≈å„Ç…ÉäÉXÉgÇÃçÇÇ≥ÇçXêV
-            height = AttackTypeRect.y - position.y + EditorGUIUtility.singleLineHeight + 1.5f;
+            height = attackTypeRect.y - position.y + EditorGUIUtility.singleLineHeight + 1.5f;
         }
     }
 
