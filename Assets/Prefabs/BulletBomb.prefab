@@ -34044,6 +34044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemState: 1
+  DropItem: 0
 --- !u!114 &4644608670399402100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34059,6 +34060,7 @@ MonoBehaviour:
   _isStart: 0
   _UseTemporary: 1
   _endSetting: 0
+  itemVibration: {fileID: 78964231407428620}
   _destroyDistance: 1
 --- !u!114 &-4131600960598446935
 MonoBehaviour:
@@ -38999,6 +39001,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBombShot
       objectReference: {fileID: 0}
+    - target: {fileID: 7125277159356762151, guid: 8fd13c13c206f3d44959057145a8ea87, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7125277159356762155, guid: 8fd13c13c206f3d44959057145a8ea87, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -39068,3 +39074,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7125277159356762155, guid: 8fd13c13c206f3d44959057145a8ea87, type: 3}
   m_PrefabInstance: {fileID: 2173816518426764265}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8991686554726312910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7125277159356762151, guid: 8fd13c13c206f3d44959057145a8ea87, type: 3}
+  m_PrefabInstance: {fileID: 2173816518426764265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &78964231407428620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8991686554726312910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f69a933d476b3e47babe4d1fbedeaf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vibrateType: 0
+  vibrateRange: 1
+  vibrateSpeed: 15.9

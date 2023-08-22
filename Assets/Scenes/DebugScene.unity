@@ -3498,6 +3498,7 @@ MonoBehaviour:
   _isStart: 0
   _UseTemporary: 1
   _endSetting: 0
+  itemVibration: {fileID: 0}
   _destroyDistance: 1
 --- !u!114 &230069688
 MonoBehaviour:
@@ -3512,6 +3513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemState: 5
+  DropItem: 0
 --- !u!65 &230069689
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25918,6 +25920,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1126381010441410559, guid: 3eec3d983846545489c3a64ade90046b, type: 3}
+      propertyPath: dictance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1955900029002461078, guid: 3eec3d983846545489c3a64ade90046b, type: 3}
       propertyPath: m_Name
       value: DebugFPSChanger

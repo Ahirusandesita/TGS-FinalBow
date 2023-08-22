@@ -21,6 +21,8 @@ public class ItemMove : MonoBehaviour
 
     public bool _endSetting = false;
 
+    public ItemVibration itemVibration;
+
     #endregion
 
     #region　Unity変数一覧
@@ -158,6 +160,7 @@ public class ItemMove : MonoBehaviour
     /// </summary>
     private void Update()
     {
+
         // 開始のフラグ管理
         if (_isStart)
         {
@@ -173,6 +176,17 @@ public class ItemMove : MonoBehaviour
                 //臨時
                 ItemAttractTemporary();
             }
+            if (itemVibration is null) return;
+            itemVibration.canVibration = true;
+            float distance = Vector3.Distance(_playerTransform.position, this.transform.position);
+            distance = 20 - distance;
+            if (distance < 0f)
+            {
+                distance = 0f;
+            }
+            itemVibration.vibrateSpeed = distance;
+
+
         }
 
     }
