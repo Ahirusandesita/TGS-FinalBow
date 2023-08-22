@@ -136,6 +136,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("カーブ挙動時の弧を描く方向リスト")]
     private List<ArcMoveDirection> _arcMoveDirections = new();
 
+    //[Tooltip("")]
+
 
     [Tooltip("Scaleの加算/減算値")]
     private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
