@@ -10,6 +10,10 @@ public class ItemShooter : MonoBehaviour, IFCanTakeArrowButton
 {
     [SerializeField] ItemShotObjectScriptable data = default;
     [SerializeField] Transform shotPosition = default;
+    /// <summary>
+    /// ˆÊ’u‚Ì‚¸‚ê,‰~Œ`
+    /// </summary>
+    [SerializeField] float gapPosition = 0.1f;
     GameObject[] shotObjects = default;
     WaitForSeconds rapidSpeed = default;
     IFItemShoterObjectPhysics physics = default;
@@ -37,7 +41,7 @@ public class ItemShooter : MonoBehaviour, IFCanTakeArrowButton
     private void Initialize()
     {
         shotObjects = data.shotObjects;
-        rapidSpeed = new WaitForSeconds(1/data.rapidSpeed);
+        rapidSpeed = new WaitForSeconds(1 / data.rapidSpeed);
         if (TryGetComponent<IFItemShoterObjectPhysics>(out IFItemShoterObjectPhysics ph))
         {
             physics = ph;
@@ -53,9 +57,11 @@ public class ItemShooter : MonoBehaviour, IFCanTakeArrowButton
     {
         GameObject[] createdObjs = new GameObject[shotObjects.Length];
         int cnt = 0;
+        Vector3 sponePos = shotPosition.position + new Vector3(Random.Range(0f, gapPosition), 0f, Random.Range(0f, gapPosition));
         foreach (GameObject obj in shotObjects)
         {
-            createdObjs[cnt] = Instantiate(obj, shotPosition.position, Quaternion.identity);
+
+            createdObjs[cnt] = Instantiate(obj, sponePos, Quaternion.identity);
             cnt++;
         }
 
