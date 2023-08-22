@@ -8,7 +8,7 @@ using UnityEngine;
 
 public static class DropFinalPositon
 {
-    public const float DROP_Y_FINALPOSITION = -1000f;
+    public const float DROP_Y_FINALPOSITION = -100f;
 }
 
 public interface IFItemMove
