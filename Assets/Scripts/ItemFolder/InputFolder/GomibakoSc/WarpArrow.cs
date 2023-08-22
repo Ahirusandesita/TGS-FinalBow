@@ -10,7 +10,7 @@ public class WarpArrow : MonoBehaviour, IFCanTakeArrowButtonCantDestroy
 {
     [SerializeField] Transform warpPosition = default;
     [SerializeField] Vector3 warpedRotation = default;
-    [SerializeField] bool changeAngle_Y = false;
+    [SerializeField] bool changeAngle_Z = false;
     [SerializeField] bool changeAngle = true;
     public void ButtonPush(Transform arrow)
     {
@@ -19,17 +19,19 @@ public class WarpArrow : MonoBehaviour, IFCanTakeArrowButtonCantDestroy
 
     private void ArrowWarp(Transform arrow)
     {
+        
         arrow.position = warpPosition.position;
+        
         if (changeAngle)
         {
-
-            if (changeAngle_Y)
+            Vector3 setAxis = warpedRotation;
+            if (!changeAngle_Z)
             {
-                arrow.rotation = Quaternion.Euler(warpedRotation.x, arrow.rotation.eulerAngles.y, warpedRotation.z); ;
-                return;
+                setAxis.z = arrow.rotation.eulerAngles.z;
             }
-            arrow.rotation = Quaternion.Euler(warpedRotation);
-            print(arrow.rotation);
+            arrow.rotation = Quaternion.Euler(setAxis);
+            arrow.GetComponent<ArrowMove>().ReSetNormalSetting();
+            print(arrow.rotation.eulerAngles);
         }
     }
 

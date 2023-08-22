@@ -460,7 +460,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         _endSetting = true;
     }
 
-    private void ReSetNormalSetting()
+    public void ReSetNormalSetting()
     {
         NormalSetting(this.transform, AFTER_WARP_SPEED, false);
     }
