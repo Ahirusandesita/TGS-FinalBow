@@ -47,8 +47,9 @@ public class TargetStats : EnemyStats
     public override void Death()
     {
         // è¡Ç∑èàóù
-        _onDeathTarget();
-        _objectPoolSystem.ReturnObject(_cashObjectInformation);
+        //_onDeathTarget();
+        //_objectPoolSystem.ReturnObject(_cashObjectInformation);
+        this.gameObject.SetActive(false);
     }
 
     public override int HP
