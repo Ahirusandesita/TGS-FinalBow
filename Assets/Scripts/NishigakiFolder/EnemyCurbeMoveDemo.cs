@@ -13,12 +13,14 @@ public class EnemyCurveMoveDemo : MonoBehaviour
     private Transform _enemyTransform = default;
 
     private Transform _myTransform = default;
- #endregion
- #region property
- #endregion
- #region method
- 
- private void Awake()
+
+    private Vector3 _rotateValue = default;
+    #endregion
+    #region property
+    #endregion
+    #region method
+
+    private void Awake()
  {
 
  }
@@ -41,7 +43,8 @@ public class EnemyCurveMoveDemo : MonoBehaviour
     private void StartSetting(float angle, float value, float shift)
     {
         _myTransform = _enemyTransform;
-
+        _rotateValue.x = shift;
+        
     }
  #endregion
 }
