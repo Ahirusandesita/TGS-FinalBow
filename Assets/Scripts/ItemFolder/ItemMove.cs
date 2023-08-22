@@ -90,10 +90,10 @@ public class ItemMove : MonoBehaviour
     #region クラスの代入用変数
 
     // ObjectPoolSystemの代入用変数
-    private ObjectPoolSystem PoolManager = default;
+    private ObjectPoolSystem _PoolManager = default;
 
     // CashObjectInformationの代入用変数
-    private CashObjectInformation Cash = default;
+    private CashObjectInformation _Cash = default;
 
     // TargeterMoveの代入用変数
     private TargeterMove targeterMove = default;
@@ -130,10 +130,10 @@ public class ItemMove : MonoBehaviour
         _playerTransform = GameObject.FindGameObjectWithTag("PlayerController").transform;
 
         // PoolManagerの代入
-        PoolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
+        _PoolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
 
         // CashObjectInformationの代入
-        Cash = this.GetComponent<CashObjectInformation>();
+        _Cash = this.GetComponent<CashObjectInformation>();
 
         // PlayerManagerの代入
         _playerManager = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerManager>();
@@ -185,9 +185,11 @@ public class ItemMove : MonoBehaviour
     /// <param name="attractPower">引き寄せる力の大きさ</param>
     public void StartSetting()
     {
-        _targeterObject = PoolManager.CallObject(PoolEnum.PoolObjectType.targeter, this.gameObject.transform.position).gameObject;
+        _targeterObject = _PoolManager.CallObject(PoolEnum.PoolObjectType.targeter, this.gameObject.transform.position).gameObject;
 
         _targeterTransform = _targeterObject.transform;
+
+        _targeterObject.GetComponent<TargeterMove>().StartSetting();
 
         _startDistance = Vector3.Distance(_playerTransform.position, _itemTransform.position);
 
@@ -231,7 +233,7 @@ public class ItemMove : MonoBehaviour
     public void ReSetAll()
     {
         this.transform.localScale = startsize;
-        PoolManager.ReturnObject(Cash);
+        _PoolManager.ReturnObject(_Cash);
     }
 
     /// <summary>
@@ -358,7 +360,7 @@ public class ItemMove : MonoBehaviour
         if (_tmpdif < _destroyDistance || !_bowManager.IsHolding)
         {
             this.transform.localScale = startsize;
-            PoolManager.ReturnObject(Cash);
+            _PoolManager.ReturnObject(_Cash);
         }
     }
     #endregion
