@@ -5,15 +5,24 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
 {
-    [SerializeReference] List<MoveItem> items = new List<MoveItem>();
-    [SerializeReference] List<MoveItem> deleteObjs = new List<MoveItem>();
+    List<MoveItem> items = new List<MoveItem>();
+    List<MoveItem> deleteObjs = new List<MoveItem>();
+    /// <summary>
+    /// オブジェクトが上がるスピード
+    /// </summary>
     [SerializeField] float upSpeed = 0.5f;
+    /// <summary>
+    /// 横方向が変わる時間
+    /// </summary>
     [SerializeField] float reverceTime = 0.5f;
+    /// <summary>
+    /// 横移動速度
+    /// </summary>
+    [SerializeField] float sideSpeed = 0.1f;
     protected struct MoveItem
     {
         public GameObject shot;
@@ -77,7 +86,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
             obj.moveVector *= -1f;
         }
         
-        obj.shot.transform.Translate((obj.moveVector + Vector3.up * upSpeed) * Time.deltaTime);
+        obj.shot.transform.Translate((obj.moveVector * sideSpeed + Vector3.up * upSpeed) * Time.deltaTime);
         return obj;
     }
 }

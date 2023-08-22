@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: c7aae28708627bd4f85741fbf46779d8, type: 2}
   shotPosition: {fileID: 125605247}
+  gapPosition: 1
 --- !u!65 &125605244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -254,7 +255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upSpeed: 5
-  reverceTime: 0.3
+  reverceTime: 1.1
+  sideSpeed: 0.5
 --- !u!1001 &128102534
 PrefabInstance:
   m_ObjectHideFlags: 0
