@@ -55,12 +55,6 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private void Start()
     {
-        _dropSpeedMin = DropItemData.DropSpeedMin;
-        _dropSpeedMax = DropItemData.DropSpeedMax;
-        _moveSpeedMin = DropItemData.MoveSpeedMin;
-        _moveSpeedMax = DropItemData.MoveSpeedMax;
-
-        myTransform = this.transform;
         //y_FinalPosition_Local = myTransform.position.y - y_FinalPosition_Local;
     }
 
@@ -87,6 +81,13 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private void OnEnable()
     {
+        _dropSpeedMin = DropItemData.DropSpeedMin;
+        _dropSpeedMax = DropItemData.DropSpeedMax;
+        _moveSpeedMin = DropItemData.MoveSpeedMin;
+        _moveSpeedMax = DropItemData.MoveSpeedMax;
+
+        myTransform = this.transform;
+
         angle = -Random.Range(0f, DropItemData.DropAngle);
         vector = Random.Range(DropItemData.DropVectorMin, DropItemData.DropVectorMax);
         dropLotation.x = angle;

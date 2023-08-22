@@ -6,9 +6,13 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class EnemyCabeMoveDemo : MonoBehaviour
+public class EnemyCurveMoveDemo : MonoBehaviour
 {
- #region variable 
+    #region variable 
+    // これにエネミーのトランスフォームを入れてね
+    private Transform _enemyTransform = default;
+
+    private Transform _myTransform = default;
  #endregion
  #region property
  #endregion
@@ -31,6 +35,12 @@ public class EnemyCabeMoveDemo : MonoBehaviour
 
     private void Movement(float angle ,float value ,float shift)
     {
+
+    }
+
+    private void StartSetting(float angle, float value, float shift)
+    {
+        _myTransform = _enemyTransform;
 
     }
  #endregion
