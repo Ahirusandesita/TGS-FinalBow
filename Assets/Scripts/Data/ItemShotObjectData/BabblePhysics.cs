@@ -27,7 +27,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
             for (int i = 0; i < items.Count; i++)
             {
                 MoveItem obj = items[i];
-                if (obj.shot is not null)
+                if (items[i].shot is not null)
                 {
 
                     items[i] = Moving(ref obj);
