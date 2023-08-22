@@ -56,7 +56,11 @@ public class BirdGoalInformation
     public float _attackInterval_s;
 
     [Tooltip("攻撃を行うタイミング（秒）")]
-    public float[] _attackTimings_s = new float[5];
+    public float _attackTimings_s1;
+    public float _attackTimings_s2;
+    public float _attackTimings_s3;
+    public float _attackTimings_s4;
+    public float _attackTimings_s5;
 
     [Tooltip("連続攻撃回数")]
     public int _attackTimes;
