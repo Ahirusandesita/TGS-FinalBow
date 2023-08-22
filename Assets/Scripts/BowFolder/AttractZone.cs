@@ -56,25 +56,27 @@ public class AttractZone : MonoBehaviour
         // インプットからまたは弓から引き具合の数値をもらう
         //angle = 
         //ゾーンに含まれているオブジェクトのStatsEnumをPlayerManagerクラスにセットする
-        
-        if(angle > 180f)
+
+        if (angle > 180f)
         {
             angle = 180f;
         }
 
-        List<GameObject> dropItems = AttractObjectList.GetAttractObject();
+        List<GameObject> dropItems = new List<GameObject>();
+        dropItems = AttractObjectList.GetAttractObject();
+
         for (int i = 0; i < dropItems.Count; i++)
         {
             if (dropItems[i].TryGetComponent<ItemStatus>(out ItemStatus itemStatus))
             {
-                if (!itemStatus.DropItem)
+                if (itemStatus.DropItem)
                 {
-                    AttractObjectList.RemoveAttractObject(dropItems[i]);
+                    dropItems.Remove(dropItems[i]);
                 }
             }
             else
             {
-                AttractObjectList.RemoveAttractObject(dropItems[i]);
+                dropItems.Remove(dropItems[i]);
             }
         }
         dropItems = ConeDecision.ConeInObjects(transform, dropItems, angle, Mathf.Infinity, direction);
@@ -86,7 +88,6 @@ public class AttractZone : MonoBehaviour
 
 
         _zoneObject = ConeDecision.ConeInObjects(transform, AttractObjectList.GetAttractObject(), angle, dictance, direction);
-        Debug.Log(_zoneObject.Count);
         for (int i = 0; i < _zoneObject.Count; i++)
         {
             //Update文だからおなじやつでも何回も呼ぶ　注意
@@ -100,7 +101,7 @@ public class AttractZone : MonoBehaviour
     /// <param name="drawDistance">引いた距離</param>
     public void SetAngle(float drawDistance)
     {
-       
+
         // ここになんか計算いれれば
         angle = drawDistance * angleSizeMagnification;
 
