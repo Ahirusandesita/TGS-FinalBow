@@ -61,6 +61,28 @@ public class AttractZone : MonoBehaviour
         {
             angle = 180f;
         }
+        List<GameObject> dropItems = AttractObjectList.GetAttractObject();
+        for(int i = 0; i < dropItems.Count; i++)
+        {
+            if(dropItems[i].TryGetComponent<ItemStatus>(out ItemStatus itemStatus))
+            {
+                if (!itemStatus.DropItem)
+                {
+                    AttractObjectList.RemoveAttractObject(dropItems[i]);
+                }
+            }
+            else
+            {
+                AttractObjectList.RemoveAttractObject(dropItems[i]);
+            }
+        }
+        dropItems = ConeDecision.ConeInObjects(transform, dropItems, angle, Mathf.Infinity, direction);
+        for(int i = 0; i < dropItems.Count; i++)
+        {
+            _inhall.SetGameObject(dropItems[i]);
+        }
+
+
 
         _zoneObject = ConeDecision.ConeInObjects(transform, AttractObjectList.GetAttractObject(), angle, dictance, direction);
         for (int i = 0; i < _zoneObject.Count; i++)
