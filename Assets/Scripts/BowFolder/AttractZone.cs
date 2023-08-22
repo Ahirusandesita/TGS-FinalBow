@@ -65,29 +65,21 @@ public class AttractZone : MonoBehaviour
         List<GameObject> dropItems = new List<GameObject>();
         dropItems = AttractObjectList.GetAttractObject();
 
+        dropItems = ConeDecision.ConeInObjects(transform, dropItems, angle, Mathf.Infinity, direction);
         for (int i = 0; i < dropItems.Count; i++)
         {
             if (dropItems[i].TryGetComponent<ItemStatus>(out ItemStatus itemStatus))
             {
-                if (!itemStatus.DropItem)
+                if (itemStatus.DropItem)
                 {
-                    dropItems.Remove(dropItems[i]);
+                    _inhall.SetGameObject(dropItems[i]);
                 }
             }
-            else
-            {
-                dropItems.Remove(dropItems[i]);
-            }
         }
-        dropItems = ConeDecision.ConeInObjects(transform, dropItems, angle, Mathf.Infinity, direction);
-        for (int i = 0; i < dropItems.Count; i++)
-        {
-            _inhall.SetGameObject(dropItems[i]);
-        }
-
 
 
         _zoneObject = ConeDecision.ConeInObjects(transform, AttractObjectList.GetAttractObject(), angle, dictance, direction);
+        Debug.LogError("Attra"+_zoneObject.Count);
         for (int i = 0; i < _zoneObject.Count; i++)
         {
             //Update•¶‚¾‚©‚ç‚¨‚È‚¶‚â‚Â‚Å‚à‰½‰ñ‚àŒÄ‚Ô@’ˆÓ
