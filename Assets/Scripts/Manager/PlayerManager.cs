@@ -201,7 +201,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     public void ShotArrow(Vector3 aim)
     {
         //˜AŽË
-        if (arrowEnchant2.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing)
+        if (arrowEnchant2.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing && !CanRapid)
         {
             _rapidSubEnchantment = arrowEnchant2.GetSubEnchantment();
             int index = default;
@@ -225,7 +225,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
         if (CanRapid)
         {
-            arrowEnchant2.EnchantMixSetting((_rapidSubEnchantment));
+            arrowEnchant2.EnchantSetting((_rapidSubEnchantment));
         }
             //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         arrowEnchant2.EnchantMixSetting((EnchantmentEnum.EnchantmentState.normal));
