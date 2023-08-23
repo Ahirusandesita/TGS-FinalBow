@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3564041125706105686}
   - component: {fileID: 3024487822011222128}
   m_Layer: 0
-  m_Name: DropItem_1
+  m_Name: Ikura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3760569765679667608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.961831, y: 18.038479, z: -6.152872}
-  m_LocalScale: {x: 60.090004, y: 60.090004, z: 60.090004}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3760569765679667608}
-  m_Mesh: {fileID: 3611262201634675004, guid: d8142cf98aa0bf44c9b088fd9081a761, type: 3}
+  m_Mesh: {fileID: 4300000, guid: e42e76fa501384474973c559bf5d9fb4, type: 3}
 --- !u!114 &1761901875629036659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +122,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9326f941d167ca44d92fad83c098923c, type: 2}
+  - {fileID: 6258196244482963234, guid: 0149d0c06fc814c9abda2f5a244f6d81, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
