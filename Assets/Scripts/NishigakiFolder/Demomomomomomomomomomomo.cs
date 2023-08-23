@@ -1,33 +1,46 @@
 // --------------------------------------------------------- 
-// EnemyCabeMoveDemo.cs 
+// Demomomomomomomomomomomo.cs 
 // 
 // CreateDay: 
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class EnemyCurveMoveDemo : EnemyAttackBase
+public class Demomomomomomomomomomomo : MonoBehaviour
 {
     #region variable 
+    [SerializeField]
     // これにエネミーのトランスフォームを入れてね
     private Transform _enemyTransform = default;
 
     private Transform _myTransform = default;
 
-    private float angle { get; set; }
+    private Vector3 _rotateValue = default;
 
-    private float value { get; set; }
+    [SerializeField, Tooltip("移動速度")]
+    private float _moveSpeed = 5f;
 
-    private float shift { get; set; }
+    [SerializeField]
+    public float angle;
+
+    [SerializeField]
+    public float value;
+
+    [SerializeField]
+    public float shift;
     #endregion
     #region property
     #endregion
     #region method
 
-    protected override void AttackMove()
+    private void Update()
     {
         MoveEvent();
-        throw new System.NotImplementedException();
+    }
+
+    private void Awake()
+    {
+        _myTransform = this.transform;
     }
 
     private delegate void EventHandle();
@@ -36,7 +49,7 @@ public class EnemyCurveMoveDemo : EnemyAttackBase
 
     private void Movement()
     {
-        _myTransform.Translate(Vector3.forward * _attackMoveSpeed * Time.deltaTime);
+        _myTransform.Translate(Vector3.forward * _moveSpeed * Time.deltaTime);
         _myTransform.Rotate(Vector3.left * value * Time.deltaTime);
     }
 
@@ -44,27 +57,22 @@ public class EnemyCurveMoveDemo : EnemyAttackBase
     {
         _myTransform.position = _enemyTransform.position;
         _myTransform.rotation = _enemyTransform.rotation;
+        //_rotateValue.x = shift;
+        //_rotateValue.z = angle;
+        //_myTransform.localEulerAngles += _rotateValue ;
         _myTransform.localEulerAngles += _myTransform.forward * angle;
         _myTransform.localEulerAngles += _myTransform.right * shift;
         MoveEvent += Movement;
         MoveEvent -= StartSetting;
     }
 
-    protected override void OnEnable()
+    private void OnEnable()
     {
         MoveEvent += StartSetting;
-        base.OnEnable();
     }
-
     private void OnDisable()
     {
         MoveEvent = null;
-    }
-
-    protected override void Awake()
-    {
-        _myTransform = this.transform;
-        base.Awake();
     }
 
     #endregion
