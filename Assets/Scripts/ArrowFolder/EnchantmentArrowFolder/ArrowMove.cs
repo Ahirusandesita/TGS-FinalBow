@@ -6,6 +6,8 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using Nekoslibrary;
+using System.Collections.Generic;
+
 
 
 #region インターフェース
@@ -168,7 +170,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private const float SPEED_COEF = 0.00074f;
 
     // ターゲットを探す円錐の中心角　現在は３６０度すべてサーチする　値は中心角の半分を入れる
-    private const float SEARCH_ANGLE = 180f;
+    private const int SEARCH_ANGLE = 1;
 
     // Vector.forward　処理軽減のためにあらかじめ代入しておく
     private Vector3 _forward = Vector3.forward;
@@ -498,6 +500,9 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
                                   Space.Self);                        // ローカルで指定　矢先はＺ軸
     }
 
+    private List<GameObject> tmplist = new List<GameObject>();
+
+
     /// <summary>
     /// ホーミングの初期設定とターゲットの選定を行うメソッド
     /// </summary>
@@ -515,9 +520,11 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         // 追尾性能を速度によって差ができないように設定
         _lookSpeed = SPEED_COEF * arrowSpeed;
 
-        // ターゲットを探索して代入
-        _target = ConeDecision.ConeSearchNearest(arrowTransform, AttractObjectList.GetAttractObject(), SEARCH_ANGLE);
+        //// ターゲットを探索して代入
+        //_target = ConeDecision.ConeSearchNearest(arrowTransform, AttractObjectList.GetAttractObject(), SEARCH_ANGLE);
 
+        // ターゲットを探索して代入
+        _target = ConeDecision.ConeInObjects(arrowTransform, AttractObjectList.GetAttractObject() , 360f, 100000f, SEARCH_ANGLE)[0];
 
         // 例外処理　もし判定内にオブジェクトが一つもなかった場合にnullRefを回避するための処理
         if (_target == null || _target == default)
