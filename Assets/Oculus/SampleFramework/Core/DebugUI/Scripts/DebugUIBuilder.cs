@@ -335,7 +335,7 @@ public class DebugUIBuilder : MonoBehaviour
         else
             buttonRT = GameObject.Instantiate(additionalButtonPrefab[buttonIndex]).GetComponent<RectTransform>();
 
-        ButtonGimmickCallActionObject button = buttonRT.GetComponentInChildren<ButtonGimmickCallActionObject>();
+        Button button = buttonRT.GetComponentInChildren<Button>();
         if (handler != null)
             button.onClick.AddListener(delegate { handler(); });
 

@@ -57,9 +57,9 @@ public class Anchor : MonoBehaviour
     private int _menuIndex = 0;
 
     [SerializeField, FormerlySerializedAs("buttonList_")]
-    private List<ButtonGimmickCallActionObject> _buttonList;
+    private List<Button> _buttonList;
 
-    private ButtonGimmickCallActionObject _selectedButton;
+    private Button _selectedButton;
 
     private OVRSpatialAnchor _spatialAnchor;
 
