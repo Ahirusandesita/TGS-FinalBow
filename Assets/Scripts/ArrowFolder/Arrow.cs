@@ -577,6 +577,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
             EventArrowEffectPassiveDestroy(this.gameObject);
         }
         ArrowReset();
+        _myTrailRenderer.Clear();
         _myTrailRenderer.enabled = false;
         _bowManagerQue.ArrowQue(_cashObjectInformation);
     }
