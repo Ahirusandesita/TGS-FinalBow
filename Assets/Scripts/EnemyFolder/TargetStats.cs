@@ -31,17 +31,17 @@ public class TargetStats : EnemyStats
 
     public override void TakeBomb(int damage)
     {
-        throw new System.NotImplementedException();
+        TakeDamage(damage);
     }
 
     public override void TakeKnockBack()
     {
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
     }
 
     public override void TakeThunder(int a)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void Death()
