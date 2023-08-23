@@ -34,6 +34,16 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
     [SerializeField] TagObject _vibeTagName = default;
 
+    [SerializeField] float inhallFrequency = 0.5f;
+
+    [SerializeField] float inhallAmplitude = 0.1f;
+
+    [SerializeField] float inhallStartFrequency = 0.2f;
+
+    [SerializeField] float inhallStartAmplitude = 0.5f;
+
+    [SerializeField] float inhallTime = 0.5f;
+
     [SerializeField] bool vibe = true;
 
     [Tooltip("ã|éùÇ¡ÇƒÇ¢ÇÈéËÇÃÉoÉCÉu")]
@@ -43,6 +53,8 @@ public class BowVibe : MonoBehaviour, IFBowVibe
     private Action<float, float> _freeHandVibeAction = default;
 
     private Action<float, float> _inhallVibeAction = default;
+
+    private Action<float, float,float> _inhallStartVibeAction = default;
 
     private AnimationCurve _shotFrequency = default;
 
@@ -89,6 +101,8 @@ public class BowVibe : MonoBehaviour, IFBowVibe
             _freeHandVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
 
             _inhallVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
+
+            _inhallStartVibeAction = new Action<float, float, float>(_vibeManager.LeftVibeSetEnd);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -105,6 +119,8 @@ public class BowVibe : MonoBehaviour, IFBowVibe
             _freeHandVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
 
             _inhallVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
+
+            _inhallStartVibeAction = new Action<float, float, float>(_vibeManager.RightVibeSetEnd);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -172,7 +188,12 @@ public class BowVibe : MonoBehaviour, IFBowVibe
     
     public void InhallVibe()
     {
-        _inhallVibeAction(0.1f, 0.1f);
+        _inhallVibeAction(inhallFrequency, inhallAmplitude);
     } 
+
+    public void InhallStartVibe()
+    {
+        _inhallStartVibeAction(inhallStartFrequency, inhallStartAmplitude, inhallTime);
+    }
     #endregion
 }
