@@ -524,7 +524,15 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         //_target = ConeDecision.ConeSearchNearest(arrowTransform, AttractObjectList.GetAttractObject(), SEARCH_ANGLE);
 
         // ターゲットを探索して代入
-        _target = ConeDecision.ConeInObjects(arrowTransform, AttractObjectList.GetAttractObject() , 360f, 100000f, SEARCH_ANGLE)[0];
+
+
+        EnemyMoveBase[] moves = GameObject.FindObjectsOfType<EnemyMoveBase>();
+        List<GameObject> enemys = new List<GameObject>();
+        for(int i = 0; i < moves.Length; i++)
+        {
+            enemys.Add(moves[i].gameObject);
+        }
+        _target = ConeDecision.ConeInObjects(arrowTransform,enemys , 360f, 100000f, SEARCH_ANGLE)[0];
 
         // 例外処理　もし判定内にオブジェクトが一つもなかった場合にnullRefを回避するための処理
         if (_target == null || _target == default)

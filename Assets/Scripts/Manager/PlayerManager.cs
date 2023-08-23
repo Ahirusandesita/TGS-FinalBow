@@ -115,6 +115,10 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         {
             SetEnchantParameter(EnchantmentEnum.ItemAttributeState.penetrate);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetEnchantParameter(EnchantmentEnum.ItemAttributeState.homing);
+        }
 
         //arrowEnchant.TestRapid = CanRapid ;
 
