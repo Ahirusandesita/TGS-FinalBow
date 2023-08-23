@@ -277,6 +277,9 @@ public class ItemMove : MonoBehaviour
         // 移動処理を行っていた場合
         if (_isStart && _bowManager.IsHolding)
         {
+            GameObject.FindObjectOfType<BowVibe>().GetComponent<BowVibe>().InhallVibe();
+
+
             // 削除するオブジェクトの属性をプレイヤーに渡す
             _playerManager.SetEnchantParameter(_itemStatus.GetState());
 
@@ -373,6 +376,7 @@ public class ItemMove : MonoBehaviour
 
         if (_tmpdif < _destroyDistance || !_bowManager.IsHolding)
         {
+
             this.transform.localScale = startsize;
             _PoolManager.ReturnObject(_Cash);
         }

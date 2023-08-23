@@ -36,15 +36,15 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
     [SerializeField] float inhallFrequency = 0.5f;
 
-    [SerializeField] float inhallAmplitude = 0.1f;
+    [SerializeField] float inhallAmplitude = 0.3f;
 
     [SerializeField] float inhallStartFrequency = 0.2f;
 
-    [SerializeField] float inhallStartAmplitude = 0.5f;
+    [SerializeField] float inhallStartAmplitude = 0.4f;
 
     [SerializeField] float inhallTime = 0.5f;
 
-    [SerializeField] bool vibe = true;
+    bool vibe = false;
 
     [Tooltip("弓持っている手のバイブ")]
     private Action<float, float> _useHandVibeAction = default;
@@ -52,7 +52,7 @@ public class BowVibe : MonoBehaviour, IFBowVibe
     [Tooltip("弓持っていない手のバイブ")]
     private Action<float, float> _freeHandVibeAction = default;
 
-    private Action<float, float> _inhallVibeAction = default;
+    private Action<float, float, float> _inhallVibeAction = default;
 
     private Action<float, float,float> _inhallStartVibeAction = default;
 
@@ -100,7 +100,7 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
             _freeHandVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
 
-            _inhallVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
+            _inhallVibeAction = new Action<float, float, float>(_vibeManager.LeftVibeSetEnd);
 
             _inhallStartVibeAction = new Action<float, float, float>(_vibeManager.LeftVibeSetEnd);
         }
@@ -118,7 +118,7 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
             _freeHandVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
 
-            _inhallVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
+            _inhallVibeAction = new Action<float, float,float>(_vibeManager.RightVibeSetEnd);
 
             _inhallStartVibeAction = new Action<float, float, float>(_vibeManager.RightVibeSetEnd);
         }
@@ -188,11 +188,13 @@ public class BowVibe : MonoBehaviour, IFBowVibe
     
     public void InhallVibe()
     {
-        _inhallVibeAction(inhallFrequency, inhallAmplitude);
+        if(vibe)
+        _inhallVibeAction(inhallFrequency, inhallAmplitude,0.2f);
     } 
 
     public void InhallStartVibe()
     {
+        if(vibe)
         _inhallStartVibeAction(inhallStartFrequency, inhallStartAmplitude, inhallTime);
     }
     #endregion
