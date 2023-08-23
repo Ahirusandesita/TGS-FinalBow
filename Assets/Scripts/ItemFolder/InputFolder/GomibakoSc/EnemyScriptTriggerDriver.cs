@@ -33,7 +33,7 @@ public class EnemyScriptTriggerDriver : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            enemyStats.TakeThunder();
+            enemyStats.TakeThunder(1);
         }
  }
  #endregion

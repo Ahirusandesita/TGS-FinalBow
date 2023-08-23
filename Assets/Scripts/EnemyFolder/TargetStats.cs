@@ -39,7 +39,7 @@ public class TargetStats : EnemyStats
         throw new System.NotImplementedException();
     }
 
-    public override void TakeThunder()
+    public override void TakeThunder(int a)
     {
         throw new System.NotImplementedException();
     }
