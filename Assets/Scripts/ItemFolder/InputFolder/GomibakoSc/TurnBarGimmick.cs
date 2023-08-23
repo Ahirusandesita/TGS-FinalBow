@@ -8,27 +8,29 @@ using UnityEngine;
 using System.Collections;
 public class TurnBarGimmick : MonoBehaviour, IFGimmickCaller
 {
+    [Tooltip("軸")]
     [SerializeField] Vector3 axis = Vector3.up;
+    [Tooltip("回転スピード")]
     [SerializeField] float turnSpeed = 45f;
+    [Tooltip("最大角度")]
+    [SerializeField] float limitAngle = 180f;
+    Quaternion endRotation = default;
+    float movedAngle = 0f;
     bool isFinish = false;
     public bool IsFinish => isFinish;
 
-    private Quaternion rotationValue = default;
     private void Start()
     {
-        Init();
-    }
-
-    private void OnValidate()
-    {
-        Init();
-    }
-    private void Init()
-    {
-        rotationValue = Quaternion.AngleAxis(turnSpeed,axis);
+        endRotation = transform.rotation * Quaternion.AngleAxis(limitAngle, axis);
     }
     public void GimmickAction()
     {
-        
+        float move = turnSpeed * Time.deltaTime;
+        transform.Rotate(axis,move );
+        movedAngle += move;
+        if(movedAngle > limitAngle)
+        {
+            transform.rotation = endRotation;
+        }
     }
 }

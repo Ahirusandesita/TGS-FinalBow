@@ -49,11 +49,11 @@ public class AnchorUIManager : MonoBehaviour
     private AnchorMode _mode = AnchorMode.Create;
 
     [SerializeField, FormerlySerializedAs("buttonList_")]
-    private List<Button> _buttonList;
+    private List<ButtonGimmickCallActionObject> _buttonList;
 
     private int _menuIndex = 0;
 
-    private Button _selectedButton;
+    private ButtonGimmickCallActionObject _selectedButton;
 
     [SerializeField]
     private Anchor _anchorPrefab;
