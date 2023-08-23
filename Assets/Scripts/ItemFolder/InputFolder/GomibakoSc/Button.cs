@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ButtonGimmickCallActionObject : MonoBehaviour, IFCanTakeArrowButton
+public class ButtonGimmickCallAction : MonoBehaviour, IFCanTakeArrowButton
 {
     public void ButtonPush()
     {
