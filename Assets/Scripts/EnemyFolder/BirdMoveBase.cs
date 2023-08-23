@@ -103,8 +103,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("出す弾の数")]
     private int _numberOfBullet = default;
 
-    [Tooltip("攻撃の頻度")]
-    private float _attackIntervalTime = 2f;
+    [Tooltip("攻撃の頻度（移動中）")]
+    private float _attackIntervalTime_moving = 2f;
+
+    [Tooltip("攻撃の頻度（停止中）")]
+    private float _attackIntervalTime_stopping = 2f;
 
     [Tooltip("現在の経過時間（攻撃までの頻度に使う）")]
     private float _currentTime = 0f;
@@ -118,17 +121,29 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("行動（ゴール設定）の繰り返しカウント")]
     private int _repeatCount = 0;
 
-    [Tooltip("攻撃方法の種類")]
-    private BirdAttackType _birdAttackType = default;
+    [Tooltip("攻撃方法の種類（移動中）")]
+    private BirdAttackType _birdAttackType_moving = default;
 
-    [Tooltip("攻撃を行うタイミング")]
-    private float _attackTiming = default;
+    [Tooltip("攻撃方法の種類（停止中）")]
+    private BirdAttackType _birdAttackType_stopping = default;
 
-    [Tooltip("連続攻撃回数")]
-    private int _attackTimes = default;
+    [Tooltip("攻撃を行うタイミング（移動中）")]
+    private float _attackTiming_moving = default;
 
-    [Tooltip("連続攻撃クールタイム")]
-    private float _cooldownTime = default;
+    [Tooltip("攻撃を行うタイミング（停止中）")]
+    private float _attackTiming_stopping = default;
+
+    [Tooltip("連続攻撃回数（移動中）")]
+    private int _attackTimes_moving = default;
+
+    [Tooltip("連続攻撃回数（停止中）")]
+    private int _attackTimes_stopping = default;
+
+    [Tooltip("連続攻撃クールタイム（移動中）")]
+    private float _cooldownTime_moving = default;
+
+    [Tooltip("連続攻撃クールタイム（停止中）")]
+    private float _cooldownTime_stopping = default;
 
     [Tooltip("ゴールリスト")]
     private List<Vector3> _goalPositions = new List<Vector3>();
@@ -148,17 +163,35 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("カーブ挙動時の弧を描く方向リスト")]
     private List<ArcMoveDirection> _arcMoveDirections = new();
 
-    [Tooltip("攻撃方法の種類リスト")]
-    private List<BirdAttackType> _birdAttackTypes = new();
+    [Tooltip("攻撃方法の種類リスト（移動中）")]
+    private List<BirdAttackType> _birdAttackTypes_moving = new();
 
-    [Tooltip("攻撃を行うタイミングリスト")]
-    private List<float> _attackTimings = new();
+    [Tooltip("攻撃方法の種類リスト（停止中）")]
+    private List<BirdAttackType> _birdAttackTypes_stopping = new();
 
-    [Tooltip("連続攻撃回数リスト")]
-    private List<int> _attackTimesList = new();
+    [Tooltip("攻撃を行うタイミングリスト（移動中）")]
+    private List<float> _attackTimings_moving = new();
 
-    [Tooltip("連続攻撃クールタイムリスト")]
-    private List<float> _cooldownTimeList = new();
+    [Tooltip("攻撃を行うタイミングリスト（停止中）")]
+    private List<float> _attackTimings_stopping = new();
+
+    [Tooltip("連続攻撃回数リスト（移動中）")]
+    private List<int> _attackTimesList_moving = new();
+
+    [Tooltip("連続攻撃回数リスト（停止中）")]
+    private List<int> _attackTimesList_stopping = new();
+
+    [Tooltip("連続攻撃クールタイムリスト（移動中）")]
+    private List<float> _cooldownTimeList_moving = new();
+
+    [Tooltip("連続攻撃クールタイムリスト（停止中）")]
+    private List<float> _cooldownTimeList_stopping = new();
+
+    [Tooltip("攻撃の頻度リスト（移動中）")]
+    private List<float> _attackIntervalTimes_moving = new();
+
+    [Tooltip("攻撃の頻度リスト（停止中）")]
+    private List<float> _attackIntervalTimes_stopping = new();
     
 
     [Tooltip("Scaleの加算/減算値")]
@@ -204,13 +237,24 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
-    /// 攻撃の頻度
+    /// 攻撃の頻度（移動中）
     /// </summary>
-    public float AttackIntervalTime
+    public float AttackIntervalTimes_Moving
     {
         set
         {
-            _attackIntervalTime = value;
+            _attackIntervalTimes_moving.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// 攻撃の頻度（停止中）
+    /// </summary>
+    public float AttackIntervalTimes_Stopping
+    {
+        set
+        {
+            _attackIntervalTimes_stopping.Add(value);
         }
     }
 
@@ -281,57 +325,96 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
-    /// 攻撃方法の種類リスト
+    /// 攻撃方法の種類リスト（移動中）
     /// </summary>
-    public BirdAttackType BirdAttackTypes
+    public BirdAttackType BirdAttackTypes_Moving
     {
         set
         {
-            _birdAttackTypes.Add(value);
+            _birdAttackTypes_moving.Add(value);
         }
     }
 
     /// <summary>
-    /// 攻撃を行うタイミングリスト
+    /// 攻撃方法の種類リスト（停止中）
     /// </summary>
-    public float AttackTimings
+    public BirdAttackType BirdAttackTypes_Stopping
     {
         set
         {
-            _attackTimings.Add(value);
+            _birdAttackTypes_stopping.Add(value);
         }
     }
 
     /// <summary>
-    /// 連続攻撃回数
+    /// 攻撃を行うタイミングリスト（移動中）
     /// </summary>
-    public int AttackTimes
+    public float AttackTimings_Moving
     {
         set
         {
-            _attackTimes = value;
+            _attackTimings_moving.Add(value);
+        }
+    }   
+    
+    /// <summary>
+    /// 攻撃を行うタイミングリスト（停止中）
+    /// </summary>
+    public float AttackTimings_Stopping
+    {
+        set
+        {
+            _attackTimings_stopping.Add(value);
         }
     }
 
     /// <summary>
-    /// 連続攻撃クールタイム
+    /// 連続攻撃回数（移動中）
     /// </summary>
-    public float CooldownTime
+    public int AttackTimes_Moving
     {
         set
         {
-            _cooldownTime = value;
+            _attackTimesList_moving.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// 連続攻撃回数（停止中）
+    /// </summary>
+    public int AttackTimes_Stopping
+    {
+        set
+        {
+            _attackTimesList_stopping.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// 連続攻撃クールタイム（移動中）
+    /// </summary>
+    public float CooldownTime_Moving
+    {
+        set
+        {
+            _cooldownTimeList_moving.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// 連続攻撃クールタイム（停止中）
+    /// </summary>
+    public float CooldownTime_Stopping
+    {
+        set
+        {
+            _cooldownTimeList_stopping.Add(value);
         }
     }
     #endregion
 
 
     #region method
-
-    //private void Awake()
-    //{
-    //    _offsetReverse = UnityEngine.Random.Range(0, OFFSET_TIME_RANGE);
-    //}
 
     protected override void Start()
     {
@@ -411,7 +494,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
         // 攻撃処理（一定間隔で実行される）-----------------------------------------------------------------------------------
 
-        if (_currentTime >= _attackIntervalTime)
+        if (_currentTime >= _attackIntervalTime_moving)
         {
             // 攻撃前にプレイヤーの方向を向く
             if (_transform.rotation != _childSpawner.rotation)
@@ -494,11 +577,64 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _movementSpeed = _movementSpeeds[_repeatCount];
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
         _moveType = _moveTypes[_repeatCount];
+        _birdAttackType_moving = _birdAttackTypes_moving[_repeatCount];
+        _birdAttackType_stopping = _birdAttackTypes_stopping[_repeatCount];
 
         if (_moveType == MoveType.curve)
         {
             _moveSpeedArc = _moveSpeedArcs[_repeatCount];
             _arcMoveDirection = _arcMoveDirections[_repeatCount];
+        }
+
+        switch (_birdAttackType_moving)
+        {
+            case BirdAttackType.equalIntervals:
+
+                _attackIntervalTime_moving = _attackIntervalTimes_moving[_repeatCount];
+                break;
+
+            case BirdAttackType.specifySeconds:
+
+                _attackTiming_moving = _attackTimings_moving[_repeatCount];
+                break;
+
+            case BirdAttackType.consecutive:
+
+                _attackTimes_moving = _attackTimesList_moving[_repeatCount];
+                _cooldownTime_moving = _cooldownTimeList_moving[_repeatCount];
+                _attackIntervalTime_moving = _attackIntervalTimes_moving[_repeatCount];
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void InitializeForAttack()
+    {
+        _birdAttackType_stopping = _birdAttackTypes_stopping[_repeatCount];
+
+        switch (_birdAttackType_stopping)
+        {
+            case BirdAttackType.equalIntervals:
+
+                _attackIntervalTime_stopping = _attackIntervalTimes_stopping[_repeatCount];
+                break;
+
+            case BirdAttackType.specifySeconds:
+
+                _attackTiming_stopping = _attackIntervalTimes_stopping[_repeatCount];
+                break;
+
+            case BirdAttackType.consecutive:
+
+                _attackTimes_stopping = _attackTimesList_stopping[_repeatCount];
+                _cooldownTime_stopping = _cooldownTimeList_stopping[_repeatCount];
+                _attackIntervalTime_stopping = _attackIntervalTimes_stopping[_repeatCount];
+                break;
+
+            default:
+                break;
         }
     }
 
