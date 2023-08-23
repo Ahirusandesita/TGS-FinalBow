@@ -304,6 +304,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
     private IArrowSound arrowSound;
 
     private IArrowEnchantDamageable arrowEnchant;
+    private IArrowEnchantDamageable arrowEffect;
 
     public GameObject passiveEffect { get; set; }
 
@@ -320,6 +321,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
 
         _enchantEvents._arrowEnchantSound2 = this.GetComponent<ArrowEnchantSound>();
         arrowEnchant = this.GetComponent<ArrowEnchant>();
+        arrowEffect = this.GetComponent<ArrowEnchantEffect>();
         _enchantEvents._arrowEnchant2 = this.GetComponent<ArrowEnchant>();
         _enchantEvents._arrowEnchantEffect2 = this.GetComponent<ArrowEnchantEffect>();
 
@@ -425,7 +427,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
     public void ArrowEnchantPlusDamage()
     {
         arrowEnchant.SetAttackDamage();
-
+        arrowEffect.SetAttackDamage();
         //_enchantEvents._arrowEnchantPassiveEffect
 
     }
