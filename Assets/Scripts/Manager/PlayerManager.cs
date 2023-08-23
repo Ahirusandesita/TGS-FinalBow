@@ -188,7 +188,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         catch (System.NullReferenceException)
         {
-            Debug.LogError("UInai");
+            //Debug.LogError("UInai");
         }
         _arrow.ArrowPowerColor();
 
@@ -255,7 +255,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         catch (System.NullReferenceException)
         {
-            Debug.LogError("UInai");
+            //Debug.LogError("UInai");
         }
 
         _arrow = default;

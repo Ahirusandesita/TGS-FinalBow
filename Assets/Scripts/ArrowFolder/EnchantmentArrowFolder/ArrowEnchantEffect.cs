@@ -7,11 +7,26 @@
 using System.Collections;
 using UnityEngine;
 
-public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>
+public struct Size
+{
+    public Vector3 firstSize;
+    public Vector3 plusSize;
+    public int plusCount;
+}
+
+public class SizeParamator
+{
+
+}
+
+
+public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>,IArrowEnchantDamageable
 {
     private ObjectPoolSystem _objectPoolSystem;
 
     private WaitForSeconds _waitSeconds = default;
+
+    private Size size;
 
     private void Start()
     {
@@ -144,6 +159,21 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>
     {
         StartCoroutine(EffectTime(_objectPoolSystem.CallObject(effectState, spawnTransform.position, spawnTransform.rotation), effectState));
     }
+    private void EffectCall(EffectPoolEnum.EffectPoolState effectState,Transform spawnTransform,ref Size size)
+    {
+
+        GameObject effect = _objectPoolSystem.CallObject(effectState, spawnTransform.position, spawnTransform.rotation);
+        size.firstSize = effect.transform.localScale/ 5f;
+        effect.transform.localScale = size.firstSize;
+        while(size.plusCount >= 0) 
+        { 
+            Debug.LogError("Attra" + size.plusCount);
+            effect.transform.localScale += size.firstSize;
+            size.plusCount--;
+        }
+        
+        StartCoroutine(EffectTime(effect, effectState));
+    }
 
     /// <summary>
     /// エフェクトをリターンするコルーチン
@@ -155,6 +185,7 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>
     {
         yield return _waitSeconds;
 
+        effectObject.transform.localPosition = size.firstSize * 8f;
         _objectPoolSystem.ReturnObject(effectPoolState,effectObject);
     }
 
@@ -165,7 +196,7 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>
 
     public void Bomb(Transform t)
     {
-        EffectCall(EffectPoolEnum.EffectPoolState.bomb, t);
+        EffectCall(EffectPoolEnum.EffectPoolState.bomb, t,ref size);
     }
 
     public void Thunder(Transform t)
@@ -236,5 +267,10 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>
     public void PenetrateHoming(Transform t)
     {
         EffectCall(EffectPoolEnum.EffectPoolState.homingPenetrate, t);
+    }
+
+    public void SetAttackDamage()
+    {
+        size.plusCount++;
     }
 }
