@@ -593,4 +593,9 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         yield return _waitArrowActivTime;
         ReturnQue();
     }
+
+    public ArrowPassiveEffect GetPassiveEffect()
+    {
+        return EnchantArrowPassiveEffect;
+    }
 }
