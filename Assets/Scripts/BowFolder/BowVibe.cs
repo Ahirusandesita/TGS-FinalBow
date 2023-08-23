@@ -34,11 +34,15 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
     [SerializeField] TagObject _vibeTagName = default;
 
+    [SerializeField] bool vibe = true;
+
     [Tooltip("弓持っている手のバイブ")]
     private Action<float, float> _useHandVibeAction = default;
 
     [Tooltip("弓持っていない手のバイブ")]
     private Action<float, float> _freeHandVibeAction = default;
+
+    private Action<float, float> _inhallVibeAction = default;
 
     private AnimationCurve _shotFrequency = default;
 
@@ -66,7 +70,8 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
         try
         {
-            StartCoroutine(ShotCoroutine(power));
+            if (vibe)
+                StartCoroutine(ShotCoroutine(power));
 
         }
         catch (ArgumentOutOfRangeException)
@@ -82,6 +87,8 @@ public class BowVibe : MonoBehaviour, IFBowVibe
             _useHandVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
 
             _freeHandVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
+
+            _inhallVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -96,6 +103,8 @@ public class BowVibe : MonoBehaviour, IFBowVibe
             _useHandVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
 
             _freeHandVibeAction = new Action<float, float>(_vibeManager.LeftStartVibe);
+
+            _inhallVibeAction = new Action<float, float>(_vibeManager.RightStartVibe);
         }
         catch (ArgumentOutOfRangeException)
         {
@@ -105,10 +114,14 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
     public void HoldingVibe(float power)
     {
-        // バイブ弱める
-        power = power / 2;
-        _freeHandVibeAction(power, power);
-        //_vibeManager.TwinHandsVibe(power, power);
+        if (vibe)
+        {
+            // バイブ弱める
+            power = power / 3;
+            _freeHandVibeAction(power, power);
+            //_vibeManager.TwinHandsVibe(power, power);
+
+        }
     }
 
     public void EndDrawVibe()
@@ -139,7 +152,7 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
         while (Time.time < endTime)
         {
-            amp = _shotAmplitude.Evaluate(Time.time - startTime)* power;
+            amp = _shotAmplitude.Evaluate(Time.time - startTime) * power;
 
             freq = _shotFrequency.Evaluate(Time.time - startTime) * power;
 
@@ -156,5 +169,10 @@ public class BowVibe : MonoBehaviour, IFBowVibe
             yield return null;
         }
     }
+    
+    public void InhallVibe()
+    {
+        _inhallVibeAction(0.1f, 0.1f);
+    } 
     #endregion
 }
