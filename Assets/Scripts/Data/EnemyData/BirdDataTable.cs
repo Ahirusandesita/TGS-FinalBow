@@ -34,10 +34,10 @@ public class BirdGoalInformation
     [Tooltip("動きの種類")]
     public MoveType _moveType;
 
-    [HideInInspector, Tooltip("弧の高さ")]
+    [Tooltip("弧の高さ")]
     public float _arcHeight;
 
-    [HideInInspector, Tooltip("弧の向き")]
+    [Tooltip("弧の向き")]
     public ArcMoveDirection _arcMoveDirection;
 
     [Tooltip("鳥雑魚のゴール位置")]
@@ -50,21 +50,30 @@ public class BirdGoalInformation
     public float _stayTime_s;
 
     [Tooltip("攻撃方法の種類")]
-    public BirdAttackType _birdAttackType;
+    public BirdAttackType _birdAttackType_a;
+    public BirdAttackType _birdAttackType_b;
 
     [Tooltip("攻撃間隔")]
-    public float _attackInterval_s;
+    public float _attackInterval_s_a;
+    public float _attackInterval_s_b;
 
     [Tooltip("攻撃を行うタイミング（秒）")]
-    public float _attackTimings_s1;
-    public float _attackTimings_s2;
-    public float _attackTimings_s3;
-    public float _attackTimings_s4;
-    public float _attackTimings_s5;
+    public float _attackTiming_s1_a;
+    public float _attackTiming_s2_a;
+    public float _attackTiming_s3_a;
+    public float _attackTiming_s4_a;
+    public float _attackTiming_s5_a;
+    public float _attackTiming_s1_b;
+    public float _attackTiming_s2_b;
+    public float _attackTiming_s3_b;
+    public float _attackTiming_s4_b;
+    public float _attackTiming_s5_b;
 
     [Tooltip("連続攻撃回数")]
-    public int _attackTimes;
+    public int _attackTimes_a;
+    public int _attackTimes_b;
 
-    [Tooltip("攻撃クールタイム（秒）")]
-    public float _cooldownTime_s;
+    [Tooltip("連続攻撃クールタイム（秒）")]
+    public float _cooldownTime_s_a;
+    public float _cooldownTime_s_b;
 }

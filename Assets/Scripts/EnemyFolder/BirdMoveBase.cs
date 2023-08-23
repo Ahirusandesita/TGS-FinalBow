@@ -118,6 +118,18 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("行動（ゴール設定）の繰り返しカウント")]
     private int _repeatCount = 0;
 
+    [Tooltip("攻撃方法の種類")]
+    private BirdAttackType _birdAttackType = default;
+
+    [Tooltip("攻撃を行うタイミング")]
+    private float _attackTiming = default;
+
+    [Tooltip("連続攻撃回数")]
+    private int _attackTimes = default;
+
+    [Tooltip("連続攻撃クールタイム")]
+    private float _cooldownTime = default;
+
     [Tooltip("ゴールリスト")]
     private List<Vector3> _goalPositions = new List<Vector3>();
 
@@ -136,8 +148,18 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("カーブ挙動時の弧を描く方向リスト")]
     private List<ArcMoveDirection> _arcMoveDirections = new();
 
-    //[Tooltip("")]
+    [Tooltip("攻撃方法の種類リスト")]
+    private List<BirdAttackType> _birdAttackTypes = new();
 
+    [Tooltip("攻撃を行うタイミングリスト")]
+    private List<float> _attackTimings = new();
+
+    [Tooltip("連続攻撃回数リスト")]
+    private List<int> _attackTimesList = new();
+
+    [Tooltip("連続攻撃クールタイムリスト")]
+    private List<float> _cooldownTimeList = new();
+    
 
     [Tooltip("Scaleの加算/減算値")]
     private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
@@ -255,6 +277,50 @@ public abstract class BirdMoveBase : EnemyMoveBase
         set
         {
             _arcMoveDirections.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// 攻撃方法の種類リスト
+    /// </summary>
+    public BirdAttackType BirdAttackTypes
+    {
+        set
+        {
+            _birdAttackTypes.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// 攻撃を行うタイミングリスト
+    /// </summary>
+    public float AttackTimings
+    {
+        set
+        {
+            _attackTimings.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// 連続攻撃回数
+    /// </summary>
+    public int AttackTimes
+    {
+        set
+        {
+            _attackTimes = value;
+        }
+    }
+
+    /// <summary>
+    /// 連続攻撃クールタイム
+    /// </summary>
+    public float CooldownTime
+    {
+        set
+        {
+            _cooldownTime = value;
         }
     }
     #endregion
