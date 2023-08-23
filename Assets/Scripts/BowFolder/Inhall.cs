@@ -62,6 +62,9 @@ public class Inhall : MonoBehaviour, IInhall, IInhallDestroObject
 
     public void SetGameObject(GameObject obj)
     {
+        GetComponent<BowVibe>().InhallVibe();
+
+
         if (obj.GetComponent<ItemStatus>().GetState() == EnchantmentEnum.ItemAttributeState.enemy)
         {
             InhallEnemy(obj);

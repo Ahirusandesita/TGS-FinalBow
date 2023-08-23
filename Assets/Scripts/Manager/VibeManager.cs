@@ -10,7 +10,7 @@ using System.Collections;
 public class VibeManager : MonoBehaviour
 {
     #region variable 
-
+    
     #endregion
     #region property
     #endregion

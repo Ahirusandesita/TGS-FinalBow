@@ -128,6 +128,7 @@ public abstract class CanDraw_BowManager : BowManager
         }
         else
         {
+            AddBowShotProcess();
             _transformControl.ResetDrawObject();
             base.BowShotArrow(shotDirection);
 
