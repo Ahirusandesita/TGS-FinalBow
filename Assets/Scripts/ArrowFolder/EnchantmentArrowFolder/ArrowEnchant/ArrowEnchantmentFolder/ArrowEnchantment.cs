@@ -8,7 +8,10 @@ using System;
 using UnityEngine;
 
 //プラスダメージがまだない
-
+public interface IArrowPlusDamage
+{
+    void ArrowEnchantPlusDamage();
+}
 public interface IArrowEnchantLevelable<T>
 {
     public delegate void EnchantDelegate(T t);
@@ -279,7 +282,7 @@ interface IArrowEnchantReset
 /// <summary>
 /// 矢のエンチャントの組み合わせを作るクラス
 /// </summary>
-public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowEnchantPlusSet, IArrowEventSet, IArrowPlusDamage
+public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEnchantPlusSet, IArrowEventSet, IArrowPlusDamage
 {
 
     public IFPlayerManagerHave _playerManager { get; set; }
@@ -301,6 +304,8 @@ public sealed class ArrowEnchantment2 : MonoBehaviour, IArrowEnchantSet, IArrowE
     private IArrowSound arrowSound;
 
     private IArrowEnchantDamageable arrowEnchant;
+
+    public GameObject passiveEffect { get; set; }
 
     private bool canMix = true;
     private void Start()

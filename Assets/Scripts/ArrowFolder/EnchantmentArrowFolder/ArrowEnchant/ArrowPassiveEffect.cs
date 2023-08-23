@@ -6,13 +6,13 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections.Generic;
-public class ArrowPassiveEffect : MonoBehaviour,IArrowEnchantable<Transform>,IArrowEnchantable<GameObject>
+public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, IArrowEnchantable<GameObject>, IArrowEnchantDamageable
 {
     private ObjectPoolSystem _objectPoosSystem;
 
-
     private GameObject _workEffect;
     private EffectPoolEnum.EffectPoolState _workEnchantState;
+    private Vector3 size;
     private void Start()
     {
         _objectPoosSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
@@ -23,207 +23,6 @@ public class ArrowPassiveEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
     #endregion
     #region method
 
-    public void ArrowPassiveEffect_Normal(Transform spawnPosition)
-    {
-        //_objectPoosSystem.CallObject(PoolEnum.PoolObjectType.nomal, spawnPosition.position, spawnPosition.rotation);
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.nomalPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_Normal(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.nomalPassive);
-    }
-
-
-    public void ArrowPassiveEffect_Bomb(Transform spawnPosition)
-    {
-        //_objectPoosSystem.CallObject(PoolEnum.PoolObjectType.nomal, spawnPosition.position, spawnPosition.rotation);
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.bombPassive);
-    }
-    public void ArrowPassiveEffectDestroy_Bomb(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.bombPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_Thunder(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.thunderPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_Thunder(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.thunderPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_KnockBack(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.knockBackPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_KnockBack(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.knockBackPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_Homing(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.homingPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_Homing(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.homingPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_Penetrate(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.penetratePassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_Penetrate(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.penetratePassive);
-    }
-
-
-
-    public void ArrowPassiveEffect_BombThunder(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.bombThunderPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_BombThunder(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.bombThunderPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_BombKnockBack(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.bombKnockBackPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_BombKnockBack(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.bombKnockBackPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_BombHoming(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.bombHomingPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_BombHoming(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.bombHomingPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_BombPenetrate(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.bombPenetratePassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_BombPenetrate(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.bombPenetratePassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_ThunderKnockBack(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.thunderKnockBackPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_ThunderKnockBack(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.thunderKnockBackPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_ThunderHoming(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.thunderHomingPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_ThunderHoming(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.thunderHomingPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_ThunderPenetrate(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.thunderPenetratePassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_ThunderPenetrate(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.thunderPenetratePassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_KnockBackHoming(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.knockBackHomingPassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_KnockBackHoming(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.knockBackHomingPassive);
-    }
-
-
-
-
-    public void ArrowPassiveEffect_KnockBackPenetrate(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.knockBackpenetratePassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_KnockBackPenetrate(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.knockBackpenetratePassive);
-    }
-
-
-
-    public void ArrowPassiveEffect_HomingPenetrate(Transform spawnPosition)
-    {
-        PassiveEffectCreate(spawnPosition, EffectPoolEnum.EffectPoolState.homingPenetratePassive);
-    }
-
-    public void ArrowPassiveEffectDestroy_HomingPenetrate(GameObject arrowObject)
-    {
-        PassiveEffectDestroy(arrowObject, EffectPoolEnum.EffectPoolState.homingPenetratePassive);
-    }
 
 
     /// <summary>
@@ -240,7 +39,9 @@ public class ArrowPassiveEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
             _workEnchantState = checkArrowState;
             _workEffect = _objectPoosSystem.CallObject(checkArrowState, spawnPosition.position, spawnPosition.rotation);
             _workEffect.transform.parent = spawnPosition.transform;
-            
+
+            size = _workEffect.transform.localScale;
+            _workEffect.transform.localScale = new Vector3(size.x / 10, size.y / 10, size.z / 10);
         }
         //エフェクトが存在していて新しいEnumが違ったら
         else if (_workEnchantState != checkArrowState)
@@ -251,7 +52,11 @@ public class ArrowPassiveEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
             _workEnchantState = checkArrowState;
             _workEffect = _objectPoosSystem.CallObject(checkArrowState, spawnPosition.position, spawnPosition.rotation);
             _workEffect.transform.parent = spawnPosition.transform;
+
+            size = _workEffect.transform.localScale;
+            _workEffect.transform.localScale = new Vector3(size.x / 10, size.y / 10, size.z / 10);
         }
+
     }
 
     /// <summary>
@@ -263,11 +68,14 @@ public class ArrowPassiveEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
     {
         //エフェクトを消す
         _workEffect.transform.parent = null;
+        _workEffect.transform.localScale = size;
         _objectPoosSystem.ReturnObject(_workEnchantState, _workEffect);
     }
 
-
-
+    public void SetAttackDamage()
+    {
+        _workEffect.transform.localScale += new Vector3(size.x / 10, size.y / 10, size.z / 10);
+    }
 
     public void Normal(Transform t)
     {

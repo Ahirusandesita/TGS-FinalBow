@@ -80,6 +80,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     IFBowManagerQue _bowManagerQue;
 
+
     /// <summary>
     /// デバック用
     /// </summary>
@@ -156,7 +157,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         try
         {
-            arrowEnchant2 = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<ArrowEnchantment2>();
+            arrowEnchant2 = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<ArrowEnchantment>();
             arrowEnchant2._playerManager = this;
         }
         catch (System.NullReferenceException)
@@ -178,7 +179,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     public void ArrowEnchantPlusDamage()
     {
         arrowEnchant2.ArrowEnchantPlusDamage();
-
+        _arrow.GetPassiveEffect().SetAttackDamage();
 
         //チャージ画像
         try

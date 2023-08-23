@@ -9790,6 +9790,7 @@ MonoBehaviour:
   _isStart: 0
   _UseTemporary: 1
   _endSetting: 0
+  itemVibration: {fileID: 0}
   _destroyDistance: 1
 --- !u!114 &-6688168391900420219
 MonoBehaviour:
@@ -9803,7 +9804,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee182ac232246c4993b4f283852d0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemState: 5
+  itemState: 0
+  DropItem: 0
 --- !u!114 &-3168518705095684918
 MonoBehaviour:
   m_ObjectHideFlags: 0

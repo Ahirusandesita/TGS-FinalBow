@@ -27,7 +27,7 @@ public class FakePlayerManager : PlayerManager
 
     //public GameObject testArrowObject;
 
-    IArrowEventSetting arrowEnchant;
+    //IArrowEventSetting arrowEnchant;
 
     IFBowManagerQue _bowManagerQue;
 
@@ -57,7 +57,7 @@ public class FakePlayerManager : PlayerManager
             SetEnchantParameter(EnchantmentEnum.ItemAttributeState.penetrate);
         }
 
-        arrowEnchant.TestRapid = CanRapid;
+        //arrowEnchant.TestRapid = CanRapid;
 
     }
 
@@ -90,7 +90,7 @@ public class FakePlayerManager : PlayerManager
         }
         try
         {
-            arrowEnchant = _arrowEnchantObject.GetComponent<ArrowEnchantment>();
+            //arrowEnchant = _arrowEnchantObject.GetComponent<ArrowEnchantment>();
         }
         catch (System.NullReferenceException)
         {
