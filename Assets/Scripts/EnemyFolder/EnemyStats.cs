@@ -52,7 +52,7 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
 
     public abstract void TakeBomb(int damage);
 
-    public abstract void TakeThunder();
+    public abstract void TakeThunder(int power);
 
     public abstract void TakeKnockBack();
 

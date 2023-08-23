@@ -13,7 +13,7 @@ interface IArrowEnchantDamageable
 }
 // 当たった時に呼ばれるやつら
 // 情報渡す敵を決めて引数の中身わたす
-public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,EnchantmentEnum.EnchantmentState>, IArrowEnchantDamageable
+public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, EnchantmentEnum.EnchantmentState>, IArrowEnchantDamageable
 {
     private int _layerMask = 1 << 6 | 1 << 7;
 
@@ -36,6 +36,12 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
     [Tooltip("爆発外部の半径")]
     [SerializeField] float _bombSideAreaSize = 30f;
+
+    [Tooltip("爆発中心部最大半径")]
+    [SerializeField] float _bombMiddleAreaMaxSize = 12f;
+
+    [Tooltip("爆発外部最大半径")]
+    [SerializeField] float _bombSideAreaMaxSize = 60f;
 
     [Tooltip("サンダーダメージ")]
     [SerializeField] int _thunderDamage = 20;
@@ -65,6 +71,14 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
     private int addDamage = 0;
 
+    private int enchantPower = 0;
+
+    private int maxEnchantPower = 0;
+
+    private float addPercentBombMiddleArea = 0;
+
+    private float addPercentBombSideArea = 0;
+
     readonly private string HeadTagName = InhallLibTags.HeadPointTag;
 
     /// <summary>
@@ -76,7 +90,7 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
     /// ヘッドショット時の反応のクラス
     /// </summary>
     HeadShotEffects headShot = default;
-    enum Enchant 
+    enum Enchant
     {
         thunder,
         knockBack,
@@ -88,42 +102,55 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
     private void Start()
     {
         headShot = GetComponent<HeadShotEffects>();
+
+        int secondLimit = _limitAddDamage - _firstAddDamage;
+        maxEnchantPower = secondLimit / _AddDamage;
+        if (secondLimit % _AddDamage > 0)
+        {
+            maxEnchantPower++;
+        }
+
+        addPercentBombMiddleArea =
+            (_bombMiddleAreaMaxSize - _bombMiddleAreaSize) / maxEnchantPower;
+
+        addPercentBombSideArea =
+            (_bombSideAreaMaxSize - _bombSideAreaSize) / maxEnchantPower;
     }
 
-    public void ArrowEnchantment_Normal(GameObject hitObj,EnchantmentEnum.EnchantmentState state)
+    public void ArrowEnchantment_Normal(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        stats = NormalHitDamage(hitObj,_normalDamage + addDamage);
-    }
-
-   
-
-    public void ArrowEnchantment_Bomb(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
-    {
-      
-        stats = NormalHitDamage(hitObj,_bombDirectHitDamage + _normalDamage + addDamage);
-
-        BombHitDamage(hitObj,Enchant.none);
-    }
-
-
-    public void ArrowEnchantment_Thunder(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
-    {
-        
-        stats = NormalHitDamage(hitObj,_thunderDamage + _normalDamage + addDamage);
-
-        stats.TakeThunder();
+        stats = NormalHitDamage(hitObj, _normalDamage + addDamage);
     }
 
 
 
-
-
-    public void ArrowEnchantment_KnockBack(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_Bomb(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_knockBackDamage + _normalDamage + addDamage);
+
+        BombHitDamage(hitObj, Enchant.none);
+        stats = NormalHitDamage(hitObj, _bombDirectHitDamage + _normalDamage + addDamage);
+
+    }
+
+
+    public void ArrowEnchantment_Thunder(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
+    {
+
+        stats.TakeThunder(enchantPower);
+        stats = NormalHitDamage(hitObj, _thunderDamage + _normalDamage + addDamage);
+
+    }
+
+
+
+
+
+    public void ArrowEnchantment_KnockBack(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
+    {
 
         stats.TakeKnockBack();
+        stats = NormalHitDamage(hitObj, _knockBackDamage + _normalDamage + addDamage);
+
 
     }
 
@@ -131,10 +158,10 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
 
 
-    public void ArrowEnchantment_Homing(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_Homing(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_homingDamage + _normalDamage + addDamage);
+
+        stats = NormalHitDamage(hitObj, _homingDamage + _normalDamage + addDamage);
 
     }
 
@@ -142,10 +169,10 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
 
 
-    public void ArrowEnchantment_Penetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_Penetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_penetrateDamage + _normalDamage + addDamage);
+
+        stats = NormalHitDamage(hitObj, _penetrateDamage + _normalDamage + addDamage);
 
     }
 
@@ -153,24 +180,24 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
 
 
-    public void ArrowEnchantment_BombThunder(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_BombThunder(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_bombDirectHitDamage + _thunderDamage + _normalDamage + addDamage);
 
         BombHitDamage(hitObj, Enchant.thunder);
+        stats = NormalHitDamage(hitObj, _bombDirectHitDamage + _thunderDamage + _normalDamage + addDamage);
+
     }
 
 
 
 
 
-    public void ArrowEnchantment_BombKnockBack(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_BombKnockBack(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_bombDirectHitDamage + _knockBackDamage + _normalDamage + addDamage);
 
         BombHitDamage(hitObj, Enchant.knockBack);
+        stats = NormalHitDamage(hitObj, _bombDirectHitDamage + _knockBackDamage + _normalDamage + addDamage);
+
     }
 
 
@@ -179,8 +206,8 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
     public void ArrowEnchantment_BombHoming(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_bombDirectHitDamage + _homingDamage + _normalDamage + addDamage);
+
+        stats = NormalHitDamage(hitObj, _bombDirectHitDamage + _homingDamage + _normalDamage + addDamage);
 
         BombHitDamage(hitObj, Enchant.homing);
     }
@@ -189,37 +216,24 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
 
 
-    public void ArrowEnchantment_BombPenetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_BombPenetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_bombDirectHitDamage + _penetrateDamage + _normalDamage + addDamage);
 
         BombHitDamage(hitObj, Enchant.penetrate);
+        stats = NormalHitDamage(hitObj, _bombDirectHitDamage + _penetrateDamage + _normalDamage + addDamage);
+
     }
 
 
 
 
 
-    public void ArrowEnchantment_ThunderKnockBack(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_ThunderKnockBack(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_thunderDamage + _knockBackDamage + _normalDamage + addDamage);
 
-        stats.TakeThunder();
+        stats.TakeThunder(enchantPower);
         stats.TakeKnockBack();
-    }
-
-
-
-
-
-    public void ArrowEnchantment_ThunderHoming(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
-    {
-        
-        stats = NormalHitDamage(hitObj,_thunderDamage + _homingDamage + _normalDamage + addDamage);
-
-        stats.TakeThunder();
+        stats = NormalHitDamage(hitObj, _thunderDamage + _knockBackDamage + _normalDamage + addDamage);
 
     }
 
@@ -227,36 +241,49 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
 
 
-    public void ArrowEnchantment_ThunderPenetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_ThunderHoming(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_thunderDamage + _penetrateDamage + _normalDamage + addDamage);
 
-        stats.TakeThunder();
+
+        stats.TakeThunder(enchantPower);
+        stats = NormalHitDamage(hitObj, _thunderDamage + _homingDamage + _normalDamage + addDamage);
+
     }
 
 
 
 
 
-    public void ArrowEnchantment_KnockBackHoming(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_ThunderPenetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-       
+
+        stats.TakeThunder(enchantPower);
+        stats = NormalHitDamage(hitObj, _thunderDamage + _penetrateDamage + _normalDamage + addDamage);
+
+    }
+
+
+
+
+
+    public void ArrowEnchantment_KnockBackHoming(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
+    {
+
+        stats.TakeKnockBack();
         stats = NormalHitDamage(hitObj, _knockBackDamage + _homingDamage + _normalDamage + addDamage);
 
-        stats.TakeKnockBack();
     }
 
 
 
 
 
-    public void ArrowEnchantment_KnockBackPenetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_KnockBackPenetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_knockBackDamage + _penetrateDamage + _normalDamage + addDamage);
 
         stats.TakeKnockBack();
+        stats = NormalHitDamage(hitObj, _knockBackDamage + _penetrateDamage + _normalDamage + addDamage);
+
 
     }
 
@@ -264,10 +291,10 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
 
 
-    public void ArrowEnchantment_HomingPenetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state) 
+    public void ArrowEnchantment_HomingPenetrate(GameObject hitObj, EnchantmentEnum.EnchantmentState state)
     {
-        
-        stats = NormalHitDamage(hitObj,_homingDamage + _penetrateDamage + _normalDamage + addDamage);
+
+        stats = NormalHitDamage(hitObj, _homingDamage + _penetrateDamage + _normalDamage + addDamage);
 
     }
 
@@ -277,7 +304,7 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
     /// <param name="hitObj"></param>
     public void HitGimmick(GameObject hitObj)
     {
-        if(hitObj.TryGetComponent<IFCanTakeArrowButton>(out IFCanTakeArrowButton button))
+        if (hitObj.TryGetComponent<IFCanTakeArrowButton>(out IFCanTakeArrowButton button))
         {
             button.ButtonPush();
         }
@@ -287,13 +314,13 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
         }
     }
 
-    
+
     /// <summary>
     /// 直撃ダメージを与えてhitObjのEnemyStatsをかえす
     /// </summary>
     /// <param name="hitObj"></param>
     /// <returns>hitObjのEnemyStats</returns>
-    private EnemyStats NormalHitDamage(GameObject hitObj,int damage)
+    private EnemyStats NormalHitDamage(GameObject hitObj, int damage)
     {
         EnemyStats st = default;
 
@@ -313,12 +340,13 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
         {
             st = hitObj.GetComponent<EnemyStats>();
         }
-        
+
 
         st.TakeDamage(damage);
         // 初期化
         addDamage = 0;
- 
+        enchantPower = 0;
+
         //EnemyStats st = default;
         return st;
     }
@@ -327,14 +355,16 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
     /// 爆発のダメージ計算
     /// </summary>
     /// <param name="hitObj"></param>
-    private void BombHitDamage(GameObject hitObj,Enchant enchant)
+    private void BombHitDamage(GameObject hitObj, Enchant enchant)
     {
         //TestBombArea(hitObj);
- 
+
         // 爆風範囲内の敵をスキャン
-        Collider[] sideColliders = Physics.OverlapSphere(hitObj.transform.position, _bombSideAreaSize, _layerMask);
+        Collider[] sideColliders = Physics.OverlapSphere(hitObj.transform.position,
+            _bombSideAreaSize + addPercentBombSideArea * enchantPower, _layerMask);
         // 爆心内の敵をスキャン
-        Collider[] middleColliders = Physics.OverlapSphere(hitObj.transform.position, _bombMiddleAreaSize, _layerMask);
+        Collider[] middleColliders = Physics.OverlapSphere(hitObj.transform.position,
+            _bombMiddleAreaSize + addPercentBombMiddleArea * enchantPower, _layerMask);
         // sideからmiddleCollidersを排除
         HashSet<Collider> side = new HashSet<Collider>(sideColliders);
 
@@ -344,13 +374,13 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
         HashSet<GameObject> processedObject = new HashSet<GameObject>();
 
         // 爆心内のダメージ判定から先に行う
-        BombDamage(middleColliders, processedObject,_bombMiddleDamage);
+        BombDamage(middleColliders, processedObject, _bombMiddleDamage);
 
         // 爆発外部のダメージ判定を爆心内ダメージ判定を行ったオブジェクトを除外して行う
-        BombDamage(sideColliders, processedObject,_bombSideDamage);
+        BombDamage(sideColliders, processedObject, _bombSideDamage);
 
 
-        void BombDamage(Collider[] takeDamageColliders, HashSet<GameObject> processedObject,int damage)
+        void BombDamage(Collider[] takeDamageColliders, HashSet<GameObject> processedObject, int damage)
         {
             // このメソッドで影響のでることが決まったEnemyStatsを入れる
             EnemyStats takeBombStats = default;
@@ -389,7 +419,7 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
                             //takeBombStats.TakePenetrate();
                             break;
                         case Enchant.thunder:
-                            takeBombStats.TakeThunder();
+                            takeBombStats.TakeThunder(enchantPower);
                             break;
                         default:
                             break;
@@ -407,16 +437,22 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
     /// </summary>
     public void SetAttackDamage()
     {
-        if(addDamage == 0)
+        if (enchantPower < maxEnchantPower)
         {
-            addDamage += _firstAddDamage; 
+            enchantPower++;
+
+        }
+
+        if (addDamage == 0)
+        {
+            addDamage += _firstAddDamage;
         }
         else
         {
             addDamage += addDamage;
         }
 
-        if(addDamage > _limitAddDamage)
+        if (addDamage > _limitAddDamage)
         {
             addDamage = _limitAddDamage;
         }
@@ -437,14 +473,14 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
     public void Bomb(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        BombHitDamage(t1, Enchant.none);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _normalDamage + addDamage);
 
-        BombHitDamage(t1, Enchant.none);
     }
 
     public void Thunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1,_thunderDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _thunderDamage + _normalDamage + addDamage);
     }
 
     public void KnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
@@ -464,30 +500,30 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
     public void BombThunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        BombHitDamage(t1, Enchant.thunder);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _thunderDamage + _normalDamage + addDamage);
 
-        BombHitDamage(t1, Enchant.thunder);
     }
 
     public void BombKnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        BombHitDamage(t1, Enchant.knockBack);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _knockBackDamage + _normalDamage + addDamage);
 
-        BombHitDamage(t1, Enchant.knockBack);
     }
 
     public void BombPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        BombHitDamage(t1, Enchant.penetrate);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _penetrateDamage + _normalDamage + addDamage);
 
-        BombHitDamage(t1, Enchant.penetrate);
     }
 
     public void BombHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        BombHitDamage(t1, Enchant.homing);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _homingDamage + _normalDamage + addDamage);
 
-        BombHitDamage(t1, Enchant.homing);
     }
 
     public void ThunderKnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
@@ -498,7 +534,7 @@ public class ArrowEnchant : MonoBehaviour,IArrowEnchantable<GameObject,Enchantme
 
     public void ThunderPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1,_thunderDamage + _penetrateDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _thunderDamage + _penetrateDamage + _normalDamage + addDamage);
     }
 
     public void ThunderHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)

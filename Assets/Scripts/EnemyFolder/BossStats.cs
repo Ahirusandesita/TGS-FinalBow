@@ -24,7 +24,7 @@ public class BossStats : EnemyStats
         TakeDamage(damage);
     }
 
-    public override void TakeThunder()
+    public override void TakeThunder(int a)
     {
 
     }

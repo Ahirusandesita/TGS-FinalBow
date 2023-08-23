@@ -83,7 +83,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         print("”š”­‚¤‚¯‚½");
     }
 
-    public override void TakeThunder()
+    public override void TakeThunder(int a)
     {
         StartCoroutine(ParalysisCoroutine());
     }
