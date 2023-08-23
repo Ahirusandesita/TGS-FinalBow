@@ -13,10 +13,13 @@ using System.Collections.Generic;
 [CustomPropertyDrawer(typeof(BirdGoalInformation))]
 public class EnemyDataDrawer : PropertyDrawer
 {
-    private float height = default;
+    private float _height = default;
+    private GUIStyle _bold = new();
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        _bold.richText = true;
+
         using (new EditorGUI.PropertyScope(position, label, property))
         {
             position.height = EditorGUIUtility.singleLineHeight;
@@ -87,7 +90,7 @@ public class EnemyDataDrawer : PropertyDrawer
             var speedProperty = property.FindPropertyRelative("_speed");
             speedProperty.floatValue = EditorGUI.FloatField(speedRect, "à⁄ìÆÉXÉsÅ[Éh", speedProperty.floatValue);
 
-            // _stayTime_sÅií‚é~Ç∑ÇÈïbêîÅj---------------------------------------------------------------------------------------------------------------------------------
+            // _stayTime_sÅií‚é~Ç∑ÇÈïbêîÅj-----------------------------------------------------------------------------------------------------------------------------------------
 
             Rect stayTimeRect = new(speedRect)
             {
@@ -97,14 +100,22 @@ public class EnemyDataDrawer : PropertyDrawer
             var stayTimeProperty = property.FindPropertyRelative("_stayTime_s");
             stayTimeProperty.floatValue = EditorGUI.FloatField(stayTimeRect, "í‚é~Ç∑ÇÈïbêî", stayTimeProperty.floatValue);
 
+            // ---à⁄ìÆíÜ-----------------------------------------------------------------------------------------------------------------------------------------------------------
             // _birdAttackTypeÅiçUåÇï˚ñ@ÇÃéÌóﬁÅj-----------------------------------------------------------------------------------------------------------------------------------
 
-            Rect attackTypeRect = new(stayTimeRect)
+            Rect labelRect1 = new(stayTimeRect)
             {
                 y = stayTimeRect.y + EditorGUIUtility.singleLineHeight + 3f
             };
 
-            var attackTypeProperty = property.FindPropertyRelative("_birdAttackType");
+            EditorGUI.LabelField(labelRect1, "<color=white><b>---à⁄ìÆíÜ---</b></color>", _bold);
+
+            Rect attackTypeRect = new(labelRect1)
+            {
+                y = labelRect1.y + EditorGUIUtility.singleLineHeight + 3f
+            };
+
+            var attackTypeProperty = property.FindPropertyRelative("_birdAttackType_a");
             attackTypeProperty.enumValueIndex = EditorGUI.Popup(attackTypeRect, "çUåÇï˚ñ@ÇÃéÌóﬁ", attackTypeProperty.enumValueIndex, Enum.GetNames(typeof(BirdAttackType)));
 
             Rect attackIntervalRect;
@@ -120,7 +131,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = attackTypeRect.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    attackIntervalProperty = property.FindPropertyRelative("_attackInterval_s");
+                    attackIntervalProperty = property.FindPropertyRelative("_attackInterval_s_a");
                     attackIntervalProperty.floatValue = EditorGUI.FloatField(attackIntervalRect, "çUåÇä‘äu", attackIntervalProperty.floatValue);
 
                     attackTimingsRect5 = new(attackIntervalRect)
@@ -132,19 +143,19 @@ public class EnemyDataDrawer : PropertyDrawer
 
                 case BirdAttackType.specifySeconds:
 
-                    Rect labelRect = new(attackTypeRect)
+                    Rect labelRect2 = new(attackTypeRect)
                     {
                         y = attackTypeRect.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    EditorGUI.LabelField(labelRect, "çUåÇÇ∑ÇÈÉ^ÉCÉ~ÉìÉOÅiâΩïbå„Åj");
+                    EditorGUI.LabelField(labelRect2, "çUåÇÇ∑ÇÈÉ^ÉCÉ~ÉìÉOÅiâΩïbå„Åj");
 
-                    Rect attackTimingsRect = new(labelRect)
+                    Rect attackTimingsRect = new(labelRect2)
                     {
-                        y = labelRect.y + EditorGUIUtility.singleLineHeight + 3f
+                        y = labelRect2.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    var attackTimingsProperty = property.FindPropertyRelative("_attackTimings_s1");
+                    var attackTimingsProperty = property.FindPropertyRelative("_attackTiming_s1_a");
                     attackTimingsProperty.floatValue = EditorGUI.FloatField(attackTimingsRect, "Elements 1", attackTimingsProperty.floatValue);
 
                     Rect attackTimingsRect2 = new(attackTimingsRect)
@@ -152,7 +163,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = attackTimingsRect.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    var attackTimingsProperty2 = property.FindPropertyRelative("_attackTimings_s2");
+                    var attackTimingsProperty2 = property.FindPropertyRelative("_attackTiming_s2_a");
                     attackTimingsProperty2.floatValue = EditorGUI.FloatField(attackTimingsRect2, "Elements 2", attackTimingsProperty2.floatValue);
 
                     Rect attackTimingsRect3 = new(attackTimingsRect2)
@@ -160,7 +171,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = attackTimingsRect2.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    var attackTimingsProperty3 = property.FindPropertyRelative("_attackTimings_s3");
+                    var attackTimingsProperty3 = property.FindPropertyRelative("_attackTiming_s3_a");
                     attackTimingsProperty3.floatValue = EditorGUI.FloatField(attackTimingsRect3, "Elements 3", attackTimingsProperty3.floatValue);
 
                     Rect attackTimingsRect4 = new(attackTimingsRect3)
@@ -168,7 +179,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = attackTimingsRect3.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    var attackTimingsProperty4 = property.FindPropertyRelative("_attackTimings_s4");
+                    var attackTimingsProperty4 = property.FindPropertyRelative("_attackTiming_s4_a");
                     attackTimingsProperty4.floatValue = EditorGUI.FloatField(attackTimingsRect4, "Elements 4", attackTimingsProperty4.floatValue);
 
                     attackTimingsRect5 = new(attackTimingsRect4)
@@ -176,7 +187,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = attackTimingsRect4.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    var attackTimingsProperty5 = property.FindPropertyRelative("_attackTimings_s5");
+                    var attackTimingsProperty5 = property.FindPropertyRelative("_attackTiming_s5_a");
                     attackTimingsProperty5.floatValue = EditorGUI.FloatField(attackTimingsRect5, "Elements 5", attackTimingsProperty5.floatValue);
 
                     break;
@@ -188,7 +199,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = attackTypeRect.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    var attackTimesProperty = property.FindPropertyRelative("_attackTimes");
+                    var attackTimesProperty = property.FindPropertyRelative("_attackTimes_a");
                     attackTimesProperty.intValue = EditorGUI.IntSlider(attackTimesRect, "òAë±çUåÇâÒêî", attackTimesProperty.intValue, 0, 10);
 
                     Rect cooldownTimeRect = new(attackTimesRect)
@@ -196,7 +207,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = attackTimesRect.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    var cooldownTimeProperty = property.FindPropertyRelative("_cooldownTime_s");
+                    var cooldownTimeProperty = property.FindPropertyRelative("_cooldownTime_s_a");
                     cooldownTimeProperty.floatValue = EditorGUI.FloatField(cooldownTimeRect, "òAë±çUåÇÉNÅ[ÉãÉ_ÉEÉìÅiïbÅj", cooldownTimeProperty.floatValue);
 
                     attackIntervalRect = new(cooldownTimeRect)
@@ -204,7 +215,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = cooldownTimeRect.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    attackIntervalProperty = property.FindPropertyRelative("_attackInterval_s");
+                    attackIntervalProperty = property.FindPropertyRelative("_attackInterval_s_a");
                     attackIntervalProperty.floatValue = EditorGUI.FloatField(attackIntervalRect, "çUåÇä‘äu", attackIntervalProperty.floatValue);
 
                     attackTimingsRect5 = new(attackIntervalRect)
@@ -224,13 +235,147 @@ public class EnemyDataDrawer : PropertyDrawer
                     break;
             }
 
+            // ---í‚é~íÜ-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+            Rect labelRect3 = new(attackTimingsRect5)
+            {
+                y = attackTimingsRect5.y + EditorGUIUtility.singleLineHeight + 3f
+            };
+
+            EditorGUI.LabelField(labelRect3, "<color=white><b>---í‚é~íÜ---</b></color>", _bold);
+
+            Rect attackTypeRect2 = new(labelRect3)
+            {
+                y = labelRect3.y + EditorGUIUtility.singleLineHeight + 3f
+            };
+
+            var attackTypeProperty2 = property.FindPropertyRelative("_birdAttackType_b");
+            attackTypeProperty2.enumValueIndex = EditorGUI.Popup(attackTypeRect2, "çUåÇï˚ñ@ÇÃéÌóﬁ", attackTypeProperty2.enumValueIndex, Enum.GetNames(typeof(BirdAttackType)));
+
+            Rect attackIntervalRect2;
+            SerializedProperty attackIntervalProperty2;
+            Rect attackTimingsRect10;
+
+            switch ((BirdAttackType)attackTypeProperty2.enumValueIndex)
+            {
+                case BirdAttackType.equalIntervals:
+
+                    attackIntervalRect2 = new(attackTypeRect2)
+                    {
+                        y = attackTypeRect2.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    attackIntervalProperty2 = property.FindPropertyRelative("_attackInterval_s_b");
+                    attackIntervalProperty2.floatValue = EditorGUI.FloatField(attackIntervalRect2, "çUåÇä‘äu", attackIntervalProperty2.floatValue);
+
+                    attackTimingsRect10 = new(attackIntervalRect2)
+                    {
+                        y = attackIntervalRect2.y
+                    };
+
+                    break;
+
+                case BirdAttackType.specifySeconds:
+
+                    Rect labelRect4 = new(attackTypeRect2)
+                    {
+                        y = attackTypeRect2.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    EditorGUI.LabelField(labelRect4, "çUåÇÇ∑ÇÈÉ^ÉCÉ~ÉìÉOÅiâΩïbå„Åj");
+
+                    Rect attackTimingsRect6 = new(labelRect4)
+                    {
+                        y = labelRect4.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var attackTimingsProperty6 = property.FindPropertyRelative("_attackTiming_s1_b");
+                    attackTimingsProperty6.floatValue = EditorGUI.FloatField(attackTimingsRect6, "Elements 1", attackTimingsProperty6.floatValue);
+
+                    Rect attackTimingsRect7 = new(attackTimingsRect6)
+                    {
+                        y = attackTimingsRect6.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var attackTimingsProperty7 = property.FindPropertyRelative("_attackTiming_s2_b");
+                    attackTimingsProperty7.floatValue = EditorGUI.FloatField(attackTimingsRect7, "Elements 2", attackTimingsProperty7.floatValue);
+
+                    Rect attackTimingsRect8 = new(attackTimingsRect7)
+                    {
+                        y = attackTimingsRect7.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var attackTimingsProperty8 = property.FindPropertyRelative("_attackTiming_s3_b");
+                    attackTimingsProperty8.floatValue = EditorGUI.FloatField(attackTimingsRect8, "Elements 3", attackTimingsProperty8.floatValue);
+
+                    Rect attackTimingsRect9 = new(attackTimingsRect8)
+                    {
+                        y = attackTimingsRect8.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var attackTimingsProperty9 = property.FindPropertyRelative("_attackTiming_s4_b");
+                    attackTimingsProperty9.floatValue = EditorGUI.FloatField(attackTimingsRect9, "Elements 4", attackTimingsProperty9.floatValue);
+
+                    attackTimingsRect10 = new(attackTimingsRect9)
+                    {
+                        y = attackTimingsRect9.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var attackTimingsProperty10 = property.FindPropertyRelative("_attackTiming_s5_b");
+                    attackTimingsProperty10.floatValue = EditorGUI.FloatField(attackTimingsRect10, "Elements 5", attackTimingsProperty10.floatValue);
+
+                    break;
+
+                case BirdAttackType.consecutive:
+
+                    Rect attackTimesRect2 = new(attackTypeRect2)
+                    {
+                        y = attackTypeRect2.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var attackTimesProperty2 = property.FindPropertyRelative("_attackTimes_b");
+                    attackTimesProperty2.intValue = EditorGUI.IntSlider(attackTimesRect2, "òAë±çUåÇâÒêî", attackTimesProperty2.intValue, 0, 10);
+
+                    Rect cooldownTimeRect2 = new(attackTimesRect2)
+                    {
+                        y = attackTimesRect2.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var cooldownTimeProperty2 = property.FindPropertyRelative("_cooldownTime_s_b");
+                    cooldownTimeProperty2.floatValue = EditorGUI.FloatField(cooldownTimeRect2, "òAë±çUåÇÉNÅ[ÉãÉ_ÉEÉìÅiïbÅj", cooldownTimeProperty2.floatValue);
+
+                    attackIntervalRect2 = new(cooldownTimeRect2)
+                    {
+                        y = cooldownTimeRect2.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    attackIntervalProperty2 = property.FindPropertyRelative("_attackInterval_s_b");
+                    attackIntervalProperty2.floatValue = EditorGUI.FloatField(attackIntervalRect2, "çUåÇä‘äu", attackIntervalProperty2.floatValue);
+
+                    attackTimingsRect10 = new(attackIntervalRect2)
+                    {
+                        y = attackIntervalRect2.y
+                    };
+
+                    break;
+
+                default:
+
+                    attackTimingsRect10 = new(attackTypeRect2)
+                    {
+                        y = attackTypeRect2.y
+                    };
+
+                    break;
+            }
+
             // ç≈å„Ç…ÉäÉXÉgÇÃçÇÇ≥ÇçXêV
-            height = attackTimingsRect5.y - position.y + EditorGUIUtility.singleLineHeight + 1.5f;
+            _height = attackTimingsRect10.y - position.y + EditorGUIUtility.singleLineHeight + 1.5f;
         }
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return height;
+        return _height;
     }
 }
