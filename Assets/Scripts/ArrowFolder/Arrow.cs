@@ -362,6 +362,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
                 _enchantState == EnchantmentEnum.EnchantmentState.bombPenetrate ||
                 _enchantState == EnchantmentEnum.EnchantmentState.knockBackpenetrate)
             {
+                Debug.LogError(_enchantState+"貫通") ;
                 return;
             }
             //貫通系じゃなければプールに戻す処理をよぶ
