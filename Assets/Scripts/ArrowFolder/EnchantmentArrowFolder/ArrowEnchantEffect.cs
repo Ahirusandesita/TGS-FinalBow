@@ -4,29 +4,68 @@
 // CreateDay: 2023/06/08
 // Creator  : Nomura
 // --------------------------------------------------------- 
+using System;
 using System.Collections;
 using UnityEngine;
 
+
 public struct Size
 {
-    public Vector3 firstSize;
-    public Vector3 plusSize;
+    public float firstSize { private get; set; }
+
+    private const float SIZE_MINIMUM = 10f;
+    public float plusSize;
     public int plusCount;
+
+    public Size(float size)
+    {
+        firstSize = size;
+        plusSize = size;
+        plusCount = 0;
+    }
+
+    public float GetMinimumSize => firstSize / SIZE_MINIMUM;
+    public float GetFirstSize => firstSize;
 }
 
-public class SizeParamator
+
+public struct SizeAdjustmentToVector3
 {
+    public Size sizeX,sizeY,sizeZ;
 
+    public int plusCount;
+
+    public SizeAdjustmentToVector3(float x, float y, float z) => this = new SizeAdjustmentToVector3(new Size(x), new Size(y), new Size(z));
+
+    public SizeAdjustmentToVector3(Size x,Size y,Size z)
+    {
+        sizeX = x;
+        sizeY = y;
+        sizeZ = z;
+        plusCount = 0;
+    }
+
+    public void SetSizeToVector3(float x,float y,float z)
+    {
+        sizeX.firstSize = x;
+        sizeY.firstSize = y;
+        sizeZ.firstSize = z;
+    }
+
+
+    public Vector3 GetMinimumSizeToVector3 => new Vector3(sizeX.GetMinimumSize,sizeY.GetMinimumSize,sizeZ.GetMinimumSize);
+    public Vector3 GetFirstSizeToVector3 => new Vector3(sizeX.GetFirstSize, sizeY.GetFirstSize, sizeZ.GetFirstSize);
 }
 
 
-public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>,IArrowEnchantDamageable
+public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, IArrowEnchantDamageable
 {
     private ObjectPoolSystem _objectPoolSystem;
 
     private WaitForSeconds _waitSeconds = default;
 
-    private Size size;
+    private SizeAdjustmentToVector3 sizeAdjustmentToVector3;
+
 
     private void Start()
     {
@@ -110,7 +149,7 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
         EffectCall(EffectPoolEnum.EffectPoolState.thunderHoming, spawnPosition);
     }
 
-  
+
 
 
     public void ArrowEffect_ThunderPenetrate(Transform spawnPosition)
@@ -118,7 +157,7 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
         EffectCall(EffectPoolEnum.EffectPoolState.thunderPenetrate, spawnPosition);
     }
 
-  
+
 
 
     public void ArrowEffect_KnockBackHoming(Transform spawnPosition)
@@ -155,23 +194,25 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
     /// </summary>
     /// <param name="effectState"></param>
     /// <param name="spawnTransform"></param>
-    private void EffectCall(EffectPoolEnum.EffectPoolState effectState,Transform spawnTransform)
+    private void EffectCall(EffectPoolEnum.EffectPoolState effectState, Transform spawnTransform)
     {
         StartCoroutine(EffectTime(_objectPoolSystem.CallObject(effectState, spawnTransform.position, spawnTransform.rotation), effectState));
     }
-    private void EffectCall(EffectPoolEnum.EffectPoolState effectState,Transform spawnTransform,ref Size size)
+    private void EffectCall(EffectPoolEnum.EffectPoolState effectState, Transform spawnTransform, ref SizeAdjustmentToVector3 sizeAdjustmentToVector3)
     {
 
         GameObject effect = _objectPoolSystem.CallObject(effectState, spawnTransform.position, spawnTransform.rotation);
-        size.firstSize = effect.transform.localScale/ 5f;
-        effect.transform.localScale = size.firstSize;
-        while(size.plusCount >= 0) 
-        { 
-            Debug.LogError("Attra" + size.plusCount);
-            effect.transform.localScale += size.firstSize;
-            size.plusCount--;
+        sizeAdjustmentToVector3.SetSizeToVector3(
+            effect.transform.localScale.x,
+            effect.transform.localScale.y,
+            effect.transform.localScale.z);
+        effect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3;
+        while (sizeAdjustmentToVector3.plusCount >= 0)
+        {
+            effect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
+            sizeAdjustmentToVector3.plusCount--;
         }
-        
+
         StartCoroutine(EffectTime(effect, effectState));
     }
 
@@ -181,12 +222,12 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
     /// <param name="effectObject"></param>
     /// <param name="effectPoolState"></param>
     /// <returns></returns>
-    private IEnumerator EffectTime(GameObject effectObject,EffectPoolEnum.EffectPoolState effectPoolState)
+    private IEnumerator EffectTime(GameObject effectObject, EffectPoolEnum.EffectPoolState effectPoolState)
     {
         yield return _waitSeconds;
 
-        effectObject.transform.localPosition = size.firstSize * 8f;
-        _objectPoolSystem.ReturnObject(effectPoolState,effectObject);
+        effectObject.transform.localPosition = sizeAdjustmentToVector3.GetFirstSizeToVector3;
+        _objectPoolSystem.ReturnObject(effectPoolState, effectObject);
     }
 
     public void Normal(Transform t)
@@ -196,7 +237,7 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
 
     public void Bomb(Transform t)
     {
-        EffectCall(EffectPoolEnum.EffectPoolState.bomb, t,ref size);
+        EffectCall(EffectPoolEnum.EffectPoolState.bomb, t, ref sizeAdjustmentToVector3);
     }
 
     public void Thunder(Transform t)
@@ -271,6 +312,6 @@ public class ArrowEnchantEffect : MonoBehaviour,IArrowEnchantable<Transform>,IAr
 
     public void SetAttackDamage()
     {
-        size.plusCount++;
+        sizeAdjustmentToVector3.plusCount++;
     }
 }
