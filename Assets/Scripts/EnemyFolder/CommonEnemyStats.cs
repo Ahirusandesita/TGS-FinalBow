@@ -14,19 +14,23 @@ interface IFCommonEnemyGetParalysis
 }
 public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 {
+    [SerializeField] protected MaxInhallObjectSetting maxInhallData = default;
+
     protected CashObjectInformation _cashObjectInformation = default;
 
     protected IFScoreManager_NomalEnemy _score;
     protected IFScoreManager_Combo _combo = default;
 
-    protected WaitForSeconds _paralysisWait = default;
+    protected float _paralysisWait = default;
 
     protected GameObject _paralysisEffects = default;
 
     /// <summary>
     /// 麻痺時間
     /// </summary>
-    protected readonly float _paralysisTime = 3f;
+    protected readonly float _baseParalysisTime = 0.5f;
+
+    protected readonly float _maxParalysisTime = 3f;
 
     /// <summary>
     /// ノックバック距離
@@ -46,6 +50,8 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     protected bool _isParalysis = false;
 
     protected const int PARALYSIS_EFFECTS_INDEX = 4;
+
+    protected float _addParalysisTime = 0f;
 
     protected override void Start()
     {
@@ -67,7 +73,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
 
-        _paralysisWait = new WaitForSeconds(_paralysisTime);
+        _addParalysisTime = (_maxParalysisTime - _baseParalysisTime) / maxInhallData.GetMaxInhall;
     }
 
     protected virtual void OnEnable()
@@ -83,9 +89,10 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         print("爆発うけた");
     }
 
-    public override void TakeThunder(int a)
+    public override void TakeThunder(int power)
     {
-        StartCoroutine(ParalysisCoroutine());
+        float paralysisTime = _baseParalysisTime + _addParalysisTime * power;
+        StartCoroutine(ParalysisCoroutine(paralysisTime));
     }
 
     public override void TakeKnockBack()
@@ -169,13 +176,13 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     /// サンダー受けたときの麻痺？
     /// </summary>
     /// <returns></returns>
-    private IEnumerator ParalysisCoroutine()
+    private IEnumerator ParalysisCoroutine(float time)
     {
         print("麻痺中");
         _paralysisEffects.SetActive(true);
         _isParalysis = true;
 
-        yield return _paralysisWait;
+        yield return new WaitForSeconds(time);
 
         print("麻痺会場");
         _paralysisEffects.SetActive(false);

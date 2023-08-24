@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ItemShooter : MonoBehaviour, IFCanTakeArrowButton
+public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
 {
     [SerializeField] ItemShotObjectScriptable data = default;
     [SerializeField] Transform shotPosition = default;
@@ -18,6 +18,11 @@ public class ItemShooter : MonoBehaviour, IFCanTakeArrowButton
     WaitForSeconds rapidSpeed = default;
     IFItemShoterObjectPhysics physics = default;
     bool isWorking = false;
+
+    public bool IsFinish => false;
+
+    public bool Moving => isWorking;
+
     private void Start()
     {
         Initialize();
@@ -28,15 +33,7 @@ public class ItemShooter : MonoBehaviour, IFCanTakeArrowButton
         physics.ItemMove();
     }
 
-    public void ButtonPush()
-    {
-        if (isWorking == false)
-        {
-            isWorking = true;
-
-            StartCoroutine(RepeatShot());
-        }
-    }
+   
 
     private void Initialize()
     {
@@ -71,11 +68,26 @@ public class ItemShooter : MonoBehaviour, IFCanTakeArrowButton
 
     IEnumerator RepeatShot()
     {
+        isWorking = true;
         while (isWorking)
         {
             physics.ItemMoveStart(Create());
             yield return rapidSpeed;
 
         }
+    }
+
+    public void GimmickAction()
+    {
+        if(!isWorking)
+        StartCoroutine(RepeatShot());
+    }
+
+    public void GimmickAction(float power)
+    {
+        if (!isWorking)
+        StartCoroutine(RepeatShot());
+
+
     }
 }

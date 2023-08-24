@@ -24,11 +24,11 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
     Color rgb = default;
     WaitForFixedUpdate wait = new WaitForFixedUpdate();
     Func<float, IEnumerator> move = f => null;
-    Func<float, float, float, IEnumerator> lightOut = (a,b,c) => null;
+    Func<float, float, float, IEnumerator> lightOut = (a, b, c) => null;
     Action transrate = () => { };
     Action lightCoroutine = () => { };
     Action moveCoroutine = () => { };
-    
+
     #endregion
     #region property
     #endregion
@@ -55,7 +55,7 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
         if (canLight)
         {
             lightOut = new Func<float, float, float, IEnumerator>(LightOut);
-            lightCoroutine = () => StartCoroutine(lightOut(fadeIn,stop,fadeOut));
+            lightCoroutine = () => StartCoroutine(lightOut(fadeIn, stop, fadeOut));
             moveCoroutine = () => { };
         }
 
@@ -71,9 +71,17 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
             transrate = () => player.position = transform.position;
             transrate += () => player.rotation = Quaternion.Euler(warpedRotation);
         }
-        rgb = lightAlpha.color;
-        lightAlpha.color = new Color(rgb.r, rgb.g, rgb.b, 0);
-        
+
+        if (lightAlpha is not null)
+        {
+            rgb = lightAlpha.color;
+            lightAlpha.color = new Color(rgb.r, rgb.g, rgb.b, 0);
+
+        }
+        else
+        {
+            print(this.name + "‚ÌF‚Ì‚â‚Â‚È‚¢‚Å‚·");
+        }
     }
 
     public void ButtonPush()
@@ -86,16 +94,16 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
     IEnumerator WarpMove(float time)
     {
         float distance = Vector3.Distance(player.position, transform.position);
-        float speed = distance /time;
+        float speed = distance / time;
         Vector3 moveVec = (transform.position - player.position).normalized;
         Vector3 move = speed * Time.deltaTime * moveVec;
         float moved = 0f;
         while (true)
         {
             yield return null;
-            player.transform.Translate(move,Space.World);
+            player.transform.Translate(move, Space.World);
             moved += move.magnitude;
-            if(moved > distance)
+            if (moved > distance)
             {
                 player.position = transform.position;
                 player.rotation = Quaternion.Euler(warpedRotation);
@@ -105,8 +113,12 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
         }
     }
 
-    IEnumerator LightOut(float first,float blind,float fix)
+    IEnumerator LightOut(float first, float blind, float fix)
     {
+        if(lightAlpha is null)
+        {
+            yield break;
+        }
         float time = 0f;
         float alpha = lightAlpha.color.a;
         while (true)
@@ -131,13 +143,19 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
             }
 
             lightAlpha.color = new Color(rgb.r, rgb.g, rgb.b, alpha);
-            if(alpha <= 0)
+            if (alpha <= 0)
             {
                 break;
             }
             time += Time.deltaTime;
 
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(0, 1, 0, 1);
+        Gizmos.DrawFrustum(transform.position, 60f, 1000f, 0f, 1.6f);
     }
     #endregion
 }

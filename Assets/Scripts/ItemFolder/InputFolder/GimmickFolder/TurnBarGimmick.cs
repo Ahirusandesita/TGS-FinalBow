@@ -17,7 +17,9 @@ public class TurnBarGimmick : MonoBehaviour, IFGimmickCaller
     Quaternion endRotation = default;
     float movedAngle = 0f;
     bool isFinish = false;
+    bool moving = false;
     public bool IsFinish => isFinish;
+    public bool Moving => moving;
 
     private void Start()
     {
@@ -25,6 +27,7 @@ public class TurnBarGimmick : MonoBehaviour, IFGimmickCaller
     }
     public void GimmickAction()
     {
+        moving = true;
         float move = turnSpeed * Time.deltaTime;
         transform.Rotate(axis,move );
         movedAngle += move;
