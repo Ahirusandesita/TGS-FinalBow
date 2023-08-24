@@ -11,20 +11,45 @@ using UnityEngine;
 
 public struct Size
 {
+
+
+    /// <summary>
+    /// ファーストサイズ
+    /// </summary>
     public float firstSize { private get; set; }
 
+
+    /// <summary>
+    /// SIZE_MINIMUM分の１
+    /// </summary>
     private const float SIZE_MINIMUM = 10f;
-    public float plusSize;
+
+
+    /// <summary>
+    /// 吸い込んだ数を足していく用
+    /// </summary>
     public int plusCount;
 
+    /// <summary>
+    /// ファーストサイズを代入　使わなくてもいいよ
+    /// </summary>
+    /// <param name="size"></param>
     public Size(float size)
     {
         firstSize = size;
-        plusSize = size;
         plusCount = 0;
     }
 
+
+
+    /// <summary>
+    /// ファーストサイズの１０分の１のサイズを取得
+    /// </summary>
     public float GetMinimumSize => firstSize / SIZE_MINIMUM;
+
+    /// <summary>
+    /// ファーストサイズを取得
+    /// </summary>
     public float GetFirstSize => firstSize;
 }
 
