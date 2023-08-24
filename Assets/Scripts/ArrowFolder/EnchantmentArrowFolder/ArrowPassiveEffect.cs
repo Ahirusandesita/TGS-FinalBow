@@ -12,8 +12,7 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
 
     private GameObject _workEffect;
     private EffectPoolEnum.EffectPoolState _workEnchantState;
-    private Size size;
-
+    private SizeAdjustmentToVector3 sizeAdjustmentToVector3;
     private void Start()
     {
         _objectPoosSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
@@ -41,9 +40,13 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
             _workEffect = _objectPoosSystem.CallObject(checkArrowState, spawnPosition.position, spawnPosition.rotation);
             _workEffect.transform.parent = spawnPosition.transform;
 
-            size.firstSize = _workEffect.transform.localScale / 10;
-            size.plusSize = size.firstSize;
-            _workEffect.transform.localScale = new Vector3(size.firstSize.x, size.firstSize.y, size.firstSize.z);
+            sizeAdjustmentToVector3 = new SizeAdjustmentToVector3(
+                _workEffect.transform.localScale.x,
+                _workEffect.transform.localScale.y,
+                _workEffect.transform.localScale.z
+                );
+
+            _workEffect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3;
         }
         //エフェクトが存在していて新しいEnumが違ったら
         else if (_workEnchantState != checkArrowState)
@@ -54,12 +57,12 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
             _workEnchantState = checkArrowState;
             _workEffect = _objectPoosSystem.CallObject(checkArrowState, spawnPosition.position, spawnPosition.rotation);
             _workEffect.transform.parent = spawnPosition.transform;
-            _workEffect.transform.localScale = size.firstSize;
-            while (size.plusCount >= 0)
+            _workEffect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3;
+            while (sizeAdjustmentToVector3.plusCount >= 0)
             {
 
-                _workEffect.transform.localScale += new Vector3(size.firstSize.x, size.firstSize.y, size.firstSize.z);
-                size.plusCount--;
+                _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
+                sizeAdjustmentToVector3.plusCount--;
             }
         }
 
@@ -74,14 +77,14 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
     {
         //エフェクトを消す
         _workEffect.transform.parent = null;
-        _workEffect.transform.localScale = size.firstSize * 10f;
+        _workEffect.transform.localScale = sizeAdjustmentToVector3.GetFirstSizeToVector3;
         _objectPoosSystem.ReturnObject(_workEnchantState, _workEffect);
     }
 
     public void SetAttackDamage()
     {
-        size.plusCount++;
-        _workEffect.transform.localScale += new Vector3(size.firstSize.x, size.firstSize.y, size.firstSize.z);
+        sizeAdjustmentToVector3.plusCount++;
+        _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
     }
 
     public void Normal(Transform t)
