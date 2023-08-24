@@ -31,17 +31,9 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     [Tooltip("爆発外部のダメージ")]
     [SerializeField] int _bombSideDamage = 40;
 
-    [Tooltip("爆発中心部の半径")]
-    [SerializeField] float _bombMiddleAreaSize = 6f;
-
-    [Tooltip("爆発外部の半径")]
-    [SerializeField] float _bombSideAreaSize = 30f;
-
-    [Tooltip("爆発中心部最大半径")]
-    [SerializeField] float _bombMiddleAreaMaxSize = 12f;
-
-    [Tooltip("爆発外部最大半径")]
-    [SerializeField] float _bombSideAreaMaxSize = 60f;
+    [Tooltip("爆発中心部の半径0-1(小数点%)")]
+    [SerializeField] float _bombMiddleAreaSizePercent = 0.3f;
+    
 
     [Tooltip("サンダーダメージ")]
     [SerializeField] int _thunderDamage = 20;
@@ -76,11 +68,9 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
 
     private int maxEnchantPower = 0;
 
-    private float addPercentBombMiddleArea = 0;
-
-    private float addPercentBombSideArea = 0;
-
     readonly private string HeadTagName = InhallLibTags.HeadPointTag;
+
+    const float BOMB_FIRST_SIZE = 10f;
 
     /// <summary>
     /// hitObjのEnemyStats
@@ -91,6 +81,8 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     /// ヘッドショット時の反応のクラス
     /// </summary>
     HeadShotEffects headShot = default;
+
+    Size size = default;
     enum Enchant
     {
         thunder,
@@ -103,13 +95,9 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     private void Start()
     {
         headShot = GetComponent<HeadShotEffects>();
-
+        size.firstSize = BOMB_FIRST_SIZE / 2f;
         maxEnchantPower = maxInhallData.GetMaxInhall;
-        addPercentBombMiddleArea =
-            (_bombMiddleAreaMaxSize - _bombMiddleAreaSize) / maxEnchantPower;
-
-        addPercentBombSideArea =
-            (_bombSideAreaMaxSize - _bombSideAreaSize) / maxEnchantPower;
+        
 
         _limitAddDamage = _firstAddDamage + _AddDamage * (maxEnchantPower - 1);
     }
@@ -357,11 +345,12 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         //TestBombArea(hitObj);
 
         // 爆風範囲内の敵をスキャン
+        float sideRadius = size.GetFirstSize + size.GetMinimumSize * size.GetMinimumSize;
         Collider[] sideColliders = Physics.OverlapSphere(hitObj.transform.position,
-            _bombSideAreaSize + addPercentBombSideArea * enchantPower, _layerMask);
+            sideRadius, _layerMask);
         // 爆心内の敵をスキャン
         Collider[] middleColliders = Physics.OverlapSphere(hitObj.transform.position,
-            _bombMiddleAreaSize + addPercentBombMiddleArea * enchantPower, _layerMask);
+            sideRadius * _bombMiddleAreaSizePercent, _layerMask);
         // sideからmiddleCollidersを排除
         HashSet<Collider> side = new HashSet<Collider>(sideColliders);
 
@@ -375,6 +364,8 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
 
         // 爆発外部のダメージ判定を爆心内ダメージ判定を行ったオブジェクトを除外して行う
         BombDamage(sideColliders, processedObject, _bombSideDamage);
+
+        size.plusCount = 0;
 
 
         void BombDamage(Collider[] takeDamageColliders, HashSet<GameObject> processedObject, int damage)
@@ -434,6 +425,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     /// </summary>
     public void SetAttackDamage()
     {
+        size.plusCount++;
         if (enchantPower < maxEnchantPower)
         {
             enchantPower++;
@@ -460,7 +452,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     private void TestBombArea(GameObject hi)
     {
         GameObject obj = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), hi.transform.position, Quaternion.identity);
-        obj.transform.localScale = Vector3.one * _bombSideAreaSize * 2;
+        //obj.transform.localScale = Vector3.one * _bombSideAreaSizePercent * 2;
     }
 
     public void Normal(GameObject t1, EnchantmentEnum.EnchantmentState t2)
