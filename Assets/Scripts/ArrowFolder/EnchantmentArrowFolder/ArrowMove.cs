@@ -239,130 +239,147 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     #region イベント設定用メソッド
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：なし
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_Normal(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, NOT_THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：なし
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_Normal(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ボム
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_Bomb(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, NOT_THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ボム
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_Bomb(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：サンダー
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_Thunder(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：サンダー
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_Thunder(Transform arrowTransform) { NormalMove(arrowTransform, THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ノックバック
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_KnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, NOT_THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ノックバック
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_KnockBack(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ホーミング
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_Homing(Transform arrowTransform) { HomingMove(arrowTransform, _arrowSpeed); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ホーミング
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_Homing(Transform arrowTransform) { HomingMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：貫通
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_Penetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, NOT_THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：貫通
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_Penetrate(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ボムサンダー
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_BombThunder(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ボムサンダー
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_BombThunder(Transform arrowTransform) { NormalMove(arrowTransform, THUNDER); }
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ボムノックバック
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_BombKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, NOT_THUNDER); }
-
-
-
-    /// <summary>
-    /// 矢の挙動　エンチャント：ボムホーミング
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_BombHoming(Transform arrowTransform) { HomingMove(arrowTransform, _arrowSpeed); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ボムノックバック
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_BombKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ボム貫通
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_BombPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, NOT_THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ボムホーミング
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_BombHoming(Transform arrowTransform) { HomingMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：サンダーノックバック
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_ThunderKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ボム貫通
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_BombPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：サンダーホーミング
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_ThunderHoming(Transform arrowTransform) { HomingMove(arrowTransform, _arrowSpeed); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：サンダーノックバック
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_ThunderKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：サンダー貫通
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_ThunderPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：サンダーホーミング
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_ThunderHoming(Transform arrowTransform) { HomingMove(arrowTransform, THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ノックバックホーミング
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_KnockBackHoming(Transform arrowTransform) { HomingMove(arrowTransform, _arrowSpeed); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：サンダー貫通
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_ThunderPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ノックバック貫通
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_KnockBackPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, _arrowSpeed, NOT_THUNDER); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ノックバックホーミング
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_KnockBackHoming(Transform arrowTransform) { HomingMove(arrowTransform, NOT_THUNDER); }
 
 
 
-    /// <summary>
-    /// 矢の挙動　エンチャント：ホーミング貫通
-    /// </summary>
-    /// <param name="arrowTransform">矢のトランスフォーム</param>
-    public void ArrowMove_HomingPenetrate(Transform arrowTransform) { HomingMove(arrowTransform, _arrowSpeed); }
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ノックバック貫通
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_KnockBackPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
+
+
+
+    ///// <summary>
+    ///// 矢の挙動　エンチャント：ホーミング貫通
+    ///// </summary>
+    ///// <param name="arrowTransform">矢のトランスフォーム</param>
+    //public void ArrowMove_HomingPenetrate(Transform arrowTransform) { HomingMove(arrowTransform, NOT_THUNDER); }
+
+
+    private bool _isSet = false;
+
+    private delegate void MovementDelegate(Transform arrowTransform, bool isThunder);
+
+    MovementDelegate movement;
+
+    private void SetNormal()
+    {
+        movement = NormalMove;
+    }
+
+    private void SetHoming()
+    {
+        movement = HomingMove;
+    }
 
     #endregion
 
@@ -373,15 +390,15 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     /// ノーマルの挙動をさせるメソッド
     /// </summary>
     /// <param name="arrowTransform">矢のトランスフォーム</param>
-    /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
+    /// <param name="_arrowSpeed">矢が飛んでいくスピード</param>
     /// <param name="isThunder">サンダーかそれ以外か</param>
-    private void NormalMove(Transform arrowTransform, float arrowSpeed, bool isThunder)
+    private void NormalMove(Transform arrowTransform, bool isThunder)
     {
         // 設定が終わっていなければ
         if (!_endSetting)
         {
             // 設定用メソッドを実行
-            NormalSetting(arrowTransform, arrowSpeed, isThunder);
+            NormalSetting(arrowTransform, _arrowSpeed, isThunder);
         }
 
         // 設定が終わっていたら
@@ -474,14 +491,14 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     /// ホーミングの挙動をさせるメソッド
     /// </summary>
     /// <param name="arrowTransform">矢のトランスフォーム</param>
-    /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
-    private void HomingMove(Transform arrowTransform, float arrowSpeed)
+    /// <param name="_arrowSpeed">矢が飛んでいくスピード</param>
+    private void HomingMove(Transform arrowTransform, bool isThunder)
     {
         // 初期角度の代入　ターゲットがなくなった場合は再度代入
         if (_target == null || _target == default)
         {
             // 初期設定とターゲットの選定
-            SetHomingTarget(arrowTransform, arrowSpeed);
+            SetHomingTarget(arrowTransform, _arrowSpeed);
         }
 
         // ターゲットへのベクトルを取得
@@ -496,7 +513,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         // 矢の移動
         arrowTransform.Translate( ZERO,                               // Ｘ軸
                                   ZERO,                               // Ｙ軸
-                                  arrowSpeed * Time.deltaTime,        // Ｚ軸
+                                  _arrowSpeed * Time.deltaTime,        // Ｚ軸
                                   Space.Self);                        // ローカルで指定　矢先はＺ軸
     }
 
@@ -530,24 +547,32 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
          * 
          * 
          */
-        EnemyMoveBase[] moves = GameObject.FindObjectsOfType<EnemyMoveBase>();
+        EnemyStats[] moves = GameObject.FindObjectsOfType<EnemyStats>();
         List<GameObject> enemys = new List<GameObject>();
-        for(int i = 0; i < moves.Length; i++)
+        if (moves.Length > 0)
         {
-            enemys.Add(moves[i].gameObject);
+            for (int i = 0; i < moves.Length; i++)
+            {
+                enemys.Add(moves[i].gameObject);
+            }
+            _target = ConeDecision.ConeInObjects(arrowTransform, enemys, 360f, 100000f, SEARCH_ANGLE)[0];
         }
+        else
+        {
+            SetNormal();
+        }
+
         /*
          * 
          * 
          * 
          */
-        _target = ConeDecision.ConeInObjects(arrowTransform,enemys , 360f, 100000f, SEARCH_ANGLE)[0];
 
         // 例外処理　もし判定内にオブジェクトが一つもなかった場合にnullRefを回避するための処理
         if (_target == null || _target == default)
         {
-            // まっすぐ飛んで行くようにターゲットを代入
-            _target = _tmpTarget;
+            // まっすぐ飛んで行くように変更
+            SetNormal();
         }
     }
 
@@ -562,86 +587,151 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     {
         // 矢の初期設定完了のフラグをリセット
         _endSetting = false;
+        _isSet = false;
     }
 
     public void Normal(Transform t)
     {
-        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void Bomb(Transform t)
     {
-        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void Thunder(Transform t)
     {
-        NormalMove(t, _arrowSpeed, THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, THUNDER);
     }
 
     public void KnockBack(Transform t)
     {
-        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void Penetrate(Transform t)
     {
-        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void Homing(Transform t)
     {
-        HomingMove(t, _arrowSpeed);
+        if (!_isSet)
+        {
+            SetHoming();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void BombThunder(Transform t)
     {
-        NormalMove(t, _arrowSpeed, THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, THUNDER);
     }
 
     public void BombKnockBack(Transform t)
     {
-        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void BombPenetrate(Transform t)
     {
-        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void BombHoming(Transform t)
     {
-        HomingMove(t, _arrowSpeed);
+        if (!_isSet)
+        {
+            SetHoming();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void ThunderKnockBack(Transform t)
     {
-        NormalMove(t, _arrowSpeed, THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, THUNDER);
     }
 
     public void ThunderPenetrate(Transform t)
     {
-        NormalMove(t, _arrowSpeed, THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, THUNDER);
     }
 
     public void ThunderHoming(Transform t)
     {
-        HomingMove(t, _arrowSpeed);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, THUNDER);
     }
 
     public void KnockBackPenetrate(Transform t)
     {
-        NormalMove(t, _arrowSpeed, NOT_THUNDER);
+        if (!_isSet)
+        {
+            SetNormal();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void KnockBackHoming(Transform t)
     {
-        HomingMove(t, _arrowSpeed);
+        if (!_isSet)
+        {
+            SetHoming();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     public void PenetrateHoming(Transform t)
     {
-        HomingMove(t, _arrowSpeed);
+        if (!_isSet)
+        {
+            SetHoming();
+        }
+        movement(t, NOT_THUNDER);
     }
 
     #endregion
