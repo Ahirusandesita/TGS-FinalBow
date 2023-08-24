@@ -211,9 +211,6 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
     }
 
 
-
-
-
     /// <summary>
     /// エフェクト生成
     /// </summary>
@@ -232,7 +229,7 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
             effect.transform.localScale.y,
             effect.transform.localScale.z);
         effect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3;
-        while (sizeAdjustmentToVector3.plusCount >= 0)
+        while (sizeAdjustmentToVector3.plusCount > 0)
         {
             effect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
             sizeAdjustmentToVector3.plusCount--;
@@ -251,7 +248,7 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
     {
         yield return _waitSeconds;
 
-        effectObject.transform.localPosition = sizeAdjustmentToVector3.GetFirstSizeToVector3;
+        effectObject.transform.localScale = sizeAdjustmentToVector3.GetFirstSizeToVector3;
         _objectPoolSystem.ReturnObject(effectPoolState, effectObject);
     }
 

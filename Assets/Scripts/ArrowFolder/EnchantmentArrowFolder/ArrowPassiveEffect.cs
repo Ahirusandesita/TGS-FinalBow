@@ -58,7 +58,7 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
             _workEffect = _objectPoosSystem.CallObject(checkArrowState, spawnPosition.position, spawnPosition.rotation);
             _workEffect.transform.parent = spawnPosition.transform;
             _workEffect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3;
-            while (sizeAdjustmentToVector3.plusCount >= 0)
+            while (sizeAdjustmentToVector3.plusCount > 0)
             {
 
                 _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
