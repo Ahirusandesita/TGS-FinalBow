@@ -57,6 +57,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     //public static bool AddTag = false;
     public RapidData _rapidData;
+    [SerializeField]
+    private int maxAttractCount = default;
 
     private int attractCount = 0;
 
@@ -68,6 +70,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     private GameObject _arrowEnchantObject;
 
     private IChargeMeterManager _chargeMeterManager;
+    private GameObject chargeMater;
 
     private EnchantmentEnum.EnchantmentState _rapidSubEnchantment = default;
 
@@ -182,18 +185,22 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     }
     public void ArrowEnchantPlusDamage()
     {
+
+        if (attractCount >= maxAttractCount)
+        {
+            attractCount = maxAttractCount;
+            return;
+        }
+
         arrowEnchant2.ArrowEnchantPlusDamage();
         _arrow.GetPassiveEffect().SetAttackDamage();
 
         //チャージ画像
-        try
+        if (_chargeMeterManager != null)
         {
             _chargeMeterManager.Charging();
         }
-        catch (System.NullReferenceException)
-        {
-            //Debug.LogError("UInai");
-        }
+
         _arrow.ArrowPowerColor();
 
         attractCount++;
@@ -232,7 +239,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         {
             arrowEnchant2.EnchantSetting((_rapidSubEnchantment));
         }
-            //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
+        //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         arrowEnchant2.EnchantMixSetting((EnchantmentEnum.EnchantmentState.normal));
 
         arrowEnchant2.EventSetting(_arrow);
@@ -240,27 +247,20 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
         _arrow.ArrowMoveStart();
         //arrowEnchant.EnchantmentStateReset();
-        try
-        {
-            arrowEnchant2.EnchantmentReset();
-        }
-        catch
-        {
-            Debug.LogError("ResetDekinai");
-        }
+
+        arrowEnchant2.EnchantmentReset();
 
 
-        try
+
+
+        //arrowEnchant.EnchantUIReset();
+        attractCount = 0;
+        //チャージ画像リセット
+        if (_chargeMeterManager != null)
         {
-            //arrowEnchant.EnchantUIReset();
-            attractCount = 0;
-            //チャージ画像リセット
             _chargeMeterManager.ChargeReset();
         }
-        catch (System.NullReferenceException)
-        {
-            //Debug.LogError("UInai");
-        }
+
 
         _arrow = default;
     }
@@ -268,25 +268,16 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     {
         //arrowEnchant.EnchantmentStateReset();
 
-        try
-        {
-            arrowEnchant2.EnchantmentReset();
-        }
-        catch
-        {
-            Debug.LogError("ResetDekinai");
-        }
+
+        arrowEnchant2.EnchantmentReset();
 
 
-        try
+
+        if (_chargeMeterManager != null)
         {
             //arrowEnchant.EnchantUIReset();
             //チャージ画像リセット
             _chargeMeterManager.ChargeReset();
-        }
-        catch (System.NullReferenceException)
-        {
-            Debug.LogError("UInai");
         }
         _arrow.ReturnQue();
     }
