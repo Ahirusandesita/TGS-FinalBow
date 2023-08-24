@@ -54,9 +54,8 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
 
     [Tooltip("貫通ダメージ")]
     [SerializeField] int _penetrateDamage = 20;
-
-    [Tooltip("追加ダメージ上限")]
-    [SerializeField] int _limitAddDamage = 10;
+ 
+    int _limitAddDamage = 10;
 
     [Tooltip("１個目の追加ダメージ")]
     [SerializeField] int _firstAddDamage = 10;
@@ -66,6 +65,8 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
 
     [Tooltip("ヘッドショットダメージ倍率")]
     [SerializeField] float _headShotDamageMultiplier = 1.5f;
+
+    [SerializeField] MaxInhallObjectSetting maxInhallData = default;
 
     #endregion
 
@@ -103,18 +104,14 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     {
         headShot = GetComponent<HeadShotEffects>();
 
-        int secondLimit = _limitAddDamage - _firstAddDamage;
-        maxEnchantPower = secondLimit / _AddDamage;
-        if (secondLimit % _AddDamage > 0)
-        {
-            maxEnchantPower++;
-        }
-
+        maxEnchantPower = maxInhallData.GetMaxInhall;
         addPercentBombMiddleArea =
             (_bombMiddleAreaMaxSize - _bombMiddleAreaSize) / maxEnchantPower;
 
         addPercentBombSideArea =
             (_bombSideAreaMaxSize - _bombSideAreaSize) / maxEnchantPower;
+
+        _limitAddDamage = _firstAddDamage + _AddDamage * (maxEnchantPower - 1);
     }
 
     public void ArrowEnchantment_Normal(GameObject hitObj, EnchantmentEnum.EnchantmentState state)

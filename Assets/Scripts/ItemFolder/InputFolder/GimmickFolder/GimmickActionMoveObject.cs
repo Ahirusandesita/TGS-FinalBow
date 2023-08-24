@@ -14,6 +14,8 @@ public interface IFGimmickCaller
     void GimmickAction();
 
     bool IsFinish { get; }
+
+    bool Moving { get; }
 }
 
 public interface IFGimmickCallerUsePower : IFGimmickCaller
@@ -27,7 +29,9 @@ public class GimmickActionMoveObject : MonoBehaviour, IFGimmickCallerUsePower
     [SerializeField] Transform goalTransform = default;
     [SerializeField] float moveSpeed = 5f;
     public bool IsFinish => isFinish;
+    public bool Moving => moving;
     bool isFinish = false;
+    bool moving = false;
     Vector3 moveVec = default;
     Vector3 startPosition = default;
     Vector3 goalPosition = default;
@@ -68,6 +72,7 @@ public class GimmickActionMoveObject : MonoBehaviour, IFGimmickCallerUsePower
     }
     private void CheckEnd()
     {
+        moving = true;
         if (movedDistance > distance)
         {
             transform.position = goalPosition;
