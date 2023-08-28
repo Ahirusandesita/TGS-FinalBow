@@ -244,8 +244,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isStart: 0
-  _UseTemporary: 1
+  _UseTemporary: 0
   _endSetting: 0
+  itemVibration: {fileID: 0}
   _destroyDistance: 1
 --- !u!114 &-1220916766170190517
 MonoBehaviour:
@@ -260,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemState: 0
+  DropItem: 0
 --- !u!114 &-5828215548413553380
 MonoBehaviour:
   m_ObjectHideFlags: 0
