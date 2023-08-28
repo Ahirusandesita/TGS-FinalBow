@@ -16,23 +16,37 @@ public interface IReaction<T1, T2>
 
     bool ReactionEnd { get; set; }
 }
+public interface IReactionEnd
+{
+    void End();
+}
 
 
 
-public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>
+public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>,IReactionEnd
 {
 
     public bool ReactionEnd { get; set; }
+    [SerializeField]
+    private Animator animator;
 
     public void Start()
     {
         this.GetComponent<Reaction>().ReactionFactory(this);
+        animator = this.GetComponent<Animator>();
     }
 
 
     public void Reaction(Transform transform, Vector3 hitPosition)
     {
-        //ノックバック処理
+        ReactionEnd = false;
+        animator.SetTrigger("HitKnockBack"); 
+       //ノックバック処理
     }
+
+    public void End() => ReactionEnd = true;
+
+
+
 
 }
