@@ -6,6 +6,11 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+/// <summary>
+/// 使い方
+/// door(動かしたいトランスフォーム)を設定
+/// てかこれいる？
+/// </summary>
 public class DoorButton : MonoBehaviour, IFCanTakeArrowButton
 {
     #region variable 
@@ -44,5 +49,10 @@ public class DoorButton : MonoBehaviour, IFCanTakeArrowButton
                 canMove = false;
             }
         }
+    }
+
+    GameObject IFCanTakeArrowButton.GetThisObject()
+    {
+        return gameObject;
     }
 }

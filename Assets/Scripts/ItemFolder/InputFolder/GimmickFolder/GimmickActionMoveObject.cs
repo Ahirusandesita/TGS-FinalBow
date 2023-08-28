@@ -18,10 +18,16 @@ public interface IFGimmickCaller
     bool Moving { get; }
 }
 
+/// <summary>
+/// パワーが伝わる
+/// </summary>
 public interface IFGimmickCallerUsePower : IFGimmickCaller
 {
     void GimmickAction(float power);
 }
+/// <summary>
+/// スイッチとかからオブジェクトを動かすクラス
+/// </summary>
 public class GimmickActionMoveObject : MonoBehaviour, IFGimmickCallerUsePower
 {
     [SerializeField] Transform moveTransform = default;
@@ -66,7 +72,7 @@ public class GimmickActionMoveObject : MonoBehaviour, IFGimmickCallerUsePower
     void Move(float power)
     {
         moveTransform.Translate(calcMove * power);
-        movedDistance += calcMoveDistance;
+        movedDistance += calcMoveDistance * power;
 
         CheckEnd();
     }

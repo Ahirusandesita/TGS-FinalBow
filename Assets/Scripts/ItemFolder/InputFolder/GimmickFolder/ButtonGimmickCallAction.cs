@@ -8,6 +8,13 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// 使い方
+/// とりあえずボタンにアタッチする
+/// IFGimmickCallerの継承して実装しクラスをアタッチしたギミックを登録する
+/// ボタンをおす
+/// Action!!!!!
+/// </summary>
 public class ButtonGimmickCallAction : MonoBehaviour, IFCanTakeArrowButton
 {
     [SerializeField] List<GameObject> gimmicks = new List<GameObject>();
@@ -29,6 +36,7 @@ public class ButtonGimmickCallAction : MonoBehaviour, IFCanTakeArrowButton
         StartCoroutine(Action());
     }
 
+    
     IEnumerator Action()
     {
         canStartCoroutine = false;
@@ -51,6 +59,7 @@ public class ButtonGimmickCallAction : MonoBehaviour, IFCanTakeArrowButton
     }
     void Init()
     {
+        
         SelectArray listIn = new SelectArray();
         if(gimmicks.Count == 0)
         {
@@ -62,5 +71,10 @@ public class ButtonGimmickCallAction : MonoBehaviour, IFCanTakeArrowButton
         gimmicks.AddRange(listIn.GetSelectedArrayReturnGameObjects<IFGimmickCaller>(objs));
 
         
+    }
+
+    GameObject IFCanTakeArrowButton.GetThisObject()
+    {
+        return gameObject;
     }
 }

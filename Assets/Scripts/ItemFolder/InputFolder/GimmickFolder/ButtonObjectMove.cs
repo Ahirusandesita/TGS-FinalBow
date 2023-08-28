@@ -6,10 +6,20 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+/// <summary>
+/// 使い方
+/// トランスフォームを登録する
+/// ボタンをおす
+/// 終わり
+/// 拡張性皆無
+/// </summary>
 public class ButtonObjectMove : MonoBehaviour, IFCanTakeArrowButton
 {
+    [Tooltip("動き始める位置")]
     [SerializeField] Transform startTransform = default;
+    [Tooltip("終了位置")]
     [SerializeField] Transform goalTransform = default;
+    [Tooltip("動くトランスフォーム")]
     [SerializeField] Transform moveTransform = default;
     [SerializeField] float moveSpeed = 5f;
     bool moving = false;
@@ -33,6 +43,11 @@ public class ButtonObjectMove : MonoBehaviour, IFCanTakeArrowButton
             StartCoroutine(Move());
 
         }
+    }
+
+    GameObject IFCanTakeArrowButton.GetThisObject()
+    {
+        return gameObject;
     }
 
     IEnumerator Move()

@@ -6,15 +6,26 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+/// <summary>
+/// 使い方
+/// これはプロペラからActionを実行させるためのクラス
+/// Actionを実行させたいオブジェクトにこれアタッチ
+/// プロペラにこのオブジェクトを登録する
+/// インターフェースを実装したクラスをアタッチした
+/// オブジェクトを一つこのオブジェクトにアタッチする
+/// 回すと動くーーー
+/// </summary>
 public class ProperaGimmickCallActionObject : MonoBehaviour, IFProperaLinkObject
 {
     ProperaGimmick propera = default;
 
     bool needPower = true;
 
-    [SerializeField]IFGimmickCallerUsePower actionClassUsePower = default;
+    [SerializeField] GameObject actionGimmick = default;
 
-    [SerializeField]IFGimmickCaller actionClass = default;
+    IFGimmickCallerUsePower actionClassUsePower = default;
+
+    IFGimmickCaller actionClass = default;
 
     [SerializeField] bool usePower = false;
 
@@ -29,6 +40,10 @@ public class ProperaGimmickCallActionObject : MonoBehaviour, IFProperaLinkObject
             actionClass = actionClassUsePower;
         }
     }
+    private void OnValidate()
+    {
+        Init();
+    }
     public void UsePowerAction(float power)
     {
         if (usePower)
@@ -38,8 +53,21 @@ public class ProperaGimmickCallActionObject : MonoBehaviour, IFProperaLinkObject
         }
         else
         {
+            
             actionClass.GimmickAction();
             needPower = !actionClass.IsFinish;
+        }
+    }
+
+    void Init()
+    {
+        if (needPower)
+        {
+            actionGimmick.TryGetComponent<IFGimmickCallerUsePower>(out actionClassUsePower);
+        }
+        else
+        {
+            actionGimmick.TryGetComponent<IFGimmickCaller>(out actionClass);
         }
     }
 }

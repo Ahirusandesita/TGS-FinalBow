@@ -26,7 +26,7 @@ public interface IFProperaLinkObject
     void UsePowerAction(float power);
 
 }
-
+[RequireComponent(typeof(ItemStatus))]
 public class ProperaGimmick : ObjectParent
 {
     [SerializeField] float _maxRotateSpeed = 1000f;
@@ -34,7 +34,7 @@ public class ProperaGimmick : ObjectParent
     [SerializeField] float _addRotateSpeed = 600f;
     [SerializeField] RotateDirection direction = RotateDirection.Right;
     [SerializeField] List<GameObject> setLinkObject = default;
-
+    [SerializeField] bool useScriptable = false;
 
     public GimmickData _gimmickData;
 
@@ -58,10 +58,10 @@ public class ProperaGimmick : ObjectParent
         Initialize();
     }
 
-    //private void OnValidate()
-    //{
-    //    Initialize();
-    //}
+    private void OnValidate()
+    {
+        Initialize();
+    }
 
     private void Update()
     {
@@ -75,7 +75,6 @@ public class ProperaGimmick : ObjectParent
     /// </summary>
     public override void ObjectAction()
     {
-
         if (_canRotate)
         {
             AddPower();
@@ -145,49 +144,66 @@ public class ProperaGimmick : ObjectParent
         // リスト初期化 
         void SetLinkObjectsList()
         {
-            linkObjects = new List<IFProperaLinkObject>();
-
-            List<GameObject> removeObj = new List<GameObject>();
-
-
-
-            //処理追加予定１　スクリプタブルのゲームオブジェクトをインスタンス　いつかプールを使用する
-
-            if (_gimmickData.gimmickLinkObjectDataBases.Count > 0)
+            if (useScriptable)
             {
-                //foreach (GameObject obj in setLinkObject)
-                //{
-                //    if (obj.TryGetComponent<IFProperaLinkObject>(out IFProperaLinkObject canAddListObject))
-                //    {
-                //        linkObjects.Add(canAddListObject);
-                //    }
-                //    else
-                //    {
-                //        removeObj.Add(obj);
-                //    }
-                //}
+                linkObjects = new List<IFProperaLinkObject>();
 
-                for (int i = 0; i < _gimmickData.gimmickLinkObjectDataBases.Count; i++)
+                List<GameObject> removeObj = new List<GameObject>();
+
+
+
+                //処理追加予定１　スクリプタブルのゲームオブジェクトをインスタンス　いつかプールを使用する
+
+                if (_gimmickData.gimmickLinkObjectDataBases.Count > 0)
                 {
-                    GameObject gimmickObject = Instantiate(
-                        _gimmickData.gimmickLinkObjectDataBases[i].gimmickLinkObject,
-                        _gimmickData.gimmickLinkObjectDataBases[i].spawnPosition,Quaternion.Euler(_gimmickData.gimmickLinkObjectDataBases[i].gimmickObjectRotation)
-                        );
+                    //foreach (GameObject obj in setLinkObject)
+                    //{
+                    //    if (obj.TryGetComponent<IFProperaLinkObject>(out IFProperaLinkObject canAddListObject))
+                    //    {
+                    //        linkObjects.Add(canAddListObject);
+                    //    }
+                    //    else
+                    //    {
+                    //        removeObj.Add(obj);
+                    //    }
+                    //}
 
-                    if (gimmickObject.TryGetComponent<IFProperaLinkObject>(out IFProperaLinkObject canAddListObject))
+                    for (int i = 0; i < _gimmickData.gimmickLinkObjectDataBases.Count; i++)
                     {
-                        linkObjects.Add(canAddListObject);
+                        GameObject gimmickObject = Instantiate(
+                            _gimmickData.gimmickLinkObjectDataBases[i].gimmickLinkObject,
+                            _gimmickData.gimmickLinkObjectDataBases[i].spawnPosition, Quaternion.Euler(_gimmickData.gimmickLinkObjectDataBases[i].gimmickObjectRotation)
+                            );
+
+                        if (gimmickObject.TryGetComponent<IFProperaLinkObject>(out IFProperaLinkObject canAddListObject))
+                        {
+                            linkObjects.Add(canAddListObject);
+                        }
+                        else
+                        {
+                            removeObj.Add(gimmickObject);
+                        }
                     }
-                    else
+
+                    foreach (GameObject obj in removeObj)
                     {
-                        removeObj.Add(gimmickObject);
+                        setLinkObject.Remove(obj);
                     }
                 }
 
-                foreach (GameObject obj in removeObj)
-                {
-                    setLinkObject.Remove(obj);
-                }
+
+            }
+            else
+            {
+                SelectArray select = new SelectArray();
+                GameObject[] objs = select.GetSelectedArrayReturnGameObjects
+                    <IFProperaLinkObject>(setLinkObject.ToArray());
+                IFProperaLinkObject[] IFs = select.GetSelectedArray<IFProperaLinkObject>
+                    (setLinkObject.ToArray());
+                setLinkObject = new List<GameObject>();
+                setLinkObject.AddRange(objs);
+                linkObjects = new List<IFProperaLinkObject>();
+                linkObjects.AddRange(IFs);
 
             }
         }
