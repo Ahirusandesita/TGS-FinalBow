@@ -35,10 +35,14 @@ public class TargeterMove : MonoBehaviour
 
 
 
-    private void Start()
+    private void Awake()
     {
         _object = this.gameObject;
-        _player = GameObject.FindWithTag("BowController");
+
+        //--------------Ç†Ç∆Ç≈èCê≥Ç∑ÇÈ------------------------//
+        _player = GameObject.Find("Player");
+        //----------------------------------------------------//
+
         _itemMove = this.GetComponent<ItemMove>();
     }
 
