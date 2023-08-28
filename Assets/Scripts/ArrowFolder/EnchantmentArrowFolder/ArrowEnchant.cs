@@ -95,7 +95,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     private void Start()
     {
         headShot = GetComponent<HeadShotEffects>();
-        size.firstSize = BOMB_FIRST_SIZE / 2f;
+        size.firstSize = BOMB_FIRST_SIZE;
         maxEnchantPower = maxInhallData.GetMaxInhall;
         
 
@@ -342,7 +342,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     /// <param name="hitObj"></param>
     private void BombHitDamage(GameObject hitObj, Enchant enchant)
     {
-        //TestBombArea(hitObj);
+        TestBombArea(hitObj);
 
         // ”š•—”ÍˆÍ“à‚Ì“G‚ðƒXƒLƒƒƒ“
         float sideRadius = size.GetFirstSize + size.GetMinimumSize * size.GetMinimumSize;
@@ -452,7 +452,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     private void TestBombArea(GameObject hi)
     {
         GameObject obj = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), hi.transform.position, Quaternion.identity);
-        //obj.transform.localScale = Vector3.one * _bombSideAreaSizePercent * 2;
+        obj.transform.localScale = Vector3.one * (size.GetFirstSize + size.GetMinimumSize * size.plusCount);
     }
 
     public void Normal(GameObject t1, EnchantmentEnum.EnchantmentState t2)

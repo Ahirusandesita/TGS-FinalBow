@@ -5,13 +5,25 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
+
 /// <summary>
 /// ÉåÉCÉÑÅ[10,Ç´Ç¶ÇÈ
 /// </summary>
 interface IFCanTakeArrowButton
 {
-    
+    protected void Awake()
+    {
+        ChangeLayer();
+    }
+    protected void ChangeLayer()
+    {
+        GetThisObject().layer = 1 << 10;
+    }
+    /// <summary>
+    /// return gameObject;
+    /// </summary>
+    /// <returns></returns>
+    protected GameObject GetThisObject();
     void ButtonPush();
 }
 /// <summary>
@@ -35,5 +47,10 @@ public class TakeArrowBotton : MonoBehaviour, IFCanTakeArrowButton
     {
         transform.Translate(Vector3.one);
         X_Debug.Log("");
+    }
+
+    GameObject IFCanTakeArrowButton.GetThisObject()
+    {
+        return gameObject;
     }
 }

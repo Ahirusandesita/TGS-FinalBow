@@ -157,5 +157,10 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
         Gizmos.color = new Color(0, 1, 0, 1);
         Gizmos.DrawFrustum(transform.position, 60f, 1000f, 0f, 1.6f);
     }
+
+    GameObject IFCanTakeArrowButton.GetThisObject()
+    {
+        return gameObject;
+    }
     #endregion
 }

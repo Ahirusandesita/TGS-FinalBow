@@ -90,6 +90,11 @@ public class HurikoMove : MonoBehaviour, IFCanTakeArrowButton
 
     }
 
+    GameObject IFCanTakeArrowButton.GetThisObject()
+    {
+        return gameObject;
+    }
+
 
     #endregion
 }

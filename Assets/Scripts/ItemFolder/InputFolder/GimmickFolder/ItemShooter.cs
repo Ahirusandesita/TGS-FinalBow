@@ -65,29 +65,40 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
         return createdObjs;
     }
 
-
-    IEnumerator RepeatShot()
+    /// <summary>
+    /// うつやつ
+    /// </summary>
+    /// <param name="oneAction">一回切りのアクションかどうか</param>
+    /// <returns></returns>
+    IEnumerator RepeatShot(bool oneAction)
     {
         isWorking = true;
         while (isWorking)
         {
             physics.ItemMoveStart(Create());
             yield return rapidSpeed;
-
+            if (oneAction)
+            {
+                isWorking = false;
+            }
         }
     }
 
+    /// <summary>
+    /// 単発で呼ぶ用
+    /// </summary>
     public void GimmickAction()
     {
         if(!isWorking)
-        StartCoroutine(RepeatShot());
+        StartCoroutine(RepeatShot(false));
     }
 
-    public void GimmickAction(float power)
+    /// <summary>
+    /// 連続で呼び出す用
+    /// </summary>
+    public void GimmickAction(float _)
     {
         if (!isWorking)
-        StartCoroutine(RepeatShot());
-
-
+        StartCoroutine(RepeatShot(true));
     }
 }
