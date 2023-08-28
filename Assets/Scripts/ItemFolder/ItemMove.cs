@@ -92,10 +92,13 @@ public class ItemMove : MonoBehaviour
     #region クラスの代入用変数
 
     // ObjectPoolSystemの代入用変数
-    private ObjectPoolSystem _PoolManager = default;
+    private ObjectPoolSystem _poolManager = default;
 
     // CashObjectInformationの代入用変数
-    private CashObjectInformation _Cash = default;
+    private CashObjectInformation _playerCash = default;
+
+    // CashObjectInformationの代入用変数
+    private CashObjectInformation _targeterCash = default;
 
     // TargeterMoveの代入用変数
     private TargeterMove targeterMove = default;
@@ -132,10 +135,10 @@ public class ItemMove : MonoBehaviour
         _playerTransform = GameObject.FindGameObjectWithTag("PlayerController").transform;
 
         // PoolManagerの代入
-        _PoolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
+        _poolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
 
-        // CashObjectInformationの代入
-        _Cash = this.GetComponent<CashObjectInformation>();
+        // PlayerのCashObjectInformationの代入
+        _playerCash = this.gameObject.GetComponent<CashObjectInformation>();
 
         // PlayerManagerの代入
         _playerManager = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerManager>();
@@ -176,6 +179,8 @@ public class ItemMove : MonoBehaviour
                 //臨時
                 ItemAttractTemporary();
             }
+
+            /*
             if (itemVibration is null) return;
             itemVibration.canVibration = true;
             float distance = Vector3.Distance(_playerTransform.position, this.transform.position);
@@ -185,7 +190,7 @@ public class ItemMove : MonoBehaviour
                 distance = 0f;
             }
             itemVibration.vibrateSpeed = distance;
-
+            */
 
         }
 
@@ -199,11 +204,13 @@ public class ItemMove : MonoBehaviour
     /// <param name="attractPower">引き寄せる力の大きさ</param>
     public void StartSetting()
     {
-        _targeterObject = _PoolManager.CallObject(PoolEnum.PoolObjectType.targeter, this.gameObject.transform.position).gameObject;
+        _targeterObject = _poolManager.CallObject(PoolEnum.PoolObjectType.targeter, this.gameObject.transform.position).gameObject;
 
         _targeterTransform = _targeterObject.transform;
 
         _targeterObject.GetComponent<TargeterMove>().StartSetting();
+
+        _targeterCash = _targeterObject.GetComponent<CashObjectInformation>();
 
         _startDistance = Vector3.Distance(_playerTransform.position, _itemTransform.position);
 
@@ -247,7 +254,8 @@ public class ItemMove : MonoBehaviour
     public void ReSetAll()
     {
         this.transform.localScale = startsize;
-        _PoolManager.ReturnObject(_Cash);
+        _poolManager.ReturnObject(_playerCash);
+        _poolManager.ReturnObject(_targeterCash);
     }
 
     /// <summary>
@@ -378,7 +386,7 @@ public class ItemMove : MonoBehaviour
         {
 
             this.transform.localScale = startsize;
-            _PoolManager.ReturnObject(_Cash);
+            _poolManager.ReturnObject(_playerCash);
         }
     }
     #endregion
