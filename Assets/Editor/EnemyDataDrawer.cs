@@ -8,12 +8,10 @@
 using System;
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
 
 [CustomPropertyDrawer(typeof(BirdGoalInformation))]
 public class EnemyDataDrawer : PropertyDrawer
 {
-    private float _height = default;
     private GUIStyle _bold = new();
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -268,11 +266,6 @@ public class EnemyDataDrawer : PropertyDrawer
                     attackIntervalProperty2 = property.FindPropertyRelative("_attackInterval_s_b");
                     attackIntervalProperty2.floatValue = EditorGUI.FloatField(attackIntervalRect2, "çUåÇä‘äu", attackIntervalProperty2.floatValue);
 
-                    attackTimingsRect10 = new(attackIntervalRect2)
-                    {
-                        y = attackIntervalRect2.y
-                    };
-
                     break;
 
                 case BirdAttackType.specifySeconds:
@@ -352,30 +345,81 @@ public class EnemyDataDrawer : PropertyDrawer
                     attackIntervalProperty2 = property.FindPropertyRelative("_attackInterval_s_b");
                     attackIntervalProperty2.floatValue = EditorGUI.FloatField(attackIntervalRect2, "çUåÇä‘äu", attackIntervalProperty2.floatValue);
 
-                    attackTimingsRect10 = new(attackIntervalRect2)
-                    {
-                        y = attackIntervalRect2.y
-                    };
-
                     break;
 
                 default:
 
-                    attackTimingsRect10 = new(attackTypeRect2)
-                    {
-                        y = attackTypeRect2.y
-                    };
-
                     break;
             }
-
-            // ç≈å„Ç…ÉäÉXÉgÇÃçÇÇ≥ÇçXêV
-            _height = attackTimingsRect10.y - position.y + EditorGUIUtility.singleLineHeight + 1.5f;
         }
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return _height;
+        float height = 0f;
+        var moveTypeProperty = property.FindPropertyRelative("_moveType");
+
+        switch ((MoveType)moveTypeProperty.enumValueIndex)
+        {
+            case MoveType.linear:
+                break;
+
+            case MoveType.curve:
+
+                height += 40f;
+                break;
+        }
+
+        var attackTypeProperty_a = property.FindPropertyRelative("_birdAttackType_a");
+
+        switch ((BirdAttackType)attackTypeProperty_a.enumValueIndex)
+        {
+            case BirdAttackType.equalIntervals:
+
+                height += 150f;
+                break;
+
+            case BirdAttackType.specifySeconds:
+
+                height += 255f;
+                break;
+
+            case BirdAttackType.consecutive:
+
+                height += 190f;
+                break;
+
+            default:
+
+                height += 130f;
+                break;
+        }
+
+        var attackTypeProperty_b = property.FindPropertyRelative("_birdAttackType_b");
+
+        switch ((BirdAttackType)attackTypeProperty_b.enumValueIndex)
+        {
+            case BirdAttackType.equalIntervals:
+
+                height += 70f;
+                break;
+
+            case BirdAttackType.specifySeconds:
+
+                height += 175f;
+                break;
+
+            case BirdAttackType.consecutive:
+
+                height += 110f;
+                break;
+
+            default:
+
+                height += 50f;
+                break;
+        }
+
+        return height + 3f;
     }
 }
