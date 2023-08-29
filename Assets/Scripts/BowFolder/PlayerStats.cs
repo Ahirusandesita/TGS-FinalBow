@@ -9,18 +9,24 @@ using System.Collections;
 public class PlayerStats : MonoBehaviour
 {
     private bool isInvincible = false;
-    private int _player_HP = 10;
+
+
+    public IReActiveProperty<int> readOnlyPlayerHp => playerHp;
+    private ReActiveProperty<int> playerHp = new ReActiveProperty<int>();
+
+
     private ICanvasManager _canvasManager;
     private IFScoreManager_Hp _scoreManager;
     private void Start()
     {
+        playerHp.Value = 10;
         _canvasManager = GameObject.FindGameObjectWithTag("CanvasController").GetComponent<CanvasManager>();
         if (GameObject.FindGameObjectsWithTag("ScoreController").Length == 0)
         {
             enabled = false;
         }
         _scoreManager = GameObject.FindWithTag("ScoreController").GetComponent<ScoreManager>();
-        _scoreManager.BonusScore_HpValueSetting(_player_HP);
+        //_scoreManager.BonusScore_HpValueSetting(playerHp.Value);
     }
 
     /// <summary>
@@ -31,10 +37,10 @@ public class PlayerStats : MonoBehaviour
     {
         if (!isInvincible)
         {
-            _player_HP -= damage;
+            playerHp.Value -= damage;
             _canvasManager.StagingDamage();
             StartCoroutine(Invincible());
-            _scoreManager.BonusScore_HpScore();
+            //_scoreManager.BonusScore_HpScore();
         }
 
     }
@@ -45,7 +51,7 @@ public class PlayerStats : MonoBehaviour
     /// <param name="heal">‰ñ•œ—Ê</param>
     public void PlayerHealing(int heal)
     {
-        _player_HP += heal;
+        playerHp.Value += heal;
         _canvasManager.StagingRecovery();
     }
 
@@ -58,14 +64,7 @@ public class PlayerStats : MonoBehaviour
         //Ž€‚Êˆ—“ü‚ê‚é—\’è‚¾‚æ
     }
 
-    public int Player_HP
-    {
-        get
-        {
-            return _player_HP;
-        }
-
-    }
+    public int Player_HP => playerHp.Value;
 
     private IEnumerator Invincible()
     {
