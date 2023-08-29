@@ -13,17 +13,55 @@ MonoBehaviour:
   m_Name: ZakoWave4_4
   m_EditorClassIdentifier: 
   _birdType: 1
-  _moveType: 0
-  _arcHeight: 10
-  _arcMoveDirection: 0
   _bullet: 1
-  _attackInterval_s: 2
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 8522215115180050153, guid: 5e669ff268523dd43a59ede30c1c4aaa, type: 3}
   _birdGoalPlaces:
-  - _birdGoalPlace: {fileID: 4484611731546120894, guid: 06a2fd6da4beb9144bbd0650b524695f, type: 3}
+  - _moveType: 0
+    _arcHeight: 0
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 4484611731546120894, guid: 06a2fd6da4beb9144bbd0650b524695f, type: 3}
     _speed: 20
     _stayTime_s: 5
-  - _birdGoalPlace: {fileID: 907667879072106027, guid: 805524d4ebc2f5b43bb51d8a51e4b3a1, type: 3}
+    _birdAttackType_a: 0
+    _birdAttackType_b: 0
+    _attackInterval_s_a: 1
+    _attackInterval_s_b: 1
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+  - _moveType: 0
+    _arcHeight: 0
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 907667879072106027, guid: 805524d4ebc2f5b43bb51d8a51e4b3a1, type: 3}
     _speed: 20
     _stayTime_s: 0
+    _birdAttackType_a: 0
+    _birdAttackType_b: 0
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
