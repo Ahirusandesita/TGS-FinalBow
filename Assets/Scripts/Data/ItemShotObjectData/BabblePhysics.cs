@@ -12,7 +12,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
     List<MoveItem> items = new List<MoveItem>();
     List<MoveItem> deleteObjs = new List<MoveItem>();
     /// <summary>
-    /// オブジェクトが上がるスピード
+    /// オブジェクトが進むスピード
     /// </summary>
     [SerializeField] float upSpeed = 0.5f;
     /// <summary>
@@ -86,7 +86,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
             obj.moveVector *= -1f;
         }
         
-        obj.shot.transform.Translate((obj.moveVector * sideSpeed + Vector3.up * upSpeed) * Time.deltaTime);
+        obj.shot.transform.Translate((obj.moveVector * sideSpeed + transform.forward * upSpeed) * Time.deltaTime);
         return obj;
     }
 }
