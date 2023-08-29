@@ -556,7 +556,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
         // 攻撃が終了
         if (_currentTime2 >= _reAttackTimes[_repeatCount])
         {
-            StopCoroutine(_activeCoroutine_stopping);
+            if (_activeCoroutine_stopping != null)
+                StopCoroutine(_activeCoroutine_stopping);
 
             // 設定されたゴールの数が1のとき、次の行動が最後
             if (_goalPositions.Count == 1)
@@ -578,10 +579,10 @@ public abstract class BirdMoveBase : EnemyMoveBase
             InitializeForRe_Movement();
 
             // すべてのゴールが設定されたら、次の行動が最後
-            if (_repeatCount + 1 >= _goalPositions.Count)
-            {
-                _isLastMove = true;
-            }
+            //if (_repeatCount + 1 >= _goalPositions.Count)
+            //{
+            //    _isLastMove = true;
+            //}
 
             _currentTime2 = 0f;
         }
@@ -611,8 +612,16 @@ public abstract class BirdMoveBase : EnemyMoveBase
     /// </summary>
     protected virtual void InitializeForRe_Movement()
     {
-        _isFinishMovement = false;
         _repeatCount++;
+
+        // 行動回数が 設定されたゴールの数を上回ったら、ループする
+        if (_repeatCount >= _goalPositions.Count)
+        {
+            // ループ先のIndexを設定
+            _repeatCount = 0;
+        }
+
+        _isFinishMovement = false;
         _isAttackCompleted_stopping = false;
 
         // スタート位置とゴール位置の再設定
