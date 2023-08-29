@@ -76,4 +76,7 @@ public class BirdGoalInformation
     [Tooltip("連続攻撃クールタイム（秒）")]
     public float _cooldownTime_s_a;
     public float _cooldownTime_s_b;
+
+    [Tooltip("ループ先のゴール番号")]
+    public int _goalIndexOfRoop;
 }
