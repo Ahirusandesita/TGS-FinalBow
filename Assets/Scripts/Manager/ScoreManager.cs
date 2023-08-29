@@ -178,6 +178,13 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     #endregion
     #region method
 
+    private void Awake()
+    {
+        PlayerStats playerStats = GameObject.FindObjectOfType<PlayerStats>();
+        playerStats.readOnlyPlayerHp.Subject.FirstSubscribe(hp => { BonusScore_HpValueSetting(hp); });
+        playerStats.readOnlyPlayerHp.Subject.Subscribe(_=> { BonusScore_HpScore(); });
+    }
+
     private void Start()
     {
         ScorePoint.scoreTimeBonus = 4000;
@@ -214,7 +221,10 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
 
     }
-
+    void Update()
+    {
+        Debug.Log(BonusScore_HpGetScore());
+    }
     /// <summary>
     /// 雑魚敵を倒すごとに呼ぶメソッド　加点する　デフォルトのスコア
     /// </summary>

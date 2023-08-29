@@ -196,10 +196,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         _arrow.GetPassiveEffect().SetAttackDamage();
 
         //ƒ`ƒƒ[ƒW‰æ‘œ
-        if (_chargeMeterManager != null)
-        {
-            _chargeMeterManager.Charging();
-        }
+        if (_chargeMeterManager != null) _chargeMeterManager.Charging();
 
         _arrow.ArrowPowerColor();
 
