@@ -86,7 +86,7 @@ public class ItemMove : MonoBehaviour
     private const float SPEED_UP_COEFFICIENT = 1f;
 
     // 到達判定距離　プレイヤーとの距離で判定
-    private const float CHECK_ALLIVE_DISTANCE = 10f;
+    private const float CHECK_ALLIVE_DISTANCE = 5f;
     #endregion
 
     #region クラスの代入用変数
