@@ -23,12 +23,14 @@ public class Subject<T> : ISubject<T>
     private List<IObserver> observers = new List<IObserver>();
     private List<Action<T>> actionObservers = new List<Action<T>>();
     private List<Action<T>> firstActionObserves = new List<Action<T>>();
-
+    private List<Action<T>> secondOnwardsObserbers = new List<Action<T>>();
 
     public void Subscribe(IObserver observer) => observers.Add(observer);
     public void Subscribe(Action<T> action) => actionObservers.Add(action);
 
     public void FirstSubscribe(Action<T> action) => firstActionObserves.Add(action);
+
+    public void SecondOnwardsObservers(Action<T> action) => secondOnwardsObserbers.Add(action);
 
     public void Dettach(IObserver observer) => observers.Remove(observer);
     public void Notify(ReActiveProperty<T> reActiveProperty)
@@ -50,7 +52,13 @@ public class Subject<T> : ISubject<T>
             firstActionObserves[i](reActiveProperty.Value);
         }
     }
-
+    public void SecondOnwardsNotify(ReActiveProperty<T> reActiveProperty)
+    {
+        for(int i = 0; i < secondOnwardsObserbers.Count; i++)
+        {
+            secondOnwardsObserbers[i](reActiveProperty.Value);
+        }
+    }
 }
 
 
@@ -69,7 +77,10 @@ public class ReActiveProperty<T> : IReActiveProperty<T>
             if(setCount == 1)
             {
                 subject.FirstNotify(this);
-                return;
+            }
+            else
+            {
+                subject.SecondOnwardsNotify(this);
             }
             subject.Notify(this);
         }
