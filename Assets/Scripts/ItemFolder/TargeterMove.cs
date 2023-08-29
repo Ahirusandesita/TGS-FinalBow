@@ -35,12 +35,12 @@ public class TargeterMove : MonoBehaviour
 
 
 
-    private void Awake()
+    private void OnEnable()
     {
         _object = this.gameObject;
 
         //--------------Ç†Ç∆Ç≈èCê≥Ç∑ÇÈ------------------------//
-        _player = GameObject.Find("Player");
+        _player = GameObject.FindObjectOfType<PlayerManager>().gameObject;
         //----------------------------------------------------//
 
         _itemMove = this.GetComponent<ItemMove>();
@@ -83,7 +83,7 @@ public class TargeterMove : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    public void TargeterReSet()
     {
         if(_object != null)
         {

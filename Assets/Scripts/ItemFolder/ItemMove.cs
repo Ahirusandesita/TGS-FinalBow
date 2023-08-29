@@ -86,7 +86,7 @@ public class ItemMove : MonoBehaviour
     private const float SPEED_UP_COEFFICIENT = 1f;
 
     // 到達判定距離　プレイヤーとの距離で判定
-    private const float CHECK_ALLIVE_DISTANCE = 1f;
+    private const float CHECK_ALLIVE_DISTANCE = 10f;
     #endregion
 
     #region クラスの代入用変数
@@ -95,7 +95,7 @@ public class ItemMove : MonoBehaviour
     private ObjectPoolSystem _poolManager = default;
 
     // CashObjectInformationの代入用変数
-    private CashObjectInformation _playerCash = default;
+    private CashObjectInformation _itemCash = default;
 
     // CashObjectInformationの代入用変数
     private CashObjectInformation _targeterCash = default;
@@ -137,8 +137,8 @@ public class ItemMove : MonoBehaviour
         // PoolManagerの代入
         _poolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
 
-        // PlayerのCashObjectInformationの代入
-        _playerCash = this.gameObject.GetComponent<CashObjectInformation>();
+        // ItemのCashObjectInformationの代入
+        _itemCash = this.gameObject.GetComponent<CashObjectInformation>();
 
         // PlayerManagerの代入
         _playerManager = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerManager>();
@@ -254,8 +254,9 @@ public class ItemMove : MonoBehaviour
     public void ReSetAll()
     {
         this.transform.localScale = startsize;
-        _poolManager.ReturnObject(_playerCash);
+        _targeterObject.GetComponent<TargeterMove>().TargeterReSet();
         _poolManager.ReturnObject(_targeterCash);
+        _poolManager.ReturnObject(_itemCash);
     }
 
     /// <summary>
@@ -386,7 +387,7 @@ public class ItemMove : MonoBehaviour
         {
 
             this.transform.localScale = startsize;
-            _poolManager.ReturnObject(_playerCash);
+            _poolManager.ReturnObject(_itemCash);
         }
     }
     #endregion
