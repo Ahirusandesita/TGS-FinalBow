@@ -178,8 +178,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("攻撃の頻度リスト（停止中）")]
     private List<float> _attackIntervalTimes_stopping = new();
 
-    bool completed = false;
-    Coroutine activeCoroutine = default;
+    private bool _isAttackCompleted_moving = false;
+    private bool _isAttackCompleted_stopping = false;
+    private Coroutine _activeCoroutine_moving = default;
+    private Coroutine _activeCoroutine_stopping = default;
+    private WaitForSeconds _waitTimeOfConsecutiveAttack = default;
 
 
     [Tooltip("Scaleの加算/減算値")]
@@ -187,6 +190,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
     [Tooltip("正面の角度")]
     private readonly Quaternion FRONT_ANGLE = Quaternion.Euler(new Vector3(0f, 180f, 0f));
+
+    [Tooltip("指定秒数攻撃の最大数")]
+    private const int MAX_ATTACK_TIMES_FOR_SPECIFY_SECONDS = 5;
     #endregion
 
 
@@ -417,8 +423,38 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
         _spawn_And_DespawnSize = _normalSize / 5f;
         _movementSpeed = _movementSpeeds[_repeatCount];
-        //_moveType = _moveTypes[_repeatCount];
 
+        _moveType = _moveTypes[_repeatCount];
+        _birdAttackType = _birdAttackTypes_moving[_repeatCount];
+
+        if (_moveType == MoveType.curve)
+        {
+            _moveSpeedArc = _moveSpeedArcs[_repeatCount];
+            _arcMoveDirection = _arcMoveDirections[_repeatCount];
+        }
+
+        switch (_birdAttackType)
+        {
+            case BirdAttackType.equalIntervals:
+
+                _attackIntervalTime = _attackIntervalTimes_moving[5 * _repeatCount];
+                break;
+
+            case BirdAttackType.specifySeconds:
+
+                _attackTiming = _attackTimings_moving[_repeatCount];
+                break;
+
+            case BirdAttackType.consecutive:
+
+                _attackTimes = _attackTimesList_moving[_repeatCount];
+                _cooldownTime = _cooldownTimeList_moving[_repeatCount];
+                _attackIntervalTime = _attackIntervalTimes_moving[_repeatCount];
+                break;
+
+            default:
+                break;
+        }
 
         bird = GetComponent<BirdStats>();
 
@@ -467,10 +503,21 @@ public abstract class BirdMoveBase : EnemyMoveBase
             // 移動処理
             EachMovement(ref _movedDistance);
 
+            if (!_isAttackCompleted_moving)
+            {
+                _activeCoroutine_moving = StartCoroutine(AttackCoroutine());
+                _isAttackCompleted_moving = true;
+            }
+
             return;
         }
         else
         {
+            _isAttackCompleted_moving = false;
+
+            if (_activeCoroutine_moving != null)
+                StopCoroutine(_activeCoroutine_moving);
+
             // 最後の移動が終了したら、デスポーンさせる
             if (_isLastMove)
             {
@@ -482,11 +529,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
         // 攻撃処理（一定間隔で実行される）-----------------------------------------------------------------------------------
 
-        if (!completed)
+        if (!_isAttackCompleted_stopping)
         {
             InitializeForAttack();
-            activeCoroutine = StartCoroutine(AttackAtStopping());
-            completed = true;
+            _activeCoroutine_stopping = StartCoroutine(AttackCoroutine());
+            _isAttackCompleted_stopping = true;
         }
         //if (_currentTime >= _attackIntervalTime)
         //{
@@ -509,7 +556,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         // 攻撃が終了
         if (_currentTime2 >= _reAttackTimes[_repeatCount])
         {
-            StopCoroutine(activeCoroutine);
+            StopCoroutine(_activeCoroutine_stopping);
 
             // 設定されたゴールの数が1のとき、次の行動が最後
             if (_goalPositions.Count == 1)
@@ -566,6 +613,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
     {
         _isFinishMovement = false;
         _repeatCount++;
+        _isAttackCompleted_stopping = false;
 
         // スタート位置とゴール位置の再設定
         _startPosition = _transform.position;
@@ -585,12 +633,12 @@ public abstract class BirdMoveBase : EnemyMoveBase
         {
             case BirdAttackType.equalIntervals:
 
-                _attackIntervalTime = _attackIntervalTimes_moving[5 * _repeatCount];
+                _attackIntervalTime = _attackIntervalTimes_moving[_repeatCount];
                 break;
 
             case BirdAttackType.specifySeconds:
 
-                _attackTiming = _attackTimings_moving[_repeatCount];
+                _attackTiming = _attackTimings_moving[MAX_ATTACK_TIMES_FOR_SPECIFY_SECONDS * _repeatCount];
                 break;
 
             case BirdAttackType.consecutive:
@@ -616,12 +664,12 @@ public abstract class BirdMoveBase : EnemyMoveBase
         {
             case BirdAttackType.equalIntervals:
 
-                _attackIntervalTime = _attackIntervalTimes_stopping[5 * _repeatCount];
+                _attackIntervalTime = _attackIntervalTimes_stopping[_repeatCount];
                 break;
 
             case BirdAttackType.specifySeconds:
 
-                _attackTiming = _attackIntervalTimes_stopping[_repeatCount];
+                _attackTiming = _attackIntervalTimes_stopping[MAX_ATTACK_TIMES_FOR_SPECIFY_SECONDS * _repeatCount];
                 break;
 
             case BirdAttackType.consecutive:
@@ -637,17 +685,19 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
-    /// 停止中の攻撃コルーチン
+    /// 攻撃コルーチン
     /// </summary>
     /// <returns></returns>
-    private IEnumerator AttackAtStopping()
+    private IEnumerator AttackCoroutine()
     {
         switch (_birdAttackType)
         {
+            // 等間隔
             case BirdAttackType.equalIntervals:
 
                 while (true)
                 {
+                    // 設定された時間間隔で攻撃
                     if (_currentTime >= _attackIntervalTime)
                     {
                         // 攻撃を実行
@@ -658,12 +708,14 @@ public abstract class BirdMoveBase : EnemyMoveBase
                     yield return null;
                 }
 
+            // 指定秒数
             case BirdAttackType.specifySeconds:
 
                 int attackCount = 0;
 
                 while (true)
                 {
+                    // 設定された時間に達したら攻撃
                     if (_currentTime >= _attackTiming)
                     {
                         // 攻撃を実行
@@ -671,26 +723,32 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
                         attackCount++;
 
+                        // 次の攻撃タイミングを代入
                         _attackTiming = _attackTimings_stopping[5 * _repeatCount + attackCount];
 
-                        if (attackCount >= 5 || _attackTiming <= 0f)
+                        // 最大攻撃数分実行済み OR 設定された秒数が0以下で終了
+                        if (attackCount >= MAX_ATTACK_TIMES_FOR_SPECIFY_SECONDS || _attackTiming <= 0f)
                             yield break;
                     }
 
                     yield return null;
                 }
 
+            // 連続攻撃
             case BirdAttackType.consecutive:
+
+                _waitTimeOfConsecutiveAttack = new WaitForSeconds(_attackIntervalTime);
 
                 while (true)
                 {
+                    // クールタイムを超えたら攻撃
                     if (_currentTime >= _cooldownTime)
                     {
                         for (int i = 0; i < _attackTimes; i++)
                         {
-                            // 攻撃を実行
+                            // 攻撃を実行して、設定された時間待機する
                             _birdAttack.NormalAttack(ConversionToBulletType(), _childSpawner, _numberOfBullet);
-                            yield return new WaitForSeconds(_attackIntervalTime);
+                            yield return _waitTimeOfConsecutiveAttack;
                         }
 
                         _currentTime = 0f;
