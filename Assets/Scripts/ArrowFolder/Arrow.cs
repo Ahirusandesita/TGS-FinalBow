@@ -428,7 +428,15 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
             }
             _hitObjectLasts[4] = _hitObjects[4];
 
-            _hitObjects[4].GetComponent<IFCanTakeArrowButton>().ButtonPush();
+            if (_hitObjects[4].TryGetComponent<IFCanTakeArrowButtonGetEnchant>(out IFCanTakeArrowButtonGetEnchant enchant))
+            {
+                enchant.ButtonPush(_enchantState);
+            }
+            else
+            {
+                _hitObjects[4].GetComponent<IFCanTakeArrowButton>().ButtonPush();
+            }
+            
             if (EventArrowEffect != null)
             {
                 EventArrowEffect(MyTransform);

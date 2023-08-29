@@ -96,8 +96,11 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     /// <summary>
     /// òAë±Ç≈åƒÇ—èoÇ∑óp
     /// </summary>
-    public void GimmickAction(float _)
+    public void GimmickAction(float pow)
     {
+        if (pow == 0)
+            return;
+
         if (!isWorking)
         StartCoroutine(RepeatShot(true));
     }

@@ -65,9 +65,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
             if (obj is not null)
             {
                 MoveItem mi = new MoveItem();
-                mi.moveVector = Random.insideUnitCircle.normalized;
-                mi.moveVector.z = mi.moveVector.y;
-                mi.moveVector.y = 0f;
+                mi.moveVector = GenerateRandomVerticalVector(transform.forward);
                 mi.shot = obj;
                 mi.time = Time.time;
                 items.Add(mi);
@@ -88,5 +86,30 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
         
         obj.shot.transform.Translate((obj.moveVector * sideSpeed + transform.forward * upSpeed) * Time.deltaTime);
         return obj;
+    }
+
+    private Vector3 GenerateRandomVerticalVector(Vector3 baseVector)
+    {
+
+        // ランダムな角度を生成
+        float randomAngle = Random.Range(0, 360);
+
+        // 基準ベクトルを正規化
+        Vector3 normalizedBaseVector = baseVector.normalized;
+
+        Vector3 cross = Vector3.up;
+
+        if (normalizedBaseVector == Vector3.up || normalizedBaseVector == Vector3.down)
+        {
+            cross = Vector3.right;
+        }
+        // ランダムな角度に基づいて回転行列を生成
+        Quaternion rotation = Quaternion.AngleAxis(randomAngle, normalizedBaseVector);
+
+        // 回転行列をベクトルに適用して垂直ベクトルを得る
+        Vector3 randomVerticalVector = rotation * Vector3.Cross(normalizedBaseVector, cross);
+
+        return randomVerticalVector;
+
     }
 }
