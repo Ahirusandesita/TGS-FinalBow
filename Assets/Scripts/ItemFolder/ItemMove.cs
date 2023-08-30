@@ -241,7 +241,7 @@ public class ItemMove : MonoBehaviour
         _itemTransform.localScale = startsize * (_playerDistance / _startDistance);
 
         // '追跡するターゲットが目標地点に到達している' かつ '自身がターゲットに追いついている' かの判定
-        if (_targetVector.magnitude < CHECK_ALLIVE_DISTANCE && _playerDistance < CHECK_ALLIVE_DISTANCE)
+        if (_targetVector.magnitude < CHECK_ALLIVE_DISTANCE && _playerDistance < CHECK_ALLIVE_DISTANCE || !_bowManager.IsHolding)
         {
             // 追跡するターゲットの削除及びリセット
             ReSetAll();
