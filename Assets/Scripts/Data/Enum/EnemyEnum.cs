@@ -83,3 +83,18 @@ public enum GroundEnemyActionType
     /// </summary>
     throwingAttack,
 }
+
+/// <summary>
+/// ループの種類
+/// </summary>
+public enum RoopType
+{
+    /// <summary>
+    /// スタートから繰り返す（順行）
+    /// </summary>
+    forward,
+    /// <summary>
+    /// その場から折り返す（逆行）
+    /// </summary>
+    reverse
+}

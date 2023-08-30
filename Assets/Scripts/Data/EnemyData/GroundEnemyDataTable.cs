@@ -10,7 +10,6 @@ using System.Collections.Generic;
 
 // Assets > Create > Scriptables > CreateGroundEnemyDataTableでアセット化
 [CreateAssetMenu(fileName = "GroundEnemyData", menuName = "Scriptables/CreateGroundEnemyDataTable")]
-[System.Serializable]
 public class GroundEnemyDataTable : ScriptableObject
 {
     [Header("スポーンディレイ（注：ステージ開始時からの時間）"), Tooltip("スポーンディレイ（注：ステージ開始時からの時間）")]
