@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -19,19 +20,6 @@ interface IStageSpawn
     void WaveExecution();
 }
 
-/// <summary>
-/// ウェーブの種類
-/// </summary>
-public enum WaveType
-{
-    zakoWave1,
-    zakoWave2,
-    zakoWave3,
-    zakoWave4,
-    zakoWave5,
-    boss
-}
-
 public class StageManager : MonoBehaviour, IStageSpawn
 {
     #region 変数
@@ -39,7 +27,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     public TagObject _PoolSystemTagData = default;
 
     [Tooltip("敵のスポーン座標テーブル")]
-    public WaveManagementTable _waveManagementTable = default;
+    public List<StageDataTable> _stageDataTables = new();
 
     [Tooltip("ボスのプレハブ")]
     public GameObject _bossPrefab;
@@ -51,11 +39,14 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [Tooltip("現在の雑魚/的の数")]
     private int _currentNumberOfObject = 0;
 
-    [Tooltip("現在のウェーブ数")]
-    private WaveType _currentWave = WaveType.zakoWave1;     // 初期値0
+    [Tooltip("現在のステージ番号")]
+    private int _currentStageIndex = 0; // チュートリアルステージ
 
-    [Tooltip("現在実行中のコルーチン")]
-    private Coroutine _currentActiveCoroutine = default;
+    [Tooltip("現在のウェーブ番号")]
+    private int _currentWaveIndex = 0;  // ウェーブ1
+
+    [Tooltip("ウェーブ開始ディレイ")]
+    private WaitForSeconds _waveStartWait_s = new(1.5f);   // プレイヤーの心の準備にかかるであろう時間
     #endregion
 
 
@@ -63,27 +54,17 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         _objectPoolSystem = GameObject.FindWithTag(_PoolSystemTagData.TagName).GetComponent<ObjectPoolSystem>();
 
-        if (_waveManagementTable._waveInformation.Count > 0)
-        {
-            // ゲームスタート
-            _currentActiveCoroutine = StartCoroutine(WaveStart());
-        }
-
-        for (int i = 0; i < _waveManagementTable._groundEnemyInformation.Count; i++)
-        {
-            StartCoroutine(GroundEnemySpawn(listIndex: i));
-        }
+        // ゲームスタート
+        StartCoroutine(StageStart());
     }
 
 
     public void WaveExecution()
     {
-        // コルーチンが動いていたら止める
-        //StopCoroutine(_currentActiveCoroutine);
-
         try
         {
-            if (_currentWave == WaveType.boss)
+            // 最終ステージだったら、ボスをスポーン
+            if (_currentStageIndex == _stageDataTables.Count)
             {
                 // ボスをスポーン
                 Instantiate(_bossPrefab);
@@ -91,17 +72,20 @@ public class StageManager : MonoBehaviour, IStageSpawn
             }
 
             // EnemySpawnerTableで設定したスポナーの数を設定
-            _currentNumberOfObject += _waveManagementTable._waveInformation[(int)_currentWave]._birdsData.Count;
+            _currentNumberOfObject = _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count;
 
-            // EnemySpawnerTableで設定したスポナーの数だけ雑魚をスポーンさせる
-            for (int i = 0; i < _waveManagementTable._waveInformation[(int)_currentWave]._birdsData.Count; i++)
+            // 各ウェーブで設定された数、鳥雑魚をスポーンさせる
+            for (int i = 0; i < _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count; i++)
             {
                 // プールから呼び出す
-                StartCoroutine(Spawn(listIndex: i));
+                StartCoroutine(SpawnBird(listIndex: i));
             }
 
-            // 次のWaveの強制実行までのカウントダウンを開始する
-            //_currentActiveCoroutine = StartCoroutine(WaveStart());
+            // 各ウェーブで設定された数、地上雑魚をスポーンさせる
+            for (int i = 0; i < _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData.Count; i++)
+            {
+                StartCoroutine(SpawnGroundEnemy(listIndex: i));
+            }
         }
         catch (Exception)
         {
@@ -118,34 +102,72 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         if (_currentNumberOfObject <= 0)
         {
-            _currentWave++;
-            // ウェーブを進める
-            WaveExecution();
+            // 次のウェーブへ
+            ProgressingTheWave();
         }
     }
 
     /// <summary>
-    /// Wave開始（n秒待ってからスポーンさせる）
+    /// ウェーブを進める
     /// </summary>
-    /// <returns></returns>
-    private IEnumerator WaveStart()
+    private void ProgressingTheWave()
     {
-        // 設定された秒数が経過したら、強制的にウェーブを進行させる
-        float waitTime = _waveManagementTable._waveInformation[(int)_currentWave]._startWaveTime_s;
-        yield return new WaitForSeconds(waitTime);
+        _currentWaveIndex++;
+        X_Debug.Log("次のウェーブへ");
+
+        // すべてのウェーブをクリア = 次のステージに進む
+        if (_currentWaveIndex >= _stageDataTables[_currentStageIndex]._waveInformation.Count)
+        {
+            // 次のステージへ
+            X_Debug.Log("ステージクリア");
+            ProgressingTheStage();
+            return;
+        }
 
         WaveExecution();
     }
 
     /// <summary>
-    /// 敵を出現させるコルーチン
+    /// ステージを進める
+    /// </summary>
+    private void ProgressingTheStage()
+    {
+        _currentStageIndex++;
+        _currentWaveIndex = 0;
+        X_Debug.Log("次のステージへ");
+
+        if (_currentStageIndex > _stageDataTables.Count)
+        {
+            // すべてのステージをクリア = ゲームオーバー
+            // ボス倒したら終了だからここ動かないかも
+            X_Debug.Log("ゲーム終了");
+            return;
+        }
+
+        StartCoroutine(StageStart());
+    }
+
+    /// <summary>
+    /// ステージ開始（固定秒数待ってからスポーン開始）
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator StageStart()
+    {
+        // 設定された秒数が経過したら、ステージスタート（読み込み待ち）
+        yield return _waveStartWait_s;
+
+        WaveExecution();
+    }
+
+    /// <summary>
+    /// 鳥雑魚を出現させるコルーチン
     /// </summary>
     /// <param name="listIndex">リストの添え字（for文のiをそのまま渡す）</param>
     /// <returns></returns>
-    private IEnumerator Spawn(int listIndex)
+    private IEnumerator SpawnBird(int listIndex)
     {
         PoolEnum.PoolObjectType selectedPrefab;
-        BirdDataTable birdDataPath = _waveManagementTable._waveInformation[(int)_currentWave]._birdsData[listIndex];
+        BirdDataTable birdDataPath = _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData[listIndex];
 
         // 設定された秒数だけ待機する
         yield return new WaitForSeconds(birdDataPath._spawnDelay_s);
@@ -235,9 +257,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
         }
     }
 
-    private IEnumerator GroundEnemySpawn(int listIndex)
+    private IEnumerator SpawnGroundEnemy(int listIndex)
     {
-        GroundEnemyDataTable dataPath = _waveManagementTable._groundEnemyInformation[listIndex];
+        GroundEnemyDataTable dataPath = _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData[listIndex];
 
         yield return new WaitForSeconds(dataPath._spawnDelay_s);
 
