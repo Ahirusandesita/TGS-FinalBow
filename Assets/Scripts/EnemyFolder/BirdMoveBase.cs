@@ -130,6 +130,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("連続攻撃クールタイム")]
     private float _cooldownTime = default;
 
+    [Tooltip("ループ先のゴール番号")]
+    private int _goalIndexOfRoop = default;
+
     [Tooltip("ゴールリスト")]
     private List<Vector3> _goalPositions = new List<Vector3>();
 
@@ -231,7 +234,18 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
-    /// 攻撃の頻度（移動中）
+    /// ループ先のゴール番号
+    /// </summary>
+    public int GoalIndexOfRooop
+    {
+        set
+        {
+            _goalIndexOfRoop = value;
+        }
+    }
+
+    /// <summary>
+    /// 攻撃の頻度リスト（移動中）
     /// </summary>
     public float AttackIntervalTimes_Moving
     {
@@ -242,7 +256,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
-    /// 攻撃の頻度（停止中）
+    /// 攻撃の頻度リスト（停止中）
     /// </summary>
     public float AttackIntervalTimes_Stopping
     {
@@ -618,7 +632,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         if (_repeatCount >= _goalPositions.Count)
         {
             // ループ先のIndexを設定
-            _repeatCount = 0;
+            _repeatCount = _goalIndexOfRoop;
         }
 
         _isFinishMovement = false;
