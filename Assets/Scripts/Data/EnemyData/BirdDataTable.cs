@@ -26,6 +26,9 @@ public class BirdDataTable : ScriptableObject
 
     [Header("鳥雑魚のゴール位置"), Tooltip("鳥雑魚のゴール位置")]
     public List<BirdGoalInformation> _birdGoalPlaces = new();
+
+    [Header("ループ先のゴール番号（リストのインデックス）"), Tooltip("ループ先のゴール番号")]
+    public int _goalIndexOfRoop;
 }
 
 [System.Serializable]
@@ -76,7 +79,4 @@ public class BirdGoalInformation
     [Tooltip("連続攻撃クールタイム（秒）")]
     public float _cooldownTime_s_a;
     public float _cooldownTime_s_b;
-
-    [Tooltip("ループ先のゴール番号")]
-    public int _goalIndexOfRoop;
 }
