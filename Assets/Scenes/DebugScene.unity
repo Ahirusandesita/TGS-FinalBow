@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 9d310012da4403e439ab8a74e44135f6, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3871666, g: 0.52342445, b: 0.94457215, a: 1}
+  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 6851976d15c7b6a4cae1a22d1c47df2b, type: 2}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 56c407ab604ca034d8a1472c9525bd34, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &5627572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &76087444
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3210,6 +3212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &206095652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6077,6 +6080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &339272863
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12944,6 +12948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &423074123
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13193,6 +13198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &469039151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13254,6 +13260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &470244413
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15351,6 +15358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &486616078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17309,7 +17317,7 @@ Terrain:
   m_DrawTreesAndFoliage: 1
   m_StaticShadowCaster: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10650, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 22ff8771d87ef27429e670136399094b, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -19606,6 +19614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &541026420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25397,6 +25406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &626896524
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25648,6 +25658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!135 &634745387
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -26332,6 +26343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!135 &697078267
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -32569,6 +32581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &849911203
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33086,6 +33099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &899819438
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33292,6 +33306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &932236175
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -41442,6 +41457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!135 &1013754416
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -47938,6 +47954,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1073695777
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -48449,6 +48466,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3436463524516001532, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552731492950162109, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8029582167085376152, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9051230437966575147, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: m_TagString
       value: MainCamera
@@ -51072,6 +51101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1249592172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51735,6 +51765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1308081885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52230,6 +52261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!135 &1383275062
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -52514,6 +52546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1409536080
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -54548,6 +54581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1446303811
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -54592,6 +54626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1453313772
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -54641,6 +54676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1457751435
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -55202,6 +55238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1493254928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59241,6 +59278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1568450386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59533,6 +59571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1604391448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59683,6 +59722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1620673239
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -61826,6 +61866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1644133445
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -63175,6 +63216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1783122634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65117,6 +65159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1807465128
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -67902,6 +67945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1888064802
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -68032,6 +68076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1907108589
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -70510,6 +70555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1928195357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70711,6 +70757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1950106436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70792,6 +70839,10 @@ PrefabInstance:
     - target: {fileID: 8940654832585574392, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: m_Name
       value: Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8940654832585574392, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8940654832585574392, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: m_TagString
@@ -71104,6 +71155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!135 &1988408623
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -75582,6 +75634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &2049623299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75743,6 +75796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &2069872774
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -75999,6 +76053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &2079346447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81958,6 +82013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &2104581939
 MonoBehaviour:
   m_ObjectHideFlags: 0
