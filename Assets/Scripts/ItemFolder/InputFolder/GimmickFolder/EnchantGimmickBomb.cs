@@ -21,6 +21,10 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
 
     [SerializeField] GameObject particle;
 
+    [SerializeField] GameObject[] active;
+
+    [SerializeField] Collider cl;
+
     bool used = false;
     struct Bomb
     {
@@ -57,6 +61,11 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
         Effect(bomb);
         BombHitDamage(transform.position, bomb);
         used = true;
+        foreach(GameObject obj in active)
+        {
+            obj.SetActive(false);
+            cl.enabled = false;
+        }
     }
 
     private void Effect(Bomb bomb)

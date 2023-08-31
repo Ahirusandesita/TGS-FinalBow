@@ -32,7 +32,7 @@ public class ProperaGimmick : ObjectParent
     [SerializeField] float _maxRotateSpeed = 1000f;
     [SerializeField] float _dicreaceRotateSpeed = -300f;
     [SerializeField] float _addRotateSpeed = 600f;
-    [SerializeField] RotateDirection direction = RotateDirection.Right;
+    [SerializeField] Vector3 rotateDirection = Vector3.right;
     [SerializeField] List<GameObject> setLinkObject = default;
     [SerializeField] bool useScriptable = false;
 
@@ -43,12 +43,7 @@ public class ProperaGimmick : ObjectParent
     List<bool> isNeedPowerLinkObjects = default;
 
     internal IFProperaLinkObject[] GetObj { get => linkObjects.ToArray(); }
-    enum RotateDirection
-    {
-        Right = 1,
-        Left = -1
-    }
-
+ 
     float _rotateSpeed = 0f;
 
     [SerializeReference] bool _canRotate = true;
@@ -226,7 +221,7 @@ public class ProperaGimmick : ObjectParent
     private void OutputPower()
     {
         // ‰ñ“]
-        transform.Rotate(0f, 0f, _rotateSpeed * ((int)direction) * Time.deltaTime);
+        transform.Rotate( _rotateSpeed * rotateDirection * Time.deltaTime);
 
         // ƒAƒNƒVƒ‡ƒ“ŒÄ‚Ô
         foreach (IFProperaLinkObject linkObject in linkObjects)

@@ -65,7 +65,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
             if (obj is not null)
             {
                 MoveItem mi = new MoveItem();
-                mi.moveVector = GenerateRandomVerticalVector(transform.forward);
+                mi.moveVector = GenerateRandomVerticalVector(transform.up);
                 mi.shot = obj;
                 mi.time = Time.time;
                 items.Add(mi);
@@ -84,7 +84,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
             obj.moveVector *= -1f;
         }
         
-        obj.shot.transform.Translate((obj.moveVector * sideSpeed + transform.forward * upSpeed) * Time.deltaTime);
+        obj.shot.transform.Translate((obj.moveVector * sideSpeed + transform.up * upSpeed) * Time.deltaTime);
         return obj;
     }
 
