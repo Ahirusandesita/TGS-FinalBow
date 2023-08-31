@@ -53,7 +53,7 @@ public class ItemMove : MonoBehaviour
     #region　float変数一覧　グロ注意
 
     // 引き寄せる速度の係数　速度は距離に応じて比例的に上昇するためその係数
-    private float _attractSpeed = 50f;
+    private float _attractSpeed = 150f;
 
     // 調整用変数　引き寄せる力の大きさ　いずれは定数化したい
     private float _attract_Power = 1f;
@@ -376,6 +376,7 @@ public class ItemMove : MonoBehaviour
     #region てんぽらりー
     public void ItemAttractTemporary()
     {
+        _attractSpeed = 1000f;
         this.transform.Translate(_tmpDistance * _attractSpeed * Time.deltaTime);
         _tmpdif = _tmpdif - _attractSpeed * Time.deltaTime;
 
