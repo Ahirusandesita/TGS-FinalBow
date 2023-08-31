@@ -24,9 +24,9 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4463141, g: 0.496118, b: 0.57465696, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 59f8658d723443e499216025b7b81de6, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 56c407ab604ca034d8a1472c9525bd34, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -140,8 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSpawnPlace: {fileID: 122438203}
-  _EnemyControllerTagData: {fileID: 11400000, guid: 90de9017c3acb294188b8d044f6ae203, type: 2}
+  dropData: {fileID: 0}
 --- !u!114 &122438198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2275d0a137bac824398e3d0e633f868e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &122438200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +202,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5144204438039303923, guid: de1fe1f1c415bae46b38d81f24e87b97, type: 3}
   m_PrefabInstance: {fileID: 1313594152}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &122438204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122438196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff8f1d15e2f0a849b926a31ce0ca7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _idleMoveSpeedX: 10
+  _idleMoveSpeedY: 10
+  _changeAngleSpeed: 1
 --- !u!1 &211944059
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +247,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PoolSystemTagData: {fileID: 11400000, guid: afd0a366ad51aad41bb9ad504182f09a, type: 2}
-  _numberOfFireBall: 3
   _attackIntervalTime: 3
 --- !u!4 &211944061
 Transform:
@@ -482,8 +497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68d1a9e87d8ef4c85960d20e6d50bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BowControllerTagData: {fileID: 11400000, guid: d66cec2388281074caa54dd639840b42, type: 2}
-  _ArrowEnchantmentControllerTagData: {fileID: 11400000, guid: ec99baca88f14aa4393acfd9625e3ade, type: 2}
+  _rapidData: {fileID: 0}
+  maxAttractCount: 0
 --- !u!1 &794548007
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,13 +608,15 @@ MonoBehaviour:
   _bombDirectHitDamage: 0
   _bombMiddleDamage: 20
   _bombSideDamage: 40
-  _bombMiddleAreaSize: 3
-  _bombSideAreaSize: 15
+  _bombMiddleAreaSizePercent: 0.3
   _thunderDamage: 20
   _knockBackDamage: 20
   _homingDamage: 20
   _penetrateDamage: 20
-  _limitAddDamage: 10
+  _firstAddDamage: 10
+  _AddDamage: 10
+  _headShotDamageMultiplier: 1.5
+  maxInhallData: {fileID: 0}
 --- !u!114 &907457868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +657,7 @@ MonoBehaviour:
   _knockBackHomingSound: {fileID: 0}
   _knockBackPenetrateSound: {fileID: 0}
   _homingPenetrateSound: {fileID: 0}
+  _newEnchantSound: {fileID: 0}
 --- !u!82 &907457870
 AudioSource:
   m_ObjectHideFlags: 0
@@ -766,7 +784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TrackingSpaceTagData: {fileID: 0}
-  usingHand: 0
+  emptyHand: 0
 --- !u!4 &916834753
 Transform:
   m_ObjectHideFlags: 0
@@ -1135,6 +1153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9495c3ceaaa117e42bc28d6e25c119e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHp: 0
+  _sceneObject: {fileID: 0}
+  _sceneObject2: {fileID: 0}
 --- !u!1 &1460255687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5144204438039530195, guid: de1fe1f1c415bae46b38d81f24e87b97, type: 3}
@@ -1167,6 +1188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2275d0a137bac824398e3d0e633f868e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!136 &1460255690
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1198,8 +1221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSpawnPlace: {fileID: 1460255692}
-  _EnemyControllerTagData: {fileID: 11400000, guid: 90de9017c3acb294188b8d044f6ae203, type: 2}
+  dropData: {fileID: 0}
 --- !u!114 &1460255699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,6 +1235,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myObjectType: 0
+--- !u!114 &1460255700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460255687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff8f1d15e2f0a849b926a31ce0ca7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _idleMoveSpeedX: 10
+  _idleMoveSpeedY: 10
+  _changeAngleSpeed: 1
 --- !u!1 &1493516491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,6 +1440,7 @@ GameObject:
   - component: {fileID: 1623186792}
   - component: {fileID: 1623186791}
   - component: {fileID: 1623186790}
+  - component: {fileID: 1623186793}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1441,7 +1479,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -1454,8 +1492,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -1476,6 +1514,130 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1623186793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623186789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clearColorMode: 0
+  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  clearDepth: 1
+  volumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  volumeAnchorOverride: {fileID: 0}
+  antialiasing: 0
+  SMAAQuality: 2
+  dithering: 0
+  stopNaNs: 0
+  taaSharpenStrength: 0.5
+  TAAQuality: 1
+  taaHistorySharpening: 0.35
+  taaAntiFlicker: 0.5
+  taaMotionVectorRejection: 0
+  taaAntiHistoryRinging: 0
+  taaBaseBlendFactor: 0.875
+  physicalParameters:
+    m_Iso: 200
+    m_ShutterSpeed: 0.005
+    m_Aperture: 16
+    m_FocusDistance: 10
+    m_BladeCount: 5
+    m_Curvature: {x: 2, y: 11}
+    m_BarrelClipping: 0.25
+    m_Anamorphism: 0
+  flipYMode: 0
+  xrRendering: 1
+  fullscreenPassthrough: 0
+  allowDynamicResolution: 0
+  customRenderingSettings: 0
+  invertFaceCulling: 0
+  probeLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  hasPersistentHistory: 0
+  allowDeepLearningSuperSampling: 1
+  deepLearningSuperSamplingUseCustomQualitySettings: 0
+  deepLearningSuperSamplingQuality: 0
+  deepLearningSuperSamplingUseCustomAttributes: 0
+  deepLearningSuperSamplingUseOptimalSettings: 1
+  deepLearningSuperSamplingSharpening: 0
+  exposureTarget: {fileID: 0}
+  materialMipBias: 0
+  m_RenderingPathCustomFrameSettings:
+    bitDatas:
+      data1: 72198260625768269
+      data2: 13763000477350330392
+    lodBias: 1
+    lodBiasMode: 0
+    lodBiasQualityLevel: 0
+    maximumLODLevel: 0
+    maximumLODLevelMode: 0
+    maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
+    msaaMode: 1
+    materialQuality: 0
+  renderingPathCustomFrameSettingsOverrideMask:
+    mask:
+      data1: 0
+      data2: 0
+  defaultFrameSettings: 0
+  m_Version: 8
+  m_ObsoleteRenderingPath: 0
+  m_ObsoleteFrameSettings:
+    overrides: 0
+    enableShadow: 0
+    enableContactShadows: 0
+    enableShadowMask: 0
+    enableSSR: 0
+    enableSSAO: 0
+    enableSubsurfaceScattering: 0
+    enableTransmission: 0
+    enableAtmosphericScattering: 0
+    enableVolumetrics: 0
+    enableReprojectionForVolumetrics: 0
+    enableLightLayers: 0
+    enableExposureControl: 1
+    diffuseGlobalDimmer: 0
+    specularGlobalDimmer: 0
+    shaderLitMode: 0
+    enableDepthPrepassWithDeferredRendering: 0
+    enableTransparentPrepass: 0
+    enableMotionVectors: 0
+    enableObjectMotionVectors: 0
+    enableDecals: 0
+    enableRoughRefraction: 0
+    enableTransparentPostpass: 0
+    enableDistortion: 0
+    enablePostprocess: 0
+    enableOpaqueObjects: 0
+    enableTransparentObjects: 0
+    enableRealtimePlanarReflection: 0
+    enableMSAA: 0
+    enableAsyncCompute: 0
+    runLightListAsync: 0
+    runSSRAsync: 0
+    runSSAOAsync: 0
+    runContactShadowsAsync: 0
+    runVolumeVoxelizationAsync: 0
+    lightLoopSettings:
+      overrides: 0
+      enableDeferredTileAndCluster: 0
+      enableComputeLightEvaluation: 0
+      enableComputeLightVariants: 0
+      enableComputeMaterialVariants: 0
+      enableFptlForForwardOpaque: 0
+      enableBigTilePrepass: 0
+      isFptlEnabled: 0
 --- !u!1 &1699303481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,8 +1870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSpawnPlace: {fileID: 1865401328}
-  _EnemyControllerTagData: {fileID: 11400000, guid: 90de9017c3acb294188b8d044f6ae203, type: 2}
+  dropData: {fileID: 0}
 --- !u!114 &1865401323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1735,6 +1896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2275d0a137bac824398e3d0e633f868e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHp: 0
+  maxInhallData: {fileID: 0}
 --- !u!114 &1865401325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1769,3 +1932,3277 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5144204438039303923, guid: de1fe1f1c415bae46b38d81f24e87b97, type: 3}
   m_PrefabInstance: {fileID: 1545088862}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1865401329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865401321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff8f1d15e2f0a849b926a31ce0ca7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _idleMoveSpeedX: 10
+  _idleMoveSpeedY: 10
+  _changeAngleSpeed: 1
+--- !u!1001 &2133260427
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677388, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095677358, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385397557095676982, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000032154378
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.00000017831997
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206346823, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000062618233
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000028035568
+      objectReference: {fileID: 0}
+    - target: {fileID: -1682842789206343755, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891925993489747069, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891931864474607855, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892070573867470601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892210069276671005, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894831699925794545, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894878186332236721, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000397437740906534, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 34.943237
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000397437740906534, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.9417515
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000530078795591280, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.981583
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000530078795591280, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.100793
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000785966484876452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -43.023163
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000842194905079694, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -43.023163
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000845853364282034, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -43.023163
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000850848788425706, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.981586
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000850848788425706, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.100795
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000037708937
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.000008779193
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004606750747744783, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845247392349, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000005225006
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000005681263
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845664232697, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -22.848581
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 328.32892
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134195, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845792134196, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_Name
+      value: 020_Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.000003905369
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000057615757
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845236999, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845237000, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.375586
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845845237000, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 19.981588
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000069292155
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000016137456
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735705, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107845934735706, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27.863169
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000003310786
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.000005749811
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453066, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.00000022938265
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000066355183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846118453070, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.00000041781334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000052149735
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846272021639, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565505, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565506, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000062618224
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000002803559
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565553, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000032154378
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.00000017831997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565555, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565557, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000032154378
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.00000017831997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565558, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565561, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000006261822
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000028035613
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565563, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846355565564, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000016747416
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335786, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000004240118
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335787, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -26.843195
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846524335787, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.876753
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000003653766
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027663, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000106447715
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027664, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -37.328552
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846819027664, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.344357
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107846881836361, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847173072654, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005107847240822085, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006752876062045468, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.98159
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006752876062045468, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.100797
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006872473508662334, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25.35935
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006872473508662334, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 19.509127
+      objectReference: {fileID: 0}
+    - target: {fileID: 4226354006458445306, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 32.876163
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231294738804713850, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.99958
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470361541001030849, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 23.699665
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470361541001030849, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.841593
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470378487767252547, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.37159
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470378487767252547, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.951588
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000044591816
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000025211489
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968098, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000046863192
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.000002757164
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474867016878968111, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5872651994635722095, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607182441336706635, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607182442771405673, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607182442884093850, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607182443082427295, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607182443194961476, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.nearClipPlane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000037637603
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982013769761772452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000011157223
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025615384463175058, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -27.89317
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025615384463175058, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.601583
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000009178156
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.000005428451
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684799586412203094, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000008218344
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685467814212960696, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000017019349
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000064039937
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685488179944261510, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000015977791
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000034171621
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686277254534667062, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000014598155
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722700874324875130, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -59.926323
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722700874324875130, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -29.553162
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722864407109229414, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -34.458702
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722864407109229414, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -37.423748
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722923881841033856, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.611582
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722923881841033856, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27.863167
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723050790219521596, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -68.826324
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724555118413622814, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.793167
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724753364088344900, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -37.033165
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000008194576
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412170, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000011961531
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000007183208
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354219412180, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000008389098
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteInfiniteProjection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000069292155
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000013080796
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729608, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.useInfluenceVolumeAsProxyVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727507354980729611, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -37.168167
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.00000013130887
+      objectReference: {fileID: 0}
+    - target: {fileID: 8285668435597371760, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.000005936292
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000034577824
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268682, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000007497065
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274006268685, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.0127907
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000004637229
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540162, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000027254446
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274483540165, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.429584
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000046700043
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071080, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000017307174
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274507071083, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.72379
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576232, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.037583
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.00000025511864
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274642576233, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000003828756
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.00000040913073
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274695723282, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.00000052516043
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.00000022291444
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274804389878, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000010530567
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000019506258
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639452, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000011660591
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274810639455, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.050792
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.0000002770493
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274849071396, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.00000085754493
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.000000029811957
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274867668300, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000027555243
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.0000038860076
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863938, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000013493533
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274874863941, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 18.051582
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000004979335
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930188, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.000004249788
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019274919930191, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.723791
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.00000043393425
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275016937006, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.00000036716864
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.00000043249506
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275316018580, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.0000005717745
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.000000256524
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275355438628, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000009899093
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: -0.00000037610084
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275396991601, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: -0.0000010530523
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_HDProbeVersion
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ReflectionProbeVersion
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.farClipPlane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ObsoleteCaptureSettings.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.farClipPlaneRaw
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.frustum.nearClipPlaneRaw
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.volumes.layerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.cameraSettings.culling.cullingMask.m_Bits
+      value: 4294962943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.x
+      value: 0.000000033027636
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315019275753206899, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
+      propertyPath: m_ProbeSettings.proxySettings.capturePositionProxySpace.z
+      value: 0.000002040452
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: a727deeb1eb912b41a2d2b4a2d75c74d, type: 3}
