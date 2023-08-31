@@ -39,7 +39,7 @@ public class TargeterMove : MonoBehaviour
     bool _doMove = false;
 
     [SerializeField ,Tooltip("Å‘å‚Ì”¼ŒaŒW”")]
-    private const float MAX_RADIUS = 1f;
+    private float MAX_RADIUS = 1f;
 
     [SerializeField ,Tooltip("‚P•bŠÔ‚É‰ÁZ‚³‚ê‚é”¼ŒaŒW”‚Ì’l")]
     private float _addRadius = 0.1f;

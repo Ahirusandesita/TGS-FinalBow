@@ -141,7 +141,7 @@ public class Yumi_Material_Controller : MonoBehaviour,IFMaterialChanger_Bow
             foreach(MeshRenderer mesh in list)
             {
                
-                mesh.material = setStateMaterials[index];
+                //mesh.material = setStateMaterials[index];
 
             }
 

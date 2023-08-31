@@ -123,6 +123,11 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
             SetEnchantParameter(EnchantmentEnum.ItemAttributeState.homing);
         }
 
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ArrowEnchantPlusDamage();
+        }
         //arrowEnchant.TestRapid = CanRapid ;
 
     }

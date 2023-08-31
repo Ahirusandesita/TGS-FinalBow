@@ -342,7 +342,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     /// <param name="hitObj"></param>
     private void BombHitDamage(GameObject hitObj, Enchant enchant)
     {
-        TestBombArea(hitObj);
+        //TestBombArea(hitObj);
 
         // ”š•—”ÍˆÍ“à‚Ì“G‚ðƒXƒLƒƒƒ“
         float sideRadius = size.GetFirstSize + size.GetMinimumSize * size.GetMinimumSize;

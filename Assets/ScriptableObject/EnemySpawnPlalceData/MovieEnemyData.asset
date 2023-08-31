@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cbee3ea3fcce54299e4185dc52f8fc, type: 3}
+  m_Name: MovieEnemyData
+  m_EditorClassIdentifier: 
+  _waveInformation:
+  - _wave: 
+    _birdsData:
+    - {fileID: 11400000, guid: 7b26441353af865438a1eeed46f740f5, type: 2}
+    - {fileID: 11400000, guid: 331f918ab06e83f44b27eb02f9d30ec9, type: 2}
+    - {fileID: 11400000, guid: c657c98e15371054a9063e55d9421d38, type: 2}
+    _groundEnemysData: []
+    _targetData: []
