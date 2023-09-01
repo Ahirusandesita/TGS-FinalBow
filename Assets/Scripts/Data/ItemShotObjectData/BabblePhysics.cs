@@ -11,6 +11,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
 {
     List<MoveItem> items = new List<MoveItem>();
     List<MoveItem> deleteObjs = new List<MoveItem>();
+
     /// <summary>
     /// オブジェクトが進むスピード
     /// </summary>
@@ -25,18 +26,21 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
     [SerializeField] float sideSpeed = 0.1f;
     protected struct MoveItem
     {
-        public GameObject shot;
+        public ItemMove shot;
         public Vector3 moveVector;
         public float time;
     }
     public void ItemMove()
     {
+      
         if (items.Count > 0)
         {
+            deleteObjs = new List<MoveItem>();
             for (int i = 0; i < items.Count; i++)
             {
                 MoveItem obj = items[i];
-                if (items[i].shot is not null)
+                
+                if (items[i].shot is not null && (items[i].shot._isStart is false && items[i].shot.gameObject.activeSelf))
                 {
 
                     items[i] = Moving(ref obj);
@@ -45,7 +49,10 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
                 {
                     deleteObjs.Add(obj);
                 }
+               
             }
+
+           
 
             if (deleteObjs.Count > 0)
             {
@@ -65,10 +72,11 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
             if (obj is not null)
             {
                 MoveItem mi = new MoveItem();
-                mi.moveVector = GenerateRandomVerticalVector(transform.up);
-                mi.shot = obj;
+                mi.moveVector = GenerateRandomVerticalVector(transform.forward);
+                mi.shot = obj.GetComponent<ItemMove>();
                 mi.time = Time.time;
                 items.Add(mi);
+                
             }
 
         }
@@ -76,15 +84,15 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
 
     protected virtual MoveItem Moving(ref MoveItem obj)
     {
-        
+
         if (Time.time > obj.time + reverceTime)
         {
             obj.time = Time.time;
 
             obj.moveVector *= -1f;
         }
-        
-        obj.shot.transform.Translate((obj.moveVector * sideSpeed + transform.up * upSpeed) * Time.deltaTime);
+        print(obj.shot.transform.position + "aaaaa");
+        obj.shot.transform.Translate((obj.moveVector * sideSpeed + transform.forward * upSpeed) * Time.deltaTime);
         return obj;
     }
 

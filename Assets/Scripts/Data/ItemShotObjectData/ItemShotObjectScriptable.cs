@@ -20,7 +20,7 @@ public interface IFItemShoterObjectPhysics
 
 public class ItemShotObjectScriptable : ScriptableObject
 {
-    [SerializeField] public GameObject[] shotObjects = default;
+    [SerializeField] public PoolEnum.PoolObjectType objectType = PoolEnum.PoolObjectType.normalBullet;
     [SerializeField] public float rapidSpeed = 1f;
 
 }
