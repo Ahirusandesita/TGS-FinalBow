@@ -27,6 +27,7 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
 
     [SerializeField] float _overlapSize = 10f;
 
+
     bool used = false;
     struct Bomb
     {
@@ -62,6 +63,9 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
         }
         Effect(bomb);
         BombHitDamage(transform.position, bomb);
+        // ‚©‚è
+        GameObject.FindObjectOfType<ArrowEnchantSound>().Bomb(this.GetComponent<AudioSource>());
+
         used = true;
         foreach(GameObject obj in active)
         {
