@@ -198,6 +198,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 8940654832585574393}
     m_Modifications:
     - target: {fileID: 5778584847393236417, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
+      propertyPath: maxInhallData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c7c19a2918ce334cb8f314e946766ef, type: 2}
+    - target: {fileID: 5778584847393236417, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
       propertyPath: _bombSideDamage
       value: 20
       objectReference: {fileID: 0}
@@ -333,7 +337,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArrowEnchant (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5778584847393236418, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: e3dd0524a9ad6e8428f0c7301366d944, type: 3}
 --- !u!4 &3180172999418024280 stripped
