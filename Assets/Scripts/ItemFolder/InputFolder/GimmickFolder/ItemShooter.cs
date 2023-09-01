@@ -14,7 +14,7 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     /// ˆÊ’u‚Ì‚¸‚ê,‰~Œ`
     /// </summary>
     [SerializeField] float gapPosition = 0.1f;
-    GameObject[] shotObjects = default;
+    [SerializeField] ObjectPoolSystem objectPool = default;
     WaitForSeconds rapidSpeed = default;
     IFItemShoterObjectPhysics physics = default;
     bool isWorking = false;
@@ -33,11 +33,10 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
         physics.ItemMove();
     }
 
-   
+
 
     private void Initialize()
     {
-        shotObjects = data.shotObjects;
         rapidSpeed = new WaitForSeconds(1 / data.rapidSpeed);
         if (TryGetComponent<IFItemShoterObjectPhysics>(out IFItemShoterObjectPhysics ph))
         {
@@ -52,17 +51,16 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
 
     private GameObject[] Create()
     {
-        GameObject[] createdObjs = new GameObject[shotObjects.Length];
-        int cnt = 0;
+
         Vector3 sponePos = shotPosition.position + new Vector3(Random.Range(0f, gapPosition), 0f, Random.Range(0f, gapPosition));
-        foreach (GameObject obj in shotObjects)
-        {
 
-            createdObjs[cnt] = Instantiate(obj, sponePos, Quaternion.identity);
-            cnt++;
-        }
+        GameObject[] createdObj = new GameObject[1];
+        createdObj[0] = objectPool.CallObject(data.objectType, sponePos, transform.rotation).gameObject;
+        //createdObjs[cnt] = Instantiate(obj, sponePos, Quaternion.identity);
 
-        return createdObjs;
+
+
+        return createdObj;
     }
 
     /// <summary>
@@ -72,6 +70,7 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     /// <returns></returns>
     IEnumerator RepeatShot(bool oneAction)
     {
+        
         isWorking = true;
         while (isWorking)
         {
@@ -89,8 +88,8 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     /// </summary>
     public void GimmickAction()
     {
-        if(!isWorking)
-        StartCoroutine(RepeatShot(false));
+        if (!isWorking)
+            StartCoroutine(RepeatShot(false));
     }
 
     /// <summary>
@@ -102,6 +101,6 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
             return;
 
         if (!isWorking)
-        StartCoroutine(RepeatShot(true));
+            StartCoroutine(RepeatShot(true));
     }
 }
