@@ -6,27 +6,10 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class SetInhallObject : MonoBehaviour
+public class SetInhallObject : ObjectParent
 {
- #region variable 
- #endregion
- #region property
- #endregion
- #region method
- 
- private void Awake()
- {
-
- }
- 
- private void Start ()
- {
-
- }
-
- private void Update ()
- {
-
- }
- #endregion
+    public override void ObjectAction()
+    {
+        GetComponent<ItemMove>()._isStart = true;
+    }
 }

@@ -24,6 +24,8 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
     /// ‰¡ˆÚ“®‘¬“x
     /// </summary>
     [SerializeField] float sideSpeed = 0.1f;
+
+    [SerializeField] float reverceTimeGap = 0.1f;
     protected struct MoveItem
     {
         public ItemMove shot;
@@ -87,7 +89,7 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
 
         if (Time.time > obj.time + reverceTime)
         {
-            obj.time = Time.time;
+            obj.time = Time.time + Random.Range(-reverceTimeGap,reverceTimeGap);
 
             obj.moveVector *= -1f;
         }

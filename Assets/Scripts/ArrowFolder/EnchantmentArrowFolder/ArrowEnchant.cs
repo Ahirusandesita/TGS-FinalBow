@@ -148,12 +148,17 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
 
 
         st.TakeDamage(damage);
-        // ‰Šú‰»
-        addDamage = 0;
-        enchantPower = 0;
+        
 
         //EnemyStats st = default;
         return st;
+    }
+
+    private void AddInit()
+    {
+        // ‰Šú‰»
+        addDamage = 0;
+        enchantPower = 0;
     }
 
     /// <summary>
@@ -278,12 +283,14 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     public void Normal(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         stats = NormalHitDamage(t1, _normalDamage + addDamage);
+        AddInit();
     }
 
     public void Bomb(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         BombHitDamage(t1, Enchant.none);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _normalDamage + addDamage);
+        AddInit();
 
     }
 
@@ -291,28 +298,33 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     {
         stats = NormalHitDamage(t1, _thunderDamage + _normalDamage + addDamage);
         stats.TakeThunder(enchantPower);
+        AddInit();
     }
 
     public void KnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         stats = NormalHitDamage(t1, _knockBackDamage + _normalDamage + addDamage);
         stats.TakeKnockBack();
+        AddInit();
     }
 
     public void Penetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         stats = NormalHitDamage(t1, _penetrateDamage + _normalDamage + addDamage);
+        AddInit();
     }
 
     public void Homing(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         stats = NormalHitDamage(t1, _homingDamage + _normalDamage + addDamage);
+        AddInit();
     }
 
     public void BombThunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         BombHitDamage(t1, Enchant.thunder);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _thunderDamage + _normalDamage + addDamage);
+        AddInit();
 
     }
 
@@ -320,6 +332,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     {
         BombHitDamage(t1, Enchant.knockBack);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _knockBackDamage + _normalDamage + addDamage);
+        AddInit();
 
     }
 
@@ -327,6 +340,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     {
         BombHitDamage(t1, Enchant.penetrate);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _penetrateDamage + _normalDamage + addDamage);
+        AddInit();
 
     }
 
@@ -334,6 +348,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     {
         BombHitDamage(t1, Enchant.homing);
         stats = NormalHitDamage(t1, _bombDirectHitDamage + _homingDamage + _normalDamage + addDamage);
+        AddInit();
 
     }
 
