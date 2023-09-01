@@ -289,14 +289,14 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
 
     public void Thunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats.TakeThunder(enchantPower);
         stats = NormalHitDamage(t1, _thunderDamage + _normalDamage + addDamage);
+        stats.TakeThunder(enchantPower);
     }
 
     public void KnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats.TakeKnockBack();
         stats = NormalHitDamage(t1, _knockBackDamage + _normalDamage + addDamage);
+        stats.TakeKnockBack();
     }
 
     public void Penetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
