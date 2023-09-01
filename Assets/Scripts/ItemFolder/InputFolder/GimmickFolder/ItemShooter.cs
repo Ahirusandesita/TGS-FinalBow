@@ -14,6 +14,8 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     /// ˆÊ’u‚Ì‚¸‚ê,‰~Œ`
     /// </summary>
     [SerializeField] float gapPosition = 0.1f;
+
+    [SerializeField] bool test = false;
     ObjectPoolSystem objectPool = default;
     WaitForSeconds rapidSpeed = default;
     IFItemShoterObjectPhysics physics = default;
@@ -54,9 +56,18 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     {
 
         Vector3 sponePos = shotPosition.position + new Vector3(Random.Range(0f, gapPosition), 0f, Random.Range(0f, gapPosition));
-
         GameObject[] createdObj = new GameObject[1];
+        if (test)
+        {
+            createdObj[0] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            createdObj[0].transform.position = transform.position;
+            createdObj[0].AddComponent<ItemMove>();
+        }
+        else
+        {
+
         createdObj[0] = objectPool.CallObject(data.objectType, sponePos, transform.localRotation).gameObject;
+        }
         //createdObjs[cnt] = Instantiate(obj, sponePos, Quaternion.identity);
 
 
