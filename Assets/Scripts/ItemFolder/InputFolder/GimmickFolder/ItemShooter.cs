@@ -14,7 +14,7 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     /// ˆÊ’u‚Ì‚¸‚ê,‰~Œ`
     /// </summary>
     [SerializeField] float gapPosition = 0.1f;
-    [SerializeField] ObjectPoolSystem objectPool = default;
+    ObjectPoolSystem objectPool = default;
     WaitForSeconds rapidSpeed = default;
     IFItemShoterObjectPhysics physics = default;
     bool isWorking = false;
@@ -37,6 +37,7 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
 
     private void Initialize()
     {
+        objectPool = GameObject.FindWithTag(InhallLibTags.PoolSystem).GetComponent<ObjectPoolSystem>();
         rapidSpeed = new WaitForSeconds(1 / data.rapidSpeed);
         if (TryGetComponent<IFItemShoterObjectPhysics>(out IFItemShoterObjectPhysics ph))
         {
@@ -55,7 +56,7 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
         Vector3 sponePos = shotPosition.position + new Vector3(Random.Range(0f, gapPosition), 0f, Random.Range(0f, gapPosition));
 
         GameObject[] createdObj = new GameObject[1];
-        createdObj[0] = objectPool.CallObject(data.objectType, sponePos, transform.rotation).gameObject;
+        createdObj[0] = objectPool.CallObject(data.objectType, sponePos, transform.localRotation).gameObject;
         //createdObjs[cnt] = Instantiate(obj, sponePos, Quaternion.identity);
 
 
