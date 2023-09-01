@@ -19,11 +19,13 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
     [SerializeField] int _bombEnchantSideDamage = 8;
     [SerializeField] float _bombEnchantAreaSize = 10;
 
-    [SerializeField] GameObject particle;
-
     [SerializeField] GameObject[] active;
 
     [SerializeField] Collider cl;
+
+    ObjectPoolSystem pool = default;
+
+    [SerializeField] float _overlapSize = 10f;
 
     bool used = false;
     struct Bomb
@@ -70,8 +72,8 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
 
     private void Effect(Bomb bomb)
     {
-        GameObject obj = Instantiate(particle, transform.position,Quaternion.identity);
-        obj.transform.localScale *= _bombEnchantAreaSize / _bombAreaSize;
+        GameObject obj = pool.CallObject(EffectPoolEnum.EffectPoolState.bomb, transform.position, Quaternion.identity);
+        obj.transform.localScale += Vector3.one * bomb.sideSize;
     }
     /// <summary>
     /// 爆発のダメージ計算
@@ -81,7 +83,7 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
     {
 
         // 爆風範囲内の敵をスキャン
-        float sideRadius = bomb.sideSize;
+        float sideRadius = bomb.sideSize * _overlapSize;
         Collider[] sideColliders = Physics.OverlapSphere(hitObjPosition,
             sideRadius, _layerMask);
         // 爆心内の敵をスキャン
