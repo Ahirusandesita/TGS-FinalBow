@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
+public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick
 {
     [SerializeField] float _middleBombAreaSizePercent = 0.3f;
 
@@ -37,6 +37,12 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
         public int sideDamage;
     }
 
+
+    void Start()
+    {
+        pool = GameObject.FindWithTag(InhallLibTags.PoolSystem).GetComponent<ObjectPoolSystem>();
+    }
+
     private int _layerMask = 1 << 6 | 1 << 7;
     private string HeadTagName = InhallLibTags.HeadPointTag;
     public void CallAction(EnchantmentEnum.EnchantmentState enchantment)
@@ -47,7 +53,7 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
         }
 
         Bomb bomb = new Bomb();
-        if(enchantment == EnchantmentEnum.EnchantmentState.bomb)
+        if (enchantment == EnchantmentEnum.EnchantmentState.bomb)
         {
             bomb.middleSize = _bombEnchantAreaSize * _middleBombAreaSizePercent;
             bomb.sideSize = _bombEnchantAreaSize;
@@ -67,7 +73,7 @@ public class EnchantGimmickBomb : MonoBehaviour,IFUseEnchantGimmick
         GameObject.FindObjectOfType<ArrowEnchantSound>().Bomb(this.GetComponent<AudioSource>());
 
         used = true;
-        foreach(GameObject obj in active)
+        foreach (GameObject obj in active)
         {
             obj.SetActive(false);
             cl.enabled = false;
