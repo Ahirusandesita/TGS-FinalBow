@@ -2945,7 +2945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1577799544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2958,7 +2958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee182ac232246c4993b4f283852d0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemState: 0
+  itemState: 7
   DropItem: 0
 --- !u!114 &1577799545
 MonoBehaviour:
@@ -3627,7 +3627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &2061297958
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3703,7 +3703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee182ac232246c4993b4f283852d0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemState: 0
+  itemState: 7
   DropItem: 0
 --- !u!114 &2061297962
 MonoBehaviour:
@@ -3846,6 +3846,18 @@ PrefabInstance:
       propertyPath: objectPool
       value: 
       objectReference: {fileID: 2045328650}
+    - target: {fileID: 7368169375177392630, guid: b4482a46e6cd55f4aade8d1b4b13e43a, type: 3}
+      propertyPath: upSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368169375177392630, guid: b4482a46e6cd55f4aade8d1b4b13e43a, type: 3}
+      propertyPath: sideSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368169375177392630, guid: b4482a46e6cd55f4aade8d1b4b13e43a, type: 3}
+      propertyPath: reverceTime
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7368169375177392631, guid: b4482a46e6cd55f4aade8d1b4b13e43a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.07
