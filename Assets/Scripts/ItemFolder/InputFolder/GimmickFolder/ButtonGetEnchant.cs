@@ -25,13 +25,23 @@ public class ButtonGetEnchant : MonoBehaviour,IFCanTakeArrowButtonGetEnchant
 {
     [SerializeField] GameObject[] gameObjects = default;
     IFUseEnchantGimmick[] gimmicks = default;
+    private void Start()
+    {
+        Init();
+    }
     private void OnValidate()
+    {
+        Init();
+
+    }
+
+    private void Init()
     {
         SelectArray selectArray = new();
         gameObjects = selectArray.GetSelectedArrayReturnGameObjects<IFUseEnchantGimmick>(gameObjects);
         gimmicks = selectArray.GetSelectedArray<IFUseEnchantGimmick>(gameObjects);
-
     }
+
     public void ButtonPush(EnchantmentEnum.EnchantmentState enchantment)
     {
         foreach(IFUseEnchantGimmick gim in gimmicks)
