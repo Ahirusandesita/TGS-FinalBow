@@ -30,7 +30,7 @@ public class PlayerNearVani : MonoBehaviour
                 c.enabled = false;
             }
             col.enabled = false;
-            print("aaa,false");
+
         }
         else if(col.enabled == false)
         {

@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class BossMove : MonoBehaviour
+public class BossActionClass : MonoBehaviour
 {
     [Tooltip("アニメーション速度")]
     [SerializeField] float _animationSpeed = 0.4f;
