@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System;
+[RequireComponent(typeof(BossAttackTestTest))]
 public class TestBossActionEvents : TestBossActionBase
 {
     [Tooltip("çUåÇâÒêî")]
@@ -36,7 +37,7 @@ public class TestBossActionEvents : TestBossActionBase
     [SerializeField] AttackType[] _attackRotation;
 
     const int NUMBER_OF_NORMAL_ATTACK = 3;
-    const int NUMBER_OF_STAR_ATTACK = 4;
+    const int NUMBER_OF_STAR_ATTACK = 6;
     const int NUMBER_OF_TELEPOTATION = 4;
     const int NUMBER_OF_SHIELDS = 4;
     const int NUMBER_OF_FINAL_BLAST_COUNT = 5;
@@ -45,7 +46,7 @@ public class TestBossActionEvents : TestBossActionBase
     ObjectPoolSystem _pool = default;
     Action _attackAction = default;
     TestBossMoveActionEventTransform _transformMove = default;
-    EnemyAttack enemyAttack = new();
+    BossAttackTestTest enemyAttack = default;
 
     Vector3 _firstPosition = default;
     Vector3 _leftTeleportPoint = default;
@@ -83,6 +84,7 @@ public class TestBossActionEvents : TestBossActionBase
         //base.Start();
         _transform = transform;
         _pool = FindObjectOfType<ObjectPoolSystem>();
+        enemyAttack = GetComponent<BossAttackTestTest>();
         _transformMove = new TestBossMoveActionEventTransform();
         _transformMove.SetTransform  = _transform;
 
@@ -189,10 +191,12 @@ public class TestBossActionEvents : TestBossActionBase
     /// </summary>
     private void StarAttack()
     {
+        const int NUMBER_OF_BULLETS = 7;   
         if (CoolTimeCheck(_starStopTime, ref _actionTimeLineCacheTime) && CheckNumberOfAttack(_numberOfEndAction, NUMBER_OF_STAR_ATTACK))
         {
-            
+
             // Ç§Ç¬
+            enemyAttack.SpawnAttack(PoolEnum.PoolObjectType.groundBullet, _transform, NUMBER_OF_BULLETS);
             print("aaa ÉXÉ^Å[");
             AttackedCacheValue();
             CheckEndAttack(_numberOfEndAction, NUMBER_OF_STAR_ATTACK);
@@ -204,9 +208,12 @@ public class TestBossActionEvents : TestBossActionBase
 
     private void NormalAttack()
     {
+        const int NUMBER_OF_BULLETS = 3;
+
         if (CoolTimeCheck(_normalStopTime, ref _actionTimeLineCacheTime) && CheckNumberOfAttack(_numberOfEndAction, NUMBER_OF_NORMAL_ATTACK))
         {
             // Ç§Ç¬
+            enemyAttack.SpawnAttack(PoolEnum.PoolObjectType.normalBullet, _transform, NUMBER_OF_BULLETS);
             print("aaa normal");
             AttackedCacheValue();
             CheckEndAttack(_numberOfEndAction, NUMBER_OF_NORMAL_ATTACK);
@@ -286,6 +293,7 @@ public class TestBossActionEvents : TestBossActionBase
         {
             // Ç”ÇüÇ¢Ç»ÇÈÇ‘ÇÁÇ∑Ç∆
             print("aaa final");
+
             _actionEndTime = Time.time;
             Move();
             isAttack = false;
