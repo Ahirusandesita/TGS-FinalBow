@@ -102,7 +102,7 @@ public enum RoopType
 /// <summary>
 /// 敵の方向の種類
 /// </summary>
-public enum DirectionType
+public enum DirectionType_AtMoving
 {
     /// <summary>
     /// プレイヤー方向
@@ -116,4 +116,38 @@ public enum DirectionType
     /// 進行方向
     /// </summary>
     moveDirection
+}
+
+/// <summary>
+/// 停止時の方向の種類
+/// </summary>
+public enum DirectionType_AtStopping
+{
+    /// <summary>
+    /// 今までの方向を継続
+    /// </summary>
+    continuation,
+    /// <summary>
+    /// プレイヤー方向
+    /// </summary>
+    player,
+    /// <summary>
+    /// プレイヤーを基準としたワールド正面
+    /// </summary>
+    front
+}
+
+/// <summary>
+/// 攻撃時の方向の種類
+/// </summary>
+public enum DirectionType_AtAttack
+{
+    /// <summary>
+    /// プレイヤー方向
+    /// </summary>
+    player,
+    /// <summary>
+    /// プレイヤーを基準としたワールド正面
+    /// </summary>
+    front
 }

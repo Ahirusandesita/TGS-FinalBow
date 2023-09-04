@@ -9,7 +9,7 @@ using UnityEngine;
 /// <summary>
 /// 敵が持つ挙動クラスの定義
 /// </summary>
-public abstract class EnemyMoveBase : OriginalMonoBehaviour
+public abstract class EnemyMoveBase : MonoBehaviour
 {
     [Tooltip("自身のTransformをキャッシュ")]
     protected Transform _transform = default;

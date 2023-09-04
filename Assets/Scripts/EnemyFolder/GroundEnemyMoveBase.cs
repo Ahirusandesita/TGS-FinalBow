@@ -224,26 +224,26 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         }
     }
 
-    public override void OrignalOnCollisionEnter_HitFloor()
-    {
-        JumpDirectionSetting();
-        _jumpPower = _jumpPowerMax;
-        _isJump = false;
-    }
+    //public override void OrignalOnCollisionEnter_HitFloor()
+    //{
+    //    JumpDirectionSetting();
+    //    _jumpPower = _jumpPowerMax;
+    //    _isJump = false;
+    //}
 
-    public override void OrignalOnCollisionEnter_HitWall()
-    {
-        Debug.Log("Hit"!);
-        if (_crabWalk == CrabWalkState.left)
-        {
-            _crabWalk = CrabWalkState.right;
-        }
-        else
-        {
-            _crabWalk = CrabWalkState.left;
-        }
-        WalkDirectionState();
-    }
+    //public override void OrignalOnCollisionEnter_HitWall()
+    //{
+    //    Debug.Log("Hit"!);
+    //    if (_crabWalk == CrabWalkState.left)
+    //    {
+    //        _crabWalk = CrabWalkState.right;
+    //    }
+    //    else
+    //    {
+    //        _crabWalk = CrabWalkState.left;
+    //    }
+    //    WalkDirectionState();
+    //}
 
 
 

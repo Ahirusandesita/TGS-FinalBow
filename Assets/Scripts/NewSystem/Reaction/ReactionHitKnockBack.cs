@@ -43,7 +43,6 @@ public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>
         ReactionEnd = false;
         animator.SetTrigger("HitKnockBack");
         //ノックバック処理
-        X_Debug.Log("BBBBBBBBBBBBBBBB");
     }
 
     public void End() => ReactionEnd = true;

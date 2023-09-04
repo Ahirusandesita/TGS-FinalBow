@@ -79,6 +79,12 @@ public class BirdGoalInformation
     public float _cooldownTime_s_a;
     public float _cooldownTime_s_b;
 
-    [Tooltip("‚Ç‚Ì•ûŒü‚ğŒü‚­‚©")]
-    public DirectionType _directionType;
+    [Tooltip("ˆÚ“®‚É‚Ç‚Ì•ûŒü‚ğŒü‚­‚©")]
+    public DirectionType_AtMoving _directionType_moving;
+
+    [Tooltip("’â~‚É‚Ç‚Ì•ûŒü‚ğŒü‚­‚©")]
+    public DirectionType_AtStopping _directionType_stopping;
+
+    [Tooltip("UŒ‚‚É‚Ç‚Ì•ûŒü‚ğŒü‚­‚©")]
+    public DirectionType_AtAttack _directionType_attack;
 }

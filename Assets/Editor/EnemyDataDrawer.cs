@@ -108,9 +108,17 @@ public class EnemyDataDrawer : PropertyDrawer
 
             EditorGUI.LabelField(labelRect1, "<color=white><b>---à⁄ìÆíÜ---</b></color>", _bold);
 
-            Rect attackTypeRect = new(labelRect1)
+            Rect directionMoveRect = new(labelRect1)
             {
                 y = labelRect1.y + EditorGUIUtility.singleLineHeight + 3f
+            };
+
+            var directionMoveProperty = property.FindPropertyRelative("_directionType_moving");
+            directionMoveProperty.enumValueIndex = EditorGUI.Popup(directionMoveRect, "à⁄ìÆíÜÇÃå¸Ç´", directionMoveProperty.enumValueIndex, Enum.GetNames(typeof(DirectionType_AtMoving)));
+
+            Rect attackTypeRect = new(directionMoveRect)
+            {
+                y = directionMoveRect.y + EditorGUIUtility.singleLineHeight + 3f
             };
 
             var attackTypeProperty = property.FindPropertyRelative("_birdAttackType_a");
@@ -252,7 +260,7 @@ public class EnemyDataDrawer : PropertyDrawer
 
             Rect attackIntervalRect2;
             SerializedProperty attackIntervalProperty2;
-            Rect attackTimingsRect10;
+            Rect attackTimingsRect10 = default;
 
             switch ((BirdAttackType)attackTypeProperty2.enumValueIndex)
             {
@@ -265,6 +273,11 @@ public class EnemyDataDrawer : PropertyDrawer
 
                     attackIntervalProperty2 = property.FindPropertyRelative("_attackInterval_s_b");
                     attackIntervalProperty2.floatValue = EditorGUI.FloatField(attackIntervalRect2, "çUåÇä‘äu", attackIntervalProperty2.floatValue);
+
+                    attackTimingsRect10 = new(attackIntervalRect2)
+                    {
+                        y = attackIntervalRect2.y
+                    };
 
                     break;
 
@@ -345,9 +358,47 @@ public class EnemyDataDrawer : PropertyDrawer
                     attackIntervalProperty2 = property.FindPropertyRelative("_attackInterval_s_b");
                     attackIntervalProperty2.floatValue = EditorGUI.FloatField(attackIntervalRect2, "çUåÇä‘äu", attackIntervalProperty2.floatValue);
 
+                    attackTimingsRect10 = new(attackIntervalRect2)
+                    {
+                        y = attackIntervalRect2.y
+                    };
+
                     break;
 
                 default:
+
+                    attackTimingsRect10 = new(attackTypeRect2)
+                    {
+                        y = attackTypeRect2.y
+                    };
+
+                    break;
+            }
+
+            // ï˚å¸ópÇ…Ç‡Ç§Ç–Ç∆Ç¬
+            switch ((BirdAttackType)attackTypeProperty2.enumValueIndex)
+            {
+                case BirdAttackType.none:
+
+                    Rect directionStopRect = new(attackTimingsRect10)
+                    {
+                        y = attackTimingsRect10.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var directionStopProperty = property.FindPropertyRelative("_directionType_stopping");
+                    directionStopProperty.enumValueIndex = EditorGUI.Popup(directionStopRect, "í‚é~íÜÇÃå¸Ç´", directionStopProperty.enumValueIndex, Enum.GetNames(typeof(DirectionType_AtStopping)));
+
+                    break;
+
+                default:
+
+                    Rect directionAttackRect = new(attackTimingsRect10)
+                    {
+                        y = attackTimingsRect10.y + EditorGUIUtility.singleLineHeight + 3f
+                    };
+
+                    var directionAttackProperty = property.FindPropertyRelative("_directionType_attack");
+                    directionAttackProperty.enumValueIndex = EditorGUI.Popup(directionAttackRect, "çUåÇÇÃå¸Ç´", directionAttackProperty.enumValueIndex, Enum.GetNames(typeof(DirectionType_AtAttack)));
 
                     break;
             }
@@ -376,22 +427,22 @@ public class EnemyDataDrawer : PropertyDrawer
         {
             case BirdAttackType.equalIntervals:
 
-                height += 150f;
+                height += 170f;
                 break;
 
             case BirdAttackType.specifySeconds:
 
-                height += 255f;
+                height += 275f;
                 break;
 
             case BirdAttackType.consecutive:
 
-                height += 190f;
+                height += 210f;
                 break;
 
             default:
 
-                height += 130f;
+                height += 150f;
                 break;
         }
 
@@ -401,22 +452,22 @@ public class EnemyDataDrawer : PropertyDrawer
         {
             case BirdAttackType.equalIntervals:
 
-                height += 70f;
+                height += 90f;
                 break;
 
             case BirdAttackType.specifySeconds:
 
-                height += 175f;
+                height += 195f;
                 break;
 
             case BirdAttackType.consecutive:
 
-                height += 110f;
+                height += 130f;
                 break;
 
             default:
 
-                height += 50f;
+                height += 70f;
                 break;
         }
 

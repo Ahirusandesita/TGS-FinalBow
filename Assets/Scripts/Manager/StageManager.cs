@@ -254,6 +254,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
             birdMove.MoveSpeedArcs = birdDataPath._birdGoalPlaces[i]._arcHeight;
             birdMove.ArcMoveDirections = birdDataPath._birdGoalPlaces[i]._arcMoveDirection;
+
+            birdMove.DirectionTypes_Moving = birdDataPath._birdGoalPlaces[i]._directionType_moving;
+            birdMove.DirectionTypes_Stopping = birdDataPath._birdGoalPlaces[i]._directionType_stopping;
+            birdMove.DirectionTypes_Attack = birdDataPath._birdGoalPlaces[i]._directionType_attack;
         }
     }
 
