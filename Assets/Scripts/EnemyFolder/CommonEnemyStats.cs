@@ -107,7 +107,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         _combo.NormalScore_ComboScore();
 
         // 死んだときのエフェクト呼び出し
-        _objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _myTransform.position, Quaternion.identity);
+        _objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _transform.position, Quaternion.identity);
 
         _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
@@ -160,7 +160,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
             nowKnockBackedDistance += moveDistance;
 
             // 位置変更
-            _myTransform.Translate(Vector3.back * moveDistance);
+            _transform.Translate(Vector3.back * moveDistance);
 
             yield return null;
 

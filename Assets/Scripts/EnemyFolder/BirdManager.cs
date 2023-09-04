@@ -12,6 +12,7 @@ using System.Collections;
 /// </summary>
 // コンポーネントのアタッチを強制
 [RequireComponent(typeof(BirdStats), typeof(CashObjectInformation), typeof(BirdMoveComponents))]
+[RequireComponent(typeof(ReactionHitKnockBack))]
 public class BirdManager : MonoBehaviour
 {
     [Tooltip("取得したBirdMoveクラス")]

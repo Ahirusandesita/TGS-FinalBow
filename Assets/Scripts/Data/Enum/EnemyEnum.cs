@@ -98,3 +98,22 @@ public enum RoopType
     /// </summary>
     reverse
 }
+
+/// <summary>
+/// 敵の方向の種類
+/// </summary>
+public enum DirectionType
+{
+    /// <summary>
+    /// プレイヤー方向
+    /// </summary>
+    player,
+    /// <summary>
+    /// プレイヤーを基準としたワールド正面
+    /// </summary>
+    front,
+    /// <summary>
+    /// 進行方向
+    /// </summary>
+    moveDirection
+}

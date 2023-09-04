@@ -8,7 +8,6 @@ using UnityEngine;
 using System.Collections;
 
 
-[RequireComponent(typeof(IReaction<Transform, Vector3>))]
 public class Reaction : MonoBehaviour
 {
     #region variable 

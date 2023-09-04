@@ -22,7 +22,7 @@ public interface IReactionEnd
 }
 
 
-
+[RequireComponent(typeof(Reaction))]
 public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>,IReactionEnd
 {
 
@@ -32,6 +32,7 @@ public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>
 
     public void Start()
     {
+        ReactionEnd = true;
         this.GetComponent<Reaction>().ReactionFactory(this);
         animator = this.GetComponent<Animator>();
     }
@@ -40,8 +41,9 @@ public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>
     public void Reaction(Transform transform, Vector3 hitPosition)
     {
         ReactionEnd = false;
-        animator.SetTrigger("HitKnockBack"); 
-       //ノックバック処理
+        animator.SetTrigger("HitKnockBack");
+        //ノックバック処理
+        X_Debug.Log("BBBBBBBBBBBBBBBB");
     }
 
     public void End() => ReactionEnd = true;

@@ -78,4 +78,7 @@ public class BirdGoalInformation
     [Tooltip("連続攻撃クールタイム（秒）")]
     public float _cooldownTime_s_a;
     public float _cooldownTime_s_b;
+
+    [Tooltip("どの方向を向くか")]
+    public DirectionType _directionType;
 }

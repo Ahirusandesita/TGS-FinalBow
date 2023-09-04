@@ -612,7 +612,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
         // ˆÚ“®‚ªŠ®—¹‚µ‚½‚ç”²‚¯‚éiŽÀˆÚ“®—Ê‚Æ–Ú•WˆÚ“®—Ê‚ð”äŠrj
         if (movedDistance >= _startToGoalDistance)
         {
-            X_Debug.Log("’¹‚ÌˆÚ“®Š®—¹");
             _isFinishMovement = true;
             movedDistance = 0f;
 
