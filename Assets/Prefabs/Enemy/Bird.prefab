@@ -1101,6 +1101,9 @@ GameObject:
   - component: {fileID: 598212175796384945}
   - component: {fileID: 5213685018902185837}
   - component: {fileID: 5152617526198475768}
+  - component: {fileID: 7728833080253847853}
+  - component: {fileID: 6713674469313149891}
+  - component: {fileID: -7199733016986079414}
   m_Layer: 6
   m_Name: Bird
   m_TagString: Untagged
@@ -1216,6 +1219,44 @@ MonoBehaviour:
   _idleMoveSpeedX: 10
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
+--- !u!114 &7728833080253847853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5433653101953825380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172b6fca44b417641914cee250027b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6713674469313149891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5433653101953825380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b06b003a4cf7f74c879ff419deda969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+--- !u!114 &-7199733016986079414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5433653101953825380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091613098d692e341bfa0460ee256973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useCamera: {fileID: 0}
 --- !u!1 &5433653101953825382
 GameObject:
   m_ObjectHideFlags: 0
