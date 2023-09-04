@@ -7,7 +7,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick
+/// <summary>
+/// ボム誘爆用
+/// </summary>
+interface IFUseEnchantGimmickTakeBomb
+{
+    void TakeBomb();
+}
+public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick, IFUseEnchantGimmickTakeBomb
 {
     [SerializeField] float _middleBombAreaSizePercent = 0.3f;
 
@@ -43,15 +50,30 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick
         pool = GameObject.FindWithTag(InhallLibTags.PoolSystem).GetComponent<ObjectPoolSystem>();
     }
 
-    private int _layerMask = 1 << 6 | 1 << 7;
+    private int _layerMask = 1 << 6 | 1 << 7 | 1 << 10;
     private string HeadTagName = InhallLibTags.HeadPointTag;
     public void CallAction(EnchantmentEnum.EnchantmentState enchantment)
+    {
+        StartExp(enchantment);
+    }
+
+    public void TakeBomb()
+    {
+        StartExp(EnchantmentEnum.EnchantmentState.bomb);
+    }
+
+    /// <summary>
+    /// 爆発の準備
+    /// </summary>
+    /// <param name="enchantment"></param>
+    private void StartExp(EnchantmentEnum.EnchantmentState enchantment)
     {
         if (used)
         {
             return;
         }
 
+        used = true;
         Bomb bomb = new Bomb();
         if (enchantment == EnchantmentEnum.EnchantmentState.bomb)
         {
@@ -72,7 +94,7 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick
         // かり
         GameObject.FindObjectOfType<ArrowEnchantSound>().Bomb(this.GetComponent<AudioSource>());
 
-        used = true;
+
         foreach (GameObject obj in active)
         {
             obj.SetActive(false);
@@ -107,6 +129,8 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick
         // 処理したゲームオブジェクトをぶち込む
         HashSet<GameObject> processedObject = new HashSet<GameObject>();
 
+
+
         // 爆心内のダメージ判定から先に行う
         BombDamage(middleColliders, processedObject, bomb.middleDamage);
 
@@ -125,6 +149,7 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick
                 // コライダーのゲームオブジェクト
                 GameObject checkObject = inCollider.gameObject;
 
+
                 // 取得したゲームオブジェクトがヘッドショットの判定用のものなら次ループ
                 if (checkObject.CompareTag(HeadTagName)) continue;
 
@@ -134,7 +159,16 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick
                 // 処理済みゲームオブジェクトに登録
                 processedObject.Add(checkObject);
 
-                takeBombStats = checkObject.GetComponent<EnemyStats>();
+                if (checkObject.TryGetComponent<IFUseEnchantGimmickTakeBomb>(out IFUseEnchantGimmickTakeBomb gimmick))
+                {
+                    gimmick.TakeBomb();
+                    continue;
+                }
+                else
+                {
+                    takeBombStats = checkObject.GetComponent<EnemyStats>();
+
+                }
 
                 if (takeBombStats != null)
                 {
@@ -145,6 +179,9 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick
             }
 
         }
+
+
     }
+
 
 }
