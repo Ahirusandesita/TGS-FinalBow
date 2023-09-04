@@ -100,7 +100,7 @@ public abstract class TestBossActionBase : MonoBehaviour, IBossAction
             );
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         animator = this.GetComponent<Animator>();
     }

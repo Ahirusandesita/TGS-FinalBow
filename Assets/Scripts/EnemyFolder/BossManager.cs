@@ -11,7 +11,7 @@ using System.Collections;
 /// ボスの管理クラス
 /// </summary>
 // コンポーネントのアタッチを強制
-[RequireComponent(typeof(BossStats), typeof(BossMove), typeof(BossAttack))]
+[RequireComponent(typeof(BossStats), typeof(BossActionClass), typeof(BossAttack))]
 [RequireComponent(typeof(Animator))]
 public class BossManager : MonoBehaviour
 {
@@ -22,7 +22,7 @@ public class BossManager : MonoBehaviour
     private BossAttack _bossAttack = default;
 
     [Tooltip("取得したBossMoveクラス")]
-    private BossMove _bossMove = default;
+    private BossActionClass _bossMove = default;
 
     [Tooltip("召喚までの行動数")]
     private int _summonsIntervalTimes = 4;　// この数に1回召喚
@@ -39,7 +39,7 @@ public class BossManager : MonoBehaviour
 
         _bossAttack = this.GetComponent<BossAttack>();
 
-        _bossMove = this.GetComponent<BossMove>();
+        _bossMove = this.GetComponent<BossActionClass>();
      
         StartCoroutine(FGStart());
     }
