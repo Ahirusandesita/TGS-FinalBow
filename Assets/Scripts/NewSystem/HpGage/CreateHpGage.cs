@@ -19,6 +19,7 @@ public class CreateHpGage : MonoBehaviour
     public HpGage Create()
     {
         GameObject sliderObject = Instantiate(slider.gameObject);
+        sliderObject.transform.parent = this.transform;
         return sliderObject.GetComponent<HpGage>();
     }
 

@@ -13,6 +13,12 @@ public class HpGage : MonoBehaviour
     #region variable 
     private Camera myCamera;
     private Slider slider;
+    private RectTransform sliderpos;
+
+    [SerializeField]
+    private float Distance;
+
+    private float decijion; // OŠp’ê•Ó@‘ã“ü—p
     #endregion
     #region property
     #endregion
@@ -26,14 +32,13 @@ public class HpGage : MonoBehaviour
     private void Start()
     {
         slider = this.GetComponent<Slider>();
+        sliderpos = this.GetComponent<RectTransform>();
+        Hp(1f);
     }
 
     public void SetPosition(Transform targetTransform)
     {
-        transform.position = RectTransformUtility.WorldToScreenPoint(
-          myCamera,
-          targetTransform.position + Vector3.up);
-        transform.localScale = targetTransform.localScale / (Vector3.Distance(myCamera.transform.position, targetTransform.position) / 5f);
+
     }
     public void Hp(float hp) => slider.value = hp;
 

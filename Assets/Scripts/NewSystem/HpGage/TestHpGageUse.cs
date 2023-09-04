@@ -24,6 +24,7 @@ public class TestHpGageUse : MonoBehaviour
     private void Start()
     {
         hpGage = GameObject.FindObjectOfType<CreateHpGage>().Create();
+        useCamera = GameObject.FindWithTag(InhallLibTags.MainCamera).GetComponent<Camera>();
         hpGage.SetCamera(useCamera);
     }
 
