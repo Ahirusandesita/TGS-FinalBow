@@ -4,6 +4,8 @@
 // CreateDay: 2023/06/08
 // Creator  : Takayanagi
 // --------------------------------------------------------- 
+
+using System;
 using UnityEngine;
 
 public interface IFTake
@@ -22,7 +24,10 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
 
     protected ObjectPoolSystem _objectPoolSystem;
 
-    protected Transform _myTransform = default;
+    protected Transform _transform = default;
+
+    protected Reaction _reaction = default;
+
 
     [SerializeField, Tooltip("各敵のHP")]
     protected int _maxHp = default;
@@ -37,7 +42,17 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
     {
         _animator = this.GetComponent<Animator>();
         _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
-        _myTransform = this.transform;
+        _transform = this.transform;
+
+        try
+        {
+            _reaction = this.GetComponent<Reaction>();
+        }
+        catch (Exception)
+        {
+            _reaction = null;
+            X_Debug.LogError("Reactionクラスがついていません");
+        }
     }
 
     //IFScoreManager_Combo _combo = default;
@@ -45,7 +60,7 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
     /// 敵がダメージを受ける
     /// </summary>
     /// <param name="damage">ダメージ</param>
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         _hp -= damage;
     }

@@ -1323,6 +1323,8 @@ GameObject:
   - component: {fileID: -8898912803435600830}
   - component: {fileID: 8592156782917564589}
   - component: {fileID: 5047778023432979386}
+  - component: {fileID: 8572735086020104544}
+  - component: {fileID: 8856110592205956944}
   m_Layer: 6
   m_Name: Phoenix_PBR normal
   m_TagString: Untagged
@@ -1438,6 +1440,31 @@ MonoBehaviour:
   _idleMoveSpeedX: 10
   _idleMoveSpeedY: 10
   _changeAngleSpeed: 1
+--- !u!114 &8572735086020104544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172b6fca44b417641914cee250027b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8856110592205956944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b06b003a4cf7f74c879ff419deda969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5144204438046832915}
 --- !u!1 &5144204438039530197
 GameObject:
   m_ObjectHideFlags: 0

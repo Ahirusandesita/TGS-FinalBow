@@ -42,6 +42,13 @@ public class BirdStats : CommonEnemyStats
         }
     }
 
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        _reaction.ReactionStart(_transform.position);
+    }
+
     public override void TakeBomb(int damage)
     {
         TakeDamage(damage);
