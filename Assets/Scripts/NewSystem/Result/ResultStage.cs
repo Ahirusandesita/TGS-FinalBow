@@ -6,6 +6,8 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+
+
 public class ResultStage : MonoBehaviour
 {
     #region variable 
@@ -32,14 +34,21 @@ public class ResultStage : MonoBehaviour
 
     public void Result()=> stagePropery.Value = true;
 
-    public void OutPutResultScreen(ScoreNumber.Score score)
+    public void ResultScreenScore(ScoreNumber.Score score)
     {
         Debug.Log(score.SumScore);
     }
+    public void ResultScreenTime(float time)
+    {
+        Debug.Log(time);
+    }
+
 
     private void DeleteResultScreen()
     {
 
     }
+
+
     #endregion
 }

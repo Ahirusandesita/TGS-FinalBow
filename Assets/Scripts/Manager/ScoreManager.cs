@@ -148,7 +148,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         public ScoreData scoreDatas;
     }
     public ScoreStructure[] _scoreStructures;
-    
+
 
 
     public struct DefaultScoreStructure
@@ -186,7 +186,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         //‰¼Žæ“¾
         PlayerStats playerStats = GameObject.FindObjectOfType<PlayerStats>();
         playerStats.readOnlyPlayerHp.Subject.FirstSubscribe(hp => { BonusScore_HpValueSetting(hp); });
-        playerStats.readOnlyPlayerHp.Subject.SecondOnwardsObservers(_=> { BonusScore_HpScore(); });
+        playerStats.readOnlyPlayerHp.Subject.SecondOnwardsObservers(_ => { BonusScore_HpScore(); });
 
         ResultStage resultStage = GameObject.FindObjectOfType<ResultStage>();
         resultStage.readOnlyStateProperty.Subject.Subscribe(
@@ -194,7 +194,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
             {
                 if (isResult)
                 {
-                    resultStage.OutPutResultScreen(ScorePoint);
+                    resultStage.ResultScreenScore(ScorePoint);
                     SumScorePoint = SumScorePoint + ScorePoint;
                     ScorePoint.Reset();
                 }
@@ -206,11 +206,11 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         ScorePoint.scoreTimeBonus = 4000;
         SumScorePoint = ScoreNumber.ScorePoint;
-        if(ScorePoint.scoreHpBonus == 0)
+        if (ScorePoint.scoreHpBonus == 0)
         {
             //ScorePoint.scoreHpBonus = _ScoreHpBonus;
         }
-        if(ScorePoint.scoreTimeBonus == 0)
+        if (ScorePoint.scoreTimeBonus == 0)
         {
             ScorePoint.scoreTimeBonus = 4000;
         }
@@ -218,18 +218,18 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
 
         defaultScoreStructures = new DefaultScoreStructure[_scoreStructures.Length];
-        for(int i = 0; i < _scoreStructures.Length; i++)
+        for (int i = 0; i < _scoreStructures.Length; i++)
         {
-            Action<int,int> action = (structerNumber,stateNumber) =>
-            {
-                defaultScoreStructures[structerNumber] = new DefaultScoreStructure(_scoreStructures[stateNumber].scoreDatas.score);
-            };
+            Action<int, int> action = (structerNumber, stateNumber) =>
+             {
+                 defaultScoreStructures[structerNumber] = new DefaultScoreStructure(_scoreStructures[stateNumber].scoreDatas.score);
+             };
 
-            for (int j=0;j< Enum.GetNames(typeof(ScoreState)).Length; j++)
+            for (int j = 0; j < Enum.GetNames(typeof(ScoreState)).Length; j++)
             {
-                if((int)_scoreStructures[i].scoreDatas.scoreState == j)
+                if ((int)_scoreStructures[i].scoreDatas.scoreState == j)
                 {
-                    action(j,i);
+                    action(j, i);
                 }
             }
         }
