@@ -65,7 +65,7 @@ public class TestBossTeleport : NewTestBossMoveBase
             if(teleportCount >= NUMBER_OF_TELEPORTS)
             {
                 transform.position = _teleportStartPosition;
-                isMove = false;
+                isMove.Value = false;
                 _isStart = true;
                 return;
             }
