@@ -133,6 +133,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("ループ先のゴール番号")]
     private int _goalIndexOfRoop = default;
 
+    [Tooltip("各ステージのスタート地点")]
+    private Transform _stageTransform = default;
+
     [Tooltip("ゴールリスト")]
     private List<Vector3> _goalPositions = new List<Vector3>();
 
@@ -210,7 +213,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
     private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
 
     [Tooltip("正面の角度")]
-    private Quaternion _frontAngle = Quaternion.Euler(new Vector3(0f, 180f, 0f));
+    private Quaternion _frontAngle = default;
 
     [Tooltip("指定秒数攻撃の最大数")]
     private const int MAX_ATTACK_TIMES_FOR_SPECIFY_SECONDS = 5;
@@ -470,20 +473,51 @@ public abstract class BirdMoveBase : EnemyMoveBase
             _directionTypes_attack.Add(value);
         }
     }
+
+    /// <summary>
+    /// 各ステージのスタート地点
+    /// </summary>
+    public Transform StageTransform
+    {
+        set
+        {
+            _stageTransform = value;
+        }
+    }
     #endregion
 
 
     #region method
-
     protected override void Start()
     {
-        base.Start();
+        _normalSize = _transform.localScale;    // キャッシュ
 
+        // 子オブジェクトの「SpawnPosition」
+        _childSpawner = _transform.GetChild(2).transform;
+
+
+        bird = GetComponent<BirdStats>();
+        animator = GetComponent<Animator>();
+        _cashObjectInformation = this.GetComponent<CashObjectInformation>();
+        _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
+
+        base.Start();
+    }
+
+
+    /// <summary>
+    /// 鳥雑魚が出現したときの初期化関数
+    /// </summary>
+    public void BirdEnable()
+    {
         // Transform情報の取得
         _startPosition = _transform.position;
-        _goalPosition = _goalPositions[_repeatCount];
-        _normalSize = _transform.localScale;    // キャッシュ
         _prevPosition = _transform.position;
+        _goalPosition = _goalPositions[_repeatCount];
+
+        // ステージ正面（ステージ地点の正面の逆数 = 敵にとっての正面）
+        X_Debug.Log(-_stageTransform.forward);
+        _frontAngle = Quaternion.Euler(-_stageTransform.forward);
 
         // 変数の初期化
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
@@ -522,22 +556,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
                 break;
         }
 
-        bird = GetComponent<BirdStats>();
-
-        animator = GetComponent<Animator>();
-
-        // 子オブジェクトの「SpawnPosition」
-        _childSpawner = _transform.GetChild(2).transform;
-
-        _cashObjectInformation = this.GetComponent<CashObjectInformation>();
-
-        _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
-
-
         // スポーン時に大きくする
         StartCoroutine(LargerAtSpawn());
     }
-
 
     /// <summary>
     /// 麻痺判定
@@ -607,7 +628,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             }
         }
 
-        // 攻撃処理（一定間隔で実行される）-----------------------------------------------------------------------------------
+        // 攻撃処理-----------------------------------------------------------------------------------
 
         if (!_isAttackCompleted_stopping)
         {
@@ -624,6 +645,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
                 StartCoroutine(RotateCoroutine_Attack());
             }
 
+            // 攻撃する（非同期）
             _activeAttackCoroutine_stopping = StartCoroutine(AttackCoroutine());
             _isAttackCompleted_stopping = true;
         }
@@ -755,14 +777,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
-    /// ステージ進行時に初期化する処理
-    /// </summary>
-    private void InitializeAtStageChange()
-    {
-        //_frontAngle = 
-    }
-
-    /// <summary>
     /// 攻撃用変数の初期化
     /// </summary>
     private void InitializeForAttack()
@@ -812,7 +826,14 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
             // ワールド正面を向く
             case DirectionType_AtMoving.front:
-                break;
+
+                while (_transform.rotation != _frontAngle)
+                {
+                    RotateToFront();
+                    yield return null;
+                }
+
+                yield break;
 
             // 進行方向を向く
             case DirectionType_AtMoving.moveDirection:
@@ -835,7 +856,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         {
             // 現在の方向を継続
             case DirectionType_AtStopping.continuation:
-                break;
+                yield break;
 
             // プレイヤーの方向を向く
             case DirectionType_AtStopping.player:
@@ -846,12 +867,18 @@ public abstract class BirdMoveBase : EnemyMoveBase
                     yield return null;
                 }
 
-                break;
+                yield break;
 
             // ワールド正面を向く
             case DirectionType_AtStopping.front:
 
-                break;
+                while (_transform.rotation != _frontAngle)
+                {
+                    RotateToFront();
+                    yield return null;
+                }
+
+                yield break;
         }
     }
 

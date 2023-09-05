@@ -22,15 +22,31 @@ interface IStageSpawn
 
 public class StageManager : MonoBehaviour, IStageSpawn
 {
+    /// <summary>
+    /// ステージ情報クラス
+    /// </summary>
+    [Serializable]
+    public class StageInformation
+    {
+        [Tooltip("ステージ名")]
+        public string _stageName;
+
+        [Tooltip("各ステージのスタート地点")]
+        public Transform _stageTransform;
+    }
+
     #region 変数
-    [Tooltip("タグの名前")]
-    public TagObject _PoolSystemTagData = default;
+    [SerializeField, Tooltip("タグの名前")]
+    private TagObject _PoolSystemTagData = default;
 
-    [Tooltip("敵のスポーン座標テーブル")]
-    public List<StageDataTable> _stageDataTables = new();
+    [SerializeField, Tooltip("各ステージのスタート地点リスト")]
+    private List<StageInformation> _stageTransforms = new();
 
-    [Tooltip("ボスのプレハブ")]
-    public GameObject _bossPrefab;
+    [SerializeField, Tooltip("敵のスポーン座標テーブル")]
+    private List<StageDataTable> _stageDataTables = new();
+
+    [SerializeField, Tooltip("ボスのプレハブ")]
+    private GameObject _bossPrefab;
 
 
     [Tooltip("取得したObjectPoolSystemクラス")]
@@ -231,6 +247,15 @@ public class StageManager : MonoBehaviour, IStageSpawn
         // 呼び出した雑魚の変数に設定
         birdMove.NumberOfBullet = birdDataPath._bullet;
         birdMove.GoalIndexOfRooop = birdDataPath._goalIndexOfRoop;
+        try
+        {
+            birdMove.StageTransform = _stageTransforms[_currentStageIndex]._stageTransform;
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("StageControllerにステージのTransformが設定されていません。");
+            birdMove.StageTransform = null;
+        }
 
         for (int i = 0; i < birdDataPath._birdGoalPlaces.Count; i++)
         {
@@ -269,6 +294,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
             birdMove.DirectionTypes_Stopping = birdDataPath._birdGoalPlaces[i]._directionType_stopping;
             birdMove.DirectionTypes_Attack = birdDataPath._birdGoalPlaces[i]._directionType_attack;
         }
+
+        birdMove.BirdEnable();
     }
 
     private IEnumerator SpawnGroundEnemy(int listIndex)

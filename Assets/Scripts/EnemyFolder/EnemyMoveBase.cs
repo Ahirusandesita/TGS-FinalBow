@@ -14,9 +14,14 @@ public abstract class EnemyMoveBase : MonoBehaviour
     [Tooltip("自身のTransformをキャッシュ")]
     protected Transform _transform = default;
 
-    protected virtual void Start()
+    private void Awake()
     {
         _transform = this.transform;
+    }
+
+    protected virtual void Start()
+    {
+        this.gameObject.SetActive(false);
     }
 
     protected virtual void Update()
