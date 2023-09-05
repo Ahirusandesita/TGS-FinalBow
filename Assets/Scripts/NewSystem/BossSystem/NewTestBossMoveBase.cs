@@ -24,19 +24,22 @@ public interface IBossMove
 public abstract class NewTestBossMoveBase : MonoBehaviour,IBossMove
 {
     #region variable 
-    protected bool isMove;
+
+    public IReActiveProperty<bool> readOnlyIsMove => isMove;
+    protected ReActiveProperty<bool> isMove = new ReActiveProperty<bool>();
+
 
     private Animator animator;
     private ReActiveProperty<bool> isMoveAnimation = new ReActiveProperty<bool>();
     #endregion
     #region property
-    public bool IsMove => isMove;
+    public bool IsMove => isMove.Value;
     #endregion
     #region method
 
     public void Move()
     {
-        isMove = true;
+        isMove.Value = true;
         isMoveAnimation.Value = true;
     }
     /// <summary>
