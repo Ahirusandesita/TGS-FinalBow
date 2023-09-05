@@ -182,6 +182,14 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick, IFUseEncha
 
 
     }
-
-
+    [ContextMenu("testreset")]
+    private void ResetM()
+    {
+        used = false;
+        foreach (GameObject obj in active)
+        {
+            obj.SetActive(true);
+            cl.enabled = true;
+        }
+    }
 }

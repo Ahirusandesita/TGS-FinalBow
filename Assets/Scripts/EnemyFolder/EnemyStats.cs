@@ -63,10 +63,10 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
     public virtual void TakeDamage(int damage)
     {
         _hp -= damage;
-        HpGage g = this.transform.GetComponentInChildren<HpGage>();
+        //HpGage g = this.transform.GetComponentInChildren<HpGage>();
         float hp = (float)_hp;
         float maxHp = (float)_maxHp;
-        g.Hp(hp/maxHp);
+        //g.Hp(hp/maxHp);
     }
 
     public abstract void TakeBomb(int damage);
