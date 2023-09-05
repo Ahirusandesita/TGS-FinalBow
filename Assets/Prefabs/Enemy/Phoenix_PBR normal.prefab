@@ -1428,6 +1428,8 @@ GameObject:
   - component: {fileID: 8572735086020104544}
   - component: {fileID: 8856110592205956944}
   - component: {fileID: -6308603232186281499}
+  - component: {fileID: -6231939372686311479}
+  - component: {fileID: 3966867446662052608}
   m_Layer: 6
   m_Name: Phoenix_PBR normal
   m_TagString: Untagged
@@ -1582,6 +1584,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCamera: {fileID: 0}
+--- !u!114 &-6231939372686311479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4fd384232644a4a9935a96578d702b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyChip: {fileID: 11400000, guid: 15c9f69ba0a117844987d6662daa07c4, type: 2}
+--- !u!114 &3966867446662052608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b829086d84564caebe97474ea58e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5144204438039530197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2167,7 +2194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8883607e24d0c4a8a37dd025598fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPlace: {fileID: 3896496780618105880, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
 --- !u!1 &7889651123747364414
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Reaction : MonoBehaviour
 {
@@ -48,6 +49,8 @@ public class Reaction : MonoBehaviour
 
     public void ReactionEventStart(Transform targetTransform,Vector3 hitPosition)
     {
+        if (ReactionEvent.GetLength() == 0) return;
+
         ReactionEvent(targetTransform, hitPosition);
         ReactionEvent = default;
     }
@@ -62,6 +65,15 @@ public class Reaction : MonoBehaviour
     public void ReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
         reactionManager.ReactionSetting(enchantmentState,this);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            ReactionSetting(EnchantmentEnum.EnchantmentState.bomb);
+            ReactionEventStart(this.transform, Vector3.zero);
+        }
     }
     #endregion
 }
