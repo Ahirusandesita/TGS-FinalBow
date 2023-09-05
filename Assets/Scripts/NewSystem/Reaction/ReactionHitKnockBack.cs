@@ -17,7 +17,7 @@ public interface IReaction<T1, T2>
     bool ReactionEnd { get; set; }
 
 }
-public interface INormaReaction<T1,T2> : IReaction<T1, T2> { }
+public interface INormalReaction<T1,T2> : IReaction<T1, T2> { }
 public interface IBombReaction<T1,T2> : IReaction<T1, T2> { }
 
 public interface IThunderReaction<T1, T2> : IReaction<T1, T2> { }
