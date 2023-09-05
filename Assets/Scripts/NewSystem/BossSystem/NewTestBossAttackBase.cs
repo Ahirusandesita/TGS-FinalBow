@@ -22,13 +22,14 @@ public interface IBossAttack
 public abstract class NewTestBossAttackBase : MonoBehaviour,IBossAttack
 {
     #region variable 
-    protected bool isAttack;
+    public IReActiveProperty<bool> readOnlyIsAttack => isAttack;
+    protected ReActiveProperty<bool> isAttack = new ReActiveProperty<bool>();
 
     private Animator animator;
     private ReActiveProperty<bool> isAttackAnimation = new ReActiveProperty<bool>();
     #endregion
     #region property
-    public bool IsAttack => isAttack;
+    public bool IsAttack => isAttack.Value;
     #endregion
     #region method
 

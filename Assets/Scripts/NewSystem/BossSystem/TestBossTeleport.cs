@@ -33,11 +33,11 @@ public class TestBossTeleport : NewTestBossMoveBase
         base.Start();
         _rightTeleportPoint = transform.position + Vector3.right * _teleportMiddleDistance;
         _leftTeleportPoint = transform.position + Vector3.left * _teleportMiddleDistance;
-        _isStart = true;
+
     }
     protected override void MoveAnimation()
     {
-
+        WarpStart();
     }
 
     protected override void MoveProcess()
@@ -49,23 +49,21 @@ public class TestBossTeleport : NewTestBossMoveBase
 
     private void WarpStart()
     {
-        if (_isStart)
-        {
-            _isStart = false;
-            teleportCount = 0;
 
-            _teleportStartPosition = transform.position;
-        }
+        teleportCount = 0;
+
+        _teleportStartPosition = transform.position;
+
     }
     private void Telepotation()
     {
 
-        if(_cacheTime + _teleportationStopTime < Time.time)
+        if (_cacheTime + _teleportationStopTime < Time.time)
         {
-            if(teleportCount >= NUMBER_OF_TELEPORTS)
+            if (teleportCount >= NUMBER_OF_TELEPORTS)
             {
                 transform.position = _teleportStartPosition;
-                isMove = false;
+                isMove.Value = false;
                 _isStart = true;
                 return;
             }
@@ -85,7 +83,7 @@ public class TestBossTeleport : NewTestBossMoveBase
             _cacheTime = Time.time;
         }
     }
-       
+
 
     private Vector2 RandomCirclePoint(float maxDistance)
     {

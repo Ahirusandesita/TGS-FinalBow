@@ -72,13 +72,13 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     protected override void Start()
     {
-        base.Start();
-
         _crabWalk = CrabWalkState.left;
         WalkDirectionState();
         _jumpPowerMax = _jumpPower;
 
         _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
+
+        base.Start();
     }
 
 

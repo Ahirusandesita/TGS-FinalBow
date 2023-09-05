@@ -85,7 +85,7 @@ public interface IArrowEnchant
 /// <summary>
 /// 矢
 /// </summary>
-public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
+public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDamageable
 {
 
 
@@ -238,7 +238,9 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
 
     private bool _isStart = false;
 
+    private int damage = 0;
 
+    public int Damage => damage;
     private void OnEnable()
     {
         //矢のクラスをゲットコンポーネントする
@@ -573,6 +575,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
         MoveArrow = null;
         _myArrowRenderer.material.color = Color.green;
         NeedArrowEnchant = false;
+        damage = 0;
     }
 
     /// <summary>
@@ -607,5 +610,10 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant
     public ArrowPassiveEffect GetPassiveEffect()
     {
         return EnchantArrowPassiveEffect;
+    }
+
+    public void SetAttackDamage()
+    {
+        damage++;
     }
 }

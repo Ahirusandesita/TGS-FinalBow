@@ -15,11 +15,13 @@ public interface IFTake
 }
 
 /// <summary>
-/// “G‚ÌƒXƒe[ƒ^ƒX‚ÌŠî’êƒNƒ‰ƒX
+/// æ•µã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã®åŸºåº•ã‚¯ãƒ©ã‚¹
 /// </summary>
 public abstract class EnemyStats : MonoBehaviour, IFTake
 {
-    #region protected•Ï”
+    #region protectedå¤‰æ•°
+    private HpGage hpGage;
+
     protected Animator _animator = default;
 
     protected ObjectPoolSystem _objectPoolSystem;
@@ -29,11 +31,11 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
     protected Reaction _reaction = default;
 
 
-    [SerializeField, Tooltip("Še“G‚ÌHP")]
+    [SerializeField, Tooltip("å„æ•µã®HP")]
     protected int _maxHp = default;
 
     /// <summary>
-    /// ‰ŠúHP
+    /// åˆæœŸHP
     /// </summary>
     protected int _hp;
     #endregion
@@ -43,7 +45,7 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
         _animator = this.GetComponent<Animator>();
         _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
         _transform = this.transform;
-
+        hpGage = this.transform.GetComponentInChildren<HpGage>();
         try
         {
             _reaction = this.GetComponent<Reaction>();
@@ -51,22 +53,23 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
         catch (Exception)
         {
             _reaction = null;
-            X_Debug.LogError("ReactionƒNƒ‰ƒX‚ª‚Â‚¢‚Ä‚¢‚Ü‚¹‚ñ");
+            X_Debug.LogError("Reactionã‚¯ãƒ©ã‚¹ãŒã¤ã„ã¦ã„ã¾ã›ã‚“");
         }
     }
 
     //IFScoreManager_Combo _combo = default;
     /// <summary>
-    /// “G‚ªƒ_ƒ[ƒW‚ðŽó‚¯‚é
+    /// æ•µãŒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹
     /// </summary>
-    /// <param name="damage">ƒ_ƒ[ƒW</param>
+    /// <param name="damage">ãƒ€ãƒ¡ãƒ¼ã‚¸</param>
     public virtual void TakeDamage(int damage)
     {
         _hp -= damage;
-        HpGage g = this.transform.GetComponentInChildren<HpGage>();
+
         float hp = (float)_hp;
         float maxHp = (float)_maxHp;
-        g.Hp(hp/maxHp);
+        if (hpGage == null) return;
+        hpGage.Hp(hp/maxHp);
     }
 
     public abstract void TakeBomb(int damage);
@@ -76,7 +79,7 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
     public abstract void TakeKnockBack();
 
     /// <summary>
-    /// “G‚ªŽ€‚Ê
+    /// æ•µãŒæ­»ã¬
     /// </summary>
     public abstract void Death();
 

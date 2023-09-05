@@ -5,6 +5,7 @@
 // Creator  : Nomura
 // --------------------------------------------------------- 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface IFScoreManager_NomalEnemy
@@ -147,9 +148,8 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         public ScoreData scoreDatas;
     }
     public ScoreStructure[] _scoreStructures;
-    
 
-    public ScoreNumber.Score ScorePoint;
+
 
     public struct DefaultScoreStructure
     {
@@ -171,6 +171,9 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     private const int DEFAULT_TIME_BONUS = 6;
     private const int DEFALUT_COMBO_BONUS = 7;
 
+    public ScoreNumber.Score ScorePoint;
+    private List<ScoreNumber.Score> scorePoints = new List<ScoreNumber.Score>();
+    private ScoreNumber.Score SumScorePoint;
 
     //private int _scoreSum = 0;
     #endregion
@@ -180,39 +183,53 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     private void Awake()
     {
+        //‰¼Žæ“¾
         PlayerStats playerStats = GameObject.FindObjectOfType<PlayerStats>();
         playerStats.readOnlyPlayerHp.Subject.FirstSubscribe(hp => { BonusScore_HpValueSetting(hp); });
-        playerStats.readOnlyPlayerHp.Subject.SecondOnwardsObservers(_=> { BonusScore_HpScore(); });
+        playerStats.readOnlyPlayerHp.Subject.SecondOnwardsObservers(_ => { BonusScore_HpScore(); });
+
+        ResultStage resultStage = GameObject.FindObjectOfType<ResultStage>();
+        resultStage.readOnlyStateProperty.Subject.Subscribe(
+            isResult =>
+            {
+                if (isResult)
+                {
+                    resultStage.ResultScreenScore(ScorePoint);
+                    SumScorePoint = SumScorePoint + ScorePoint;
+                    ScorePoint.Reset();
+                }
+            }
+        );
     }
 
     private void Start()
     {
         ScorePoint.scoreTimeBonus = 4000;
-        ScorePoint = ScoreNumber.ScorePoint;
-        if(ScorePoint.scoreHpBonus == 0)
+        SumScorePoint = ScoreNumber.ScorePoint;
+        if (ScorePoint.scoreHpBonus == 0)
         {
             //ScorePoint.scoreHpBonus = _ScoreHpBonus;
         }
-        if(ScorePoint.scoreTimeBonus == 0)
+        if (ScorePoint.scoreTimeBonus == 0)
         {
             ScorePoint.scoreTimeBonus = 4000;
         }
-        ScoreNumber.ScorePoint = ScorePoint;
+        ScoreNumber.ScorePoint = SumScorePoint;
 
 
         defaultScoreStructures = new DefaultScoreStructure[_scoreStructures.Length];
-        for(int i = 0; i < _scoreStructures.Length; i++)
+        for (int i = 0; i < _scoreStructures.Length; i++)
         {
-            Action<int,int> action = (structerNumber,stateNumber) =>
-            {
-                defaultScoreStructures[structerNumber] = new DefaultScoreStructure(_scoreStructures[stateNumber].scoreDatas.score);
-            };
+            Action<int, int> action = (structerNumber, stateNumber) =>
+             {
+                 defaultScoreStructures[structerNumber] = new DefaultScoreStructure(_scoreStructures[stateNumber].scoreDatas.score);
+             };
 
-            for (int j=0;j< Enum.GetNames(typeof(ScoreState)).Length; j++)
+            for (int j = 0; j < Enum.GetNames(typeof(ScoreState)).Length; j++)
             {
-                if((int)_scoreStructures[i].scoreDatas.scoreState == j)
+                if ((int)_scoreStructures[i].scoreDatas.scoreState == j)
                 {
-                    action(j,i);
+                    action(j, i);
                 }
             }
         }
@@ -439,7 +456,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     public void ScoreSave()
     {
-        ScoreNumber.ScorePoint = ScorePoint;
+        ScoreNumber.ScorePoint = SumScorePoint;
     }
     #endregion
 }
