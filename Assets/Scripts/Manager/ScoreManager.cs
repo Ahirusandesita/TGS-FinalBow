@@ -5,6 +5,7 @@
 // Creator  : Nomura
 // --------------------------------------------------------- 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface IFScoreManager_NomalEnemy
@@ -149,7 +150,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public ScoreStructure[] _scoreStructures;
     
 
-    public ScoreNumber.Score ScorePoint;
 
     public struct DefaultScoreStructure
     {
@@ -171,6 +171,9 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     private const int DEFAULT_TIME_BONUS = 6;
     private const int DEFALUT_COMBO_BONUS = 7;
 
+    public ScoreNumber.Score ScorePoint;
+    private List<ScoreNumber.Score> scorePoints = new List<ScoreNumber.Score>();
+    private ScoreNumber.Score SumScorePoint;
 
     //private int _scoreSum = 0;
     #endregion
@@ -180,15 +183,29 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     private void Awake()
     {
+        //‰¼Žæ“¾
         PlayerStats playerStats = GameObject.FindObjectOfType<PlayerStats>();
         playerStats.readOnlyPlayerHp.Subject.FirstSubscribe(hp => { BonusScore_HpValueSetting(hp); });
         playerStats.readOnlyPlayerHp.Subject.SecondOnwardsObservers(_=> { BonusScore_HpScore(); });
+
+        ResultStage resultStage = GameObject.FindObjectOfType<ResultStage>();
+        resultStage.readOnlyStateProperty.Subject.Subscribe(
+            isResult =>
+            {
+                if (isResult)
+                {
+                    resultStage.OutPutResultScreen(ScorePoint);
+                    SumScorePoint = SumScorePoint + ScorePoint;
+                    ScorePoint.Reset();
+                }
+            }
+        );
     }
 
     private void Start()
     {
         ScorePoint.scoreTimeBonus = 4000;
-        ScorePoint = ScoreNumber.ScorePoint;
+        SumScorePoint = ScoreNumber.ScorePoint;
         if(ScorePoint.scoreHpBonus == 0)
         {
             //ScorePoint.scoreHpBonus = _ScoreHpBonus;
@@ -197,7 +214,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         {
             ScorePoint.scoreTimeBonus = 4000;
         }
-        ScoreNumber.ScorePoint = ScorePoint;
+        ScoreNumber.ScorePoint = SumScorePoint;
 
 
         defaultScoreStructures = new DefaultScoreStructure[_scoreStructures.Length];
@@ -439,7 +456,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     public void ScoreSave()
     {
-        ScoreNumber.ScorePoint = ScorePoint;
+        ScoreNumber.ScorePoint = SumScorePoint;
     }
     #endregion
 }
