@@ -13,7 +13,7 @@ interface IArrowEnchantDamageable
 }
 // 当たった時に呼ばれるやつら
 // 情報渡す敵を決めて引数の中身わたす
-public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, EnchantmentEnum.EnchantmentState>, IArrowEnchantDamageable
+public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, EnchantmentEnum.EnchantmentState>
 {
     private int _layerMask = 1 << 6 | 1 << 7;
 
@@ -248,28 +248,20 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     /// <summary>
     /// 吸い込んだ量によってダメージ上げるメソッド
     /// </summary>
-    public void SetAttackDamage()
+    public void SetAttackDamage(int numberOfInhalled)
     {
-        size.plusCount++;
-        if (enchantPower < maxEnchantPower)
-        {
-            enchantPower++;
+        addDamage = 0;
+        size.plusCount = numberOfInhalled;
+        enchantPower = numberOfInhalled;
 
-        }
-
-        if (addDamage == 0)
+        if(numberOfInhalled > 0)
         {
+            numberOfInhalled--;
             addDamage += _firstAddDamage;
-        }
-        else
-        {
-            addDamage += addDamage;
-        }
 
-        if (addDamage > _limitAddDamage)
-        {
-            addDamage = _limitAddDamage;
+            addDamage += numberOfInhalled * _AddDamage;
         }
+        
     }
 
 
