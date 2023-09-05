@@ -69,6 +69,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("子オブジェクトにあるスポナーを取得")]
     private Transform _childSpawner = default;
 
+    [Tooltip("取得したEAttackSpawnerクラス")]
+    private EAttackSpawner _eAttackSpawner = default;
+
     [Tooltip("取得したBirdAttackクラス")]
     private BirdAttack _birdAttack = default;
 
@@ -201,6 +204,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
     private bool _isRotateCompleted_moving = false;
     private Coroutine _activeRotateCoroutine_moving = default;
+    private Coroutine _activeRotateCoroutine_stopping = default;
 
     #region Rotate変数
     private Vector3 _prevPosition = default;
@@ -494,7 +498,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
         // 子オブジェクトの「SpawnPosition」
         _childSpawner = _transform.GetChild(2).transform;
-
+        _eAttackSpawner = _childSpawner.GetComponent<EAttackSpawner>();
 
         bird = GetComponent<BirdStats>();
         animator = GetComponent<Animator>();
@@ -516,8 +520,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _goalPosition = _goalPositions[_repeatCount];
 
         // ステージ正面（ステージ地点の正面の逆数 = 敵にとっての正面）
-        X_Debug.Log(-_stageTransform.forward);
-        _frontAngle = Quaternion.Euler(-_stageTransform.forward);
+        _frontAngle = Quaternion.Euler(_stageTransform.forward);
+        _eAttackSpawner.StageFrontPosition = -_stageTransform.forward;
 
         // 変数の初期化
         _startToGoalDistance = (_goalPosition - _startPosition).magnitude;
@@ -620,12 +624,12 @@ public abstract class BirdMoveBase : EnemyMoveBase
                 StopCoroutine(_activeAttackCoroutine_moving);
 
             // 最後の移動が終了したら、デスポーンさせる
-            if (_isLastMove)
-            {
-                _needDespawn = true;
+            //if (_isLastMove)
+            //{
+            //    _needDespawn = true;
 
-                return;
-            }
+            //    return;
+            //}
         }
 
         // 攻撃処理-----------------------------------------------------------------------------------
@@ -638,7 +642,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             // 現在（停止時）のAttackTypeによって呼ぶコルーチンを変える
             if (_birdAttackType == BirdAttackType.none)
             {
-                StartCoroutine(RotateCoroutine_Stopping());
+                _activeRotateCoroutine_stopping = StartCoroutine(RotateCoroutine_Stopping());
             }
             else
             {
@@ -671,17 +675,20 @@ public abstract class BirdMoveBase : EnemyMoveBase
         if (_currentTime2 >= _reAttackTimes[_repeatCount])
         {
             // 現在動いているコルーチンがあれば停止させる
+            if (_activeRotateCoroutine_stopping != null)
+                StopCoroutine(_activeRotateCoroutine_stopping);
+
             if (_activeAttackCoroutine_stopping != null)
                 StopCoroutine(_activeAttackCoroutine_stopping);
 
             // 設定されたゴールの数が1のとき、次の行動が最後
-            if (_goalPositions.Count == 1)
-            {
-                // 次の移動が最後
-                _isLastMove = true;
+            //if (_goalPositions.Count == 1)
+            //{
+            //    // 次の移動が最後
+            //    _isLastMove = true;
 
-                return;
-            }
+            //    return;
+            //}
 
             // 再移動前に正面を向く
             //if (_transform.rotation != _frontAngle)
@@ -817,6 +824,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         {
             // プレイヤーの方向を向く
             case DirectionType_AtMoving.player:
+                _eAttackSpawner.AttackDirection = DirectionType_AtAttack.player;
 
                 while (true)
                 {
@@ -826,6 +834,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
             // ワールド正面を向く
             case DirectionType_AtMoving.front:
+                _eAttackSpawner.AttackDirection = DirectionType_AtAttack.front;
 
                 while (_transform.rotation != _frontAngle)
                 {
@@ -860,8 +869,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
             // プレイヤーの方向を向く
             case DirectionType_AtStopping.player:
+                _eAttackSpawner.AttackDirection = DirectionType_AtAttack.player;
 
-                while (_transform.rotation != _childSpawner.rotation)
+                while (true)
                 {
                     RotateToPlayer();
                     yield return null;
@@ -871,8 +881,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
             // ワールド正面を向く
             case DirectionType_AtStopping.front:
+                _eAttackSpawner.AttackDirection = DirectionType_AtAttack.front;
 
-                while (_transform.rotation != _frontAngle)
+                while (true)
                 {
                     RotateToFront();
                     yield return null;
@@ -888,6 +899,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
     /// <returns></returns>
     private IEnumerator RotateCoroutine_Attack()
     {
+        _eAttackSpawner.AttackDirection = _directionTypes_attack[_repeatCount];
+
         // DirectionType_AtAttackの値にかかわらず、スポナーの位置に合わせる
         while (_transform.rotation != _childSpawner.rotation)
         {
@@ -987,7 +1000,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
     /// </summary>
     protected void RotateToFront()
     {
-        _transform.rotation = Quaternion.RotateTowards(_transform.rotation, _frontAngle, Time.deltaTime * _rotateSpeed);
+        //_transform.rotation = Quaternion.RotateTowards(_transform.rotation, _frontAngle, Time.deltaTime * _rotateSpeed);
+        _transform.rotation = Quaternion.LookRotation(-_stageTransform.forward, UP);
     }
 
     /// <summary>
