@@ -16,6 +16,9 @@ public class Reaction : MonoBehaviour
     private List<IReaction<Transform, Vector3>> reactions = new List<IReaction<Transform, Vector3>>();
 
     private Transform myTransform;
+
+    private delegate void ReactionDelegate(Transform targetTransform,Vector3 hitPosition);
+    private event ReactionDelegate ReactionEvent;
     #endregion
     #region property
     #endregion
@@ -36,11 +39,16 @@ public class Reaction : MonoBehaviour
             reaction.Reaction(myTransform, hitPosition);
     }
 
-    public void ReactionEvent(Vector3 hitPosition)
+    public void ReactionEventStart(Transform targetTransform,Vector3 hitPosition)
     {
-        for(int i = 0; i < reactions.Count; i++)
+        ReactionEvent(targetTransform, hitPosition);
+        ReactionEvent = default;
+    }
+    public void AddReactionEvent(List<IReaction<Transform, Vector3>> reactions)
+    {
+        foreach(IReaction<Transform,Vector3> reaction in reactions)
         {
-            reactions[i].Reaction(myTransform, hitPosition);
+            ReactionEvent += new ReactionDelegate(reaction.Reaction);
         }
     }
 
