@@ -6,6 +6,8 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 public class TestBossCreateShield : NewTestBossAttackBase
 {
     #region variable 
@@ -13,7 +15,16 @@ public class TestBossCreateShield : NewTestBossAttackBase
     [SerializeField] float _shieldSpawnMaxDistance = 10f;
     [Tooltip("シールド出現前方の距離")]
     [SerializeField] float _shieldSpawnFowardDistance = 5f;
+    [Tooltip("シールド重なりの抑制")]
+    [SerializeField] float _shieldCantSpawnArea = 1f;
+    [SerializeField] GameObject shieldPrehub = default;
+    Transform[] shields = new Transform[NUMBER_OF_SHIELDS];
+    List<Vector3> _shieldPositionCache = new ();
+    BossAttackTestTest enemyAttack = default;
     Vector3 _shieldSpawnRootPoint = default;
+
+    
+
     const int NUMBER_OF_SHIELDS = 4;
 
 
@@ -23,33 +34,70 @@ public class TestBossCreateShield : NewTestBossAttackBase
 
     protected override void AttackAnimation()
     {
-       
+
     }
 
     protected override void AttackProcess()
     {
+        ShieldAttack();
 
     }
 
     protected override void Start()
     {
         base.Start();
+
         _shieldSpawnRootPoint = transform.position + Vector3.forward * _shieldSpawnFowardDistance;
+
+        enemyAttack = GetComponent<BossAttackTestTest>();
+
+        for(int i = 0;i < NUMBER_OF_SHIELDS; i++)
+        {
+            shields[i] = Instantiate(shieldPrehub).transform;
+            shields[i].gameObject.SetActive(false);
+        }
     }
 
     private void ShieldAttack()
     {
-            // シールド仮
-            for (int i = 0; i < NUMBER_OF_SHIELDS; i++)
-            {
-                Transform shield = default;
-                shield = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
-                Vector2 randomPoint = RandomCirclePoint(_shieldSpawnMaxDistance);
-                shield.position = _shieldSpawnRootPoint + (Vector3)randomPoint;
-            }
+        enemyAttack.OneShot(PoolEnum.PoolObjectType.normalBullet, transform);
+        // シールド仮
+        for (int i = 0; i < NUMBER_OF_SHIELDS; i++)
+        {
+            Vector2 randomPoint = SetRamdomPoint();
 
-            // 右に行くか左に行くかの処理
-        
+            _shieldPositionCache.Add(randomPoint);
+
+            shields[i].gameObject.SetActive(true);
+
+            shields[i].position = _shieldSpawnRootPoint + (Vector3)randomPoint;
+        }
+
+        _shieldPositionCache = default;
+    }
+
+    private Vector2 SetRamdomPoint()
+    {
+        Vector2 randomPoint = RandomCirclePoint(_shieldSpawnMaxDistance);
+
+        while (!CheckDistance(randomPoint))
+        {
+            randomPoint = RandomCirclePoint(_shieldSpawnMaxDistance);
+        }
+
+        return randomPoint;
+
+        bool CheckDistance(Vector2 randomPoint)
+        {
+            foreach (Vector3 cache in _shieldPositionCache)
+            {
+                if (Vector3.Distance(cache, randomPoint) < _shieldCantSpawnArea)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     private Vector2 RandomCirclePoint(float maxDistance)
