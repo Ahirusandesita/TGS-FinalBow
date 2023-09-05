@@ -25,7 +25,7 @@ public class TimeManager :MonoBehaviour , ITime
 
     private IFScoreManager_Time _scoreManager;
     private GameManager _gameManager;
-
+    private ResultStage resultStage;
     private void Start()
     {
         _gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
@@ -37,6 +37,17 @@ public class TimeManager :MonoBehaviour , ITime
         }
 
         StartCoroutine(TimeCount());
+
+        resultStage = GameObject.FindObjectOfType<ResultStage>();
+        resultStage.readOnlyStateProperty.Subject.Subscribe(
+            isResult =>
+            {
+                if (isResult)
+                {
+                    resultStage.ResultScreenTime(time);
+                }
+            }
+            );
     }
 
     public float TimeCounter()
