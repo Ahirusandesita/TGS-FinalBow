@@ -17,6 +17,14 @@ public class EAttackSpawner : MonoBehaviour
     [Tooltip("ステージの正面のベクトル")]
     private Vector3 _stageFrontPosition = default;
 
+    [Tooltip("攻撃方向")]
+    private DirectionType_AtAttack _attackDirection = default;
+
+    /// <summary>
+    /// スポナーの回転が完了
+    /// </summary>
+    private bool IsCompletedSpawnerRotate { get; }
+
     /// <summary>
     /// ステージの正面のベクトル
     /// </summary>
@@ -25,22 +33,34 @@ public class EAttackSpawner : MonoBehaviour
         set { _stageFrontPosition = value; }
     }
 
+    /// <summary>
+    /// 攻撃方向
+    /// </summary>
+    public DirectionType_AtAttack AttackDirection
+    {
+        set { _attackDirection = value; }
+    }
+
     private void Start()
     {
         _transform = this.transform;
         _playerPlace = GameObject.FindWithTag("PlayerController").transform;
 
         // 呼び出し漏れを防ぐため、まずは「プレイヤーに攻撃」で初期化
-        RotateAttackSpawner(DirectionType_AtAttack.player);
+        //RotateAttackSpawner(DirectionType_AtAttack.player);
+    }
+
+    private void Update()
+    {
+        RotateAttackSpawner();
     }
 
     /// <summary>
     /// 攻撃方向の変更
     /// </summary>
-    /// <param name="attackDirection"></param>
-    public void RotateAttackSpawner(DirectionType_AtAttack attackDirection)
+    private void RotateAttackSpawner()
     {
-        switch (attackDirection)
+        switch (_attackDirection)
         {
             case DirectionType_AtAttack.player:
 
@@ -51,7 +71,7 @@ public class EAttackSpawner : MonoBehaviour
             case DirectionType_AtAttack.front:
 
                 // ステージの正面方向を向く
-                _transform.LookAt(_stageFrontPosition);
+                _transform.rotation = Quaternion.LookRotation(_stageFrontPosition, Vector3.up);
 
                 break;
         }
