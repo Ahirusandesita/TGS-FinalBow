@@ -46,7 +46,7 @@ public class SceneManagement : MonoBehaviour,ISceneManager
         _gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
 
         //_sceneFadeManager = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeManager>();
-
+        if (_sceneFadeManager == null) return;
         _sceneFadeManager.SceneFadeOutStart();
     }
 
