@@ -8,7 +8,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ReactionManager : MonoBehaviour
+public class ReactionManager
 {
     #region variable
     public List<IReaction<Transform, Vector3>> normalReactions = new List<IReaction<Transform, Vector3>>();
