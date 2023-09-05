@@ -30,6 +30,12 @@ public class NewTestBossManager : MonoBehaviour
     #region property
     private IBossMove NowBossMoveProcess => bossMoveBasesLoop[bossMoveLoopIndex];
     private IBossAttack NowBossAttackProcess => bossAttackBasesLoop[bossAttackLoopIndex];
+
+    private IBossMove LastBossMoveProcess => bossMoveBasesLoop[LastIndexProcess(bossMoveLoopIndex, bossMoveBasesLoop.Count)];
+    private IBossAttack LastBossAttackProcess => bossAttackBasesLoop[LastIndexProcess(bossAttackLoopIndex, bossAttackBasesLoop.Count)];
+
+    private int lastRandomMoveIndex = 0;
+    private int lastRandomAttackIndex = 0;
     #endregion
     #region method
 
@@ -41,7 +47,7 @@ public class NewTestBossManager : MonoBehaviour
 
         if (bossMoveBasesLoop.Count == 0)
         {
-            if(bossMoves.Length == 0)
+            if (bossMoves.Length == 0)
             {
 
             }
@@ -49,7 +55,12 @@ public class NewTestBossManager : MonoBehaviour
             {
                 MoveDelegate = () =>
                 {
-                    if (bossMoves[Random.Range(0, bossMoves.Length - 1)].IsMove) bossMoves[Random.Range(0, bossMoves.Length - 1)].Move();
+                    int randomIndex = Random.Range(0, bossMoves.Length - 1);
+                    if (!bossMoves[lastRandomMoveIndex].IsMove)
+                    {
+                        bossMoves[Random.Range(0, bossMoves.Length - 1)].Move();
+                        lastRandomMoveIndex = randomIndex;
+                    }
                 };
             }
         }
@@ -57,7 +68,7 @@ public class NewTestBossManager : MonoBehaviour
         {
             MoveDelegate = () =>
             {
-                if (!NowBossMoveProcess.IsMove)
+                if (!LastBossMoveProcess.IsMove)
                 {
                     NowBossMoveProcess.Move();
                     IndexProcess(ref bossMoveLoopIndex, bossMoveBasesLoop.Count);
@@ -67,7 +78,7 @@ public class NewTestBossManager : MonoBehaviour
 
         if (bossAttackBasesLoop.Count == 0)
         {
-            if(bossAttacks.Length == 0)
+            if (bossAttacks.Length == 0)
             {
 
             }
@@ -75,7 +86,12 @@ public class NewTestBossManager : MonoBehaviour
             {
                 AttackDelegate = () =>
                 {
-                    if (bossAttacks[Random.Range(0, bossAttacks.Length - 1)].IsAttack) bossAttacks[Random.Range(0, bossAttacks.Length - 1)].Attack();
+                    int randomIndex = Random.Range(0, bossAttacks.Length - 1);
+                    if (!bossAttacks[lastRandomAttackIndex].IsAttack)
+                    {
+                        bossAttacks[Random.Range(0, bossAttacks.Length - 1)].Attack();
+                        lastRandomAttackIndex = randomIndex;
+                    }
                 };
             }
         }
@@ -83,7 +99,7 @@ public class NewTestBossManager : MonoBehaviour
         {
             AttackDelegate = () =>
             {
-                if (!NowBossAttackProcess.IsAttack)
+                if (!LastBossAttackProcess.IsAttack)
                 {
                     NowBossAttackProcess.Attack();
                     IndexProcess(ref bossAttackLoopIndex, bossAttackBasesLoop.Count);
@@ -96,17 +112,19 @@ public class NewTestBossManager : MonoBehaviour
     private void Update()
     {
         //移動開始したい時　
-        //MoveDelegate();
+        MoveDelegate();
 
         //攻撃開始したい時
-        //AttackDelegate();
+        AttackDelegate();
     }
 
 
-    private void IndexProcess(ref int index, int maxIndex)
-    {
-        index++;
-        if (index == maxIndex) index = 0;
-    }
+    private void IndexProcess(ref int index, int maxIndex) =>
+        index = index + 1 == maxIndex ? index = 0 : index + 1;
+
+    private int LastIndexProcess(int index, int maxIndex) =>
+        index == -1 ? index = maxIndex - 1 : index -= 1;
+
+
     #endregion
 }
