@@ -16,12 +16,15 @@ public class BossAttackTestTest : EnemyAttack
 
     public void SpawnAttack(PoolEnum.PoolObjectType spawnObjectType, Transform spawnPlace, int numberOfSpawn)
     {
-        SpawnEAttackFanForm(spawnObjectType, spawnPlace, numberOfSpawn);
-    }
-    protected override void SpawnEAttackFanForm(PoolEnum.PoolObjectType spawnObjectType, Transform spawnPlace, int numberOfSpawn)
-    {
         base.SpawnEAttackFanForm(spawnObjectType, spawnPlace, numberOfSpawn);
     }
+
+    public void OneShot(PoolEnum.PoolObjectType spawnObjectType, Transform spawnPlace)
+    {
+        base.SpawnEAttackOne(spawnObjectType,spawnPlace);
+    }
+   
+   
 
     #endregion
 }
