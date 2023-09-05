@@ -20,6 +20,8 @@ public interface IFTake
 public abstract class EnemyStats : MonoBehaviour, IFTake
 {
     #region protectedïœêî
+    private HpGage hpGage;
+
     protected Animator _animator = default;
 
     protected ObjectPoolSystem _objectPoolSystem;
@@ -43,7 +45,7 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
         _animator = this.GetComponent<Animator>();
         _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
         _transform = this.transform;
-
+        hpGage = this.transform.GetComponentInChildren<HpGage>();
         try
         {
             _reaction = this.GetComponent<Reaction>();
@@ -63,10 +65,10 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
     public virtual void TakeDamage(int damage)
     {
         _hp -= damage;
-        HpGage g = this.transform.GetComponentInChildren<HpGage>();
         float hp = (float)_hp;
         float maxHp = (float)_maxHp;
-        g.Hp(hp/maxHp);
+        if (hpGage == null) return;
+        hpGage.Hp(hp/maxHp);
     }
 
     public abstract void TakeBomb(int damage);
