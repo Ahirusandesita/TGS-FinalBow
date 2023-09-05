@@ -11,6 +11,7 @@ using UnityEngine;
 public interface IArrowPlusDamage
 {
     void ArrowEnchantPlusDamage();
+    void ArrowEnchantDamage(int damage);
 }
 public interface IArrowEnchantLevelable<T>
 {
@@ -303,7 +304,9 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
 
     private IArrowSound arrowSound;
 
-    private IArrowEnchantDamageable arrowEnchant;
+    //private IArrowEnchantDamageable arrowEnchant;
+    private ArrowEnchant arrowEnchant;
+
     private IArrowEnchantDamageable arrowEffect;
 
     public GameObject passiveEffect { get; set; }
@@ -426,10 +429,14 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
 
     public void ArrowEnchantPlusDamage()
     {
-        arrowEnchant.SetAttackDamage();
+        //arrowEnchant.SetAttackDamage();
         arrowEffect.SetAttackDamage();
         //_enchantEvents._arrowEnchantPassiveEffect
 
+    }
+    public void ArrowEnchantDamage(int damage)
+    {
+        arrowEnchant.SetAttackDamage(damage);
     }
 
     public EnchantmentEnum.EnchantmentState GetSubEnchantment()

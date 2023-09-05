@@ -199,6 +199,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
         arrowEnchant2.ArrowEnchantPlusDamage();
         _arrow.GetPassiveEffect().SetAttackDamage();
+        _arrow.SetAttackDamage();
 
         //チャージ画像
         if (_chargeMeterManager != null) _chargeMeterManager.Charging();
@@ -214,6 +215,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// <param name="aim"></param>
     public void ShotArrow(Vector3 aim)
     {
+        arrowEnchant2.ArrowEnchantDamage(_arrow.Damage);
         //連射
         if (arrowEnchant2.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing && !CanRapid)
         {
