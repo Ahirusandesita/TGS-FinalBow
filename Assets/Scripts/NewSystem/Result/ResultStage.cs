@@ -36,7 +36,9 @@ public class ResultStage : MonoBehaviour
 
     public void ResultScreenScore(ScoreNumber.Score score)
     {
-        Debug.Log(score.SumScore);
+        X_Debug.Log("合計スコア：" + score.SumScore);
+        X_Debug.Log("タイムスコア：" + score.scoreTimeBonus + "aaaa：" + score.valueTimeBonus);
+        X_Debug.Log("Hp：" + score.scoreHpBonus + "AAAA：" + score.valueHpBonus);
     }
     public void ResultScreenTime(float time)
     {

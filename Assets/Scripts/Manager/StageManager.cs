@@ -36,6 +36,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [Tooltip("取得したObjectPoolSystemクラス")]
     private ObjectPoolSystem _objectPoolSystem = default;
 
+    [Tooltip("取得したリザルト用クラス")]
+    private ResultStage _resultStage = default;
+
     [Tooltip("現在の雑魚/的の数")]
     private int _currentNumberOfObject = 0;
 
@@ -53,6 +56,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private void Start()
     {
         _objectPoolSystem = GameObject.FindWithTag(_PoolSystemTagData.TagName).GetComponent<ObjectPoolSystem>();
+        _resultStage = this.GetComponent<ResultStage>();
+
+        // ステージ間リザルトの表示が終了したとき、ResultStageクラスでステージ進行処理が呼ばれる
+        _resultStage.readOnlyStateProperty.Subject.Subscribe(isResult => { if (!isResult) { ProgressingTheStage(); } });
 
         // ゲームスタート
         StartCoroutine(StageStart());
@@ -120,7 +127,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
         {
             // 次のステージへ
             X_Debug.Log("ステージクリア");
-            ProgressingTheStage();
+            //---------------------------------------------------------------
+            ProgressingTheStage();//ここ後で消す
+            //---------------------------------------------------------------
+            _resultStage.Result();
             return;
         }
 

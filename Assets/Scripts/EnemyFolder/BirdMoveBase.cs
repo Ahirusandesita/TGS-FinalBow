@@ -662,11 +662,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
             }
 
             // 再移動前に正面を向く
-            if (_transform.rotation != _frontAngle)
-            {
-                RotateToFront();
-                return;
-            }
+            //if (_transform.rotation != _frontAngle)
+            //{
+            //    RotateToFront();
+            //    return;
+            //}
 
             // 初期化
             InitializeForRe_Movement();
@@ -804,13 +804,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
             // プレイヤーの方向を向く
             case DirectionType_AtMoving.player:
 
-                while (_transform.rotation != _childSpawner.rotation)
+                while (true)
                 {
                     RotateToPlayer();
                     yield return null;
                 }
-
-                break;
 
             // ワールド正面を向く
             case DirectionType_AtMoving.front:

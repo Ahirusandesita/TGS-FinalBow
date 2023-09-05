@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2494350199507808299}
   - component: {fileID: 2494350199507808296}
+  - component: {fileID: 3314834807167725245}
   m_Layer: 0
   m_Name: StageController
   m_TagString: StageController
@@ -48,3 +49,15 @@ MonoBehaviour:
   _stageDataTables:
   - {fileID: 11400000, guid: 02eb4ea1e506b1a40997c4170025ec9c, type: 2}
   _bossPrefab: {fileID: 7289886223458851598, guid: 7edc165c292eb8f488de86ca582d7f88, type: 3}
+--- !u!114 &3314834807167725245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2494350199507808297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b50df3b7d3b98544a9265cf9103058c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
