@@ -74,8 +74,8 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
 
         if (lightAlpha is not null)
         {
-            rgb = lightAlpha.color;
-            lightAlpha.color = new Color(rgb.r, rgb.g, rgb.b, 0);
+            //rgb = lightAlpha.color;
+            //lightAlpha.color = new Color(rgb.r, rgb.g, rgb.b, 0);
 
         }
         else
