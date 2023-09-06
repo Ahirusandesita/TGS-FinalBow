@@ -290,7 +290,7 @@ public class RadianUIAnimation : EnchantsChenger
         {
             case E_MyState.Center:
                 notselectEvent = SizeUp;
-                notselectEvent += AlphaChange;
+                notselectEvent += AlphaRe_Change;
                 break;
 
             case E_MyState.inner:
