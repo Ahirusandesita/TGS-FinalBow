@@ -70,7 +70,7 @@ public abstract class EnemyStats : MonoBehaviour
 
     public virtual void TakeBomb(int damage) { _takeEnchantment = EnchantmentEnum.EnchantmentState.bomb; }
 
-    public virtual void TakeThunder(int power) { _takeEnchantment = EnchantmentEnum.EnchantmentState.thunder; }
+    public virtual void TakeThunder(int power) { _takeEnchantment = EnchantmentEnum.EnchantmentState.thunder; X_Debug.Log(_takeEnchantment); }
 
     public virtual void TakeRapidShots() { _takeEnchantment = EnchantmentEnum.EnchantmentState.rapidShots; }
 
