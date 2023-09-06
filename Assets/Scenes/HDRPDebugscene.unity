@@ -34860,7 +34860,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8883607e24d0c4a8a37dd025598fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPlace: {fileID: 0}
 --- !u!4 &856098485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4106854604787906, guid: a07bba0f0f6b70d428d5928a74460267, type: 3}
@@ -41664,7 +41663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8883607e24d0c4a8a37dd025598fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPlace: {fileID: 0}
 --- !u!1001 &965338751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47148,7 +47146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8883607e24d0c4a8a37dd025598fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPlace: {fileID: 0}
 --- !u!4 &1270705363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4524159465529112, guid: 7c251b344139b0e409fb265cc2c3efc3, type: 3}
@@ -63159,6 +63156,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5444655196114950232, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+      propertyPath: maxAttractCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7345464688426573948, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
       propertyPath: _bomb.Array.data[0]
       value: 
@@ -66476,7 +66477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8883607e24d0c4a8a37dd025598fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPlace: {fileID: 0}
 --- !u!1001 &1722943002
 PrefabInstance:
   m_ObjectHideFlags: 0
