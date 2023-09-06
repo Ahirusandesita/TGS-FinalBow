@@ -29,5 +29,15 @@ public class ReactionBase : MonoBehaviour, IReaction<Transform, Vector3>,IReacti
     }
 
     public void End() => ReactionEnd = true;
+
+    public void AfterReaction(Transform t1, Vector3 t2)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OverReaction(Transform t1, Vector3 t2)
+    {
+        throw new System.NotImplementedException();
+    }
     #endregion
 }

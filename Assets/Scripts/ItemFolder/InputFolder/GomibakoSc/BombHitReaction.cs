@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class BombHitReaction : MonoBehaviour, IBombReaction<Transform,Vector3>
+public class BombHitReaction : MonoBehaviour, IBombReaction
 {
     Animator animator = default;
     [SerializeField]
@@ -15,6 +15,16 @@ public class BombHitReaction : MonoBehaviour, IBombReaction<Transform,Vector3>
 
 
     public bool ReactionEnd { get; set; }
+
+    public void AfterReaction(Transform t1, Vector3 t2)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OverReaction(Transform t1, Vector3 t2)
+    {
+        throw new System.NotImplementedException();
+    }
 
     public void Reaction(Transform t1, Vector3 t2)
     {
