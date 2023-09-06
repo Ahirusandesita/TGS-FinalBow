@@ -81,15 +81,15 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private void OnEnable()
     {
-        _dropSpeedMin = DropItemData.DropSpeedMin;
-        _dropSpeedMax = DropItemData.DropSpeedMax;
-        _moveSpeedMin = DropItemData.MoveSpeedMin;
-        _moveSpeedMax = DropItemData.MoveSpeedMax;
+        _dropSpeedMin = DropItemData.dropItemStruct.DropSpeedMin;
+        _dropSpeedMax = DropItemData.dropItemStruct.DropSpeedMax;
+        _moveSpeedMin = DropItemData.dropItemStruct.MoveSpeedMin;
+        _moveSpeedMax = DropItemData.dropItemStruct.MoveSpeedMax;
 
         myTransform = this.transform;
 
-        angle = -Random.Range(0f, DropItemData.DropAngle);
-        vector = Random.Range(DropItemData.DropVectorMin, DropItemData.DropVectorMax);
+        angle = -Random.Range(0f, DropItemData.dropItemStruct.DropAngle);
+        vector = Random.Range(DropItemData.dropItemStruct.DropVectorMin, DropItemData.dropItemStruct.DropVectorMax);
         dropLotation.x = angle;
         dropLotation.y = vector;
         myTransform.rotation = Quaternion.Euler(dropLotation);
@@ -101,7 +101,7 @@ public class DropItem : MonoBehaviour,IFItemMove
     {
         CanMove = true;
     }
-
+    public void SetDropItemData(DropItemStruct dropItemStruct) => DropItemData.dropItemStruct = dropItemStruct;
 
 
     #endregion
