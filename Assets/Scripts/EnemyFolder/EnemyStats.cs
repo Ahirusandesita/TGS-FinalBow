@@ -38,6 +38,11 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
     /// 初期HP
     /// </summary>
     protected int _hp;
+
+    [Tooltip("直前に食らった矢のエンチャント")]
+    protected EnchantmentEnum.EnchantmentState _takeEnchantment = default;
+
+    public EnchantmentEnum.EnchantmentState TakeEnchantment { set => _takeEnchantment = value; }
     #endregion
 
     protected virtual void Start()
@@ -46,6 +51,7 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
         _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
         _transform = this.transform;
         hpGage = this.transform.GetComponentInChildren<HpGage>();
+
         try
         {
             _reaction = this.GetComponent<Reaction>();
@@ -69,7 +75,10 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
         float hp = (float)_hp;
         float maxHp = (float)_maxHp;
         if (hpGage == null) return;
-        hpGage.Hp(hp/maxHp);
+        hpGage.Hp(hp / maxHp);
+
+        if (_hp <= 0)
+            Death();
     }
 
     public abstract void TakeBomb(int damage);
