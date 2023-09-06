@@ -12,6 +12,7 @@ using System;
 public class ReactionManager
 {
     #region variable
+
     private List<IReaction<Transform, Vector3>> normalReactions = new List<IReaction<Transform, Vector3>>();
     private List<IReaction<Transform, Vector3>> bombReactions = new List<IReaction<Transform, Vector3>>();
     private List<IReaction<Transform, Vector3>> thunderReactions = new List<IReaction<Transform, Vector3>>();
@@ -36,7 +37,7 @@ public class ReactionManager
         }
     }
 
-    private Action<IReaction<Transform, Vector3>[], List<IReaction<Transform, Vector3>>> SetReaction = (reactions, addReactions) =>
+    private Action<IReaction<Transform,Vector3>[], List<IReaction<Transform, Vector3>>> SetReaction = (reactions, addReactions) =>
    {
        for (int i = 0; i < reactions.Length; i++)
        {

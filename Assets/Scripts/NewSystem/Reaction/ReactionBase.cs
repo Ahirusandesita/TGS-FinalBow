@@ -9,7 +9,7 @@ using System.Collections;
 
 
 [RequireComponent(typeof(Reaction))]
-public class ReactionBase : MonoBehaviour, IReaction<Transform, Vector3>,IReactionEnd
+public class ReactionBase : MonoBehaviour, IReaction<Transform, Vector3>, IReactionEnd
 {
     #region variable 
     #endregion
@@ -25,7 +25,7 @@ public class ReactionBase : MonoBehaviour, IReaction<Transform, Vector3>,IReacti
 
     public void Reaction(Transform t1, Vector3 t2)
     {
-        
+
     }
 
     public void End() => ReactionEnd = true;
@@ -39,5 +39,7 @@ public class ReactionBase : MonoBehaviour, IReaction<Transform, Vector3>,IReacti
     {
         throw new System.NotImplementedException();
     }
+
+    public bool IsComplete() => true;
     #endregion
 }

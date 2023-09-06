@@ -20,6 +20,8 @@ public interface IReaction<T1, T2>
 
     bool ReactionEnd { get; set; }
 
+    bool IsComplete();
+
 }
 public interface INormalReaction : IReaction<Transform, Vector3> { }
 public interface IBombReaction : IReaction<Transform, Vector3> { }
@@ -71,7 +73,7 @@ public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>
         throw new System.NotImplementedException();
     }
 
-
+    public bool IsComplete() => true;
     public void End() => ReactionEnd = true;
 
 }
