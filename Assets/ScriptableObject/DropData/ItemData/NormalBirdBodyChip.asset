@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e5a63762a82b8419bba58d2303e08b, type: 3}
   m_Name: NormalBirdBodyChip
   m_EditorClassIdentifier: 
-  DropAngle: 220
-  DropVectorMin: 45
-  DropVectorMax: 71
-  DropSpeedMin: 58
-  DropSpeedMax: 76
-  MoveSpeedMin: 64
-  MoveSpeedMax: 83
+  dropItemStruct:
+    DropAngle: 90
+    DropVectorMin: 0
+    DropVectorMax: 360
+    DropSpeedMin: 150
+    DropSpeedMax: 180
+    MoveSpeedMin: 400
+    MoveSpeedMax: 600

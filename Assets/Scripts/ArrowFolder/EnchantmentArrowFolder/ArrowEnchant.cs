@@ -170,7 +170,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         //TestBombArea(hitObj);
 
         // 爆風範囲内の敵をスキャン
-        float sideRadius = size.GetFirstSize + size.GetMinimumSize * size.GetMinimumSize;
+        float sideRadius = size.GetFirstSize + size.GetMinimumSize * size.plusCount;
         Collider[] sideColliders = Physics.OverlapSphere(hitObj.transform.position,
             sideRadius, _layerMask);
         // 爆心内の敵をスキャン

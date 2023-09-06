@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e5a63762a82b8419bba58d2303e08b, type: 3}
   m_Name: DropItemData
   m_EditorClassIdentifier: 
-  DropAngle: 90
-  DropVectorMin: 0
-  DropVectorMax: 360
-  DropSpeedMin: 400
-  DropSpeedMax: 600
-  MoveSpeedMin: 20
-  MoveSpeedMax: 50
+  dropItemStruct:
+    DropAngle: 40
+    DropVectorMin: 0
+    DropVectorMax: 360
+    DropSpeedMin: 100
+    DropSpeedMax: 120
+    MoveSpeedMin: 50
+    MoveSpeedMax: 60

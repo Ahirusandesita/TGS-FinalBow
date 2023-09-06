@@ -52,17 +52,32 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
         else if (_workEnchantState != checkArrowState)
         {
             //現在のエフェクトをReturnして新しいエフェクトを生成
+            _workEffect.transform.localScale = sizeAdjustmentToVector3.GetFirstSizeToVector3;
             _workEffect.transform.parent = null;
+
             _objectPoosSystem.ReturnObject(_workEnchantState, _workEffect);
+
             _workEnchantState = checkArrowState;
+
+
             _workEffect = _objectPoosSystem.CallObject(checkArrowState, spawnPosition.position, spawnPosition.rotation);
             _workEffect.transform.parent = spawnPosition.transform;
+
+            sizeAdjustmentToVector3 = new SizeAdjustmentToVector3(
+                _workEffect.transform.localScale.x,
+                _workEffect.transform.localScale.y,
+                _workEffect.transform.localScale.z,
+                sizeAdjustmentToVector3.plusCount
+                );
+
             _workEffect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3;
-            while (sizeAdjustmentToVector3.plusCount > 0)
+
+            int plusCount = sizeAdjustmentToVector3.plusCount;
+            while (plusCount > 0)
             {
 
                 _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
-                sizeAdjustmentToVector3.plusCount--;
+                plusCount--;
             }
         }
 
@@ -76,8 +91,8 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
     private void PassiveEffectDestroy(GameObject arrowObject, EffectPoolEnum.EffectPoolState checkEffectState)
     {
         //エフェクトを消す
-        _workEffect.transform.parent = null;
         _workEffect.transform.localScale = sizeAdjustmentToVector3.GetFirstSizeToVector3;
+        _workEffect.transform.parent = null;
         _objectPoosSystem.ReturnObject(_workEnchantState, _workEffect);
     }
 

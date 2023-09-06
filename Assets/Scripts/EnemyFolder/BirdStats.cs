@@ -52,15 +52,23 @@ public class BirdStats : CommonEnemyStats
     public override void TakeBomb(int damage)
     {
         TakeDamage(damage);
-        X_Debug.Log("鳥が爆発うけた");
     }
 
     public override void Death()
     {
-        // 変数のデクリメント
-        _onDeathBird();
+        _reaction.ReactionSetting(_takeEnchantment);
+        // ---------------------------------------------------------------
+        _reaction.ReactionEventStart(_transform, Vector3.zero); //あとで当たった場所取得して設定
+        //----------------------------------------------------------------
 
-        base.Death();
+
+        //if (_reaction.IsReactionEnd)
+        //// 変数のデクリメント
+        //_onDeathBird();
+
+        //_drop.DropStart(_dropData, this.transform.position);
+
+        //base.Death();
     }
 
     public override void Despawn()

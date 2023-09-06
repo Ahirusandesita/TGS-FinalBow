@@ -196,7 +196,6 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
             attractCount = maxAttractCount;
             return;
         }
-
         arrowEnchant2.ArrowEnchantPlusDamage();
         _arrow.GetPassiveEffect().SetAttackDamage();
         _arrow.SetAttackDamage();

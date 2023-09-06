@@ -20,8 +20,10 @@ public class Reaction : MonoBehaviour
 
     private delegate void ReactionDelegate(Transform targetTransform,Vector3 hitPosition);
     private event ReactionDelegate ReactionEvent;
+
     private event ReactionDelegate AfterReaction;
     private event ReactionDelegate BigReaction;
+
     private ReactionManager reactionManager = new ReactionManager();
     #endregion
     #region property
@@ -56,12 +58,15 @@ public class Reaction : MonoBehaviour
         ReactionEvent(targetTransform, hitPosition);
         ReactionEvent = default;
     }
+
+
     public void AddReactionEvent(List<IReaction<Transform, Vector3>> reactions)
     {
         foreach(IReaction<Transform,Vector3> reaction in reactions)
         {
             ReactionEvent += new ReactionDelegate(reaction.Reaction);
         }
+        this.reactions = reactions;
     }
     public void AddReactionSecondEvent(List<IReaction<Transform,Vector3>> reactions)
     {
@@ -75,9 +80,23 @@ public class Reaction : MonoBehaviour
             BigReaction += new ReactionDelegate(reaction.ReactionBig);
     }
     
+
     public void ReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
         reactionManager.ReactionSetting(enchantmentState,this);
+    }
+
+    /// <summary>
+    /// ここまだ正しく実装できてない
+    /// </summary>
+    /// <returns></returns>
+    public bool IsReactionEnd()
+    {
+        for(int i = 0; i < this.reactions.Count; i++)
+        {
+            if (!this.reactions[i].ReactionEnd) return false;
+        }
+        return true;
     }
 
     private void Update()
@@ -88,5 +107,7 @@ public class Reaction : MonoBehaviour
             ReactionEventStart(this.transform, Vector3.zero);
         }
     }
+
+
     #endregion
 }

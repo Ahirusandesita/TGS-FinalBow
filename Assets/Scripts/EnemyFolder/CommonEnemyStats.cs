@@ -25,6 +25,11 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     protected GameObject _paralysisEffects = default;
 
+    [SerializeField]
+    protected DropData _dropData;
+
+    protected Drop _drop;
+
     /// <summary>
     /// –ƒáƒŽžŠÔ
     /// </summary>
@@ -53,6 +58,10 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     protected float _addParalysisTime = 0f;
 
+    protected float _paralysisTime = default;
+
+    public float ParalysisTime { get => _paralysisTime; }
+
     protected override void Start()
     {
         base.Start();
@@ -74,6 +83,8 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
 
         _addParalysisTime = (_maxParalysisTime - _baseParalysisTime) / maxInhallData.GetMaxInhall;
+
+        _drop = GameObject.FindObjectOfType<Drop>();
     }
 
     protected virtual void OnEnable()
@@ -91,8 +102,8 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     public override void TakeThunder(int power)
     {
-        float paralysisTime = _baseParalysisTime + _addParalysisTime * power;
-        StartCoroutine(ParalysisCoroutine(paralysisTime));
+        _paralysisTime = _baseParalysisTime + _addParalysisTime * power;
+        StartCoroutine(ParalysisCoroutine(_paralysisTime));
     }
 
     public override void TakeKnockBack()

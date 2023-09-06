@@ -1430,6 +1430,7 @@ GameObject:
   - component: {fileID: -6308603232186281499}
   - component: {fileID: -6231939372686311479}
   - component: {fileID: 3966867446662052608}
+  - component: {fileID: -625352178093498470}
   m_Layer: 6
   m_Name: Phoenix_PBR normal
   m_TagString: Untagged
@@ -1505,6 +1506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 21
   maxInhallData: {fileID: 11400000, guid: 9c7c19a2918ce334cb8f314e946766ef, type: 2}
+  _dropData: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
 --- !u!114 &-8898912803435600830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1517,7 +1519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropData: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
 --- !u!135 &8592156782917564589
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1607,6 +1608,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d25b829086d84564caebe97474ea58e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-625352178093498470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4910266f70f7e8f4f81b41e1201f3232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5144204438039530197
