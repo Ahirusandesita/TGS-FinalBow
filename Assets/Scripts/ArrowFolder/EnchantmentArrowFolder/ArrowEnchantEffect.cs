@@ -22,7 +22,7 @@ public struct Size
     /// <summary>
     /// SIZE_MINIMUM•ª‚Ì‚P
     /// </summary>
-    private const float SIZE_MINIMUM = 10f;
+    private const float SIZE_MINIMUM = 1f;
 
 
     /// <summary>
@@ -236,10 +236,10 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
             effect.transform.localScale.x,
             effect.transform.localScale.y,
             effect.transform.localScale.z);
-        effect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3;
+        effect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3 / 2;
         while (sizeAdjustmentToVector3.plusCount > 0)
         {
-            effect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
+            effect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3 /2;
             sizeAdjustmentToVector3.plusCount--;
         }
 
