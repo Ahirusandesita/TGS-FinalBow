@@ -66,13 +66,13 @@ public class Reaction : MonoBehaviour
     public void AddReactionSecondEvent(List<IReaction<Transform,Vector3>> reactions)
     {
         foreach (IReaction<Transform, Vector3> reaction in reactions) 
-            AfterReaction += new ReactionDelegate(reaction.ReactionsSecond);
+            AfterReaction += new ReactionDelegate(reaction.AfterReaction);
     }
 
     public void AddBigReactionEvent(List<IReaction<Transform, Vector3>> reactions)
     {
         foreach(IReaction<Transform,Vector3>reaction in reactions)
-            BigReaction += new ReactionDelegate(reaction.ReactionBig);
+            BigReaction += new ReactionDelegate(reaction.OverReaction);
     }
     
     public void ReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState)

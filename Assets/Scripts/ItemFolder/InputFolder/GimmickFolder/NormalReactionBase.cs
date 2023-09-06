@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class NormalReactionBase : MonoBehaviour, IBombReaction<Transform, Vector3>
+public class NormalReactionBase : MonoBehaviour, IBombReaction
 {
 
     #region variable 
@@ -17,6 +17,16 @@ public class NormalReactionBase : MonoBehaviour, IBombReaction<Transform, Vector
 
     #endregion
     public bool ReactionEnd { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+    public void AfterReaction(Transform t1, Vector3 t2)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OverReaction(Transform t1, Vector3 t2)
+    {
+        throw new System.NotImplementedException();
+    }
 
     public void Reaction(Transform t1, Vector3 t2)
     {

@@ -14,19 +14,23 @@ public interface IReaction<T1, T2>
 {
     void Reaction(T1 t1, T2 t2);
 
+    void AfterReaction(T1 t1, T2 t2);
+
+    void OverReaction(T1 t1, T2 t2);
+
     bool ReactionEnd { get; set; }
 
 }
-public interface INormalReaction<T1,T2> : IReaction<T1, T2> { }
-public interface IBombReaction<T1,T2> : IReaction<T1, T2> { }
+public interface INormalReaction : IReaction<Transform, Vector3> { }
+public interface IBombReaction : IReaction<Transform, Vector3> { }
 
-public interface IThunderReaction<T1, T2> : IReaction<T1, T2> { }
+public interface IThunderReaction : IReaction<Transform, Vector3> { }
 
-public interface IKnockBackReaction<T1, T2> : IReaction<T1, T2> { }
+public interface IKnockBackReaction: IReaction<Transform, Vector3> { }
 
-public interface IPenetrateReaction<T1, T2> : IReaction<T1, T2> { }
+public interface IPenetrateReaction : IReaction<Transform, Vector3> { }
 
-public interface IHomingReaction<T1, T2> : IReaction<T1, T2> { }
+public interface IHomingReaction : IReaction<Transform, Vector3> { }
 
 
 public interface IReactionEnd
@@ -57,8 +61,17 @@ public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>
         animator.SetTrigger("HitKnockBack");
         //ノックバック処理
     }
+    public void AfterReaction(Transform t1, Vector3 t2)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OverReaction(Transform t1, Vector3 t2)
+    {
+        throw new System.NotImplementedException();
+    }
+
 
     public void End() => ReactionEnd = true;
-
 
 }
