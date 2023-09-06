@@ -20,10 +20,14 @@ public class ChainLightningManager : MonoBehaviour
 
     List<GameObject> nextDestroy = new();
 
-    public void ChainLightning(Transform myTransform, int numberOfChains)
+    const int THUNDER_DAMAGE = 1;
+
+    int _enchantPower = 0;
+
+    public void ChainLightning(Transform myTransform, int numberOfChains,int enchantPower)
     {
+        _enchantPower = enchantPower;
         EnemyStats[,] stats = getObjects.ChainLightningGetStats(myTransform, numberOfChains);
-        print("aaa" + stats.Length);
         takeEffects.SetEffects = effect;
 
         StartCoroutine(StartChain(stats, _waitTime));
@@ -44,7 +48,9 @@ public class ChainLightningManager : MonoBehaviour
             EnemyStats select = enemyStats[chainGroup, 0];
             nextDestroy.Add(takeEffects.CreateEffect(transform.position, select.transform.position));
 
-            select.TakeThunder(0);
+
+            select.TakeThunder(_enchantPower);
+            select.TakeDamage(THUNDER_DAMAGE);
         }
 
         yield return wait;
@@ -59,7 +65,8 @@ public class ChainLightningManager : MonoBehaviour
                     EnemyStats final = enemyStats[chainGroup, chainIndex];
                     if (final is not null)
                     {
-                        final.TakeThunder(0);
+                        final.TakeThunder(_enchantPower);
+                        final.TakeDamage(THUNDER_DAMAGE);
                     }
 
                     continue;
@@ -73,7 +80,8 @@ public class ChainLightningManager : MonoBehaviour
                 }
 
                 nextDestroy.Add(takeEffects.CreateEffect(root.transform.position, next.transform.position));
-                next.TakeThunder(0);
+                next.TakeThunder(_enchantPower);
+                next.TakeDamage(THUNDER_DAMAGE);
             }
             yield return wait;
             ResetEffects(nextDestroy.ToArray());
