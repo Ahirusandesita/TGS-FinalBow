@@ -15,7 +15,7 @@ public class ChainLightningGetObjects
     /// <summary>
     /// しょりずみ
     /// </summary>
-    List<GameObject> takedObjects = default;
+    List<GameObject> takedObjects = new();
 
     EnemyStats[,] takeParalysis = default;
 
@@ -25,9 +25,9 @@ public class ChainLightningGetObjects
 
     int _layerMask = 1 << 6;
 
-    float _firstSeachArea = 5f;
+    float _firstSeachArea = 10f;
 
-    float _arcSeach = 8f;
+    float _arcSeach = 10f;
 
     #endregion
     #region property
@@ -36,7 +36,8 @@ public class ChainLightningGetObjects
 
 
     public EnemyStats[,] ChainLightningGetStats(Transform hitTransform, int numberOfChain)
-    {       
+    {
+        takedObjects = new();
         // 自分は麻痺から除外
         takedObjects.Add(hitTransform.gameObject);
 
@@ -48,7 +49,7 @@ public class ChainLightningGetObjects
 
         // 最初のチェインからエネミーすたっつだけぬけだす
         EnemyStats[] selectedArray = selectArray.GetSelectedArray<EnemyStats>(firstFinds);
-
+        ArrayDebugLog.LogArrayObject(selectedArray, "aaaF");
         // 第一チェイングループ　第二チェインの長さ
         takeParalysis = new EnemyStats[selectedArray.Length, numberOfChain];
 
@@ -60,19 +61,28 @@ public class ChainLightningGetObjects
 
         for(int i = 0; i < numberOfChain;i++)
         {
-            ArcChain(hitTransform,i);
+            ArcChain(i);
         }
 
         return takeParalysis;
     }
 
-    private void ArcChain(Transform hitTransform,int numberOfTimes)
+    private void ArcChain(int numberOfTimes)
     {
         // チェイン処理　一番近いオブジェクトを選択する
         for (int chainGroup = 0; chainGroup < takeParalysis.GetLength(0); chainGroup++)
         {
+            EnemyStats startEnemy = takeParalysis[chainGroup, numberOfTimes];
+
+            if(startEnemy is null)
+            {
+                return;
+            }
+
+            Vector3 startPositon = startEnemy.transform.position;
+
             GameObject[] findObjs =
-            FindObjectInArea(hitTransform.position, _layerMask, _arcSeach, takedObjects.ToArray());
+            FindObjectInArea(startPositon, _layerMask, _arcSeach, takedObjects.ToArray());
 
             takedObjects.AddRange(findObjs);
 
@@ -100,28 +110,32 @@ public class ChainLightningGetObjects
                 }
             }
 
-            takeParalysis[chainGroup, numberOfTimes] = enemies[cacheIndex];
+            takeParalysis[chainGroup, numberOfTimes + 1] = enemies[cacheIndex];
 
         }
     }
 
     private GameObject[] FindObjectInArea(Vector3 position, int layerMask, float radius)
     {
-        List<GameObject> findObjects = default;
+        List<GameObject> findObjects = new();
 
+        int debug = 0;
         if (Physics.CheckSphere(position, radius, layerMask))
         {
             Collider[] colliders = Physics.OverlapSphere(position, radius, layerMask);
-
+            
             foreach (Collider col in colliders)
             {
                 GameObject check = col.gameObject;
+
                 if (findObjects.Contains(check))
                 {
                     continue;
                 }
                 else
                 {
+                    debug++;
+ 
                     findObjects.Add(check);
                 }
             }

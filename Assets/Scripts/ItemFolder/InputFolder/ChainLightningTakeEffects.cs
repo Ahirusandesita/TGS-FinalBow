@@ -10,6 +10,8 @@ public class ChainLightningTakeEffects
 {
     #region variable 
     GameObject effects = default;
+
+    LineRendererControlAssets line = new();
     #endregion
     #region property
     #endregion
@@ -17,15 +19,19 @@ public class ChainLightningTakeEffects
 
     public GameObject SetEffects
     {
-        set { effects = value; }
+        set
+        {            
+            effects = value;
+            
+        }
     }
 
     public GameObject CreateEffect(Vector3 fromPosition, Vector3 toPosition)
     {
-        GameObject effect = Object.Instantiate(effects, (fromPosition + toPosition) / 2, Quaternion.FromToRotation(fromPosition, toPosition));
-        Vector3 scale = effect.transform.localScale;
-        scale.z = effect.transform.localScale.z * Vector3.Distance(fromPosition, toPosition);
-        effect.transform.localScale = scale;
+        GameObject effect = Object.Instantiate(effects, fromPosition, Quaternion.FromToRotation(fromPosition, toPosition));
+        line.SetControllLine(effect);
+        line.LineSetIndex(Vector3.Distance(fromPosition, toPosition));
+        effect.transform.LookAt(toPosition);
         return effect;
     }
     public void DeleteEffect(GameObject effect)

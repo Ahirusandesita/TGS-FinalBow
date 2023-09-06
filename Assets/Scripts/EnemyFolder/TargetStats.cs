@@ -41,7 +41,13 @@ public class TargetStats : EnemyStats
 
     public override void TakeThunder(int a)
     {
-        //throw new System.NotImplementedException();
+        print("Ç‹Ç–Å[Å[");
+        Transform ab = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
+
+        ab.position = transform.position;
+        ab.localScale = ab.localScale * 5;
+
+
     }
 
     public override void Death()
