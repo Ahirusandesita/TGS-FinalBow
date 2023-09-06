@@ -37,6 +37,9 @@ public class RadianUIAnimation : EnchantsChenger
     public Color _defaultColor;
 
     [HideInInspector]
+    public readonly Color WHITE = Color.white;  
+
+    [HideInInspector]
     public Color _differenceColor = default;
 
     public readonly float _defaultAlpha = 255;
@@ -50,7 +53,13 @@ public class RadianUIAnimation : EnchantsChenger
     public const float MIN_COLOR = 0f;
 
     [HideInInspector]
-    public Color WHITE = Color.white;
+    public float _whiteColor_r = 1f;
+
+    [HideInInspector]
+    public float _whiteColor_b = 1f;
+
+    [HideInInspector]
+    public float _whiteColor_g = 1f;
 
     public const float MAX_ALPHA = 1f;
 
@@ -106,6 +115,7 @@ public class RadianUIAnimation : EnchantsChenger
         if (_myState == E_MyState.Outer)
         {
             _differenceColor = WHITE - _defaultColor;
+            print(this.gameObject.name + _differenceColor);
         }
         SetReSetState(this);
     }

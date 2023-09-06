@@ -95,11 +95,9 @@ public class EnchantsChenger : MonoBehaviour
 
     protected void SizeUp(RadianUIAnimation _this)
     {
-        if (_this._mySizeValue < RadianUIAnimation.MAX_SCALE)
-        {
-            _this._mySizeValue += Time.deltaTime * _this._speedforScale;
-        }
-        else
+        _this._mySizeValue += Time.deltaTime * _this._speedforScale;
+
+        if (_this._mySizeValue > RadianUIAnimation.MAX_SCALE)
         {
             _this._mySizeValue = RadianUIAnimation.MAX_SCALE;
         }
@@ -108,11 +106,9 @@ public class EnchantsChenger : MonoBehaviour
 
     protected void SizeDown(RadianUIAnimation _this)
     {
-        if (_this._mySizeValue > RadianUIAnimation.MIN_SCALE)
-        {
-            _this._mySizeValue -= Time.deltaTime * _this._speedforScale;
-        }
-        else
+        _this._mySizeValue -= Time.deltaTime * _this._speedforScale;
+
+        if (_this._mySizeValue < RadianUIAnimation.MIN_SCALE)
         {
             _this._mySizeValue = RadianUIAnimation.MIN_SCALE;
         }
@@ -126,11 +122,8 @@ public class EnchantsChenger : MonoBehaviour
 
     protected void ColorChange(RadianUIAnimation _this)
     {
-        if(_this._myColorValue < RadianUIAnimation.MAX_COLOR)
-        {
-            _this._myColorValue += Time.deltaTime * _this._speed2Color;
-        }
-        else
+        _this._myColorValue += Time.deltaTime * _this._speed2Color;
+        if(_this._myColorValue > RadianUIAnimation.MAX_COLOR)
         {
             _this._myColorValue = RadianUIAnimation.MAX_COLOR;
         }
@@ -139,29 +132,33 @@ public class EnchantsChenger : MonoBehaviour
 
     protected void ColorRe_Change(RadianUIAnimation _this)
     {
-        if (_this._myColorValue > RadianUIAnimation.MIN_COLOR)
-        {
-            _this._myColorValue -= Time.deltaTime * _this._speed2Color;
-        }
-        else
+        _this._myColorValue -= Time.deltaTime * _this._speed2Color;
+
+        if (_this._myColorValue < RadianUIAnimation.MIN_COLOR)
         {
             _this._myColorValue = RadianUIAnimation.MIN_COLOR;
         }
-        ColorPaint(_this);
+        ColorDilute(_this);
     }
 
     protected void ColorPaint(RadianUIAnimation _this)
     {
-        _this._myImage.color = _this.WHITE - (_this._differenceColor * _this._myColorValue);
+        _this._myImage.color = 
+            new Color(  _this._whiteColor_r - _this._differenceColor.r * _this._myColorValue,
+                        _this._whiteColor_b - _this._differenceColor.b * _this._myColorValue,
+                        _this._whiteColor_g - _this._differenceColor.g * _this._myColorValue);
+    }
+
+    protected void ColorDilute(RadianUIAnimation _this)
+    {
+        _this._myImage.color = _this.WHITE - _this._differenceColor * _this._myColorValue;
     }
 
     protected void AlphaChange(RadianUIAnimation _this)
     {
-        if (_this._myAlphaValue < RadianUIAnimation.MAX_ALPHA)
-        {
-            _this._myAlphaValue += Time.deltaTime * _this._speed2Alpha;
-        }
-        else
+        _this._myAlphaValue += Time.deltaTime * _this._speed2Alpha;
+
+        if (_this._myAlphaValue > RadianUIAnimation.MAX_ALPHA)
         {
             _this._myAlphaValue = RadianUIAnimation.MAX_ALPHA;
         }
@@ -170,11 +167,9 @@ public class EnchantsChenger : MonoBehaviour
 
     protected void AlphaRe_Change(RadianUIAnimation _this)
     {
-        if (_this._myAlphaValue > RadianUIAnimation.MIN_ALPHA)
-        {
-            _this._myAlphaValue -= Time.deltaTime * _this._speed2Alpha;
-        }
-        else
+        _this._myAlphaValue -= Time.deltaTime * _this._speed2Alpha;
+
+        if (_this._myAlphaValue < RadianUIAnimation.MIN_ALPHA)
         {
             _this._myAlphaValue = RadianUIAnimation.MIN_ALPHA;
         }
@@ -183,7 +178,7 @@ public class EnchantsChenger : MonoBehaviour
 
     protected void AlphaPaint(RadianUIAnimation _this)
     {
-        _this._myImage.color = new Color(_this._myImage.color.r, _this._myImage.color.b, _this._myImage.color.g, _this._myAlphaValue/* * _this._defaultAlpha*/);
+        _this._myImage.color = new Color(_this._myImage.color.r, _this._myImage.color.b, _this._myImage.color.g, _this._myAlphaValue);
     }
 
     protected void AllClear(RadianUIAnimation _this)
@@ -229,7 +224,7 @@ public class EnchantsChenger : MonoBehaviour
 
     public void RotateEmiter(float rotation)
     {
-        _backGround_Emiter._myTransform.rotation = Quaternion.Euler(_backGround_Emiter._myTransform.rotation.x, _backGround_Emiter._myTransform.rotation.y, rotation);
+        _backGround_Emiter._myTransform.localRotation = Quaternion.Euler(_backGround_Emiter._myTransform.rotation.x, _backGround_Emiter._myTransform.rotation.y, -rotation);
     }
 
 }

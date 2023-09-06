@@ -139,9 +139,9 @@ MonoBehaviour:
       checkerboardDepthBuffer: 1
       upsampleType: 1
     xrSettings:
-      singlePass: 1
+      singlePass: 0
       occlusionMesh: 1
-      cameraJitter: 0
+      cameraJitter: 1
       allowMotionBlur: 1
     postProcessQualitySettings:
       NearBlurSampleCount: 030000000500000008000000
