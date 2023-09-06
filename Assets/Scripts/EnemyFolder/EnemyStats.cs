@@ -8,16 +8,10 @@
 using System;
 using UnityEngine;
 
-public interface IFTake
-{
-    void TakeDamage(int damage);
-    void TakeBomb(int damage);
-}
-
 /// <summary>
 /// 敵のステータスの基底クラス
 /// </summary>
-public abstract class EnemyStats : MonoBehaviour, IFTake
+public abstract class EnemyStats : MonoBehaviour
 {
     #region protected変数
     private HpGage hpGage;
@@ -40,9 +34,7 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
     protected int _hp;
 
     [Tooltip("直前に食らった矢のエンチャント")]
-    protected EnchantmentEnum.EnchantmentState _takeEnchantment = default;
-
-    public EnchantmentEnum.EnchantmentState TakeEnchantment { set => _takeEnchantment = value; }
+    protected EnchantmentEnum.EnchantmentState _takeEnchantment = EnchantmentEnum.EnchantmentState.nothing;
     #endregion
 
     protected virtual void Start()
@@ -81,11 +73,15 @@ public abstract class EnemyStats : MonoBehaviour, IFTake
             Death();
     }
 
-    public abstract void TakeBomb(int damage);
+    public virtual void TakeBomb(int damage) { _takeEnchantment = EnchantmentEnum.EnchantmentState.bomb; }
 
-    public abstract void TakeThunder(int power);
+    public virtual void TakeThunder(int power) { _takeEnchantment = EnchantmentEnum.EnchantmentState.thunder; }
 
-    public abstract void TakeKnockBack();
+    public virtual void TakeRapidShots() { _takeEnchantment = EnchantmentEnum.EnchantmentState.rapidShots; }
+
+    public virtual void TakePenetrate() { _takeEnchantment = EnchantmentEnum.EnchantmentState.penetrate; }
+
+    public virtual void TakeHoming() { _takeEnchantment = EnchantmentEnum.EnchantmentState.homing; }
 
     /// <summary>
     /// 敵が死ぬ

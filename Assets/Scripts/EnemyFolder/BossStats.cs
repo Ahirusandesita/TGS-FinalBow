@@ -29,7 +29,7 @@ public class BossStats : EnemyStats
 
     }
 
-    public override void TakeKnockBack()
+    public override void TakeRapidShots()
     {
 
     }

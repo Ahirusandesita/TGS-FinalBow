@@ -11,7 +11,7 @@ public static class EnchantStateModel
         EnchantmentEnum.EnchantmentState.normal,
         EnchantmentEnum.EnchantmentState.bomb,
         EnchantmentEnum.EnchantmentState.thunder,
-        EnchantmentEnum.EnchantmentState.knockBack,
+        EnchantmentEnum.EnchantmentState.rapidShots,
         EnchantmentEnum.EnchantmentState.homing,
         EnchantmentEnum.EnchantmentState.penetrate,
         EnchantmentEnum.EnchantmentState.bombThunder,

@@ -31,7 +31,7 @@ public class ReactionManager
             case EnchantmentEnum.EnchantmentState.normal: reaction.AddReactionEvent(normalReactions); break;
             case EnchantmentEnum.EnchantmentState.bomb: reaction.AddReactionEvent(bombReactions); break;
             case EnchantmentEnum.EnchantmentState.thunder: reaction.AddReactionEvent(thunderReactions); break;
-            case EnchantmentEnum.EnchantmentState.knockBack: reaction.AddReactionEvent(knockBackReactions); break;
+            case EnchantmentEnum.EnchantmentState.rapidShots: reaction.AddReactionEvent(knockBackReactions); break;
             case EnchantmentEnum.EnchantmentState.penetrate: reaction.AddReactionEvent(penetrateReactions); break;
             case EnchantmentEnum.EnchantmentState.homing: reaction.AddReactionEvent(homingReactions); break;
         }

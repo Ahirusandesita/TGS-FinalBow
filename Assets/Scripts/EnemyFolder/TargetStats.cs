@@ -34,7 +34,7 @@ public class TargetStats : EnemyStats
         TakeDamage(damage);
     }
 
-    public override void TakeKnockBack()
+    public override void TakeRapidShots()
     {
        // throw new System.NotImplementedException();
     }

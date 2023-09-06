@@ -22,7 +22,7 @@ public class EnchantmentEnum
         normal,
         bomb,
         thunder,
-        knockBack,
+        rapidShots,
         homing,
         penetrate,
 
