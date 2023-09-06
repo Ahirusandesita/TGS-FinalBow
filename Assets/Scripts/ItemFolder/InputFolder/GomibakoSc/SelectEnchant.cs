@@ -158,7 +158,7 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
                     StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Rapid));
-                    enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.knockBack);
+                    enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.rapidShots);
                     _state = NowSelect.None;
                     _useCoroutine = true;
                     break;

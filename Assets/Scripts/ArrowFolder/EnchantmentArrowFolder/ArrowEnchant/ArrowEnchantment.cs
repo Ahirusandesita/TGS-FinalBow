@@ -40,7 +40,7 @@ public interface IArrowEnchantable
             case EnchantmentEnum.EnchantmentState.thunder:
                 Thunder();
                 break;
-            case EnchantmentEnum.EnchantmentState.knockBack:
+            case EnchantmentEnum.EnchantmentState.rapidShots:
                 KnockBack();
                 break;
             case EnchantmentEnum.EnchantmentState.penetrate:
@@ -115,7 +115,7 @@ public interface IArrowEnchantable<T>
                 return new EnchantDelegate(Bomb);
             case EnchantmentEnum.EnchantmentState.thunder:
                 return new EnchantDelegate(Thunder);
-            case EnchantmentEnum.EnchantmentState.knockBack:
+            case EnchantmentEnum.EnchantmentState.rapidShots:
                 return new EnchantDelegate(KnockBack);
             case EnchantmentEnum.EnchantmentState.penetrate:
                 return new EnchantDelegate(Penetrate);
@@ -179,8 +179,8 @@ public interface IArrowEnchantable<T1, T2>
                 return new EnchantDelegate(Bomb);
             case EnchantmentEnum.EnchantmentState.thunder:
                 return new EnchantDelegate(Thunder);
-            case EnchantmentEnum.EnchantmentState.knockBack:
-                return new EnchantDelegate(KnockBack);
+            case EnchantmentEnum.EnchantmentState.rapidShots:
+                return new EnchantDelegate(RapidShots);
             case EnchantmentEnum.EnchantmentState.penetrate:
                 return new EnchantDelegate(Penetrate);
             case EnchantmentEnum.EnchantmentState.homing:
@@ -214,7 +214,7 @@ public interface IArrowEnchantable<T1, T2>
     void Normal(T1 t1, T2 t2);
     void Bomb(T1 t1, T2 t2);
     void Thunder(T1 t1, T2 t2);
-    void KnockBack(T1 t1, T2 t2);
+    void RapidShots(T1 t1, T2 t2);
     void Penetrate(T1 t1, T2 t2);
     void Homing(T1 t1, T2 t2);
     void BombThunder(T1 t1, T2 t2);
@@ -441,7 +441,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
 
     public EnchantmentEnum.EnchantmentState GetSubEnchantment()
     {
-        if (_enchantmentStateNow == EnchantmentEnum.EnchantmentState.knockBack)
+        if (_enchantmentStateNow == EnchantmentEnum.EnchantmentState.rapidShots)
         {
             return EnchantmentEnum.EnchantmentState.normal;
         }

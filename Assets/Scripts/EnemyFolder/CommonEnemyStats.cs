@@ -96,19 +96,17 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     public override void TakeBomb(int damage)
     {
+        base.TakeBomb(damage);
+
         TakeDamage(damage);
-        print("”š”­‚¤‚¯‚½");
     }
 
     public override void TakeThunder(int power)
     {
+        base.TakeThunder(power);
+
         _paralysisTime = _baseParalysisTime + _addParalysisTime * power;
         StartCoroutine(ParalysisCoroutine(_paralysisTime));
-    }
-
-    public override void TakeKnockBack()
-    {
-        StartCoroutine(KnockbackCoroutine());
     }
 
     public override void Death()

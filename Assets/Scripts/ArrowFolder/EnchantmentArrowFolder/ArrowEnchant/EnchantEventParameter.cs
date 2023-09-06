@@ -199,7 +199,7 @@ public class EnchantEventParameter : IEnchantEventParameter
                 _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_Thunder);
                 break;
 
-            case EnchantmentEnum.EnchantmentState.knockBack:
+            case EnchantmentEnum.EnchantmentState.rapidShots:
 
                 _enchantEvents._arrowEnchantUI.ArrowEnchantUI_KnockBack();
                 _enchantEvents._newEnchantEffect = new EnchantEvents.NewEnchantEffect(_enchantEvents._atractEffect.AttractEffectEffect_KnockBack);

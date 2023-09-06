@@ -29,7 +29,7 @@ public class EnemyScriptTriggerDriver : MonoBehaviour
  {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            enemyStats.TakeKnockBack();
+            enemyStats.TakeRapidShots();
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {

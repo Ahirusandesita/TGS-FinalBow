@@ -226,7 +226,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
                             //takeBombStats.TakeHoming();
                             break;
                         case Enchant.knockBack:
-                            takeBombStats.TakeKnockBack();
+                            takeBombStats.TakeRapidShots();
                             break;
                         case Enchant.penetrate:
                             //takeBombStats.TakePenetrate();
@@ -293,22 +293,24 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         AddInit();
     }
 
-    public void KnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
+    public void RapidShots(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         stats = NormalHitDamage(t1, _knockBackDamage + _normalDamage + addDamage);
-        stats.TakeKnockBack();
+        stats.TakeRapidShots();
         AddInit();
     }
 
     public void Penetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         stats = NormalHitDamage(t1, _penetrateDamage + _normalDamage + addDamage);
+        stats.TakePenetrate();
         AddInit();
     }
 
     public void Homing(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         stats = NormalHitDamage(t1, _homingDamage + _normalDamage + addDamage);
+        stats.TakeHoming();
         AddInit();
     }
 
