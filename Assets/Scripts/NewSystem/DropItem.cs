@@ -60,7 +60,7 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private void Update()
     {
-        if (myTransform.position.y < DropFinalPositon.DROP_Y_FINALPOSITION || !CanMove)
+        if (myTransform.position.y < DropFinalPositon.DROP_Y_FINALPOSITION || CanMove)
         {
             //Destroy(this);
             //DropItem dropItem = this;
