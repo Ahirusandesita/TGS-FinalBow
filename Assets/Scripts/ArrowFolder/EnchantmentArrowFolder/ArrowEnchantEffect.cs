@@ -69,12 +69,20 @@ public struct SizeAdjustmentToVector3
         sizeZ = z;
         plusCount = 0;
     }
+    public SizeAdjustmentToVector3(float x,float y,float z,int plusCount) => this = new SizeAdjustmentToVector3(new Size(x), new Size(y), new Size(z),plusCount);
 
     public void SetSizeToVector3(float x,float y,float z)
     {
         sizeX.firstSize = x;
         sizeY.firstSize = y;
         sizeZ.firstSize = z;
+    }
+    public SizeAdjustmentToVector3(Size x,Size y,Size z,int plusCount)
+    {
+        sizeX = x;
+        sizeY = y;
+        sizeZ = z;
+        this.plusCount = plusCount;
     }
 
 
