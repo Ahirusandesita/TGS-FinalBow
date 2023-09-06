@@ -125,7 +125,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     /// </summary>
     /// <param name="hitObj"></param>
     /// <returns>hitObj‚ÌEnemyStats</returns>
-    private EnemyStats NormalHitDamage(GameObject hitObj, int damage)
+    private EnemyStats NormalHitDamage(GameObject hitObj, int damage,out int calced)
     {
         EnemyStats st = default;
 
@@ -147,12 +147,14 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         }
 
 
-        st.TakeDamage(damage);
+        calced = damage;
         
 
         //EnemyStats st = default;
         return st;
     }
+
+    
 
     private void AddInit()
     {
@@ -274,105 +276,115 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
 
     public void Normal(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1, _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _normalDamage + addDamage, out int damage);
+        stats.TakeDamage(damage);
         AddInit();
     }
 
     public void Bomb(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         BombHitDamage(t1, Enchant.none);
-        stats = NormalHitDamage(t1, _bombDirectHitDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _normalDamage + addDamage,out int damage);
+        stats.TakeDamage(damage);
         AddInit();
     }
 
     public void Thunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        stats = NormalHitDamage(t1, _thunderDamage + _normalDamage + addDamage, out int damage);
         stats.TakeThunder(enchantPower);
-        stats = NormalHitDamage(t1, _thunderDamage + _normalDamage + addDamage);
+        stats.TakeDamage(damage);
         AddInit();
     }
 
     public void RapidShots(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        stats = NormalHitDamage(t1, _knockBackDamage + _normalDamage + addDamage, out int damage);
         stats.TakeRapidShots();
-        stats = NormalHitDamage(t1, _knockBackDamage + _normalDamage + addDamage);
+        stats.TakeDamage(damage);
         AddInit();
     }
 
     public void Penetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        stats = NormalHitDamage(t1, _penetrateDamage + _normalDamage + addDamage, out int damage);
         stats.TakePenetrate();
-        stats = NormalHitDamage(t1, _penetrateDamage + _normalDamage + addDamage);
+        stats.TakeDamage(damage);
         AddInit();
     }
 
     public void Homing(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        stats = NormalHitDamage(t1, _homingDamage + _normalDamage + addDamage, out int damage);
         stats.TakeHoming();
-        stats = NormalHitDamage(t1, _homingDamage + _normalDamage + addDamage);
+        stats.TakeDamage(damage);
         AddInit();
     }
 
     public void BombThunder(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _thunderDamage + _normalDamage + addDamage, out int damage);
         BombHitDamage(t1, Enchant.thunder);
-        stats = NormalHitDamage(t1, _bombDirectHitDamage + _thunderDamage + _normalDamage + addDamage);
+        stats.TakeDamage(damage);
         AddInit();
 
     }
 
     public void BombKnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _knockBackDamage + _normalDamage + addDamage, out int damage);
         BombHitDamage(t1, Enchant.knockBack);
-        stats = NormalHitDamage(t1, _bombDirectHitDamage + _knockBackDamage + _normalDamage + addDamage);
+        stats.TakeDamage(damage);
         AddInit();
 
     }
 
     public void BombPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _penetrateDamage + _normalDamage + addDamage, out int damage);
         BombHitDamage(t1, Enchant.penetrate);
-        stats = NormalHitDamage(t1, _bombDirectHitDamage + _penetrateDamage + _normalDamage + addDamage);
+        stats.TakeDamage(damage);
         AddInit();
 
     }
 
     public void BombHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
+        stats = NormalHitDamage(t1, _bombDirectHitDamage + _homingDamage + _normalDamage + addDamage, out int damage);
         BombHitDamage(t1, Enchant.homing);
-        stats = NormalHitDamage(t1, _bombDirectHitDamage + _homingDamage + _normalDamage + addDamage);
+        stats.TakeDamage(damage);
         AddInit();
 
     }
 
     public void ThunderKnockBack(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1, _thunderDamage + _knockBackDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _thunderDamage + _knockBackDamage + _normalDamage + addDamage, out int damage);
 
     }
 
     public void ThunderPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1, _thunderDamage + _penetrateDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _thunderDamage + _penetrateDamage + _normalDamage + addDamage, out int damage);
     }
 
     public void ThunderHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1, _thunderDamage + _homingDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _thunderDamage + _homingDamage + _normalDamage + addDamage, out int damage);
     }
 
     public void KnockBackPenetrate(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1, _knockBackDamage + _penetrateDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _knockBackDamage + _penetrateDamage + _normalDamage + addDamage, out int damage);
     }
 
     public void KnockBackHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1, _knockBackDamage + _homingDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _knockBackDamage + _homingDamage + _normalDamage + addDamage, out int damage);
     }
 
     public void PenetrateHoming(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
-        stats = NormalHitDamage(t1, _penetrateDamage + _homingDamage + _normalDamage + addDamage);
+        stats = NormalHitDamage(t1, _penetrateDamage + _homingDamage + _normalDamage + addDamage, out int damage);
     }
 }
