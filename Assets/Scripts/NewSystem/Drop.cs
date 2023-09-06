@@ -30,7 +30,8 @@ public class Drop : MonoBehaviour
     {
         for(int i = 0; i < dropData.DropValue; i++)
         {
-            objectPoolSystem.CallObject(PoolEnum.PoolObjectType.dropItem_1, spawnPosition);
+            // objectPoolSystem.CallObject(PoolEnum.PoolObjectType.dropItem_1, spawnPosition);
+            Instantiate(dropData.DropItem,spawnPosition,Quaternion.identity);
         }
     }
     #endregion
