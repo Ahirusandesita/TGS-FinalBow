@@ -1,0 +1,75 @@
+// --------------------------------------------------------- 
+// ChainLightningManager.cs 
+// 
+// CreateDay: 
+// Creator  : 
+// --------------------------------------------------------- 
+using UnityEngine;
+using System.Collections;
+public class ChainLightningManager : MonoBehaviour
+{
+    ChainLightningGetObjects getObjects = new ChainLightningGetObjects();
+
+    ChainLightningTakeEffects takeEffects = new ChainLightningTakeEffects();
+
+    [SerializeField] GameObject effect = default;
+
+    [SerializeField] float _waitTime = 0.2f;
+
+    public void ChainLightning(Transform myTransform, int numberOfChains)
+    {
+        EnemyStats[,] stats = getObjects.ChainLightningGetStats(myTransform, numberOfChains);
+
+        takeEffects.SetEffects = effect;
+
+        StartCoroutine(StartChain(stats, _waitTime));
+    }
+
+    IEnumerator StartChain(EnemyStats[,] enemyStats, float waitTime)
+    {
+        const int CHAIN_GROUP = 0;
+        const int CHAIN_INDEX = 1;
+
+
+        WaitForSeconds wait = new(waitTime);
+
+        yield return wait;
+
+        for (int chainGroup = 0; chainGroup < enemyStats.GetLength(CHAIN_GROUP); chainGroup++)
+        {
+            EnemyStats select = enemyStats[chainGroup, 0];
+            takeEffects.CreateEffect(transform.position, select.transform.position);
+
+            select.TakeThunder(0);
+        }
+
+        yield return wait;
+
+
+        for (int chainIndex = 0; chainIndex < enemyStats.GetLength(CHAIN_INDEX); chainIndex++)
+        {
+            for (int chainGroup = 0; chainGroup < enemyStats.GetLength(CHAIN_GROUP); chainGroup++)
+            {
+                if(chainIndex >= enemyStats.GetLength(CHAIN_INDEX) - 1)
+                {
+                    enemyStats[chainGroup, chainIndex].TakeThunder(0);
+                }
+                EnemyStats root = enemyStats[chainGroup, chainIndex];
+                EnemyStats next = enemyStats[chainGroup, chainIndex + 1];
+
+                if (root is null || next is null)
+                {
+                    continue;
+                }
+
+                takeEffects.CreateEffect(root.transform.position, next.transform.position);
+                next.TakeThunder(0);
+            }
+            yield return wait;
+        }
+
+       
+
+
+    }
+}
