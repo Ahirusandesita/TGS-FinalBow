@@ -37,22 +37,17 @@ public abstract class EnemyStats : MonoBehaviour
     protected EnchantmentEnum.EnchantmentState _takeEnchantment = EnchantmentEnum.EnchantmentState.nothing;
     #endregion
 
+    protected virtual void Awake()
+    {
+        _reaction = this.GetComponent<Reaction>();
+    }
+
     protected virtual void Start()
     {
         _animator = this.GetComponent<Animator>();
         _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
         _transform = this.transform;
         hpGage = this.transform.GetComponentInChildren<HpGage>();
-
-        try
-        {
-            _reaction = this.GetComponent<Reaction>();
-        }
-        catch (Exception)
-        {
-            _reaction = null;
-            X_Debug.LogError("Reactionクラスがついていません");
-        }
     }
 
     //IFScoreManager_Combo _combo = default;
@@ -70,7 +65,7 @@ public abstract class EnemyStats : MonoBehaviour
         hpGage.Hp(hp / maxHp);
 
         if (_hp <= 0)
-            Death();
+            OnDeathReactions();
     }
 
     public virtual void TakeBomb(int damage) { _takeEnchantment = EnchantmentEnum.EnchantmentState.bomb; }
@@ -87,6 +82,17 @@ public abstract class EnemyStats : MonoBehaviour
     /// 敵が死ぬ
     /// </summary>
     public abstract void Death();
+
+    /// <summary>
+    /// 敵が死んだときのリアクション
+    /// </summary>
+    protected virtual void OnDeathReactions()
+    {
+        _reaction.ReactionSetting(_takeEnchantment);
+        // ---------------------------------------------------------------
+        _reaction.ReactionEventStart(_transform, Vector3.zero); //あとで当たった場所取得して設定
+        //----------------------------------------------------------------
+    }
 
     public abstract int HP
     {
