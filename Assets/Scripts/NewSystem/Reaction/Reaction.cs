@@ -20,7 +20,9 @@ public class Reaction : MonoBehaviour
 
     private delegate void ReactionDelegate(Transform targetTransform,Vector3 hitPosition);
     private event ReactionDelegate ReactionEvent;
-    
+
+    private event ReactionDelegate AfterReaction;
+    private event ReactionDelegate BigReaction;
 
     private ReactionManager reactionManager = new ReactionManager();
     #endregion
@@ -31,12 +33,12 @@ public class Reaction : MonoBehaviour
     private void Start()
     {
         myTransform = this.transform;
-        reactionManager.AddReaction(this.GetComponents<INormalReaction<Transform, Vector3>>());
-        reactionManager.AddReaction(this.GetComponents<IBombReaction<Transform, Vector3>>());
-        reactionManager.AddReaction(this.GetComponents<IThunderReaction<Transform, Vector3>>());
-        reactionManager.AddReaction(this.GetComponents<IKnockBackReaction<Transform, Vector3>>());
-        reactionManager.AddReaction(this.GetComponents<IPenetrateReaction<Transform, Vector3>>());
-        reactionManager.AddReaction(this.GetComponents<IHomingReaction<Transform, Vector3>>());
+        reactionManager.AddReaction(this.GetComponents<INormalReaction>());
+        reactionManager.AddReaction(this.GetComponents<IBombReaction>());
+        reactionManager.AddReaction(this.GetComponents<IThunderReaction>());
+        reactionManager.AddReaction(this.GetComponents<IKnockBackReaction>());
+        reactionManager.AddReaction(this.GetComponents<IPenetrateReaction>());
+        reactionManager.AddReaction(this.GetComponents<IHomingReaction>());
     }
 
     public void ReactionFactory(IReaction<Transform, Vector3> reaction) => this.reaction = reaction;
@@ -66,6 +68,17 @@ public class Reaction : MonoBehaviour
         }
         this.reactions = reactions;
     }
+    public void AddReactionSecondEvent(List<IReaction<Transform,Vector3>> reactions)
+    {
+        foreach (IReaction<Transform, Vector3> reaction in reactions) 
+            AfterReaction += new ReactionDelegate(reaction.ReactionsSecond);
+    }
+
+    public void AddBigReactionEvent(List<IReaction<Transform, Vector3>> reactions)
+    {
+        foreach(IReaction<Transform,Vector3>reaction in reactions)
+            BigReaction += new ReactionDelegate(reaction.ReactionBig);
+    }
     
 
     public void ReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState)
@@ -74,7 +87,7 @@ public class Reaction : MonoBehaviour
     }
 
     /// <summary>
-    /// Ç±Ç±Ç‹Çæê≥ÇµÇ≠é¿ëïÇ≈Ç´ÇƒÇ»Ç¢
+    /// „Åì„Åì„Åæ„Å†Ê≠£„Åó„ÅèÂÆüË£Ö„Åß„Åç„Å¶„Å™„ÅÑ
     /// </summary>
     /// <returns></returns>
     public bool IsReactionEnd()
