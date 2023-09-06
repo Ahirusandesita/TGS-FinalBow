@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ThunderFall : MonoBehaviour, IThunderReaction<Transform, Vector3>
+public class ThunderFall : MonoBehaviour, IThunderReaction
 {
     #region variable 
     public bool ReactionEnd { get; set; }
@@ -63,6 +63,16 @@ public class ThunderFall : MonoBehaviour, IThunderReaction<Transform, Vector3>
     public void Reaction(Transform t1, Vector3 t2)
     {
         _needStartReaction = true;
+    }
+
+    public void AfterReaction(Transform t1, Vector3 t2)
+    {
+
+    }
+
+    public void OverReaction(Transform t1, Vector3 t2)
+    {
+
     }
     #endregion
 }
