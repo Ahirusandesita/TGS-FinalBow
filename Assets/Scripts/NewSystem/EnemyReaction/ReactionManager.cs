@@ -43,12 +43,12 @@ public class ReactionManager
            addReactions.Add(reactions[i]);
        }
    };
-    public void AddReaction(INormalReaction<Transform, Vector3>[] reactions) => SetReaction(reactions, normalReactions);
-    public void AddReaction(IBombReaction<Transform, Vector3>[] reactions) => SetReaction(reactions, bombReactions);
+    public void AddReaction(INormalReaction[] reactions) => SetReaction(reactions, normalReactions);
+    public void AddReaction(IBombReaction[] reactions) => SetReaction(reactions, bombReactions);
 
-    public void AddReaction(IThunderReaction<Transform, Vector3>[] reactions) => SetReaction(reactions, thunderReactions);
-    public void AddReaction(IKnockBackReaction<Transform, Vector3>[] reactions) => SetReaction(reactions, knockBackReactions);
-    public void AddReaction(IPenetrateReaction<Transform, Vector3>[] reactions) => SetReaction(reactions, penetrateReactions);
-    public void AddReaction(IHomingReaction<Transform, Vector3>[] reactions) => SetReaction(reactions, homingReactions);
+    public void AddReaction(IThunderReaction[] reactions) => SetReaction(reactions, thunderReactions);
+    public void AddReaction(IKnockBackReaction[] reactions) => SetReaction(reactions, knockBackReactions);
+    public void AddReaction(IPenetrateReaction[] reactions) => SetReaction(reactions, penetrateReactions);
+    public void AddReaction(IHomingReaction[] reactions) => SetReaction(reactions, homingReactions);
     #endregion
 }
