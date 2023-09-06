@@ -10,6 +10,11 @@ using System.Collections;
 [CreateAssetMenu(fileName = "DropItemData", menuName = "Scriptables/CreateDropItemTable")]
 public class DropItemData : ScriptableObject
 {
+    public DropItemStruct dropItemStruct;
+}
+[System.Serializable]
+public class DropItemStruct
+{
     [Tooltip("ŒX‚«")]
     public int DropAngle;
     [Tooltip("Œü‚«‚Ì‰ºŒÀ")]
