@@ -19,6 +19,8 @@ public class SelectEnchant : MonoBehaviour
     [SerializeField]
     private EnchantsChenger Chenger;
 
+    private float _waitTime = 0.25f;
+
     private enum NowSelect { None = 0, Explosion = 1, Thunder = 2, Penetration = 3, Homing = 4, Rapid = 5 };
     private NowSelect _state;
     private Vector2 _inputVecter = default;
@@ -95,8 +97,9 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(0.5f,EnchantsChenger.E_Enchant.Explosion));
+                    StartCoroutine(DecisionCancelCoroutine(_waitTime,EnchantsChenger.E_Enchant.Explosion));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.bomb);
+                    _state = NowSelect.None;
                     _useCoroutine = true;
                     break;
 
@@ -109,8 +112,9 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(0.5f, EnchantsChenger.E_Enchant.Thunder));
+                    StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.thunder);
+                    _state = NowSelect.None;
                     _useCoroutine = true;
                     break;
 
@@ -123,8 +127,9 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(0.5f, EnchantsChenger.E_Enchant.Penetration));
+                    StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Penetration));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.penetrate);
+                    _state = NowSelect.None;
                     _useCoroutine = true;
                     break;
 
@@ -137,8 +142,9 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(0.5f, EnchantsChenger.E_Enchant.Homing));
+                    StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Homing));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.homing);
+                    _state = NowSelect.None;
                     _useCoroutine = true;
                     break;
 
@@ -151,99 +157,120 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(0.5f, EnchantsChenger.E_Enchant.Rapid));
+                    StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Rapid));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.knockBack);
+                    _state = NowSelect.None;
                     _useCoroutine = true;
                     break;
             }
         }
         else
         {
-            if (_useCoroutine)
+            if (!_useCoroutine)
             {
-                StopAllCoroutines();
-            }
-            _inputAngle = Mathf.Atan2(_inputVecter.x, _inputVecter.y) * Mathf.Rad2Deg;
 
-            if(_inputAngle >= 0f && _inputAngle < 144f)
-            {
-                if(_inputAngle < 72f)
+
+                _inputAngle = Mathf.Atan2(_inputVecter.x, _inputVecter.y) * Mathf.Rad2Deg;
+
+                print(_inputAngle);
+
+                if (_inputAngle < 144f)
                 {
-                    //Explosion
-                    if (_state != NowSelect.Explosion)
+                    if (_inputAngle >= 0f)
                     {
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Select);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
-                        _state = NowSelect.Explosion;
+                        if (_inputAngle < 72f)
+                        {
+                            //Explosion
+                            if (_state != NowSelect.Explosion)
+                            {
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Select);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                                _state = NowSelect.Explosion;
+                            }
+                        }
+                        else
+                        {
+                            //Thunder
+                            if (_state != NowSelect.Thunder)
+                            {
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Select);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                                _state = NowSelect.Thunder;
+                            }
+                        }
+                    }
+                    else if(_inputAngle > -144f)
+                    {
+                        if(_inputAngle >= -72)
+                        {
+                            //Rapid
+                            if (_state != NowSelect.Rapid)
+                            {
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Select);
+                                Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                                _state = NowSelect.Rapid;
+                            }
+                        }
+                        else
+                        {
+                            //Homing
+                            if (_state != NowSelect.Homing)
+                            {
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Select);
+                                Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
+                                Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                                _state = NowSelect.Homing;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        //Penetra
+                        if (_state != NowSelect.Penetration)
+                        {
+                            Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Notselect);
+                            Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Notselect);
+                            Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Select);
+                            Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
+                            Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
+                            Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                            _state = NowSelect.Penetration;
+                        }
                     }
                 }
                 else
                 {
-                    //Thunder
-                    if (_state != NowSelect.Thunder)
-                    {
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Select);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
-                        _state = NowSelect.Thunder;
-                    }
-                }
-            }
-            else if (_inputAngle >= -144)
-            {
-                if(_inputAngle <= -72f)
-                {
-                    //Homing
-                    if (_state != NowSelect.Homing)
+                    //Penetra
+                    if (_state != NowSelect.Penetration)
                     {
                         Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Notselect);
                         Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Select);
+                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Select);
+                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
                         Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                         Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
-                        _state = NowSelect.Homing;
+                        _state = NowSelect.Penetration;
                     }
                 }
-                else if(_inputAngle < 0f)
-                {
-                    //Rapid
-                    if (_state != NowSelect.Rapid)
-                    {
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
-                        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Select);
-                        Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
-                        _state = NowSelect.Rapid;
-                    }
-                }
-            }
-            else
-            {
-                //Penetra
-                if (_state != NowSelect.Penetration)
-                {
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Select);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
-                    _state = NowSelect.Penetration;
-                }
-            }
 
-            Chenger.RotateEmiter(_inputAngle);
-
+                Chenger.RotateEmiter(_inputAngle);
+            }
             #region Žg‚í‚È‚¢
             //if (_inputAngle != 0)
             //{
@@ -313,6 +340,7 @@ public class SelectEnchant : MonoBehaviour
 
         Chenger.SetCircleEnum(Enchant, EnchantsChenger.E_Event.Cancel);
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Cancel);
+        _useCoroutine = false;
     }
 
     //private void Graphics(float input)
