@@ -62,6 +62,7 @@ public class ThunderFall : MonoBehaviour, IThunderReaction
     public void Reaction(Transform t1, Vector3 t2)
     {
         _needStartReaction = true;
+        X_Debug.Log(_needStartReaction);
     }
 
     public void AfterReaction(Transform t1, Vector3 t2)
