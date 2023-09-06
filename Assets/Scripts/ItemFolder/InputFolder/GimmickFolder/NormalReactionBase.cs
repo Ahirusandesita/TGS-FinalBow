@@ -32,4 +32,6 @@ public class NormalReactionBase : MonoBehaviour, IBombReaction
     {
         throw new System.NotImplementedException();
     }
+
+    public bool IsComplete() => true;
 }

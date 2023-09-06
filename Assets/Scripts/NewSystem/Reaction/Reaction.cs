@@ -18,11 +18,20 @@ public class Reaction : MonoBehaviour
 
     private Transform myTransform;
 
-    private delegate void ReactionDelegate(Transform targetTransform,Vector3 hitPosition);
+    private delegate void ReactionDelegate(Transform targetTransform, Vector3 hitPosition);
     private event ReactionDelegate ReactionEvent;
 
-    private event ReactionDelegate AfterReaction;
-    private event ReactionDelegate BigReaction;
+    private event ReactionDelegate AfterReactionEvent;
+    private event ReactionDelegate OverReactionEvent;
+
+    private delegate bool ReactionEndDelegate();
+    private event ReactionEndDelegate ReactionEndEvent;
+    private event ReactionEndDelegate AfterReactionEndEvent;
+    private event ReactionEndDelegate OverReactionEndEvent;
+
+    private Transform targetTransform;
+    private Vector3 hitPosition;
+    private bool isStart = false;
 
     private ReactionManager reactionManager = new ReactionManager();
     #endregion
@@ -51,39 +60,110 @@ public class Reaction : MonoBehaviour
             reaction.Reaction(myTransform, hitPosition);
     }
 
-    public void ReactionEventStart(Transform targetTransform,Vector3 hitPosition)
+
+    Action<bool> ReactionSelect;
+    Func<bool> ReactionEnd;
+
+    public void ReactionEventStart(Transform targetTransform, Vector3 hitPosition)
     {
+        this.targetTransform = targetTransform;
+        this.hitPosition = hitPosition;
+
+
         if (ReactionEvent.GetLength() == 0) return;
 
         ReactionEvent(targetTransform, hitPosition);
-        ReactionEvent = default;
+        ReactionEvent = null;
+        OverReactionEvent = null;
+        isStart = true;
+
+        ReactionEnd = () =>
+        {
+            foreach (ReactionEndDelegate handler in ReactionEndEvent.GetInvocationList())
+            {
+                if (!handler.Invoke()) return false;
+            }
+            return true;
+        };
+
+        ReactionSelect = isStart =>
+        {
+            if (!isStart) return;
+
+            if (!ReactionEnd()) return;
+
+            if (AfterReactionEvent.GetLength() == 0) return;
+
+            AfterReactionEvent(this.targetTransform, this.hitPosition);
+            AfterReactionEvent = null;
+
+            ReactionSelect = null;
+            //action = isStart =>
+            //{
+            //    if (!isStart) return;
+
+            //    foreach (ReactionEndDelegate handler in AfterReactionEndEvent.GetInvocationList())
+            //    {
+            //        if (!handler.Invoke()) return;
+            //    }
+
+            //    action = null;
+            //};
+        };
     }
 
+    public void OverReactionEventStart(Transform targetTransform,Vector3 hitPosition)
+    {
+        this.targetTransform = targetTransform;
+        this.hitPosition = hitPosition;
+
+        if (OverReactionEvent.GetLength() == 0) return;
+
+        OverReactionEvent(targetTransform, hitPosition);
+        ReactionEvent = null;
+        OverReactionEvent = null;
+        isStart = true;
+
+        ReactionEnd = () =>
+        {
+            foreach (ReactionEndDelegate handler in OverReactionEndEvent.GetInvocationList())
+            {
+                if (!handler.Invoke()) return false;
+            }
+            return true;
+        };
+
+        ReactionSelect = isStart =>
+        {
+            if (!isStart) return;
+
+            if (!ReactionEnd()) return;
+
+            if (AfterReactionEvent.GetLength() == 0) return;
+
+            AfterReactionEvent(this.targetTransform, this.hitPosition);
+            AfterReactionEvent = null;
+
+            ReactionSelect = null;
+        };
+    }
 
     public void AddReactionEvent(List<IReaction<Transform, Vector3>> reactions)
     {
-        foreach(IReaction<Transform,Vector3> reaction in reactions)
+        foreach (IReaction<Transform, Vector3> reaction in reactions)
         {
             ReactionEvent += new ReactionDelegate(reaction.Reaction);
+            ReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            AfterReactionEvent += new ReactionDelegate(reaction.AfterReaction);
+            OverReactionEvent += new ReactionDelegate(reaction.OverReaction);
         }
         this.reactions = reactions;
     }
-    public void AddReactionSecondEvent(List<IReaction<Transform,Vector3>> reactions)
-    {
-        foreach (IReaction<Transform, Vector3> reaction in reactions) 
-            AfterReaction += new ReactionDelegate(reaction.AfterReaction);
-    }
 
-    public void AddBigReactionEvent(List<IReaction<Transform, Vector3>> reactions)
-    {
-        foreach(IReaction<Transform,Vector3>reaction in reactions)
-            BigReaction += new ReactionDelegate(reaction.OverReaction);
-    }
-    
 
     public void ReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState)
     {
-        reactionManager.ReactionSetting(enchantmentState,this);
+        reactionManager.ReactionSetting(enchantmentState, this);
     }
 
     /// <summary>
@@ -92,20 +172,33 @@ public class Reaction : MonoBehaviour
     /// <returns></returns>
     public bool IsReactionEnd()
     {
-        for(int i = 0; i < this.reactions.Count; i++)
-        {
-            if (!this.reactions[i].ReactionEnd) return false;
-        }
-        return true;
+        if (ReactionEnd.GetLength() == 0) return false;
+        return ReactionEnd();
     }
 
     private void Update()
     {
+
+
+
         if (Input.GetKeyDown(KeyCode.U))
         {
             ReactionSetting(EnchantmentEnum.EnchantmentState.bomb);
             ReactionEventStart(this.transform, Vector3.zero);
         }
+
+        if (ReactionSelect.GetLength() == 0) return;
+        ReactionSelect(isStart);
+
+
+
+
+
+
+
+
+
+        
     }
 
 

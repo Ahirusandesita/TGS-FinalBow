@@ -74,5 +74,7 @@ public class ThunderFall : MonoBehaviour, IThunderReaction
     {
 
     }
+
+    public bool IsComplete() => true;
     #endregion
 }
