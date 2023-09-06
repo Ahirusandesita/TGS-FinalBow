@@ -42,6 +42,13 @@ public class BirdStats : CommonEnemyStats
         }
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        _reaction.SubscribeReactionFinish(Death);
+    }
+
     public override void TakeDamage(int damage)
     {
         _reaction.ReactionStart(_transform.position);
@@ -51,12 +58,6 @@ public class BirdStats : CommonEnemyStats
 
     public override void Death()
     {
-        _reaction.ReactionSetting(_takeEnchantment);
-        // ---------------------------------------------------------------
-        _reaction.ReactionEventStart(_transform, Vector3.zero); //‚ ‚Æ‚Å“–‚½‚Á‚½êŠæ“¾‚µ‚Äİ’è
-        //----------------------------------------------------------------
-
-
         // •Ï”‚ÌƒfƒNƒŠƒƒ“ƒg
         _onDeathBird();
 
