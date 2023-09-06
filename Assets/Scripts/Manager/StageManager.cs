@@ -48,6 +48,12 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [SerializeField, Tooltip("ボスのプレハブ")]
     private GameObject _bossPrefab;
 
+    [SerializeField, Tooltip("プレイヤー")]
+    private GameObject _player = default;
+
+    [SerializeField, Tooltip("デバッグカメラ")]
+    private GameObject _debugPlayer = default;
+
 
     [Tooltip("取得したObjectPoolSystemクラス")]
     private ObjectPoolSystem _objectPoolSystem = default;
@@ -76,6 +82,12 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         // ステージ間リザルトの表示が終了したとき、ResultStageクラスでステージ進行処理が呼ばれる
         _resultStage.readOnlyStateProperty.Subject.Subscribe(isResult => { if (!isResult) { ProgressingTheStage(); } });
+
+        // ゲーム開始時にプレイヤーのTransformを更新する
+        _player.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position;
+        _player.transform.rotation = _stageTransforms[_currentStageIndex]._stageTransform.rotation;
+        _debugPlayer.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position;
+        _debugPlayer.transform.rotation = _stageTransforms[_currentStageIndex]._stageTransform.rotation;
 
         // ゲームスタート
         StartCoroutine(StageStart());
