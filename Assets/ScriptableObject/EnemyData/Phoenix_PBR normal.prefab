@@ -646,6 +646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 21
   maxInhallData: {fileID: 0}
+  _dropData: {fileID: 0}
 --- !u!114 &2016932893973157275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,7 +659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropData: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
 --- !u!135 &7512102180570663284
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -737,6 +737,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyChip: {fileID: 11400000, guid: 15c9f69ba0a117844987d6662daa07c4, type: 2}
+  bodyChipFire: {fileID: 11400000, guid: a39ce8fc40cae79448d0da01d7cbe48b, type: 2}
+  bodyChipBig: {fileID: 11400000, guid: 0bfcb9fca7a16b841b107e99ea87650c, type: 2}
+  bodyChipBigFire: {fileID: 11400000, guid: f51a6e303529ed84aac4424a867d0984, type: 2}
 --- !u!1 &6349726506961091340
 GameObject:
   m_ObjectHideFlags: 0
