@@ -6,6 +6,8 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 public class ChainLightningManager : MonoBehaviour
 {
     ChainLightningGetObjects getObjects = new ChainLightningGetObjects();
@@ -16,10 +18,12 @@ public class ChainLightningManager : MonoBehaviour
 
     [SerializeField] float _waitTime = 0.2f;
 
+    List<GameObject> nextDestroy = new();
+
     public void ChainLightning(Transform myTransform, int numberOfChains)
     {
         EnemyStats[,] stats = getObjects.ChainLightningGetStats(myTransform, numberOfChains);
-
+        print("aaa" + stats.Length);
         takeEffects.SetEffects = effect;
 
         StartCoroutine(StartChain(stats, _waitTime));
@@ -38,21 +42,27 @@ public class ChainLightningManager : MonoBehaviour
         for (int chainGroup = 0; chainGroup < enemyStats.GetLength(CHAIN_GROUP); chainGroup++)
         {
             EnemyStats select = enemyStats[chainGroup, 0];
-            takeEffects.CreateEffect(transform.position, select.transform.position);
+            nextDestroy.Add(takeEffects.CreateEffect(transform.position, select.transform.position));
 
             select.TakeThunder(0);
         }
 
         yield return wait;
-
+        ResetEffects(nextDestroy.ToArray());
 
         for (int chainIndex = 0; chainIndex < enemyStats.GetLength(CHAIN_INDEX); chainIndex++)
         {
             for (int chainGroup = 0; chainGroup < enemyStats.GetLength(CHAIN_GROUP); chainGroup++)
             {
-                if(chainIndex >= enemyStats.GetLength(CHAIN_INDEX) - 1)
+                if (chainIndex >= enemyStats.GetLength(CHAIN_INDEX) - 1)
                 {
-                    enemyStats[chainGroup, chainIndex].TakeThunder(0);
+                    EnemyStats final = enemyStats[chainGroup, chainIndex];
+                    if (final is not null)
+                    {
+                        final.TakeThunder(0);
+                    }
+
+                    continue;
                 }
                 EnemyStats root = enemyStats[chainGroup, chainIndex];
                 EnemyStats next = enemyStats[chainGroup, chainIndex + 1];
@@ -62,13 +72,22 @@ public class ChainLightningManager : MonoBehaviour
                     continue;
                 }
 
-                takeEffects.CreateEffect(root.transform.position, next.transform.position);
+                nextDestroy.Add(takeEffects.CreateEffect(root.transform.position, next.transform.position));
                 next.TakeThunder(0);
             }
             yield return wait;
+            ResetEffects(nextDestroy.ToArray());
         }
 
-       
+        void ResetEffects(GameObject[] nexts)
+        {
+            foreach (GameObject eff in nexts)
+            {
+                takeEffects.DeleteEffect(eff);
+                nextDestroy.Clear();
+            }
+        }
+
 
 
     }
