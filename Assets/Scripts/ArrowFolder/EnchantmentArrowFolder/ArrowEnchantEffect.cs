@@ -22,7 +22,7 @@ public struct Size
     /// <summary>
     /// SIZE_MINIMUM•ª‚Ì‚P
     /// </summary>
-    private const float SIZE_MINIMUM = 1f;
+    private const float SIZE_MINIMUM = 0.5f;
 
 
     /// <summary>
