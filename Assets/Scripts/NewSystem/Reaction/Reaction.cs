@@ -75,11 +75,15 @@ public class Reaction : MonoBehaviour
         reactionManager.ReactionSetting(enchantmentState,this);
     }
 
+    /// <summary>
+    /// ‚±‚±‚Ü‚¾³‚µ‚­À‘•‚Å‚«‚Ä‚È‚¢
+    /// </summary>
+    /// <returns></returns>
     public bool IsReactionEnd()
     {
         for(int i = 0; i < this.reactions.Count; i++)
         {
-            if (this.reactions[i].ReactionEnd) return false;
+            if (!this.reactions[i].ReactionEnd) return false;
         }
         return true;
     }
