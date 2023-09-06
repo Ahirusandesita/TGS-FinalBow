@@ -53,8 +53,6 @@ public class Reaction : MonoBehaviour
     {
         if (ReactionEvent.GetLength() == 0) return;
 
-        if (!IsReactionEnd()) return;
-
         ReactionEvent(targetTransform, hitPosition);
         ReactionEvent = default;
     }
@@ -64,7 +62,7 @@ public class Reaction : MonoBehaviour
     {
         foreach(IReaction<Transform,Vector3> reaction in reactions)
         {
-            ReactionEvent += new ReactionDelegate(reaction.Reaction);          
+            ReactionEvent += new ReactionDelegate(reaction.Reaction);
         }
         this.reactions = reactions;
     }

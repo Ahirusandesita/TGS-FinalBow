@@ -14,7 +14,7 @@ public class BombHitReaction : MonoBehaviour, IBombReaction<Transform,Vector3>
     private Drop drop;
 
 
-    public bool ReactionEnd { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public bool ReactionEnd { get; set; }
 
     public void Reaction(Transform t1, Vector3 t2)
     {
