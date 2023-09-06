@@ -10,20 +10,35 @@ public class UpdateLineRenderIndex : MonoBehaviour
 {
     [SerializeField] float maxRag = 0.5f;
 
-    [SerializeField] int createIndex = 10;
+    LineRenderer line = default;
 
-    [SerializeField] LineRenderer line = default;
-    private void Start()
+    const float needTime = 0.1f;
+
+    float cacheTime = 0f;
+
+    float oneIndexDistance = 0f;
+
+    private void OnEnable()
     {
         line = GetComponent<LineRenderer>();
+
+        cacheTime = 0;
+
+        float distance = line.GetPosition(line.positionCount - 1).z;
+
+        oneIndexDistance = distance / line.positionCount;
+
     }
     private void Update()
     {
-        float end = line.GetPosition(line.positionCount - 1).z;
-        float oneStep = end / line.positionCount;
-        for(int i = 1; i < line.positionCount - 1; i++)
+        if (cacheTime + needTime < Time.time)
         {
-            line.SetPosition(i, new Vector3(RamdomValue(), RamdomValue(), oneStep * i));
+            cacheTime = Time.time;
+            for (int i = 1; i < line.positionCount - 1; i++)
+            {
+                line.SetPosition(i, new Vector3(RamdomValue(), RamdomValue(), oneIndexDistance * i));
+            }
+
         }
     }
 
