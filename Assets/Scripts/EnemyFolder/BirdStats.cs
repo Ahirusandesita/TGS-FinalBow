@@ -63,12 +63,12 @@ public class BirdStats : CommonEnemyStats
 
 
         //if (_reaction.IsReactionEnd)
-        //// 変数のデクリメント
-        //_onDeathBird();
+        // 変数のデクリメント
+        _onDeathBird();
 
-        //_drop.DropStart(_dropData, this.transform.position);
+        _drop.DropStart(_dropData, this.transform.position);
 
-        //base.Death();
+        base.Death();
     }
 
     public override void Despawn()

@@ -50,7 +50,6 @@ public class ThunderFall : MonoBehaviour, IThunderReaction
         {
             _elapsedTime += Time.deltaTime;
 
-            X_Debug.Log(_birdStats.ParalysisTime);
             // 麻痺時間が終わったら、リアクション（敵の死亡処理）を開始する
             if (_elapsedTime >= _birdStats.ParalysisTime)
             {
