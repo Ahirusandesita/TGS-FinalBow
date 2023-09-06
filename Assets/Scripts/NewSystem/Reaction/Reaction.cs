@@ -17,6 +17,8 @@ public class Reaction : MonoBehaviour
     private List<IReaction<Transform, Vector3>> reactions = new List<IReaction<Transform, Vector3>>();
 
     private Transform myTransform;
+    private delegate void ReactionFinishDelefate();
+    private ReactionFinishDelefate ReactionFinish;
 
     private delegate void ReactionDelegate(Transform targetTransform, Vector3 hitPosition);
     private event ReactionDelegate ReactionEvent;
@@ -98,6 +100,7 @@ public class Reaction : MonoBehaviour
             AfterReactionEvent = null;
 
             ReactionSelect = null;
+            ReactionFinish();
             //action = isStart =>
             //{
             //    if (!isStart) return;
@@ -145,6 +148,7 @@ public class Reaction : MonoBehaviour
             AfterReactionEvent = null;
 
             ReactionSelect = null;
+            ReactionFinish();
         };
     }
 
@@ -176,6 +180,8 @@ public class Reaction : MonoBehaviour
         return ReactionEnd();
     }
 
+    public void SubscribeReactionFinish(Action reactionFinishAction) => ReactionFinish = new ReactionFinishDelefate(reactionFinishAction);
+
     private void Update()
     {
 
@@ -188,17 +194,7 @@ public class Reaction : MonoBehaviour
         }
 
         if (ReactionSelect.GetLength() == 0) return;
-        ReactionSelect(isStart);
-
-
-
-
-
-
-
-
-
-        
+        ReactionSelect(isStart);       
     }
 
 
