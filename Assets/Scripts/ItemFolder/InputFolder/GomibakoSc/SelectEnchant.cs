@@ -56,7 +56,7 @@ public class SelectEnchant : MonoBehaviour
     #region method
     private void Start()
     {
-        //mng = GameObject.FindWithTag(InhallLibTags.InputController).GetComponent<InputManagement>();
+        mng = GameObject.FindWithTag(InhallLibTags.InputController).GetComponent<InputManagement>();
         enchantSetter = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<IArrowEnchantSet>();
 
         //circleLinesAngle = CircleDivide(setting.Length);
@@ -93,7 +93,7 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(1f,EnchantsChenger.E_Enchant.Explosion));
+                    StartCoroutine(DecisionCancelCoroutine(0.5f,EnchantsChenger.E_Enchant.Explosion));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.bomb);
                     break;
 
@@ -106,7 +106,7 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(1f, EnchantsChenger.E_Enchant.Thunder));
+                    StartCoroutine(DecisionCancelCoroutine(0.5f, EnchantsChenger.E_Enchant.Thunder));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.thunder);
                     break;
 
@@ -119,7 +119,7 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(1f, EnchantsChenger.E_Enchant.Penetration));
+                    StartCoroutine(DecisionCancelCoroutine(0.5f, EnchantsChenger.E_Enchant.Penetration));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.penetrate);
                     break;
 
@@ -132,7 +132,7 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(1f, EnchantsChenger.E_Enchant.Homing));
+                    StartCoroutine(DecisionCancelCoroutine(0.5f, EnchantsChenger.E_Enchant.Homing));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.homing);
                     break;
 
@@ -145,7 +145,7 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
                     Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(1f, EnchantsChenger.E_Enchant.Rapid));
+                    StartCoroutine(DecisionCancelCoroutine(0.5f, EnchantsChenger.E_Enchant.Rapid));
                     enchantSetter.EnchantSetting(EnchantmentEnum.EnchantmentState.knockBack);
                     break;
             }
@@ -185,9 +185,9 @@ public class SelectEnchant : MonoBehaviour
                     }
                 }
             }
-            else if (_inputAngle <= -36)
+            else if (_inputAngle >= -144)
             {
-                if(_inputAngle > -108f)
+                if(_inputAngle <= -72f)
                 {
                     //Homing
                     if (_state != NowSelect.Homing)
@@ -201,7 +201,7 @@ public class SelectEnchant : MonoBehaviour
                         _state = NowSelect.Homing;
                     }
                 }
-                else
+                else if(_inputAngle < 0f)
                 {
                     //Rapid
                     if (_state != NowSelect.Rapid)
@@ -232,6 +232,8 @@ public class SelectEnchant : MonoBehaviour
             }
 
             Chenger.RotateEmiter(_inputAngle);
+
+            print("State = " + _state + "     Input = " + _inputVecter);
 
             #region Žg‚í‚È‚¢
             //if (_inputAngle != 0)
