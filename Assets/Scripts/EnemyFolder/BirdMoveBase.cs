@@ -75,6 +75,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("取得したBirdAttackクラス")]
     private BirdAttack _birdAttack = default;
 
+    [Tooltip("取得したBirdStatsクラス")]
+    private BirdStats _birdStats = default;
+
     [Tooltip("スタートとゴール間の距離 = 目標移動量")]
     private float _startToGoalDistance = default;
 
@@ -504,6 +507,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         animator = GetComponent<Animator>();
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
         _birdAttack = GameObject.FindWithTag("EnemyController").GetComponent<BirdAttack>();
+        _birdStats = this.GetComponent<BirdStats>();
 
         base.Start();
     }
@@ -585,7 +589,10 @@ public abstract class BirdMoveBase : EnemyMoveBase
         // 麻痺状態か判定する（麻痺だったら動かない）
         Paralysing();
 
-        _currentTime += Time.deltaTime;
+        if (_birdStats.HP <= 0)
+        {
+            return;
+        }
 
         // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
 
@@ -877,8 +884,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
                     yield return null;
                 }
 
-                yield break;
-
             // ワールド正面を向く
             case DirectionType_AtStopping.front:
                 _eAttackSpawner.AttackDirection = DirectionType_AtAttack.front;
@@ -888,8 +893,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
                     RotateToFront();
                     yield return null;
                 }
-
-                yield break;
         }
     }
 
