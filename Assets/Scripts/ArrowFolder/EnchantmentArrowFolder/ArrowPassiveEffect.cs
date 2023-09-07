@@ -46,7 +46,7 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
                 _workEffect.transform.localScale.z
                 );
 
-            _workEffect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3/10;
+            _workEffect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3/2.5f;
         }
         //エフェクトが存在していて新しいEnumが違ったら
         else if (_workEnchantState != checkArrowState)
@@ -70,13 +70,13 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
                 sizeAdjustmentToVector3.plusCount
                 );
 
-            _workEffect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3 / 10;
+            _workEffect.transform.localScale = sizeAdjustmentToVector3.GetMinimumSizeToVector3 / 2.5f;
 
             int plusCount = sizeAdjustmentToVector3.plusCount;
             while (plusCount > 0)
             {
 
-                _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3 / 10;
+                _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3 / 2.5f;
                 plusCount--;
             }
         }
@@ -99,7 +99,7 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
     public void SetAttackDamage()
     {
         sizeAdjustmentToVector3.plusCount++;
-        _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3 / 10;
+        _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3 / 2.5f;
     }
 
     public void Normal(Transform t)
