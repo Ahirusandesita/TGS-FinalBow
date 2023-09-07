@@ -15,6 +15,9 @@ public class DropItemData : ScriptableObject
 [System.Serializable]
 public class DropItemStruct
 {
+    public enum ItemType { Fall = 0, Fly = 1 }
+    [Tooltip("アイテムの挙動の種類")]
+    public ItemType itemType;
     [Tooltip("傾き")]
     public int DropAngle;
     [Tooltip("向きの下限")]
@@ -29,4 +32,6 @@ public class DropItemStruct
     public int MoveSpeedMin;
     [Tooltip("移動速度の上限")]
     public int MoveSpeedMax;
+    [Tooltip("速度の減衰速度（Flyのみ）")]
+    public float DownSpeedValue;
 }

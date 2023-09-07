@@ -32,6 +32,8 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private Transform myTransform = default;
 
+    private enum ItemType { Fall = 0 , Fly = 1}
+
     //[SerializeField]
     //private float y_FinalPosition_Local = 0f;
 
@@ -60,18 +62,15 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private void Update()
     {
-        if (myTransform.position.y < DropFinalPositon.DROP_Y_FINALPOSITION || CanMove)
+        switch (DropItemData.dropItemStruct.itemType)
         {
-            //Destroy(this);
-            //DropItem dropItem = this;
-            //dropItem = null;
-            return;
-        }
-        myTransform.Translate(Vector3.forward * speed * Time.deltaTime);
-        if (dropLotation.x < 90f)
-        {
-            dropLotation.x += downSpeed * Time.deltaTime;
-            myTransform.rotation = Quaternion.Euler(dropLotation);
+            case DropItemStruct.ItemType.Fall:
+                FallMove();
+                break;
+
+            case DropItemStruct.ItemType.Fly:
+                FlyMove();
+                break;
         }
 
 
@@ -103,6 +102,35 @@ public class DropItem : MonoBehaviour,IFItemMove
     }
     public void SetDropItemData(DropItemStruct dropItemStruct) => DropItemData.dropItemStruct = dropItemStruct;
 
+    private void FallMove()
+    {
+        if (myTransform.position.y < DropFinalPositon.DROP_Y_FINALPOSITION || CanMove)
+        {
+            //Destroy(this);
+            //DropItem dropItem = this;
+            //dropItem = null;
+            return;
+        }
+        myTransform.Translate(Vector3.forward * speed * Time.deltaTime);
+        if (dropLotation.x < 90f)
+        {
+            dropLotation.x += downSpeed * Time.deltaTime;
+            myTransform.rotation = Quaternion.Euler(dropLotation);
+        }
+    }
+
+    private void FlyMove()
+    {
+        if(speed > 0)
+        {
+            speed -= Time.deltaTime * DropItemData.dropItemStruct.DownSpeedValue;
+            myTransform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
+        else
+        {
+            return;
+        }
+    }
 
     #endregion
 }
