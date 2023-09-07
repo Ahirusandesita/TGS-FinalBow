@@ -71,10 +71,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private const float ZERO = 0f;
 
     // サンダーフラグ　サンダーの時は true
-    private const bool THUNDER = true;
+    private const bool PENETRATE = true;
 
     // サンダーフラグ　サンダー以外の時は false
-    private const bool NOT_THUNDER = false;
+    private const bool NOT_PENETRATE = false;
 
     // 無限　上限なしのクランプ等に使用
     private const float INFINITY = Mathf.Infinity;
@@ -563,7 +563,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             {
                 enemys.Add(moves[i].gameObject);
             }
-            _target = ConeDecision.ConeInObjects(arrowTransform, enemys, 90f, 100000f, SEARCH_ANGLE)[0];
+            _target = ConeDecision.ConeInObjects(arrowTransform, enemys, 360f, 100000f, SEARCH_ANGLE)[0];
         }
         else
         {
@@ -610,7 +610,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void Bomb(Transform t)
@@ -619,7 +619,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void Thunder(Transform t)
@@ -628,7 +628,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void KnockBack(Transform t)
@@ -637,7 +637,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void Penetrate(Transform t)
@@ -646,7 +646,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, THUNDER);
+        movement(t, PENETRATE);
     }
 
     public void Homing(Transform t)
@@ -655,7 +655,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetHoming();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void BombThunder(Transform t)
@@ -664,7 +664,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, THUNDER);
+        movement(t, PENETRATE);
     }
 
     public void BombKnockBack(Transform t)
@@ -673,7 +673,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void BombPenetrate(Transform t)
@@ -682,7 +682,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void BombHoming(Transform t)
@@ -691,7 +691,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetHoming();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void ThunderKnockBack(Transform t)
@@ -700,7 +700,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, THUNDER);
+        movement(t, PENETRATE);
     }
 
     public void ThunderPenetrate(Transform t)
@@ -709,7 +709,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, THUNDER);
+        movement(t, PENETRATE);
     }
 
     public void ThunderHoming(Transform t)
@@ -718,7 +718,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, THUNDER);
+        movement(t, PENETRATE);
     }
 
     public void KnockBackPenetrate(Transform t)
@@ -727,7 +727,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void KnockBackHoming(Transform t)
@@ -736,7 +736,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetHoming();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     public void PenetrateHoming(Transform t)
@@ -745,7 +745,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetHoming();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, NOT_PENETRATE);
     }
 
     #endregion
