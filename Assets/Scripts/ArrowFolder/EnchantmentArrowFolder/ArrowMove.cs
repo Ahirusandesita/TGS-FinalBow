@@ -504,6 +504,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             if (_cantGet)
             {
                 _cantGet = false;
+                _isSet = true;
                 return;
             }
         }
@@ -568,6 +569,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
             _cantGet = true ;
+            print("setNormal");
         }
 
         /*
@@ -581,6 +583,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             // Ç‹Ç¡Ç∑ÇÆîÚÇÒÇ≈çsÇ≠ÇÊÇ§Ç…ïœçX
             SetNormal();
+            _cantGet = true ;
+            print("setNormal");
         }
     }
 
@@ -640,7 +644,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, NOT_THUNDER);
+        movement(t, THUNDER);
     }
 
     public void Homing(Transform t)

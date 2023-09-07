@@ -115,7 +115,6 @@ public class RadianUIAnimation : EnchantsChenger
         if (_myState == E_MyState.Outer)
         {
             _differenceColor = WHITE - _defaultColor;
-            print(this.gameObject.name + _differenceColor);
         }
         SetReSetState(this);
     }
