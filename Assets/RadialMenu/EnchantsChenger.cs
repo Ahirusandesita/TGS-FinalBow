@@ -138,20 +138,12 @@ public class EnchantsChenger : MonoBehaviour
         {
             _this._myColorValue = RadianUIAnimation.MIN_COLOR;
         }
-        ColorDilute(_this);
+        ColorPaint(_this);
     }
 
     protected void ColorPaint(RadianUIAnimation _this)
     {
-        _this._myImage.color = 
-            new Color(  _this._whiteColor_r - _this._differenceColor.r * _this._myColorValue,
-                        _this._whiteColor_b - _this._differenceColor.b * _this._myColorValue,
-                        _this._whiteColor_g - _this._differenceColor.g * _this._myColorValue);
-    }
-
-    protected void ColorDilute(RadianUIAnimation _this)
-    {
-        _this._myImage.color = _this.WHITE - _this._differenceColor * _this._myColorValue;
+        _this._myImage.color = Color.Lerp(_this.WHITE,_this._differenceColor,_this._myColorValue);
     }
 
     protected void AlphaChange(RadianUIAnimation _this)
