@@ -563,7 +563,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             {
                 enemys.Add(moves[i].gameObject);
             }
-            _target = ConeDecision.ConeInObjects(arrowTransform, enemys, 360f, 100000f, SEARCH_ANGLE)[0];
+            if(ConeDecision.ConeInObjects(arrowTransform, enemys, 90f, 100000f, SEARCH_ANGLE).Count > 0)
+            {
+                _target = ConeDecision.ConeInObjects(arrowTransform, enemys, 90f, 100000f, SEARCH_ANGLE)[0];
+            }
         }
         else
         {

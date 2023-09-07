@@ -18,12 +18,15 @@ public class SelectEnchant : MonoBehaviour
     [SerializeField]
     private AudioSource _speaker = default;
 
+    [SerializeField]
     private AudioClip _selectSound = default;
 
+    [SerializeField]
     private AudioClip _enchantSound = default;
 
     [SerializeField]
     private EnchantsChenger Chenger;
+
 
     private float _waitTime = 0.25f;
 
@@ -34,6 +37,8 @@ public class SelectEnchant : MonoBehaviour
     private float _inputAngle = default;
 
     private bool _useCoroutine = false;
+
+    private bool _callEnchant = false; 
 
     private EnchantmentEnum.EnchantmentState _enchantState = EnchantmentEnum.EnchantmentState.normal;
     #region variable 
@@ -83,7 +88,11 @@ public class SelectEnchant : MonoBehaviour
 
     private void Update()
     {
-        enchantSetter.EnchantSetting(_enchantState);
+        if (_callEnchant)
+        {
+            enchantSetter.EnchantSetting(_enchantState);
+            _callEnchant = false;
+        }
         _inputVecter = SetInput();
         if (_inputVecter == ZERO)
         {
@@ -106,7 +115,8 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.bomb;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    //_speaker.PlayOneShot(_enchantSound);
+                    _callEnchant = true;
+                    _speaker.PlayOneShot(_enchantSound);
                     break;
 
                 case NowSelect.Thunder:
@@ -122,7 +132,8 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.thunder;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    //_speaker.PlayOneShot(_enchantSound);
+                    _callEnchant = true;
+                    _speaker.PlayOneShot(_enchantSound);
                     break;
 
                 case NowSelect.Penetration:
@@ -138,7 +149,8 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.penetrate;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    //_speaker.PlayOneShot(_enchantSound);
+                    _callEnchant = true;
+                    _speaker.PlayOneShot(_enchantSound);
                     break;
 
                 case NowSelect.Homing:
@@ -154,7 +166,8 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.homing;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    //_speaker.PlayOneShot(_enchantSound);
+                    _callEnchant = true;
+                    _speaker.PlayOneShot(_enchantSound);
                     break;
 
                 case NowSelect.Rapid:
@@ -170,7 +183,8 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.rapidShots;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    //_speaker.PlayOneShot(_enchantSound);
+                    _callEnchant = true;
+                    _speaker.PlayOneShot(_enchantSound);
                     break;
             }
         }
@@ -201,7 +215,7 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                             _state = NowSelect.Explosion;
-                            //_speaker.PlayOneShot(_selectSound);
+                            _speaker.PlayOneShot(_selectSound);
                         }
                     }
                     else
@@ -216,7 +230,7 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                             _state = NowSelect.Thunder;
-                            //_speaker.PlayOneShot(_selectSound);
+                            _speaker.PlayOneShot(_selectSound);
                         }
                     }
                 }
@@ -234,7 +248,7 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Select);
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                             _state = NowSelect.Rapid;
-                            //_speaker.PlayOneShot(_selectSound);
+                            _speaker.PlayOneShot(_selectSound);
                         }
                     }
                     else
@@ -249,7 +263,7 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                             _state = NowSelect.Homing;
-                            //_speaker.PlayOneShot(_selectSound);
+                            _speaker.PlayOneShot(_selectSound);
                         }
                     }
 
@@ -266,7 +280,7 @@ public class SelectEnchant : MonoBehaviour
                         Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                         Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                         _state = NowSelect.Penetration;
-                        //_speaker.PlayOneShot(_selectSound);
+                        _speaker.PlayOneShot(_selectSound);
                     }
                 }
             }
@@ -282,7 +296,7 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                     _state = NowSelect.Penetration;
-                    //_speaker.PlayOneShot(_selectSound);
+                    _speaker.PlayOneShot(_selectSound);
                 }
             }
 
