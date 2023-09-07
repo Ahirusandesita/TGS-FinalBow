@@ -367,7 +367,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
     {
 
         enchantStatePreparation();
-        _enchantmentStateLast = _enchantmentStateNow;
         if (_playerManager.GetOnlyArrow != default)
         {
             EventSetting(_playerManager.GetOnlyArrow);
@@ -378,6 +377,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
             return;
         }
         NewEnchantState();
+        _enchantmentStateLast = _enchantmentStateNow;
 
 
 
@@ -398,7 +398,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
     {
         if (_enchantmentStateNow != _enchantmentStateLast && _enchantmentStateNow != EnchantmentEnum.EnchantmentState.normal)
         {
-            arrowSound.ArrowSound_EnchantSound();
+            //arrowSound.ArrowSound_EnchantSound();
             _enchantEventParameter.NewEnchantEvent(_enchantmentStateNow);
             //_arrowEnchantEffect.ArrowEffect_NewEnchantEffect(arrow.MyTransform);
         }
