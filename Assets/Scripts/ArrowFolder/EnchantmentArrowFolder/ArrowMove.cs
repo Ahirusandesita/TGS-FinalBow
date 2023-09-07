@@ -162,11 +162,15 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // ターゲットの方向を見る速度
     private float _lookSpeed = default;
 
+    // 時間経過によって増加する方向の調整速度の係数
+    private float _lookSpeedCoefficient = LOOKSPEED_DEFAULT;
+    
     // もし判定内に敵がいなかった時の直進用ターゲット
     private GameObject _tmpTarget = default;
 
     // 見つからなかった場合true
     private bool _cantGet = false;
+
 
 
     /***  ここから下　定数  ***/
@@ -176,6 +180,15 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     // ターゲットを探す円錐の中心角　現在は３６０度すべてサーチする　値は中心角の半分を入れる
     private const int SEARCH_ANGLE = 1;
+
+    // _lookSpeedCoefficientの初期値
+    private const float LOOKSPEED_DEFAULT = 0.5f;
+
+    // _lookSpeedCoefficientの増加係数
+    private const float LOOKSPEED_ADDVALUE = 1f;
+
+    // _lookSpeedCoefficientの最大値
+    private const float LOOKSPEED_MAX = 3f;
 
     #endregion
 
@@ -503,10 +516,16 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             SetHomingTarget(arrowTransform, _arrowSpeed);
             if (_cantGet)
             {
+                _lookSpeedCoefficient = 0f;
                 _cantGet = false;
                 _isSet = true;
                 return;
             }
+        }
+
+        if(_lookSpeedCoefficient < LOOKSPEED_MAX)
+        {
+            _lookSpeedCoefficient += LOOKSPEED_ADDVALUE * Time.deltaTime;
         }
 
         // ターゲットへのベクトルを取得
@@ -516,7 +535,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         _lookRot = Quaternion.LookRotation(_lookVect);
 
         // オブジェクトのrotationを変更
-        arrowTransform.rotation = Quaternion.Slerp(arrowTransform.rotation, _lookRot, _lookSpeed);
+        arrowTransform.rotation = Quaternion.Slerp(arrowTransform.rotation, _lookRot, _lookSpeed * _lookSpeedCoefficient);
 
         // 矢の移動
         arrowTransform.Translate( ZERO,                               // Ｘ軸
@@ -605,6 +624,9 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         // 矢の初期設定完了のフラグをリセット
         _endSetting = false;
         _isSet = false;
+
+        // 一部変数の初期化
+        _lookSpeedCoefficient = LOOKSPEED_DEFAULT;
     }
 
     public void Normal(Transform t)
