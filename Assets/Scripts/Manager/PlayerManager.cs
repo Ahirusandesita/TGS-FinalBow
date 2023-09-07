@@ -74,6 +74,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     private EnchantmentEnum.EnchantmentState _rapidSubEnchantment = default;
 
+
+    private float rapidRandomAngle = 0f;
+
     //public GameObject testArrowObject;
 
     //IArrowEventSetting arrowEnchant;
@@ -215,9 +218,11 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     public void ShotArrow(Vector3 aim)
     {
         arrowEnchant2.ArrowEnchantDamage(_arrow.Damage);
+        Quaternion arrowRotation = default;
         //˜AŽË
         if (arrowEnchant2.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing && !CanRapid)
         {
+            
             _rapidSubEnchantment = arrowEnchant2.GetSubEnchantment();
             int index = default;
             if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count - 1].rapidCheckPoint)
@@ -232,22 +237,36 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
                     if (rapidCheckPoint.rapidCheckPoint < attractCount)
                     {
                         index = i;
+                        rapidRandomAngle += (float)index;
+                        rapidRandomAngle /= 3f;
+                       
                     }
                 }
             }
             _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);
         }
-
         if (CanRapid)
         {
+            float x = Random.Range(-rapidRandomAngle, rapidRandomAngle);
+            float y = Random.Range(-rapidRandomAngle, rapidRandomAngle);
+            float z = Random.Range(-rapidRandomAngle, rapidRandomAngle);
+            Vector3 bowAngle = _bowObject.transform.rotation.eulerAngles;
+            bowAngle += new Vector3(x, y, z);
+            arrowRotation = Quaternion.Euler(bowAngle);
             arrowEnchant2.EnchantSetting((_rapidSubEnchantment));
         }
+        else
+        {
+            arrowRotation =  _bowObject.transform.rotation;
+        }
+
         //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
         arrowEnchant2.EnchantMixSetting((EnchantmentEnum.EnchantmentState.normal));
 
         arrowEnchant2.EventSetting(_arrow);
 
-        _arrow.gameObject.transform.rotation = _bowObject.transform.rotation;
+        _arrow.gameObject.transform.rotation = arrowRotation;
+
         _arrow.ArrowMoveStart();
         //arrowEnchant.EnchantmentStateReset();
 
