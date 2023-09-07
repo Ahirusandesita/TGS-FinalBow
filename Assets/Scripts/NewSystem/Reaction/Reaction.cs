@@ -85,7 +85,6 @@ public class Reaction : MonoBehaviour
     public void ReactionStart(Vector3 hitPosition)
     {
         if (reaction.ReactionEnd)
-            reaction.Reaction(myTransform, hitPosition);
 
         foreach (IReaction<Transform, Vector3> reaction in hitOnlyReactions)
         {
