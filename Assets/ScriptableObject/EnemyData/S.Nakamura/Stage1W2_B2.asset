@@ -15,12 +15,12 @@ MonoBehaviour:
   _birdType: 0
   _bullet: 3
   _spawnDelay_s: 4
-  _birdSpawnPlace: {fileID: 5398337733949151251, guid: 8ff00945f31a5524eb0a75ca2a099461, type: 3}
+  _birdSpawnPlace: {fileID: 1423281210875373598, guid: 8ff00945f31a5524eb0a75ca2a099461, type: 3}
   _birdGoalPlaces:
   - _moveType: 0
     _arcHeight: 0
     _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 6022686814478287623, guid: 392c82b07d3273340b02556741fe4d6a, type: 3}
+    _birdGoalPlace: {fileID: 4370790194056135396, guid: 392c82b07d3273340b02556741fe4d6a, type: 3}
     _speed: 20
     _stayTime_s: 0
     _birdAttackType_a: 3
@@ -47,7 +47,7 @@ MonoBehaviour:
   - _moveType: 0
     _arcHeight: 0
     _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 283324992956741379, guid: efe217a88751e5d488d9be61e4beb284, type: 3}
+    _birdGoalPlace: {fileID: 6750304881970601041, guid: efe217a88751e5d488d9be61e4beb284, type: 3}
     _speed: 20
     _stayTime_s: 0
     _birdAttackType_a: 0
@@ -74,7 +74,34 @@ MonoBehaviour:
   - _moveType: 0
     _arcHeight: 0
     _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 4879277094896748150, guid: b7bd8fa023b0fe14f89141d0020b259f, type: 3}
+    _birdGoalPlace: {fileID: 3626655193116543172, guid: b7bd8fa023b0fe14f89141d0020b259f, type: 3}
+    _speed: 20
+    _stayTime_s: 0
+    _birdAttackType_a: 0
+    _birdAttackType_b: 3
+    _attackInterval_s_a: 3
+    _attackInterval_s_b: 3
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 0
+    _arcHeight: 0
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 4370790194056135396, guid: 392c82b07d3273340b02556741fe4d6a, type: 3}
     _speed: 20
     _stayTime_s: 0
     _birdAttackType_a: 0
