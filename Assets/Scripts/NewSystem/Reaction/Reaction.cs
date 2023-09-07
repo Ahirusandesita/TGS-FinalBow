@@ -80,7 +80,12 @@ public class Reaction : MonoBehaviour
         this.hitPosition = hitPosition;
 
 
-        if (ReactionEvent.GetLength() == 0) return;
+        if (ReactionEvent.GetLength() == 0)
+        {
+            if (ReactionFinish.GetLength() != 0)
+                ReactionFinish();
+            return;
+        }
 
         ReactionEvent(targetTransform, hitPosition);
         ReactionEvent = null;
@@ -123,12 +128,18 @@ public class Reaction : MonoBehaviour
         };
     }
 
-    public void OverReactionEventStart(Transform targetTransform,Vector3 hitPosition)
+    public void OverReactionEventStart(Transform targetTransform, Vector3 hitPosition)
     {
         this.targetTransform = targetTransform;
         this.hitPosition = hitPosition;
 
-        if (OverReactionEvent.GetLength() == 0) return;
+        if (OverReactionEvent.GetLength() == 0) 
+        {
+            if (OverReactionEndEvent.GetLength() != 0)
+                ReactionFinish();
+            return; 
+        }
+
 
         OverReactionEvent(targetTransform, hitPosition);
         ReactionEvent = null;
@@ -202,7 +213,7 @@ public class Reaction : MonoBehaviour
         }
 
         if (ReactionSelect.GetLength() == 0) return;
-        ReactionSelect(isStart);       
+        ReactionSelect(isStart);
     }
 
 
