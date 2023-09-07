@@ -83,7 +83,7 @@ public class SelectEnchant : MonoBehaviour
 
     private void Update()
     {
-
+        enchantSetter.EnchantSetting(_enchantState);
         _inputVecter = SetInput();
         if (_inputVecter == ZERO)
         {
@@ -328,8 +328,6 @@ public class SelectEnchant : MonoBehaviour
             #endregion
         }
 
-        enchantSetter.EnchantSetting(_enchantState);
-        Debug.LogError("今のエンチャント　　" + _enchantState);
 
 
         //if (_state != NowSelect.None)
