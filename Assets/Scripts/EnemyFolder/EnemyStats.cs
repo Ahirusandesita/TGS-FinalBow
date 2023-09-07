@@ -67,6 +67,7 @@ public abstract class EnemyStats : MonoBehaviour
         if (_hp <= 0)
             OnDeathReactions();
     }
+    public virtual void TakeNormal() { _takeEnchantment = EnchantmentEnum.EnchantmentState.normal; }
 
     public virtual void TakeBomb(int damage) { _takeEnchantment = EnchantmentEnum.EnchantmentState.bomb; }
 
