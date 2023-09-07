@@ -14,7 +14,8 @@ public class Reaction : MonoBehaviour
     #region variable 
     private IReaction<Transform, Vector3> reaction;
 
-    private IReaction<Transform, Vector3>[] hitReactions;
+    private List<IReaction<Transform, Vector3>> hitOnlyReactions;
+
     private List<IReaction<Transform, Vector3>> reactions = new List<IReaction<Transform, Vector3>>();
 
     private Transform myTransform;
@@ -60,7 +61,21 @@ public class Reaction : MonoBehaviour
         reactionManager.AddReaction(this.GetComponents<IPenetrateReaction>());
         reactionManager.AddReaction(this.GetComponents<IHomingReaction>());
 
-        hitReactions = this.GetComponents<IReaction<Transform, Vector3>>();
+        IReaction<Transform,Vector3>[] hitReactions = this.GetComponents<IReaction<Transform, Vector3>>();
+        List<IReaction<Transform, Vector3>> reactions = reactionManager.GetEnchantReaction();
+        List<IReaction<Transform, Vector3>> workReactions = new List<IReaction<Transform, Vector3>>();
+        for (int i = 0; i < hitReactions.Length; i++)
+        {
+            workReactions.Add(hitReactions[i]);
+        }
+        for(int i = 0; i < reactions.Count; i++)
+        {
+            for(int k = 0; k < workReactions.Count; k++)
+            {
+                if (reactions[i] != workReactions[k]) hitOnlyReactions.Add(workReactions[k]);
+            }
+        }
+
     }
 
     public void ReactionFactory(IReaction<Transform, Vector3> reaction) => this.reaction = reaction;
@@ -72,10 +87,10 @@ public class Reaction : MonoBehaviour
         if (reaction.ReactionEnd)
             reaction.Reaction(myTransform, hitPosition);
 
-        //foreach(IReaction<Transform,Vector3> reaction in hitReactions)
-        //{
-        //    reaction.Reaction(myTransform, hitPosition);
-        //}
+        foreach (IReaction<Transform, Vector3> reaction in hitOnlyReactions)
+        {
+            reaction.Reaction(myTransform, hitPosition);
+        }
     }
 
 
@@ -141,11 +156,11 @@ public class Reaction : MonoBehaviour
         this.targetTransform = targetTransform;
         this.hitPosition = hitPosition;
 
-        if (OverReactionEvent.GetLength() == 0) 
+        if (OverReactionEvent.GetLength() == 0)
         {
             if (OverReactionEndEvent.GetLength() != 0)
                 ReactionFinish();
-            return; 
+            return;
         }
 
 

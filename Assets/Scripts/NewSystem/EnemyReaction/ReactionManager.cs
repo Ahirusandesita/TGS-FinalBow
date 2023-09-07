@@ -8,7 +8,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
-
+using YouYouLibrary.LoopSystem;
 public class ReactionManager
 {
     #region variable
@@ -51,5 +51,17 @@ public class ReactionManager
     public void AddReaction(IKnockBackReaction[] reactions) => SetReaction(reactions, knockBackReactions);
     public void AddReaction(IPenetrateReaction[] reactions) => SetReaction(reactions, penetrateReactions);
     public void AddReaction(IHomingReaction[] reactions) => SetReaction(reactions, homingReactions);
+
+    public List<IReaction<Transform,Vector3>> GetEnchantReaction()
+    {
+        List<IReaction<Transform, Vector3>> reactions = new List<IReaction<Transform, Vector3>>();
+        foreach (IReaction<Transform, Vector3> reaction in normalReactions) reactions.Add(reaction);
+        foreach (IReaction<Transform, Vector3> rection in bombReactions) reactions.Add(rection);
+        foreach (IReaction<Transform, Vector3> rection in thunderReactions) reactions.Add(rection);
+        foreach (IReaction<Transform, Vector3> rection in knockBackReactions) reactions.Add(rection);
+        foreach (IReaction<Transform, Vector3> rection in penetrateReactions) reactions.Add(rection);
+        foreach (IReaction<Transform, Vector3> rection in homingReactions) reactions.Add(rection);
+        return reactions;
+    }
     #endregion
 }
