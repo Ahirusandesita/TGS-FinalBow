@@ -136,6 +136,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("連続攻撃クールタイム")]
     private float _cooldownTime = default;
 
+    [Tooltip("連続攻撃間隔")]
+    private float _consecutiveIntervalTime = default;
+
     [Tooltip("ループ先のゴール番号")]
     private int _goalIndexOfRoop = default;
 
@@ -166,6 +169,12 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("攻撃方法の種類リスト（停止中）")]
     private List<BirdAttackType> _birdAttackTypes_stopping = new();
 
+    [Tooltip("攻撃の頻度リスト（移動中）")]
+    private List<float> _attackIntervalTimes_moving = new();
+
+    [Tooltip("攻撃の頻度リスト（停止中）")]
+    private List<float> _attackIntervalTimes_stopping = new();
+
     [Tooltip("攻撃を行うタイミングリスト（移動中）")]
     private List<float> _attackTimings_moving = new();
 
@@ -184,11 +193,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("連続攻撃クールタイムリスト（停止中）")]
     private List<float> _cooldownTimeList_stopping = new();
 
-    [Tooltip("攻撃の頻度リスト（移動中）")]
-    private List<float> _attackIntervalTimes_moving = new();
+    [Tooltip("連続攻撃間隔リスト（移動中）")]
+    private List<float> _consecutiveIntervalTimes_moving = new();
 
-    [Tooltip("攻撃の頻度リスト（停止中）")]
-    private List<float> _attackIntervalTimes_stopping = new();
+    [Tooltip("連続攻撃間隔リスト（停止中）")]
+    private List<float> _consecutiveIntervalTimes_stopping = new();
 
     [Tooltip("移動中の向きリスト")]
     private List<DirectionType_AtMoving> _directionTypes_moving = new();
@@ -449,6 +458,28 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
+    /// 連続攻撃間隔（移動中）
+    /// </summary>
+    public float ConsecutiveIntervalTimes_Moving
+    {
+        set
+        {
+            _consecutiveIntervalTimes_moving.Add(value);
+        }
+    }
+
+    /// <summary>
+    /// 連続攻撃間隔（停止中）
+    /// </summary>
+    public float ConsecutiveIntervalTimes_Stopping
+    {
+        set
+        {
+            _consecutiveIntervalTimes_stopping.Add(value);
+        }
+    }
+
+    /// <summary>
     /// 移動中の向きリスト
     /// </summary>
     public DirectionType_AtMoving DirectionTypes_Moving
@@ -589,6 +620,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
         // 麻痺状態か判定する（麻痺だったら動かない）
         Paralysing();
 
+        _currentTime += Time.deltaTime;
+
         if (_birdStats.HP <= 0)
         {
             return;
@@ -619,10 +652,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
         }
         else
         {
-            // コルーチン用bool変数の初期化
-            _isAttackCompleted_moving = false;
-            _isRotateCompleted_moving = false;
-
             // 現在動いているコルーチンがあれば停止させる
             if (_activeRotateCoroutine_moving != null)
                 StopCoroutine(_activeRotateCoroutine_moving);
@@ -742,6 +771,10 @@ public abstract class BirdMoveBase : EnemyMoveBase
     {
         _repeatCount++;
 
+        // コルーチン用bool変数の初期化
+        _isAttackCompleted_moving = false;
+        _isRotateCompleted_moving = false;
+
         // 行動回数が 設定されたゴールの数を上回ったら、ループする
         if (_repeatCount >= _goalPositions.Count)
         {
@@ -782,7 +815,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
                 _attackTimes = _attackTimesList_moving[_repeatCount];
                 _cooldownTime = _cooldownTimeList_moving[_repeatCount];
-                _attackIntervalTime = _attackIntervalTimes_moving[_repeatCount];
+                _consecutiveIntervalTime = _consecutiveIntervalTimes_moving[_repeatCount];
                 break;
 
             default:
@@ -813,7 +846,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
                 _attackTimes = _attackTimesList_stopping[_repeatCount];
                 _cooldownTime = _cooldownTimeList_stopping[_repeatCount];
-                _attackIntervalTime = _attackIntervalTimes_stopping[_repeatCount];
+                _consecutiveIntervalTime = _consecutiveIntervalTimes_stopping[_repeatCount];
                 break;
 
             default:
@@ -965,7 +998,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             // 連続攻撃
             case BirdAttackType.consecutive:
 
-                _waitTimeOfConsecutiveAttack = new WaitForSeconds(_attackIntervalTime);
+                _waitTimeOfConsecutiveAttack = new WaitForSeconds(_consecutiveIntervalTime);
 
                 while (true)
                 {

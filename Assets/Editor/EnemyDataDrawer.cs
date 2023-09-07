@@ -221,7 +221,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = cooldownTimeRect.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    attackIntervalProperty = property.FindPropertyRelative("_attackInterval_s_a");
+                    attackIntervalProperty = property.FindPropertyRelative("_consecutiveAttackInterval_s_a");
                     attackIntervalProperty.floatValue = EditorGUI.FloatField(attackIntervalRect, "çUåÇä‘äu", attackIntervalProperty.floatValue);
 
                     attackTimingsRect5 = new(attackIntervalRect)
@@ -355,7 +355,7 @@ public class EnemyDataDrawer : PropertyDrawer
                         y = cooldownTimeRect2.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
-                    attackIntervalProperty2 = property.FindPropertyRelative("_attackInterval_s_b");
+                    attackIntervalProperty2 = property.FindPropertyRelative("_consecutiveAttackInterval_s_b");
                     attackIntervalProperty2.floatValue = EditorGUI.FloatField(attackIntervalRect2, "çUåÇä‘äu", attackIntervalProperty2.floatValue);
 
                     attackTimingsRect10 = new(attackIntervalRect2)

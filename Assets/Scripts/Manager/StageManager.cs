@@ -299,6 +299,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
             birdMove.CooldownTime_Moving = birdDataPath._birdGoalPlaces[i]._cooldownTime_s_a;
             birdMove.CooldownTime_Stopping = birdDataPath._birdGoalPlaces[i]._cooldownTime_s_b;
 
+            birdMove.ConsecutiveIntervalTimes_Moving = birdDataPath._birdGoalPlaces[i]._consecutiveAttackInterval_s_a;
+            birdMove.ConsecutiveIntervalTimes_Stopping = birdDataPath._birdGoalPlaces[i]._consecutiveAttackInterval_s_b;
+
             birdMove.MoveSpeedArcs = birdDataPath._birdGoalPlaces[i]._arcHeight;
             birdMove.ArcMoveDirections = birdDataPath._birdGoalPlaces[i]._arcMoveDirection;
 
