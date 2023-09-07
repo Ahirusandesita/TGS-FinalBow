@@ -162,6 +162,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // もし判定内に敵がいなかった時の直進用ターゲット
     private GameObject _tmpTarget = default;
 
+    // 見つからなかった場合true
+    private bool _cantGet = false;
 
 
     /***  ここから下　定数  ***/
@@ -499,6 +501,11 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             // 初期設定とターゲットの選定
             SetHomingTarget(arrowTransform, _arrowSpeed);
+            if (_cantGet)
+            {
+                _cantGet = false;
+                return;
+            }
         }
 
         // ターゲットへのベクトルを取得
@@ -560,6 +567,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         else
         {
             SetNormal();
+            _cantGet = true ;
         }
 
         /*
