@@ -79,7 +79,7 @@ Transform:
   - {fileID: 7523221209751737911}
   - {fileID: 5171659239694713677}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8940654833043175603
 GameObject:
@@ -136,6 +136,10 @@ PrefabInstance:
     - target: {fileID: 7523221209589073434, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
       propertyPath: m_Name
       value: SceneFadeController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523221209589073434, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7523221209589073435, guid: e563203e827bb1c478ca09c0adebeea3, type: 3}
       propertyPath: m_RootOrder
@@ -377,6 +381,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f077d97d90d89fd4eaabfdbe592297bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3433143643936259419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180172999418024293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f93c5d9b6814fa48b09a98948fe6384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 3356154976728166463, guid: 6803af34c3569cb47b566c508ecd5f4f, type: 3}
+  _waitTime: 0.2
 --- !u!1001 &8940654831362947932
 PrefabInstance:
   m_ObjectHideFlags: 0
