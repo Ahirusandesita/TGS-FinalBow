@@ -13,8 +13,10 @@ interface IArrowEnchantDamageable
 }
 // 当たった時に呼ばれるやつら
 // 情報渡す敵を決めて引数の中身わたす
+[RequireComponent(typeof(ChainLightningManager))]
 public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, EnchantmentEnum.EnchantmentState>
 {
+
     private int _layerMask = 1 << 6 | 1 << 7;
 
     #region パラメータ
@@ -82,6 +84,8 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     /// </summary>
     HeadShotEffects headShot = default;
 
+    ChainLightningManager chain = default;
+
     Size size = default;
     enum Enchant
     {
@@ -95,6 +99,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     private void Start()
     {
         headShot = GetComponent<HeadShotEffects>();
+        chain = GetComponent<ChainLightningManager>();
         size.firstSize = BOMB_FIRST_SIZE;
         maxEnchantPower = maxInhallData.GetMaxInhall;
         
@@ -293,6 +298,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     {
         stats = NormalHitDamage(t1, _thunderDamage + _normalDamage + addDamage, out int damage);
         stats.TakeThunder(enchantPower);
+        chain.ChainLightning(t1.transform,enchantPower + 1,enchantPower);
         stats.TakeDamage(damage);
         AddInit();
     }

@@ -26,6 +26,10 @@ public class ChainLightningManager : MonoBehaviour
 
     public void ChainLightning(Transform myTransform, int numberOfChains,int enchantPower)
     {
+        if(numberOfChains <= 0)
+        {
+            numberOfChains = 1;
+        }
         _enchantPower = enchantPower;
         EnemyStats[,] stats = getObjects.ChainLightningGetStats(myTransform, numberOfChains);
         takeEffects.SetEffects = effect;
