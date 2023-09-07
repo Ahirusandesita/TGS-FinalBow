@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stage1W3_B1
   m_EditorClassIdentifier: 
   _birdType: 0
-  _bullet: 3
+  _bullet: 0
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 3775730512360909467, guid: c6ef8bcb68fd7a442abac448774ec900, type: 3}
   _birdGoalPlaces:
@@ -21,12 +21,12 @@ MonoBehaviour:
     _arcHeight: 0
     _arcMoveDirection: 0
     _birdGoalPlace: {fileID: 2752301133514727064, guid: de98cbc85f09b754b8a51990682216fb, type: 3}
-    _speed: 20
+    _speed: 5
     _stayTime_s: 60
     _birdAttackType_a: 3
     _birdAttackType_b: 0
     _attackInterval_s_a: 0
-    _attackInterval_s_b: 3
+    _attackInterval_s_b: 5
     _attackTiming_s1_a: 0
     _attackTiming_s2_a: 0
     _attackTiming_s3_a: 0
@@ -41,6 +41,8 @@ MonoBehaviour:
     _attackTimes_b: 0
     _cooldownTime_s_a: 0
     _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
     _directionType_moving: 0
     _directionType_stopping: 0
     _directionType_attack: 0
