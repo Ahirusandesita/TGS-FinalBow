@@ -61,20 +61,20 @@ public class Reaction : MonoBehaviour
         reactionManager.AddReaction(this.GetComponents<IPenetrateReaction>());
         reactionManager.AddReaction(this.GetComponents<IHomingReaction>());
 
-        IReaction<Transform,Vector3>[] hitReactions = this.GetComponents<IReaction<Transform, Vector3>>();
-        List<IReaction<Transform, Vector3>> reactions = reactionManager.GetEnchantReaction();
-        List<IReaction<Transform, Vector3>> workReactions = new List<IReaction<Transform, Vector3>>();
-        for (int i = 0; i < hitReactions.Length; i++)
-        {
-            workReactions.Add(hitReactions[i]);
-        }
-        for(int i = 0; i < reactions.Count; i++)
-        {
-            for(int k = 0; k < workReactions.Count; k++)
-            {
-                if (reactions[i] != workReactions[k]) hitOnlyReactions.Add(workReactions[k]);
-            }
-        }
+        //IReaction<Transform,Vector3>[] hitReactions = this.GetComponents<IReaction<Transform, Vector3>>();
+        //List<IReaction<Transform, Vector3>> reactions = reactionManager.GetEnchantReaction();
+        //List<IReaction<Transform, Vector3>> workReactions = new List<IReaction<Transform, Vector3>>();
+        //for (int i = 0; i < hitReactions.Length; i++)
+        //{
+        //    workReactions.Add(hitReactions[i]);
+        //}
+        //for(int i = 0; i < reactions.Count; i++)
+        //{
+        //    for(int k = 0; k < workReactions.Count; k++)
+        //    {
+        //        if (reactions[i] != workReactions[k]) hitOnlyReactions.Add(workReactions[k]);
+        //    }
+        //}
 
     }
 
@@ -84,12 +84,12 @@ public class Reaction : MonoBehaviour
 
     public void ReactionStart(Vector3 hitPosition)
     {
-        if (reaction.ReactionEnd)
+        //if (reaction.ReactionEnd)
 
-        foreach (IReaction<Transform, Vector3> reaction in hitOnlyReactions)
-        {
-            reaction.Reaction(myTransform, hitPosition);
-        }
+        //foreach (IReaction<Transform, Vector3> reaction in hitOnlyReactions)
+        //{
+        //    reaction.Reaction(myTransform, hitPosition);
+        //}
     }
 
 
