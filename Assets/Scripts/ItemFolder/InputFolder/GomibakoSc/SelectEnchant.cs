@@ -38,9 +38,9 @@ public class SelectEnchant : MonoBehaviour
 
     private bool _useCoroutine = false;
 
-    private bool _callEnchant = false; 
-
     private EnchantmentEnum.EnchantmentState _enchantState = EnchantmentEnum.EnchantmentState.normal;
+
+    private 
     #region variable 
     InputManagement mng;
     IArrowEnchantSet enchantSetter;
@@ -88,11 +88,8 @@ public class SelectEnchant : MonoBehaviour
 
     private void Update()
     {
-        if (_callEnchant)
-        {
-            enchantSetter.EnchantSetting(_enchantState);
-            _callEnchant = false;
-        }
+        enchantSetter.EnchantSetting(_enchantState);
+
         _inputVecter = SetInput();
         if (_inputVecter == ZERO)
         {
@@ -115,7 +112,6 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.bomb;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    _callEnchant = true;
                     _speaker.PlayOneShot(_enchantSound);
                     break;
 
@@ -132,7 +128,6 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.thunder;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    _callEnchant = true;
                     _speaker.PlayOneShot(_enchantSound);
                     break;
 
@@ -149,7 +144,6 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.penetrate;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    _callEnchant = true;
                     _speaker.PlayOneShot(_enchantSound);
                     break;
 
@@ -166,7 +160,6 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.homing;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    _callEnchant = true;
                     _speaker.PlayOneShot(_enchantSound);
                     break;
 
@@ -183,7 +176,6 @@ public class SelectEnchant : MonoBehaviour
                     _enchantState = EnchantmentEnum.EnchantmentState.rapidShots;
                     _state = NowSelect.None;
                     _useCoroutine = true;
-                    _callEnchant = true;
                     _speaker.PlayOneShot(_enchantSound);
                     break;
             }
