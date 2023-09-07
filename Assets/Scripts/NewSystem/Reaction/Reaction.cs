@@ -72,10 +72,10 @@ public class Reaction : MonoBehaviour
         if (reaction.ReactionEnd)
             reaction.Reaction(myTransform, hitPosition);
 
-        foreach(IReaction<Transform,Vector3> reaction in hitReactions)
-        {
-            reaction.Reaction(myTransform, hitPosition);
-        }
+        //foreach(IReaction<Transform,Vector3> reaction in hitReactions)
+        //{
+        //    reaction.Reaction(myTransform, hitPosition);
+        //}
     }
 
 

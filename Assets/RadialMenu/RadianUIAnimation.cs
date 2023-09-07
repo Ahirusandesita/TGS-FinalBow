@@ -37,7 +37,7 @@ public class RadianUIAnimation : EnchantsChenger
     public Color _defaultColor;
 
     [HideInInspector]
-    public readonly Color WHITE = Color.white;  
+    public readonly Color WHITE = new Color32(255,255,255,255);  
 
     [HideInInspector]
     public Color _differenceColor = default;
