@@ -443,7 +443,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
     {
         if (_enchantmentStateNow == EnchantmentEnum.EnchantmentState.rapidShots)
         {
-            return EnchantmentEnum.EnchantmentState.normal;
+            return EnchantmentEnum.EnchantmentState.rapidShots;
         }
 
         if (_enchantmentStateNow == EnchantmentEnum.EnchantmentState.bombKnockBack)
