@@ -17,12 +17,12 @@ MonoBehaviour:
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 924611206370428264, guid: 0c9e7f6c74d8969489642332e7b082ce, type: 3}
   _birdGoalPlaces:
-  - _moveType: 1
+  - _moveType: 0
     _arcHeight: 12.1
     _arcMoveDirection: 1
     _birdGoalPlace: {fileID: 29082664803306197, guid: 821067f9b6c6f95458c1af006043bf9b, type: 3}
     _speed: 20
-    _stayTime_s: 3
+    _stayTime_s: 10
     _birdAttackType_a: 3
     _birdAttackType_b: 0
     _attackInterval_s_a: 0
@@ -46,12 +46,12 @@ MonoBehaviour:
     _directionType_moving: 0
     _directionType_stopping: 0
     _directionType_attack: 0
-  - _moveType: 1
+  - _moveType: 0
     _arcHeight: 12
     _arcMoveDirection: 1
     _birdGoalPlace: {fileID: 924611206370428264, guid: 0c9e7f6c74d8969489642332e7b082ce, type: 3}
     _speed: 20
-    _stayTime_s: 3
+    _stayTime_s: 10
     _birdAttackType_a: 3
     _birdAttackType_b: 0
     _attackInterval_s_a: 0
