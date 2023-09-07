@@ -56,17 +56,18 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     {
 
         Vector3 sponePos = shotPosition.position + new Vector3(Random.Range(0f, gapPosition), 0f, Random.Range(0f, gapPosition));
+        print("aaas" + sponePos);
         GameObject[] createdObj = new GameObject[1];
         if (test)
         {
             createdObj[0] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            createdObj[0].transform.position = transform.position;
+            createdObj[0].transform.position = sponePos;
             createdObj[0].AddComponent<ItemMove>();
         }
         else
         {
 
-        createdObj[0] = objectPool.CallObject(data.objectType, sponePos, transform.localRotation).gameObject;
+        createdObj[0] = objectPool.CallObject(data.objectType, sponePos).gameObject;
         }
         //createdObjs[cnt] = Instantiate(obj, sponePos, Quaternion.identity);
 
