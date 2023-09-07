@@ -24,14 +24,14 @@ public class ChainLightningManager : MonoBehaviour
 
     int _enchantPower = 0;
 
-    public void ChainLightning(Transform myTransform, int numberOfChains,int enchantPower)
+    public void ChainLightning(Transform hitTransform, int numberOfChains,int enchantPower)
     {
         if(numberOfChains <= 0)
         {
             numberOfChains = 1;
         }
         _enchantPower = enchantPower;
-        EnemyStats[,] stats = getObjects.ChainLightningGetStats(myTransform, numberOfChains);
+        EnemyStats[,] stats = getObjects.ChainLightningGetStats(hitTransform, numberOfChains);
         takeEffects.SetEffects = effect;
 
         StartCoroutine(StartChain(stats, _waitTime));

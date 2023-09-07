@@ -49,7 +49,7 @@ public class ChainLightningGetObjects
 
         // 最初のチェインからエネミーすたっつだけぬけだす
         EnemyStats[] selectedArray = selectArray.GetSelectedArray<EnemyStats>(firstFinds);
-        ArrayDebugLog.LogArrayObject(selectedArray, "aaaF");
+
         // 第一チェイングループ　第二チェインの長さ
         takeParalysis = new EnemyStats[selectedArray.Length, numberOfChain];
 
