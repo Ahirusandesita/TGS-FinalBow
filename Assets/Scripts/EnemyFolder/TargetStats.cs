@@ -42,10 +42,10 @@ public class TargetStats : EnemyStats
     public override void TakeThunder(int a)
     {
         print("Ç‹Ç–Å[Å[");
-        Transform ab = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
+        //Transform ab = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
 
-        ab.position = transform.position;
-        ab.localScale = ab.localScale * 5;
+        //ab.position = transform.position;
+        //ab.localScale = ab.localScale * 5;
 
 
     }

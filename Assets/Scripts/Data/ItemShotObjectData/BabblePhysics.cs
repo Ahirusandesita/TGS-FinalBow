@@ -93,7 +93,6 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
 
             obj.moveVector *= -1f;
         }
-
         obj.shot.transform.Translate((obj.moveVector * sideSpeed + transform.forward * upSpeed) * Time.deltaTime);
         return obj;
     }
@@ -120,6 +119,12 @@ public class BabblePhysics : MonoBehaviour, IFItemShoterObjectPhysics
         Vector3 randomVerticalVector = rotation * Vector3.Cross(normalizedBaseVector, cross);
 
         return randomVerticalVector;
+
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawRay(transform.position, transform.forward * 50f);
 
     }
 }
