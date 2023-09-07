@@ -10,6 +10,8 @@ public class ReactionNormals : MonoBehaviour,INormalReaction,IPenetrateReaction,
 {
     [SerializeField] CreateAnimationCurve moveCurveZ = default;
     [SerializeField] CreateAnimationCurve moveCurveY = default;
+    [SerializeField] CreateAnimationCurve rotateX = default;
+    Animator animator = default;
     Vector3 _backDirection = Vector3.back;
     float _cacheTime = 0f;
     bool _isStart = false;
@@ -41,6 +43,10 @@ public class ReactionNormals : MonoBehaviour,INormalReaction,IPenetrateReaction,
         _end = false;
 
         _cacheTime = 0f;
+
+        animator = GetComponent<Animator>();
+
+        animator.SetBool("Death", true);
     }
 
     private void Update()
@@ -59,6 +65,8 @@ public class ReactionNormals : MonoBehaviour,INormalReaction,IPenetrateReaction,
             Vector3 moveDown = Vector3.up * moveCurveY.Curve.Evaluate(_cacheTime);
 
             transform.Translate((moveDown + moveBack) * Time.deltaTime, Space.World) ;
+
+            transform.Rotate(rotateX.Curve.Evaluate(_cacheTime) * Time.deltaTime * Vector3.right);
 
             _cacheTime += Time.deltaTime;
 

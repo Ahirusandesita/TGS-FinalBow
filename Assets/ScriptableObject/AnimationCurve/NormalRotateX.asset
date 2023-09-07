@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07e344ced54df324b9a2746f09e9f2fb, type: 3}
-  m_Name: NormalReactionMoveY
+  m_Name: NormalRotateX
   m_EditorClassIdentifier: 
   Curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      value: 720
+      inSlope: -1620
+      outSlope: Infinity
+      tangentMode: 97
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.09583333
     - serializedVersion: 3
-      time: 1
-      value: -100
-      inSlope: -10.393814
-      outSlope: -10.393814
+      time: 0.7249858
+      value: 174.90565
+      inSlope: -2581.1316
+      outSlope: -2581.1316
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.23333335
+      inWeight: 0.050000012
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
