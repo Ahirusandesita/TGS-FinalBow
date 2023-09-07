@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
   m_Name: W2-E1
   m_EditorClassIdentifier: 
-  _birdType: 1
+  _birdType: 0
   _bullet: 1
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 1278140195290157896, guid: 79a9e3353bbbf884fbbc47a20c6c8bf6, type: 3}
@@ -41,6 +41,11 @@ MonoBehaviour:
     _attackTimes_b: 2
     _cooldownTime_s_a: 0
     _cooldownTime_s_b: 1
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
   - _moveType: 1
     _arcHeight: 12
     _arcMoveDirection: 1
@@ -65,6 +70,11 @@ MonoBehaviour:
     _attackTimes_b: 2
     _cooldownTime_s_a: 0
     _cooldownTime_s_b: 1
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
   - _moveType: 1
     _arcHeight: 12
     _arcMoveDirection: 1
@@ -89,51 +99,9 @@ MonoBehaviour:
     _attackTimes_b: 2
     _cooldownTime_s_a: 0
     _cooldownTime_s_b: 1
-  - _moveType: 1
-    _arcHeight: 12
-    _arcMoveDirection: 1
-    _birdGoalPlace: {fileID: 1745138426900173582, guid: b0793960971d424498e251c6d9615e82, type: 3}
-    _speed: 20
-    _stayTime_s: 3
-    _birdAttackType_a: 3
-    _birdAttackType_b: 0
-    _attackInterval_s_a: 0
-    _attackInterval_s_b: 2
-    _attackTiming_s1_a: 0
-    _attackTiming_s2_a: 0
-    _attackTiming_s3_a: 0
-    _attackTiming_s4_a: 0
-    _attackTiming_s5_a: 0
-    _attackTiming_s1_b: 0
-    _attackTiming_s2_b: 0
-    _attackTiming_s3_b: 0
-    _attackTiming_s4_b: 0
-    _attackTiming_s5_b: 0
-    _attackTimes_a: 0
-    _attackTimes_b: 2
-    _cooldownTime_s_a: 0
-    _cooldownTime_s_b: 1
-  - _moveType: 1
-    _arcHeight: 12
-    _arcMoveDirection: 1
-    _birdGoalPlace: {fileID: 8969674213180339705, guid: 41f66b3b827a2ec43a4bc147639b1ba1, type: 3}
-    _speed: 20
-    _stayTime_s: 3
-    _birdAttackType_a: 3
-    _birdAttackType_b: 0
-    _attackInterval_s_a: 0
-    _attackInterval_s_b: 2
-    _attackTiming_s1_a: 0
-    _attackTiming_s2_a: 0
-    _attackTiming_s3_a: 0
-    _attackTiming_s4_a: 0
-    _attackTiming_s5_a: 0
-    _attackTiming_s1_b: 0
-    _attackTiming_s2_b: 0
-    _attackTiming_s3_b: 0
-    _attackTiming_s4_b: 0
-    _attackTiming_s5_b: 0
-    _attackTimes_a: 0
-    _attackTimes_b: 2
-    _cooldownTime_s_a: 0
-    _cooldownTime_s_b: 1
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  _goalIndexOfRoop: 0
