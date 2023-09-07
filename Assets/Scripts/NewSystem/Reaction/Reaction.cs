@@ -40,7 +40,15 @@ public class Reaction : MonoBehaviour
     #region property
     #endregion
     #region method
-
+    private void OnEnable()
+    {
+        ReactionEvent = null;
+        AfterReactionEvent = null;
+        OverReactionEvent = null;
+        ReactionEndEvent = null;
+        AfterReactionEndEvent = null;
+        OverReactionEndEvent = null;
+    }
     private void Start()
     {
         myTransform = this.transform;
