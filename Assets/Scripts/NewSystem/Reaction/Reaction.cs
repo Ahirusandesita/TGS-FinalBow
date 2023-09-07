@@ -14,6 +14,7 @@ public class Reaction : MonoBehaviour
     #region variable 
     private IReaction<Transform, Vector3> reaction;
 
+    private IReaction<Transform, Vector3>[] hitReactions;
     private List<IReaction<Transform, Vector3>> reactions = new List<IReaction<Transform, Vector3>>();
 
     private Transform myTransform;
@@ -58,6 +59,8 @@ public class Reaction : MonoBehaviour
         reactionManager.AddReaction(this.GetComponents<IKnockBackReaction>());
         reactionManager.AddReaction(this.GetComponents<IPenetrateReaction>());
         reactionManager.AddReaction(this.GetComponents<IHomingReaction>());
+
+        hitReactions = this.GetComponents<IReaction<Transform, Vector3>>();
     }
 
     public void ReactionFactory(IReaction<Transform, Vector3> reaction) => this.reaction = reaction;
@@ -68,6 +71,11 @@ public class Reaction : MonoBehaviour
     {
         if (reaction.ReactionEnd)
             reaction.Reaction(myTransform, hitPosition);
+
+        foreach(IReaction<Transform,Vector3> reaction in hitReactions)
+        {
+            reaction.Reaction(myTransform, hitPosition);
+        }
     }
 
 
