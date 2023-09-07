@@ -1431,6 +1431,7 @@ GameObject:
   - component: {fileID: -6231939372686311479}
   - component: {fileID: 3966867446662052608}
   - component: {fileID: -625352178093498470}
+  - component: {fileID: -5096133676362294857}
   m_Layer: 6
   m_Name: Phoenix_PBR normal
   m_TagString: Untagged
@@ -1625,6 +1626,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4910266f70f7e8f4f81b41e1201f3232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5096133676362294857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144204438039530195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b7a139cbebdb541ab9313765fc3a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveCurveZ: {fileID: 11400000, guid: 13e11871063964145acfd77daf30a635, type: 2}
+  moveCurveY: {fileID: 11400000, guid: c218740c18cf2c44ea30f17aa1731834, type: 2}
+  rotateX: {fileID: 11400000, guid: 103feb30db0a4c647bd5c6d13c17a5b7, type: 2}
 --- !u!1 &5144204438039530197
 GameObject:
   m_ObjectHideFlags: 0

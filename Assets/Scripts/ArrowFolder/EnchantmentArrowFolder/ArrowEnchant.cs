@@ -282,6 +282,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     public void Normal(GameObject t1, EnchantmentEnum.EnchantmentState t2)
     {
         stats = NormalHitDamage(t1, _normalDamage + addDamage, out int damage);
+        stats.TakeNormal();
         stats.TakeDamage(damage);
         AddInit();
     }
