@@ -66,7 +66,6 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     protected Func<bool> _releaseTriggerInput = default;
 
-
     protected bool _canMachineGun;
 
     protected int _valueMachineGun;
@@ -269,6 +268,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
         if (_canMachineGun && --_valueMachineGun > 0)
         {
+            
             StartCoroutine(MachineGun());
 
         }
@@ -305,9 +305,19 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     public void SetArrowMachineGun(int arrowValue, float delayTime)
     {
+        float _rapidDirayCoefficient = default;
+        float _rapidDirayCoefficient_default = 1f;
+        float _rapidDirayDownCoefficient = 0.05f;
+        float _rapidDirayMinimun = 0.2f;
+        int _defaultArrowValue = 3;
         _canMachineGun = true;
         _valueMachineGun = arrowValue;
-        _delayTime = new WaitForSeconds(delayTime);
+        _rapidDirayCoefficient = _rapidDirayCoefficient_default - _rapidDirayDownCoefficient * (arrowValue * _defaultArrowValue);
+        if(_rapidDirayCoefficient < _rapidDirayMinimun)
+        {
+            _rapidDirayCoefficient = _rapidDirayMinimun;
+        }
+        _delayTime = new WaitForSeconds(delayTime * _rapidDirayCoefficient);
         _playerManager.CanRapid = true;
     }
 
