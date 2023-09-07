@@ -52,7 +52,6 @@ public class ReactionHitKnockBack : MonoBehaviour, IReaction<Transform, Vector3>
     public void Start()
     {
         ReactionEnd = true;
-        this.GetComponent<Reaction>().ReactionFactory(this);
         animator = this.GetComponent<Animator>();
     }
 
