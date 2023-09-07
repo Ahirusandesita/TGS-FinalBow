@@ -271,7 +271,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     private void TestBombArea(GameObject hi)
     {
         GameObject obj = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), hi.transform.position, Quaternion.identity);
-        obj.transform.localScale = Vector3.one * (size.GetFirstSize + size.GetMinimumSize * size.plusCount);
+        obj.transform.localScale = Vector3.one * (size.GetFirstSize + size.GetMinimumSize * size.plusCount) * 2f;
     }
 
     public void Normal(GameObject t1, EnchantmentEnum.EnchantmentState t2)
