@@ -5,7 +5,6 @@
 // Creator  : Nishigaki
 // --------------------------------------------------------- 
 using UnityEngine;
-using Nekoslibrary;
 using System.Collections.Generic;
 
 
@@ -62,6 +61,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // 矢の初速　前方に進んでいく力の大きさ
     private float _arrowSpeed = 10f;
 
+    // Vector.forward　処理軽減のためにあらかじめ代入しておく
+    private Vector3 _forward = Vector3.forward;
 
 
     /***  ここから下　定数  ***/
@@ -75,6 +76,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // サンダーフラグ　サンダー以外の時は false
     private const bool NOT_THUNDER = false;
 
+    // 無限　上限なしのクランプ等に使用
+    private const float INFINITY = Mathf.Infinity;
     #endregion
 
     #region ノーマルで使用している変数
@@ -173,9 +176,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     // ターゲットを探す円錐の中心角　現在は３６０度すべてサーチする　値は中心角の半分を入れる
     private const int SEARCH_ANGLE = 1;
-
-    // Vector.forward　処理軽減のためにあらかじめ代入しておく
-    private Vector3 _forward = Vector3.forward;
 
     #endregion
 
@@ -407,7 +407,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         else
         {
             // 水平方向への移動速度の減衰率を算出
-            _nowSpeedValue = MathN.Clamp.Min(STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO);
+            _nowSpeedValue = Mathf.Clamp(STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO , Mathf.Infinity);
 
             // 各軸方向への移動量を算出
             _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);    // Ｘ軸
@@ -433,7 +433,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
 
             // 重力による下方向への移動量を算出
-            _addGravity = MathN.Clamp.Min(_addGravity + GravityValue(isThunder) * Time.deltaTime, _maxGravity);
+            _addGravity = Mathf.Clamp(_addGravity + GravityValue(isThunder) * Time.deltaTime, _maxGravity , INFINITY);
 
 
             /*
@@ -458,7 +458,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         _arrowVector = arrowTransform.TransformVector(_forward).normalized;
 
         // 矢の水平方向への移動速度を算出
-        _arrowSpeed_Horizontal = Mathf.Sqrt(MathN.Art.Pow(_arrowVector.x) + MathN.Art.Pow(_arrowVector.z)) * arrowSpeed;
+        _arrowSpeed_Horizontal = Mathf.Sqrt(Mathf.Pow(_arrowVector.x,2f) + Mathf.Pow(_arrowVector.z ,2f)) * arrowSpeed;
 
         // 矢の各軸方向への移動速度を算出
         _arrowSpeed_X = _arrowVector.x * arrowSpeed;    // Ｘ軸
@@ -469,7 +469,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         _maxRange = _arrowSpeed_Horizontal * SpeedToRangeCoefficient(isThunder);
 
         // Ｙ軸の速度から降下量の上限値を算出
-        _maxGravity = MathN.Clamp.Max(TERMINAL_VELOCITY - _arrowSpeed_Y, ZERO);
+        _maxGravity = Mathf.Clamp(TERMINAL_VELOCITY - _arrowSpeed_Y, -INFINITY ,ZERO);
 
         // 現在の移動速度を初期化
         _nowRange = default;
@@ -563,12 +563,13 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             {
                 enemys.Add(moves[i].gameObject);
             }
-            _target = ConeDecision.ConeInObjects(arrowTransform, enemys, 360f, 100000f, SEARCH_ANGLE)[0];
+            _target = ConeDecision.ConeInObjects(arrowTransform, enemys, 90f, 100000f, SEARCH_ANGLE)[0];
         }
         else
         {
             SetNormal();
             _cantGet = true ;
+            _endSetting = false;
             print("setNormal");
         }
 
@@ -584,6 +585,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             // まっすぐ飛んで行くように変更
             SetNormal();
             _cantGet = true ;
+            _endSetting = false;
             print("setNormal");
         }
     }
