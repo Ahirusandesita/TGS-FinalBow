@@ -32,6 +32,8 @@ public class TakeDamageUI : MonoBehaviour, IFCanvasEvent
 
     public void EnableStart()
     {
+
+
         if(coroutine is not null)
         StopCoroutine(coroutine);
 
