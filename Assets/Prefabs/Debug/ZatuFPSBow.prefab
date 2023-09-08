@@ -514,6 +514,37 @@ MonoBehaviour:
   _attractSource: {fileID: 4033530396004355058}
   _drawSE_MaxWaitTime: 0.7
   playDrawingSE: 0
+--- !u!1 &2142788519869012688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232876298589947672}
+  m_Layer: 0
+  m_Name: Shadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232876298589947672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142788519869012688}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7777780627994752170}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6300741212539648755
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,7 +574,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1232876298589947672}
   m_Father: {fileID: 1478716941563017540}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -562,7 +594,8 @@ MonoBehaviour:
   _trackingTime: 0.5
   _passValue: 10
   _reticleRenderer: {fileID: 6684247334998107999}
-  _startPosition: {fileID: 7777780627994752170}
+  _startPosition: {fileID: 1478716940569253212}
+  _shadowTransform: {fileID: 1232876298589947672}
   GRAVITY_NORMAL: -100
   GRAVITY_PENETRATE: -10
 --- !u!120 &6684247334998107999
