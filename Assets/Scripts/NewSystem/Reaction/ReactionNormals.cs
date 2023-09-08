@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ReactionNormals : MonoBehaviour,INormalReaction,IPenetrateReaction,IHomingReaction,IKnockBackReaction
+public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, InterfaceReaction.IPenetrateReaction, InterfaceReaction.IHomingReaction, InterfaceReaction.IKnockBackReaction
 {
     [SerializeField] CreateAnimationCurve moveCurveZ = default;
     [SerializeField] CreateAnimationCurve moveCurveY = default;

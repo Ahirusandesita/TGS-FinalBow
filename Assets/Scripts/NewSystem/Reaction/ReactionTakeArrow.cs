@@ -9,7 +9,7 @@ using System.Collections;
 /// <summary>
 /// ‘æˆêTransform‚Íenemy‚Å‘æ“ñTransform‚Í¨
 /// </summary>
-public class ReactionTakeArrow : MonoBehaviour, IReaction<Transform, Transform>
+public class ReactionTakeArrow : MonoBehaviour, InterfaceReaction.IReaction<Transform, Transform>
 {
     ObjectPoolSystem pool = default;
     private void Start()
