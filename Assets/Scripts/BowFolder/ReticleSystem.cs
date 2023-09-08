@@ -24,6 +24,7 @@ public class ReticleSystem : MonoBehaviour
     [SerializeField]
     private Transform _startPosition = default;
 
+    [SerializeField]
     private Transform _shadowTransform = default;
 
     private bool _nowCreate = false;
@@ -44,7 +45,7 @@ public class ReticleSystem : MonoBehaviour
     private float _nowRange;
     private float _addGravity;
     private bool _endSetting;
-    private Vector3 _forward;
+    private Vector3 _forward = Vector3.forward;
     private float _nowSpeedValue;
     private float _arrowSpeed;
     private Vector3 _moveValue;
@@ -133,29 +134,30 @@ public class ReticleSystem : MonoBehaviour
         {
             _timeToRangeCoefficient = SPEED_TO_RANGE_COEFFICIENT;
 
-            Vector3 _shadowPosition;
-            Quaternion _shadowRotation;
+            Vector3 _shadowPosition = default ;
+            //Quaternion _shadowRotation = default;
 
             _shadowPosition = _startPosition.position;
-            _shadowRotation = _startPosition.rotation;
+            //_shadowRotation = _startPosition.rotation;
 
             _shadowTransform.position = _shadowPosition;
-            _shadowTransform.rotation = _shadowRotation;
+            //_shadowTransform.rotation = _shadowRotation;
 
 
-            _shadowVector = _shadowTransform.TransformVector(_forward).normalized;
+            _shadowVector = _startPosition.TransformVector(_forward).normalized;
 
             // 矢の各軸方向への移動速度を算出
             _shadowSpeed_X = _shadowVector.x * arrowSpeed;    // Ｘ軸
             _shadowSpeed_Y = _shadowVector.y * arrowSpeed;    // Ｙ軸
             _shadowSpeed_Z = _shadowVector.z * arrowSpeed;    // Ｚ軸
 
+            print("X:" +_shadowSpeed_X + ",Y:" + _shadowSpeed_Y+ "Z,:" + _shadowSpeed_Z);
+
             for (int Counter = 0; Counter < _passValue; Counter++)
             {
-
                 // 水平方向への移動速度の減衰率を算出
                 _nowSpeedValue = STANDARD_SPEED_VALUE - (_timeToRangeCoefficient * _timeByCount * Counter);
-
+                print("SpeedValue  "+_nowSpeedValue);
                 // 各軸方向への移動量を算出
                 _moveValue.x = (_shadowSpeed_X * _nowSpeedValue);    // Ｘ軸
                 _moveValue.y = (_shadowSpeed_Y + _addGravity);       // Ｙ軸
@@ -165,12 +167,12 @@ public class ReticleSystem : MonoBehaviour
                 _shadowTransform.position += _moveValue * Counter;
 
                 // 重力による下方向への移動量を算出
-                _addGravity = GRAVITY * Counter;
+                _addGravity = GRAVITY * Counter * _timeByCount;
 
 
                 _reticleRenderer.SetPosition(Counter, _shadowTransform.position);
             }
-
+            print("レティクルの位置　：　" + _reticleRenderer.GetPosition(9) + "    影の位置　：　" + _shadowTransform.position + "　　速度　:　" + arrowSpeed);
         }
     }
 
@@ -187,18 +189,21 @@ public class ReticleSystem : MonoBehaviour
                 case EnchantmentEnum.EnchantmentState.bomb:
                     SPEED_TO_RANGE_COEFFICIENT = SPEED_TO_RANGE_COEFFICIENT_NORMAL;
                     GRAVITY = GRAVITY_NORMAL;
+                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
                     break;
 
 
                 case EnchantmentEnum.EnchantmentState.thunder:
                     SPEED_TO_RANGE_COEFFICIENT = SPEED_TO_RANGE_COEFFICIENT_NORMAL;
                     GRAVITY = GRAVITY_NORMAL;
+                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
                     break;
 
 
                 case EnchantmentEnum.EnchantmentState.penetrate:
                     SPEED_TO_RANGE_COEFFICIENT = SPEED_TO_RANGE_COEFFICIENT_PENETRATE;
                     GRAVITY = GRAVITY_PENETRATE;
+                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_PENETRATE, GRAVITY_PENETRATE);
                     break;
 
 
@@ -210,12 +215,14 @@ public class ReticleSystem : MonoBehaviour
                 case EnchantmentEnum.EnchantmentState.rapidShots:
                     SPEED_TO_RANGE_COEFFICIENT = SPEED_TO_RANGE_COEFFICIENT_NORMAL;
                     GRAVITY = GRAVITY_NORMAL;
+                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
                     break;
 
 
                 case EnchantmentEnum.EnchantmentState.normal:
                     SPEED_TO_RANGE_COEFFICIENT = SPEED_TO_RANGE_COEFFICIENT_NORMAL;
                     GRAVITY = GRAVITY_NORMAL;
+                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
                     break;
             }
         }
