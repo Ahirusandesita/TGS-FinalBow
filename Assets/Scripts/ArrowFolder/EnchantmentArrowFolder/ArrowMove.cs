@@ -752,7 +752,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     private void Start()
     {
-        _lockOnSystem = GameObject.FindObjectOfType<BowManager>().GetComponent<LockOnSystem>();
+        _lockOnSystem = GameObject.FindGameObjectWithTag(InhallLibTags.BowController).GetComponent<LockOnSystem>();
     }
 
     #endregion

@@ -74,6 +74,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     protected WaitForSeconds _delayTime;
 
+    protected ReticleSystem _reticleSystem;
+
     protected Transform _bowTransform = default;
 
     float _setedArrowSpeed = 0f;
@@ -139,6 +141,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         _lockOnSystem = GetComponent<LockOnSystem>();
 
         _bowTransform = GameObject.FindGameObjectWithTag(InhallLibTags.BowController).GetComponent<Transform>();
+
+        _reticleSystem = GameObject.FindGameObjectWithTag("ReticleController").GetComponent<ReticleSystem>();
 
         #endregion
 
@@ -241,6 +245,16 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
         // ホーミングのターゲット選定メソッドを呼び出す
         _lockOnSystem.TargetLockOn(_bowTransform);
+
+        if (_percentDrawPower > 0.1)
+        {
+            _reticleSystem.StartCreate();
+        }
+        else
+        {
+            _reticleSystem.EndCreate();
+        }
+        _reticleSystem.CreateReticleSystem(_percentDrawPower * arrowSpeed);
     }
 
 
