@@ -273,6 +273,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         // ‹z‚İ”»’è‰Šú‰»
         _attract.SetAngle(0f);
 
+        _reticleSystem.EndCreate();
+
         _handStats = HandStats.None;
     }
 
