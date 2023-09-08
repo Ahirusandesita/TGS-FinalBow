@@ -56,7 +56,7 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
     {
 
         Vector3 sponePos = shotPosition.position + new Vector3(Random.Range(0f, gapPosition), 0f, Random.Range(0f, gapPosition));
-        print("aaas" + sponePos);
+        
         GameObject[] createdObj = new GameObject[1];
         if (test)
         {
@@ -67,7 +67,8 @@ public class ItemShooter : MonoBehaviour, IFGimmickCallerUsePower
         else
         {
 
-        createdObj[0] = objectPool.CallObject(data.objectType, sponePos).gameObject;
+        createdObj[0] = objectPool.CallObject(data.objectType, sponePos,transform.rotation).gameObject;
+           
         }
         //createdObjs[cnt] = Instantiate(obj, sponePos, Quaternion.identity);
 

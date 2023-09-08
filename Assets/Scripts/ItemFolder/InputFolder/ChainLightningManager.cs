@@ -24,14 +24,15 @@ public class ChainLightningManager : MonoBehaviour
 
     int _enchantPower = 0;
 
-    public void ChainLightning(Transform hitTransform, int numberOfChains,int enchantPower)
+    public void ChainLightning(Transform hitTransform, int numberOfChains, int enchantPower)
     {
-        if(numberOfChains <= 0)
+        if (numberOfChains <= 0)
         {
             numberOfChains = 1;
         }
         _enchantPower = enchantPower;
-        EnemyStats[,] stats = getObjects.ChainLightningGetStats(hitTransform, numberOfChains);
+        //EnemyStats[,] stats = getObjects.ChainLightningGetStatsHyper(hitTransform, numberOfChains);
+        EnemyStats[] stats = getObjects.ChainLightningGetStats(hitTransform, numberOfChains);
         takeEffects.SetEffects = effect;
 
         StartCoroutine(StartChain(stats, _waitTime));
@@ -98,6 +99,26 @@ public class ChainLightningManager : MonoBehaviour
                 takeEffects.DeleteEffect(eff);
                 nextDestroy.Clear();
             }
+        }
+
+
+
+    }
+
+    IEnumerator StartChain(EnemyStats[] enemyStats, float waitTime)
+    {
+        WaitForSeconds wait = new(waitTime);
+        Vector3 chainRootPosition = transform.position;
+        foreach (EnemyStats stats in enemyStats)
+        {
+            stats.TakeDamage(THUNDER_DAMAGE);
+            stats.TakeThunder(_enchantPower);
+
+            GameObject destroy = takeEffects.CreateEffect(chainRootPosition, stats.transform.position);
+
+            yield return wait;
+
+            takeEffects.DeleteEffect(destroy);
         }
 
 
