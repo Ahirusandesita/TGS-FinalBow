@@ -246,7 +246,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         // ホーミングのターゲット選定メソッドを呼び出す
         _lockOnSystem.TargetLockOn(_bowTransform);
 
-        if (_percentDrawPower > 0.1)
+        if (_percentDrawPower > 0)
         {
             _reticleSystem.StartCreate();
         }

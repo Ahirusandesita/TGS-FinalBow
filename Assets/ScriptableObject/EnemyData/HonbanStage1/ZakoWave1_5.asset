@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
-  m_Name: ZakoWave5_9
+  m_Name: ZakoWave1_5
   m_EditorClassIdentifier: 
   _birdType: 0
   _bullet: 0
-  _spawnDelay_s: 3
-  _birdSpawnPlace: {fileID: 907667879072106027, guid: 805524d4ebc2f5b43bb51d8a51e4b3a1, type: 3}
+  _spawnDelay_s: 0
+  _birdSpawnPlace: {fileID: 3772096833153199821, guid: dd13abd7335e5234fb279ed4dfad9fa6, type: 3}
   _birdGoalPlaces:
   - _moveType: 0
-    _arcHeight: 0
+    _arcHeight: 10
     _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 8522215115180050153, guid: 5e669ff268523dd43a59ede30c1c4aaa, type: 3}
-    _speed: 10
-    _stayTime_s: 1
+    _birdGoalPlace: {fileID: 6564110373849114743, guid: e5a4f94687038bf48b0a01017c37d4c8, type: 3}
+    _speed: 20
+    _stayTime_s: 3
     _birdAttackType_a: 3
     _birdAttackType_b: 0
-    _attackInterval_s_a: 0
+    _attackInterval_s_a: 1
     _attackInterval_s_b: 1
     _attackTiming_s1_a: 0
     _attackTiming_s2_a: 0
