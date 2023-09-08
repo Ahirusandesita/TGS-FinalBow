@@ -65,6 +65,9 @@ public class BirdStats : CommonEnemyStats
 
     public override void Death()
     {
+        // スコアを加算
+        _score.NormalScore_NormalEnemyScore();
+
         // 変数のデクリメント
         _onDeathBird();
 
