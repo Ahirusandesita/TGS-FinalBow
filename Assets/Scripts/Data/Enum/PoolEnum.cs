@@ -89,5 +89,21 @@ public class PoolEnum : MonoBehaviour
         /// “G‚Éh‚³‚é¨
         /// </summary>
         usedArrow,
+        /// <summary>
+        /// ”š”­‚Ì“÷•Ğ1
+        /// </summary>
+        birdBodyChip,
+        /// <summary>
+        /// ”š”­‚Ì“÷•Ğ2
+        /// </summary>
+        birdBodyChipBig,
+        /// <summary>
+        /// ”š”­‚Ì“÷•Ğ3
+        /// </summary>
+        birdBodyChipBigFire,
+        /// <summary>
+        /// ”š”­‚Ì“÷•Ğ4
+        /// </summary>
+        birdBodyChipFire,
     }
 }
