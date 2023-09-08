@@ -236,7 +236,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         _attract.SetAngle(_percentDrawPower);
 
         // ホーミングのターゲット選定メソッドを呼び出す
-        _lockOnSystem.TargetLockOn(GetSpawnPosition.position,GetShotDirection);
+        _lockOnSystem.TargetLockOn(GetSpawnPosition);
     }
 
 

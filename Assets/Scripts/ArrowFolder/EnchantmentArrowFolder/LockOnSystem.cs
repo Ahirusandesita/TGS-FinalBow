@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public interface IFLockOnSystem
 {
     GameObject LockOnTarget { get; set; }
-    void TargetLockOn(Vector3 bowPosition , Vector3 bowRotation);
+    void TargetLockOn(Transform bowTransform);
 
 }
 
@@ -46,14 +46,21 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
         _enchant = GameObject.FindGameObjectWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<ArrowEnchantment>();
     }
 
-    public void TargetLockOn(Vector3 bowPosition , Vector3 bowRotation)
+    public void TargetLockOn(Transform bowTransform)
     {
         if (_enchant.EnchantmentNowState == EnchantmentEnum.EnchantmentState.homing)
         {
             EnemyStats[] moves = GameObject.FindObjectsOfType<EnemyStats>();
             List<GameObject> enemys = new List<GameObject>();
-            if (enemys.Count == 0)
+            for (int i = 0; i < moves.Length; i++)
             {
+                enemys.Add(moves[i].gameObject);
+            }
+            List<GameObject> searchEnemys = new List<GameObject>();
+            searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 60f, 100000f, 1);
+            if (searchEnemys.Count == 0)
+            {
+                print("誰もいない");
                 ReSetTarget();
                 return;
             }
@@ -61,12 +68,13 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
             {
                 if (_temporaryTarget == null)
                 {
-                    for (int i = 0; i < enemys.Count; i++)
+                    ReSetTarget();
+                    for (int i = 0; i < searchEnemys.Count; i++)
                     {
-                        _distance = Vector3.Distance(enemys[i].transform.position, bowPosition);
+                        _distance = Vector3.Distance(searchEnemys[i].transform.position, bowTransform.position);
                         if (_distance < _mostNearDistance)
                         {
-                            _temporaryTarget = enemys[i];
+                            _temporaryTarget = searchEnemys[i];
                             _mostNearDistance = _distance;
                         }
                     }
@@ -76,12 +84,12 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
 
                 _onTarget = false;
 
-                for (int i = 0; i < enemys.Count; i++)
+                for (int i = 0; i < searchEnemys.Count; i++)
                 {
-                    if (_temporaryTarget == enemys[i])
+                    if (_temporaryTarget == searchEnemys[i])
                     {
                         _onTarget = true;
-                        i = enemys.Count;
+                        i = searchEnemys.Count;
                         print("範囲内　：　"+ _temporaryTarget.name);
                     }
                 }
@@ -111,6 +119,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
 
     public GameObject TargetSet(ArrowMove arrow)
     {
+        _temporaryTarget = null;
         return LockOnTarget;
     }
 

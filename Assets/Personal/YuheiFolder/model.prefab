@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 5567233447467601185}
   - component: {fileID: 1420902563406023242}
   - component: {fileID: 1907521636311857107}
+  - component: {fileID: 1386015592927147663}
   - component: {fileID: 4157859459975954091}
   m_Layer: 0
   m_Name: model
@@ -252,6 +253,11 @@ MonoBehaviour:
   _shotFrequencyCurve: {fileID: 11400000, guid: a1f5f4641b6971d48b8491eacc2ecc8b, type: 2}
   _shotAmplitudeCurve: {fileID: 11400000, guid: 29de5cd7e638ae7478eb0403cf2fa516, type: 2}
   _vibeTagName: {fileID: 11400000, guid: 85391ddf1aedb8f42ae60855ef9b2f65, type: 2}
+  inhallFrequency: 0.5
+  inhallAmplitude: 0.3
+  inhallStartFrequency: 0.2
+  inhallStartAmplitude: 0.4
+  inhallTime: 0.5
 --- !u!114 &7219037119738945024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +294,7 @@ MonoBehaviour:
   _getItemClip: {fileID: 8300000, guid: 005bab6582040624c997ffbf1e0c6af4, type: 3}
   _attractSource: {fileID: 1905825893}
   _drawSE_MaxWaitTime: 0.7
+  playDrawingSE: 1
 --- !u!82 &1420902563406023242
 AudioSource:
   m_ObjectHideFlags: 0
@@ -408,6 +415,18 @@ MonoBehaviour:
   _changeHandObjectTransform: {fileID: 56596018}
   scene: {fileID: 0}
   _traceValue: 0
+--- !u!114 &1386015592927147663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185129958207729094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eb3e332426b0f94f8b000aef0914414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4157859459975954091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +443,9 @@ MonoBehaviour:
   _handRightPosition: {fileID: 0}
   _drawObject: {fileID: 3630778878345537858}
   _changeHandObjectTransform: {fileID: 56596018}
+  _selectUI: {fileID: 0}
+  _selectUILeftPosition: {fileID: 0}
+  _selectUIRightPosition: {fileID: 0}
 --- !u!1001 &207466366382942815
 PrefabInstance:
   m_ObjectHideFlags: 0
