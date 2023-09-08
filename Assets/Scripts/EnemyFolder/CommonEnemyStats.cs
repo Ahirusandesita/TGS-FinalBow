@@ -101,6 +101,13 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         TakeDamage(damage, arrowTransform, arrowVector);
     }
 
+    public override void TakeBomb(int damage)
+    {
+        base.TakeBomb(damage);
+
+        TakeDamage(damage);
+    }
+
     public override void TakeThunder(int power)
     {
         base.TakeThunder(power);

@@ -29,9 +29,9 @@ public class TargetStats : EnemyStats
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
     }
 
-    public override void TakeBomb(int damage)
+    public override void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector)
     {
-        TakeDamage(damage);
+        TakeDamage(damage,arrowTransform,arrowVector);
     }
 
     public override void TakeRapidShots()

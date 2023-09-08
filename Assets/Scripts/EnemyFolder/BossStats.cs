@@ -19,9 +19,9 @@ public class BossStats : EnemyStats
         _hp = _maxHp;
     }
 
-    public override void TakeBomb(int damage)
+    public override void TakeBomb(int damage,Transform arrowTransform, Vector3 arrowVector)
     {
-        TakeDamage(damage);
+        TakeDamage(damage, arrowTransform, arrowVector);
     }
 
     public override void TakeThunder(int a)
