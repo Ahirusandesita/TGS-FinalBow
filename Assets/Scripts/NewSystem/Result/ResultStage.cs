@@ -36,13 +36,13 @@ public class ResultStage : MonoBehaviour
 
     public void ResultScreenScore(ScoreNumber.Score score)
     {
-        Debug.LogError($"合計スコア{score.SumScore}");
-        Debug.LogError($"ノーマル撃破数{score.valueNormalEnemy}。ノーマルスコア{score.scoreNormalEnemy}");
-        Debug.LogError($"コンボスコア{score.scoreComboBonus}");
+        //Debug.LogError($"合計スコア{score.SumScore}");
+        //Debug.LogError($"ノーマル撃破数{score.valueNormalEnemy}。ノーマルスコア{score.scoreNormalEnemy}");
+       // Debug.LogError($"コンボスコア{score.scoreComboBonus}");
     }
     public void ResultScreenTime(float time)
     {
-        Debug.LogError($"クリアタイム{time}");
+        //Debug.LogError($"クリアタイム{time}");
     }
 
 
