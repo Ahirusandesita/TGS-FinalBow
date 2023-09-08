@@ -552,9 +552,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
                                   Space.Self);                        // ローカルで指定　矢先はＺ軸
     }
 
-    private List<GameObject> tmplist = new List<GameObject>();
-
-
     /// <summary>
     /// ホーミングの初期設定とターゲットの選定を行うメソッド
     /// </summary>

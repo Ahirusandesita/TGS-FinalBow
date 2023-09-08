@@ -170,7 +170,7 @@ public class EnchantsChenger : MonoBehaviour
 
     protected void AlphaPaint(RadianUIAnimation _this)
     {
-        _this._myImage.color = new Color(_this._myImage.color.r, _this._myImage.color.g, _this._myImage.color.b, _this._myAlphaValue);
+        _this._myImage.color = new Color(_this._myImage.color.r, _this._myImage.color.g, _this._myImage.color.b, _this._myAlphaValue * _this._defaultAlpha);
     }
 
     protected void AllClear(RadianUIAnimation _this)

@@ -60,7 +60,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
             searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 60f, 100000f, 1);
             if (searchEnemys.Count == 0)
             {
-                print("’N‚à‚¢‚È‚¢");
+                print("’N‚à‚¢‚È‚¢  " + bowTransform.rotation.eulerAngles);
                 ReSetTarget();
                 return;
             }
