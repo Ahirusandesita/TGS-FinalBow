@@ -26,15 +26,15 @@ public class TargetDataEditor : Editor
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("<color=white><b>ゴールの位置</b></color>", _bold);
-            instance._goalPlace = (Transform)EditorGUILayout.ObjectField("_goalPlace", instance._goalPlace, typeof(Transform), true);
+            instance._goalPlace = (Transform)EditorGUILayout.ObjectField("GoalPlace", instance._goalPlace, typeof(Transform), true);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("<color=white><b>移動スピード</b></color>", _bold);
-            instance._speed = EditorGUILayout.FloatField("_speed", instance._speed);
+            instance._speed = EditorGUILayout.FloatField("Speed", instance._speed);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("<color=white><b>停止時間</b></color>", _bold);
-            instance._stayTime_s = EditorGUILayout.FloatField("_stayTime_s", instance._stayTime_s);
+            instance._stayTime_s = EditorGUILayout.FloatField("StayTime_s", instance._stayTime_s);
         }
     }
 }

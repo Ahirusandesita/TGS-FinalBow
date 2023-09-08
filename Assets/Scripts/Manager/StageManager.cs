@@ -258,7 +258,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         // ŒÄ‚Ño‚µ‚½G‹›‚Ì•Ï”‚Éİ’è
         birdMove.NumberOfBullet = birdDataPath._bullet;
+        birdMove.NeedRoop = birdDataPath._needRoop;
         birdMove.GoalIndexOfRooop = birdDataPath._goalIndexOfRoop;
+        birdMove.DespawnTime = birdDataPath._despawnTime_s;
+
         try
         {
             birdMove.StageTransform = _stageTransforms[_currentStageIndex]._stageTransform;

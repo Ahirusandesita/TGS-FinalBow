@@ -382,30 +382,32 @@ public class EnemyDataDrawer : PropertyDrawer
                     break;
             }
 
+            Rect directionRect;
+
             // ï˚å¸ópÇ…Ç‡Ç§Ç–Ç∆Ç¬
             switch ((BirdAttackType)attackTypeProperty2.enumValueIndex)
             {
                 case BirdAttackType.none:
 
-                    Rect directionStopRect = new(attackTimingsRect10)
+                    directionRect = new(attackTimingsRect10)
                     {
                         y = attackTimingsRect10.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
                     var directionStopProperty = property.FindPropertyRelative("_directionType_stopping");
-                    directionStopProperty.enumValueIndex = EditorGUI.Popup(directionStopRect, "í‚é~íÜÇÃå¸Ç´", directionStopProperty.enumValueIndex, Enum.GetNames(typeof(DirectionType_AtStopping)));
+                    directionStopProperty.enumValueIndex = EditorGUI.Popup(directionRect, "í‚é~íÜÇÃå¸Ç´", directionStopProperty.enumValueIndex, Enum.GetNames(typeof(DirectionType_AtStopping)));
 
                     break;
 
                 default:
 
-                    Rect directionAttackRect = new(attackTimingsRect10)
+                    directionRect = new(attackTimingsRect10)
                     {
                         y = attackTimingsRect10.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
                     var directionAttackProperty = property.FindPropertyRelative("_directionType_attack");
-                    directionAttackProperty.enumValueIndex = EditorGUI.Popup(directionAttackRect, "çUåÇÇÃå¸Ç´", directionAttackProperty.enumValueIndex, Enum.GetNames(typeof(DirectionType_AtAttack)));
+                    directionAttackProperty.enumValueIndex = EditorGUI.Popup(directionRect, "çUåÇÇÃå¸Ç´", directionAttackProperty.enumValueIndex, Enum.GetNames(typeof(DirectionType_AtAttack)));
 
                     break;
             }
