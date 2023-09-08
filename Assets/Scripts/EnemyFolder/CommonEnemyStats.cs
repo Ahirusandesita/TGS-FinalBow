@@ -94,11 +94,11 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     }
 
 
-    public override void TakeBomb(int damage)
+    public override void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector)
     {
-        base.TakeBomb(damage);
+        base.TakeBomb(damage, arrowTransform, arrowVector);
 
-        TakeDamage(damage);
+        TakeDamage(damage, arrowTransform, arrowVector);
     }
 
     public override void TakeThunder(int power)

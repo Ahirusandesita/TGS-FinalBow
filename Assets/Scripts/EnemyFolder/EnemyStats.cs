@@ -55,7 +55,7 @@ public abstract class EnemyStats : MonoBehaviour
     /// 敵がダメージを受ける
     /// </summary>
     /// <param name="damage">ダメージ</param>
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage, Transform arrowTransform, Vector3 arrowVector)
     {
         _hp -= damage;
 
@@ -65,13 +65,13 @@ public abstract class EnemyStats : MonoBehaviour
         hpGage.Hp(hp / maxHp);
 
         if (_hp <= 0)
-            OnDeathReactions();
+            OnDeathReactions(arrowTransform, arrowVector);
     }
     public virtual void TakeNormal() { _takeEnchantment = EnchantmentEnum.EnchantmentState.normal; }
 
-    public virtual void TakeBomb(int damage) { _takeEnchantment = EnchantmentEnum.EnchantmentState.bomb; }
+    public virtual void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector) { _takeEnchantment = EnchantmentEnum.EnchantmentState.bomb; }
 
-    public virtual void TakeThunder(int power) { _takeEnchantment = EnchantmentEnum.EnchantmentState.thunder; X_Debug.Log(_takeEnchantment); }
+    public virtual void TakeThunder(int power) { _takeEnchantment = EnchantmentEnum.EnchantmentState.thunder; }
 
     public virtual void TakeRapidShots() { _takeEnchantment = EnchantmentEnum.EnchantmentState.rapidShots; }
 
@@ -87,12 +87,10 @@ public abstract class EnemyStats : MonoBehaviour
     /// <summary>
     /// 敵が死んだときのリアクション
     /// </summary>
-    protected virtual void OnDeathReactions()
+    protected virtual void OnDeathReactions(Transform arrowTransform, Vector3 arrowVector)
     {
         _reaction.ReactionSetting(_takeEnchantment);
-        // ---------------------------------------------------------------
-        _reaction.ReactionEventStart(_transform, Vector3.zero); //あとで当たった場所取得して設定
-        //----------------------------------------------------------------
+        _reaction.ReactionEventStart(arrowTransform, arrowVector);
     }
 
     public abstract int HP
