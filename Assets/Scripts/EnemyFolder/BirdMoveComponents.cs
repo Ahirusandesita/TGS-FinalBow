@@ -139,7 +139,13 @@ public class BirdMoveComponents : BirdMoveBase
     /// <returns>‰¡ˆÚ“®ƒxƒNƒgƒ‹</returns>
     private Vector3 GetSideMoveVector()
     {
-        return _goalPosition - _startPosition;
+        Vector3 dis = _goalPosition - _startPosition;
+        if (dis == Vector3.zero)
+        {
+            Debug.LogError("THE NEWS ZERO`````````");
+            dis = Vector3.right;
+        }
+        return dis;
     }
 
     /// <summary>
@@ -168,7 +174,7 @@ public class BirdMoveComponents : BirdMoveBase
     private float AddArc()
     {
         percentMoveDistance = _cacheMoveValue / _finishMoveValue;
-
+        
         // ‘O”¼‚Ì“®‚«
         if (percentMoveDistance < PERCENT_HALF)
         {
