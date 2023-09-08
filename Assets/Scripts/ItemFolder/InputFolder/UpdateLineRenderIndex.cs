@@ -8,7 +8,9 @@ using UnityEngine;
 using System.Collections;
 public class UpdateLineRenderIndex : MonoBehaviour
 {
-    [SerializeField] float maxRag = 0.5f;
+    float maxRag = 1f;
+
+    [SerializeField] float ragRangePercent = 0.3f;
 
     LineRenderer line = default;
 
@@ -27,6 +29,8 @@ public class UpdateLineRenderIndex : MonoBehaviour
         float distance = line.GetPosition(line.positionCount - 1).z;
 
         oneIndexDistance = distance / line.positionCount;
+
+        maxRag = distance * ragRangePercent;
 
     }
     private void Update()

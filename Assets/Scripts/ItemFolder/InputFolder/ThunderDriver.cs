@@ -26,7 +26,7 @@ public class ThunderDriver : MonoBehaviour
         if (Input.GetKey(KeyCode.T) && a)
         {
             a = false;
-            chainLightning.ChainLightning(transform, 3,1);
+            chainLightning.ChainLightning(transform, 6,1);
         }
 
         if (Input.GetKey(KeyCode.Backspace))
