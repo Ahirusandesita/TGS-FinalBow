@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
+  m_Name: ZakoWave2_4
+  m_EditorClassIdentifier: 
+  _birdType: 0
+  _bullet: 3
+  _spawnDelay_s: 4
+  _birdSpawnPlace: {fileID: 8710538551048900608, guid: 7dd8640426b0bd543aa3328ddc9e816b, type: 3}
+  _birdGoalPlaces:
+  - _moveType: 0
+    _arcHeight: 0
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 4445887862971937658, guid: d31f8294a4fc5f648966048f4c11090e, type: 3}
+    _speed: 20
+    _stayTime_s: 1
+    _birdAttackType_a: 3
+    _birdAttackType_b: 0
+    _attackInterval_s_a: 1
+    _attackInterval_s_b: 1
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 0
+    _arcHeight: 0
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 8780855419235506970, guid: 70371c450f4982d438d1e17cf1128c3a, type: 3}
+    _speed: 20
+    _stayTime_s: 1
+    _birdAttackType_a: 3
+    _birdAttackType_b: 0
+    _attackInterval_s_a: 1
+    _attackInterval_s_b: 1
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 0
+    _arcHeight: 0
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 8780855419235506970, guid: cdb811b66bd45a341aa80e761547a9f6, type: 3}
+    _speed: 20
+    _stayTime_s: 1
+    _birdAttackType_a: 3
+    _birdAttackType_b: 0
+    _attackInterval_s_a: 1
+    _attackInterval_s_b: 1
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  _goalIndexOfRoop: 1
