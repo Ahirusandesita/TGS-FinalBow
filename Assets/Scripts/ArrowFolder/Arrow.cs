@@ -241,6 +241,8 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
     private int damage = 0;
 
     public int Damage => damage;
+
+    private ArrowEnchant arrowEnchant;
     private void OnEnable()
     {
         //矢のクラスをゲットコンポーネントする
@@ -294,6 +296,8 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
 
         //プール
         this.gameObject.SetActive(false);
+
+        arrowEnchant = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<ArrowEnchant>();
     }
 
 
@@ -344,8 +348,10 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
             }
             _hitObjectLasts[0] = _hitObjects[0];
 
+            arrowEnchant.SetArrowTransform(this.transform);
             //ヒットしたオブジェクトとエンチャントEnumを渡す　ヒット処理開始
             EventArrow(_hitObjects[0], _enchantState);
+            //_hitObjects[0].GetComponent<EnemyStats>()
 
             //ヒットエフェクトを発動
             if (EventArrowEffect != null)

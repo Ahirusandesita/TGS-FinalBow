@@ -417,7 +417,6 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
             return;
         }
         _enchantEventParameter.EnchantEventAttribute(_enchantmentStateNow, arrow);
-        arrowEnchant.SetArrowTransform(_playerManager.GetOnlyArrow.MyTransform);
     }
 
 

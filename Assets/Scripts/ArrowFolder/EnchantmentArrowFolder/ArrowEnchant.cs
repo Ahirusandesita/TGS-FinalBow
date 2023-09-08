@@ -89,6 +89,9 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     Transform _arrow = default;
 
     Size size = default;
+
+    ScoreManager scoreManager;
+
     enum Enchant
     {
         thunder,
@@ -102,6 +105,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
     {
         headShot = GetComponent<HeadShotEffects>();
         chain = GetComponent<ChainLightningManager>();
+        scoreManager = GameObject.FindWithTag(InhallLibTags.ScoreController).GetComponent<ScoreManager>();
         size.firstSize = BOMB_FIRST_SIZE;
         maxEnchantPower = maxInhallData.GetMaxInhall;
 
@@ -193,6 +197,10 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         // 処理したゲームオブジェクトをぶち込む
         HashSet<GameObject> processedObject = new HashSet<GameObject>();
 
+        for(int i = 0; i < processedObject.Count; i++)
+        {
+            scoreManager.NormalScore_ComboScore();
+        }
         // 爆心内のダメージ判定から先に行う
         BombDamage(middleColliders, processedObject, _bombMiddleDamage);
 
@@ -258,6 +266,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
             }
 
         }
+
     }
 
     /// <summary>
@@ -292,6 +301,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         stats = NormalHitDamage(t1, _normalDamage + addDamage, out int damage);
         stats.TakeNormal();
         stats.TakeDamage(damage, _arrow, _arrow.position);
+        scoreManager.NormalScore_ComboScore();
         AddInit();
     }
 
@@ -317,6 +327,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         stats = NormalHitDamage(t1, _knockBackDamage + _normalDamage + addDamage, out int damage);
         stats.TakeRapidShots();
         stats.TakeDamage(damage, _arrow, _arrow.position);
+        scoreManager.NormalScore_ComboScore();
         AddInit();
     }
 
@@ -325,6 +336,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         stats = NormalHitDamage(t1, _penetrateDamage + _normalDamage + addDamage, out int damage);
         stats.TakePenetrate();
         stats.TakeDamage(damage, _arrow, _arrow.position);
+        scoreManager.NormalScore_ComboScore();
         AddInit();
     }
 
@@ -333,6 +345,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         stats = NormalHitDamage(t1, _homingDamage + _normalDamage + addDamage, out int damage);
         stats.TakeHoming();
         stats.TakeDamage(damage, _arrow, _arrow.position);
+        scoreManager.NormalScore_ComboScore();
         AddInit();
     }
 

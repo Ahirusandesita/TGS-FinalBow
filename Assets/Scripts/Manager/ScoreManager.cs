@@ -244,6 +244,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void NormalScore_NormalEnemyScore()
     {
         ScorePoint.scoreNormalEnemy += _scoreStructures[DEFAULT_NORMAL_ENEMY].scoreDatas.score;
+        ScorePoint.valueNormalEnemy++;
     }
 
     /// <summary>
@@ -360,6 +361,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     /// <param name="scoreData"></param>
     public void NormalScore_ComboScore(ScoreData scoreData)
     {
+        ScorePoint.valueComboBonus++;
         ScorePoint.scoreComboBonus += scoreData.score;
     }
 
