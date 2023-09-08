@@ -32,6 +32,18 @@ public class ReactionManager
     {
         switch (enchantmentState)
         {
+            case EnchantmentEnum.EnchantmentState.normal: reaction.SetReactionEvent(normalReactions); break;
+            case EnchantmentEnum.EnchantmentState.bomb: reaction.SetReactionEvent(bombReactions); break;
+            case EnchantmentEnum.EnchantmentState.thunder: reaction.SetReactionEvent(thunderReactions); break;
+            case EnchantmentEnum.EnchantmentState.rapidShots: reaction.SetReactionEvent(knockBackReactions); break;
+            case EnchantmentEnum.EnchantmentState.penetrate: reaction.SetReactionEvent(penetrateReactions); break;
+            case EnchantmentEnum.EnchantmentState.homing: reaction.SetReactionEvent(homingReactions); break;
+        }
+    }
+    public void AddReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState,Reaction reaction)
+    {
+        switch (enchantmentState)
+        {
             case EnchantmentEnum.EnchantmentState.normal: reaction.AddReactionEvent(normalReactions); break;
             case EnchantmentEnum.EnchantmentState.bomb: reaction.AddReactionEvent(bombReactions); break;
             case EnchantmentEnum.EnchantmentState.thunder: reaction.AddReactionEvent(thunderReactions); break;
