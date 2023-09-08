@@ -221,6 +221,12 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
                 // 処理済みゲームオブジェクトに登録
                 processedObject.Add(checkObject);
 
+                if (checkObject.TryGetComponent<IFUseEnchantGimmickTakeBomb>(out IFUseEnchantGimmickTakeBomb gimmick))
+                {
+                    gimmick.TakeBomb();
+                    continue;
+                }
+
                 takeBombStats = checkObject.GetComponent<EnemyStats>();
 
                 if (takeBombStats != null)

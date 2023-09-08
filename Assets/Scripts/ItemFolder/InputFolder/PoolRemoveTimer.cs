@@ -22,6 +22,7 @@ public class PoolRemoveTimer : MonoBehaviour
     private void OnEnable()
     {
         cacheTime = Time.time;
+        StartCoroutine(DestroyTimer());
     }
     
     IEnumerator DestroyTimer()
