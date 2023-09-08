@@ -74,6 +74,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     protected WaitForSeconds _delayTime;
 
+    protected Transform _bowTransform = default;
+
     float _setedArrowSpeed = 0f;
 
 
@@ -135,6 +137,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         _bowSE = GetComponent<BowSE>();
 
         _lockOnSystem = GetComponent<LockOnSystem>();
+
+        _bowTransform = GameObject.FindGameObjectWithTag(InhallLibTags.BowController).GetComponent<Transform>();
 
         #endregion
 
@@ -236,7 +240,7 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         _attract.SetAngle(_percentDrawPower);
 
         // ホーミングのターゲット選定メソッドを呼び出す
-        _lockOnSystem.TargetLockOn(GetSpawnPosition);
+        _lockOnSystem.TargetLockOn(_bowTransform);
     }
 
 
