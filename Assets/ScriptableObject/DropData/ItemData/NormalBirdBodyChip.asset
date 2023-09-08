@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NormalBirdBodyChip
   m_EditorClassIdentifier: 
   dropItemStruct:
+    itemType: 0
     DropAngle: 90
     DropVectorMin: 0
     DropVectorMax: 360
@@ -20,3 +21,4 @@ MonoBehaviour:
     DropSpeedMax: 70
     MoveSpeedMin: 124
     MoveSpeedMax: 174
+    DownSpeedValue: 0
