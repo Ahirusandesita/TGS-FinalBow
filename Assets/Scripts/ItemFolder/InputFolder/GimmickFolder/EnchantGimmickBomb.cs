@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// ƒ{ƒ€—U”š—p
@@ -34,6 +35,7 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick, IFUseEncha
 
     [SerializeField] float _overlapSize = 10f;
 
+    WaitForSeconds wait = new(0.1f);
 
     bool used = false;
     struct Bomb
@@ -59,6 +61,13 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick, IFUseEncha
 
     public void TakeBomb()
     {
+        StartCoroutine(WaitBomb());
+    }
+
+    IEnumerator WaitBomb()
+    {
+        yield return wait;
+
         StartExp(EnchantmentEnum.EnchantmentState.bomb);
     }
 

@@ -8,14 +8,22 @@ using UnityEngine;
 using System.Collections;
 public class ReactionDriver : MonoBehaviour
 {
-
+    bool b = true;
     private void Update()
     {
         if (Input.GetKey(KeyCode.T))
         {
-            ReactionNormals a = GetComponent<ReactionNormals>();
+            if (!b)
+            {
+                return;
+            }
+            InterfaceReaction.IReaction<Transform,Vector3> a = GetComponent<InterfaceReaction.IReaction<Transform,Vector3>>();
 
-            a.Reaction(transform, transform.forward);
+            a.Reaction(transform, transform.position);
+
+            b = false;
+            return;
         }
+        b = true;
     }
 }

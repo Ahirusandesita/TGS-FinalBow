@@ -38,6 +38,10 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
     {
         _backDirection = (this.transform.position - arrowPos).normalized;
 
+        _backDirection.y = 0;
+
+        _backDirection = _backDirection.normalized;
+
         _isStart = true;
 
         _end = false;
@@ -66,7 +70,9 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
             transform.Translate((moveDown + moveBack) * Time.deltaTime, Space.World) ;
 
-            transform.Rotate(rotateX.Curve.Evaluate(_cacheTime) * Time.deltaTime * Vector3.right);
+            Vector3 rote = transform.rotation.eulerAngles;
+
+            transform.rotation = Quaternion.Euler(rotateX.Curve.Evaluate(_cacheTime), rote.y, rote.z);
 
             _cacheTime += Time.deltaTime;
 
