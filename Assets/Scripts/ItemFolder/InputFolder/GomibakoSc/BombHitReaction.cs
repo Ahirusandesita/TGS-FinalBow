@@ -7,7 +7,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class BombHitReaction : MonoBehaviour, IBombReaction
+public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
 {
     Animator animator = default;
     [SerializeField]
@@ -31,15 +31,6 @@ public class BombHitReaction : MonoBehaviour, IBombReaction
         drop.DropStart(bodyChipFire, this.transform.position);
         drop.DropStart(bodyChipBig, this.transform.position);
         drop.DropStart(bodyChipBigFire, this.transform.position);
-    }
-    public void AfterReaction(Transform t1, Vector3 t2)
-    {
-
-    }
-
-    public void OverReaction(Transform t1, Vector3 t2)
-    {
-
     }
 
     public bool IsComplete() => true;

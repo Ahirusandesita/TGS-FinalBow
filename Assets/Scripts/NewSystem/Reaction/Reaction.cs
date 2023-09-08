@@ -12,11 +12,11 @@ using System;
 public class Reaction : MonoBehaviour
 {
     #region variable 
-    private IReaction<Transform, Vector3> reaction;
+    private InterfaceReaction.IReaction<Transform, Vector3> reaction;
 
-    private List<IReaction<Transform, Vector3>> hitOnlyReactions = new List<IReaction<Transform, Vector3>>();
+    private List<InterfaceReaction.IReaction<Transform, Vector3>> hitOnlyReactions = new List<InterfaceReaction.IReaction<Transform, Vector3>>();
 
-    private List<IReaction<Transform, Vector3>> reactions = new List<IReaction<Transform, Vector3>>();
+    private List<InterfaceReaction.IReaction<Transform, Vector3>> reactions = new List<InterfaceReaction.IReaction<Transform, Vector3>>();
 
     private Transform myTransform;
     private delegate void ReactionFinishDelefate();
@@ -54,16 +54,20 @@ public class Reaction : MonoBehaviour
     private void Start()
     {
         myTransform = this.transform;
-        reactionManager.AddReaction(this.GetComponents<INormalReaction>());
-        reactionManager.AddReaction(this.GetComponents<IBombReaction>());
-        reactionManager.AddReaction(this.GetComponents<IThunderReaction>());
-        reactionManager.AddReaction(this.GetComponents<IKnockBackReaction>());
-        reactionManager.AddReaction(this.GetComponents<IPenetrateReaction>());
-        reactionManager.AddReaction(this.GetComponents<IHomingReaction>());
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.INormalReaction>());
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.IBombReaction>());
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.IThunderReaction>());
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.IKnockBackReaction>());
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.IPenetrateReaction>());
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.IHomingReaction>());
 
-        IReaction<Transform, Vector3>[] hitReactions = this.GetComponents<IReaction<Transform, Vector3>>();
-        List<IReaction<Transform, Vector3>> reactions = reactionManager.GetEnchantReaction();
-        List<IReaction<Transform, Vector3>> workReactions = new List<IReaction<Transform, Vector3>>();
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.IReactionFirst>());
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.IAfterReaction>());
+        reactionManager.AddReaction(this.GetComponents<InterfaceReaction.IOverReaction>());
+
+        InterfaceReaction.IReaction<Transform, Vector3>[] hitReactions = this.GetComponents<InterfaceReaction.IReaction<Transform, Vector3>>();
+        List<InterfaceReaction.IReaction<Transform, Vector3>> reactions = reactionManager.GetEnchantReaction();
+        List<InterfaceReaction.IReaction<Transform, Vector3>> workReactions = new List<InterfaceReaction.IReaction<Transform, Vector3>>();
         for (int i = 0; i < hitReactions.Length; i++)
         {
             workReactions.Add(hitReactions[i]);
@@ -87,15 +91,15 @@ public class Reaction : MonoBehaviour
 
     }
 
-    public void ReactionFactory(IReaction<Transform, Vector3> reaction) => this.reaction = reaction;
+    public void ReactionFactory(InterfaceReaction.IReaction<Transform, Vector3> reaction) => this.reaction = reaction;
 
-    public void AddReactionFactory(IReaction<Transform, Vector3> reaction) => reactions.Add(reaction);
+    public void AddReactionFactory(InterfaceReaction.IReaction<Transform, Vector3> reaction) => reactions.Add(reaction);
 
     public void ReactionStart(Vector3 hitPosition)
     {
         //if (reaction.ReactionEnd)
 
-        foreach (IReaction<Transform, Vector3> reaction in hitOnlyReactions)
+        foreach (InterfaceReaction.IReaction<Transform, Vector3> reaction in hitOnlyReactions)
         {
             reaction.Reaction(myTransform, hitPosition);
         }
@@ -122,7 +126,6 @@ public class Reaction : MonoBehaviour
         ReactionEvent = null;
         OverReactionEvent = null;
         isStart = true;
-
         ReactionEnd = () =>
         {
             foreach (ReactionEndDelegate handler in ReactionEndEvent.GetInvocationList())
@@ -138,24 +141,38 @@ public class Reaction : MonoBehaviour
 
             if (!ReactionEnd()) return;
 
-            if (AfterReactionEvent.GetLength() == 0) return;
+            if (AfterReactionEvent.GetLength() == 0)
+            {
+                ReactionFinish();
+                ReactionSelect = null;
+                ReactionEnd = null;
+                return;
+            }
 
             AfterReactionEvent(this.targetTransform, this.hitPosition);
             AfterReactionEvent = null;
 
             ReactionSelect = null;
-            ReactionFinish();
-            //action = isStart =>
-            //{
-            //    if (!isStart) return;
+            ReactionEnd = () =>
+            {
+                foreach (ReactionEndDelegate handler in AfterReactionEndEvent.GetInvocationList())
+                {
+                    if (!handler.Invoke()) return false;
+                }
+                return true;
+            };
 
-            //    foreach (ReactionEndDelegate handler in AfterReactionEndEvent.GetInvocationList())
-            //    {
-            //        if (!handler.Invoke()) return;
-            //    }
 
-            //    action = null;
-            //};
+            ReactionSelect = isStart =>
+            {
+                if (!isStart) return;
+
+                if (!ReactionEnd()) return;
+
+                ReactionFinish();
+                ReactionSelect = null;
+                ReactionEnd = null;
+            };
         };
     }
 
@@ -192,24 +209,73 @@ public class Reaction : MonoBehaviour
 
             if (!ReactionEnd()) return;
 
-            if (AfterReactionEvent.GetLength() == 0) return;
+            if (AfterReactionEvent.GetLength() == 0)
+            {
+                ReactionFinish();
+                ReactionSelect = null;
+                return;
+            }
 
             AfterReactionEvent(this.targetTransform, this.hitPosition);
             AfterReactionEvent = null;
 
             ReactionSelect = null;
+        };
+
+
+        ReactionEnd = () =>
+        {
+            foreach (ReactionEndDelegate handler in AfterReactionEndEvent.GetInvocationList())
+            {
+                if (!handler.Invoke()) return false;
+            }
+            return true;
+        };
+
+
+        ReactionSelect = isStart =>
+        {
+            if (!isStart) return;
+
+            if (!ReactionEnd()) return;
+
             ReactionFinish();
+            ReactionSelect = null;
+            ReactionEnd = null;
         };
     }
 
-    public void AddReactionEvent(List<IReaction<Transform, Vector3>> reactions)
+    public void AddReactionEvent(List<InterfaceReaction.IReaction<Transform, Vector3>> reactions)
     {
-        foreach (IReaction<Transform, Vector3> reaction in reactions)
+        ReactionEvent = null;
+        AfterReactionEvent = null;
+        OverReactionEvent = null;
+        ReactionEndEvent = null;
+        AfterReactionEndEvent = null;
+        OverReactionEndEvent = null;
+
+        foreach (InterfaceReaction.IReaction<Transform, Vector3> reaction in reactions)
         {
-            ReactionEvent += new ReactionDelegate(reaction.Reaction);
-            ReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
-            AfterReactionEvent += new ReactionDelegate(reaction.AfterReaction);
-            OverReactionEvent += new ReactionDelegate(reaction.OverReaction);
+            if (reaction == reactionManager.GetFirstReaction)
+            {
+                ReactionEvent += new ReactionDelegate(reaction.Reaction);
+                ReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            }
+            else if (reaction == reactionManager.GetAfterReaction)
+            {
+                AfterReactionEvent += new ReactionDelegate(reaction.Reaction);
+                AfterReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            }
+            else if (reaction == reactionManager.GetOverReaction)
+            {
+                OverReactionEvent += new ReactionDelegate(reaction.Reaction);
+                OverReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            }
+            else
+            {
+                ReactionEvent += new ReactionDelegate(reaction.Reaction);
+                ReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            }
         }
         this.reactions = reactions;
     }
