@@ -13,9 +13,23 @@ MonoBehaviour:
   m_Name: HonbanStage1
   m_EditorClassIdentifier: 
   _waveInformation:
-  - _wave: ZakoWave1
+  - _wave: ZakoWave1_1
     _birdsData:
     - {fileID: 11400000, guid: 7c702b420799adc4591566fb63ed2fc0, type: 2}
+    - {fileID: 11400000, guid: 0454d9e49c32a7c4eafc3326c99aefca, type: 2}
+    _groundEnemysData: []
+    _targetData: []
+  - _wave: ZakoWave1_2
+    _birdsData:
+    - {fileID: 11400000, guid: a240fb3159fcb254ebe520bd618e09ee, type: 2}
+    - {fileID: 11400000, guid: 304f15e54304e844e8c252b3443012e4, type: 2}
+    _groundEnemysData: []
+    _targetData: []
+  - _wave: ZakoWave1_3
+    _birdsData:
+    - {fileID: 11400000, guid: babd23db9d372d74f948225d3fb4e5f8, type: 2}
+    - {fileID: 11400000, guid: 00d3341f8c1446b45b9e223674a47e15, type: 2}
+    - {fileID: 11400000, guid: 468745cb0ad09f6408778d501162e5a9, type: 2}
     _groundEnemysData: []
     _targetData: []
   - _wave: ZakoWave2
