@@ -93,7 +93,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         StartCoroutine(StageStart());
     }
 
-
+ 
     public void WaveExecution()
     {
         try
@@ -156,7 +156,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
             // 次のステージへ
             X_Debug.Log("ステージクリア");
             //---------------------------------------------------------------
-            ProgressingTheStage();//ここ後で消す
+            //ProgressingTheStage();//ここ後で消す
             //---------------------------------------------------------------
             _resultStage.Result();
             return;
@@ -327,5 +327,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
         temporaryObject._reAttackTime_s = dataPath._reAttackTime_s;
         temporaryObject._despawnTime_s = dataPath._despawnTime_s;
         //temporaryObject._jumpDirectionState = dataPath._groundEnemyActionInformation[listIndex]._jumpDirectionState;
+    }
+    void Update()
+    {
+        Debug.LogError($"ステージ{_currentStageIndex}");
     }
 }
