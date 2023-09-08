@@ -27,7 +27,18 @@ public class ReactionManager
     #region property
     #endregion
     #region method
-
+    public void ReactionOnlySetting(EnchantmentEnum.EnchantmentState enchantmentState,Reaction reaction)
+    {
+        switch (enchantmentState)
+        {
+            case EnchantmentEnum.EnchantmentState.normal: reaction.SetReactionOnlyEvent(normalReactions); break;
+            case EnchantmentEnum.EnchantmentState.bomb: reaction.SetReactionOnlyEvent(bombReactions); break;
+            case EnchantmentEnum.EnchantmentState.thunder: reaction.SetReactionOnlyEvent(thunderReactions); break;
+            case EnchantmentEnum.EnchantmentState.rapidShots: reaction.SetReactionOnlyEvent(knockBackReactions); break;
+            case EnchantmentEnum.EnchantmentState.penetrate: reaction.SetReactionOnlyEvent(penetrateReactions); break;
+            case EnchantmentEnum.EnchantmentState.homing: reaction.SetReactionOnlyEvent(homingReactions); break;
+        }
+    }
     public void ReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState, Reaction reaction)
     {
         switch (enchantmentState)
@@ -52,6 +63,9 @@ public class ReactionManager
             case EnchantmentEnum.EnchantmentState.homing: reaction.AddReactionEvent(homingReactions); break;
         }
     }
+
+
+
 
     private Action<InterfaceReaction.IReaction<Transform,Vector3>[], List<InterfaceReaction.IReaction<Transform, Vector3>>> SetReaction = (reactions, addReactions) =>
    {

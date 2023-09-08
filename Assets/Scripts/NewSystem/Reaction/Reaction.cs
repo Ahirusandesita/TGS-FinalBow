@@ -309,6 +309,47 @@ public class Reaction : MonoBehaviour
         this.reactions = reactions;
     }
 
+    public void SetReactionOnlyEvent(List<InterfaceReaction.IReaction<Transform, Vector3>> reactions)
+    {
+        if (ReactionEnd.GetLength() != 0)
+        {
+            if (!ReactionEnd()) return;
+        }
+        ReactionEvent = null;
+        AfterReactionEvent = null;
+        OverReactionEvent = null;
+        ReactionEndEvent = null;
+        AfterReactionEndEvent = null;
+        OverReactionEndEvent = null;
+
+        foreach (InterfaceReaction.IReaction<Transform, Vector3> reaction in reactions)
+        {
+            if (reaction == reactionManager.GetFirstReaction)
+            {
+                ReactionEvent += new ReactionDelegate(reaction.Reaction);
+                ReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            }
+            else if (reaction == reactionManager.GetAfterReaction)
+            {
+                AfterReactionEvent += new ReactionDelegate(reaction.Reaction);
+                AfterReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            }
+            else if (reaction == reactionManager.GetOverReaction)
+            {
+                OverReactionEvent += new ReactionDelegate(reaction.Reaction);
+                OverReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            }
+            else
+            {
+                ReactionEvent += new ReactionDelegate(reaction.Reaction);
+                ReactionEndEvent += new ReactionEndDelegate(reaction.IsComplete);
+            }
+        }
+        this.reactions = reactions;
+    }
+
+    public void ReactionOnlySetting(EnchantmentEnum.EnchantmentState enchantmentState) => reactionManager.ReactionOnlySetting(enchantmentState, this);
+
 
     public void ReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState) => reactionManager.ReactionSetting(enchantmentState, this);
     public void AddReactionSetting(EnchantmentEnum.EnchantmentState enchantmentState) => reactionManager.AddReactionSetting(enchantmentState, this);
