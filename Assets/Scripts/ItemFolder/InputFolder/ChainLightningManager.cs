@@ -26,6 +26,13 @@ public class ChainLightningManager : MonoBehaviour
 
     int _enchantPower = 0;
 
+    ScoreManager scoreManager;
+
+    private void Awake()
+    {
+        scoreManager = GameObject.FindWithTag(InhallLibTags.ScoreController).GetComponent<ScoreManager>();
+    }
+
     public void ChainLightning(Transform hitTransform, int numberOfChains, int enchantPower)
     {
         if (numberOfChains <= 0)
@@ -118,15 +125,19 @@ public class ChainLightningManager : MonoBehaviour
         {
             yield break;
         }
+       
 
         WaitForSeconds wait = new(waitTime);
         Vector3 chainRootPosition = startPosition;
         foreach (EnemyStats stats in enemyStats)
         {
+
             if(stats is null)
             {
                 continue;
             }
+            scoreManager.NormalScore_ComboScore();
+
             stats.TakeDamage(THUNDER_DAMAGE);
             stats.TakeThunder(_enchantPower);
 

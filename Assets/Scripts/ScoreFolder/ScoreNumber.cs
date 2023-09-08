@@ -24,6 +24,9 @@ public static class ScoreNumber
 
         public int scoreTimeBonus;
         public int valueTimeBonus;
+
+        public int valueNormalEnemy;
+        public int valueComboBonus;
         public static Score operator +(Score scoreA, Score scoreB)
         {
             scoreA.scoreNormalEnemy += scoreB.scoreNormalEnemy;
@@ -37,6 +40,10 @@ public static class ScoreNumber
             scoreA.valueAttractBonus += scoreB.valueAttractBonus;
             scoreA.scoreTimeBonus += scoreB.scoreTimeBonus;
             scoreA.valueTimeBonus += scoreB.valueTimeBonus;
+
+            scoreA.valueNormalEnemy += scoreB.valueNormalEnemy;
+            scoreA.valueComboBonus += scoreB.valueComboBonus;
+
             return scoreA;
         }
         public void Reset()
@@ -55,14 +62,18 @@ public static class ScoreNumber
 
             scoreTimeBonus = 0;
             valueTimeBonus = 0;
+            valueNormalEnemy = 0;
+            valueComboBonus = 0;
         }
-        public int SumScore => scoreNormalEnemy + scoreBossEnemy + scoreEnchant + scoreCoin + scoreComboBonus + scoreHpBonus + valueHpBonus + scoreAttractBonus + valueAttractBonus + scoreTimeBonus + valueTimeBonus;
+        //public int SumScore => scoreNormalEnemy + scoreBossEnemy + scoreEnchant + scoreCoin + scoreComboBonus + scoreHpBonus + valueHpBonus + scoreAttractBonus + valueAttractBonus + scoreTimeBonus + valueTimeBonus;
+        public int SumScore => scoreNormalEnemy + scoreComboBonus;
+        
+
+        public static void ResetScore()
+        {
+            ScorePoint = new Score();
+        }
+
+
     }
-
-    public static void ResetScore()
-    {
-        ScorePoint = new Score();
-    }
-
-
 }
