@@ -56,6 +56,13 @@ public class BirdStats : CommonEnemyStats
         base.TakeDamage(damage, arrowTransform, arrowVector);
     }
 
+    public override void TakeDamage(int damage)
+    {
+        _reaction.ReactionStart(_transform.position);
+
+        base.TakeDamage(damage);
+    }
+
     public override void Death()
     {
         // •Ï”‚ÌƒfƒNƒŠƒƒ“ƒg

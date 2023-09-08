@@ -67,9 +67,29 @@ public abstract class EnemyStats : MonoBehaviour
         if (_hp <= 0)
             OnDeathReactions(arrowTransform, arrowVector);
     }
+
+    /// <summary>
+    /// 敵がダメージを受ける
+    /// </summary>
+    /// <param name="damage">ダメージ</param>
+    public virtual void TakeDamage(int damage)
+    {
+        _hp -= damage;
+
+        float hp = (float)_hp;
+        float maxHp = (float)_maxHp;
+        if (hpGage == null) return;
+        hpGage.Hp(hp / maxHp);
+
+        if (_hp <= 0)
+            OnDeathReactions(null, Vector3.zero);
+    }
+
     public virtual void TakeNormal() { _takeEnchantment = EnchantmentEnum.EnchantmentState.normal; }
 
     public virtual void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector) { _takeEnchantment = EnchantmentEnum.EnchantmentState.bomb; }
+
+    public virtual void TakeBomb(int damage) { _takeEnchantment = EnchantmentEnum.EnchantmentState.bomb; }
 
     public virtual void TakeThunder(int power) { _takeEnchantment = EnchantmentEnum.EnchantmentState.thunder; }
 
