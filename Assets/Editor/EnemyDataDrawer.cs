@@ -16,16 +16,23 @@ public class EnemyDataDrawer : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        base.OnGUI(position, property, label);
+
         _bold.richText = true;
 
         using (new EditorGUI.PropertyScope(position, label, property))
         {
             position.height = EditorGUIUtility.singleLineHeight;
 
+            Rect moveTypeRect = new(position)
+            {
+                y = position.y + EditorGUIUtility.singleLineHeight + 3f
+            };
+
             // _moveType（動きの種類）---------------------------------------------------------------------------------------------------------------------------------------------
 
             var moveTypeProperty = property.FindPropertyRelative("_moveType");
-            moveTypeProperty.enumValueIndex = EditorGUI.Popup(position, "動きの種類", moveTypeProperty.enumValueIndex, Enum.GetNames(typeof(MoveType)));
+            moveTypeProperty.enumValueIndex = EditorGUI.Popup(moveTypeRect, "動きの種類", moveTypeProperty.enumValueIndex, Enum.GetNames(typeof(MoveType)));
 
             // MoveTypeによって表示を切り替え
 
@@ -37,9 +44,9 @@ public class EnemyDataDrawer : PropertyDrawer
 
                     // _arcHeight（弧の高さ）-------------------------------------------------------------------------------------------------------------------------------------
 
-                    Rect arcHieghtRect = new(position)
+                    Rect arcHieghtRect = new(moveTypeRect)
                     {
-                        y = position.y + EditorGUIUtility.singleLineHeight + 3f
+                        y = moveTypeRect.y + EditorGUIUtility.singleLineHeight + 3f
                     };
 
                     var arcHieghtProperty = property.FindPropertyRelative("_arcHeight");
@@ -60,9 +67,9 @@ public class EnemyDataDrawer : PropertyDrawer
                 default:
 
                     // 汚いけど仮のRectを生成（分岐に適応させるため）
-                    arcMoveDirectionRect = new(position)
+                    arcMoveDirectionRect = new(moveTypeRect)
                     {
-                        y = position.y
+                        y = moveTypeRect.y
                     };
 
                     break;
@@ -407,7 +414,7 @@ public class EnemyDataDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        float height = 0f;
+        float height = 20f;
         var moveTypeProperty = property.FindPropertyRelative("_moveType");
 
         switch ((MoveType)moveTypeProperty.enumValueIndex)
