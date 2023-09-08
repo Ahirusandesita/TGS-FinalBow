@@ -50,7 +50,13 @@ public class ShotWarp : MonoBehaviour, IFCanTakeArrowButton
         moveCoroutine = () => player.position = transform.position;
         moveCoroutine += () => player.rotation = Quaternion.Euler(warpedRotation);
 
-        player = GameObject.FindWithTag(InhallLibTags.PlayerController).transform.root;
+        GameObject playerObj = GameObject.FindWithTag(InhallLibTags.PlayerController);
+
+        if(playerObj is not null)
+        {
+            player = playerObj.transform.root;
+        }
+        
 
         if (canLight)
         {

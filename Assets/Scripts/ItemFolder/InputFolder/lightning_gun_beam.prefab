@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bb518c743635148a8302e853e1df63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRag: 5
+  ragRangePercent: 0.3
 --- !u!114 &8751710027559420551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bb518c743635148a8302e853e1df63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRag: 5
+  ragRangePercent: 0.3
 --- !u!114 &5894152585044943049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38741,7 +38741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bb518c743635148a8302e853e1df63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRag: 5
+  ragRangePercent: 0.3
 --- !u!114 &3356154976738395615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38788,6 +38788,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3356154976728329247}
   - component: {fileID: 3356154976739798431}
+  - component: {fileID: 5374692938684848510}
+  - component: {fileID: 2038614531569373474}
   m_Layer: 0
   m_Name: lightning_gun_beam
   m_TagString: Untagged
@@ -38929,6 +38931,115 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
+--- !u!82 &5374692938684848510
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356154976728166463}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 0
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2038614531569373474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356154976728166463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0cbc7f26e028240856f386fd28689e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: a4fd03749e40998499518e636a8253ba, type: 3}
 --- !u!1 &4403567051907597744
 GameObject:
   m_ObjectHideFlags: 0
@@ -39095,7 +39206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bb518c743635148a8302e853e1df63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRag: 5
+  ragRangePercent: 0.3
 --- !u!114 &9097824864058224118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39298,7 +39409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bb518c743635148a8302e853e1df63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRag: 5
+  ragRangePercent: 0.3
 --- !u!114 &2171693669494962299
 MonoBehaviour:
   m_ObjectHideFlags: 0

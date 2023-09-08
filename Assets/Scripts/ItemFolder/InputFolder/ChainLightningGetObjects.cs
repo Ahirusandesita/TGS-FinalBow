@@ -10,8 +10,6 @@ using System.Collections.Generic;
 
 public class ChainLightningGetObjects
 {
-    #region variable
-
     /// <summary>
     /// しょりずみ
     /// </summary>
@@ -31,12 +29,19 @@ public class ChainLightningGetObjects
 
     float _arcSeach = 10f;
 
+    public ChainLightningGetObjects(float distance)
+    {
+        _arcSeach = distance;
+    }
+    #region variable
+
+
     #endregion
     #region property
     #endregion
     #region method
 
-
+    // ver1
     public EnemyStats[,] ChainLightningGetStatsHyper(Transform hitTransform, int numberOfChain)
     {
         EnemyStats[] selectedArray = GetSelectedFirstStats(hitTransform);
@@ -75,6 +80,11 @@ public class ChainLightningGetObjects
 
             EnemyStats select = GetShotestDistanceObject<EnemyStats>(selectedArray.ToArray(), chainRoot.position);
 
+            if(select is null)
+            {
+                break;
+            }
+
             chainRoot = select.transform;
 
             takeParalysis[index] = select;
@@ -86,6 +96,7 @@ public class ChainLightningGetObjects
         return takeParalysis;
     }
 
+    // ver1
     private EnemyStats[] GetSelectedFirstStats(Transform hitTransform)
     {
         takedObjects = new();
@@ -105,7 +116,7 @@ public class ChainLightningGetObjects
     }
 
 
-
+    // ver1
     private void ArcChain(int numberOfTimes)
     {
         // チェイン処理　一番近いオブジェクトを選択する
@@ -216,8 +227,20 @@ public class ChainLightningGetObjects
         return tList.ToArray();
     }
 
+    /// <summary>
+    /// 一番近いやつを探す
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="search"></param>
+    /// <param name="myPoint"></param>
+    /// <returns></returns>
     private T GetShotestDistanceObject<T>(T[] search, Vector3 myPoint) where T : Component
     {
+        if(search.Length <= 0)
+        {
+            return null;
+        }
+
         float shotestDistance = Vector3.Distance(search[0].transform.position, myPoint);
 
         T shotestCompornent = search[0];

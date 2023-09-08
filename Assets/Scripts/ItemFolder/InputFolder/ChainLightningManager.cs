@@ -10,13 +10,15 @@ using System.Collections.Generic;
 
 public class ChainLightningManager : MonoBehaviour
 {
-    ChainLightningGetObjects getObjects = new ChainLightningGetObjects();
+    ChainLightningGetObjects getObjects = default;
 
     ChainLightningTakeEffects takeEffects = new ChainLightningTakeEffects();
 
     [SerializeField] GameObject effect = default;
 
     [SerializeField] float _waitTime = 0.2f;
+
+    [SerializeField] float _arcDistance = 30f;
 
     List<GameObject> nextDestroy = new();
 
@@ -30,15 +32,20 @@ public class ChainLightningManager : MonoBehaviour
         {
             numberOfChains = 1;
         }
+
+        getObjects = new ChainLightningGetObjects(_arcDistance);
+
         _enchantPower = enchantPower;
+
         //EnemyStats[,] stats = getObjects.ChainLightningGetStatsHyper(hitTransform, numberOfChains);
         EnemyStats[] stats = getObjects.ChainLightningGetStats(hitTransform, numberOfChains);
+
         takeEffects.SetEffects = effect;
 
-        StartCoroutine(StartChain(stats, _waitTime));
+        StartCoroutine(StartChain(stats,hitTransform.position, _waitTime));
     }
 
-    IEnumerator StartChain(EnemyStats[,] enemyStats, float waitTime)
+    IEnumerator StartChain(EnemyStats[,] enemyStats,Vector3 startPosition, float waitTime)
     {
         const int CHAIN_GROUP = 0;
         const int CHAIN_INDEX = 1;
@@ -51,7 +58,7 @@ public class ChainLightningManager : MonoBehaviour
         for (int chainGroup = 0; chainGroup < enemyStats.GetLength(CHAIN_GROUP); chainGroup++)
         {
             EnemyStats select = enemyStats[chainGroup, 0];
-            nextDestroy.Add(takeEffects.CreateEffect(transform.position, select.transform.position));
+            nextDestroy.Add(takeEffects.CreateEffect(startPosition, select.transform.position));
 
 
             select.TakeThunder(_enchantPower);
@@ -105,16 +112,26 @@ public class ChainLightningManager : MonoBehaviour
 
     }
 
-    IEnumerator StartChain(EnemyStats[] enemyStats, float waitTime)
+    IEnumerator StartChain(EnemyStats[] enemyStats, Vector3 startPosition, float waitTime)
     {
+        if(enemyStats.Length <= 0)
+        {
+            yield break;
+        }
+
         WaitForSeconds wait = new(waitTime);
-        Vector3 chainRootPosition = transform.position;
+        Vector3 chainRootPosition = startPosition;
         foreach (EnemyStats stats in enemyStats)
         {
+            if(stats is null)
+            {
+                continue;
+            }
             stats.TakeDamage(THUNDER_DAMAGE);
             stats.TakeThunder(_enchantPower);
 
             GameObject destroy = takeEffects.CreateEffect(chainRootPosition, stats.transform.position);
+            chainRootPosition = stats.transform.position;
 
             yield return wait;
 
