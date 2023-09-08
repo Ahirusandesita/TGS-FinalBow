@@ -38788,8 +38788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3356154976728329247}
   - component: {fileID: 3356154976739798431}
-  - component: {fileID: 5374692938684848510}
-  - component: {fileID: 2038614531569373474}
+  - component: {fileID: 5324605804696437554}
   m_Layer: 0
   m_Name: lightning_gun_beam
   m_TagString: Untagged
@@ -38931,7 +38930,7 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
---- !u!82 &5374692938684848510
+--- !u!82 &5324605804696437554
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38941,10 +38940,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a4fd03749e40998499518e636a8253ba, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 0
+  m_Pitch: 0.4
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -39027,19 +39026,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2038614531569373474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3356154976728166463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c0cbc7f26e028240856f386fd28689e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: a4fd03749e40998499518e636a8253ba, type: 3}
 --- !u!1 &4403567051907597744
 GameObject:
   m_ObjectHideFlags: 0
