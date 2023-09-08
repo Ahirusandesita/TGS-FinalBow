@@ -60,6 +60,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
     protected CashObjectInformation _arrow = default;
 
+    protected IFLockOnSystem _lockOnSystem = default;
+
     protected IFBowSE_CallToBow _bowSE = default;
 
     protected Func<bool> _grapTriggerInput = default;
@@ -131,6 +133,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         _poolSystem = GameObject.FindGameObjectWithTag(_poolTagName.TagName).GetComponent<ObjectPoolSystem>();
 
         _bowSE = GetComponent<BowSE>();
+
+        _lockOnSystem = GetComponent<LockOnSystem>();
 
         #endregion
 
@@ -231,6 +235,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
         // 吸込み判定を弓を引いた量によって変える
         _attract.SetAngle(_percentDrawPower);
 
+        // ホーミングのターゲット選定メソッドを呼び出す
+        _lockOnSystem.TargetLockOn(GetSpawnPosition.position,GetShotDirection);
     }
 
 

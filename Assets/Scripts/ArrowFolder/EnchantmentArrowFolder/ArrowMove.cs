@@ -171,6 +171,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // 見つからなかった場合true
     private bool _cantGet = false;
 
+    private LockOnSystem _lockOnSystem = default;
+
 
 
     /***  ここから下　定数  ***/
@@ -509,19 +511,19 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     /// <param name="_arrowSpeed">矢が飛んでいくスピード</param>
     private void HomingMove(Transform arrowTransform, bool isThunder)
     {
-        // 初期角度の代入　ターゲットがなくなった場合は再度代入
-        if (_target == null || _target == default)
-        {
-            // 初期設定とターゲットの選定
-            SetHomingTarget(arrowTransform, _arrowSpeed);
-            if (_cantGet)
-            {
-                _lookSpeedCoefficient = 0f;
-                _cantGet = false;
-                _isSet = true;
-                return;
-            }
-        }
+        //// 初期角度の代入　ターゲットがなくなった場合は再度代入
+        //if (_target == null || _target == default)
+        //{
+        //    // 初期設定とターゲットの選定
+        //    SetHomingTarget(arrowTransform, _arrowSpeed);
+        //    if (_cantGet)
+        //    {
+        //        _lookSpeedCoefficient = 0f;
+        //        _cantGet = false;
+        //        _isSet = true;
+        //        return;
+        //    }
+        //}
 
         if(_lookSpeedCoefficient < LOOKSPEED_MAX)
         {
@@ -678,7 +680,16 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     {
         if (!_isSet)
         {
-            SetHoming();
+            if(_lockOnSystem.LockOnTarget == null)
+            {
+                SetNormal();
+            }
+            else
+            {
+                _target = _lockOnSystem.TargetSet(this);
+                SetHoming();
+            }
+
         }
         movement(t, NOT_PENETRATE);
     }
