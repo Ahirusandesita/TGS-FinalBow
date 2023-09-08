@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
   m_Name: ZakoWave4_4
   m_EditorClassIdentifier: 
-  _birdType: 1
+  _birdType: 0
   _bullet: 1
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 8522215115180050153, guid: 5e669ff268523dd43a59ede30c1c4aaa, type: 3}
@@ -41,6 +41,11 @@ MonoBehaviour:
     _attackTimes_b: 0
     _cooldownTime_s_a: 0
     _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
   - _moveType: 0
     _arcHeight: 0
     _arcMoveDirection: 0
@@ -65,3 +70,9 @@ MonoBehaviour:
     _attackTimes_b: 0
     _cooldownTime_s_a: 0
     _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  _goalIndexOfRoop: 0
