@@ -139,8 +139,14 @@ public abstract class BirdMoveBase : EnemyMoveBase
     [Tooltip("連続攻撃間隔")]
     private float _consecutiveIntervalTime = default;
 
+    [Tooltip("ループする")]
+    private bool _needRoop = default;
+
     [Tooltip("ループ先のゴール番号")]
     private int _goalIndexOfRoop = default;
+
+    [Tooltip("デスポーン時間")]
+    private float _despawnTime_s = default;
 
     [Tooltip("各ステージのスタート地点")]
     private Transform _stageTransform = default;
@@ -218,6 +224,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
     private Coroutine _activeRotateCoroutine_moving = default;
     private Coroutine _activeRotateCoroutine_stopping = default;
 
+    private float _spawnedTime = default;
+
     #region Rotate変数
     private Vector3 _prevPosition = default;
     private Vector3 _delta = default;
@@ -271,6 +279,17 @@ public abstract class BirdMoveBase : EnemyMoveBase
     }
 
     /// <summary>
+    /// ループする
+    /// </summary>
+    public bool NeedRoop
+    {
+        set
+        {
+            _needRoop = value;
+        }
+    }
+
+    /// <summary>
     /// ループ先のゴール番号
     /// </summary>
     public int GoalIndexOfRooop
@@ -278,6 +297,17 @@ public abstract class BirdMoveBase : EnemyMoveBase
         set
         {
             _goalIndexOfRoop = value;
+        }
+    }
+
+    /// <summary>
+    /// デスポーン時間
+    /// </summary>
+    public float DespawnTime
+    {
+        set
+        {
+            _despawnTime_s = value;
         }
     }
 
@@ -595,6 +625,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
                 break;
         }
 
+        _spawnedTime = Time.time;
+
+        // 方向の初期化
+        _transform.LookAt(-_stageTransform.forward);
+
         // スポーン時に大きくする
         StartCoroutine(LargerAtSpawn());
     }
@@ -617,13 +652,28 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
     protected override void MoveSequence()
     {
+
         // 麻痺状態か判定する（麻痺だったら動かない）
         Paralysing();
+
+        // デスポーン処理
+        if (_needRoop && Time.time > _spawnedTime + _despawnTime_s)
+        {
+            //-----------------------------------------------------------------
+            StartCoroutine(SmallerAtDespawn());// 撤退演出変えたい
+            //-----------------------------------------------------------------
+        }
 
         _currentTime += Time.deltaTime;
 
         if (_birdStats.HP <= 0)
         {
+            if (_activeAttackCoroutine_moving != null)
+                StopCoroutine(_activeAttackCoroutine_moving);
+
+            if (_activeAttackCoroutine_stopping != null)
+                StopCoroutine(_activeAttackCoroutine_stopping);
+
             return;
         }
 
@@ -775,11 +825,22 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _isAttackCompleted_moving = false;
         _isRotateCompleted_moving = false;
 
-        // 行動回数が 設定されたゴールの数を上回ったら、ループする
+        // 行動回数が 設定されたゴールの数を上回ったら、ループまたはデスポーンする
         if (_repeatCount >= _goalPositions.Count)
         {
-            // ループ先のIndexを設定
-            _repeatCount = _goalIndexOfRoop;
+            // ループする
+            if (_needRoop)
+            {
+                // ループ先のIndexを設定
+                _repeatCount = _goalIndexOfRoop;
+            }
+            // ループしない
+            else
+            {
+                //-----------------------------------------------------------------
+                StartCoroutine(SmallerAtDespawn());// 撤退演出変えたい
+                //-----------------------------------------------------------------
+            }
         }
 
         _isFinishMovement = false;
@@ -1088,9 +1149,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             yield return _changeSizeWait;
         }
 
-        _isCompleteChangeScale = true;
-
-        yield break;
+        _birdStats.Despawn();
     }
 
     /// <summary>
@@ -1126,6 +1185,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         // 例外処理
         return PoolEnum.PoolObjectType.normalBullet;
     }
+
 
     /// <summary>
     /// いつもの動き
