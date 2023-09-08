@@ -8,14 +8,15 @@ using UnityEngine;
 using System.Collections;
 public class CreateUsedArrow
 {
+    private ObjectPoolSystem pool;
     public CreateUsedArrow(ObjectPoolSystem pool)
     {
         SetPool = pool;
     }
     public ObjectPoolSystem SetPool
     {
-        set { SetPool = value; }
-        private get { return SetPool; }
+        set { pool = value; }
+        private get { return pool; }
     }
 
     public void SpawnArrow(Transform parent,Vector3 worldPosition,Quaternion arrowRotation)
@@ -23,6 +24,9 @@ public class CreateUsedArrow
         Transform arrow = SetPool.CallObject
             (PoolEnum.PoolObjectType.usedArrow, worldPosition, arrowRotation).transform;
 
+        arrow.parent = parent;
+
+        Debug.Log("aaa" + arrow.position);
     }
     
 }
