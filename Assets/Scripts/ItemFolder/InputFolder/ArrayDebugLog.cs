@@ -6,9 +6,11 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+using System;
+
 public class ArrayDebugLog
 {
-    public static void LogArrayObject<T>(T[] ts, string mark) where T : Object
+    public static void LogArrayObject<T>(T[] ts, string mark) where T : UnityEngine.Object
     {
         Debug.Log("--------LogStart:" + ts + "--------");
         for (int i = 0; i < ts.Length; i++)
@@ -24,7 +26,23 @@ public class ArrayDebugLog
         Debug.Log("--------LogEnd:" + ts + "--------");
     }
 
-    public static void LogArrayObject<T>(T[,] ts, string mark) where T : Object
+    public static void LogArrayObjectToString<T>(T[] ts, string mark) where T : IFormattable
+    {
+        Debug.Log("--------LogStart:" + ts + "--------");
+        for (int i = 0; i < ts.Length; i++)
+        {
+            T t = ts[i];
+            if (t is null)
+            {
+                Debug.Log(mark + ":" + "Null" + "/index:" + i);
+                continue;
+            }
+            Debug.Log(mark + ":" + t.ToString() + "/index:" + i);
+        }
+        Debug.Log("--------LogEnd:" + ts + "--------");
+    }
+
+    public static void LogArrayObject<T>(T[,] ts, string mark) where T : UnityEngine.Object
     {
         Debug.Log("--------LogStart:" + ts + "--------");
         for (int i = 0; i < ts.GetLength(0); i++)

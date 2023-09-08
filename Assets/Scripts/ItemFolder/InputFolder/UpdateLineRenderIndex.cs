@@ -37,12 +37,13 @@ public class UpdateLineRenderIndex : MonoBehaviour
     {
         if (cacheTime + needTime < Time.time)
         {
+            
             cacheTime = Time.time;
             for (int i = 1; i < line.positionCount - 1; i++)
             {
                 line.SetPosition(i, new Vector3(RamdomValue(), RamdomValue(), oneIndexDistance * i));
             }
-
+            
         }
     }
 
