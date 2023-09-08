@@ -171,6 +171,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // 見つからなかった場合true
     private bool _cantGet = false;
 
+    // LockOnに使うクラス
     private LockOnSystem _lockOnSystem = default;
 
 
@@ -525,6 +526,11 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         //    }
         //}
 
+        if (!_endSetting)
+        {
+            SetHomingTarget(arrowTransform , _arrowSpeed);
+        }
+
         if(_lookSpeedCoefficient < LOOKSPEED_MAX)
         {
             _lookSpeedCoefficient += LOOKSPEED_ADDVALUE * Time.deltaTime;
@@ -565,43 +571,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
         // 追尾性能を速度によって差ができないように設定
         _lookSpeed = SPEED_COEF * arrowSpeed;
-
-        //// ターゲットを探索して代入
-        //_target = ConeDecision.ConeSearchNearest(arrowTransform, AttractObjectList.GetAttractObject(), SEARCH_ANGLE);
-
-        // ターゲットを探索して代入
-
-        /*
-         * 
-         * 
-         * 
-         */
-        EnemyStats[] moves = GameObject.FindObjectsOfType<EnemyStats>();
-        List<GameObject> enemys = new List<GameObject>();
-        if (moves.Length > 0)
-        {
-            for (int i = 0; i < moves.Length; i++)
-            {
-                enemys.Add(moves[i].gameObject);
-            }
-            if(ConeDecision.ConeInObjects(arrowTransform, enemys, 60f, 100000f, SEARCH_ANGLE).Count > 0)
-            {
-                _target = ConeDecision.ConeInObjects(arrowTransform, enemys, 60f, 100000f, SEARCH_ANGLE)[0];
-            }
-        }
-        else
-        {
-            SetNormal();
-            _cantGet = true ;
-            _endSetting = false;
-            print("setNormal");
-        }
-
-        /*
-         * 
-         * 
-         * 
-         */
 
         // 例外処理　もし判定内にオブジェクトが一つもなかった場合にnullRefを回避するための処理
         if (_target == null || _target == default)
@@ -782,6 +751,11 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             SetHoming();
         }
         movement(t, NOT_PENETRATE);
+    }
+
+    private void Start()
+    {
+        _lockOnSystem = GameObject.FindObjectOfType<BowManager>().GetComponent<LockOnSystem>();
     }
 
     #endregion

@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 1478716941563017531}
   - component: {fileID: 1478716941563017533}
   - component: {fileID: 1478716941563017534}
+  - component: {fileID: 5742995055053055946}
   - component: {fileID: 1478716941563017521}
   - component: {fileID: 246447457777701701}
   - component: {fileID: 6728370776810588148}
@@ -305,6 +306,11 @@ MonoBehaviour:
   _shotFrequencyCurve: {fileID: 11400000, guid: a1f5f4641b6971d48b8491eacc2ecc8b, type: 2}
   _shotAmplitudeCurve: {fileID: 11400000, guid: 29de5cd7e638ae7478eb0403cf2fa516, type: 2}
   _vibeTagName: {fileID: 11400000, guid: 85391ddf1aedb8f42ae60855ef9b2f65, type: 2}
+  inhallFrequency: 0.5
+  inhallAmplitude: 0.3
+  inhallStartFrequency: 0.2
+  inhallStartAmplitude: 0.4
+  inhallTime: 0.5
 --- !u!114 &1478716941563017534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +324,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleObject: {fileID: 8448380268996882079}
+--- !u!114 &5742995055053055946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478716941563017541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eb3e332426b0f94f8b000aef0914414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1478716941563017521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +370,9 @@ MonoBehaviour:
   _handRightPosition: {fileID: 0}
   _drawObject: {fileID: 0}
   _changeHandObjectTransform: {fileID: 0}
+  _selectUI: {fileID: 0}
+  _selectUILeftPosition: {fileID: 0}
+  _selectUIRightPosition: {fileID: 0}
 --- !u!114 &6728370776810588148
 MonoBehaviour:
   m_ObjectHideFlags: 0
