@@ -245,6 +245,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         ScorePoint.scoreNormalEnemy += _scoreStructures[DEFAULT_NORMAL_ENEMY].scoreDatas.score;
         ScorePoint.valueNormalEnemy++;
+        Debug.Log($"AAA{ScorePoint.valueNormalEnemy}");
     }
 
     /// <summary>

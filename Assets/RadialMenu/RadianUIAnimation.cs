@@ -42,7 +42,8 @@ public class RadianUIAnimation : EnchantsChenger
     [HideInInspector]
     public Color _differenceColor = default;
 
-    public readonly float _defaultAlpha = 255;
+    [SerializeField]
+    public float _defaultAlpha = 1;
 
     public const float MAX_SCALE = 1f;
 
@@ -272,8 +273,8 @@ public class RadianUIAnimation : EnchantsChenger
 
             case E_MyState.Outer:
                 selectEvent = SizeUp;
-                selectEvent += AlphaChange;
                 selectEvent += ColorRe_Change;
+                selectEvent += AlphaChange;
                 break;
 
             case E_MyState.Back_Center:
@@ -314,8 +315,8 @@ public class RadianUIAnimation : EnchantsChenger
 
             case E_MyState.Outer:
                 notselectEvent = SizeUp;
-                notselectEvent += AlphaChange;
                 notselectEvent += ColorRe_Change;
+                notselectEvent += AlphaChange;
                 break;
 
             case E_MyState.Back_Center:

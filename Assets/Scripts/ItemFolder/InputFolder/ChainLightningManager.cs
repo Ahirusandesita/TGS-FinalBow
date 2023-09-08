@@ -138,8 +138,8 @@ public class ChainLightningManager : MonoBehaviour
             }
             scoreManager.NormalScore_ComboScore();
 
-            stats.TakeDamage(THUNDER_DAMAGE);
             stats.TakeThunder(_enchantPower);
+            stats.TakeDamage(THUNDER_DAMAGE);
 
             GameObject destroy = takeEffects.CreateEffect(chainRootPosition, stats.transform.position);
             chainRootPosition = stats.transform.position;
