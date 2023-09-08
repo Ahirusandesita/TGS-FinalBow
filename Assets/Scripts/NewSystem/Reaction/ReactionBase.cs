@@ -9,7 +9,7 @@ using System.Collections;
 
 
 [RequireComponent(typeof(Reaction))]
-public class ReactionBase : MonoBehaviour, IReaction<Transform, Vector3>, IReactionEnd
+public class ReactionBase : MonoBehaviour, InterfaceReaction.IReaction<Transform, Vector3>, InterfaceReaction.IReactionEnd
 {
     #region variable 
     #endregion

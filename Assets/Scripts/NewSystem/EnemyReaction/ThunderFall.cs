@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ThunderFall : MonoBehaviour, IThunderReaction
+public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
 {
     #region variable 
     public bool ReactionEnd { get; set; }
