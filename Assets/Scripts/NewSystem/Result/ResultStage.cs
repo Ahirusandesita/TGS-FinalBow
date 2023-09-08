@@ -50,7 +50,13 @@ public class ResultStage : MonoBehaviour
     {
 
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            stagePropery.Value = false;
+        }
+    }
 
     #endregion
 }
