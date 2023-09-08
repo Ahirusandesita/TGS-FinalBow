@@ -34,9 +34,9 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
         
     }
 
-    public void Reaction(Transform enemy, Vector3 arrowPos)
+    public void Reaction(Transform arrow, Vector3 arrowPos)
     {
-        _backDirection = (enemy.position - arrowPos).normalized;
+        _backDirection = (this.transform.position - arrowPos).normalized;
 
         _isStart = true;
 
@@ -46,7 +46,7 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
         animator = GetComponent<Animator>();
 
-        animator.SetBool("Death", true);
+        animator.SetTrigger("Death");
     }
 
     private void Update()

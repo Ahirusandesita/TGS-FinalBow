@@ -49,11 +49,11 @@ public class BirdStats : CommonEnemyStats
         _reaction.SubscribeReactionFinish(Death);
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Transform arrowTransform, Vector3 arrowVector)
     {
         _reaction.ReactionStart(_transform.position);
 
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, arrowTransform, arrowVector);
     }
 
     public override void Death()

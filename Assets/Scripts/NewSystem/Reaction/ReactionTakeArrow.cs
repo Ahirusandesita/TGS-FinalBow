@@ -37,14 +37,14 @@ public class ReactionTakeArrow : MonoBehaviour, InterfaceReaction.IReaction<Tran
         
     }
 
-    public void Reaction(Transform enemy, Vector3 arrow)
+    public void Reaction(Transform arrow, Vector3 arrowPos)
     {
-        
-        Quaternion rote = Quaternion.LookRotation(enemy.position - arrow);
+
+        Quaternion rote = arrow.rotation;
         if(create is null)
         {
             create = new(pool);
         }
-        create.SpawnArrow(enemy, arrow, rote);
+        create.SpawnArrow(this.transform, arrowPos, rote);
     }
 }
