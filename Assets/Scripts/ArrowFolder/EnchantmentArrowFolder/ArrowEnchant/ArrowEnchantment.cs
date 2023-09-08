@@ -288,6 +288,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
 
     public IFPlayerManagerHave _playerManager { get; set; }
 
+    public EnchantmentEnum.EnchantmentState EnchantmentNowState => _enchantmentStateNow;
+
     private EnchantMix _enchantMix = new EnchantMix();
 
     private EnchantEventParameter _enchantEventParameter;
