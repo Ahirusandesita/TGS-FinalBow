@@ -10,8 +10,7 @@ using System.Collections;
 /// ‘æˆêTransform‚Íenemy‚Å‘æ“ñTransform‚Í¨
 /// </summary>
 
-public class ReactionTakeArrow : MonoBehaviour, InterfaceReaction.IReaction<Transform, Transform>
-
+public class ReactionTakeArrow : MonoBehaviour, InterfaceReaction.IReaction<Transform,Vector3>
 {
     ObjectPoolSystem pool = default;
 
