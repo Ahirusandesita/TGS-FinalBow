@@ -5,7 +5,6 @@
 // Creator  : Nomura
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -368,15 +367,6 @@ public class Reaction : MonoBehaviour
 
     private void Update()
     {
-
-
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            ReactionSetting(EnchantmentEnum.EnchantmentState.bomb);
-            ReactionEventStart(this.transform, Vector3.zero);
-        }
-
         if (ReactionSelect.GetLength() == 0) return;
         ReactionSelect(isStart);
     }
