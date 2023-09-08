@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3121916255107516546}
   - component: {fileID: -6140233910423151836}
   - component: {fileID: 5805606495121425866}
+  - component: {fileID: 7630960438180737118}
   m_Layer: 0
   m_Name: NormalBirdBodyChipFire
   m_TagString: Untagged
@@ -126,6 +127,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DropItemData: {fileID: 11400000, guid: 2974408b6e4872944ac8454980d5b78f, type: 2}
+--- !u!114 &7630960438180737118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6618212194808799388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d324339e9428941a962a57c171e9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8467395831830367305
 PrefabInstance:
   m_ObjectHideFlags: 0

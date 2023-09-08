@@ -12,4 +12,5 @@ public class DropData : ScriptableObject
 {
     public DropItem DropItem;
     public int DropValue;
+    public PoolEnum.PoolObjectType PoolObjectType;
 }

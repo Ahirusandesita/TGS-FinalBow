@@ -84,7 +84,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
         _addParalysisTime = (_maxParalysisTime - _baseParalysisTime) / maxInhallData.GetMaxInhall;
 
-        _drop = GameObject.FindObjectOfType<Drop>();
+        _drop = this.GetComponent<Drop>();
     }
 
     protected virtual void OnEnable()

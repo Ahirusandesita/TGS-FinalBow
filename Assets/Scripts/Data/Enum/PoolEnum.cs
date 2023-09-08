@@ -84,7 +84,7 @@ public class PoolEnum : MonoBehaviour
         /// <summary>
         /// ドロップアイテム1
         /// </summary>
-        dropItem_1,
+        dropItem_2,
         /// <summary>
         /// 敵に刺さる→
         /// </summary>
