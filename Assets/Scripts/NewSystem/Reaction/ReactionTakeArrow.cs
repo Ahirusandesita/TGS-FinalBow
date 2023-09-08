@@ -7,9 +7,11 @@
 using UnityEngine;
 using System.Collections;
 /// <summary>
-/// ‘æˆêTransform‚Íenemy‚Å‘æ“ñTransform‚Í¨
+/// â€˜Ã¦Ë†ÃªTransformâ€šÃenemyâ€šÃ…â€˜Ã¦â€œÃ±Transformâ€šÃÂÂ¨
 /// </summary>
-public class ReactionTakeArrow : MonoBehaviour, IReaction<Transform, Vector3>
+
+public class ReactionTakeArrow : MonoBehaviour, InterfaceReaction.IReaction<Transform, Transform>
+
 {
     ObjectPoolSystem pool = default;
 

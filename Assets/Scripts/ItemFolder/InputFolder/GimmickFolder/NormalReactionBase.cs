@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class NormalReactionBase : MonoBehaviour, IBombReaction
+public class NormalReactionBase : MonoBehaviour, InterfaceReaction.IBombReaction
 {
 
     #region variable 
