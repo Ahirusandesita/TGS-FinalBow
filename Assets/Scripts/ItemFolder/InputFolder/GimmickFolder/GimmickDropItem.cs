@@ -6,7 +6,8 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class GimmickDropItem : MonoBehaviour, IFGimmickCaller
+
+public class GimmickDropItem : MonoBehaviour, IFGimmickCaller, IFUseEnchantGimmickTakeBomb
 {
     [SerializeField] GameObject breakObject;
 
@@ -20,6 +21,16 @@ public class GimmickDropItem : MonoBehaviour, IFGimmickCaller
     bool used = false;
 
     public void GimmickAction()
+    {
+        BreakGimmick();
+    }
+
+
+    public void TakeBomb()
+    {
+        BreakGimmick();
+    }
+    private void BreakGimmick()
     {
         drop.DropStart(data, breakObject.transform.position);
 
