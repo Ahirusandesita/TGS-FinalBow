@@ -20,7 +20,7 @@ public enum TutorialType
 
 public class TestTutorialManager : MonoBehaviour
 {
-    public IReActiveProperty<TutorialType> raedOnlyTutorial => TutorialProperty;
+    public IReActiveProperty<TutorialType> readOnlyTutorial => TutorialProperty;
     private ReActiveProperty<TutorialType> TutorialProperty = new ReActiveProperty<TutorialType>();
 
     public void StartEnchant() => TutorialProperty.Value = TutorialType.enchant;//ボムしか選べなくする
@@ -29,4 +29,5 @@ public class TestTutorialManager : MonoBehaviour
     public void ShotComesOff() => TutorialProperty.Value = TutorialType.shot;//もう一回撃とう
     public void ShotEnd() => TutorialProperty.Value = TutorialType.crystalBreak;//crystalブレイク開始
     public void CryStalBreakEnd() => TutorialProperty.Value = TutorialType.end;
+
 }
