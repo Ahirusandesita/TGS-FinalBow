@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-public enum TurorialType
+public enum TutorialType
 {
     enchant,
     attract,
@@ -18,5 +18,6 @@ public enum TurorialType
 
 public class TurorialManager : MonoBehaviour
 {
-
+    public IReActiveProperty<TutorialData> readOnlyTutorialProperty => TutorialProperty;
+    public ReActiveProperty<TutorialData> TutorialProperty = new ReActiveProperty<TutorialData>();
 }
