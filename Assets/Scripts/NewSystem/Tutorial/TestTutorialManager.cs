@@ -1,5 +1,5 @@
 // --------------------------------------------------------- 
-// TurorialManager.cs 
+// TestTutorialManager.cs 
 // 
 // CreateDay: 
 // Creator  : 
@@ -10,14 +10,14 @@ using System.Collections;
 public enum TutorialType
 {
     enchant,
-    attract,
+    attarct,
     shot,
     shotComesOff,
     crystalBreak
 }
 
-public class TurorialManager : MonoBehaviour
+public class TestTutorialManager : MonoBehaviour
 {
-    public IReActiveProperty<TutorialData> readOnlyTutorialProperty => TutorialProperty;
-    public ReActiveProperty<TutorialData> TutorialProperty = new ReActiveProperty<TutorialData>();
+    public IReActiveProperty<TutorialType> raedOnlyTutorial => TutorialProperty;
+    private ReActiveProperty<TutorialType> TutorialProperty = new ReActiveProperty<TutorialType>();
 }
