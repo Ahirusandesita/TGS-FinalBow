@@ -18,4 +18,5 @@ public class TutorialManagementItem
 {
     public string myName;
     public TutorialData tutorialDatas;
+    public float nextTime;
 }
