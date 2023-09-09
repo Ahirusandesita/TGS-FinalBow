@@ -11,4 +11,5 @@ public class TutorialData : ScriptableObject
 {
     public string text;
     public Image image;
+    public float speakingSpeed;
 }
