@@ -31,31 +31,14 @@ public class TargetStats : EnemyStats
 
     public override void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector)
     {
-        TakeDamage(damage,arrowTransform,arrowVector);
-    }
-
-    public override void TakeRapidShots()
-    {
-       // throw new System.NotImplementedException();
-    }
-
-    public override void TakeThunder(int a)
-    {
-        print("Ç‹Ç–Å[Å[");
-        //Transform ab = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
-
-        //ab.position = transform.position;
-        //ab.localScale = ab.localScale * 5;
-
-
+        TakeDamage(damage, arrowTransform, arrowVector);
     }
 
     public override void Death()
     {
         // è¡Ç∑èàóù
         //_onDeathTarget();
-        //_objectPoolSystem.ReturnObject(_cashObjectInformation);
-        this.gameObject.SetActive(false);
+        _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
 
     public override int HP

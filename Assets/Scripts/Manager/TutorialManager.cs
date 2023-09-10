@@ -46,6 +46,11 @@ public class TutorialManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 的のスポーン
+    /// </summary>
+    /// <param name="listIndex"></param>
+    /// <returns></returns>
     private IEnumerator SpawnTarget(int listIndex)
     {
         // チュートリアル用のデータのパスを取得（チュートリアルなので
@@ -56,6 +61,8 @@ public class TutorialManager : MonoBehaviour
 
         TargetMove target = _poolSystem.CallObject(PoolEnum.PoolObjectType.targetObject, dataPath._spawnPlace.position).GetComponent<TargetMove>();
         target.TargetData = dataPath;
+
+        target.InitializeWhenEnable();
     }
 
     /// <summary>
@@ -83,7 +90,7 @@ public class TutorialManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ラジアルメニューが表示されたとき
+    /// ラジアルメニューが表示された
     /// </summary>
     public void OnRadialMenuDisplayed()
     {
