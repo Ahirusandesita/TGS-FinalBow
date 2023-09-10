@@ -40,6 +40,8 @@ public class SelectEnchant : MonoBehaviour
 
     private EnchantmentEnum.EnchantmentState _enchantState = EnchantmentEnum.EnchantmentState.normal;
 
+    private TestTutorialManager _tutorialManager = default;
+
     private 
     #region variable 
     InputManagement mng;
@@ -72,6 +74,10 @@ public class SelectEnchant : MonoBehaviour
     {
         mng = GameObject.FindWithTag(InhallLibTags.InputController).GetComponent<InputManagement>();
         enchantSetter = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<IArrowEnchantSet>();
+        _tutorialManager = GameObject.FindGameObjectWithTag("").GetComponent<TestTutorialManager>();
+
+        NormalEventSetting();
+
 
         //circleLinesAngle = CircleDivide(setting.Length);
         //image.SetActive(false);
@@ -84,7 +90,11 @@ public class SelectEnchant : MonoBehaviour
         //{
         //    Instantiate(bar,)
         //}
+
     }
+
+    
+
 
     private void Update()
     {
@@ -100,83 +110,23 @@ public class SelectEnchant : MonoBehaviour
                     return;
 
                 case NowSelect.Explosion:
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Decision);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(_waitTime,EnchantsChenger.E_Enchant.Explosion));
-                    _enchantState = EnchantmentEnum.EnchantmentState.bomb;
-                    _state = NowSelect.None;
-                    _useCoroutine = true;
-                    _speaker.PlayOneShot(_enchantSound);
+                    DecisionExplosion();
                     break;
 
                 case NowSelect.Thunder:
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Decision);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
-                    _enchantState = EnchantmentEnum.EnchantmentState.thunder;
-                    _state = NowSelect.None;
-                    _useCoroutine = true;
-                    _speaker.PlayOneShot(_enchantSound);
+                    DecisionThunder();
                     break;
 
                 case NowSelect.Penetration:
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Decision);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Penetration));
-                    _enchantState = EnchantmentEnum.EnchantmentState.penetrate;
-                    _state = NowSelect.None;
-                    _useCoroutine = true;
-                    _speaker.PlayOneShot(_enchantSound);
+                    DecisionPenetrate();
                     break;
 
                 case NowSelect.Homing:
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Decision);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Homing));
-                    _enchantState = EnchantmentEnum.EnchantmentState.homing;
-                    _state = NowSelect.None;
-                    _useCoroutine = true;
-                    _speaker.PlayOneShot(_enchantSound);
+                    DecisionHoming();
                     break;
 
                 case NowSelect.Rapid:
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Decision);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
-                    Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
-                    StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Rapid));
-                    _enchantState = EnchantmentEnum.EnchantmentState.rapidShots;
-                    _state = NowSelect.None;
-                    _useCoroutine = true;
-                    _speaker.PlayOneShot(_enchantSound);
+                    DecisionRapid();
                     break;
             }
         }
@@ -402,6 +352,8 @@ public class SelectEnchant : MonoBehaviour
         return value;
     }
 
+
+
     //private void Graphics(float input)
     //{
     //    LineMove(input);
@@ -456,7 +408,213 @@ public class SelectEnchant : MonoBehaviour
     //    return angleLines.ToArray();
     //}
 
+    public delegate void DecisionEvent();
 
+    DecisionEvent DecisionExplosion;
+    DecisionEvent DecisionThunder;
+    DecisionEvent DecisionPenetrate;
+    DecisionEvent DecisionHoming;
+    DecisionEvent DecisionRapid;
+
+    private void NormalDecisionExplosion()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Decision);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Explosion));
+        _enchantState = EnchantmentEnum.EnchantmentState.bomb;
+        _state = NowSelect.None;
+        _useCoroutine = true;
+        _speaker.PlayOneShot(_enchantSound);
+    }
+
+    private void NormalDecisionThunder()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Decision);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
+        _enchantState = EnchantmentEnum.EnchantmentState.thunder;
+        _state = NowSelect.None;
+        _useCoroutine = true;
+        _speaker.PlayOneShot(_enchantSound);
+    }
+
+    private void NormalDecisionPenetrate()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Decision);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Penetration));
+        _enchantState = EnchantmentEnum.EnchantmentState.penetrate;
+        _state = NowSelect.None;
+        _useCoroutine = true;
+        _speaker.PlayOneShot(_enchantSound);
+    }
+
+    private void NormalDecisionHoming()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Decision);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Homing));
+        _enchantState = EnchantmentEnum.EnchantmentState.homing;
+        _state = NowSelect.None;
+        _useCoroutine = true;
+        _speaker.PlayOneShot(_enchantSound);
+    }
+
+    private void NormalDecisionRapid()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Decision);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Rapid));
+        _enchantState = EnchantmentEnum.EnchantmentState.rapidShots;
+        _state = NowSelect.None;
+        _useCoroutine = true;
+        _speaker.PlayOneShot(_enchantSound);
+    }
+
+
+
+
+    private void TutorialDecisionExplosion()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Decision);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Notselect);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Explosion));
+        _enchantState = EnchantmentEnum.EnchantmentState.bomb;
+        _state = NowSelect.None;
+        _useCoroutine = true;
+        _speaker.PlayOneShot(_enchantSound);
+    }
+
+    private void TutorialDecisionThunder()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        //StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
+        _enchantState = EnchantmentEnum.EnchantmentState.normal;
+        _state = NowSelect.None;
+        //_useCoroutine = true;
+        //_speaker.PlayOneShot(_enchantSound);
+        TutorialUI();
+    }
+
+    private void TutorialDecisionPenetrate()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        //StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
+        _enchantState = EnchantmentEnum.EnchantmentState.normal;
+        _state = NowSelect.None;
+        //_useCoroutine = true;
+        //_speaker.PlayOneShot(_enchantSound);
+        TutorialUI();
+    }
+
+    private void TutorialDecisionHoming()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        //StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
+        _enchantState = EnchantmentEnum.EnchantmentState.normal;
+        _state = NowSelect.None;
+        //_useCoroutine = true;
+        //_speaker.PlayOneShot(_enchantSound);
+        TutorialUI();
+    }
+
+    private void TutorialDecisionRapid()
+    {
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Explosion, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Thunder, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Penetration, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.CenterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
+        Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
+        //StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
+        _enchantState = EnchantmentEnum.EnchantmentState.normal;
+        _state = NowSelect.None;
+        //_useCoroutine = true;
+        //_speaker.PlayOneShot(_enchantSound);
+        TutorialUI();
+    }
+
+    private void NormalEventSetting()
+    {
+        DecisionExplosion = NormalDecisionExplosion;
+        DecisionThunder = NormalDecisionThunder;
+        DecisionPenetrate = NormalDecisionPenetrate;
+        DecisionHoming = NormalDecisionHoming;
+        DecisionRapid = NormalDecisionRapid;
+    }
+
+    private void TutorialEventSetting()
+    {
+        DecisionExplosion = TutorialDecisionExplosion;
+        DecisionThunder = TutorialDecisionThunder;
+        DecisionPenetrate = TutorialDecisionPenetrate;
+        DecisionHoming = TutorialDecisionHoming;
+        DecisionRapid = TutorialDecisionRapid;
+    }
+
+    private void TutorialUI()
+    {
+        return;
+    }
 
     #endregion
 }
