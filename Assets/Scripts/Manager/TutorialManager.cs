@@ -38,7 +38,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-
+        StartCoroutine(SpawnTarget(0));
     }
 
     private void Update()
@@ -56,6 +56,22 @@ public class TutorialManager : MonoBehaviour
 
         TargetMove target = _poolSystem.CallObject(PoolEnum.PoolObjectType.targetObject, dataPath._spawnPlace.position).GetComponent<TargetMove>();
         target.TargetData = dataPath;
+    }
+
+    /// <summary>
+    /// ‹z‚¢‚İŠ®—¹
+    /// </summary>
+    public void CompleteAttract()
+    {
+
+    }
+
+    /// <summary>
+    /// –î‚ğ”­Ë‚µ‚½
+    /// </summary>
+    public void Shot()
+    {
+
     }
     #endregion
 }
