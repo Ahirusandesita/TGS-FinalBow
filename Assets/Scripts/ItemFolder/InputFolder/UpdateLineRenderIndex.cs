@@ -26,18 +26,18 @@ public class UpdateLineRenderIndex : MonoBehaviour
 
         cacheTime = 0;
 
-        float distance = line.GetPosition(line.positionCount - 1).z;
-
-        oneIndexDistance = distance / line.positionCount;
-
-        maxRag = distance * ragRangePercent;
+        
 
     }
     private void Update()
     {
         if (cacheTime + needTime < Time.time)
         {
-            
+            float distance = line.GetPosition(line.positionCount - 1).z;
+
+            oneIndexDistance = distance / line.positionCount;
+
+            maxRag = distance * ragRangePercent;
             cacheTime = Time.time;
             for (int i = 1; i < line.positionCount - 1; i++)
             {

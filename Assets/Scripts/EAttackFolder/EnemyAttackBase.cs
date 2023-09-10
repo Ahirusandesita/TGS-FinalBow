@@ -136,5 +136,10 @@ public abstract class EnemyAttackBase : MonoBehaviour,IFItemMove
     {
         _attackStartDelay = 0f;
     }
+
+    public void SetParentNull()
+    {
+        
+    }
     #endregion
 }
