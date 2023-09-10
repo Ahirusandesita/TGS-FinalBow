@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c6ab770e7a0ef41ae22f0b52d58db4, type: 3}
   m_Name: Tutorial_Shot2
   m_EditorClassIdentifier: 
-  tutorialManagementItem: []
+  tutorialManagementItem:
+  - myName: Shot2_1
+    tutorialDatas: {fileID: 11400000, guid: a1abfebfdc7fab94bb8cbd9f4c986dba, type: 2}
+    nextTime: 3
+  - myName: Shot2_2
+    tutorialDatas: {fileID: 11400000, guid: 70d6716c300885042bd4191e32ad66a9, type: 2}
+    nextTime: 3
