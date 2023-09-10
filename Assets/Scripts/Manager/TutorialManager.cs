@@ -69,7 +69,23 @@ public class TutorialManager : MonoBehaviour
     /// <summary>
     /// 矢を発射した
     /// </summary>
-    public void Shot()
+    public void OnShot()
+    {
+
+    }
+
+    /// <summary>
+    /// ボムが選ばれた
+    /// </summary>
+    public void OnSelectedBomb()
+    {
+
+    }
+
+    /// <summary>
+    /// ラジアルメニューが表示されたとき
+    /// </summary>
+    public void OnRadialMenuDisplayed()
     {
 
     }
