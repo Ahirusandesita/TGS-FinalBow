@@ -54,6 +54,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [SerializeField, Tooltip("デバッグカメラ")]
     private GameObject _debugPlayer = default;
 
+    [SerializeField, Tooltip("リザルト用Canvas")]
+    private GameObject _resultCanvas = default;
+
 
     [Tooltip("取得したObjectPoolSystemクラス")]
     private ObjectPoolSystem _objectPoolSystem = default;
@@ -84,10 +87,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         _resultStage.readOnlyStateProperty.Subject.Subscribe(isResult => { if (!isResult) { ProgressingTheStage(); } });
 
         // ゲーム開始時にプレイヤーのTransformを更新する
-        _player.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position;
-        _player.transform.rotation = _stageTransforms[_currentStageIndex]._stageTransform.rotation;
-        _debugPlayer.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position;
-        _debugPlayer.transform.rotation = _stageTransforms[_currentStageIndex]._stageTransform.rotation;
+        MovingPlayer();
 
         // ゲームスタート
         StartCoroutine(StageStart());
@@ -158,6 +158,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
             //---------------------------------------------------------------
             //ProgressingTheStage();//ここ後で消す
             //---------------------------------------------------------------
+            MovingResultCanvas();
             _resultStage.Result();
             return;
         }
@@ -173,6 +174,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         _currentStageIndex++;
         _currentWaveIndex = 0;
         X_Debug.Log("次のステージへ");
+        MovingPlayer();
 
         if (_currentStageIndex > _stageDataTables.Count)
         {
@@ -328,8 +330,24 @@ public class StageManager : MonoBehaviour, IStageSpawn
         temporaryObject._despawnTime_s = dataPath._despawnTime_s;
         //temporaryObject._jumpDirectionState = dataPath._groundEnemyActionInformation[listIndex]._jumpDirectionState;
     }
-    void Update()
+
+    /// <summary>
+    /// プレイヤーを移動させる
+    /// </summary>
+    private void MovingPlayer()
     {
-        Debug.LogError($"ステージ{_currentStageIndex}");
+        _player.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position;
+        _player.transform.rotation = _stageTransforms[_currentStageIndex]._stageTransform.rotation;
+        _debugPlayer.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position;
+        _debugPlayer.transform.rotation = _stageTransforms[_currentStageIndex]._stageTransform.rotation;
+    }
+
+    /// <summary>
+    /// リザルトキャンバスを移動させる
+    /// </summary>
+    private void MovingResultCanvas()
+    {
+        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position;
+        _resultCanvas.transform.rotation = _stageTransforms[_currentStageIndex]._stageTransform.rotation;
     }
 }

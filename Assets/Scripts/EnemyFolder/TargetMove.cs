@@ -4,12 +4,24 @@
 // CreateDay: 
 // Creator  : 
 // --------------------------------------------------------- 
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 public class TargetMove : MonoBehaviour
 {
     #region variable 
     private TargetDataTable _targetData = default;
+
+    private Transform _transform = default;
+
+    private float _initialRotation_y = default;
+
+    private Vector3 _initialScale = default;
+
+    private float _rotateSpeed = 500f;
+
+    private Vector3 _scalerSpeed = new(1500f, 1500f, 0f);
+
+    private readonly Vector3 UP = Vector3.up;
     #endregion
     #region property
     public TargetDataTable TargetData { set => _targetData = value; }
@@ -18,12 +30,12 @@ public class TargetMove : MonoBehaviour
 
     private void Awake()
     {
-
+        _transform = this.transform;
     }
 
     private void Start()
     {
-        X_Debug.Log(_targetData._speed);
+
     }
 
     private void Update()
@@ -34,17 +46,47 @@ public class TargetMove : MonoBehaviour
     /// <summary>
     /// スポーン時の初期化
     /// </summary>
-    private void InitializeWhenEnable()
+    public void InitializeWhenEnable()
     {
-        
+        _transform.rotation = Quaternion.Euler(Vector3.zero);
+        _initialRotation_y = _transform.rotation.eulerAngles.y;
+        _initialScale = _transform.localScale;
+
+        StartCoroutine(LagerAtSpawn());
     }
 
     /// <summary>
-    /// 回転してスポーンする処理
+    /// 回転しながらスポーンする処理
     /// </summary>
-    private void SpawnRotate()
+    private IEnumerator RotateAtSpawn()
     {
+        while (_transform.rotation.eulerAngles.y <= _initialRotation_y + 180f)
+        {
+            _transform.Rotate(UP * Time.deltaTime * _rotateSpeed);
+            yield return null;
+        }
+    }
 
+    /// <summary>
+    /// 大きくなりながらスポーンする処理
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator LagerAtSpawn()
+    {
+        _transform.localScale = new(0f, 0f, _transform.localScale.z);
+        bool startRotate = false;
+
+        while (_transform.localScale.x <= _initialScale.x)
+        {
+            _transform.localScale += Time.deltaTime * _scalerSpeed;
+            yield return null;
+
+            if (!startRotate && _transform.localScale.x > _initialScale.x * 0.1f)
+            {
+                StartCoroutine(RotateAtSpawn());
+                startRotate = true;
+            }
+        }
     }
     #endregion
 }

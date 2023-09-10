@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 
-[RequireComponent(typeof(TargetStats), typeof(CashObjectInformation))]
+[RequireComponent(typeof(TargetStats), typeof(TargetMove), typeof(CashObjectInformation))]
 public class TargetManager : MonoBehaviour
 {
     [Tooltip("Žæ“¾‚µ‚½TargetStatsƒNƒ‰ƒX")]
@@ -31,10 +31,5 @@ public class TargetManager : MonoBehaviour
             drop.DropStart(dropData, this.transform.position);
             _targetStats.Death();
         }
-    }
-
-    private void Move()
-    {
-
     }
 }
