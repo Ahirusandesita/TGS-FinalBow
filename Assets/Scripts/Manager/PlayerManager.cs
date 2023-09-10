@@ -86,6 +86,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     IFBowManagerQue _bowManagerQue;
 
+    private TutorialManager tutorialManager;
+
 
     /// <summary>
     /// デバック用
@@ -133,6 +135,11 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         //arrowEnchant.TestRapid = CanRapid ;
 
+    }
+
+    private void Awake()
+    {
+        tutorialManager = GameObject.FindObjectOfType<TutorialManager>();
     }
 
     private void Start()
@@ -193,6 +200,10 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     }
     public void ArrowEnchantPlusDamage()
     {
+        if (tutorialManager != null)
+        {
+            tutorialManager.CompleteAttract();
+        }
 
         if (attractCount >= maxAttractCount)
         {
@@ -217,6 +228,11 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     /// <param name="aim"></param>
     public void ShotArrow(Vector3 aim)
     {
+        if (tutorialManager != null)
+        {
+            tutorialManager.OnShot();
+        }
+
         arrowEnchant2.ArrowEnchantDamage(_arrow.Damage);
         Quaternion arrowRotation = default;
         //連射
