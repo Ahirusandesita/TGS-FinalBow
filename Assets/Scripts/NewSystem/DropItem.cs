@@ -14,6 +14,8 @@ public static class DropFinalPositon
 public interface IFItemMove
 {
     bool CanMove { get; set; }
+
+    void SetParentNull();
 }
 
 [RequireComponent(typeof(CashObjectInformation))]
@@ -130,6 +132,11 @@ public class DropItem : MonoBehaviour,IFItemMove
         {
             return;
         }
+    }
+
+    public void SetParentNull()
+    {
+        transform.parent = null;
     }
 
     #endregion
