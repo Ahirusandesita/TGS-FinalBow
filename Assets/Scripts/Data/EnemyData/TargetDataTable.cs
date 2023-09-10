@@ -10,7 +10,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TargetData", menuName = "Scriptables/CreateTargetDataTable")]
 public class TargetDataTable : ScriptableObject
 {
-    [Header("スポーンディレイ（注意：Wave開始からの秒数）"), Tooltip("スポーンディレイ（注意：Wave開始からの秒数）")]
+    [Header("スポーンディレイ（注意：Wave開始からの秒数）"), Tooltip("スポーンディレイ（注意：Wave開始からの秒数）"), Min(0)]
     public float _spawnDelay_s;
 
     [Header("スポーンする位置"), Tooltip("スポーンする位置")]

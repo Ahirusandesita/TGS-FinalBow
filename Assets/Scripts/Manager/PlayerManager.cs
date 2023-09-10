@@ -202,7 +202,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     {
         if (tutorialManager != null)
         {
-            tutorialManager.CompleteAttract();
+            tutorialManager.OnAttractCompleted();
         }
 
         if (attractCount >= maxAttractCount)
