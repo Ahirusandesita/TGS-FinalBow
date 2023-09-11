@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e751bf7a9f6e8e244b0ba09b1a7f2019, type: 3}
-  m_Name: TestGroundEnemyData
+  m_Script: {fileID: 11500000, guid: a5cbee3ea3fcce54299e4185dc52f8fc, type: 3}
+  m_Name: TestWorm
   m_EditorClassIdentifier: 
-  _groundEnemySpawnPlace: {fileID: 5068778126842367603, guid: d46c2ca4ad07da941973bcbca01354d4, type: 3}
-  _spawnTime_s: 1.5
-  _onlySandDust: 0
-  _appearanceKeep_s: 3
-  _wormType: 1
+  _waveInformation:
+  - _wave: 
+    _birdsData: []
+    _groundEnemysData:
+    - {fileID: 11400000, guid: 481715d5122157d45b4e0c7c21f7b46b, type: 2}
+    _targetData: []

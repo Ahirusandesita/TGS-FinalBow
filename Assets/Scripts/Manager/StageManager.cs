@@ -326,6 +326,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         GroundEnemyMoveBase temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position).GetComponent<GroundEnemyMoveBase>();
         temporaryObject.GroundEnemyData = dataPath;
+        temporaryObject.InitializeOnEnable();
     }
 
     /// <summary>
