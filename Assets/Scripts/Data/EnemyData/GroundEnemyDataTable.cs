@@ -8,6 +8,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum WormType
+{
+    low,
+    hight,
+    middle
+}
+
 // Assets > Create > Scriptables > CreateGroundEnemyDataTableでアセット化
 [CreateAssetMenu(fileName = "GroundEnemyData", menuName = "Scriptables/CreateGroundEnemyDataTable")]
 public class GroundEnemyDataTable : ScriptableObject
@@ -29,6 +36,9 @@ public class GroundEnemyDataTable : ScriptableObject
 
     [Header("デスポーンまでの秒数"), Tooltip("デスポーンまでの秒数")]
     public float _despawnTime_s = 10f;
+
+    [Header("出現の仕方"), Tooltip("出現の仕方")]
+    public WormType _wormType;
 
     //[Header("攻撃する"), Tooltip("攻撃する")]
     //public bool _needAttack;

@@ -12,6 +12,7 @@ using System.Collections;
 /// </summary>
 public class GroundEnemyMoveBase : EnemyMoveBase
 {
+    private Animator myAnimation;
     private enum CrabWalkState { left, right };
 
     public enum JumpDirectionState { zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve };
@@ -28,6 +29,11 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     CrabWalkState _crabWalk;
 
     private bool _isJump = false;
+
+    //private string[,] WormAnimationTrrigers
+    //{
+    //    { low,high,}
+    //}
 
     private struct JumpDirection
     {
@@ -83,6 +89,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         _currentTime2 = 0f;
         _needDespawn = false;
         startTransform = this.transform.position;
+        isOnePlay = true;
     }
 
     protected override void Start()
@@ -91,7 +98,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         _crabWalk = CrabWalkState.left;
         WalkDirectionState();
         _jumpPowerMax = _jumpPower;
-
+        myAnimation = this.GetComponent<Animator>();
         _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
 
         base.Start();
@@ -99,28 +106,33 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     }
 
 
-
+    bool isOnePlay = true;
     protected override void MoveSequence()
     {
-
-
-        _transform.Translate(0f/*40f * _jumpDirection.X * Time.deltaTime*/, _jumpPower * Time.deltaTime, 0f/* 40f * _jumpDirection.Z * Time.deltaTime*/);
-        if (isJumpUp)
-            _jumpPower -= moveMinusSpeed * Time.deltaTime;
-
-        if(_jumpPower < 0f && canJumpStop)
+        if (isOnePlay)
         {
-            _jumpPower = 0;
-            StartCoroutine(JumpStop());
-            canJumpStop = false;
+            _transform = _groundEnemyData._groundEnemySpawnPlace;
+            StartCoroutine(WormAction());
+            isOnePlay = false;
         }
 
-        if (this.transform.position.y < startTransform.y)
-        {
-            this.transform.position = startTransform;
-            _jumpPower = _jumpPowerMax;
-            canJumpStop = true;
-        }
+        //_transform.Translate(0f/*40f * _jumpDirection.X * Time.deltaTime*/, _jumpPower * Time.deltaTime, 0f/* 40f * _jumpDirection.Z * Time.deltaTime*/);
+        //if (isJumpUp)
+        //    _jumpPower -= moveMinusSpeed * Time.deltaTime;
+
+        //if(_jumpPower < 0f && canJumpStop)
+        //{
+        //    _jumpPower = 0;
+        //    StartCoroutine(JumpStop());
+        //    canJumpStop = false;
+        //}
+
+        //if (this.transform.position.y < startTransform.y)
+        //{
+        //    this.transform.position = startTransform;
+        //    _jumpPower = _jumpPowerMax;
+        //    canJumpStop = true;
+        //}
 
         //_currentTime += Time.deltaTime;
         //_currentTime2 += Time.deltaTime;
@@ -297,4 +309,18 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     // Ž~‚Ü‚é
     // ªªª‚»‚ê‚¼‚êŠÖ”‚É‚Ü‚Æ‚ß‚é
     // MoveSequence‚Íˆê’U‚Ù‚Á‚Æ‚¢‚Ä‚¢‚¢‚æ
+
+    private IEnumerator WormAction()
+    {
+        myAnimation.SetTrigger("A");
+        yield return new WaitForSeconds(2f);
+        myAnimation.SetTrigger("Attack");
+        yield return new WaitForSeconds(3f);
+        myAnimation.SetTrigger("Idle");
+        yield return new WaitForSeconds(2f);
+        myAnimation.SetTrigger("by");
+        yield return new WaitForSeconds(5f);
+        isOnePlay = true;
+    }
+
 }
