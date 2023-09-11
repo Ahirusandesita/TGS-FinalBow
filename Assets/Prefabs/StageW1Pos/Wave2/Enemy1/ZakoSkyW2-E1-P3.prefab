@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2888045218564051038}
   - component: {fileID: 5014702931094267223}
   - component: {fileID: 1196851605987214607}
+  - component: {fileID: 1356085022550580466}
   m_Layer: 6
   m_Name: ZakoSkyW2-E1-P3
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8588786156150730563}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -3.70646, y: 281.6484, z: 5.08171}
+  m_LocalPosition: {x: 76.15768, y: 281.6484, z: 57.218163}
   m_LocalScale: {x: 353.7, y: 353.7, z: 6.7246404}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -143,3 +144,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.020768482, y: 0.020768482, z: 0.027944194}
   m_Center: {x: 4.656613e-10, y: 4.656613e-10, z: -0.003992048}
+--- !u!114 &1356085022550580466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588786156150730563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7629bbe0d1951ad43b5f29884a15bfa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
