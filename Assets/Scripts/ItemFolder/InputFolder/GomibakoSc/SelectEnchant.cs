@@ -27,6 +27,7 @@ public class SelectEnchant : MonoBehaviour
     [SerializeField]
     private EnchantsChenger Chenger;
 
+    private TutorialManager _tutorialManager;
 
     private float _waitTime = 0.25f;
 
@@ -40,9 +41,6 @@ public class SelectEnchant : MonoBehaviour
 
     private EnchantmentEnum.EnchantmentState _enchantState = EnchantmentEnum.EnchantmentState.normal;
 
-    private TestTutorialManager _tutorialManager = default;
-
-    private 
     #region variable 
     InputManagement mng;
     IArrowEnchantSet enchantSetter;
@@ -74,7 +72,14 @@ public class SelectEnchant : MonoBehaviour
     {
         mng = GameObject.FindWithTag(InhallLibTags.InputController).GetComponent<InputManagement>();
         enchantSetter = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<IArrowEnchantSet>();
-        _tutorialManager = GameObject.FindGameObjectWithTag("").GetComponent<TestTutorialManager>();
+        try
+        {
+            _tutorialManager = GameObject.FindGameObjectWithTag("TutorialController").GetComponent<TutorialManager>();
+        }
+        catch
+        {
+            _tutorialManager = null;
+        }
 
         NormalEventSetting();
 
@@ -158,6 +163,7 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                             _state = NowSelect.Explosion;
                             _speaker.PlayOneShot(_selectSound);
+                            TutorialOpenMenu();
                         }
                     }
                     else
@@ -173,6 +179,7 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                             _state = NowSelect.Thunder;
                             _speaker.PlayOneShot(_selectSound);
+                            TutorialOpenMenu();
                         }
                     }
                 }
@@ -191,6 +198,7 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                             _state = NowSelect.Rapid;
                             _speaker.PlayOneShot(_selectSound);
+                            TutorialOpenMenu();
                         }
                     }
                     else
@@ -206,6 +214,7 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                             _state = NowSelect.Homing;
                             _speaker.PlayOneShot(_selectSound);
+                            TutorialOpenMenu();
                         }
                     }
 
@@ -223,6 +232,7 @@ public class SelectEnchant : MonoBehaviour
                         Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                         _state = NowSelect.Penetration;
                         _speaker.PlayOneShot(_selectSound);
+                        TutorialOpenMenu();
                     }
                 }
             }
@@ -239,6 +249,7 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
                     _state = NowSelect.Penetration;
                     _speaker.PlayOneShot(_selectSound);
+                    TutorialOpenMenu();
                 }
             }
 
@@ -614,6 +625,14 @@ public class SelectEnchant : MonoBehaviour
     private void TutorialUI()
     {
         return;
+    }
+
+    private void TutorialOpenMenu()
+    {
+        if (_tutorialManager != null && _state == NowSelect.None)
+        {
+            _tutorialManager.OnRadialMenuDisplayed();
+        }
     }
 
     #endregion
