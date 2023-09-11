@@ -17,6 +17,8 @@ public class TargetStats : EnemyStats
 
     private CashObjectInformation _cashObjectInformation = default;
 
+    private BreakMato breakMato = default;
+
     private void OnEnable()
     {
         _hp = 1;
@@ -27,6 +29,10 @@ public class TargetStats : EnemyStats
         base.Start();
 
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
+
+        _reaction.SubscribeReactionFinish(Death);
+
+        breakMato = new(transform);
     }
 
     public override void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector)
@@ -38,6 +44,7 @@ public class TargetStats : EnemyStats
     {
         // è¡Ç∑èàóù
         //_onDeathTarget();
+        print("aaades");
         _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
 
@@ -47,5 +54,14 @@ public class TargetStats : EnemyStats
         {
             return _hp;
         }
+    }
+
+    protected override void OnDeathReactions(Transform arrowTransform, Vector3 arrowVector)
+    {
+        base.OnDeathReactions(arrowTransform, arrowVector);
+
+        breakMato.BreakStart();
+
+        print("aaa");
     }
 }

@@ -29,7 +29,7 @@ public class TargetManager : MonoBehaviour
         if (_targetStats.HP <= 0)
         {
             drop.DropStart(dropData, this.transform.position);
-            _targetStats.Death();
+            //_targetStats.Death();
         }
     }
 }

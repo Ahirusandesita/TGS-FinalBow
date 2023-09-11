@@ -19,7 +19,7 @@ public interface IFItemMove
 }
 
 [RequireComponent(typeof(CashObjectInformation))]
-public class DropItem : MonoBehaviour,IFItemMove
+public class DropItem : MonoBehaviour, IFItemMove
 {
     #region variable 
     private float angle = default;
@@ -34,7 +34,7 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private Transform myTransform = default;
 
-    private enum ItemType { Fall = 0 , Fly = 1}
+    private enum ItemType { Fall = 0, Fly = 1 }
 
     //[SerializeField]
     //private float y_FinalPosition_Local = 0f;
@@ -49,9 +49,21 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     public DropItemData DropItemData;
 
+    [SerializeField] bool playAwake = true;
+
+    bool _canMove = false;
     #endregion
     #region property
-    public bool CanMove { get; set; }
+    public bool CanMove
+    {
+        get => _canMove; 
+
+        set
+        {
+            _canMove = value;
+            if (_canMove is true) { myTransform.rotation = Quaternion.Euler(dropLotation); }
+        }
+    }
     #endregion
     #region method
     //public void SetAngle(float angle) => Angle = angle;
@@ -60,6 +72,7 @@ public class DropItem : MonoBehaviour,IFItemMove
     private void Start()
     {
         //y_FinalPosition_Local = myTransform.position.y - y_FinalPosition_Local;
+        _canMove = playAwake;
     }
 
     private void Update()
@@ -93,7 +106,11 @@ public class DropItem : MonoBehaviour,IFItemMove
         vector = Random.Range(DropItemData.dropItemStruct.DropVectorMin, DropItemData.dropItemStruct.DropVectorMax);
         dropLotation.x = angle;
         dropLotation.y = vector;
-        myTransform.rotation = Quaternion.Euler(dropLotation);
+        if (playAwake)
+        {
+            myTransform.rotation = Quaternion.Euler(dropLotation);
+
+        }
         downSpeed = Random.Range(_dropSpeedMin, _dropSpeedMax);
         speed = Random.Range(_moveSpeedMin, _moveSpeedMax);
     }
@@ -123,7 +140,7 @@ public class DropItem : MonoBehaviour,IFItemMove
 
     private void FlyMove()
     {
-        if(speed > 0)
+        if (speed > 0)
         {
             speed -= Time.deltaTime * DropItemData.dropItemStruct.DownSpeedValue;
             myTransform.Translate(Vector3.forward * speed * Time.deltaTime);
