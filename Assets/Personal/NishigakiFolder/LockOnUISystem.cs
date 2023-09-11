@@ -30,15 +30,15 @@ public class LockOnUISystem : MonoBehaviour
         if (!_isActive)
         {
             _isActive = true ;
-            _lockOn.enabled = _isActive;
-            _lockOnGage.enabled = _isActive;
+            _lockOn.enabled = true;
+            _lockOnGage.enabled = true;
         }
         _lockOnGage.fillAmount = percent;
         if(percent >= 1)
         {
-            _lockOn.enabled = !_isActive;
-            _lockOnGage.enabled = !_isActive;
-            _lockOnComplete.enabled = _isActive;
+            _lockOn.enabled = false;
+            _lockOnGage.enabled = false;
+            _lockOnComplete.enabled = true;
         }
     }
 
@@ -47,9 +47,9 @@ public class LockOnUISystem : MonoBehaviour
         if (_isActive)
         {
             _isActive = false;
-            _lockOn.enabled = _isActive;
-            _lockOnGage.enabled = _isActive;
-            _lockOnComplete.enabled = _isActive;
+            _lockOn.enabled = false;
+            _lockOnGage.enabled = false;
+            _lockOnComplete.enabled = false;
         }
     } 
 
