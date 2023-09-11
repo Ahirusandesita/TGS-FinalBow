@@ -10,6 +10,12 @@ using UnityEngine;
 
 public class GroundEnemyStats : CommonEnemyStats
 {
+    protected override void Start()
+    {
+        base.Start();
+
+        _reaction.SubscribeReactionFinish(Death);
+    }
     public override void Death()
     {
         _drop.DropStart(_dropData, this.transform.position);
@@ -19,6 +25,8 @@ public class GroundEnemyStats : CommonEnemyStats
 
     protected override void OnDeathReactions(Transform arrowTransform, Vector3 arrowVector)
     {
+        _reaction.ReactionSetting(_takeEnchantment);
 
+        _reaction.ReactionEventStart(arrowTransform, arrowVector);
     }
 }
