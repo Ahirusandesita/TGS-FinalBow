@@ -15,77 +15,14 @@ public enum TutorialIventType
     opening,
     shot1,
     shot2,
+    enchant1,
+    enchant2,
+    enchant3,
 }
 
 
 public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 {
-    #region class
-    /// <summary>
-    /// TutorialOpeningテキスト
-    /// </summary>
-    private class TutorialOpening : ITextLikeSpeaking
-    {
-        private GameObject _kakashi;
-        private Action _action;
-
-        /// <param name="kakashi">かかし</param>
-        /// <param name="action">ProgressingTheTutorial</param>
-        public TutorialOpening(GameObject kakashi, Action action)
-        {
-            _kakashi = kakashi;
-            _action = action;
-        }
-
-        public void IsComplete()
-        {
-            _kakashi.SetActive(false);
-            _action();
-        }
-    }
-
-    /// <summary>
-    /// TutorialShot1テキスト
-    /// </summary>
-    private class TutorialShot1 : ITextLikeSpeaking
-    {
-        public void IsComplete()
-        {
-            // 弦を掴んだ後の処理
-        }
-    }
-
-    private class TutorialShot2 : ITextLikeSpeaking
-    {
-        public delegate IEnumerator TargetSpawn(int a);
-
-        private int _targetAmount;
-        private TargetSpawn _targetSpawn;
-        private MonoBehaviour _mono;
-        private Action _action;
-
-        /// <param name="targetAmount">スポーンする数</param>
-        /// <param name="action">ProgressingTheTutorial</param>
-        public TutorialShot2(int targetAmount, TargetSpawn targetSpawn, MonoBehaviour mono, Action action)
-        {
-            _targetAmount = targetAmount;
-            _targetSpawn = targetSpawn;
-            _mono = mono;
-            _action = action;
-        }
-
-        public void IsComplete()
-        {
-            for (int i = 0; i < _targetAmount; i++)
-            {
-                _mono.StartCoroutine(_targetSpawn(i));
-            }
-
-            _action();
-        }
-    }
-    #endregion
-
     #region variable 
     [SerializeField]
     private StageDataTable _stageDataTable = default;
@@ -106,9 +43,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     [Tooltip("現在の的の出現回数")]
     private int _targetSpawnCount = 0;
-
-    [Tooltip("テキスト表示が終了")]
-    private bool _isFinishTextDisplayed = false;
     #endregion
 
     #region property
@@ -162,43 +96,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// <param name="currentTime">呼び出した時間</param>
     private IEnumerator CallText(float waitTime)
     {
-        _isFinishTextDisplayed = false;
-
         yield return new WaitForSeconds(waitTime);
-        _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType], GenerateClass(_currentTutorialType));
-    }
-
-    /// <summary>
-    /// チュートリアルの進行度によって、クラスのインスタンスを作る処理
-    /// </summary>
-    /// <param name="tutorialType">現在の</param>
-    /// <returns></returns>
-    private ITextLikeSpeaking GenerateClass(TutorialIventType tutorialType)
-    {
-        ITextLikeSpeaking generatedClass = default;
-
-        switch (tutorialType)
-        {
-            case TutorialIventType.opening:
-
-                generatedClass = new TutorialOpening(_kakashi, ProgressingTheTutorial);
-                break;
-
-            case TutorialIventType.shot1:
-
-                generatedClass = this;
-                break;
-
-            case TutorialIventType.shot2:
-
-                generatedClass = new TutorialShot2(_stageDataTable._waveInformation[_targetSpawnCount]._targetData.Count, SpawnTarget, this, ProgressingTheTutorial);
-                break;
-
-            default:
-                break;
-        }
-
-        return generatedClass;
+        _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType], this);
     }
 
     /// <summary>
@@ -264,10 +163,33 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void IsComplete()
     {
-        _isFinishTextDisplayed = true;
-        //---------------------------------------------------
-        ProgressingTheTutorial();// 仮
-        //---------------------------------------------------
+        switch (_currentTutorialType)
+        {
+            case TutorialIventType.opening:
+
+                _kakashi.SetActive(false);
+                ProgressingTheTutorial();
+                break;
+
+            case TutorialIventType.shot1:
+
+                ProgressingTheTutorial();
+                break;
+
+            case TutorialIventType.shot2:
+
+                for (int i = 0; i < _stageDataTable._waveInformation[_targetSpawnCount]._targetData.Count; i++)
+                    StartCoroutine(SpawnTarget(i));
+
+                ProgressingTheTutorial();
+                break;
+
+            case TutorialIventType.enchant1:
+
+
+            default:
+                break;
+        }
     }
     #endregion
 }
