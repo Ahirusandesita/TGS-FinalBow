@@ -70,10 +70,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // ゼロ　ただのゼロ　普通にゼロ　なおfloat ニュース番組ではない
     private const float ZERO = 0f;
 
-    // サンダーフラグ　サンダーの時は true
+    // 貫通フラグ　貫通の時は true
     private const bool PENETRATE = true;
 
-    // サンダーフラグ　サンダー以外の時は false
+    // 貫通フラグ　貫通以外の時は false
     private const bool NOT_PENETRATE = false;
 
     // 無限　上限なしのクランプ等に使用
@@ -138,11 +138,11 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     // 通常時の射程倍率　射程が長いほど速度減衰が少ない
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
-    private float NORMAL_ATTENUATION = 1/7f;
+    private float NORMAL_ATTENUATION = 0.14286f;
 
     // サンダーの時の射程倍率　射程が長いほど速度減衰が少ない
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
-    private float PENETRATE_ATTENUATION = 1/100f;
+    private float PENETRATE_ATTENUATION = 0.01f;
 
     // 速度減衰の元値　現在速度 = STANDARD_SPEED_VALUE - 減衰率
     private const float STANDARD_SPEED_VALUE = 1f;
@@ -313,6 +313,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         // 設定が終わっていたら
         else
         {
+            print(_attenuation);
             // 水平方向への移動速度の減衰率を算出
             _nowSpeedValue = Mathf.Clamp(STANDARD_SPEED_VALUE - (_flightTime * _attenuation), ZERO , MAXIMUM_SPEED_VALUE);
 
