@@ -19,19 +19,19 @@ public enum WormType
 [CreateAssetMenu(fileName = "GroundEnemyData", menuName = "Scriptables/CreateGroundEnemyDataTable")]
 public class GroundEnemyDataTable : ScriptableObject
 {
-    [Header("地上雑魚/砂埃のスポーン位置"), Tooltip("地上雑魚/砂埃のスポーン位置")]
+    [Header("ワーム/砂埃のスポーン位置"), Tooltip("ワーム/砂埃のスポーン位置")]
     public Transform _groundEnemySpawnPlace;
 
-    [Header("出現する時刻"), Tooltip("出現する時刻")]
+    [Header("出現するまでの時間"), Tooltip("出現するまでの時間")]
     public float _spawnTime_s;
 
     [Header("砂埃のみ出現"), Tooltip("砂埃のみ出現")]
     public bool _onlySandDust;
 
-    [Header("出現キープ時間"), Tooltip("出現キープ時間")]
+    [HideInInspector, Tooltip("潜るまでの時間")]
     public float _appearanceKeep_s;
 
-    [Header("出現の仕方"), Tooltip("出現の仕方")]
+    [HideInInspector, Tooltip("出現の仕方")]
     public WormType _wormType;
 
     //[Header("攻撃する"), Tooltip("攻撃する")]
