@@ -43,6 +43,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     [Tooltip("現在の的の出現回数")]
     private int _targetSpawnCount = 0;
+
+    [Tooltip("存在する的の数")]
+    private int _spawndTargetAmount = default;
     #endregion
 
     #region property
@@ -113,9 +116,22 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         // 時間差スポーン制御
         yield return new WaitForSeconds(dataPath._spawnDelay_s);
 
-        TargetMove target = _poolSystem.CallObject(PoolEnum.PoolObjectType.targetObject, dataPath._spawnPlace.position).GetComponent<TargetMove>();
-        target.TargetData = dataPath;
-        target.InitializeWhenEnable();
+        GameObject target = _poolSystem.CallObject(PoolEnum.PoolObjectType.targetObject, dataPath._spawnPlace.position).gameObject;
+        TargetMove targetMove = target.GetComponent<TargetMove>();
+        targetMove.TargetData = dataPath;
+        targetMove.InitializeWhenEnable();
+
+        target.GetComponent<TargetStats>()._decrementTargetAmount = DecrementTargetAmount;
+
+        _spawndTargetAmount++;
+    }
+
+    private void DecrementTargetAmount()
+    {
+        _spawndTargetAmount--;
+
+        if (_spawndTargetAmount <= 0)
+            ProgressingTheTutorial();
     }
 
     /// <summary>
@@ -168,26 +184,38 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             // VRが見えるか確認した後
             case TutorialIventType.opening:
 
-                // かかし
+                // かかしを消す
                 _kakashi.SetActive(false);
                 ProgressingTheTutorial();
                 break;
 
+            // 弦を掴んだ後
             case TutorialIventType.shot1:
 
+                //-----------------------------------------------
+                // ここで弦を掴んだかどうか検知
+                //-----------------------------------------------
                 ProgressingTheTutorial();
                 break;
 
+            // 的に当てた後
             case TutorialIventType.shot2:
 
+                // 的を出現させる
                 for (int i = 0; i < _stageDataTable._waveInformation[_targetSpawnCount]._targetData.Count; i++)
                     StartCoroutine(SpawnTarget(i));
 
-                ProgressingTheTutorial();
+                _targetSpawnCount++;
+
                 break;
 
             case TutorialIventType.enchant1:
 
+                //-----------------------------------------------
+                // ここでラジアルメニューを検知
+                //-----------------------------------------------
+                ProgressingTheTutorial();
+                break;
 
             default:
                 break;

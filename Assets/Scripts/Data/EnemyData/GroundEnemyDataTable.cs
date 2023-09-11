@@ -22,7 +22,10 @@ public class GroundEnemyDataTable : ScriptableObject
     [Header("ワーム/砂埃のスポーン位置"), Tooltip("ワーム/砂埃のスポーン位置")]
     public Transform _groundEnemySpawnPlace;
 
-    [Header("出現するまでの時間"), Tooltip("出現するまでの時間")]
+    [Header("スポーンするまでの時間"), Tooltip("スポーンするまでの時間")]
+    public float _spawnDelay_s;
+
+    [Header("砂埃の時間"), Tooltip("砂埃の時間")]
     public float _spawnTime_s;
 
     [Header("砂埃のみ出現"), Tooltip("砂埃のみ出現")]
