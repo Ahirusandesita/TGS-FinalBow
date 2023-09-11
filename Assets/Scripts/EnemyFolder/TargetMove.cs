@@ -57,8 +57,12 @@ public class TargetMove : MonoBehaviour
         _transform.rotation = Quaternion.Euler(Vector3.zero);
         _initialRotation_y = _transform.rotation.eulerAngles.y;
         _initialScale = _transform.localScale;
-        _movingVector = (_targetData._goalPlace.position - _targetData._spawnPlace.position).normalized;
-        _goalDistance = (_targetData._goalPlace.position - _targetData._spawnPlace.position).magnitude;
+
+        if (_targetData._needMove)
+        {
+            _movingVector = (_targetData._goalPlace.position - _targetData._spawnPlace.position).normalized;
+            _goalDistance = (_targetData._goalPlace.position - _targetData._spawnPlace.position).magnitude;
+        }
 
         StartCoroutine(LagerAtSpawn());
     }
