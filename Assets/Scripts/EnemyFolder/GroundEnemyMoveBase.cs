@@ -32,6 +32,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     Transform wormSandTransform = default;
     Transform wormGroundTransform = default;
+    Transform wormJumpUpTransform = default;
 
     //private string[,] WormAnimationTrrigers
     //{
@@ -117,6 +118,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
         wormGroundTransform = this.transform.GetChild(0).GetChild(0).transform;
         wormSandTransform = this.transform.GetChild(0).GetChild(1).transform;
+        wormJumpUpTransform = this.transform.GetChild(0).GetChild(2).transform;
         wormSandTransform.gameObject.SetActive(false);
         wormGroundTransform.gameObject.SetActive(false);
         myCollider.enabled = false;
@@ -130,6 +132,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         {
             wormSandTransform.gameObject.SetActive(false);
             wormGroundTransform.gameObject.SetActive(false);
+            wormJumpUpTransform.gameObject.SetActive(false);
             StartCoroutine(WormAction());
             myCollider.enabled = false;
             isOnePlay = false;
@@ -339,7 +342,10 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         myCollider.enabled = true;
         yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s);
         myAnimation.SetTrigger("HideHigh");
-        yield return new WaitForSeconds(1.4f);
+        wormJumpUpTransform.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        wormJumpUpTransform.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1.3f);
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.6f);
         wormGroundTransform.gameObject.SetActive(false);
