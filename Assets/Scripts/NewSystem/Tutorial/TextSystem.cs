@@ -100,6 +100,7 @@ public class TextSystem : MonoBehaviour
             else
             {
                 StartNextTime();
+                canNextText = false;
                 yield return new WaitUntil(() => CanNextText == true || IsNextTime(tutorialManagementData.tutorialManagementItem[i].nextTime) == true);
             }
             this.text.text = default;
