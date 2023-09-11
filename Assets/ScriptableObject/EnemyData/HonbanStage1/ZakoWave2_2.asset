@@ -15,12 +15,12 @@ MonoBehaviour:
   _birdType: 0
   _bullet: 0
   _spawnDelay_s: 2
-  _birdSpawnPlace: {fileID: 1648998255630024935, guid: 70bfa5762b983374fa0e8062cd6a3050, type: 3}
+  _birdSpawnPlace: {fileID: 6849935125499372738, guid: 70bfa5762b983374fa0e8062cd6a3050, type: 3}
   _birdGoalPlaces:
-  - _moveType: 0
-    _arcHeight: 0
+  - _moveType: 1
+    _arcHeight: 1
     _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 5051486603923050630, guid: 16c988c6f99416b4b97d3f5b049f2e4c, type: 3}
+    _birdGoalPlace: {fileID: 7383850847022487542, guid: 16c988c6f99416b4b97d3f5b049f2e4c, type: 3}
     _speed: 20
     _stayTime_s: 1
     _birdAttackType_a: 3
@@ -46,10 +46,10 @@ MonoBehaviour:
     _directionType_moving: 0
     _directionType_stopping: 0
     _directionType_attack: 0
-  - _moveType: 0
-    _arcHeight: 0
+  - _moveType: 1
+    _arcHeight: 1
     _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 7312814682323792739, guid: 29621c4e35836ae4e921a2470947fbcd, type: 3}
+    _birdGoalPlace: {fileID: 6849935125499372738, guid: 70bfa5762b983374fa0e8062cd6a3050, type: 3}
     _speed: 20
     _stayTime_s: 1
     _birdAttackType_a: 3
@@ -75,33 +75,6 @@ MonoBehaviour:
     _directionType_moving: 0
     _directionType_stopping: 0
     _directionType_attack: 0
-  - _moveType: 0
-    _arcHeight: 0
-    _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 7312814682323792739, guid: ce3980fb17d79584e9f3367872913925, type: 3}
-    _speed: 20
-    _stayTime_s: 1
-    _birdAttackType_a: 3
-    _birdAttackType_b: 0
-    _attackInterval_s_a: 1
-    _attackInterval_s_b: 1
-    _attackTiming_s1_a: 0
-    _attackTiming_s2_a: 0
-    _attackTiming_s3_a: 0
-    _attackTiming_s4_a: 0
-    _attackTiming_s5_a: 0
-    _attackTiming_s1_b: 0
-    _attackTiming_s2_b: 0
-    _attackTiming_s3_b: 0
-    _attackTiming_s4_b: 0
-    _attackTiming_s5_b: 0
-    _attackTimes_a: 0
-    _attackTimes_b: 0
-    _cooldownTime_s_a: 0
-    _cooldownTime_s_b: 0
-    _consecutiveAttackInterval_s_a: 0
-    _consecutiveAttackInterval_s_b: 0
-    _directionType_moving: 0
-    _directionType_stopping: 0
-    _directionType_attack: 0
+  _needRoop: 1
   _goalIndexOfRoop: 1
+  _despawnTime_s: 30
