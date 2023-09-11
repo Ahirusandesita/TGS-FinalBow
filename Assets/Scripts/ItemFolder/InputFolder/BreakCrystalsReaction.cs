@@ -1,14 +1,16 @@
 // --------------------------------------------------------- 
-// GimmickDropItem.cs 
+// BreakCrystalsReaction.cs 
 // 
 // CreateDay: 
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-
-public class GimmickDropItem : MonoBehaviour, IFGimmickCaller, IFUseEnchantGimmickTakeBomb, IFGetReactiveEvent
+[RequireComponent(typeof(Drop))]
+public class BreakCrystalsReaction : MonoBehaviour,InterfaceReaction.IBombReaction, InterfaceReaction.IHomingReaction, InterfaceReaction.IKnockBackReaction, InterfaceReaction.INormalReaction, InterfaceReaction.IPenetrateReaction,InterfaceReaction.IThunderReaction
 {
+    bool used = false;
+
     [SerializeField] GameObject breakObject;
 
     [SerializeField] Drop drop;
@@ -18,29 +20,19 @@ public class GimmickDropItem : MonoBehaviour, IFGimmickCaller, IFUseEnchantGimmi
     [SerializeField] GameObject particle;
 
     [SerializeField] Collider col;
-    public bool IsFinish => used;
+    public bool ReactionEnd { get => used; set => used = value; }
 
-    public bool Moving => used;
-
-    bool used = false;
-
-    public void GimmickAction()
+    public bool IsComplete()
     {
-        BreakGimmick();
+        return used;
     }
 
-
-    public void TakeBomb()
+    public void Reaction(Transform t1, Vector3 t2)
     {
-        BreakGimmick();
+        BreakEvent();
     }
 
-    public void CallEvent()
-    {
-        BreakGimmick();
-    }
-
-    private void BreakGimmick()
+    private void BreakEvent()
     {
         if (used)
         {
@@ -53,7 +45,5 @@ public class GimmickDropItem : MonoBehaviour, IFGimmickCaller, IFUseEnchantGimmi
         used = true;
         breakObject.SetActive(false);
         col.enabled = false;
-
     }
-
 }

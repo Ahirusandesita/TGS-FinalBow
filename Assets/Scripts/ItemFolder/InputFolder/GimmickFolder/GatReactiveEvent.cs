@@ -16,10 +16,11 @@ public class GatReactiveEvent : MonoBehaviour
     private void Awake()
     {
         events = GetComponents<IFGetReactiveEvent>();
-
+        
         TestTutorialManager tutorial = FindObjectOfType<TestTutorialManager>();
-
-        tutorial.readOnlyTutorial.Subject.Subscribe(
+        if(tutorial is not null)
+        {
+            tutorial.readOnlyTutorial.Subject.Subscribe(
              tuto =>
              {
                  if (tuto == TutorialType.crystalBreak)
@@ -28,6 +29,9 @@ public class GatReactiveEvent : MonoBehaviour
                  }
              }
             );
+        }
+
+        
     }
 
     private void GetCall()

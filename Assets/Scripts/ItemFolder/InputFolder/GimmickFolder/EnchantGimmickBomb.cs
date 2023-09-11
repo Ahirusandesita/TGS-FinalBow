@@ -31,12 +31,12 @@ public class EnchantGimmickBomb : MonoBehaviour, IFUseEnchantGimmick, IFUseEncha
 
     [SerializeField] Collider cl;
 
-    ObjectPoolSystem pool = default;
 
     [SerializeField] float _overlapSize = 10f;
 
     WaitForSeconds wait = new(0.1f);
 
+    ObjectPoolSystem pool = default;
     bool used = false;
     struct Bomb
     {

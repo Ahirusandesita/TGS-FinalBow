@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+[RequireComponent(typeof(Reaction))]
 public class TargetStats : EnemyStats
 {
     /// <summary>
@@ -17,11 +18,11 @@ public class TargetStats : EnemyStats
 
     private CashObjectInformation _cashObjectInformation = default;
 
-    private BreakMato breakMato = default;
-
     private void OnEnable()
     {
         _hp = 1;
+
+        
     }
 
     protected override void Start()
@@ -32,11 +33,13 @@ public class TargetStats : EnemyStats
 
         _reaction.SubscribeReactionFinish(Death);
 
-        breakMato = new(transform);
+        _cashObjectInformation = transform.root.GetComponent<CashObjectInformation>();
+
     }
 
     public override void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector)
     {
+        base.TakeBomb(damage, arrowTransform, arrowVector);
         TakeDamage(damage, arrowTransform, arrowVector);
     }
 
@@ -44,7 +47,6 @@ public class TargetStats : EnemyStats
     {
         // è¡Ç∑èàóù
         //_onDeathTarget();
-        print("aaades");
         _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
 
@@ -60,8 +62,5 @@ public class TargetStats : EnemyStats
     {
         base.OnDeathReactions(arrowTransform, arrowVector);
 
-        breakMato.BreakStart();
-
-        print("aaa");
     }
 }
