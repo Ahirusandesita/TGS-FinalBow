@@ -339,13 +339,13 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         myAnimation.SetTrigger("RiseHigh");
         wormGroundTransform.gameObject.SetActive(true);
         wormSandTransform.gameObject.SetActive(false);
-        myCollider.enabled = true;
-        yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s);
-        myAnimation.SetTrigger("HideHigh");
         wormJumpUpTransform.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        myCollider.enabled = true;
+        yield return new WaitForSeconds(3f);
         wormJumpUpTransform.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s - 3f);
+        myAnimation.SetTrigger("HideHigh");
+        yield return new WaitForSeconds(1.4f);
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.6f);
         wormGroundTransform.gameObject.SetActive(false);
