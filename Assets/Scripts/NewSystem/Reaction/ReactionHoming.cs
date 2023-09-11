@@ -1,18 +1,17 @@
 // --------------------------------------------------------- 
-// ReactionNormals.cs 
+// ReactionHoming.cs 
 // 
 // CreateDay: 
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, InterfaceReaction.IPenetrateReaction, InterfaceReaction.IKnockBackReaction
+public class ReactionHoming : MonoBehaviour,InterfaceReaction.IHomingReaction
 {
     [SerializeField] CreateAnimationCurve moveCurveZ = default;
     [SerializeField] CreateAnimationCurve moveCurveY = default;
     [SerializeField] CreateAnimationCurve rotateX = default;
     Animator animator = default;
-    PlayerStats player = default;
     Vector3 _backDirection = Vector3.back;
     float _cacheTime = 0f;
     bool _isStart = false;
@@ -22,7 +21,7 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
     public void AfterReaction(Transform t1, Vector3 t2)
     {
-        
+
     }
 
     public bool IsComplete()
@@ -32,14 +31,12 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
     public void OverReaction(Transform t1, Vector3 t2)
     {
-        
+
     }
 
     public void Reaction(Transform arrow, Vector3 arrowPos)
     {
-        player = FindObjectOfType<PlayerStats>();
-
-        _backDirection = (this.transform.position - player.transform.position).normalized;
+        _backDirection = (this.transform.position - arrowPos).normalized;
 
         _backDirection.y = 0;
 
@@ -52,7 +49,6 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
         _cacheTime = 0f;
 
         animator = GetComponent<Animator>();
-
 
         animator.SetTrigger("Death");
     }
@@ -72,7 +68,7 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
             Vector3 moveDown = Vector3.up * moveCurveY.Curve.Evaluate(_cacheTime);
 
-            transform.Translate((moveDown + moveBack) * Time.deltaTime, Space.World) ;
+            transform.Translate((moveDown + moveBack) * Time.deltaTime, Space.World);
 
             Vector3 rote = transform.rotation.eulerAngles;
 
@@ -80,7 +76,7 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
             _cacheTime += Time.deltaTime;
 
-            
+
         }
     }
 
