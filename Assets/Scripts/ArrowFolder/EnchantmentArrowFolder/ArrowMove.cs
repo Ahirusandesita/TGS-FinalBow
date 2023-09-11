@@ -185,13 +185,13 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private const int SEARCH_ANGLE = 1;
 
     // _lookSpeedCoefficientの初期値
-    private const float LOOKSPEED_DEFAULT = 0.5f;
+    private const float LOOKSPEED_DEFAULT = 0.8f;
 
     // _lookSpeedCoefficientの増加係数
-    private const float LOOKSPEED_ADDVALUE = 1f;
+    private const float LOOKSPEED_ADDVALUE = 1.5f;
 
     // _lookSpeedCoefficientの最大値
-    private const float LOOKSPEED_MAX = 3f;
+    private const float LOOKSPEED_MAX = 8f;
 
     #endregion
 
@@ -206,10 +206,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     /// <returns></returns>
     private float SpeedToRangeCoefficient(bool isThunder)
     {
-        // サンターかどうか判定
+        // 貫通かどうか判定
         if (isThunder)
         {
-            // サンダーの空気抵抗を返す
+            // 貫通の空気抵抗を返す
             return SPEED_TO_RANGE_COEFFICIENT_THUNDER;
         }
         else
@@ -220,7 +220,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     }
 
     /// <summary>
-    /// 重力加速度の設定プロパティ　通常かサンダーで変化
+    /// 重力加速度の設定プロパティ　通常か貫通で変化
     /// </summary>
     /// <param name="isThunder">サンダーフラグ</param>
     /// <returns></returns>
@@ -526,11 +526,13 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         //    }
         //}
 
+        // 初期設定
         if (!_endSetting)
         {
             SetHomingTarget(arrowTransform , _arrowSpeed);
         }
 
+        // 補正を時間とともに増加
         if(_lookSpeedCoefficient < LOOKSPEED_MAX)
         {
             _lookSpeedCoefficient += LOOKSPEED_ADDVALUE * Time.deltaTime;
