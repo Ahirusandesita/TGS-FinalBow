@@ -22,8 +22,7 @@ public struct Size
     /// <summary>
     /// SIZE_MINIMUMï™ÇÃÇP
     /// </summary>
-    private const float SIZE_MINIMUM = 6f;
-
+    public static float SIZE_MINIMUM = 6f;
 
     /// <summary>
     /// ãzÇ¢çûÇÒÇæêîÇë´ÇµÇƒÇ¢Ç≠óp
@@ -93,13 +92,19 @@ public struct SizeAdjustmentToVector3
 
 public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, IArrowEnchantDamageable
 {
+    [SerializeField]
+    private float bombSize = 6f;
+    
+
     private ObjectPoolSystem _objectPoolSystem;
 
     private WaitForSeconds _waitSeconds = default;
 
     private SizeAdjustmentToVector3 sizeAdjustmentToVector3;
-
-
+    void Awake()
+    {
+        Size.SIZE_MINIMUM = bombSize;
+    }
     private void Start()
     {
         _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
