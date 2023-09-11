@@ -132,6 +132,14 @@ public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         Tutorial();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            _textSystem.NextText();
+        }
+    }
+
 
     private void Tutorial()
     {
@@ -200,7 +208,7 @@ public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// <returns></returns>
     private IEnumerator SpawnTarget(int targetIndex)
     {
-        // チュートリアル用のデータのパスを取得（チュートリアルなので
+        // チュートリアル用のデータのパスを取得
         TargetDataTable dataPath = _stageDataTable._waveInformation[_targetSpawnCount]._targetData[targetIndex];
 
         // 時間差スポーン制御
@@ -260,7 +268,7 @@ public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _isFinishTextDisplayed = true;
         //---------------------------------------------------
         ProgressingTheTutorial();// 仮
-                                 //---------------------------------------------------
+        //---------------------------------------------------
     }
     #endregion
 }
