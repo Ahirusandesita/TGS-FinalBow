@@ -8,5 +8,10 @@
 
 public class GroundEnemyStats : CommonEnemyStats
 {
+    public override void Death()
+    {
+        _drop.DropStart(_dropData, this.transform.position);
 
+        base.Death();
+    }
 }

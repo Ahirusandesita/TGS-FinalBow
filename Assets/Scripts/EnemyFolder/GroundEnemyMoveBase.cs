@@ -87,7 +87,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
 
     private GroundEnemyDataTable _groundEnemyData;
-    public GroundEnemyDataTable GroundEnemyData { set; private get; }
+    public GroundEnemyDataTable GroundEnemyData { set => _groundEnemyData = value; }
 
     private void OnEnable()
     {
