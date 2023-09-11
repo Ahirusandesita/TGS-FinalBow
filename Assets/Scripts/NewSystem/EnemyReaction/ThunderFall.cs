@@ -11,6 +11,8 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
     #region variable 
     public bool ReactionEnd { get; set; }
 
+    [SerializeField] GameObject particle = default;
+
     private BirdStats _birdStats = default;
 
     private Transform _transform = default;
@@ -21,7 +23,7 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
     private float _fallSpeed = 45f;
 
     [Tooltip("回転速度")]
-    private float _rotateSpeed = 150f;
+    private float _rotateSpeed = 100f;
 
     [Tooltip("リアクションを開始する")]
     private bool _needStartReaction = default;
@@ -40,6 +42,17 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
     private readonly Vector3 DOWN = Vector3.down;
     private readonly Vector3 FORWARD = Vector3.forward;
 
+
+    readonly float _paralysisMoveDistance = 0.8f;
+
+    float _paralysisMoveCache = 0f;
+
+    readonly float _paralysisMoveReverceTime = 0.05f;
+
+    float _paralysisSpeed = 0f;
+
+    Vector3 _paralysisMoveVector = Vector3.one.normalized;
+
     #endregion
     #region property
     #endregion
@@ -49,6 +62,10 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
     {
         _needStartReaction = false;
         _isFinished = false;
+        _paralysisMoveCache = 0f;
+        _paralysisSpeed = _paralysisMoveDistance / _paralysisMoveReverceTime;
+        _paralysisMoveVector = Random.onUnitSphere.normalized;
+        particle.SetActive(false);
     }
 
     private void Awake()
@@ -65,9 +82,12 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
         {
             _elapsedTime += Time.deltaTime;
 
+            
+
             // 麻痺時間が終わったら、リアクション（敵の死亡処理）を開始する
             if (_elapsedTime >= _birdStats.ParalysisTime)
             {
+                _animator.speed = 0;
                 _elapsedTime2 += Time.deltaTime;
 
                 if (_elapsedTime2 >= ERASE_TIME)
@@ -89,12 +109,18 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
 
                 _transform.Rotate(FORWARD * Time.deltaTime * _rotateSpeed);
             }
+            else
+            {
+                ParalysisAnimation();
+            }
         }
     }
 
     public void Reaction(Transform t1, Vector3 t2)
     {
         _needStartReaction = true;
+        _animator.SetTrigger("Thunder");
+        particle.SetActive(true);
     }
 
     public void AfterReaction(Transform t1, Vector3 t2)
@@ -108,5 +134,23 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
     }
 
     public bool IsComplete() => _isFinished;
+
+    private void ParalysisAnimation()
+    {
+        if(_paralysisMoveCache < _paralysisMoveDistance)
+        {
+            Vector3 move = _paralysisSpeed * Time.deltaTime * _paralysisMoveVector;
+            _transform.Translate(move);
+            _paralysisMoveCache += move.magnitude;
+        }
+        else
+        {
+            _paralysisMoveVector = -_paralysisMoveVector;
+
+            _paralysisMoveCache = 0f;
+        }
+    }
+
+    
     #endregion
 }
