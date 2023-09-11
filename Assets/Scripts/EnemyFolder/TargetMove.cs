@@ -60,8 +60,8 @@ public class TargetMove : MonoBehaviour
 
         if (_targetData._needMove)
         {
-            _movingVector = (_targetData._goalPlace.position - _targetData._spawnPlace.position).normalized;
-            _goalDistance = (_targetData._goalPlace.position - _targetData._spawnPlace.position).magnitude;
+            _movingVector = (_targetData._spawnPlace.position - _targetData._goalPlace.position).normalized;
+            _goalDistance = (_targetData._spawnPlace.position - _targetData._goalPlace.position).magnitude;
         }
 
         StartCoroutine(LagerAtSpawn());
