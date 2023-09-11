@@ -123,16 +123,7 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
         particle.SetActive(true);
     }
 
-    public void AfterReaction(Transform t1, Vector3 t2)
-    {
-
-    }
-
-    public void OverReaction(Transform t1, Vector3 t2)
-    {
-
-    }
-
+  
     public bool IsComplete() => _isFinished;
 
     private void ParalysisAnimation()

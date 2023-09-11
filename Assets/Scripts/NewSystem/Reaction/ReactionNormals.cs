@@ -6,12 +6,13 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, InterfaceReaction.IPenetrateReaction, InterfaceReaction.IHomingReaction, InterfaceReaction.IKnockBackReaction
+public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, InterfaceReaction.IPenetrateReaction, InterfaceReaction.IKnockBackReaction
 {
     [SerializeField] CreateAnimationCurve moveCurveZ = default;
     [SerializeField] CreateAnimationCurve moveCurveY = default;
     [SerializeField] CreateAnimationCurve rotateX = default;
     Animator animator = default;
+    PlayerStats player = default;
     Vector3 _backDirection = Vector3.back;
     float _cacheTime = 0f;
     bool _isStart = false;
@@ -36,7 +37,9 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
     public void Reaction(Transform arrow, Vector3 arrowPos)
     {
-        _backDirection = (this.transform.position - arrowPos).normalized;
+        player = FindObjectOfType<PlayerStats>();
+
+        _backDirection = (this.transform.position - player.transform.position).normalized;
 
         _backDirection.y = 0;
 
@@ -49,6 +52,7 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
         _cacheTime = 0f;
 
         animator = GetComponent<Animator>();
+
 
         animator.SetTrigger("Death");
     }

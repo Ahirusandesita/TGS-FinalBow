@@ -310,7 +310,10 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
     protected virtual IEnumerator MachineGun()
     {
         yield return _delayTime;
-        _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, GetSpawnPosition.position);
+        Transform arrow = _poolSystem.CallObject(PoolEnum.PoolObjectType.arrow, GetSpawnPosition.position).transform;
+
+        arrow.LookAt(transform.forward + transform.position);
+
         yield return null;
 
         BowShotArrow(GetShotDirection);
