@@ -83,7 +83,14 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                     }
                     _mostNearDistance = INFINITY;
                     _lockOnTime = 0f;
-                    _lockOnUI = _temporaryTarget.GetComponent<LockOnUISystem>();
+                    try
+                    {
+                        _lockOnUI = _temporaryTarget.gameObject.GetComponent<LockOnUISystem>();
+                    }
+                    catch
+                    {
+                        _lockOnUI = null;
+                    }
                 }
 
                 _onTarget = false;
@@ -101,7 +108,14 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                 if (_onTarget)
                 {
                     _lockOnTime += Time.deltaTime;
-                    _lockOnUI.LockOnNow(_lockOnTime);
+                    try
+                    {
+                        _lockOnUI.LockOnNow(_lockOnTime);
+                    }
+                    catch
+                    {
+                        // ‘ŠŽè‚ÉUI‚ª‚È‚¢
+                    }
                     if (_lockOnTime > DISITION_TIME && LockOnTarget == null)
                     {
                         LockOnTarget = _temporaryTarget;
@@ -110,7 +124,14 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                 }
                 else
                 {
-                    _lockOnUI.LockOnEnd();
+                    try
+                    {
+                        _lockOnUI.LockOnEnd();
+                    }
+                    catch
+                    {
+                        // UI‚ªnothing
+                    }
                     ReSetTarget();
                 }
             }
