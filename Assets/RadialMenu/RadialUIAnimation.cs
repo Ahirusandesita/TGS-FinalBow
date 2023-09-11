@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RadianUIAnimation : EnchantsChenger
+public class RadialUIAnimation : EnchantsChenger
 {
     private enum E_MyState 
     { 
@@ -26,7 +26,7 @@ public class RadianUIAnimation : EnchantsChenger
     public Image _myImage = default;
 
 
-    private delegate void AnimationEvent(RadianUIAnimation _this);
+    private delegate void AnimationEvent(RadialUIAnimation _this);
 
     private AnimationEvent myEvent;
 
@@ -155,7 +155,7 @@ public class RadianUIAnimation : EnchantsChenger
 
 
 
-    protected override void SetCancelState(RadianUIAnimation _this)
+    protected override void SetCancelState(RadialUIAnimation _this)
     {
         if (!_isSetCansel)
         {
@@ -164,7 +164,7 @@ public class RadianUIAnimation : EnchantsChenger
         }
     }
 
-    protected override void SetSelectState(RadianUIAnimation _this)
+    protected override void SetSelectState(RadialUIAnimation _this)
     {
         if (!_isSetSelect)
         {
@@ -173,7 +173,7 @@ public class RadianUIAnimation : EnchantsChenger
         }
     }
 
-    protected override void SetNotselectState(RadianUIAnimation _this)
+    protected override void SetNotselectState(RadialUIAnimation _this)
     {
         if (!_isSetNotselect)
         {
@@ -183,7 +183,7 @@ public class RadianUIAnimation : EnchantsChenger
     }
 
 
-    protected override void SetDecisionState(RadianUIAnimation _this)
+    protected override void SetDecisionState(RadialUIAnimation _this)
     {
         if (!_isSetDecision)
         {
@@ -192,7 +192,7 @@ public class RadianUIAnimation : EnchantsChenger
         }
     }
 
-    protected override void SetReSetState(RadianUIAnimation _this)
+    protected override void SetReSetState(RadialUIAnimation _this)
     {
         if (!_isSetReSet)
         {
@@ -210,7 +210,7 @@ public class RadianUIAnimation : EnchantsChenger
     AnimationEvent decisionEvent;
 
 
-    private void SetCancelEvent(RadianUIAnimation _this)
+    private void SetCancelEvent(RadialUIAnimation _this)
     {
         switch (_myState)
         {
@@ -252,7 +252,7 @@ public class RadianUIAnimation : EnchantsChenger
         }
     }
 
-    private void SetSelectEvent(RadianUIAnimation _this)
+    private void SetSelectEvent(RadialUIAnimation _this)
     {
         switch (_myState)
         {
@@ -294,7 +294,7 @@ public class RadianUIAnimation : EnchantsChenger
         }
     }
 
-    private void SetNotselectEvent(RadianUIAnimation _this)
+    private void SetNotselectEvent(RadialUIAnimation _this)
     {
         switch (_myState)
         {
@@ -336,7 +336,7 @@ public class RadianUIAnimation : EnchantsChenger
         }
     }
 
-    private void SetDecisionEvent(RadianUIAnimation _this)
+    private void SetDecisionEvent(RadialUIAnimation _this)
     {
         switch (_myState)
         {
