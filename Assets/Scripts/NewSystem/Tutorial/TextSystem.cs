@@ -42,7 +42,7 @@ public class TextSystem : MonoBehaviour
             {
                 if (canNextText)
                 {
-                    for (int u = k; k < tutorialData.text.Length; u++)
+                    for (int u = k; u < tutorialData.text.Length; u++)
                     {
                         char restChar = tutorialData.text[u];
                         string restText = default;
@@ -103,7 +103,7 @@ public class TextSystem : MonoBehaviour
             {
                 StartNextTime();
                 canNextText = false;
-                yield return new WaitUntil(() => CanNextText == true || IsNextTime(tutorialManagementData.tutorialManagementItem[i].nextTime) == true);
+                yield return new WaitUntil(() => CanNextText || IsNextTime(tutorialManagementData.tutorialManagementItem[i].nextTime));
             }
             this.text.text = default;
             canNextText = false;
@@ -118,6 +118,7 @@ public class TextSystem : MonoBehaviour
     }
 
     private bool IsNextTime(float nextTime) => nextTime == 0f ? false : Time.time - time > nextTime;
+    public float A => Time.time - time;
     public void NextText() => canNextText = true;
 
     private bool CanNextText => canNextText;
