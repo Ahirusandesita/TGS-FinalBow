@@ -108,14 +108,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                 if (_onTarget)
                 {
                     _lockOnTime += Time.deltaTime;
-                    try
-                    {
-                        _lockOnUI.LockOnNow(_lockOnTime);
-                    }
-                    catch
-                    {
-                        // ‘ŠŽè‚ÉUI‚ª‚È‚¢
-                    }
+                    DestroyUI();
                     if (_lockOnTime > DISITION_TIME && LockOnTarget == null)
                     {
                         LockOnTarget = _temporaryTarget;
@@ -124,14 +117,6 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                 }
                 else
                 {
-                    try
-                    {
-                        _lockOnUI.LockOnEnd();
-                    }
-                    catch
-                    {
-                        // UI‚ªnothing
-                    }
                     ReSetTarget();
                 }
             }
@@ -140,6 +125,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
 
     private void ReSetTarget()
     {
+        DestroyUI();
         _temporaryTarget = null;
         LockOnTarget = null;
     }
@@ -148,6 +134,18 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
     {
         _temporaryTarget = null;
         return LockOnTarget;
+    }
+
+    private void DestroyUI()
+    {
+        try
+        {
+            _lockOnUI.LockOnEnd();
+        }
+        catch
+        {
+            // UI‚ªnothing
+        }
     }
 
  #endregion
