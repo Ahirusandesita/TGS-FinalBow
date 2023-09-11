@@ -65,6 +65,9 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     private bool isJumpUp = true;
     private bool canJumpStop = true;
+
+    private BoxCollider myCollider;
+
     [SerializeField]
     private float stopTime;
 
@@ -99,7 +102,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         _jumpPowerMax = _jumpPower;
         myAnimation = this.GetComponent<Animator>();
         _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
-
+        myCollider = this.GetComponent<BoxCollider>();
         base.Start();
 
     }
@@ -116,6 +119,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         wormSandTransform = this.transform.GetChild(0).GetChild(1).transform;
         wormSandTransform.gameObject.SetActive(false);
         wormGroundTransform.gameObject.SetActive(false);
+        myCollider.enabled = false;
         X_Debug.Log(_groundEnemyData);
     }
 
@@ -127,6 +131,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
             wormSandTransform.gameObject.SetActive(false);
             wormGroundTransform.gameObject.SetActive(false);
             StartCoroutine(WormAction());
+            myCollider.enabled = false;
             isOnePlay = false;
         }
 
@@ -331,12 +336,14 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         myAnimation.SetTrigger("RiseHigh");
         wormGroundTransform.gameObject.SetActive(true);
         wormSandTransform.gameObject.SetActive(false);
+        myCollider.enabled = true;
         yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s);
         myAnimation.SetTrigger("HideHigh");
         yield return new WaitForSeconds(1.4f);
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.6f);
         wormGroundTransform.gameObject.SetActive(false);
+        myCollider.enabled = false;
         yield return new WaitForSeconds(0.3f);
         wormSandTransform.gameObject.SetActive(false);
 

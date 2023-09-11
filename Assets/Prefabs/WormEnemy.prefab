@@ -10486,7 +10486,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990401647}
-  - component: {fileID: 5651375071983832745}
   m_Layer: 0
   m_Name: GIANT_WORM_JAW_LEFT
   m_TagString: Untagged
@@ -10509,19 +10508,6 @@ Transform:
   m_Father: {fileID: 5651375071990455045}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983832745
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990205155}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.74, y: 1.61, z: 0.44}
-  m_Center: {x: -1.27, y: 0, z: 0}
 --- !u!1 &5651375071990206313
 GameObject:
   m_ObjectHideFlags: 0
@@ -10567,6 +10553,7 @@ GameObject:
   - component: {fileID: 8236779066218440944}
   - component: {fileID: -8455238509223195345}
   - component: {fileID: -1918366982683179979}
+  - component: {fileID: 5260728157567034349}
   m_Layer: 0
   m_Name: WormEnemy
   m_TagString: Untagged
@@ -10686,6 +10673,19 @@ MonoBehaviour:
   moveMinusSpeed: 0
   stopTime: 0
   _attackType: 0
+--- !u!65 &5260728157567034349
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651375071990206721}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.335905, y: 14.226678, z: 5.23158}
+  m_Center: {x: -0.54374695, y: 6.613339, z: 0.5975065}
 --- !u!1 &5651375071990208891
 GameObject:
   m_ObjectHideFlags: 0
@@ -10726,7 +10726,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990490025}
-  - component: {fileID: 5651375071983873525}
   m_Layer: 0
   m_Name: GIANT_WORM_ Tail2
   m_TagString: Untagged
@@ -10750,19 +10749,6 @@ Transform:
   m_Father: {fileID: 5651375071990422865}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983873525
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990209091}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.38, y: 1.81, z: 1.7}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990210831
 GameObject:
   m_ObjectHideFlags: 0
@@ -10895,7 +10881,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990464121}
-  - component: {fileID: 5651375071994114657}
   m_Layer: 0
   m_Name: GIANT_WORM_WEAK_POINT_LEFT_A
   m_TagString: Untagged
@@ -10918,19 +10903,6 @@ Transform:
   m_Father: {fileID: 5651375071990459823}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5651375071994114657
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990211505}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.39
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990212691
 GameObject:
   m_ObjectHideFlags: 0
@@ -10940,7 +10912,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990443079}
-  - component: {fileID: 5651375071994145965}
   m_Layer: 0
   m_Name: GIANT_WORM_WEAK_POINT_LEFT_B
   m_TagString: Untagged
@@ -10963,19 +10934,6 @@ Transform:
   m_Father: {fileID: 5651375071990406755}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5651375071994145965
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990212691}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.39
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990214117
 GameObject:
   m_ObjectHideFlags: 0
@@ -10985,7 +10943,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990455045}
-  - component: {fileID: 5651375071983836293}
   m_Layer: 0
   m_Name: GIANT_WORM_ Neck4
   m_TagString: Untagged
@@ -11012,19 +10969,6 @@ Transform:
   m_Father: {fileID: 5651375071990419639}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983836293
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990214117}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.31, y: 2.58, z: 2.28}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990216887
 GameObject:
   m_ObjectHideFlags: 0
@@ -11034,7 +10978,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990444979}
-  - component: {fileID: 5651375071983856279}
   m_Layer: 0
   m_Name: GIANT_WORM_ Spine
   m_TagString: Untagged
@@ -11059,19 +11002,6 @@ Transform:
   m_Father: {fileID: 5651375071990418763}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983856279
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990216887}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.38, y: 1.81, z: 1.7}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990217915
 GameObject:
   m_ObjectHideFlags: 0
@@ -11112,7 +11042,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990477881}
-  - component: {fileID: 5651375071983871637}
   m_Layer: 0
   m_Name: GIANT_WORM_ Tail
   m_TagString: Untagged
@@ -11136,19 +11065,6 @@ Transform:
   m_Father: {fileID: 5651375071990444979}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983871637
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990217981}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.38, y: 1.81, z: 1.7}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990218155
 GameObject:
   m_ObjectHideFlags: 0
@@ -11292,7 +11208,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990453551}
-  - component: {fileID: 5651375071984335661}
   m_Layer: 0
   m_Name: GIANT_WORM_ Head
   m_TagString: Untagged
@@ -11315,19 +11230,6 @@ Transform:
   m_Father: {fileID: 5651375071990455045}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071984335661
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990220971}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.2, y: 1.01, z: 1.76}
-  m_Center: {x: -1.5, y: 0, z: 0}
 --- !u!1 &5651375071990227649
 GameObject:
   m_ObjectHideFlags: 0
@@ -11435,7 +11337,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990428537}
-  - component: {fileID: 5651375071994165227}
   m_Layer: 0
   m_Name: GIANT_WORM_WEAK_POINT_RIGHT_B
   m_TagString: Untagged
@@ -11458,19 +11359,6 @@ Transform:
   m_Father: {fileID: 5651375071990406755}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5651375071994165227
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990228177}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.39
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990231683
 GameObject:
   m_ObjectHideFlags: 0
@@ -11660,7 +11548,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990459823}
-  - component: {fileID: 5651375071983870107}
   m_Layer: 0
   m_Name: GIANT_WORM_ Neck2
   m_TagString: Untagged
@@ -11686,19 +11573,6 @@ Transform:
   m_Father: {fileID: 5651375071990450115}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983870107
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990238815}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.31, y: 2.58, z: 2.28}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990240701
 GameObject:
   m_ObjectHideFlags: 0
@@ -11739,7 +11613,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990454695}
-  - component: {fileID: 5651375071984335251}
   m_Layer: 0
   m_Name: GIANT_WORM_JAW_RIGHT
   m_TagString: Untagged
@@ -11762,19 +11635,6 @@ Transform:
   m_Father: {fileID: 5651375071990455045}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071984335251
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990242533}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.74, y: 1.61, z: 0.44}
-  m_Center: {x: -1.27, y: 0, z: 0}
 --- !u!1 &5651375071990246223
 GameObject:
   m_ObjectHideFlags: 0
@@ -11933,7 +11793,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990431835}
-  - component: {fileID: 5651375071983834365}
   m_Layer: 0
   m_Name: GIANT_WORM_MOUTH
   m_TagString: Untagged
@@ -11957,19 +11816,6 @@ Transform:
   m_Father: {fileID: 5651375071990455045}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983834365
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990251565}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.44, y: 1.46, z: 1.36}
-  m_Center: {x: -0.47, y: 0, z: 0}
 --- !u!1 &5651375071990252091
 GameObject:
   m_ObjectHideFlags: 0
@@ -12097,7 +11943,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990420163}
-  - component: {fileID: 5651375071984337613}
   m_Layer: 0
   m_Name: GIANT_WORM_ Tail3
   m_TagString: Untagged
@@ -12121,19 +11966,6 @@ Transform:
   m_Father: {fileID: 5651375071990490025}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071984337613
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990253049}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.98, y: 1.81, z: 1.7}
-  m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!1 &5651375071990254245
 GameObject:
   m_ObjectHideFlags: 0
@@ -12206,7 +12038,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990419639}
-  - component: {fileID: 5651375071984336567}
   m_Layer: 0
   m_Name: GIANT_WORM_ Neck3
   m_TagString: Untagged
@@ -12230,19 +12061,6 @@ Transform:
   m_Father: {fileID: 5651375071990459823}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071984336567
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990255555}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.31, y: 2.58, z: 2.28}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990258219
 GameObject:
   m_ObjectHideFlags: 0
@@ -12252,7 +12070,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990445125}
-  - component: {fileID: 5651375071994153369}
   m_Layer: 0
   m_Name: GIANT_WORM_WEAK_POINT_RIGHT_C
   m_TagString: Untagged
@@ -12275,19 +12092,6 @@ Transform:
   m_Father: {fileID: 5651375071990418763}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5651375071994153369
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990258219}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.39
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990259415
 GameObject:
   m_ObjectHideFlags: 0
@@ -27221,7 +27025,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990488883}
-  - component: {fileID: 5651375071994156803}
   m_Layer: 0
   m_Name: GIANT_WORM_WEAK_POINT_RIGHT_A
   m_TagString: Untagged
@@ -27244,19 +27047,6 @@ Transform:
   m_Father: {fileID: 5651375071990459823}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5651375071994156803
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990268629}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.39
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990268677
 GameObject:
   m_ObjectHideFlags: 0
@@ -32173,7 +31963,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990418763}
-  - component: {fileID: 5651375071983833535}
   m_Layer: 0
   m_Name: GIANT_WORM_ Pelvis
   m_TagString: Untagged
@@ -32199,19 +31988,6 @@ Transform:
   m_Father: {fileID: 5651375071990422011}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983833535
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990271695}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.38, y: 1.81, z: 1.7}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990273917
 GameObject:
   m_ObjectHideFlags: 0
@@ -32252,7 +32028,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990491747}
-  - component: {fileID: 5651375071994145639}
   m_Layer: 0
   m_Name: GIANT_WORM_WEAK_POINT_LEFT_C
   m_TagString: Untagged
@@ -32275,19 +32050,6 @@ Transform:
   m_Father: {fileID: 5651375071990418763}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5651375071994145639
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990273979}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.39
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990275147
 GameObject:
   m_ObjectHideFlags: 0
@@ -32297,7 +32059,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990422865}
-  - component: {fileID: 5651375071984309053}
   m_Layer: 0
   m_Name: GIANT_WORM_ Tail1
   m_TagString: Untagged
@@ -32321,19 +32082,6 @@ Transform:
   m_Father: {fileID: 5651375071990477881}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071984309053
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990275147}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.38, y: 1.81, z: 1.7}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990275455
 GameObject:
   m_ObjectHideFlags: 0
@@ -32343,7 +32091,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990450115}
-  - component: {fileID: 5651375071984341621}
   m_Layer: 0
   m_Name: GIANT_WORM_ Neck1
   m_TagString: Untagged
@@ -32367,19 +32114,6 @@ Transform:
   m_Father: {fileID: 5651375071990406755}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071984341621
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990275455}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.31, y: 2.58, z: 2.28}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5651375071990277023
 GameObject:
   m_ObjectHideFlags: 0
@@ -32579,7 +32313,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651375071990406755}
-  - component: {fileID: 5651375071983849169}
   m_Layer: 0
   m_Name: GIANT_WORM_ Neck
   m_TagString: Untagged
@@ -32605,19 +32338,6 @@ Transform:
   m_Father: {fileID: 5651375071990444979}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5651375071983849169
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651375071990283481}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.17, y: 2.58, z: 2.28}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3992198341193141868
 PrefabInstance:
   m_ObjectHideFlags: 0
