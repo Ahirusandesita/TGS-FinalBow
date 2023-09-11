@@ -7,6 +7,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Threading;
 public interface ITextLikeSpeaking
 {
     void IsComplete();
@@ -15,6 +16,9 @@ public interface ITextLikeSpeaking
 public class TextSystem : MonoBehaviour
 {
     private Text text;
+    private float time;
+
+    private bool canNextText = false;
 
     private void Awake()
     {
@@ -22,11 +26,11 @@ public class TextSystem : MonoBehaviour
         text.text = default;
     }
 
-    public void TextLikeSpeaking(TutorialManagementData tutorialManagementData,ITextLikeSpeaking textLikeSpeaking)
+    public void TextLikeSpeaking(TutorialManagementData tutorialManagementData, ITextLikeSpeaking textLikeSpeaking)
     {
-        StartCoroutine(LikeSpeaking(tutorialManagementData,textLikeSpeaking));
+        StartCoroutine(LikeSpeaking(tutorialManagementData, textLikeSpeaking));
     }
-    private IEnumerator LikeSpeaking(TutorialManagementData tutorialManagementData,ITextLikeSpeaking textLikeSpeaking)
+    private IEnumerator LikeSpeaking(TutorialManagementData tutorialManagementData, ITextLikeSpeaking textLikeSpeaking)
     {
 
         for (int i = 0; i < tutorialManagementData.tutorialManagementItem.Count; i++)
@@ -36,6 +40,37 @@ public class TextSystem : MonoBehaviour
             int textCount = 0;
             for (int k = 0; k < tutorialData.text.Length; k++)
             {
+                if (canNextText)
+                {
+                    char restChar = tutorialData.text[k];
+                    string restText = default;
+                    textCount++;
+                    if (restChar == 'B')
+                    {
+                        textCount = 0;
+                        restText = restChar + "\n";
+                    }
+                    else
+                    {
+                        restText = restChar.ToString();
+                    }
+
+                    if (textCount > 20)
+                    {
+                        if (restChar == 'A')
+                        {
+                            restText += "\n";
+                            textCount = 0;
+                        }
+                    }
+                    this.text.text += restText;
+
+                    break;
+                }
+
+
+
+
                 char textChar = tutorialData.text[k];
                 string textString = default;
                 textCount++;
@@ -60,10 +95,28 @@ public class TextSystem : MonoBehaviour
                 this.text.text += textString;
                 yield return waitForSeconds;
             }
-            yield return new WaitForSeconds(tutorialManagementData.tutorialManagementItem[i].nextTime);
+            if (!tutorialData.canNextText)
+                yield return new WaitForSeconds(tutorialManagementData.tutorialManagementItem[i].nextTime);
+            else
+            {
+                StartNextTime();
+                yield return new WaitUntil(() => CanNextText == true || IsNextTime(tutorialManagementData.tutorialManagementItem[i].nextTime) == true);
+            }
             this.text.text = default;
+            canNextText = false;
         }
         textLikeSpeaking.IsComplete();
 
     }
+
+    private void StartNextTime()
+    {
+        time = Time.time;
+    }
+
+    private bool IsNextTime(float nextTime) => time + Time.time > nextTime;
+    public void NextText() => canNextText = true;
+
+    private bool CanNextText => canNextText;
+
 }
