@@ -62,6 +62,11 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     public float ParalysisTime { get => _paralysisTime; }
 
+    /// <summary>
+    /// ¢Š«‚³‚ê‚½“G‚ª€‚ñ‚¾‚Æ‚«‚ÉŒÄ‚Ño‚·
+    /// </summary>
+    public delegate void OnDeathEnemy();
+
     protected override void Start()
     {
         base.Start();

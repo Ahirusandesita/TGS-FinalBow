@@ -11,12 +11,8 @@ public class BirdStats : CommonEnemyStats
     [Tooltip("召喚された鳥かどうか")]
     private bool _isSummmon = false;
 
-    /// <summary>
-    /// 召喚された鳥が死んだときに呼び出す
-    /// </summary>
-    public delegate void OnDeathBird();
     [Tooltip("この鳥が死んだときに実行 / 「敵の残存数」のデクリメント処理を登録")]
-    public OnDeathBird _onDeathBird;
+    public OnDeathEnemy _onDeathBird;
 
     protected override void OnEnable()
     {
