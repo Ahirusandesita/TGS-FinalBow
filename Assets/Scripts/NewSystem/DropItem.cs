@@ -117,7 +117,10 @@ public class DropItem : MonoBehaviour, IFItemMove
 
     private void OnDisable()
     {
-        CanMove = true;
+        if (playAwake)
+            CanMove = true;
+        else
+            CanMove = false;
     }
     public void SetDropItemData(DropItemStruct dropItemStruct) => DropItemData.dropItemStruct = dropItemStruct;
 
