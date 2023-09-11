@@ -61,11 +61,11 @@ public abstract class EnemyStats : MonoBehaviour
 
         float hp = (float)_hp;
         float maxHp = (float)_maxHp;
+        if (_hp <= 0)
+            OnDeathReactions(arrowTransform, arrowVector);
         if (hpGage == null) return;
         hpGage.Hp(hp / maxHp);
 
-        if (_hp <= 0)
-            OnDeathReactions(arrowTransform, arrowVector);
     }
 
     /// <summary>
@@ -78,11 +78,11 @@ public abstract class EnemyStats : MonoBehaviour
 
         float hp = (float)_hp;
         float maxHp = (float)_maxHp;
+        if (_hp <= 0)
+            OnDeathReactions(null, Vector3.zero);
         if (hpGage == null) return;
         hpGage.Hp(hp / maxHp);
 
-        if (_hp <= 0)
-            OnDeathReactions(null, Vector3.zero);
     }
 
     public virtual void TakeNormal() { _takeEnchantment = EnchantmentEnum.EnchantmentState.normal; }

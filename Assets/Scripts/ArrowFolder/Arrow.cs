@@ -241,7 +241,6 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
     private int damage = 0;
 
     public int Damage => damage;
-
     private ArrowEnchant arrowEnchant;
     private void OnEnable()
     {

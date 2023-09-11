@@ -151,13 +151,13 @@ public class ReticleSystem : MonoBehaviour
             _shadowSpeed_Y = _shadowVector.y * arrowSpeed;    // Ｙ軸
             _shadowSpeed_Z = _shadowVector.z * arrowSpeed;    // Ｚ軸
 
-            print("X:" +_shadowSpeed_X + ",Y:" + _shadowSpeed_Y+ "Z,:" + _shadowSpeed_Z);
+            //print("X:" +_shadowSpeed_X + ",Y:" + _shadowSpeed_Y+ "Z,:" + _shadowSpeed_Z);
 
             for (int Counter = 0; Counter < _passValue; Counter++)
             {
                 // 水平方向への移動速度の減衰率を算出
                 _nowSpeedValue = STANDARD_SPEED_VALUE - (_timeToRangeCoefficient * _timeByCount * Counter);
-                print("SpeedValue  "+_nowSpeedValue);
+                //print("SpeedValue  "+_nowSpeedValue);
                 // 各軸方向への移動量を算出
                 _moveValue.x = (_shadowSpeed_X * _nowSpeedValue);    // Ｘ軸
                 _moveValue.y = (_shadowSpeed_Y + _addGravity);       // Ｙ軸
@@ -172,7 +172,7 @@ public class ReticleSystem : MonoBehaviour
 
                 _reticleRenderer.SetPosition(Counter, _shadowTransform.position);
             }
-            print("レティクルの位置　：　" + _reticleRenderer.GetPosition(9) + "    影の位置　：　" + _shadowTransform.position + "　　速度　:　" + arrowSpeed);
+            //print("レティクルの位置　：　" + _reticleRenderer.GetPosition(9) + "    影の位置　：　" + _shadowTransform.position + "　　速度　:　" + arrowSpeed);
         }
     }
 

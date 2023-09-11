@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+[RequireComponent(typeof(Reaction))]
 public class TargetStats : EnemyStats
 {
     /// <summary>
@@ -20,6 +21,8 @@ public class TargetStats : EnemyStats
     private void OnEnable()
     {
         _hp = 1;
+
+        
     }
 
     protected override void Start()
@@ -27,10 +30,16 @@ public class TargetStats : EnemyStats
         base.Start();
 
         _cashObjectInformation = this.GetComponent<CashObjectInformation>();
+
+        _reaction.SubscribeReactionFinish(Death);
+
+        _cashObjectInformation = transform.root.GetComponent<CashObjectInformation>();
+
     }
 
     public override void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector)
     {
+        base.TakeBomb(damage, arrowTransform, arrowVector);
         TakeDamage(damage, arrowTransform, arrowVector);
     }
 
@@ -47,5 +56,11 @@ public class TargetStats : EnemyStats
         {
             return _hp;
         }
+    }
+
+    protected override void OnDeathReactions(Transform arrowTransform, Vector3 arrowVector)
+    {
+        base.OnDeathReactions(arrowTransform, arrowVector);
+
     }
 }
