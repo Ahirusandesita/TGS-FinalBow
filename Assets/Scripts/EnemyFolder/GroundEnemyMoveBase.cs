@@ -82,8 +82,8 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     [HideInInspector]
     public AttackType _attackType = default;
 
-    
 
+    private GroundEnemyDataTable _groundEnemyData;
     public GroundEnemyDataTable GroundEnemyData { set; private get; }
 
     private void OnEnable()
