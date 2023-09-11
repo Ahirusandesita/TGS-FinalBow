@@ -93,7 +93,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         StartCoroutine(StageStart());
     }
 
- 
+
     public void WaveExecution()
     {
         try
@@ -115,7 +115,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 // プールから呼び出す
                 StartCoroutine(SpawnBird(listIndex: i));
             }
-
             // 各ウェーブで設定された数、地上雑魚をスポーンさせる
             for (int i = 0; i < _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData.Count; i++)
             {
@@ -326,6 +325,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
         GroundEnemyMoveBase temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position).GetComponent<GroundEnemyMoveBase>();
         temporaryObject.GroundEnemyData = dataPath;
+
         temporaryObject.InitializeOnEnable();
     }
 
