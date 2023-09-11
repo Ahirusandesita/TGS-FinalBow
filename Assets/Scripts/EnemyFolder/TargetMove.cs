@@ -21,6 +21,12 @@ public class TargetMove : MonoBehaviour
 
     private Vector3 _scalerSpeed = new(1500f, 1500f, 0f);
 
+    private Vector3 _movingVector = default;
+
+    private float _goalDistance = default;
+
+    private float _movedDistance = 0f;
+
     private readonly Vector3 UP = Vector3.up;
     #endregion
     #region property
@@ -51,6 +57,8 @@ public class TargetMove : MonoBehaviour
         _transform.rotation = Quaternion.Euler(Vector3.zero);
         _initialRotation_y = _transform.rotation.eulerAngles.y;
         _initialScale = _transform.localScale;
+        _movingVector = (_targetData._goalPlace.position - _targetData._spawnPlace.position).normalized;
+        _goalDistance = (_targetData._goalPlace.position - _targetData._spawnPlace.position).magnitude;
 
         StartCoroutine(LagerAtSpawn());
     }
@@ -65,6 +73,9 @@ public class TargetMove : MonoBehaviour
             _transform.Rotate(UP * Time.deltaTime * _rotateSpeed);
             yield return null;
         }
+
+        if (_targetData._needMove)
+            StartCoroutine(Move());
     }
 
     /// <summary>
@@ -86,6 +97,27 @@ public class TargetMove : MonoBehaviour
                 StartCoroutine(RotateAtSpawn());
                 startRotate = true;
             }
+        }
+    }
+
+    private IEnumerator Move()
+    {
+        WaitForSeconds wait = new(_targetData._stayTime_s);
+
+        while (true)
+        {
+            if (_movedDistance >= _goalDistance)
+            {
+                _movedDistance = 0f;
+                _movingVector *= -1f;
+
+                yield return wait;
+            }
+
+            _transform.Translate(_movingVector * Time.deltaTime * _targetData._speed);
+            _movedDistance += (_movingVector * Time.deltaTime * _targetData._speed).magnitude;
+
+            yield return null;
         }
     }
     #endregion
