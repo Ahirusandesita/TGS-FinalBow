@@ -111,7 +111,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     {
         if (isOnePlay)
         {
-            _transform = _groundEnemyData._groundEnemySpawnPlace;
+            //_transform = _groundEnemyData._groundEnemySpawnPlace;
             StartCoroutine(WormAction());
             isOnePlay = false;
         }
@@ -312,13 +312,13 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     private IEnumerator WormAction()
     {
-        myAnimation.SetTrigger("A");
+        myAnimation.SetTrigger("RiseHigh");
         yield return new WaitForSeconds(2f);
-        myAnimation.SetTrigger("Attack");
-        yield return new WaitForSeconds(3f);
-        myAnimation.SetTrigger("Idle");
+        //myAnimation.SetTrigger("Attack");
+        //yield return new WaitForSeconds(3f);
+        //myAnimation.SetTrigger("Idle");
         yield return new WaitForSeconds(2f);
-        myAnimation.SetTrigger("by");
+        myAnimation.SetTrigger("HideHigh");
         yield return new WaitForSeconds(5f);
         isOnePlay = true;
     }
