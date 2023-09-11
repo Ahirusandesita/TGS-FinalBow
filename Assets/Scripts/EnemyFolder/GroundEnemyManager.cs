@@ -23,7 +23,7 @@ public class GroundEnemyManager : MonoBehaviour
     {
         if (_stats.HP <= 0)
         {
-            _stats.Death();
+           // _stats.Death();
         }
         else if (_move._needDespawn)
         {

@@ -10,8 +10,17 @@ using UnityEngine;
 
 public class GroundEnemyStats : CommonEnemyStats
 {
-    [Tooltip("‚±‚Ìƒ[ƒ€‚ª€‚ñ‚¾‚Æ‚«‚ÉÀs / u“G‚Ìc‘¶”v‚ÌƒfƒNƒŠƒƒ“ƒgˆ—‚ğ“o˜^")]
+
+    protected override void Start()
+    {
+        base.Start();
+
+        _reaction.SubscribeReactionFinish(Death);
+    }
+
+    [Tooltip("ã“ã®ãƒ¯ãƒ¼ãƒ ãŒæ­»ã‚“ã ã¨ãã«å®Ÿè¡Œ / ã€Œæ•µã®æ®‹å­˜æ•°ã€ã®ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆå‡¦ç†ã‚’ç™»éŒ²")]
     public OnDeathEnemy _onDeathEnemy;
+
 
     public override void Death()
     {
@@ -23,6 +32,8 @@ public class GroundEnemyStats : CommonEnemyStats
 
     protected override void OnDeathReactions(Transform arrowTransform, Vector3 arrowVector)
     {
+        _reaction.ReactionSetting(_takeEnchantment);
 
+        _reaction.ReactionEventStart(arrowTransform, arrowVector);
     }
 }
