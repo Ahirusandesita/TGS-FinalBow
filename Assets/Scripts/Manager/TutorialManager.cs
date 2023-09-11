@@ -165,8 +165,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         switch (_currentTutorialType)
         {
+            // VR‚ªŒ©‚¦‚é‚©Šm”F‚µ‚½Œã
             case TutorialIventType.opening:
 
+                // ‚©‚©‚µ
                 _kakashi.SetActive(false);
                 ProgressingTheTutorial();
                 break;
