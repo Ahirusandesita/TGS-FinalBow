@@ -5,6 +5,7 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public interface IFLockOnSystem
@@ -22,6 +23,8 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
     private GameObject _temporaryTarget = default;
 
     private ArrowEnchantment _enchant = default;
+
+    private LockOnUISystem _lockOnUI = default;
 
     private float _lockOnTime = default;
 
@@ -80,6 +83,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                     }
                     _mostNearDistance = INFINITY;
                     _lockOnTime = 0f;
+                    _lockOnUI = _temporaryTarget.GetComponent<LockOnUISystem>();
                 }
 
                 _onTarget = false;
@@ -97,6 +101,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                 if (_onTarget)
                 {
                     _lockOnTime += Time.deltaTime;
+                    _lockOnUI.LockOnNow(_lockOnTime);
                     if (_lockOnTime > DISITION_TIME && LockOnTarget == null)
                     {
                         LockOnTarget = _temporaryTarget;
@@ -105,6 +110,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                 }
                 else
                 {
+                    _lockOnUI.LockOnEnd();
                     ReSetTarget();
                 }
             }
