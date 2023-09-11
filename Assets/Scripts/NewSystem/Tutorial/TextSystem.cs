@@ -115,7 +115,7 @@ public class TextSystem : MonoBehaviour
         time = Time.time;
     }
 
-    private bool IsNextTime(float nextTime) => nextTime == 0f ? false : time + Time.time > nextTime;
+    private bool IsNextTime(float nextTime) => nextTime == 0f ? false : Time.time - time > nextTime;
     public void NextText() => canNextText = true;
 
     private bool CanNextText => canNextText;
