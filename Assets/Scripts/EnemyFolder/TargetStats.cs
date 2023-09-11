@@ -6,15 +6,12 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+using System;
+
 [RequireComponent(typeof(Reaction))]
 public class TargetStats : EnemyStats
 {
-    /// <summary>
-    /// 的が死んだときに呼び出す
-    /// </summary>
-    public delegate void OnDeathTarget();
-    [Tooltip("この的が死んだときに実行 / 「敵の残存数」のデクリメント処理を登録")]
-    public OnDeathTarget _onDeathTarget;
+    public Action _decrementTargetAmount { set; private get; }
 
     private CashObjectInformation _cashObjectInformation = default;
 
@@ -46,7 +43,7 @@ public class TargetStats : EnemyStats
     public override void Death()
     {
         // 消す処理
-        //_onDeathTarget();
+        _decrementTargetAmount();
         _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
 

@@ -107,7 +107,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
             }
 
             // EnemySpawnerTableで設定したスポナーの数を設定
-            _currentNumberOfObject = _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count;
+            _currentNumberOfObject += _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count;
+            _currentNumberOfObject += _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData.Count;
 
             // 各ウェーブで設定された数、鳥雑魚をスポーンさせる
             for (int i = 0; i < _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count; i++)
@@ -115,6 +116,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 // プールから呼び出す
                 StartCoroutine(SpawnBird(listIndex: i));
             }
+
             // 各ウェーブで設定された数、地上雑魚をスポーンさせる
             for (int i = 0; i < _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData.Count; i++)
             {
@@ -321,12 +323,15 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         GroundEnemyDataTable dataPath = _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData[listIndex];
 
-        yield return new WaitForSeconds(dataPath._spawnTime_s);
+        yield return new WaitForSeconds(dataPath._spawnDelay_s);
 
-        GroundEnemyMoveBase temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position).GetComponent<GroundEnemyMoveBase>();
-        temporaryObject.GroundEnemyData = dataPath;
+        GameObject temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position).gameObject;
 
-        temporaryObject.InitializeOnEnable();
+        GroundEnemyMoveBase temporaryMove = temporaryObject.GetComponent<GroundEnemyMoveBase>();
+        temporaryMove.GroundEnemyData = dataPath;
+        temporaryMove.InitializeOnEnable();
+
+        temporaryObject.GetComponent<GroundEnemyStats>()._onDeathEnemy = DecrementNumberOfObject;
     }
 
     /// <summary>

@@ -7,25 +7,25 @@ using UnityEngine.UI;
 public class EnchantsChenger : MonoBehaviour
 {
     [SerializeField, Tooltip("Explosion = 0, Thunder = 1, Penetration = 2, Homing = 3, Rapid = 4")]
-    private RadianUIAnimation[] _centerCircles = new RadianUIAnimation[5];
+    private RadialUIAnimation[] _centerCircles = new RadialUIAnimation[5];
 
     [SerializeField, Tooltip("Explosion = 0, Thunder = 1, Penetration = 2, Homing = 3, Rapid = 4")]
-    private RadianUIAnimation[] _innerCircles = new RadianUIAnimation[5];
+    private RadialUIAnimation[] _innerCircles = new RadialUIAnimation[5];
 
     [SerializeField, Tooltip("Explosion = 0, Thunder = 1, Penetration = 2, Homing = 3, Rapid = 4")]
-    private RadianUIAnimation[] _selectCircles = new RadianUIAnimation[5];
+    private RadialUIAnimation[] _selectCircles = new RadialUIAnimation[5];
 
     [SerializeField, Tooltip("Explosion = 0, Thunder = 1, Penetration = 2, Homing = 3, Rapid = 4")]
-    private RadianUIAnimation[] _outerCircles = new RadianUIAnimation[5];
+    private RadialUIAnimation[] _outerCircles = new RadialUIAnimation[5];
 
     [SerializeField, Tooltip("_backGround_CenterCircle")]
-    private RadianUIAnimation _backGround_CenterCircle;
+    private RadialUIAnimation _backGround_CenterCircle;
 
     [SerializeField, Tooltip("_backGround_OuterCircle")]
-    private RadianUIAnimation _backGround_OuterCircle;
+    private RadialUIAnimation _backGround_OuterCircle;
 
     [SerializeField, Tooltip("_backGround_Emiter")]
-    private RadianUIAnimation _backGround_Emiter;
+    private RadialUIAnimation _backGround_Emiter;
 
     public enum E_Enchant { Explosion = 0, Thunder = 1, Penetration = 2, Homing = 3, Rapid = 4 };
 
@@ -51,7 +51,7 @@ public class EnchantsChenger : MonoBehaviour
 
     }
 
-    protected virtual void SetCancelState(RadianUIAnimation _this)
+    protected virtual void SetCancelState(RadialUIAnimation _this)
     {
         _this._isSetCansel = true;
         _this._isSetSelect = false;
@@ -60,7 +60,7 @@ public class EnchantsChenger : MonoBehaviour
         _this._isSetReSet = false;
     }
 
-    protected virtual void SetSelectState(RadianUIAnimation _this)
+    protected virtual void SetSelectState(RadialUIAnimation _this)
     {
         _this._isSetCansel = false;
         _this._isSetSelect = true;
@@ -68,7 +68,7 @@ public class EnchantsChenger : MonoBehaviour
         _this._isSetDecision = false;
         _this._isSetReSet = false;
     }
-    protected virtual void SetNotselectState(RadianUIAnimation _this)
+    protected virtual void SetNotselectState(RadialUIAnimation _this)
     {
         _this._isSetCansel = false;
         _this._isSetSelect = false;
@@ -76,7 +76,7 @@ public class EnchantsChenger : MonoBehaviour
         _this._isSetDecision = false;
         _this._isSetReSet = false;
     }
-    protected virtual void SetDecisionState(RadianUIAnimation _this)
+    protected virtual void SetDecisionState(RadialUIAnimation _this)
     {
         _this._isSetCansel = false;
         _this._isSetSelect = false;
@@ -84,7 +84,7 @@ public class EnchantsChenger : MonoBehaviour
         _this._isSetDecision = true;
         _this._isSetReSet = false;
     }
-    protected virtual void SetReSetState(RadianUIAnimation _this)
+    protected virtual void SetReSetState(RadialUIAnimation _this)
     {
         _this._isSetCansel = false;
         _this._isSetSelect = false;
@@ -93,87 +93,87 @@ public class EnchantsChenger : MonoBehaviour
         _this._isSetReSet = true;
     }
 
-    protected void SizeUp(RadianUIAnimation _this)
+    protected void SizeUp(RadialUIAnimation _this)
     {
         _this._mySizeValue += Time.deltaTime * _this._speedforScale;
 
-        if (_this._mySizeValue > RadianUIAnimation.MAX_SCALE)
+        if (_this._mySizeValue > RadialUIAnimation.MAX_SCALE)
         {
-            _this._mySizeValue = RadianUIAnimation.MAX_SCALE;
+            _this._mySizeValue = RadialUIAnimation.MAX_SCALE;
         }
         SizeChange(_this);
     }
 
-    protected void SizeDown(RadianUIAnimation _this)
+    protected void SizeDown(RadialUIAnimation _this)
     {
         _this._mySizeValue -= Time.deltaTime * _this._speedforScale;
 
-        if (_this._mySizeValue < RadianUIAnimation.MIN_SCALE)
+        if (_this._mySizeValue < RadialUIAnimation.MIN_SCALE)
         {
-            _this._mySizeValue = RadianUIAnimation.MIN_SCALE;
+            _this._mySizeValue = RadialUIAnimation.MIN_SCALE;
         }
         SizeChange(_this);
     }
 
-    private void SizeChange(RadianUIAnimation _this)
+    private void SizeChange(RadialUIAnimation _this)
     {
         _this._myTransform.sizeDelta = new Vector2(_this._mySizeValue * _this._defaultWidth , _this._mySizeValue * _this._defaultHeight);
     }
 
-    protected void ColorChange(RadianUIAnimation _this)
+    protected void ColorChange(RadialUIAnimation _this)
     {
         _this._myColorValue += Time.deltaTime * _this._speed2Color;
-        if(_this._myColorValue > RadianUIAnimation.MAX_COLOR)
+        if(_this._myColorValue > RadialUIAnimation.MAX_COLOR)
         {
-            _this._myColorValue = RadianUIAnimation.MAX_COLOR;
+            _this._myColorValue = RadialUIAnimation.MAX_COLOR;
         }
         ColorPaint(_this);
     }
 
-    protected void ColorRe_Change(RadianUIAnimation _this)
+    protected void ColorRe_Change(RadialUIAnimation _this)
     {
         _this._myColorValue -= Time.deltaTime * _this._speed2Color;
 
-        if (_this._myColorValue < RadianUIAnimation.MIN_COLOR)
+        if (_this._myColorValue < RadialUIAnimation.MIN_COLOR)
         {
-            _this._myColorValue = RadianUIAnimation.MIN_COLOR;
+            _this._myColorValue = RadialUIAnimation.MIN_COLOR;
         }
         ColorPaint(_this);
     }
 
-    protected void ColorPaint(RadianUIAnimation _this)
+    protected void ColorPaint(RadialUIAnimation _this)
     {
         _this._myImage.color = Color.Lerp(_this.WHITE,_this._defaultColor,_this._myColorValue);
     }
 
-    protected void AlphaChange(RadianUIAnimation _this)
+    protected void AlphaChange(RadialUIAnimation _this)
     {
         _this._myAlphaValue += Time.deltaTime * _this._speed2Alpha;
 
-        if (_this._myAlphaValue > RadianUIAnimation.MAX_ALPHA)
+        if (_this._myAlphaValue > RadialUIAnimation.MAX_ALPHA)
         {
-            _this._myAlphaValue = RadianUIAnimation.MAX_ALPHA;
+            _this._myAlphaValue = RadialUIAnimation.MAX_ALPHA;
         }
         AlphaPaint(_this);
     }
 
-    protected void AlphaRe_Change(RadianUIAnimation _this)
+    protected void AlphaRe_Change(RadialUIAnimation _this)
     {
         _this._myAlphaValue -= Time.deltaTime * _this._speed2Alpha;
 
-        if (_this._myAlphaValue < RadianUIAnimation.MIN_ALPHA)
+        if (_this._myAlphaValue < RadialUIAnimation.MIN_ALPHA)
         {
-            _this._myAlphaValue = RadianUIAnimation.MIN_ALPHA;
+            _this._myAlphaValue = RadialUIAnimation.MIN_ALPHA;
         }
         AlphaPaint(_this);
     }
 
-    protected void AlphaPaint(RadianUIAnimation _this)
+    protected void AlphaPaint(RadialUIAnimation _this)
     {
         _this._myImage.color = new Color(_this._myImage.color.r, _this._myImage.color.g, _this._myImage.color.b, _this._myAlphaValue * _this._defaultAlpha);
     }
 
-    protected void AllClear(RadianUIAnimation _this)
+    protected void AllClear(RadialUIAnimation _this)
     {
         SizeChange(_this);
         ColorChange(_this);

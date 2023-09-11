@@ -70,10 +70,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // ゼロ　ただのゼロ　普通にゼロ　なおfloat ニュース番組ではない
     private const float ZERO = 0f;
 
-    // サンダーフラグ　サンダーの時は true
+    // 貫通フラグ　貫通の時は true
     private const bool PENETRATE = true;
 
-    // サンダーフラグ　サンダー以外の時は false
+    // 貫通フラグ　貫通以外の時は false
     private const bool NOT_PENETRATE = false;
 
     // 無限　上限なしのクランプ等に使用
@@ -109,11 +109,20 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // 現在の水平方向への移動速度の割合　どのぐらい速度減衰しているか
     private float _nowSpeedValue = default;
 
+    // 矢の種類による重力量
+    private float _gravity = default;
+
     // 矢の落下速度の加算値　_arrowSpeed_Y に加算する
     private float _addGravity = default;
 
     // 矢の落下速度の加算値の上限
     private float _maxGravity = default;
+
+    // 矢の種類による速度減衰量
+    private float _attenuation = default;
+
+    // 矢の飛行時間
+    private float _flightTime = default;
 
 
 
@@ -129,14 +138,17 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     // 通常時の射程倍率　射程が長いほど速度減衰が少ない
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
-    private float SPEED_TO_RANGE_COEFFICIENT_NORMAL = 7f;
+    private float NORMAL_ATTENUATION = 0.14286f;
 
     // サンダーの時の射程倍率　射程が長いほど速度減衰が少ない
     [Tooltip("矢の射程を決める値　射程が長いほど速度減衰が少ない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
-    private float SPEED_TO_RANGE_COEFFICIENT_THUNDER = 100f;
+    private float PENETRATE_ATTENUATION = 0.01f;
 
     // 速度減衰の元値　現在速度 = STANDARD_SPEED_VALUE - 減衰率
     private const float STANDARD_SPEED_VALUE = 1f;
+
+    // 速度減衰の最大値
+    private const float MAXIMUM_SPEED_VALUE = 1f;
 
     // 最大落下速度　落下速度が加速する頂点　これより速くは落下しない
     [Tooltip("最大落下速度　落下速度が加速する頂点　これより速くは落下しない　調整が終わったらシリアライズ消す"), SerializeField] //デバッグ用
@@ -185,13 +197,13 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private const int SEARCH_ANGLE = 1;
 
     // _lookSpeedCoefficientの初期値
-    private const float LOOKSPEED_DEFAULT = 0.5f;
+    private const float LOOKSPEED_DEFAULT = 0.8f;
 
     // _lookSpeedCoefficientの増加係数
-    private const float LOOKSPEED_ADDVALUE = 1f;
+    private const float LOOKSPEED_ADDVALUE = 1.5f;
 
     // _lookSpeedCoefficientの最大値
-    private const float LOOKSPEED_MAX = 3f;
+    private const float LOOKSPEED_MAX = 8f;
 
     #endregion
 
@@ -200,36 +212,36 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     #region プロパティ
 
     /// <summary>
-    /// 空気抵抗の設定プロパティ　通常かサンダーで変化
+    /// 空気抵抗の設定プロパティ　通常か貫通で変化
     /// </summary>
-    /// <param name="isThunder">サンダーフラグ</param>
+    /// <param name="isPenetrate">貫通フラグ</param>
     /// <returns></returns>
-    private float SpeedToRangeCoefficient(bool isThunder)
+    private float Attenuation(bool isPenetrate)
     {
-        // サンターかどうか判定
-        if (isThunder)
+        // 貫通かどうか判定
+        if (isPenetrate)
         {
-            // サンダーの空気抵抗を返す
-            return SPEED_TO_RANGE_COEFFICIENT_THUNDER;
+            // 貫通の空気抵抗を返す
+            return PENETRATE_ATTENUATION;
         }
         else
         {
             // 通常の空気抵抗を返す
-            return SPEED_TO_RANGE_COEFFICIENT_NORMAL;
+            return NORMAL_ATTENUATION;
         }
     }
 
     /// <summary>
-    /// 重力加速度の設定プロパティ　通常かサンダーで変化
+    /// 重力加速度の設定プロパティ　通常か貫通で変化
     /// </summary>
-    /// <param name="isThunder">サンダーフラグ</param>
+    /// <param name="isPenetrate">貫通フラグ</param>
     /// <returns></returns>
-    private float GravityValue(bool isThunder)
+    private float GravityValue(bool isPenetrate)
     {
-        // サンダーかどうか判定
-        if (isThunder)
+        // 貫通かどうか判定
+        if (isPenetrate)
         {
-            // サンダーの重力加速度を返す
+            // 貫通の重力加速度を返す
             return GRAVITY_THUNDER;
         }
         else
@@ -256,144 +268,26 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     #region メソッド
 
     #region イベント設定用メソッド
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：なし
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_Normal(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ボム
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_Bomb(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：サンダー
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_Thunder(Transform arrowTransform) { NormalMove(arrowTransform, THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ノックバック
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_KnockBack(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ホーミング
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_Homing(Transform arrowTransform) { HomingMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：貫通
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_Penetrate(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ボムサンダー
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_BombThunder(Transform arrowTransform) { NormalMove(arrowTransform, THUNDER); }
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ボムノックバック
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_BombKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ボムホーミング
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_BombHoming(Transform arrowTransform) { HomingMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ボム貫通
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_BombPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：サンダーノックバック
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_ThunderKnockBack(Transform arrowTransform) { NormalMove(arrowTransform, THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：サンダーホーミング
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_ThunderHoming(Transform arrowTransform) { HomingMove(arrowTransform, THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：サンダー貫通
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_ThunderPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ノックバックホーミング
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_KnockBackHoming(Transform arrowTransform) { HomingMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ノックバック貫通
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_KnockBackPenetrate(Transform arrowTransform) { NormalMove(arrowTransform, NOT_THUNDER); }
-
-
-
-    ///// <summary>
-    ///// 矢の挙動　エンチャント：ホーミング貫通
-    ///// </summary>
-    ///// <param name="arrowTransform">矢のトランスフォーム</param>
-    //public void ArrowMove_HomingPenetrate(Transform arrowTransform) { HomingMove(arrowTransform, NOT_THUNDER); }
-
-
+    // イベントの設定を行っているかどうか判定
     private bool _isSet = false;
 
+    // 矢の挙動を管理するデリゲート
     private delegate void MovementDelegate(Transform arrowTransform, bool isThunder);
 
+    // 矢の挙動を登録するイベント
     MovementDelegate movement;
 
+    /// <summary>
+    /// 通常の矢の挙動イベントを登録するメソッド
+    /// </summary>
     private void SetNormal()
     {
         movement = NormalMove;
     }
 
+    /// <summary>
+    /// ホーミングの矢の挙動イベントを登録するメソッド
+    /// </summary>
     private void SetHoming()
     {
         movement = HomingMove;
@@ -402,42 +296,31 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     #endregion
 
     #region ノーマルの挙動
-    float t = default;
-    float m = default;
     /// <summary>
     /// ノーマルの挙動をさせるメソッド
     /// </summary>
     /// <param name="arrowTransform">矢のトランスフォーム</param>
-    /// <param name="_arrowSpeed">矢が飛んでいくスピード</param>
-    /// <param name="isThunder">サンダーかそれ以外か</param>
-    private void NormalMove(Transform arrowTransform, bool isThunder)
+    /// <param name="isPenetrate">貫通かそれ以外か</param>
+    private void NormalMove(Transform arrowTransform, bool isPenetrate)
     {
         // 設定が終わっていなければ
         if (!_endSetting)
         {
             // 設定用メソッドを実行
-            NormalSetting(arrowTransform, _arrowSpeed, isThunder);
+            NormalSetting(arrowTransform, _arrowSpeed, isPenetrate);
         }
 
         // 設定が終わっていたら
         else
         {
+            print(_attenuation);
             // 水平方向への移動速度の減衰率を算出
-            _nowSpeedValue = Mathf.Clamp(STANDARD_SPEED_VALUE - (_nowRange / _maxRange), ZERO , Mathf.Infinity);
+            _nowSpeedValue = Mathf.Clamp(STANDARD_SPEED_VALUE - (_flightTime * _attenuation), ZERO , MAXIMUM_SPEED_VALUE);
 
             // 各軸方向への移動量を算出
             _moveValue.x = (_arrowSpeed_X * _nowSpeedValue);    // Ｘ軸
             _moveValue.y = (_arrowSpeed_Y + _addGravity);       // Ｙ軸
             _moveValue.z = (_arrowSpeed_Z * _nowSpeedValue);    // Ｚ軸
-
-            /*-------------------------------デバッグ用-------------------------------*/
-            //t += Time.deltaTime;
-            //if(t> 0.1f)
-            //{
-            //    print("減衰率:" + _nowSpeedValue + "　　減衰量:" + (m - _nowSpeedValue) + "　　現在速度:" + _arrowSpeed_Horizontal * _nowSpeedValue);
-            //    t = 0f;
-            //    m = _nowSpeedValue;
-            //}
 
             // 各軸方向へ移動量の分だけ移動
             arrowTransform.position += _moveValue * Time.deltaTime;
@@ -446,19 +329,10 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
             arrowTransform.rotation = Quaternion.LookRotation(_moveValue.normalized, _forward);
 
             // 現在の移動距離を加算
-            _nowRange += _arrowSpeed_Horizontal * Time.deltaTime;
+            _flightTime += Time.deltaTime;
 
             // 重力による下方向への移動量を算出
-            _addGravity = Mathf.Clamp(_addGravity + GravityValue(isThunder) * Time.deltaTime, _maxGravity , INFINITY);
-
-
-            /*
-             　追々実装する項目
-
-                Ｙ軸方向に対する空気抵抗
-                終端速度と空気抵抗、重力加速度の相互関係をはっきりさせる
-                物理的にどう調整しても不備が起こらないようにする
-             */
+            _addGravity = Mathf.Clamp(_addGravity + _gravity * Time.deltaTime, _maxGravity , INFINITY);
         }
     }
 
@@ -467,28 +341,28 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     /// </summary>
     /// <param name="arrowTransform">矢のトランスフォーム</param>
     /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
-    /// <param name="isThunder">サンダーかそれ以外か</param>
-    private void NormalSetting(Transform arrowTransform, float arrowSpeed, bool isThunder)
+    /// <param name="isPenetrate">貫通かそれ以外か</param>
+    private void NormalSetting(Transform arrowTransform, float arrowSpeed, bool isPenetrate)
     {
         // 矢の角度を取得
         _arrowVector = arrowTransform.TransformVector(_forward).normalized;
-
-        // 矢の水平方向への移動速度を算出
-        _arrowSpeed_Horizontal = Mathf.Sqrt(Mathf.Pow(_arrowVector.x,2f) + Mathf.Pow(_arrowVector.z ,2f)) * arrowSpeed;
 
         // 矢の各軸方向への移動速度を算出
         _arrowSpeed_X = _arrowVector.x * arrowSpeed;    // Ｘ軸
         _arrowSpeed_Y = _arrowVector.y * arrowSpeed;    // Ｙ軸
         _arrowSpeed_Z = _arrowVector.z * arrowSpeed;    // Ｚ軸
 
-        // 速度から最大の移動距離を算出
-        _maxRange = _arrowSpeed_Horizontal * SpeedToRangeCoefficient(isThunder);
+        // 矢の速度減衰量を設定
+        _attenuation = Attenuation(isPenetrate);
+
+        // 矢の重力量を設定
+        _gravity = GravityValue(isPenetrate);
 
         // Ｙ軸の速度から降下量の上限値を算出
         _maxGravity = Mathf.Clamp(TERMINAL_VELOCITY - _arrowSpeed_Y, -INFINITY ,ZERO);
 
-        // 現在の移動速度を初期化
-        _nowRange = default;
+        // 矢の飛行時間の初期化
+        _flightTime = default;
 
         // 重力により移動量を初期化
         _addGravity = default;
@@ -497,6 +371,9 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         _endSetting = true;
     }
 
+    /// <summary>
+    /// 通常の矢の挙動の設定を初期化・再設定するメソッド
+    /// </summary>
     public void ReSetNormalSetting()
     {
         NormalSetting(this.transform, AFTER_WARP_SPEED, false);
@@ -509,28 +386,16 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     /// ホーミングの挙動をさせるメソッド
     /// </summary>
     /// <param name="arrowTransform">矢のトランスフォーム</param>
-    /// <param name="_arrowSpeed">矢が飛んでいくスピード</param>
-    private void HomingMove(Transform arrowTransform, bool isThunder)
+    /// <param name="isPenetrate">貫通かそれ以外か</param>
+    private void HomingMove(Transform arrowTransform, bool isPenetrate)
     {
-        //// 初期角度の代入　ターゲットがなくなった場合は再度代入
-        //if (_target == null || _target == default)
-        //{
-        //    // 初期設定とターゲットの選定
-        //    SetHomingTarget(arrowTransform, _arrowSpeed);
-        //    if (_cantGet)
-        //    {
-        //        _lookSpeedCoefficient = 0f;
-        //        _cantGet = false;
-        //        _isSet = true;
-        //        return;
-        //    }
-        //}
-
+        // 初期設定
         if (!_endSetting)
         {
             SetHomingTarget(arrowTransform , _arrowSpeed);
         }
 
+        // 補正を時間とともに増加
         if(_lookSpeedCoefficient < LOOKSPEED_MAX)
         {
             _lookSpeedCoefficient += LOOKSPEED_ADDVALUE * Time.deltaTime;
@@ -559,10 +424,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
     private void SetHomingTarget(Transform arrowTransform, float arrowSpeed)
     {
-        // もろもろの初期化処理とターゲット再選定
-        // 初動の角度をワールド座標の数値で代入　色々使う
-        _firstAngle = new Vector3(arrowTransform.eulerAngles.x, arrowTransform.eulerAngles.y, arrowTransform.eulerAngles.z);
-
         // フラグの設定　一回代入したら今後代入しないように変更
         _endSetting = true;
 
@@ -583,6 +444,14 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     #endregion
 
     #region　共用メソッド
+    /// <summary>
+    /// ロックオン用のクラスを登録
+    /// </summary>
+    private void Start()
+    {
+        // LockOnSystemの代入
+        _lockOnSystem = GameObject.FindGameObjectWithTag(InhallLibTags.BowController).GetComponent<LockOnSystem>();
+    }
 
     /// <summary>
     /// 矢の挙動のリセット処理メソッド
@@ -749,12 +618,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         }
         movement(t, NOT_PENETRATE);
     }
-
-    private void Start()
-    {
-        _lockOnSystem = GameObject.FindGameObjectWithTag(InhallLibTags.BowController).GetComponent<LockOnSystem>();
-    }
-
     #endregion
 
     #endregion
