@@ -325,10 +325,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         yield return new WaitForSeconds(dataPath._spawnDelay_s);
 
         GroundEnemyMoveBase temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position).GetComponent<GroundEnemyMoveBase>();
-        temporaryObject._attackType = dataPath._attackType;
-        temporaryObject._reAttackTime_s = dataPath._reAttackTime_s;
-        temporaryObject._despawnTime_s = dataPath._despawnTime_s;
-        //temporaryObject._jumpDirectionState = dataPath._groundEnemyActionInformation[listIndex]._jumpDirectionState;
+        temporaryObject.GroundEnemyData = dataPath;
     }
 
     /// <summary>

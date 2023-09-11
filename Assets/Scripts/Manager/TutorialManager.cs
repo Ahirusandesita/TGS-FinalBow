@@ -17,7 +17,8 @@ public enum TutorialIventType
     shot2,
 }
 
-public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
+
+public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 {
     #region class
     /// <summary>
@@ -128,7 +129,6 @@ public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Start()
     {
-        //StartCoroutine(SpawnTarget(0));
         Tutorial();
     }
 
@@ -143,7 +143,7 @@ public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Tutorial()
     {
-        StartCoroutine(CallText(2f, _currentTutorialType));
+        StartCoroutine(CallText(2f));
     }
 
     /// <summary>
@@ -152,7 +152,7 @@ public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void ProgressingTheTutorial()
     {
         _currentTutorialType++;
-        StartCoroutine(CallText(2f, _currentTutorialType));
+        StartCoroutine(CallText(2f));
     }
 
     /// <summary>
@@ -160,12 +160,12 @@ public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     /// <param name="waitTime">ë“ã@éûä‘</param>
     /// <param name="currentTime">åƒÇ—èoÇµÇΩéûä‘</param>
-    private IEnumerator CallText(float waitTime, TutorialIventType textIndex)
+    private IEnumerator CallText(float waitTime)
     {
         _isFinishTextDisplayed = false;
 
         yield return new WaitForSeconds(waitTime);
-        _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)textIndex], GenerateClass(_currentTutorialType));
+        _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType], GenerateClass(_currentTutorialType));
     }
 
     /// <summary>
@@ -216,7 +216,6 @@ public class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         TargetMove target = _poolSystem.CallObject(PoolEnum.PoolObjectType.targetObject, dataPath._spawnPlace.position).GetComponent<TargetMove>();
         target.TargetData = dataPath;
-
         target.InitializeWhenEnable();
     }
 
