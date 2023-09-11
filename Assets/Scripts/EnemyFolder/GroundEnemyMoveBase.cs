@@ -30,6 +30,9 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     private bool _isJump = false;
 
+    Transform wormSandTransform = default;
+    Transform wormGroundTransform = default;
+
     //private string[,] WormAnimationTrrigers
     //{
     //    { low,high,}
@@ -85,11 +88,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     private void OnEnable()
     {
-        _currentTime = 0f;
-        _currentTime2 = 0f;
-        _needDespawn = false;
-        startTransform = this.transform.position;
-        isOnePlay = true;
+
     }
 
     protected override void Start()
@@ -105,13 +104,28 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     }
 
+    public void InitializeOnEnable()
+    {
+        _currentTime = 0f;
+        _currentTime2 = 0f;
+        _needDespawn = false;
+        startTransform = this.transform.position;
+        isOnePlay = true;
+
+        wormGroundTransform = this.transform.GetChild(0).GetChild(0).transform;
+        wormSandTransform = this.transform.GetChild(0).GetChild(1).transform;
+        wormSandTransform.gameObject.SetActive(false);
+        wormGroundTransform.gameObject.SetActive(false);
+        X_Debug.Log(_groundEnemyData);
+    }
 
     bool isOnePlay = true;
     protected override void MoveSequence()
     {
         if (isOnePlay)
         {
-            //_transform = _groundEnemyData._groundEnemySpawnPlace;
+            wormSandTransform.gameObject.SetActive(false);
+            wormGroundTransform.gameObject.SetActive(false);
             StartCoroutine(WormAction());
             isOnePlay = false;
         }
@@ -312,15 +326,19 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     private IEnumerator WormAction()
     {
+        wormSandTransform.gameObject.SetActive(true);
+        yield return new WaitForSeconds(_groundEnemyData._spawnTime_s);
         myAnimation.SetTrigger("RiseHigh");
-        yield return new WaitForSeconds(2f);
-        //myAnimation.SetTrigger("Attack");
-        //yield return new WaitForSeconds(3f);
-        //myAnimation.SetTrigger("Idle");
-        yield return new WaitForSeconds(2f);
+        wormGroundTransform.gameObject.SetActive(true);
+        wormSandTransform.gameObject.SetActive(false);
+        yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s);
         myAnimation.SetTrigger("HideHigh");
-        yield return new WaitForSeconds(5f);
-        isOnePlay = true;
-    }
+        yield return new WaitForSeconds(1.4f);
+        wormSandTransform.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.6f);
+        wormGroundTransform.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.3f);
+        wormSandTransform.gameObject.SetActive(false);
 
+    }
 }
