@@ -322,7 +322,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         GroundEnemyDataTable dataPath = _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData[listIndex];
 
-        yield return new WaitForSeconds(dataPath._spawnDelay_s);
+        yield return new WaitForSeconds(dataPath._spawnTime_s);
 
         GroundEnemyMoveBase temporaryObject = _objectPoolSystem.CallObject(PoolEnum.PoolObjectType.groundEnemy, dataPath._groundEnemySpawnPlace.position).GetComponent<GroundEnemyMoveBase>();
         temporaryObject.GroundEnemyData = dataPath;
