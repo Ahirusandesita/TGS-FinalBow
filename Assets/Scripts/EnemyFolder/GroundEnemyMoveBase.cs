@@ -49,6 +49,16 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     [HideInInspector]
     public bool _needDespawn = false;
 
+    private Vector3 startTransform;
+    [SerializeField]
+    private float moveMinusSpeed = 0f;
+    private float moveMaxMinusSpeed = 0f;
+
+    private bool isJumpUp = true;
+    private bool canJumpStop = true;
+    [SerializeField]
+    private float stopTime;
+
     public enum AttackType
     {
         /// <summary>
@@ -68,10 +78,12 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         _currentTime = 0f;
         _currentTime2 = 0f;
         _needDespawn = false;
+        startTransform = this.transform.position;
     }
 
     protected override void Start()
     {
+        moveMaxMinusSpeed = moveMinusSpeed;
         _crabWalk = CrabWalkState.left;
         WalkDirectionState();
         _jumpPowerMax = _jumpPower;
@@ -79,37 +91,65 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
 
         base.Start();
+
     }
+
 
 
     protected override void MoveSequence()
     {
-        _currentTime += Time.deltaTime;
-        _currentTime2 += Time.deltaTime;
 
-        if (_currentTime >= _reAttackTime_s && _completedAttack)
+
+        _transform.Translate(0f/*40f * _jumpDirection.X * Time.deltaTime*/, _jumpPower * Time.deltaTime, 0f/* 40f * _jumpDirection.Z * Time.deltaTime*/);
+        if (isJumpUp)
+            _jumpPower -= moveMinusSpeed * Time.deltaTime;
+
+        if(_jumpPower < 0f && canJumpStop)
         {
-            switch (_attackType)
-            {
-                case AttackType.once:
-                    _groundEnemyAttack.ThrowingAttack(_transform);
-                    break;
-
-                case AttackType.consecutive:
-                    StartCoroutine(ConsecutiveAttack());
-                    break;
-            }
-
-            _currentTime = 0f;
+            _jumpPower = 0;
+            StartCoroutine(JumpStop());
+            canJumpStop = false;
         }
 
-        if (_currentTime2 >= _despawnTime_s)
+        if (this.transform.position.y < startTransform.y)
         {
-            _needDespawn = true;
+            this.transform.position = startTransform;
+            _jumpPower = _jumpPowerMax;
+            canJumpStop = true;
         }
+
+        //_currentTime += Time.deltaTime;
+        //_currentTime2 += Time.deltaTime;
+
+        //if (_currentTime >= _reAttackTime_s && _completedAttack)
+        //{
+        //    switch (_attackType)
+        //    {
+        //        case AttackType.once:
+        //            _groundEnemyAttack.ThrowingAttack(_transform);
+        //            break;
+
+        //        case AttackType.consecutive:
+        //            StartCoroutine(ConsecutiveAttack());
+        //            break;
+        //    }
+
+        //    _currentTime = 0f;
+        //}
+
+        //if (_currentTime2 >= _despawnTime_s)
+        //{
+        //    _needDespawn = true;
+        //}
 
         //CrabWalk();
-        Jump();
+        //Jump();
+    }
+    IEnumerator JumpStop()
+    {
+        isJumpUp = false;
+        yield return new WaitForSeconds(stopTime);
+        isJumpUp = true;
     }
 
     private void Jump()
