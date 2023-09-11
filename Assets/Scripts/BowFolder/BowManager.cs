@@ -248,13 +248,12 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
         if (_percentDrawPower > 0)
         {
-            _reticleSystem.StartCreate();
+            _reticleSystem.CreateReticleSystem(_percentDrawPower * arrowSpeed);
         }
         else
         {
             _reticleSystem.EndCreate();
         }
-        _reticleSystem.CreateReticleSystem(_percentDrawPower * arrowSpeed);
     }
 
 
