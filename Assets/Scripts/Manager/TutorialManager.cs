@@ -17,7 +17,8 @@ public enum TutorialIventType
     shot2,
     enchant1,
     enchant2,
-    enchant3,
+    attract1,
+    attract2
 }
 
 
@@ -101,6 +102,17 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         yield return new WaitForSeconds(waitTime);
         _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType], this);
+    }
+
+    /// <summary>
+    /// 的の出現用のコルーチンを呼び出す処理
+    /// </summary>
+    private void CallSpawn()
+    {
+        for (int i = 0; i < _stageDataTable._waveInformation[_targetSpawnCount]._targetData.Count; i++)
+            StartCoroutine(SpawnTarget(i));
+
+        _targetSpawnCount++;
     }
 
     /// <summary>
@@ -202,19 +214,36 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             case TutorialIventType.shot2:
 
                 // 的を出現させる
-                for (int i = 0; i < _stageDataTable._waveInformation[_targetSpawnCount]._targetData.Count; i++)
-                    StartCoroutine(SpawnTarget(i));
-
-                _targetSpawnCount++;
+                CallSpawn();
 
                 break;
 
+            // ラジアルメニュー展開を指示した後
             case TutorialIventType.enchant1:
 
                 //-----------------------------------------------
                 // ここでラジアルメニューを検知
                 //-----------------------------------------------
                 ProgressingTheTutorial();
+                break;
+
+            // 爆発エンチャントの選択を指示した後
+            case TutorialIventType.enchant2:
+
+                //-----------------------------------------------
+                // ここで爆発の選択を検知
+                //-----------------------------------------------
+                CallSpawn();
+                // ここでは、矢が一発でもいずれかの的に当たったら次のチュートリアルへ進行する
+
+                break;
+
+            case TutorialIventType.attract1:
+
+                break;
+
+            case TutorialIventType.attract2:
+
                 break;
 
             default:
