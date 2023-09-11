@@ -42,29 +42,31 @@ public class TextSystem : MonoBehaviour
             {
                 if (canNextText)
                 {
-                    char restChar = tutorialData.text[k];
-                    string restText = default;
-                    textCount++;
-                    if (restChar == '。')
+                    for (int u = k; k < tutorialData.text.Length; u++)
                     {
-                        textCount = 0;
-                        restText = restChar + "\n";
-                    }
-                    else
-                    {
-                        restText = restChar.ToString();
-                    }
-
-                    if (textCount > 20)
-                    {
-                        if (restChar == '、')
+                        char restChar = tutorialData.text[u];
+                        string restText = default;
+                        textCount++;
+                        if (restChar == '。')
                         {
-                            restText += "\n";
                             textCount = 0;
+                            restText = restChar + "\n";
                         }
-                    }
-                    this.text.text += restText;
+                        else
+                        {
+                            restText = restChar.ToString();
+                        }
 
+                        if (textCount > 20)
+                        {
+                            if (restChar == '、')
+                            {
+                                restText += "\n";
+                                textCount = 0;
+                            }
+                        }
+                        this.text.text += restText;
+                    }
                     break;
                 }
 
