@@ -30,6 +30,11 @@ public class GroundEnemyMoveBase : EnemyMoveBase
 
     private bool _isJump = false;
 
+    //private string[,] WormAnimationTrrigers
+    //{
+    //    { low,high,}
+    //}
+
     private struct JumpDirection
     {
         public float X;
