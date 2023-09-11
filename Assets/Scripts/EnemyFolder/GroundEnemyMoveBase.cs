@@ -122,7 +122,6 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         wormSandTransform.gameObject.SetActive(false);
         wormGroundTransform.gameObject.SetActive(false);
         myCollider.enabled = false;
-        X_Debug.Log(_groundEnemyData);
     }
 
     bool isOnePlay = true;
