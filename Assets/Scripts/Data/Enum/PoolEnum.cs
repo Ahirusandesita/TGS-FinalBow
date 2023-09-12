@@ -113,5 +113,17 @@ public class PoolEnum : MonoBehaviour
         /// でかいコウモリ
         /// </summary>
         giantBat,
+        /// <summary>
+        /// ボンバーバグ
+        /// </summary>
+        bomberBug,
+        /// <summary>
+        /// オーシャンドラゴン
+        /// </summary>
+        oceanDragon,
+        /// <summary>
+        /// デザートドラゴン
+        /// </summary>
+        DesertDragon,
     }
 }
