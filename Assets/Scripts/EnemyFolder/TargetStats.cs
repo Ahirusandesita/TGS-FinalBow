@@ -47,6 +47,13 @@ public class TargetStats : EnemyStats
         _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
 
+    public void Despawn()
+    {
+        // è¡Ç∑èàóù
+        _decrementTargetAmount();
+        _objectPoolSystem.ReturnObject(_cashObjectInformation);
+    }
+
     public override int HP
     {
         get

@@ -47,6 +47,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     [Tooltip("‘¶İ‚·‚é“I‚Ì”")]
     private int _spawndTargetAmount = default;
+
+    [Tooltip("“I‚É“–‚½‚Á‚½")]
+    private bool _isHitFirst = false;
     #endregion
 
     #region property
@@ -90,6 +93,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void ProgressingTheTutorial()
     {
         _currentTutorialType++;
+        _isHitFirst = false;
         StartCoroutine(CallText(2f));
     }
 
@@ -145,8 +149,25 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         _spawndTargetAmount--;
 
+        if (_currentTutorialType == TutorialIventType.enchant2)
+            RemoveTarget();
+
+
         if (_spawndTargetAmount <= 0)
             ProgressingTheTutorial();
+    }
+
+    /// <summary>
+    /// “I‚ÌÁ‹ˆ—
+    /// </summary>
+    private void RemoveTarget()
+    {
+        TargetStats[] targets = GameObject.FindObjectsOfType<TargetStats>();
+
+        for (int i = 0; i < targets.Length; i++)
+        {
+            targets[i].Despawn();
+        }
     }
 
     /// <summary>
