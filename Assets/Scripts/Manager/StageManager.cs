@@ -353,7 +353,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// </summary>
     private void MovingResultCanvas()
     {
-        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + Vector3.forward * _resultCanvasPositionCorrectionValue;
+        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _resultCanvasPositionCorrectionValue;
         _resultCanvas.transform.rotation = _player.transform.rotation;
     }
 }
