@@ -156,11 +156,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _spawndTargetAmount--;
 
         if (_isHitFirst && _currentTutorialType == TutorialIventType.enchant2)
-        {
-            X_Debug.Log(_isHitFirst);
-            X_Debug.Log(_currentTutorialType);
             StartCoroutine(RemoveTarget());
-        }
 
         if (_spawndTargetAmount <= 0)
             ProgressingTheTutorial();
@@ -177,9 +173,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
 
         for (int i = 0; i < targets.Length; i++)
-        {
             StartCoroutine(targets[i].RotateAtDespawn());
-        }
     }
 
     /// <summary>
@@ -228,7 +222,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     public void IsComplete()
     {
         _textFrame.SetActive(false);
-        
+
         switch (_currentTutorialType)
         {
             // VR‚ªŒ©‚¦‚é‚©Šm”F‚µ‚½Œã
