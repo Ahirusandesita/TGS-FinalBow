@@ -45,6 +45,7 @@ public class ResultStage : MonoBehaviour
         stagePropery.Value = true;
         checkPointResult.Result(resultStruct);
     }
+    public void EndStageResult() => stagePropery.Value = false;
 
     public void ResultScreenScore(ScoreNumber.Score score)
     {
