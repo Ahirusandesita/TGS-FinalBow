@@ -63,6 +63,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [SerializeField, Tooltip("ResultCanvasの位置をプレイヤーの位置からどれだけ離すか")]
     private float _resultCanvasPositionCorrectionValue = 50f;
 
+    [SerializeField]
+    private SceneObject _sceneObject = default;
+
 
     [Tooltip("取得したObjectPoolSystemクラス")]
     private ObjectPoolSystem _objectPoolSystem = default;
@@ -100,18 +103,33 @@ public class StageManager : MonoBehaviour, IStageSpawn
         StartCoroutine(WaveStart());
     }
 
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            EnemyStats[] obj = FindObjectsOfType<EnemyStats>();
+
+            for (int i = 0; i < obj.Length; i++)
+            {
+                obj[i].TakeDamage(1);
+            }
+        }
+    }
+#endif
+
 
     public void WaveExecution()
     {
         try
         {
             // 最終ステージだったら、ボスをスポーン
-            if (_currentStageIndex == _stageDataTables.Count)
-            {
-                // ボスをスポーン
-                Instantiate(_bossPrefab);
-                return;
-            }
+            //if (_currentStageIndex == _stageDataTables.Count)
+            //{
+            //    // ボスをスポーン
+            //    Instantiate(_bossPrefab);
+            //    return;
+            //}
 
             // EnemySpawnerTableで設定したスポナーの数を設定
             _currentNumberOfObject += _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count;
@@ -182,16 +200,20 @@ public class StageManager : MonoBehaviour, IStageSpawn
         _currentStageIndex++;
         _currentWaveIndex = 0;
         X_Debug.Log("次のステージへ");
-        MovingPlayer();
 
-        if (_currentStageIndex > _stageDataTables.Count)
+        //-------------------------------------------------------------------
+        // ボスがいないときはマイナス1
+        //-------------------------------------------------------------------
+        if (_currentStageIndex > _stageDataTables.Count - 1)
         {
             // すべてのステージをクリア = ゲームオーバー
             // ボス倒したら終了だからここ動かないかも
+            FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
             X_Debug.Log("ゲーム終了");
             return;
         }
 
+        MovingPlayer();
         StartCoroutine(WaveStart());
     }
 
