@@ -362,5 +362,6 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         yield return new WaitForSeconds(0.3f);
         wormSandTransform.gameObject.SetActive(false);
 
+        _genemyStats.Despawn();
     }
 }
