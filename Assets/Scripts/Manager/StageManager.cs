@@ -57,6 +57,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [SerializeField, Tooltip("リザルト用Canvas")]
     private GameObject _resultCanvas = default;
 
+    [SerializeField, Tooltip("ResultCanvasの位置をプレイヤーの位置からどれだけ離すか")]
+    private float _resultCanvasPositionCorrectionValue = 50f;
+
 
     [Tooltip("取得したObjectPoolSystemクラス")]
     private ObjectPoolSystem _objectPoolSystem = default;
@@ -350,7 +353,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// </summary>
     private void MovingResultCanvas()
     {
-        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position;
+        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + Vector3.forward * _resultCanvasPositionCorrectionValue;
         _resultCanvas.transform.rotation = _stageTransforms[_currentStageIndex]._stageTransform.rotation;
     }
 }
