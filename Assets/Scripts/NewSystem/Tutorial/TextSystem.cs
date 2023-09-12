@@ -8,6 +8,9 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.Threading;
+using TMPro;
+using System.Collections.Generic;
+
 public interface ITextLikeSpeaking
 {
     void IsComplete();
@@ -15,15 +18,26 @@ public interface ITextLikeSpeaking
 
 public class TextSystem : MonoBehaviour
 {
-    private Text text;
+    private TextMeshProUGUI text;
+    public List<TMP_FontAsset> fontAssets = new List<TMP_FontAsset>();
     private float time;
 
     private bool canNextText = false;
 
     private void Awake()
     {
-        text = this.GetComponent<Text>();
+        text = this.GetComponent<TextMeshProUGUI>();
         text.text = default;
+    }
+
+    private void Update()
+    {
+        int nowint = default;
+        int lastInt = default;
+        while (nowint == lastInt)
+            nowint = Random.Range(0, fontAssets.Count - 1);
+        lastInt = nowint;
+        text.font = fontAssets[nowint];
     }
 
     public void TextLikeSpeaking(TutorialManagementData tutorialManagementData, ITextLikeSpeaking textLikeSpeaking)
