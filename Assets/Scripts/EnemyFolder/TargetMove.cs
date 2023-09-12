@@ -9,6 +9,8 @@ using UnityEngine;
 public class TargetMove : MonoBehaviour
 {
     #region variable 
+    private TargetStats _targetStats = default;
+
     private TargetDataTable _targetData = default;
 
     private Transform _transform = default;
@@ -37,6 +39,7 @@ public class TargetMove : MonoBehaviour
     private void Awake()
     {
         _transform = this.transform;
+        _targetStats = this.GetComponent<TargetStats>();
     }
 
     private void Start()
@@ -123,6 +126,13 @@ public class TargetMove : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public IEnumerator RotateAtDespawn()
+    {
+        yield return null;
+
+        _targetStats.Despawn();
     }
     #endregion
 }
