@@ -10,24 +10,24 @@ public class ScoreUIManager : MonoBehaviour
 {
     #region variable 
     public NumberObject _NumberObjectData;
- #endregion
- #region property
- #endregion
- #region method
- 
- private void Awake()
- {
+    #endregion
+    #region property
+    #endregion
+    #region method
 
- }
- 
- private void Start ()
- {
+    private void Awake()
+    {
 
- }
+    }
 
- private void Update ()
- {
+    private void Start()
+    {
 
- }
- #endregion
+    }
+
+    private void Update()
+    {
+
+    }
+    #endregion
 }
