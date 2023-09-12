@@ -29,8 +29,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5078419495150167610}
-  - {fileID: 8735393142987824765}
   - {fileID: 3992198341193502062}
+  - {fileID: 8735393142987824765}
   m_Father: {fileID: 5651375071990507457}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -32414,7 +32414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 426754, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 426754, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -32444,9 +32444,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 426754, guid: fddad85224879894ca726219a83ec7ca, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19813856, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 42.01
+      value: 20.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 19813856, guid: fddad85224879894ca726219a83ec7ca, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
