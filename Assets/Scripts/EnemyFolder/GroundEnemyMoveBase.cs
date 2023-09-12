@@ -7,10 +7,14 @@
 using UnityEngine;
 using System.Collections;
 
+interface IFNeedMoveRotineEnd
+{
+    void MoveEnd();
+}
 /// <summary>
 /// ínè„éGãõÇÃãììÆÇÃäÓî’
 /// </summary>
-public class GroundEnemyMoveBase : EnemyMoveBase
+public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
 {
     private Animator myAnimation;
     private enum CrabWalkState { left, right };
@@ -33,6 +37,8 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     Transform wormSandTransform = default;
     Transform wormGroundTransform = default;
     Transform wormJumpUpTransform = default;
+
+    Coroutine moveRoutine = default;
 
     //private string[,] WormAnimationTrrigers
     //{
@@ -127,6 +133,14 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         myCollider.enabled = false;
     }
 
+    public void MoveEnd()
+    {
+        if(moveRoutine is not null)
+        {
+            StopCoroutine(moveRoutine);
+        }
+    }
+
     bool isOnePlay = true;
     protected override void MoveSequence()
     {
@@ -135,7 +149,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase
             wormSandTransform.gameObject.SetActive(false);
             wormGroundTransform.gameObject.SetActive(false);
             wormJumpUpTransform.gameObject.SetActive(false);
-            StartCoroutine(WormAction());
+            moveRoutine = StartCoroutine(WormAction());
             myCollider.enabled = false;
             isOnePlay = false;
         }

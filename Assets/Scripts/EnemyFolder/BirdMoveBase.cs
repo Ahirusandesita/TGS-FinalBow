@@ -577,7 +577,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
     /// <summary>
     /// ’¹G‹›‚ªoŒ»‚µ‚½‚Æ‚«‚Ì‰Šú‰»ŠÖ”
     /// </summary>
-    public void BirdEnable()
+    public virtual void BirdEnable()
     {
         // Transformî•ñ‚Ìæ“¾
         _startPosition = _transform.position;
