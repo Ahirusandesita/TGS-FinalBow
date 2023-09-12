@@ -42,6 +42,9 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [SerializeField, Tooltip("各ステージのスタート地点リスト")]
     private List<StageInformation> _stageTransforms = new();
 
+    [SerializeField, Tooltip("Wave間の待ち時間")]
+    private float _waveWait_s = 1.5f;
+
     [SerializeField, Tooltip("敵のスポーン座標テーブル")]
     private List<StageDataTable> _stageDataTables = new();
 
@@ -77,7 +80,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private int _currentWaveIndex = 0;  // ウェーブ1
 
     [Tooltip("ウェーブ開始ディレイ")]
-    private WaitForSeconds _waveStartWait_s = new(1.5f);   // プレイヤーの心の準備にかかるであろう時間
+    private WaitForSeconds _waveStartWait_s = default;
     #endregion
 
 
@@ -85,6 +88,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         _objectPoolSystem = GameObject.FindWithTag(_PoolSystemTagData.TagName).GetComponent<ObjectPoolSystem>();
         _resultStage = this.GetComponent<ResultStage>();
+        _waveStartWait_s = new(_waveWait_s);
 
         // ステージ間リザルトの表示が終了したとき、ResultStageクラスでステージ進行処理が呼ばれる
         _resultStage.readOnlyStateProperty.Subject.Subscribe(isResult => { if (!isResult) { ProgressingTheStage(); } });
@@ -93,7 +97,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         MovingPlayer();
 
         // ゲームスタート
-        StartCoroutine(StageStart());
+        StartCoroutine(WaveStart());
     }
 
 
@@ -167,7 +171,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
             return;
         }
 
-        WaveExecution();
+        StartCoroutine(WaveStart());
     }
 
     /// <summary>
@@ -188,14 +192,14 @@ public class StageManager : MonoBehaviour, IStageSpawn
             return;
         }
 
-        StartCoroutine(StageStart());
+        StartCoroutine(WaveStart());
     }
 
     /// <summary>
-    /// ステージ開始（固定秒数待ってからスポーン開始）
+    /// ウェーブ開始（固定秒数待ってからスポーン開始）
     /// </summary>
     /// <returns></returns>
-    private IEnumerator StageStart()
+    private IEnumerator WaveStart()
     {
         // 設定された秒数が経過したら、ステージスタート（読み込み待ち）
         yield return _waveStartWait_s;
@@ -225,28 +229,24 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 selectedPrefab = PoolEnum.PoolObjectType.normalBird;
                 break;
 
-            case BirdType.bombBird:
-                selectedPrefab = PoolEnum.PoolObjectType.bombBird;
+            case BirdType.bomberBug:
+                selectedPrefab = PoolEnum.PoolObjectType.bomberBug;
                 break;
 
-            case BirdType.penetrateBird:
-                selectedPrefab = PoolEnum.PoolObjectType.penetrateBird;
+            case BirdType.watcher:
+                selectedPrefab = PoolEnum.PoolObjectType.watcher;
                 break;
 
-            case BirdType.thunderBird:
-                selectedPrefab = PoolEnum.PoolObjectType.thunderBird;
+            case BirdType.giantBat:
+                selectedPrefab = PoolEnum.PoolObjectType.giantBat;
                 break;
 
-            case BirdType.bombBirdBig:
-                selectedPrefab = PoolEnum.PoolObjectType.bombBirdBig;
+            case BirdType.oceanDragon:
+                selectedPrefab = PoolEnum.PoolObjectType.oceanDragon;
                 break;
 
-            case BirdType.thunderBirdBig:
-                selectedPrefab = PoolEnum.PoolObjectType.thunderBirdBig;
-                break;
-
-            case BirdType.penetrateBirdBig:
-                selectedPrefab = PoolEnum.PoolObjectType.penetrateBirdBig;
+            case BirdType.desertDragon:
+                selectedPrefab = PoolEnum.PoolObjectType.DesertDragon;
                 break;
 
             // 例外処理

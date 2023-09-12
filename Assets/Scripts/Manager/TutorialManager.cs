@@ -57,6 +57,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     [Tooltip("最初に的に当たった")]
     private bool _isHitFirst = true;
+
+    private ScoreFrameMaganer _frameManager = default;
     #endregion
 
     #region property
@@ -72,6 +74,15 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         catch (Exception)
         {
             X_Debug.LogError("ObjectPoolSystemがアタッチされていません。");
+        }
+
+        try
+        {
+            _frameManager = _textFrame.GetComponent<ScoreFrameMaganer>();
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("ScoreFrameManagerが取得できていません。");
         }
     }
 
@@ -114,7 +125,15 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private IEnumerator CallText(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+
         _textFrame.SetActive(true);
+        _frameManager.OpenFrame();
+
+        while (!_frameManager._endOpen)
+            yield return null;
+
+        _frameManager._endOpen = false;
+
         _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType], this);
     }
 
@@ -128,6 +147,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         _targetSpawnCount++;
     }
+
 
     /// <summary>
     /// 的のスポーン
@@ -277,8 +297,16 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             // 吸い込みの紹介をした後
             case TutorialIventType.attract1:
 
+                // クリスタルを出現させて、即割る
                 _crystal.SetActive(true);
                 StartCoroutine(_crystal.GetComponent<TutorialCrystalBreak>().Break());
+
+                //-----------------------------------------------
+                // ここで吸い込みを感知
+                //-----------------------------------------------
+
+                // 的とテキストを出す
+                ProgressingTheTutorial();
 
                 break;
 

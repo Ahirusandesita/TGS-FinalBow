@@ -108,7 +108,7 @@ public class PoolEnum : MonoBehaviour
         /// <summary>
         /// 目ん玉コウモリ
         /// </summary>
-        wather,
+        watcher,
         /// <summary>
         /// でかいコウモリ
         /// </summary>

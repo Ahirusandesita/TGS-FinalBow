@@ -98,11 +98,6 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
 
     private GroundEnemyStats _genemyStats = default;
 
-    private void OnEnable()
-    {
-
-    }
-
     protected override void Start()
     {
         moveMaxMinusSpeed = moveMinusSpeed;
@@ -131,6 +126,8 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         wormSandTransform.gameObject.SetActive(false);
         wormGroundTransform.gameObject.SetActive(false);
         myCollider.enabled = false;
+
+        _transform.LookAt(GameObject.FindWithTag("PlayerController").transform);
     }
 
     public void MoveEnd()
