@@ -45,6 +45,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [SerializeField]
     private GameObject _crystal = default;
 
+    [SerializeField]
+    private SceneObject _sceneObject = default;
+
 
     [Tooltip("チュートリアルの進行度")]
     private TutorialIventType _currentTutorialType = 0;    // opening
@@ -88,7 +91,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Start()
     {
-        _textFrame.SetActive(false);
         _crystal.SetActive(false);
         Tutorial();
     }
@@ -307,14 +309,18 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
                 // 的とテキストを出す
                 ProgressingTheTutorial();
+                CallSpawn();
 
                 break;
 
             case TutorialIventType.attract2:
 
+                ProgressingTheTutorial();
                 break;
 
             default:
+
+                FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
                 break;
         }
     }

@@ -39683,12 +39683,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 870565835}
     - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
+      propertyPath: _sceneObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 287b39c697d377747be63c3048e5c802, type: 2}
+    - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
       propertyPath: _resultCanvas
       value: 
       objectReference: {fileID: 259037839}
     - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
       propertyPath: _stageDataTables.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
       propertyPath: _stageTransforms.Array.size
@@ -41324,7 +41328,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 7814474dc0323874ba0029bce6a6e740, type: 2}
     - target: {fileID: 7523221209751737910, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7523221210866605706, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
       propertyPath: m_Camera
