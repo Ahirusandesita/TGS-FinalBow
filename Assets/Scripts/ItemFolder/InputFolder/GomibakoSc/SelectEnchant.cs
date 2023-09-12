@@ -530,6 +530,7 @@ public class SelectEnchant : MonoBehaviour
         _state = NowSelect.None;
         _useCoroutine = true;
         _speaker.PlayOneShot(_enchantSound);
+        _tutorialManager.OnSelectedBomb();
     }
 
     private void TutorialDecisionThunder()
