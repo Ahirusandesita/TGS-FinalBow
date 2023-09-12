@@ -17,6 +17,9 @@ public class ResultStage : MonoBehaviour
 
     private CheckPointResult checkPointResult;
     private CheckPointResult.ResultStruct resultStruct;
+    private ResultString resultString;
+    private bool isOne = true;
+    private ScoreFrameMaganer scoreFrameMaganer;
     #endregion
     #region property
     #endregion
@@ -25,6 +28,8 @@ public class ResultStage : MonoBehaviour
     private void Awake()
     {
         checkPointResult = GameObject.FindObjectOfType<CheckPointResult>();
+        resultString = checkPointResult.gameObject.transform.GetChild(7).gameObject.GetComponent<ResultString>();
+        scoreFrameMaganer = checkPointResult.gameObject.transform.GetChild(0).gameObject.GetComponent<ScoreFrameMaganer>();
         stagePropery.Subject.Subscribe(
             isResult =>
             {
@@ -34,17 +39,16 @@ public class ResultStage : MonoBehaviour
         stagePropery.Subject.Subscribe(
             isResult =>
             {
-                if(isResult)
-                checkPointResult.gameObject.SetActive(true);
+                if (isResult)
+                {
+                    checkPointResult.gameObject.SetActive(true);
+                    scoreFrameMaganer.OpenFrame();
+                }
             }
             );
     }
 
-    public void Result()
-    {
-        stagePropery.Value = true;
-        checkPointResult.Result(resultStruct);
-    }
+    public void Result() => stagePropery.Value = true;
     public void EndStageResult() => stagePropery.Value = false;
 
     public void ResultScreenScore(ScoreNumber.Score score)
@@ -70,6 +74,17 @@ public class ResultStage : MonoBehaviour
     }
     private void Update()
     {
+
+        if (scoreFrameMaganer._endOpen)
+        {
+            if (isOne)
+            {
+                checkPointResult.Result(resultStruct);
+                resultString.Result();
+                isOne = false;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.N))
         {
             stagePropery.Value = false;

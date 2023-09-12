@@ -21,6 +21,10 @@ public class TextSystem : MonoBehaviour
     private TextMeshProUGUI text;
     public List<TMP_FontAsset> fontAssets = new List<TMP_FontAsset>();
     private float time;
+    private const int MAX_RANDOM = 50;
+
+    Vector3 size;
+    Vector3 defaultSize;
 
     private bool canNextText = false;
 
@@ -28,12 +32,25 @@ public class TextSystem : MonoBehaviour
     {
         text = this.GetComponent<TextMeshProUGUI>();
         text.text = default;
+        defaultSize = transform.localScale;
+        size = defaultSize * 1.006f;
     }
 
     private void Update()
     {
+        //この機能を別クラスにする
         int nowint = default;
         int lastInt = default;
+
+        //if (Random.Range(0, MAX_RANDOM) == 1)
+        //{
+        //    this.transform.localScale = size;
+        //}
+        //else
+        //{
+        //    this.transform.localScale = defaultSize;
+        //}
+
         while (nowint == lastInt)
             nowint = Random.Range(0, fontAssets.Count - 1);
         lastInt = nowint;
