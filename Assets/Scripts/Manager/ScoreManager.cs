@@ -189,6 +189,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         playerStats.readOnlyPlayerHp.Subject.SecondOnwardsObservers(_ => { BonusScore_HpScore(); });
 
         ResultStage resultStage = GameObject.FindObjectOfType<ResultStage>();
+        if (resultStage == null) return;
         resultStage.readOnlyStateProperty.Subject.Subscribe(
             isResult =>
             {
@@ -453,7 +454,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     {
         ScorePoint = new ScoreNumber.Score();
         ScorePoint.scoreTimeBonus = 4000;
-
     }
 
     public void ScoreSave()
