@@ -18,7 +18,8 @@ public enum TutorialIventType
     enchant1,
     enchant2,
     attract1,
-    attract2
+    attract2,
+    end
 }
 
 
@@ -116,6 +117,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         _currentTutorialType++;
         _isHitFirst = true;
+
+        if (_currentTutorialType == TutorialIventType.end)
+        {
+            FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
+            return;
+        }
+
         StartCoroutine(CallText(2f));
     }
 
@@ -320,7 +328,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
             default:
 
-                FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
                 break;
         }
     }

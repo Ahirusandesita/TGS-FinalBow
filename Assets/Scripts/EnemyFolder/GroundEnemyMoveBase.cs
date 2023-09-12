@@ -127,7 +127,10 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         wormGroundTransform.gameObject.SetActive(false);
         myCollider.enabled = false;
 
-        _transform.LookAt(GameObject.FindWithTag("PlayerController").transform);
+        Vector3 directionVector = GameObject.FindWithTag(InhallLibTags.PlayerController).transform.position - _transform.position;
+        directionVector.y = 0f;
+        Quaternion lookAngle = Quaternion.LookRotation(directionVector);
+        _transform.rotation = lookAngle;
     }
 
     public void MoveEnd()
