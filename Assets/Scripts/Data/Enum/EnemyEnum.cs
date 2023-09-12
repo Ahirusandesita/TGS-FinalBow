@@ -26,12 +26,11 @@ public enum MoveType
 public enum BirdType
 {
     normalBird,
-    bombBird,
-    penetrateBird,
-    thunderBird,
-    bombBirdBig,
-    thunderBirdBig,
-    penetrateBirdBig,
+    watcher,
+    bomberBug,
+    giantBat,
+    oceanDragon,
+    desertDragon
 }
 
 /// <summary>
