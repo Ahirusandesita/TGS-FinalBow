@@ -105,5 +105,13 @@ public class PoolEnum : MonoBehaviour
         /// 爆発時の肉片4
         /// </summary>
         birdBodyChipFire,
+        /// <summary>
+        /// 目ん玉コウモリ
+        /// </summary>
+        wather,
+        /// <summary>
+        /// でかいコウモリ
+        /// </summary>
+        giantBat,
     }
 }
