@@ -57,13 +57,19 @@ public class BirdMoveComponents : BirdMoveBase
     {
         base.Start();
 
-        InitializeVariables();
 
         //SetGoalPosition(WaveType.zakoWave2, _thisInstanceIndex);
 
         // Å‰‚©‚ç³–Ê‚ğŒü‚©‚¹‚é
         //_transform.rotation = FRONT_ANGLE;
 
+    }
+
+    public override void BirdEnable()
+    {
+        base.BirdEnable();
+
+        InitializeVariables();
     }
 
 
