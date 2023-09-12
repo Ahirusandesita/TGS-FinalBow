@@ -21,6 +21,12 @@ public class CheckPointResult : MonoBehaviour
 
     public List<TMP_FontAsset> fontAssets = new List<TMP_FontAsset>();
 
+    [SerializeField]
+    private float _waitTime = 0.3f;
+
+    [SerializeField]
+    private float _upSpeed = 5f;
+
     public struct ResultStruct
     {
         public int NumberOfKills;
@@ -62,6 +68,12 @@ public class CheckPointResult : MonoBehaviour
         numberOfCombosText.font = fontAssets[nowint];
         clearTimeText.font = fontAssets[nowint];
         sumScoreText.font = fontAssets[nowint];
+    }
+
+    IEnumerator DestroyCount()
+    {
+        yield return new WaitForEndOfFrame();
+
     }
     #endregion
 }
