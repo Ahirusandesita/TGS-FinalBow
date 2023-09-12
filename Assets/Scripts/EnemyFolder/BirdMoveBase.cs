@@ -664,7 +664,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
             //-----------------------------------------------------------------
         }
 
-        _currentTime += Time.deltaTime;
 
         if (_birdStats.HP <= 0)
         {
@@ -719,6 +718,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
         }
 
         // UŒ‚ˆ—-----------------------------------------------------------------------------------
+
+        _currentTime += Time.deltaTime;
 
         if (!_isAttackCompleted_stopping)
         {
@@ -1053,6 +1054,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
                         // Å‘åUŒ‚”•ªŽÀsÏ‚Ý OR Ý’è‚³‚ê‚½•b”‚ª0ˆÈ‰º‚ÅI—¹
                         if (attackCount >= MAX_ATTACK_TIMES_FOR_SPECIFY_SECONDS || _attackTiming <= 0f)
                             yield break;
+
+                        _currentTime = 0f;
                     }
 
                     yield return null;
