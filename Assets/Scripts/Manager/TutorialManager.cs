@@ -42,6 +42,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [SerializeField]
     private GameObject _textFrame = default;
 
+    [SerializeField]
+    private GameObject _crystal = default;
+
 
     [Tooltip("チュートリアルの進行度")]
     private TutorialIventType _currentTutorialType = 0;    // opening
@@ -75,6 +78,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void Start()
     {
         _textFrame.SetActive(false);
+        _crystal.SetActive(false);
         Tutorial();
     }
 
@@ -270,7 +274,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
                 break;
 
+            // 吸い込みの紹介をした後
             case TutorialIventType.attract1:
+
+                _crystal.SetActive(true);
+                StartCoroutine(_crystal.GetComponent<TutorialCrystalBreak>().Break());
 
                 break;
 

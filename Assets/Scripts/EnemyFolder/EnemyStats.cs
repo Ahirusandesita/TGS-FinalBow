@@ -34,7 +34,7 @@ public abstract class EnemyStats : MonoBehaviour
     protected int _hp;
 
     [Tooltip("直前に食らった矢のエンチャント")]
-    protected EnchantmentEnum.EnchantmentState _takeEnchantment = EnchantmentEnum.EnchantmentState.nothing;
+    protected EnchantmentEnum.EnchantmentState _takeEnchantment = EnchantmentEnum.EnchantmentState.normal;
     #endregion
 
     protected virtual void Awake()
