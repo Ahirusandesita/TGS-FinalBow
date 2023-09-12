@@ -130,9 +130,9 @@ public class TargetMove : MonoBehaviour
 
     public IEnumerator RotateAtDespawn()
     {
-        yield return null;
 
         _targetStats.Despawn();
+        yield return null;
     }
     #endregion
 }

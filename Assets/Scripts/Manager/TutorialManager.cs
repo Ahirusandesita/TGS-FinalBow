@@ -39,6 +39,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [SerializeField]
     private GameObject _kakashi = default;
 
+    [SerializeField]
+    private GameObject _textFrame = default;
+
+
     [Tooltip("チュートリアルの進行度")]
     private TutorialIventType _currentTutorialType = 0;    // opening
 
@@ -70,6 +74,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Start()
     {
+        _textFrame.SetActive(false);
         Tutorial();
     }
 
@@ -105,6 +110,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private IEnumerator CallText(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        _textFrame.SetActive(true);
         _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType], this);
     }
 
@@ -150,7 +156,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _spawndTargetAmount--;
 
         if (_isHitFirst && _currentTutorialType == TutorialIventType.enchant2)
+        {
+            X_Debug.Log(_isHitFirst);
+            X_Debug.Log(_currentTutorialType);
             StartCoroutine(RemoveTarget());
+        }
 
         if (_spawndTargetAmount <= 0)
             ProgressingTheTutorial();
@@ -168,7 +178,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         for (int i = 0; i < targets.Length; i++)
         {
-            targets[i].RotateAtDespawn();
+            StartCoroutine(targets[i].RotateAtDespawn());
         }
     }
 
@@ -217,6 +227,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void IsComplete()
     {
+        _textFrame.SetActive(false);
+        
         switch (_currentTutorialType)
         {
             // VRが見えるか確認した後
