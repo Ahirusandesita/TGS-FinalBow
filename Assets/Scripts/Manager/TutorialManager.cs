@@ -138,6 +138,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _spawndTargetAmount++;
     }
 
+    /// <summary>
+    /// 的をデクリメントする処理
+    /// </summary>
     private void DecrementTargetAmount()
     {
         _spawndTargetAmount--;

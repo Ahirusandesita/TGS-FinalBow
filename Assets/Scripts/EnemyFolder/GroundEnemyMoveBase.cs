@@ -90,6 +90,8 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     private GroundEnemyDataTable _groundEnemyData;
     public GroundEnemyDataTable GroundEnemyData { set => _groundEnemyData = value; }
 
+    private GroundEnemyStats _genemyStats = default;
+
     private void OnEnable()
     {
 
@@ -104,8 +106,9 @@ public class GroundEnemyMoveBase : EnemyMoveBase
         myAnimation = this.GetComponent<Animator>();
         _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
         myCollider = this.GetComponent<BoxCollider>();
-        base.Start();
+        _genemyStats = this.GetComponent<GroundEnemyStats>();
 
+        base.Start();
     }
 
     public void InitializeOnEnable()
@@ -335,6 +338,13 @@ public class GroundEnemyMoveBase : EnemyMoveBase
     {
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(_groundEnemyData._spawnTime_s);
+
+        if (_groundEnemyData._onlySandDust)
+        {
+            _genemyStats.Despawn();
+            yield break;
+        }
+
         myAnimation.SetTrigger("RiseHigh");
         wormGroundTransform.gameObject.SetActive(true);
         wormSandTransform.gameObject.SetActive(false);
