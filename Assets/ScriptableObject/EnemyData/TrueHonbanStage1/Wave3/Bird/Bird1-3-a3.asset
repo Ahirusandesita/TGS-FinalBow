@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _birdType: 0
   _bullet: 0
-  _spawnDelay_s: 5
+  _spawnDelay_s: 25
   _birdSpawnPlace: {fileID: 4809105243752928989, guid: 7b9c0f3c45469644fa8379f6e153bf92, type: 3}
   _birdGoalPlaces:
   - _moveType: 1
-    _arcHeight: 10
-    _arcMoveDirection: 1
+    _arcHeight: 7
+    _arcMoveDirection: 0
     _birdGoalPlace: {fileID: 2580377675415534416, guid: 35f830a06286808478966ca1ab2edb8c, type: 3}
-    _speed: 20
+    _speed: 30
     _stayTime_s: 0
     _birdAttackType_a: 3
     _birdAttackType_b: 3
