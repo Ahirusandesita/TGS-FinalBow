@@ -47,11 +47,11 @@ public class CheckPointResult : MonoBehaviour
 
     public void Result(ResultStruct resultStruct)
     {
-        killCountText.text = "撃破数" + resultStruct.NumberOfKills;
-        killScoreText.text = "撃破スコア" + resultStruct.KillsScore;
-        numberOfCombosText.text = "コンボスコア" + resultStruct.NumberOfCombos;
-        clearTimeText.text = "クリアタイム" + resultStruct.ClearTime.ToString();
-        sumScoreText.text = "合計スコア" + resultStruct.SumScore.ToString();
+        killCountText.text = resultStruct.NumberOfKills.ToString();
+        killScoreText.text = resultStruct.KillsScore.ToString();
+        numberOfCombosText.text = resultStruct.NumberOfCombos.ToString();
+        clearTimeText.text = resultStruct.ClearTime.ToString();
+        sumScoreText.text = resultStruct.SumScore.ToString();
 
     }
     private void Update()
