@@ -48,8 +48,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [Tooltip("存在する的の数")]
     private int _spawndTargetAmount = default;
 
-    [Tooltip("的に当たった")]
-    private bool _isHitFirst = false;
+    [Tooltip("最初に的に当たった")]
+    private bool _isHitFirst = true;
     #endregion
 
     #region property
@@ -93,7 +93,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void ProgressingTheTutorial()
     {
         _currentTutorialType++;
-        _isHitFirst = false;
+        _isHitFirst = true;
         StartCoroutine(CallText(2f));
     }
 
@@ -149,9 +149,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         _spawndTargetAmount--;
 
-        if (_currentTutorialType == TutorialIventType.enchant2)
-            RemoveTarget();
-
+        if (_isHitFirst && _currentTutorialType == TutorialIventType.enchant2)
+            StartCoroutine(RemoveTarget());
 
         if (_spawndTargetAmount <= 0)
             ProgressingTheTutorial();
@@ -160,13 +159,16 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// <summary>
     /// 的の消去処理
     /// </summary>
-    private void RemoveTarget()
+    private IEnumerator RemoveTarget()
     {
-        TargetStats[] targets = GameObject.FindObjectsOfType<TargetStats>();
+        _isHitFirst = false;
+        yield return new WaitForSeconds(0.5f);
+
+        TargetMove[] targets = FindObjectsOfType<TargetMove>();
 
         for (int i = 0; i < targets.Length; i++)
         {
-            targets[i].Despawn();
+            targets[i].RotateAtDespawn();
         }
     }
 
