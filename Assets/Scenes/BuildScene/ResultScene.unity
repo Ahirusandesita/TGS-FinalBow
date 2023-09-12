@@ -719,6 +719,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6821724782058359784, guid: 7f945aed3e93f8e4eb92a46b84c9b7c3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6821724782058359786, guid: 7f945aed3e93f8e4eb92a46b84c9b7c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -811,6 +815,26 @@ PrefabInstance:
       propertyPath: titleScene
       value: 
       objectReference: {fileID: 11400000, guid: e62d87f322ee18c4388ac023ce8750a6, type: 2}
+    - target: {fileID: 8133861109262366503, guid: 7f945aed3e93f8e4eb92a46b84c9b7c3, type: 3}
+      propertyPath: fontAssets.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133861109262366503, guid: 7f945aed3e93f8e4eb92a46b84c9b7c3, type: 3}
+      propertyPath: fontAssets.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1b99d6edc93ce8a4cbc16bf34877940a, type: 2}
+    - target: {fileID: 8133861109262366503, guid: 7f945aed3e93f8e4eb92a46b84c9b7c3, type: 3}
+      propertyPath: fontAssets.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ec6eee4650e3ac946b88af4b0f61f73a, type: 2}
+    - target: {fileID: 8133861109262366503, guid: 7f945aed3e93f8e4eb92a46b84c9b7c3, type: 3}
+      propertyPath: fontAssets.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 42e36e915607ccf4e918a81360714d71, type: 2}
+    - target: {fileID: 8133861109262366503, guid: 7f945aed3e93f8e4eb92a46b84c9b7c3, type: 3}
+      propertyPath: fontAssets.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: aa30c29c8a659604c8b810ee6f074e1a, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f945aed3e93f8e4eb92a46b84c9b7c3, type: 3}
