@@ -30,6 +30,13 @@ public class GroundEnemyStats : CommonEnemyStats
         base.Death();
     }
 
+    public override void Despawn()
+    {
+        _onDeathEnemy();
+
+        base.Despawn();
+    }
+
     protected override void OnDeathReactions(Transform arrowTransform, Vector3 arrowVector)
     {
         _reaction.ReactionSetting(_takeEnchantment);
