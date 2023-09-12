@@ -840,6 +840,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
                 //-----------------------------------------------------------------
                 StartCoroutine(SmallerAtDespawn());// ìPëﬁââèoïœÇ¶ÇΩÇ¢
                 //-----------------------------------------------------------------
+
+                return;
             }
         }
 
@@ -900,7 +902,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
             case BirdAttackType.specifySeconds:
 
-                _attackTiming = _attackIntervalTimes_stopping[MAX_ATTACK_TIMES_FOR_SPECIFY_SECONDS * _repeatCount];
+                _attackTiming = _attackTimings_stopping[MAX_ATTACK_TIMES_FOR_SPECIFY_SECONDS * _repeatCount];
                 break;
 
             case BirdAttackType.consecutive:
