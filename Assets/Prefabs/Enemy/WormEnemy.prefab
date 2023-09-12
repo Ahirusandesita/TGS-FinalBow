@@ -29,8 +29,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5078419495150167610}
-  - {fileID: 3992198341193502062}
   - {fileID: 8735393142987824765}
+  - {fileID: 3992198341193502062}
   m_Father: {fileID: 5651375071990507457}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10645,6 +10645,8 @@ MonoBehaviour:
   _maxHp: 1
   maxInhallData: {fileID: 11400000, guid: 9c7c19a2918ce334cb8f314e946766ef, type: 2}
   _dropData: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
+  dropSpawn: {fileID: 8619141481687252211}
+  spawnOffsetY: 3
 --- !u!114 &-8455238509223195345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10715,7 +10717,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bff9f321396a947a52f68585764442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropData: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
   particle: {fileID: 4193060697884999929}
+  dropSpawnTransform: {fileID: 5651375071990431835}
 --- !u!114 &1412493737270300541
 MonoBehaviour:
   m_ObjectHideFlags: 0

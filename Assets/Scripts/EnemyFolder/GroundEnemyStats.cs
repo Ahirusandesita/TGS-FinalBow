@@ -10,7 +10,8 @@ using UnityEngine;
 
 public class GroundEnemyStats : CommonEnemyStats
 {
-
+    [SerializeField] Transform dropSpawn = default;
+    [SerializeField] float spawnOffsetY = 3f;
     protected override void Start()
     {
         base.Start();
@@ -24,7 +25,10 @@ public class GroundEnemyStats : CommonEnemyStats
 
     public override void Death()
     {
-        _drop.DropStart(_dropData, this.transform.position);
+        Vector3 spawn = dropSpawn.position + Vector3.up * spawnOffsetY;
+        _drop.DropStart(_dropData, spawn);
+
+        if(_onDeathEnemy is not null)
         _onDeathEnemy();
 
         base.Death();
