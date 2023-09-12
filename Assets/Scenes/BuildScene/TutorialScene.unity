@@ -256,7 +256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &139672906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70945461480048b4bb70f90119ff53cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fontAssets: []
 --- !u!114 &139672908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,13 +478,14 @@ GameObject:
   - component: {fileID: 542760955}
   - component: {fileID: 542760957}
   - component: {fileID: 542760956}
+  - component: {fileID: 542760958}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &542760955
 RectTransform:
   m_ObjectHideFlags: 0
@@ -601,6 +603,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 542760954}
   m_CullTransparentMesh: 1
+--- !u!114 &542760958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542760954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70945461480048b4bb70f90119ff53cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fontAssets:
+  - {fileID: 11400000, guid: 1b99d6edc93ce8a4cbc16bf34877940a, type: 2}
+  - {fileID: 11400000, guid: ec6eee4650e3ac946b88af4b0f61f73a, type: 2}
+  - {fileID: 11400000, guid: 42e36e915607ccf4e918a81360714d71, type: 2}
+  - {fileID: 11400000, guid: aa30c29c8a659604c8b810ee6f074e1a, type: 2}
 --- !u!1 &721759992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,7 +1653,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 05f4d1bded9f6654096a45001bebe93e, type: 2}
   - {fileID: 11400000, guid: 05270a54d880f934caf05e885e4b7aef, type: 2}
   - {fileID: 11400000, guid: 094ec3fa1afb2944e84a36149bfe55a3, type: 2}
-  _textSystem: {fileID: 139672907}
+  _textSystem: {fileID: 542760958}
   _kakashi: {fileID: 260269600}
 --- !u!4 &1017174177
 Transform:
