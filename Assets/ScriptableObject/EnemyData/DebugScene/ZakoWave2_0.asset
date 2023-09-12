@@ -17,8 +17,8 @@ MonoBehaviour:
   _spawnDelay_s: 0
   _birdSpawnPlace: {fileID: 6624288524222944905, guid: 54f43032bbe9b0a459a17b1b3f6aeb73, type: 3}
   _birdGoalPlaces:
-  - _moveType: 0
-    _arcHeight: 0
+  - _moveType: 1
+    _arcHeight: 1
     _arcMoveDirection: 0
     _birdGoalPlace: {fileID: 2223794877020030422, guid: e2bcefce2cfca164fa07f646d915c683, type: 3}
     _speed: 20
@@ -104,4 +104,6 @@ MonoBehaviour:
     _directionType_moving: 0
     _directionType_stopping: 0
     _directionType_attack: 0
+  _needRoop: 0
   _goalIndexOfRoop: 1
+  _despawnTime_s: 0
