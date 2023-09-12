@@ -17,6 +17,9 @@ public class ScoreFrameMaganer : MonoBehaviour
     [HideInInspector]
     public bool _endOpen { get; set; }
 
+    [HideInInspector]
+    public bool _endClose { get; set; }
+
     [SerializeField]
     private float _openSpeed = 5;
 
@@ -57,9 +60,9 @@ public class ScoreFrameMaganer : MonoBehaviour
         _frameImage = _frameObject.GetComponent<Image>();
     }
 
+    #region オープン
     public void OpenFrame()
     {
-        print("おいも");
         _endOpen = false;
         _nowWidthValue = NOW_WIDTH_MIN;
         _nowHeightValue = NOW_HEIGHT_MIN;
@@ -101,4 +104,52 @@ public class ScoreFrameMaganer : MonoBehaviour
             _endOpen = true;
         }
     }
+    #endregion
+
+    #region クローズ
+
+    public void CloseFrame()
+    {
+        _endClose = false;
+        _nowWidthValue = NOW_WIDTH_MAX;
+        _nowHeightValue = NOW_HEIGHT_MAX;
+        _nowScale = new Vector2(_nowWidthValue * _maxWidth, _nowHeightValue * _maxHeight);
+        StartCoroutine(CloseWidthCoroutine());
+    }
+
+    IEnumerator CloseWidthCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        _nowWidthValue -= _closeSpeed * Time.deltaTime;
+        if (_nowWidthValue > NOW_WIDTH_MIN)
+        {
+            _nowScale.x = _nowWidthValue * _maxWidth;
+            _frameTransform.sizeDelta = _nowScale;
+            StartCoroutine(CloseWidthCoroutine());
+        }
+        else
+        {
+            _nowScale.x = NOW_WIDTH_MIN * _maxWidth;
+            StartCoroutine(CloseHeightCoroutine());
+        }
+    }
+
+    IEnumerator CloseHeightCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        _nowHeightValue -= _closeSpeed * Time.deltaTime;
+        if (_nowHeightValue > NOW_HEIGHT_MIN)
+        {
+            _nowScale.y = _nowHeightValue * _maxHeight;
+            _frameTransform.sizeDelta = _nowScale;
+            StartCoroutine(CloseHeightCoroutine());
+        }
+        else
+        {
+            _nowScale.y = NOW_HEIGHT_MIN * _maxHeight;
+            _frameImage.enabled = false;
+            _endClose = true;
+        }
+    }
+    #endregion
 }
