@@ -81,9 +81,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     [Tooltip("現在のウェーブ番号")]
     private int _currentWaveIndex = 0;  // ウェーブ1
-
-    [Tooltip("ウェーブ開始ディレイ")]
-    private WaitForSeconds _waveStartWait_s = default;
     #endregion
 
 
@@ -91,7 +88,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         _objectPoolSystem = GameObject.FindWithTag(_PoolSystemTagData.TagName).GetComponent<ObjectPoolSystem>();
         _resultStage = this.GetComponent<ResultStage>();
-        _waveStartWait_s = new(_waveWait_s);
 
         // ステージ間リザルトの表示が終了したとき、ResultStageクラスでステージ進行処理が呼ばれる
         _resultStage.readOnlyStateProperty.Subject.Subscribe(isResult => { if (!isResult) { ProgressingTheStage(); } });
@@ -224,7 +220,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private IEnumerator WaveStart()
     {
         // 設定された秒数が経過したら、ステージスタート（読み込み待ち）
-        yield return _waveStartWait_s;
+        yield return new WaitForSeconds(_stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._startDelay_s);
 
         WaveExecution();
     }
