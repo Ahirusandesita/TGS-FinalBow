@@ -286,6 +286,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         if (_isAttractCompletedFirst && _canAttractCompleted)
         {
             _isAttractCompletedFirst = false;
+            _canShotFirst = true;
             CallSpawn();
         }
     }
@@ -295,7 +296,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnShot()
     {
-        if (_isShotFirst)
+        if (_isShotFirst && _canShotFirst)
         {
             _isShotFirst = false;
         }
@@ -349,7 +350,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 _canGrabTheString = true;
                 break;
 
-            // 的に当てた後
+            // 的当てテキストの後
             case TutorialIventType.shot2:
 
                 // 的を出現させる
