@@ -15,11 +15,13 @@ public class TargetStats : EnemyStats
 
     private CashObjectInformation _cashObjectInformation = default;
 
+    private bool _isFirst = true;
+
     private void OnEnable()
     {
         _hp = 1;
+        _isFirst = true;
 
-        
     }
 
     protected override void Start()
@@ -42,9 +44,14 @@ public class TargetStats : EnemyStats
 
     public override void Death()
     {
-        // è¡Ç∑èàóù
-        _decrementTargetAmount();
-        _objectPoolSystem.ReturnObject(_cashObjectInformation);
+        if (_isFirst)
+        {
+            _isFirst = false;
+
+            // è¡Ç∑èàóù
+            _decrementTargetAmount();
+            _objectPoolSystem.ReturnObject(_cashObjectInformation);
+        }
     }
 
     public void Despawn()
