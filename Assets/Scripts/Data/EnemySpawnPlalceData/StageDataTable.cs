@@ -29,6 +29,9 @@ public class WaveInformation
     [Tooltip("Wave名")]
     public string _wave;
 
+    [Header("Wave開始ディレイ"), Tooltip("Wave開始ディレイ")]
+    public float _startDelay_s;
+
     [Header("鳥雑魚データ"), Tooltip("鳥雑魚データ")]
     public List<BirdDataTable> _birdsData = new();
 
