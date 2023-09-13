@@ -234,7 +234,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
     #endregion
 
     [Tooltip("Scaleの加算/減算値")]
-    private readonly Vector3 CHANGE_SCALE_VALUE = new Vector3(0.05f, 0.05f, 0.05f);   // 少しずつ変わる
+    private Vector3 CHANGE_SCALE_VALUE = default;
 
     [Tooltip("正面の角度")]
     private Quaternion _frontAngle = default;
@@ -583,6 +583,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _startPosition = _transform.position;
         _prevPosition = _transform.position;
         _goalPosition = _goalPositions[_repeatCount];
+        CHANGE_SCALE_VALUE = _normalSize / 45f;
 
         // ステージ正面（ステージ地点の正面の逆数 = 敵にとっての正面）
         _frontAngle = Quaternion.Euler(_stageTransform.forward);
@@ -625,6 +626,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
                 break;
         }
 
+        _needDespawn = false;
+
         _spawnedTime = Time.time;
 
         // 方向の初期化
@@ -652,6 +655,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
     protected override void MoveSequence()
     {
+        if (_needDespawn)
+            return;
 
         // 麻痺状態か判定する（麻痺だったら動かない）
         Paralysing();
@@ -1146,6 +1151,8 @@ public abstract class BirdMoveBase : EnemyMoveBase
     /// </summary>
     public IEnumerator SmallerAtDespawn()
     {
+        _needDespawn = true;
+
         // Scaleが消滅時のサイズより大きい間、小さくする（判定のためにxを用いる）
         while (_transform.localScale.x > _spawn_And_DespawnSize.x)
         {

@@ -35,15 +35,15 @@ public class BirdManager : MonoBehaviour
     private void Update()
     {
         // “|‚¹‚È‚©‚Á‚½‚ç“¦‚°‚é
-        if (!_birdStats.IsSummmon && _birdMoveBase.NeedDespawn)
-        {
-            StartCoroutine(_birdMoveBase.SmallerAtDespawn());
+        //if (!_birdStats.IsSummmon && _birdMoveBase.NeedDespawn)
+        //{
+        //    StartCoroutine(_birdMoveBase.SmallerAtDespawn());
 
-            if (_birdMoveBase.IsChangeScaleComplete)
-            {
-                _birdStats.Despawn();
-            }
-        }
+        //    if (_birdMoveBase.IsChangeScaleComplete)
+        //    {
+        //        _birdStats.Despawn();
+        //    }
+        //}
 
         if (_birdStats.IsSummmon)
         {
