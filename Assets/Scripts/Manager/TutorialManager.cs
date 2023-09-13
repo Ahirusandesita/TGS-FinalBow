@@ -194,6 +194,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         _currentTutorialType++;
         _isHitFirst = true;
+        _isHit = false;
 
         StartCoroutine(CallText(2f));
     }
@@ -273,6 +274,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             if (_isReStart)
             {
                 _isReStart = false;
+                _isHit = false;
                 return;
             }
 
