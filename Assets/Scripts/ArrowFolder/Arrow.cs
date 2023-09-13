@@ -345,6 +345,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
                 ArrowEnchantSound(_audioSource);
             }
             ReturnQue();
+            return;
         }
 
         //矢がどこかにヒットしたら
