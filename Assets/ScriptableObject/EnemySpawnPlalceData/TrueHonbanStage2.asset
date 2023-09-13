@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waveInformation:
   - _wave: 5-1
+    _startDelay_s: 0
     _birdsData:
     - {fileID: 11400000, guid: 630f498a27c90cd40a6d1c738687e5f4, type: 2}
     - {fileID: 11400000, guid: 2767d95afb0c79b4d9de4f97919a1c24, type: 2}
@@ -24,6 +25,7 @@ MonoBehaviour:
     _groundEnemysData: []
     _targetData: []
   - _wave: 5-2
+    _startDelay_s: 0
     _birdsData:
     - {fileID: 11400000, guid: 4ae2b43d173b04a44929a6d7f5fdeb21, type: 2}
     - {fileID: 11400000, guid: a8e5b0e878a9ca041b308c1101113cb9, type: 2}
@@ -34,11 +36,13 @@ MonoBehaviour:
     _groundEnemysData: []
     _targetData: []
   - _wave: 5-3
+    _startDelay_s: 0
     _birdsData:
     - {fileID: 11400000, guid: 7a57eabb683d9c44c87fe61d8337b899, type: 2}
     _groundEnemysData: []
     _targetData: []
   - _wave: 5-4
+    _startDelay_s: 0
     _birdsData:
     - {fileID: 11400000, guid: 8575699601506ed4893d3a5e434f2d7d, type: 2}
     - {fileID: 11400000, guid: 57f26eab9ab2b98498401ac817c458ff, type: 2}
@@ -47,5 +51,17 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5f88f06c5bce41045b9440f78f5e2e6c, type: 2}
     - {fileID: 11400000, guid: 9648958526faf9945b72cda12ac4f43c, type: 2}
     - {fileID: 11400000, guid: ef263212156848445a3f2c96c3ffd78b, type: 2}
+    _groundEnemysData: []
+    _targetData: []
+  - _wave: 5-4
+    _startDelay_s: 0
+    _birdsData:
+    - {fileID: 11400000, guid: 8575699601506ed4893d3a5e434f2d7d, type: 2}
+    - {fileID: 11400000, guid: 4aefe626a53acee478fe5ac849d7b5ef, type: 2}
+    - {fileID: 11400000, guid: c5884630a5bef744dbc30df2a67f3591, type: 2}
+    - {fileID: 11400000, guid: d1b2b15ca5a98b0458b987bfa8bc6164, type: 2}
+    - {fileID: 11400000, guid: ce1785c89484d574f93c8fc7f20ec48f, type: 2}
+    - {fileID: 11400000, guid: 74c200c3ca20a914b820cb99398ca08a, type: 2}
+    - {fileID: 11400000, guid: 1308e1e5a287477409a3543b1df854b1, type: 2}
     _groundEnemysData: []
     _targetData: []
