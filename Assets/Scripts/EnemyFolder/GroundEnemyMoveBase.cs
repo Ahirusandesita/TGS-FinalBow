@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 interface IFNeedMoveRotineEnd
 {
@@ -73,7 +74,8 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
     private bool isJumpUp = true;
     private bool canJumpStop = true;
 
-    private BoxCollider myCollider;
+    [SerializeField]
+    private List<BoxCollider> myColliders = new List<BoxCollider>();
 
     [SerializeField]
     private float stopTime;
@@ -106,7 +108,6 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         _jumpPowerMax = _jumpPower;
         myAnimation = this.GetComponent<Animator>();
         _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
-        myCollider = this.GetComponent<BoxCollider>();
         _genemyStats = this.GetComponent<GroundEnemyStats>();
 
         base.Start();
@@ -125,7 +126,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         wormJumpUpTransform = this.transform.GetChild(0).GetChild(2).transform;
         wormSandTransform.gameObject.SetActive(false);
         wormGroundTransform.gameObject.SetActive(false);
-        myCollider.enabled = false;
+        MyCollidersEnabledFalse();
 
         Vector3 directionVector = GameObject.FindWithTag(InhallLibTags.PlayerController).transform.position - _transform.position;
         directionVector.y = 0f;
@@ -150,7 +151,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
             wormGroundTransform.gameObject.SetActive(false);
             wormJumpUpTransform.gameObject.SetActive(false);
             moveRoutine = StartCoroutine(WormAction());
-            myCollider.enabled = false;
+            MyCollidersEnabledFalse();
             isOnePlay = false;
         }
 
@@ -363,7 +364,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         wormGroundTransform.gameObject.SetActive(true);
         wormSandTransform.gameObject.SetActive(false);
         wormJumpUpTransform.gameObject.SetActive(true);
-        myCollider.enabled = true;
+        MyColliderEnabledTrue();
         yield return new WaitForSeconds(3f);
         wormJumpUpTransform.gameObject.SetActive(false);
         yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s - 3f);
@@ -372,10 +373,25 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.6f);
         wormGroundTransform.gameObject.SetActive(false);
-        myCollider.enabled = false;
+        MyCollidersEnabledFalse();
         yield return new WaitForSeconds(0.3f);
         wormSandTransform.gameObject.SetActive(false);
 
         _genemyStats.Despawn();
+    }
+
+    private void MyCollidersEnabledFalse()
+    {
+        for (int i = 0; i < myColliders.Count; i++)
+        {
+            myColliders[i].enabled = false;
+        }
+    }
+    private void MyColliderEnabledTrue()
+    {
+        for (int i = 0; i < myColliders.Count; i++)
+        {
+            myColliders[i].enabled = true;
+        }
     }
 }
