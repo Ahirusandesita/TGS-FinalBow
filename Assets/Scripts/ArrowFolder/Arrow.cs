@@ -338,16 +338,16 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
         bool[] isArrowHits = ArrowGetObject.ArrowHitFinalultraピーポー(MyTransform, this);
 
         //地面
-        //if (isArrowHits[6])
-        //{
-        //    if (EventArrowEffect != null)
-        //    {
-        //        EventArrowEffect(MyTransform);
-        //        ArrowEnchantSound(_audioSource);
-        //    }
-        //    ReturnQue();
-        //    return;
-        //}
+        if (isArrowHits[6])
+        {
+            if (EventArrowEffect != null)
+            {
+                EventArrowEffect(MyTransform);
+                ArrowEnchantSound(_audioSource);
+            }
+            ReturnQue();
+            return;
+        }
 
         //矢がどこかにヒットしたら
         if (isArrowHits[0])
