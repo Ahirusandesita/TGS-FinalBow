@@ -65,7 +65,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                 }
             }
             List<GameObject> searchEnemys = new List<GameObject>();
-            searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 15f, 100000f, 1);
+            searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 30f, 100000f, 1);
             if (searchEnemys.Count == 0)
             {
                 ReSetTarget();
@@ -119,7 +119,6 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                     {
                         print("LockOnUI–³‚¢");
                     }
-                    DestroyUI();
                     if (_lockOnTime > DISITION_TIME && LockOnTarget == null)
                     {
                         LockOnTarget = _temporaryTarget;
