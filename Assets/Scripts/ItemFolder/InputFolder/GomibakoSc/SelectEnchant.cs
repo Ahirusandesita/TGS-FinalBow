@@ -636,7 +636,7 @@ public class SelectEnchant : MonoBehaviour
     private IEnumerator DontSelectCoroutine()
     {
         _dontSelect.enabled = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         _dontSelect.enabled = false;
     }
 
