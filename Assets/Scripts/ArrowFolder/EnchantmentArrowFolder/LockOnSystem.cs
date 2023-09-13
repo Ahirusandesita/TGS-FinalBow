@@ -26,6 +26,8 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
 
     private LockOnUISystem _lockOnUI = default;
 
+    private LayerMask _enemyLayer = 1 << 6;
+
     private float _lockOnTime = default;
 
     private float _distance = default;
@@ -57,13 +59,15 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
             List<GameObject> enemys = new List<GameObject>();
             for (int i = 0; i < moves.Length; i++)
             {
-                enemys.Add(moves[i].gameObject);
+                if ((1 << moves[i].gameObject.layer & _enemyLayer.value) != 0 && moves[i].gameObject.activeSelf == true)
+                {
+                    enemys.Add(moves[i].gameObject);
+                }
             }
             List<GameObject> searchEnemys = new List<GameObject>();
-            searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 60f, 100000f, 1);
+            searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 15f, 100000f, 1);
             if (searchEnemys.Count == 0)
             {
-                print("誰もいない  " + bowTransform.rotation.eulerAngles);
                 ReSetTarget();
                 return;
             }
@@ -101,18 +105,25 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                     {
                         _onTarget = true;
                         i = searchEnemys.Count;
-                        print("範囲内　：　"+ _temporaryTarget.name);
                     }
                 }
 
                 if (_onTarget)
                 {
                     _lockOnTime += Time.deltaTime;
+                    try
+                    {
+                        _lockOnUI.LockOnNow(_lockOnTime);
+                    }
+                    catch
+                    {
+                        print("LockOnUI無い");
+                    }
                     DestroyUI();
                     if (_lockOnTime > DISITION_TIME && LockOnTarget == null)
                     {
                         LockOnTarget = _temporaryTarget;
-                        print("ロックオン完了");
+                        print("2^2ロックオン完了　　" + LockOnTarget);
                     }
                 }
                 else
@@ -133,6 +144,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
     public GameObject TargetSet(ArrowMove arrow)
     {
         _temporaryTarget = null;
+        print(LockOnTarget + "  ターゲット 2^2");
         return LockOnTarget;
     }
 
