@@ -5,6 +5,7 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -40,6 +41,9 @@ public class SelectEnchant : MonoBehaviour
     private bool _useCoroutine = false;
 
     private EnchantmentEnum.EnchantmentState _enchantState = EnchantmentEnum.EnchantmentState.normal;
+
+    [SerializeField]
+    private Image _dontSelect = default;
 
     #region variable 
     InputManagement mng;
@@ -549,7 +553,6 @@ public class SelectEnchant : MonoBehaviour
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
         //StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
-        _enchantState = EnchantmentEnum.EnchantmentState.normal;
         _state = NowSelect.None;
         //_useCoroutine = true;
         //_speaker.PlayOneShot(_enchantSound);
@@ -567,7 +570,6 @@ public class SelectEnchant : MonoBehaviour
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
         //StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
-        _enchantState = EnchantmentEnum.EnchantmentState.normal;
         _state = NowSelect.None;
         //_useCoroutine = true;
         //_speaker.PlayOneShot(_enchantSound);
@@ -585,7 +587,6 @@ public class SelectEnchant : MonoBehaviour
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
         //StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
-        _enchantState = EnchantmentEnum.EnchantmentState.normal;
         _state = NowSelect.None;
         //_useCoroutine = true;
         //_speaker.PlayOneShot(_enchantSound);
@@ -603,7 +604,6 @@ public class SelectEnchant : MonoBehaviour
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.OuterCircle, EnchantsChenger.E_Event.Cancel);
         Chenger.SetOnlyBackGround(EnchantsChenger.E_BackGround.Emiter, EnchantsChenger.E_Event.Cancel);
         //StartCoroutine(DecisionCancelCoroutine(_waitTime, EnchantsChenger.E_Enchant.Thunder));
-        _enchantState = EnchantmentEnum.EnchantmentState.normal;
         _state = NowSelect.None;
         //_useCoroutine = true;
         //_speaker.PlayOneShot(_enchantSound);
@@ -631,6 +631,11 @@ public class SelectEnchant : MonoBehaviour
     private void TutorialUI()
     {
         return;
+    }
+
+    private IEnumerator DontSelectCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
     }
 
     private void TutorialOpenMenu()
