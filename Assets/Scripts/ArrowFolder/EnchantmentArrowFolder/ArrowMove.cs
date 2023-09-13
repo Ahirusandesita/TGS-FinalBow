@@ -516,7 +516,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, PENETRATE);
+        movement(t, NOT_PENETRATE);
     }
 
     public void Homing(Transform t)
