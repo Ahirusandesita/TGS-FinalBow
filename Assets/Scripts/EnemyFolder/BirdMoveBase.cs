@@ -638,6 +638,32 @@ public abstract class BirdMoveBase : EnemyMoveBase
         StartCoroutine(LargerAtSpawn());
     }
 
+    private void OnDisable()
+    {
+        // ÉäÉXÉgÇÃèâä˙âª
+        _goalPositions.Clear();
+        _movementSpeeds.Clear();
+        _reAttackTimes.Clear();
+        _moveTypes.Clear();
+        _moveSpeedArcs.Clear();
+        _arcMoveDirections.Clear();
+        _birdAttackTypes_moving.Clear();
+        _birdAttackTypes_stopping.Clear();
+        _attackIntervalTimes_moving.Clear();
+        _attackIntervalTimes_stopping.Clear();
+        _attackTimings_moving.Clear();
+        _attackTimings_stopping.Clear();
+        _attackTimesList_moving.Clear();
+        _attackTimesList_stopping.Clear();
+        _cooldownTimeList_moving.Clear();
+        _cooldownTimeList_stopping.Clear();
+        _consecutiveIntervalTimes_moving.Clear();
+        _consecutiveIntervalTimes_stopping.Clear();
+        _directionTypes_moving.Clear();
+        _directionTypes_stopping.Clear();
+        _directionTypes_attack.Clear();
+    }
+
     /// <summary>
     /// ñÉ·ÉîªíË
     /// </summary>
