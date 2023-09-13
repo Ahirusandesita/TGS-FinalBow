@@ -18,8 +18,7 @@ public enum TutorialIventType
     enchant1,
     enchant2,
     attract1,
-    attract2,
-    end
+    ending
 }
 
 
@@ -118,12 +117,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _currentTutorialType++;
         _isHitFirst = true;
 
-        if (_currentTutorialType == TutorialIventType.end)
-        {
-            FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
-            return;
-        }
-
         StartCoroutine(CallText(2f));
     }
 
@@ -194,11 +187,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
             {
                 _isHitFirst = false;
-                StartCoroutine(RemoveTarget());
+                RemoveTarget();
             }
 
             if (_spawndTargetAmount <= 0)
             {
+                X_Debug.Log("ステージ進行");
                 ProgressingTheTutorial();
             }
         }
@@ -207,10 +201,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// <summary>
     /// 的の消去処理
     /// </summary>
-    private IEnumerator RemoveTarget()
+    private void RemoveTarget()
     {
-        yield return new WaitForSeconds(0.5f);
-
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
 
         for (int i = 0; i < targets.Length; i++)
@@ -322,17 +314,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 // ここで吸い込みを感知
                 //-----------------------------------------------
 
-                // 的とテキストを出す
-                ProgressingTheTutorial();
+                // 的を出す
                 CallSpawn();
 
                 break;
 
-            case TutorialIventType.attract2:
-
-                break;
-
-            default:
+            case TutorialIventType.ending:
+                FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
 
                 break;
         }
