@@ -139,7 +139,15 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void Update()
     {
         if (_input.ButtonDownLeftDownTrigger() || _input.ButtonDownRightDownTrigger())
+        {
             _textSystem.NextText();
+            X_Debug.Log("トリガーダウン");
+        }
+
+        if (_input.ButtonLeftDownTrigger() || _input.ButtonRightDownTrigger())
+        {
+            X_Debug.Log("トリガー");
+        }
 
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
