@@ -416,6 +416,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
                                   ZERO,                               // Ｙ軸
                                   _arrowSpeed * Time.deltaTime,        // Ｚ軸
                                   Space.Self);                        // ローカルで指定　矢先はＺ軸
+
+        // ターゲットが壊れたら挙動変更
         if (_target.activeSelf == false)
         {
             _endSetting = false;
