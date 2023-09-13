@@ -5,9 +5,9 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
-[RequireComponent(typeof(Drop),typeof(GatReactiveEvent),typeof(Reaction))]
-public class EnemyGimmickStats : EnemyStats,IFGetReactiveEvent
+using System;
+[RequireComponent(typeof(Drop), typeof(GatReactiveEvent), typeof(Reaction))]
+public class EnemyGimmickStats : EnemyStats, IFGetReactiveEvent
 {
 
     bool used = false;
@@ -31,18 +31,18 @@ public class EnemyGimmickStats : EnemyStats,IFGetReactiveEvent
         TakeDamage(_hp);
     }
 
-    
+
 
     public override void Death()
     {
-        
+        this.gameObject.SetActive(false);
     }
 
     protected override void OnDeathReactions(Transform arrowTransform, Vector3 arrowVector)
     {
         _reaction.ReactionSetting(_takeEnchantment);
         _reaction.ReactionEventStart(arrowTransform, arrowVector);
-       
+
 
     }
 
