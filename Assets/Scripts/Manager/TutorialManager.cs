@@ -49,6 +49,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private SceneObject _sceneObject = default;
 
 
+    private ScoreFrameMaganer _frameManager = default;
+
     [Tooltip("チュートリアルの進行度")]
     private TutorialIventType _currentTutorialType = 0;    // opening
 
@@ -61,7 +63,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [Tooltip("最初に的に当たった")]
     private bool _isHitFirst = true;
 
-    private ScoreFrameMaganer _frameManager = default;
+    [Tooltip("最初に弦を掴んだ")]
+    private bool _isGrabTheStringFirst = true;
     #endregion
 
     #region property
@@ -180,33 +183,32 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     private void DecrementTargetAmount()
     {
-        lock (this)
+        _spawndTargetAmount--;
+
+        if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
         {
-            _spawndTargetAmount--;
+            _isHitFirst = false;
+            StartCoroutine(RemoveTarget());
+        }
 
-            if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
-            {
-                _isHitFirst = false;
-                RemoveTarget();
-            }
-
-            if (_spawndTargetAmount <= 0)
-            {
-                X_Debug.Log("ステージ進行");
-                ProgressingTheTutorial();
-            }
+        if (_spawndTargetAmount <= 0)
+        {
+            ProgressingTheTutorial();
         }
     }
 
     /// <summary>
     /// 的の消去処理
     /// </summary>
-    private void RemoveTarget()
+    private IEnumerator RemoveTarget()
     {
-        TargetMove[] targets = FindObjectsOfType<TargetMove>();
+        yield return new WaitForSeconds(0.8f);
 
+        TargetMove[] targets = FindObjectsOfType<TargetMove>();
         for (int i = 0; i < targets.Length; i++)
+        {
             StartCoroutine(targets[i].RotateAtDespawn());
+        }
     }
 
     /// <summary>
