@@ -71,6 +71,7 @@ public class EffectPoolEnum
         newEnchantEffectHomingPenetrate,
 
         chickens,
+        fallingSmoke,
 
 
     }
