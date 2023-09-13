@@ -81,7 +81,14 @@ public class SelectEnchant : MonoBehaviour
             _tutorialManager = null;
         }
 
-        NormalEventSetting();
+        if (_tutorialManager != null)
+        {
+            TutorialEventSetting();
+        }
+        else
+        {
+            NormalEventSetting();
+        }
 
 
         //circleLinesAngle = CircleDivide(setting.Length);
