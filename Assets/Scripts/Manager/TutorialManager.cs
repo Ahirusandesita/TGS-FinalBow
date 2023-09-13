@@ -187,13 +187,21 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     private void DecrementTargetAmount()
     {
-        _spawndTargetAmount--;
+        lock (this)
+        {
+            _spawndTargetAmount--;
 
-        if (_isHitFirst && _currentTutorialType == TutorialIventType.enchant2)
-            StartCoroutine(RemoveTarget());
+            if (_isHitFirst && _currentTutorialType == TutorialIventType.enchant2)
+            {
+                _isHitFirst = false;
+                StartCoroutine(RemoveTarget());
+            }
 
-        if (_spawndTargetAmount <= 0)
-            ProgressingTheTutorial();
+            if (_spawndTargetAmount <= 0)
+            {
+                ProgressingTheTutorial();
+            }
+        }
     }
 
     /// <summary>
@@ -201,7 +209,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     private IEnumerator RemoveTarget()
     {
-        _isHitFirst = false;
         yield return new WaitForSeconds(0.5f);
 
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
