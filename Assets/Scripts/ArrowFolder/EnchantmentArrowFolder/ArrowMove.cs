@@ -197,13 +197,13 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private const int SEARCH_ANGLE = 1;
 
     // _lookSpeedCoefficientの初期値
-    private const float LOOKSPEED_DEFAULT = 0.8f;
+    private const float LOOKSPEED_DEFAULT = 1f;
 
     // _lookSpeedCoefficientの増加係数
-    private const float LOOKSPEED_ADDVALUE = 1.5f;
+    private const float LOOKSPEED_ADDVALUE = 2f;
 
     // _lookSpeedCoefficientの最大値
-    private const float LOOKSPEED_MAX = 8f;
+    private const float LOOKSPEED_MAX = 4f;
 
     #endregion
 
@@ -392,7 +392,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         // 初期設定
         if (!_endSetting)
         {
-            SetHomingTarget(arrowTransform , _arrowSpeed);
+            HomingSetting(arrowTransform , _arrowSpeed);
         }
 
         // 補正を時間とともに増加
@@ -415,6 +415,11 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
                                   ZERO,                               // Ｙ軸
                                   _arrowSpeed * Time.deltaTime,        // Ｚ軸
                                   Space.Self);                        // ローカルで指定　矢先はＺ軸
+        if (_target.activeSelf == false)
+        {
+            _endSetting = false;
+            SetNormal();
+        }
     }
 
     /// <summary>
@@ -422,7 +427,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     /// </summary>
     /// <param name="arrowTransform">矢のトランスフォーム</param>
     /// <param name="arrowSpeed">矢が飛んでいくスピード</param>
-    private void SetHomingTarget(Transform arrowTransform, float arrowSpeed)
+    private void HomingSetting(Transform arrowTransform, float arrowSpeed)
     {
         // フラグの設定　一回代入したら今後代入しないように変更
         _endSetting = true;
