@@ -24,7 +24,11 @@ public class GroundEnemyStats : CommonEnemyStats
     [Tooltip("このワームが死んだときに実行 / 「敵の残存数」のデクリメント処理を登録")]
     public OnDeathEnemy _onDeathEnemy;
 
-
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        actioning = false;
+    }
     public override void Death()
     {
         Vector3 spawn = dropSpawn.position + Vector3.up * spawnOffsetY;
@@ -39,7 +43,7 @@ public class GroundEnemyStats : CommonEnemyStats
     public override void Despawn()
     {
         _onDeathEnemy();
-        actioning = false;
+        
         base.Despawn();
     }
 
