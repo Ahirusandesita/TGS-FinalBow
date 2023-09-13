@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 5464802538755497204}
   - component: {fileID: 5453518798978591258}
   - component: {fileID: 5443655780190184394}
-  m_Layer: 0
+  - component: {fileID: 3328831037887853209}
+  - component: {fileID: 6840232421566200915}
+  m_Layer: 6
   m_Name: Gems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +85,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &3328831037887853209
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5465712700627568648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.7068182
+  m_Height: 2.3785522
+  m_Direction: 1
+  m_Center: {x: -0.036620736, y: -1.136243, z: 0.0018191338}
+--- !u!114 &6840232421566200915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5465712700627568648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f139ec7974df5b74f8d43f56f95bc89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 1
+  rootStats: {fileID: 1756736537962599422}
 --- !u!1 &5466244774125127032
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,11 +474,10 @@ GameObject:
   - component: {fileID: 1251605314034523559}
   - component: {fileID: 9150997549024874986}
   - component: {fileID: 1353811999334428965}
-  - component: {fileID: 8807569588908631374}
   - component: {fileID: 1756736537962599422}
   - component: {fileID: 7623174530685133155}
   - component: {fileID: 1418422076113884583}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: CrystalGimmick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,20 +523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4088848f63ce7744da111d48b9f9ffe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &8807569588908631374
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5730872856690075999}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.7068182
-  m_Height: 2.3785522
-  m_Direction: 1
-  m_Center: {x: -0.036620736, y: -1.136243, z: 0.0018191338}
 --- !u!114 &1756736537962599422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,11 +536,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 1
-  breakObject: {fileID: 5465712700627568648}
-  drop: {fileID: 9150997549024874986}
-  data: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
-  particle: {fileID: 107733590009361007}
-  col: {fileID: 8807569588908631374}
 --- !u!114 &7623174530685133155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,7 +564,7 @@ MonoBehaviour:
   drop: {fileID: 9150997549024874986}
   data: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
   particle: {fileID: 107733590009361007}
-  col: {fileID: 8807569588908631374}
+  col: {fileID: 3328831037887853209}
 --- !u!1001 &5465580581703680453
 PrefabInstance:
   m_ObjectHideFlags: 0
