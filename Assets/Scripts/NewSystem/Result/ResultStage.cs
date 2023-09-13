@@ -77,14 +77,16 @@ public class ResultStage : MonoBehaviour
     }
     private void Update()
     {
-
-        if (scoreFrameMaganer._endOpen)
+        if (scoreFrameMaganer != null)
         {
-            if (isOne)
+            if (scoreFrameMaganer._endOpen)
             {
-                checkPointResult.Result(resultStruct);
-                resultString.Result();
-                isOne = false;
+                if (isOne)
+                {
+                    checkPointResult.Result(resultStruct);
+                    resultString.Result();
+                    isOne = false;
+                }
             }
         }
 
