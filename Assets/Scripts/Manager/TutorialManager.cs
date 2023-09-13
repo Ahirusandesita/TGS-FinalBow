@@ -46,6 +46,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private GameObject _crystal = default;
 
     [SerializeField]
+    private Transform _crystalTransform = default;
+
+    [SerializeField]
     private SceneObject _sceneObject = default;
 
 
@@ -94,6 +97,14 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     [Tooltip("ラジアルメニューが表示された通知の許可")]
     private bool _canRadialMenuDisplayed = false;
+
+    [Tooltip("リスタート")]
+    private bool _isReStart = false;
+
+    [Tooltip("最初のトリガー入力")]
+    private bool _inputFirst = true;
+
+    private bool _isHit = false;
     #endregion
 
     #region property
@@ -132,21 +143,19 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Start()
     {
-        _crystal.SetActive(false);
         Tutorial();
     }
 
     private void Update()
     {
-        if (_input.ButtonDownLeftDownTrigger() || _input.ButtonDownRightDownTrigger())
-        {
-            _textSystem.NextText();
-            X_Debug.Log("トリガーダウン");
-        }
-
         if (_input.ButtonLeftDownTrigger() || _input.ButtonRightDownTrigger())
         {
-            X_Debug.Log("トリガー");
+            if (_inputFirst)
+            {
+                _inputFirst = false;
+                _textSystem.NextText();
+                StartCoroutine(WaitInput());
+            }
         }
 
 #if UNITY_EDITOR
@@ -166,13 +175,16 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         if (Input.GetKeyDown(KeyCode.F4))
             OnAttractCompleted();
+
+        if (Input.GetKeyDown(KeyCode.F5))
+            OnShot();
 #endif
     }
 
 
     private void Tutorial()
     {
-        StartCoroutine(CallText(2f));
+        StartCoroutine(CallText(1f));
     }
 
     /// <summary>
@@ -247,15 +259,23 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void DecrementTargetAmount()
     {
         _spawndTargetAmount--;
+        _isHit = true;
 
         if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
         {
             _isHitFirst = false;
+            _canShotFirst = false;
             StartCoroutine(RemoveTarget());
         }
 
         if (_spawndTargetAmount <= 0)
         {
+            if (_isReStart)
+            {
+                _isReStart = false;
+                return;
+            }
+
             ProgressingTheTutorial();
         }
     }
@@ -294,6 +314,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         if (_isAttractCompletedFirst && _canAttractCompleted)
         {
             _isAttractCompletedFirst = false;
+            _canAttractCompleted = false;
             _canShotFirst = true;
             CallSpawn();
         }
@@ -307,6 +328,24 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         if (_isShotFirst && _canShotFirst)
         {
             _isShotFirst = false;
+            StartCoroutine(WaitPossibleHit());
+
+            if (_isHit)
+            {
+                _isHit = false;
+                return;
+            }
+
+            _isReStart = true;
+            _targetSpawnCount--;
+
+            StartCoroutine(RemoveTarget());
+
+            StartCoroutine(WaitTargetDespawn());
+
+            // リセット
+            _isAttractCompletedFirst = true;
+            _canAttractCompleted = true;
         }
     }
 
@@ -385,8 +424,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             case TutorialIventType.attract1:
 
                 // クリスタルを出現させて、即割る
-                _crystal.SetActive(true);
-                StartCoroutine(_crystal.GetComponent<TutorialCrystalBreak>().Break());
+                StartCoroutine(Instantiate(_crystal, _crystalTransform.position, Quaternion.identity).GetComponent<TutorialCrystalBreak>().Break());
 
                 // ここで吸い込みを感知
                 _canAttractCompleted = true;
@@ -398,6 +436,33 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
                 break;
         }
+    }
+
+    private IEnumerator WaitTargetDespawn()
+    {
+        float wait = 1f;
+        float time = 0f;
+
+        while (time <= wait)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // クリスタルを出現させて、即割る
+        StartCoroutine(Instantiate(_crystal, _crystalTransform.position, Quaternion.identity).GetComponent<TutorialCrystalBreak>().Break());
+        _isShotFirst = true;
+    }
+
+    private IEnumerator WaitInput()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _inputFirst = true;
+    }
+
+    private IEnumerator WaitPossibleHit()
+    {
+        yield return new WaitForSeconds(1f);
     }
     #endregion
 }
