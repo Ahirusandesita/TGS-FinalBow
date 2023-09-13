@@ -168,9 +168,9 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                            TutorialOpenMenu();
                             _state = NowSelect.Explosion;
                             _speaker.PlayOneShot(_selectSound);
-                            TutorialOpenMenu();
                         }
                     }
                     else
@@ -184,9 +184,9 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                            TutorialOpenMenu();
                             _state = NowSelect.Thunder;
                             _speaker.PlayOneShot(_selectSound);
-                            TutorialOpenMenu();
                         }
                     }
                 }
@@ -203,9 +203,9 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Select);
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                            TutorialOpenMenu();
                             _state = NowSelect.Rapid;
                             _speaker.PlayOneShot(_selectSound);
-                            TutorialOpenMenu();
                         }
                     }
                     else
@@ -219,9 +219,9 @@ public class SelectEnchant : MonoBehaviour
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Select);
                             Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                             Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                            TutorialOpenMenu();
                             _state = NowSelect.Homing;
                             _speaker.PlayOneShot(_selectSound);
-                            TutorialOpenMenu();
                         }
                     }
 
@@ -237,9 +237,9 @@ public class SelectEnchant : MonoBehaviour
                         Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
                         Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                         Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                        TutorialOpenMenu();
                         _state = NowSelect.Penetration;
                         _speaker.PlayOneShot(_selectSound);
-                        TutorialOpenMenu();
                     }
                 }
             }
@@ -254,14 +254,12 @@ public class SelectEnchant : MonoBehaviour
                     Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Homing, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetCircleEnum(EnchantsChenger.E_Enchant.Rapid, EnchantsChenger.E_Event.Notselect);
                     Chenger.SetBackGroundEnum(EnchantsChenger.E_Event.Notselect);
+                    TutorialOpenMenu();
                     _state = NowSelect.Penetration;
                     _speaker.PlayOneShot(_selectSound);
-                    TutorialOpenMenu();
                 }
             }
-
             Chenger.RotateEmiter(_inputAngle);
-            
 
             #region Žg‚í‚È‚¢
             //if (_inputAngle != 0)

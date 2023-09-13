@@ -274,6 +274,8 @@ public abstract class BowManager : MonoBehaviour, IFBowManagerQue, IFBowManagerU
 
         _lockOnSystem.DestroyUI();
 
+        _reticleSystem.EndCreate();
+
         _handStats = HandStats.None;
     }
 
