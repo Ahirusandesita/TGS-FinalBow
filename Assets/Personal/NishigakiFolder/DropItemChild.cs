@@ -26,10 +26,13 @@ public class DropItemChild : MonoBehaviour
 
     [SerializeField]
     private float _translateWidth = 2;
+
+    private Transform _startPos = default;
     #endregion
     #region property
     #endregion
     #region method
+
     private void Update()
     {
         _rotation_y += Time.deltaTime * _rotationSpeed;
@@ -45,7 +48,7 @@ public class DropItemChild : MonoBehaviour
         _nowPosition.y = _position_y;
 
         _myTransform.eulerAngles = _nowPosition;
-        _myTransform.localPosition = _nowPosition;
+        _myTransform.position = _startPos.position + _nowPosition;
     }
 
     private void Awake()
@@ -58,6 +61,7 @@ public class DropItemChild : MonoBehaviour
     {
         _rotation_y = 0f;
         _position_y = 0f;
+        _startPos = this.transform.parent;
     }
     #endregion
 }
