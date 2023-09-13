@@ -51,6 +51,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private ScoreFrameMaganer _frameManager = default;
 
+    private InputManagement _input = default;
+
     [Tooltip("チュートリアルの進行度")]
     private TutorialIventType _currentTutorialType = 0;    // opening
 
@@ -65,6 +67,33 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     [Tooltip("最初に弦を掴んだ")]
     private bool _isGrabTheStringFirst = true;
+
+    [Tooltip("最初に吸い込みした")]
+    private bool _isAttractCompletedFirst = true;
+
+    [Tooltip("最初に矢を撃った")]
+    private bool _isShotFirst = true;
+
+    [Tooltip("最初にボムが選ばれた")]
+    private bool _isSelectedBombFirst = true;
+
+    [Tooltip("最初にラジアルメニューが表示された")]
+    private bool _isRadialMenuDisplayedFirst = true;
+
+    [Tooltip("弦を掴んだ通知の許可")]
+    private bool _canGrabTheString = false;
+
+    [Tooltip("吸い込みした通知の許可")]
+    private bool _canAttractCompleted = false;
+
+    [Tooltip("矢を撃った通知の許可")]
+    private bool _canShotFirst = false;
+
+    [Tooltip("ボムが選ばれた通知の許可")]
+    private bool _canSelectedBomb = false;
+
+    [Tooltip("ラジアルメニューが表示された通知の許可")]
+    private bool _canRadialMenuDisplayed = false;
     #endregion
 
     #region property
@@ -90,6 +119,15 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         {
             X_Debug.LogError("ScoreFrameManagerが取得できていません。");
         }
+
+        try
+        {
+            _input = GameObject.FindWithTag("InputController").GetComponent<InputManagement>();
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("InputManagemantが取得できていません。");
+        }
     }
 
     private void Start()
@@ -100,10 +138,27 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Update()
     {
+        if (_input.ButtonDownLeftDownTrigger() || _input.ButtonDownRightDownTrigger())
+            _textSystem.NextText();
+
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
         {
             _textSystem.NextText();
         }
+
+        if (Input.GetKeyDown(KeyCode.F1))
+            OnGrabTheString();
+
+        if (Input.GetKeyDown(KeyCode.F2))
+            OnRadialMenuDisplayed();
+
+        if (Input.GetKeyDown(KeyCode.F3))
+            OnSelectedBomb();
+
+        if (Input.GetKeyDown(KeyCode.F4))
+            OnAttractCompleted();
+#endif
     }
 
 
@@ -216,7 +271,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnGrabTheString()
     {
-
+        if (_isGrabTheStringFirst && _canGrabTheString)
+        {
+            _isGrabTheStringFirst = false;
+            ProgressingTheTutorial();
+        }
     }
 
     /// <summary>
@@ -224,7 +283,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnAttractCompleted()
     {
-
+        if (_isAttractCompletedFirst && _canAttractCompleted)
+        {
+            _isAttractCompletedFirst = false;
+            CallSpawn();
+        }
     }
 
     /// <summary>
@@ -232,7 +295,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnShot()
     {
-
+        if (_isShotFirst)
+        {
+            _isShotFirst = false;
+        }
     }
 
     /// <summary>
@@ -240,7 +306,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnSelectedBomb()
     {
-
+        if (_isSelectedBombFirst && _canSelectedBomb)
+        {
+            _isSelectedBombFirst = false;
+            CallSpawn();
+        }
     }
 
     /// <summary>
@@ -248,7 +318,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnRadialMenuDisplayed()
     {
-
+        if (_isRadialMenuDisplayedFirst && _canRadialMenuDisplayed)
+        {
+            _isRadialMenuDisplayedFirst = false;
+            ProgressingTheTutorial();
+        }
     }
 
     /// <summary>
@@ -271,10 +345,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             // 弦を掴んだ後
             case TutorialIventType.shot1:
 
-                //-----------------------------------------------
                 // ここで弦を掴んだかどうか検知
-                //-----------------------------------------------
-                ProgressingTheTutorial();
+                _canGrabTheString = true;
                 break;
 
             // 的に当てた後
@@ -282,25 +354,20 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
                 // 的を出現させる
                 CallSpawn();
-
                 break;
 
             // ラジアルメニュー展開を指示した後
             case TutorialIventType.enchant1:
 
-                //-----------------------------------------------
                 // ここでラジアルメニューを検知
-                //-----------------------------------------------
-                ProgressingTheTutorial();
+                _canRadialMenuDisplayed = true;
                 break;
 
             // 爆発エンチャントの選択を指示した後
             case TutorialIventType.enchant2:
 
-                //-----------------------------------------------
                 // ここで爆発の選択を検知
-                //-----------------------------------------------
-                CallSpawn();
+                _canSelectedBomb = true;
                 // ここでは、矢が一発でもいずれかの的に当たったら次のチュートリアルへ進行する
 
                 break;
@@ -312,12 +379,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 _crystal.SetActive(true);
                 StartCoroutine(_crystal.GetComponent<TutorialCrystalBreak>().Break());
 
-                //-----------------------------------------------
                 // ここで吸い込みを感知
-                //-----------------------------------------------
-
-                // 的を出す
-                CallSpawn();
+                _canAttractCompleted = true;
 
                 break;
 

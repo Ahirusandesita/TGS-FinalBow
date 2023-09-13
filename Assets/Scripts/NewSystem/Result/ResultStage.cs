@@ -28,6 +28,7 @@ public class ResultStage : MonoBehaviour
     private void Awake()
     {
         checkPointResult = GameObject.FindObjectOfType<CheckPointResult>();
+        if (checkPointResult == null) return;
         resultString = checkPointResult.gameObject.transform.GetChild(7).gameObject.GetComponent<ResultString>();
         scoreFrameMaganer = checkPointResult.gameObject.transform.GetChild(0).gameObject.GetComponent<ScoreFrameMaganer>();
         stagePropery.Subject.Subscribe(
