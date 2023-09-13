@@ -191,7 +191,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         {
             _spawndTargetAmount--;
 
-            if (_isHitFirst && _currentTutorialType == TutorialIventType.enchant2)
+            if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
             {
                 _isHitFirst = false;
                 StartCoroutine(RemoveTarget());
@@ -330,7 +330,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
             case TutorialIventType.attract2:
 
-                ProgressingTheTutorial();
                 break;
 
             default:
