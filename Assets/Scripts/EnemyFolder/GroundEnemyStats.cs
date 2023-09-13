@@ -12,6 +12,8 @@ public class GroundEnemyStats : CommonEnemyStats
 {
     [SerializeField] Transform dropSpawn = default;
     [SerializeField] float spawnOffsetY = 3f;
+
+    bool actioning = false;
     protected override void Start()
     {
         base.Start();
@@ -37,14 +39,22 @@ public class GroundEnemyStats : CommonEnemyStats
     public override void Despawn()
     {
         _onDeathEnemy();
-
+        actioning = false;
         base.Despawn();
     }
 
     protected override void OnDeathReactions(Transform arrowTransform, Vector3 arrowVector)
     {
+        if (actioning)
+        {
+            return;
+        }
+
+        actioning = true;
+
         _reaction.ReactionSetting(_takeEnchantment);
 
         _reaction.ReactionEventStart(arrowTransform, arrowVector);
+
     }
 }
