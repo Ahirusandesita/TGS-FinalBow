@@ -135,7 +135,6 @@ public class TargetMove : MonoBehaviour
 
     public IEnumerator RotateAtDespawn()
     {
-        yield return new WaitForSeconds(0.8f);
         float rotatedValue = 0f;
 
         while (rotatedValue < 90f)
