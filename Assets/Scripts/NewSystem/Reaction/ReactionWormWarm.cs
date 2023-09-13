@@ -25,6 +25,10 @@ public class ReactionWormWarm : MonoBehaviour, InterfaceReaction.IBombReaction
         drop = GetComponent<Drop>();
         needEnd = GetComponent<IFNeedMoveRotineEnd>();
     }
+    private void OnEnable()
+    {
+        particle.SetActive(false);
+    }
     public bool IsComplete()
     {
         return end;
@@ -58,8 +62,11 @@ public class ReactionWormWarm : MonoBehaviour, InterfaceReaction.IBombReaction
 
     private void OnDisable()
     {
+        
+        particle.SetActive(false);
+        anim.speed = 1;
+        actioning = false;
         end = false;
-
     }
 
 }

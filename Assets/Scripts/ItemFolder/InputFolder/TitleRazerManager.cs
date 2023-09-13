@@ -14,6 +14,8 @@ interface IFTakeRayCastTitle
 
     void SelectingRay();
 
+    void SelectOutRay();
+
     void SelectedRay();
 }
 public class TitleRazerManager : MonoBehaviour
@@ -73,29 +75,27 @@ public class TitleRazerManager : MonoBehaviour
         leftRenderer.SetPosition(START_INDEX, left.GetStartPosition());
         rightRenderer.SetPosition(START_INDEX, right.GetStartPosition());
 
-        left = new DirectionParts(leftRazerStartPosition, leftPointer, leftRenderer,input.ButtonDownLeftUpTrigger);
+        left = new DirectionParts(leftRazerStartPosition, leftPointer, leftRenderer,input.ButtonLeftUpTrigger);
         right = new DirectionParts(rightRazerStartPosition, rightPointer, rightRenderer,input.ButtonRightUpTrigger);
     }
     private void Update()
     {
-        RayFindObject(left);
-        RayFindObject(right);
+        RayFindObject(ref left);
+        RayFindObject(ref right);
 
         SetRayPoint(left);
-        SetRayPoint(right);
-
-        
+        SetRayPoint(right);        
 
     }
 
-    private void RayFindObject(DirectionParts parts)
+    private void RayFindObject(ref DirectionParts parts)
     {
         if (Physics.Raycast(parts.GetStartPosition(), parts.start.forward, out parts.hit, maxLineLength))
         {
             parts.cache = parts.hit.collider.GetComponent<IFTakeRayCastTitle>();
             parts.cache.TakeRay();
 
-            // ‚±‚±‚ÉƒŒƒtƒg
+            InputEvent(ref parts);
 
         }
         else
@@ -111,6 +111,17 @@ public class TitleRazerManager : MonoBehaviour
         parts.pointer.position = parts.hit.point;
     }
     
-       
+    private void InputEvent(ref DirectionParts parts)
+    {
+        // ‰Ÿ‚µ‚Ä‚¢‚é‚©‚¢‚È‚¢‚©
+        if (parts.buttonPushing())
+        {
+
+        }
+        else
+        {
+
+        }
+    }  
     
 }
