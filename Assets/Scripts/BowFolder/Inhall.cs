@@ -39,7 +39,7 @@ public class Inhall : MonoBehaviour, IInhall, IInhallDestroObject
     private ItemMove itemMove;
     public GameObject gollMovePosition;
 
-    public float attractPower = 80f;
+    public float attractPower = 50f;
 
     public bool debugAttract = true;
 
