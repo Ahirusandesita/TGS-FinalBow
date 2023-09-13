@@ -68,7 +68,9 @@ public class EffectPoolEnum
         newEnchantEffectThunderPenetrate,
         newEnchantEffectKnockBackhoming,
         newEnchantEffectKnockBackPenetrate,
-        newEnchantEffectHomingPenetrate
+        newEnchantEffectHomingPenetrate,
+
+        chickens,
 
 
     }

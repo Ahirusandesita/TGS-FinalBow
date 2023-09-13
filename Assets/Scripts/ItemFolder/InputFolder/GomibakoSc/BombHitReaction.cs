@@ -20,12 +20,16 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
     //private DropData bodyChipBigFire = default;
 
     //private Drop drop;
-    [SerializeField] GameObject particle;
     [SerializeField] GameObject body;
     [SerializeField] Collider[] colliders;
+    ObjectPoolSystem pool;
 
     bool end = false;
 
+    private void Awake()
+    {
+        pool = FindObjectOfType<ObjectPoolSystem>();
+    }
     public bool ReactionEnd { get => end; set => end = value; }
 
 
@@ -35,13 +39,15 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
         //drop.DropStart(bodyChipFire, this.transform.position);
         //drop.DropStart(bodyChipBig, this.transform.position);
         //drop.DropStart(bodyChipBigFire, this.transform.position);
-        particle.SetActive(true);
+        GameObject chickens = pool.CallObject(EffectPoolEnum.EffectPoolState.chickens, transform.position);
+        chickens.transform.localScale *= transform.localScale.x;
         body.SetActive(false);
         foreach(Collider col in colliders)
         {
             col.enabled = false;
         }
-        StartCoroutine(Wait());
+        //StartCoroutine(Wait());
+        end = true;
     }
 
     public bool IsComplete() => end;
@@ -58,7 +64,6 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
 
     private void OnDisable()
     {
-        particle.SetActive(false);
         body.SetActive(true);
         foreach (Collider col in colliders)
         {
