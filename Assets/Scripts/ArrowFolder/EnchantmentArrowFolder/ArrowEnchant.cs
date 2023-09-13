@@ -157,6 +157,10 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
             st = hitObj.GetComponent<EnemyStats>();
         }
 
+        if(st is null)
+        {
+            st = hitObj.GetComponentInChildren<EnemyStats>();
+        }
 
         calced = damage;
 

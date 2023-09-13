@@ -283,6 +283,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private void SetNormal()
     {
         movement = NormalMove;
+        _isSet = true;
     }
 
     /// <summary>
@@ -291,6 +292,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private void SetHoming()
     {
         movement = HomingMove;
+        _isSet = true;
     }
 
     #endregion
@@ -313,7 +315,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         // İ’è‚ªI‚í‚Á‚Ä‚¢‚½‚ç
         else
         {
-            print(_attenuation);
             // …•½•ûŒü‚Ö‚ÌˆÚ“®‘¬“x‚ÌŒ¸Š—¦‚ğZo
             _nowSpeedValue = Mathf.Clamp(STANDARD_SPEED_VALUE - (_flightTime * _attenuation), ZERO , MAXIMUM_SPEED_VALUE);
 
