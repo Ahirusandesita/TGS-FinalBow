@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _birdType: 0
   _bullet: 1
-  _spawnDelay_s: 0
+  _spawnDelay_s: 2
   _birdSpawnPlace: {fileID: 1603829949302622866, guid: 407e78563e653e04aaa10e29d8bfe88f, type: 3}
   _birdGoalPlaces:
   - _moveType: 1
@@ -77,8 +77,8 @@ MonoBehaviour:
     _directionType_attack: 0
   - _moveType: 1
     _arcHeight: 12
-    _arcMoveDirection: 1
-    _birdGoalPlace: {fileID: 4854129531769827748, guid: 0e986aea282bbaf44b590e50438bfc9a, type: 3}
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 4088200175982516825, guid: 985cb3c051bcf1d4c99447ea34a24913, type: 3}
     _speed: 20
     _stayTime_s: 10
     _birdAttackType_a: 3
