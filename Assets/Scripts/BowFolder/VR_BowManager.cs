@@ -11,7 +11,7 @@ using UnityEngine;
 [RequireComponent(typeof(Inhall))]
 public class VR_BowManager : CanDraw_BowManager
 {
-
+    TutorialManager tutorialManager;
     #region ‚©‚Â‚Äpublic‚¾‚Á‚½•Ï”
 
     [SerializeField] Transform _changeHandObjectTransform = default;
@@ -45,6 +45,7 @@ public class VR_BowManager : CanDraw_BowManager
 
     protected override void Start()
     {
+        tutorialManager = GameObject.FindObjectOfType<TutorialManager>();
         isTitle = IsTitleScene();
 
         _vibe = GetComponent<BowVibe>();
@@ -115,6 +116,12 @@ public class VR_BowManager : CanDraw_BowManager
     /// </summary>
     protected override void BowStringHold()
     {
+
+        if(tutorialManager != null)
+        {
+            tutorialManager.OnGrabTheString();
+        }
+
         _vibe.HoldingVibe(_percentDrawPower);
         base.BowStringHold();
     }
