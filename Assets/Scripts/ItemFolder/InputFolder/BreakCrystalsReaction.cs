@@ -20,7 +20,17 @@ public class BreakCrystalsReaction : MonoBehaviour,InterfaceReaction.IBombReacti
     [SerializeField] GameObject particle;
 
     [SerializeField] Collider col;
+
+    [SerializeField]
+    private AudioClip audioClip;
+
+    private AudioSource audioSource;
     public bool ReactionEnd { get => used; set => used = value; }
+
+    private void Start()
+    {
+        audioSource = this.GetComponent<AudioSource>();
+    }
 
     public bool IsComplete()
     {
@@ -41,9 +51,16 @@ public class BreakCrystalsReaction : MonoBehaviour,InterfaceReaction.IBombReacti
         drop.DropStart(data, breakObject.transform.position);
 
         particle.SetActive(true);
-
-        used = true;
+        audioSource.PlayOneShot(audioClip);
+        StartCoroutine(BreakSound());
         breakObject.SetActive(false);
         col.enabled = false;
     }
+
+    private IEnumerator BreakSound()
+    {
+        yield return new WaitForSeconds(0.5f);
+        used = true;
+    }
+
 }
