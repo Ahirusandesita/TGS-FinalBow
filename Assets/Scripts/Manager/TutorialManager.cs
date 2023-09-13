@@ -458,7 +458,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private IEnumerator WaitInput()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.3f);
         _inputFirst = true;
     }
 
