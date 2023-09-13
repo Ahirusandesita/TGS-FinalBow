@@ -21,10 +21,10 @@ MonoBehaviour:
     _arcHeight: 0
     _arcMoveDirection: 0
     _birdGoalPlace: {fileID: 3432371021594624, guid: 77254829fcf8c6b4990107119362a5f8, type: 3}
-    _speed: 100
-    _stayTime_s: 2
+    _speed: 150
+    _stayTime_s: 1
     _birdAttackType_a: 3
-    _birdAttackType_b: 0
+    _birdAttackType_b: 1
     _attackInterval_s_a: 0
     _attackInterval_s_b: 1.9
     _attackTiming_s1_a: 0
@@ -50,10 +50,10 @@ MonoBehaviour:
     _arcHeight: 0
     _arcMoveDirection: 0
     _birdGoalPlace: {fileID: 8930356224854631578, guid: 2728fa09273ea4d41815c1d35e3890f5, type: 3}
-    _speed: 100
-    _stayTime_s: 2
+    _speed: 150
+    _stayTime_s: 1
     _birdAttackType_a: 3
-    _birdAttackType_b: 0
+    _birdAttackType_b: 1
     _attackInterval_s_a: 0
     _attackInterval_s_b: 1.9
     _attackTiming_s1_a: 0
@@ -79,10 +79,10 @@ MonoBehaviour:
     _arcHeight: 0
     _arcMoveDirection: 0
     _birdGoalPlace: {fileID: 61879685998088044, guid: 91746e6e19905fd4194c78480650c483, type: 3}
-    _speed: 100
-    _stayTime_s: 2
+    _speed: 150
+    _stayTime_s: 1
     _birdAttackType_a: 3
-    _birdAttackType_b: 0
+    _birdAttackType_b: 1
     _attackInterval_s_a: 0
     _attackInterval_s_b: 1.9
     _attackTiming_s1_a: 0
@@ -104,6 +104,35 @@ MonoBehaviour:
     _directionType_moving: 0
     _directionType_stopping: 1
     _directionType_attack: 0
-  _needRoop: 0
+  - _moveType: 0
+    _arcHeight: 0
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 6984906889261704547, guid: 36e0ae84f977ec34fa7d2688d7239963, type: 3}
+    _speed: 150
+    _stayTime_s: 1
+    _birdAttackType_a: 3
+    _birdAttackType_b: 1
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 1.9
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0.1
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 1
+    _directionType_attack: 0
+  _needRoop: 1
   _goalIndexOfRoop: 0
-  _despawnTime_s: 0
+  _despawnTime_s: 10
