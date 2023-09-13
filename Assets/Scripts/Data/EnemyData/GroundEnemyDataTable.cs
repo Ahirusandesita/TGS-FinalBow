@@ -11,7 +11,7 @@ using System.Collections.Generic;
 public enum WormType
 {
     low,
-    hight,
+    high,
     middle
 }
 
