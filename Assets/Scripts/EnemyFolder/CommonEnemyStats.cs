@@ -117,7 +117,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     {
         base.TakeThunder(power);
 
-        _paralysisTime = _baseParalysisTime + _addParalysisTime * power;
+        _paralysisTime = 1.2f;
         StartCoroutine(ParalysisCoroutine(_paralysisTime));
     }
 

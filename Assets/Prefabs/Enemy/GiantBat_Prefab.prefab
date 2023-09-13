@@ -2026,7 +2026,7 @@ Transform:
   - {fileID: 7784496729109487019}
   - {fileID: 1284038835981073950}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7680508421008859016
 Animator:
@@ -2165,7 +2165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4910266f70f7e8f4f81b41e1201f3232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 7703172530677296574}
+  hitParticle: {fileID: 7703172530677296574}
+  fallingEffect: 50
 --- !u!114 &8436080809751478734
 MonoBehaviour:
   m_ObjectHideFlags: 0

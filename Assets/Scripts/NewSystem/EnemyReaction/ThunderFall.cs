@@ -6,18 +6,28 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
+interface IFRootFalseEvent
+{
+    void RootFalseAction();
+}
 public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
 {
     #region variable 
     public bool ReactionEnd { get; set; }
 
-    [SerializeField] GameObject particle = default;
+    [SerializeField] GameObject hitParticle = default;
+    [SerializeField] EffectPoolEnum.EffectPoolState fallingEffect = EffectPoolEnum.EffectPoolState.fallingSmoke;
+    ObjectPoolSystem _pool = default;
+
+    GameObject effect = default;
 
     private BirdStats _birdStats = default;
 
     private Transform _transform = default;
 
     private Animator _animator = default;
+
+    private IFRootFalseEvent falseEvent = default;
 
     [Tooltip("—Ž‰º‘¬“x")]
     private float _fallSpeed = 45f;
@@ -65,7 +75,9 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
         _paralysisMoveCache = 0f;
         _paralysisSpeed = _paralysisMoveDistance / _paralysisMoveReverceTime;
         _paralysisMoveVector = Random.onUnitSphere.normalized;
-        particle.SetActive(false);
+        falseEvent = default;
+        hitParticle.SetActive(false);
+
     }
 
     private void Awake()
@@ -73,6 +85,7 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
         _transform = this.transform;
         _birdStats = this.GetComponent<BirdStats>();
         _animator = this.GetComponent<Animator>();
+        _pool = FindObjectOfType<ObjectPoolSystem>();
     }
 
 
@@ -90,8 +103,12 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
                 _animator.speed = 0;
                 _elapsedTime2 += Time.deltaTime;
 
+
                 if (_elapsedTime2 >= ERASE_TIME)
                 {
+                    if(falseEvent is not null)
+                    falseEvent.RootFalseAction();
+
                     _isFinished = true;
                     return;
                 }
@@ -101,9 +118,9 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
                     //_animator.SetTrigger("Fall");
                     aaa = true;
                 }
-
+                effect.SetActive(true);
                 _transform.Translate(DOWN * Time.deltaTime * _fallSpeed, Space.World);
-
+                print(_transform.rotation.eulerAngles.z + "," + gameObject);
                 // 180“xˆÈã‰ñ“]‚µ‚È‚¢
                 if (_transform.rotation.eulerAngles.z >= 180f) return;
 
@@ -120,15 +137,24 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
     {
         _needStartReaction = true;
         _animator.SetTrigger("Thunder");
-        particle.SetActive(true);
+        hitParticle.SetActive(true);
+        effect = _pool.CallObject(fallingEffect, _transform.position);
+        
+        effect.transform.SetParent(_transform);
+        effect.SetActive(false);
+
+        effect.transform.position = _transform.position;
+
+        effect.TryGetComponent<IFRootFalseEvent>(out falseEvent);
+
     }
 
-  
+
     public bool IsComplete() => _isFinished;
 
     private void ParalysisAnimation()
     {
-        if(_paralysisMoveCache < _paralysisMoveDistance)
+        if (_paralysisMoveCache < _paralysisMoveDistance)
         {
             Vector3 move = _paralysisSpeed * Time.deltaTime * _paralysisMoveVector;
             _transform.Translate(move);
@@ -142,6 +168,6 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
         }
     }
 
-    
+
     #endregion
 }
