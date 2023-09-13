@@ -63,6 +63,7 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
 
     Vector3 _paralysisMoveVector = Vector3.one.normalized;
 
+    float test = 0;
     #endregion
     #region property
     #endregion
@@ -120,11 +121,14 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
                 }
                 effect.SetActive(true);
                 _transform.Translate(DOWN * Time.deltaTime * _fallSpeed, Space.World);
-                print(_transform.rotation.eulerAngles.z + "," + gameObject);
+                
                 // 180“xˆÈã‰ñ“]‚µ‚È‚¢
                 if (_transform.rotation.eulerAngles.z >= 180f) return;
-
+                
+                
                 _transform.Rotate(FORWARD * Time.deltaTime * _rotateSpeed);
+                print(FORWARD * Time.deltaTime * _rotateSpeed);
+
             }
             else
             {

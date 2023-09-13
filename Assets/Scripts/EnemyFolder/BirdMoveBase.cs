@@ -223,6 +223,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
     private bool _isRotateCompleted_moving = false;
     private Coroutine _activeRotateCoroutine_moving = default;
     private Coroutine _activeRotateCoroutine_stopping = default;
+    private Coroutine _activeRotateCoroutine_Attack = default;
 
     private float _spawnedTime = default;
 
@@ -640,16 +641,17 @@ public abstract class BirdMoveBase : EnemyMoveBase
     /// <summary>
     /// 麻痺判定
     /// </summary>
-    protected void Paralysing()
+    protected bool Paralysing()
     {
         if (bird.Get_isParalysis)
         {
             animator.speed = 0;
-            return;
+            return true;
         }
         else
         {
             animator.speed = 1;
+            return false;
         }
     }
 
@@ -657,9 +659,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
     {
         if (_needDespawn)
             return;
-
-        // 麻痺状態か判定する（麻痺だったら動かない）
-        Paralysing();
 
         // デスポーン処理
         if (_needRoop && Time.time > _spawnedTime + _despawnTime_s)
@@ -678,8 +677,15 @@ public abstract class BirdMoveBase : EnemyMoveBase
             if (_activeAttackCoroutine_stopping != null)
                 StopCoroutine(_activeAttackCoroutine_stopping);
 
+            if (_activeRotateCoroutine_Attack != null)
+                StopCoroutine(_activeRotateCoroutine_Attack);
+
             return;
         }
+
+        // 麻痺状態か判定する（麻痺だったら動かない）
+        if (Paralysing())
+            return;
 
         // 移動処理（移動が完了していたらこのブロックは無視される）-----------------------------------------------------------
 
@@ -738,7 +744,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             }
             else
             {
-                StartCoroutine(RotateCoroutine_Attack());
+                _activeRotateCoroutine_Attack = StartCoroutine(RotateCoroutine_Attack());
             }
 
             // 攻撃する（非同期）
