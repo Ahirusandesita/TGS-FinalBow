@@ -20,6 +20,7 @@ public class ResultStage : MonoBehaviour
     private ResultString resultString;
     private bool isOne = true;
     private ScoreFrameMaganer scoreFrameMaganer;
+    InputManagement inputManagement = default;
     #endregion
     #region property
     #endregion
@@ -27,6 +28,7 @@ public class ResultStage : MonoBehaviour
 
     private void Awake()
     {
+        inputManagement = GameObject.FindObjectOfType<InputManagement>();
         checkPointResult = GameObject.FindObjectOfType<CheckPointResult>();
         if (checkPointResult == null) return;
         resultString = checkPointResult.gameObject.transform.GetChild(7).gameObject.GetComponent<ResultString>();
@@ -88,7 +90,14 @@ public class ResultStage : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            stagePropery.Value = false;
+            if (stagePropery.Value)
+                stagePropery.Value = false;
+        }
+
+        if (inputManagement.ButtonLeftDownTrigger() || inputManagement.ButtonRightDownTrigger())
+        {
+            if (stagePropery.Value)
+                stagePropery.Value = false;
         }
     }
 
