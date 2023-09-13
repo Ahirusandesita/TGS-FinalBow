@@ -630,12 +630,14 @@ public class SelectEnchant : MonoBehaviour
 
     private void TutorialUI()
     {
-        return;
+        StartCoroutine(DontSelectCoroutine());
     }
 
     private IEnumerator DontSelectCoroutine()
     {
-        yield return new WaitForEndOfFrame();
+        _dontSelect.enabled = true;
+        yield return new WaitForSeconds(1.5f);
+        _dontSelect.enabled = false;
     }
 
     private void TutorialOpenMenu()
