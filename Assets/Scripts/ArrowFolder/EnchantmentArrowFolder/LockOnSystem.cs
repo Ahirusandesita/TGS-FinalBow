@@ -13,6 +13,7 @@ public interface IFLockOnSystem
     GameObject LockOnTarget { get; set; }
     void TargetLockOn(Transform bowTransform);
 
+    void DestroyUI();
 }
 
 public class LockOnSystem : MonoBehaviour , IFLockOnSystem
@@ -24,7 +25,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
 
     private ArrowEnchantment _enchant = default;
 
-    private LockOnUISystem _lockOnUI = default;
+    public LockOnUISystem _lockOnUI { get; set; }
 
     private LayerMask _enemyLayer = 1 << 6;
 
@@ -147,7 +148,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
         return LockOnTarget;
     }
 
-    private void DestroyUI()
+    public void DestroyUI()
     {
         try
         {
