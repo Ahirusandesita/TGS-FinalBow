@@ -1047,6 +1047,7 @@ public abstract class BirdMoveBase : EnemyMoveBase
             // w’è•b”
             case BirdAttackType.specifySeconds:
 
+                _currentTime = 0f;
                 int attackCount = 0;
 
                 while (true)

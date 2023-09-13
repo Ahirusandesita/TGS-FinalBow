@@ -29,7 +29,11 @@ public class TargetMove : MonoBehaviour
 
     private float _movedDistance = 0f;
 
+    private Transform _rotationPoint = default;
+
     private readonly Vector3 UP = Vector3.up;
+
+    private readonly Vector3 RIGHT = Vector3.right;
     #endregion
     #region property
     public TargetDataTable TargetData { set => _targetData = value; }
@@ -40,6 +44,7 @@ public class TargetMove : MonoBehaviour
     {
         _transform = this.transform;
         _targetStats = this.GetComponent<TargetStats>();
+        _rotationPoint = _transform.GetChild(0).transform;
     }
 
     private void Start()
@@ -130,9 +135,16 @@ public class TargetMove : MonoBehaviour
 
     public IEnumerator RotateAtDespawn()
     {
+        float rotatedValue = 0f;
+
+        while (rotatedValue < 90f)
+        {
+            _transform.RotateAround(_rotationPoint.position, RIGHT, Time.deltaTime * _rotateSpeed);
+            rotatedValue += Time.deltaTime * _rotateSpeed;
+            yield return null;
+        }
 
         _targetStats.Despawn();
-        yield return null;
     }
     #endregion
 }

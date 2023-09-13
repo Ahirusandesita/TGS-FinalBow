@@ -100,6 +100,9 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
 
     private GroundEnemyStats _genemyStats = default;
 
+    private string rise = default;
+    private string hide = default;
+
     protected override void Start()
     {
         moveMaxMinusSpeed = moveMinusSpeed;
@@ -352,6 +355,24 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
     private IEnumerator WormAction()
     {
         wormSandTransform.gameObject.SetActive(true);
+
+        switch (_groundEnemyData._wormType)
+        {
+            case WormType.high:
+                rise = "RiseHigh";
+                hide = "HideHigh";
+                break;
+            case WormType.middle:
+                rise = "RiseMiddle";
+                hide = "HideMiddle";
+                break;
+            case WormType.low:
+                rise = "RiseLow";
+                hide = "HideLow";
+                break;
+        }
+
+
         yield return new WaitForSeconds(_groundEnemyData._spawnTime_s);
 
         if (_groundEnemyData._onlySandDust)
@@ -360,7 +381,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
             yield break;
         }
 
-        myAnimation.SetTrigger("RiseHigh");
+        myAnimation.SetTrigger(rise);
         wormGroundTransform.gameObject.SetActive(true);
         wormSandTransform.gameObject.SetActive(false);
         wormJumpUpTransform.gameObject.SetActive(true);
@@ -368,7 +389,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         yield return new WaitForSeconds(3f);
         wormJumpUpTransform.gameObject.SetActive(false);
         yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s - 3f);
-        myAnimation.SetTrigger("HideHigh");
+        myAnimation.SetTrigger(hide);
         yield return new WaitForSeconds(1.4f);
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.6f);

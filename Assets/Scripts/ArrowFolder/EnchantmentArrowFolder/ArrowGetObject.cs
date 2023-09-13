@@ -31,6 +31,8 @@ public static class ArrowGetObject
     private static int _layerMask_ButtonGimmickピーポー = 10;
     private static int _layerMask_CantDestroyButton = 1 << 11;
     private static int _layerMask_CantDestroyButtonピーポー = 11;
+
+    private static int _layerMask_BlockObjectピーポー = 13;
     private static int _layerMask_Barrier = 12;
 
     private static float ARROW_THICK = 0.4f;
@@ -146,7 +148,7 @@ public static class ArrowGetObject
     public static bool[] ArrowHitFinalultraピーポー(Transform arrowTransform, Arrow arrow)
     {
 
-        bool[] isArrowHits = new bool[6];
+        bool[] isArrowHits = new bool[7];
         for (int i = 0; i < isArrowHits.Length; i++)
         {
             isArrowHits[i] = false;
@@ -191,6 +193,12 @@ public static class ArrowGetObject
             {
                 isArrowHits[5] = true;
                 arrow._hitObjects[5] = co[i].gameObject;
+            }
+
+            else if (!isArrowHits[6] && co[i].gameObject.layer == _layerMask_BlockObjectピーポー)
+            {
+                isArrowHits[6] = true;
+                arrow._hitObjects[6] = co[i].gameObject;
             }
 
         }

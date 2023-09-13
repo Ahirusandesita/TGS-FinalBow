@@ -18,8 +18,7 @@ public enum TutorialIventType
     enchant1,
     enchant2,
     attract1,
-    attract2,
-    end
+    ending
 }
 
 
@@ -50,6 +49,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private SceneObject _sceneObject = default;
 
 
+    private ScoreFrameMaganer _frameManager = default;
+
     [Tooltip("チュートリアルの進行度")]
     private TutorialIventType _currentTutorialType = 0;    // opening
 
@@ -62,7 +63,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [Tooltip("最初に的に当たった")]
     private bool _isHitFirst = true;
 
-    private ScoreFrameMaganer _frameManager = default;
+    [Tooltip("最初に弦を掴んだ")]
+    private bool _isGrabTheStringFirst = true;
     #endregion
 
     #region property
@@ -117,12 +119,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         _currentTutorialType++;
         _isHitFirst = true;
-
-        if (_currentTutorialType == TutorialIventType.end)
-        {
-            FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
-            return;
-        }
 
         StartCoroutine(CallText(2f));
     }
@@ -189,11 +185,16 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         _spawndTargetAmount--;
 
-        if (_isHitFirst && _currentTutorialType == TutorialIventType.enchant2)
+        if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
+        {
+            _isHitFirst = false;
             StartCoroutine(RemoveTarget());
+        }
 
         if (_spawndTargetAmount <= 0)
+        {
             ProgressingTheTutorial();
+        }
     }
 
     /// <summary>
@@ -201,13 +202,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     private IEnumerator RemoveTarget()
     {
-        _isHitFirst = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
 
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
-
         for (int i = 0; i < targets.Length; i++)
+        {
             StartCoroutine(targets[i].RotateAtDespawn());
+        }
     }
 
     /// <summary>
@@ -315,18 +316,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 // ここで吸い込みを感知
                 //-----------------------------------------------
 
-                // 的とテキストを出す
-                ProgressingTheTutorial();
+                // 的を出す
                 CallSpawn();
 
                 break;
 
-            case TutorialIventType.attract2:
-
-                ProgressingTheTutorial();
-                break;
-
-            default:
+            case TutorialIventType.ending:
+                FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
 
                 break;
         }

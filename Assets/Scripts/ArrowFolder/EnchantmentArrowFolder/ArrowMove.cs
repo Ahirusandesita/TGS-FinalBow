@@ -283,6 +283,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private void SetNormal()
     {
         movement = NormalMove;
+        _isSet = true;
     }
 
     /// <summary>
@@ -291,6 +292,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     private void SetHoming()
     {
         movement = HomingMove;
+        _isSet = true;
     }
 
     #endregion
@@ -313,7 +315,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         // 設定が終わっていたら
         else
         {
-            print(_attenuation);
             // 水平方向への移動速度の減衰率を算出
             _nowSpeedValue = Mathf.Clamp(STANDARD_SPEED_VALUE - (_flightTime * _attenuation), ZERO , MAXIMUM_SPEED_VALUE);
 
@@ -415,6 +416,8 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
                                   ZERO,                               // Ｙ軸
                                   _arrowSpeed * Time.deltaTime,        // Ｚ軸
                                   Space.Self);                        // ローカルで指定　矢先はＺ軸
+
+        // ターゲットが壊れたら挙動変更
         if (_target.activeSelf == false)
         {
             _endSetting = false;
@@ -513,7 +516,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             SetNormal();
         }
-        movement(t, PENETRATE);
+        movement(t, NOT_PENETRATE);
     }
 
     public void Homing(Transform t)

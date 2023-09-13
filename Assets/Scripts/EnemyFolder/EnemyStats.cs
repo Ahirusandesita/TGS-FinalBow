@@ -14,7 +14,6 @@ using UnityEngine;
 public abstract class EnemyStats : MonoBehaviour
 {
     #region protected変数
-    private HpGage hpGage;
 
     protected Animator _animator = default;
 
@@ -47,7 +46,6 @@ public abstract class EnemyStats : MonoBehaviour
         _animator = this.GetComponent<Animator>();
         _objectPoolSystem = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
         _transform = this.transform;
-        hpGage = this.transform.GetComponentInChildren<HpGage>();
     }
 
     //IFScoreManager_Combo _combo = default;
@@ -63,9 +61,6 @@ public abstract class EnemyStats : MonoBehaviour
         float maxHp = (float)_maxHp;
         if (_hp <= 0)
             OnDeathReactions(arrowTransform, arrowVector);
-        if (hpGage == null) return;
-        hpGage.Hp(hp / maxHp);
-
     }
 
     /// <summary>
@@ -80,8 +75,6 @@ public abstract class EnemyStats : MonoBehaviour
         float maxHp = (float)_maxHp;
         if (_hp <= 0)
             OnDeathReactions(null, Vector3.zero);
-        if (hpGage == null) return;
-        hpGage.Hp(hp / maxHp);
 
     }
 

@@ -157,7 +157,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
     public GameObject _hitObject;
 
     [System.NonSerialized]
-    public GameObject[] _hitObjects = new GameObject[6];
+    public GameObject[] _hitObjects = new GameObject[7];
 
 
     /// <summary>
@@ -336,6 +336,18 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
 
 
         bool[] isArrowHits = ArrowGetObject.ArrowHitFinalultraピーポー(MyTransform, this);
+
+        //地面
+        //if (isArrowHits[6])
+        //{
+        //    if (EventArrowEffect != null)
+        //    {
+        //        EventArrowEffect(MyTransform);
+        //        ArrowEnchantSound(_audioSource);
+        //    }
+        //    ReturnQue();
+        //    return;
+        //}
 
         //矢がどこかにヒットしたら
         if (isArrowHits[0])
