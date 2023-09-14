@@ -18,13 +18,14 @@ public interface ITextLikeSpeaking
     void ResponseComplete();
 
 }
-
+[RequireComponent(typeof(AudioSource))]
 public class TextSystem : MonoBehaviour
 {
     private TextMeshProUGUI text;
     public List<TMP_FontAsset> fontAssets = new List<TMP_FontAsset>();
     private float time;
     private const int MAX_RANDOM = 50;
+    private AudioSource audioSource;
 
     Vector3 size;
     Vector3 defaultSize;
@@ -34,6 +35,7 @@ public class TextSystem : MonoBehaviour
     private void Awake()
     {
         text = this.GetComponent<TextMeshProUGUI>();
+        audioSource = this.GetComponent<AudioSource>();
         text.text = default;
         defaultSize = transform.localScale;
         size = defaultSize * 1.006f;
@@ -69,6 +71,9 @@ public class TextSystem : MonoBehaviour
 
         for (int i = 0; i < tutorialManagementData.tutorialManagementItem.Count; i++)
         {
+            if (!audioSource.isPlaying)
+                audioSource.PlayOneShot(tutorialManagementData.audioClip);
+
             TutorialData tutorialData = tutorialManagementData.tutorialManagementItem[i].tutorialDatas;
             WaitForSeconds waitForSeconds = new WaitForSeconds(tutorialData.speakingSpeed);
             if (tutorialData.speakingSpeed == 0f) canNextText = true;
@@ -78,10 +83,12 @@ public class TextSystem : MonoBehaviour
             {
                 outImage = Instantiate(tutorialData.image.gameObject, tutorialData.image.gameObject.transform.position, tutorialData.image.gameObject.transform.rotation);
             }
+
             if (i == tutorialManagementData.tutorialManagementItem.Count - 1) textLikeSpeaking.ResponseComplete();
 
             for (int k = 0; k < tutorialData.text.Length; k++)
             {
+
                 string restText = default;
                 if (tutorialData.text[k] == '<')
                 {
