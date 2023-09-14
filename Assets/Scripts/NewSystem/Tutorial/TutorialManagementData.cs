@@ -12,6 +12,7 @@ using System.Collections.Generic;
 public class TutorialManagementData : ScriptableObject
 {
     public List<TutorialManagementItem> tutorialManagementItem = new List<TutorialManagementItem>();
+    public AudioClip audioClip;
 }
 [System.Serializable]
 public class TutorialManagementItem
