@@ -269,6 +269,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
         //_bowManagerQue = StaticBowObject.BowManagerQue;
 
         _bowManagerQue = GameObject.FindGameObjectWithTag("BowController").GetComponent<BowManager>();
+        MyTransform = this.transform;
 
     }
     private void Start()
