@@ -69,11 +69,11 @@ public static class ScoreNumber
         public int SumScore => scoreNormalEnemy + scoreComboBonus;
         
 
+
+
+    }
         public static void ResetScore()
         {
             ScorePoint = new Score();
         }
-
-
-    }
 }
