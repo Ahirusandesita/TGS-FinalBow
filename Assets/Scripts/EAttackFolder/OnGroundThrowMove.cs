@@ -5,7 +5,6 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using Nekoslibrary;
 using System.Collections;
 public class OnGroundThrowMove : EnemyAttackBase
 {
@@ -103,7 +102,7 @@ public class OnGroundThrowMove : EnemyAttackBase
         _moveValue += _attackMoveSpeed * Time.deltaTime;
 
 
-        _trajectory = _coefficient * MathN.Art.Pow(_distance - _imaginaryDistance / 2f - _moveValue) + _peak;
+        _trajectory = _coefficient * Mathf.Pow(_distance - _imaginaryDistance / 2f - _moveValue , 2) + _peak;
 
         _newPosition = _objectPosition + (_targetVecter * _moveValue);
         _newPosition.y = _standardHigh + _trajectory;
@@ -117,9 +116,11 @@ public class OnGroundThrowMove : EnemyAttackBase
         _playerPosition = _playerTransform.position;
         _objectPosition = _objectTransform.position;
 
-        _targetVecter = MathN.Vector.XZ(_playerPosition - _objectPosition).normalized;
+        _targetVecter = (_playerPosition - _objectPosition).normalized;
 
-        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x - _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.z - _objectPosition.z)));
+        _targetVecter.y = 0f;
+
+        _distance = Mathf.Sqrt(Mathf.Pow(Mathf.Abs(_playerPosition.x - _objectPosition.x) ,2) + Mathf.Pow(Mathf.Abs(_playerPosition.z - _objectPosition.z) ,2));
 
         //------‚ ‚Æ‚Å’¼‚·----------------------
 
@@ -127,19 +128,19 @@ public class OnGroundThrowMove : EnemyAttackBase
 
         _playerMoveValue = _playerSpeed * _needHitTime;
 
-        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x - _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z))) ;
+        _distance = Mathf.Sqrt(Mathf.Pow(Mathf.Abs(_playerPosition.x - _objectPosition.x) ,2) + Mathf.Pow(Mathf.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z) , 2)) ;
 
         _needHitTime = _distance / _attackMoveSpeed;
 
         _playerMoveValue = _playerSpeed * _needHitTime;
 
-        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x - _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z)));
+        _distance = Mathf.Sqrt(Mathf.Pow(Mathf.Abs(_playerPosition.x - _objectPosition.x),2) + Mathf.Pow(Mathf.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z),2));
 
         ; _needHitTime = _distance / _attackMoveSpeed;
 
         _playerMoveValue = _playerSpeed * _needHitTime;
 
-        _distance = Mathf.Sqrt(MathN.Art.Pow(MathN.Mod.Abs(_playerPosition.x - _objectPosition.x)) + MathN.Art.Pow(MathN.Mod.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z)));
+        _distance = Mathf.Sqrt(Mathf.Pow(Mathf.Abs(_playerPosition.x - _objectPosition.x),2) + Mathf.Pow(Mathf.Abs((_playerPosition.z + _playerMoveValue) - _objectPosition.z),2));
 
         //------------------------------------
 
@@ -147,7 +148,7 @@ public class OnGroundThrowMove : EnemyAttackBase
         _standardHigh = _playerPosition.y;
         if (_playerPosition.y == _objectPosition.y)
         {
-            _coefficient = -(QUADRUPLE * _peak) / MathN.Art.Pow(_distance);
+            _coefficient = -(QUADRUPLE * _peak) / Mathf.Pow(_distance,2);
         }
         else if (_playerPosition.y < _objectPosition.y)
         {
@@ -169,8 +170,8 @@ public class OnGroundThrowMove : EnemyAttackBase
         while (!_endSetting)
         {
             _imaginaryDistance += _counter[_counterNumber] * _sign;
-            _coefficient = -(QUADRUPLE * _peak) / MathN.Art.Pow(_imaginaryDistance);
-            _checkHigh = _coefficient * MathN.Art.Pow(_distance - _imaginaryDistance / 2f) + _peak;
+            _coefficient = -(QUADRUPLE * _peak) / Mathf.Pow(_imaginaryDistance,2);
+            _checkHigh = _coefficient * Mathf.Pow(_distance - _imaginaryDistance / 2f,2) + _peak;
             if (_imaginaryDistance < _checkLoop_Under || _imaginaryDistance > _checkLoop_Over)
             {
                 EscapeLoop(_playerPosition, _objectPosition);
@@ -199,7 +200,7 @@ public class OnGroundThrowMove : EnemyAttackBase
     {
         _peak = objectPosition.y - playerPosition.y;
         _imaginaryDistance = _distance * 2f;
-        _coefficient = -(QUADRUPLE * _peak) / MathN.Art.Pow(_imaginaryDistance);
+        _coefficient = -(QUADRUPLE * _peak) / Mathf.Pow(_imaginaryDistance,2);
     }
     #endregion
 }

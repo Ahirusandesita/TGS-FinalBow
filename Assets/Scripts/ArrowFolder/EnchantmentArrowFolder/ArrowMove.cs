@@ -52,9 +52,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     #region 共用変数
 
-    // 初期の角度　代入フラグが立っていたら代入する
-    private Vector3 _firstAngle = default;
-
     // 代入フラグ　一回代入したらtrueにする
     private bool _endSetting = false;
 
@@ -88,9 +85,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     // 矢の移動量　各軸方向ごとの移動量を代入する
     private Vector3 _moveValue = default;
 
-    // 矢の水平方向への移動速度
-    private float _arrowSpeed_Horizontal = default;
-
     // 矢のＸ軸方向への移動速度
     private float _arrowSpeed_X = default;
 
@@ -99,12 +93,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     // 矢のＺ軸方向への移動速度
     private float _arrowSpeed_Z = default;
-
-    // 最大の移動距離　速度に応じて変化する
-    private float _maxRange = default;
-
-    // 現在の移動距離
-    private float _nowRange = default;
 
     // 現在の水平方向への移動速度の割合　どのぐらい速度減衰しているか
     private float _nowSpeedValue = default;
@@ -176,12 +164,6 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
 
     // 時間経過によって増加する方向の調整速度の係数
     private float _lookSpeedCoefficient = LOOKSPEED_DEFAULT;
-    
-    // もし判定内に敵がいなかった時の直進用ターゲット
-    private GameObject _tmpTarget = default;
-
-    // 見つからなかった場合true
-    private bool _cantGet = false;
 
     // LockOnに使うクラス
     private LockOnSystem _lockOnSystem = default;
@@ -443,9 +425,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         {
             // まっすぐ飛んで行くように変更
             SetNormal();
-            _cantGet = true ;
             _endSetting = false;
-            print("setNormal");
         }
     }
 

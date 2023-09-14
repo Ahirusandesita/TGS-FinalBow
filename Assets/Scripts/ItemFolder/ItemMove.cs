@@ -5,7 +5,6 @@
 // Creator  : Nishigaki
 // --------------------------------------------------------- 
 using UnityEngine;
-using Nekoslibrary;
 
 public class ItemMove : MonoBehaviour
 {
@@ -36,12 +35,6 @@ public class ItemMove : MonoBehaviour
     // プレイヤーのtransform
     private Transform _playerTransform = default;
 
-    // 目標地点が向いている向き
-    private Vector3 _goalVector = default;
-
-    // 目標地点から見たアイテムへの向き
-    private Vector3 _betweenVector = default;
-
     // アイテムから見たターゲットの向き
     private Vector3 _targetVector = default;
 
@@ -55,23 +48,8 @@ public class ItemMove : MonoBehaviour
     // 引き寄せる速度の係数　速度は距離に応じて比例的に上昇するためその係数
     private float _attractSpeed = 150f;
 
-    // 調整用変数　引き寄せる力の大きさ　いずれは定数化したい
-    private float _attract_Power = 1f;
-
     // 開始時の目標地点との直線距離
     private float _startDistance = default;
-
-    // 追跡するターゲットとの距離
-    private float _targetDistance = default;
-
-    // 追跡する速度の加算値　離れれば離れるほど速くする
-    private float _addAttractSpeed = default;
-
-    // ローカル座標における目標地点との距離のＺ軸
-    private float _goalLocal_z = default;
-
-    // 目標地点の向きとアイテムへの向きの差　弧度法で代入
-    private float _differenceAngle = default;
 
     // プレイヤーとアイテムの距離
     private float _playerDistance = default;
@@ -100,17 +78,11 @@ public class ItemMove : MonoBehaviour
     // CashObjectInformationの代入用変数
     private CashObjectInformation _targeterCash = default;
 
-    // TargeterMoveの代入用変数
-    private TargeterMove targeterMove = default;
-
     // IFPlayerManagerEnchantParameterの代入用変数
     private IFPlayerManagerEnchantParameter _playerManager = default;
 
     // ItemStatusの代入用変数
     private ItemStatus _itemStatus = default;
-
-    // TargeterSetParentの代入用変数
-    private TargeterSetParent targeterclass = default;
 
     // BowManager
     private IFBowManager_GetStats _bowManager = default;
@@ -380,7 +352,7 @@ public class ItemMove : MonoBehaviour
         this.transform.Translate(_tmpDistance * _attractSpeed * Time.deltaTime);
         _tmpdif = _tmpdif - _attractSpeed * Time.deltaTime;
 
-        _sizeValue = MathN.Clamp.Min(_tmpdif / _tmpStartDif, SIZE_MINIMUM);
+        _sizeValue = Mathf.Clamp(_tmpdif / _tmpStartDif, SIZE_MINIMUM , Mathf.Infinity);
 
         this.transform.localScale = startsize * _sizeValue;
 
@@ -401,7 +373,7 @@ public class ItemMove : MonoBehaviour
     {
         //臨時用
         _tmpDistance = (_goalTransform.position - this.transform.position).normalized;
-        _tmpdif = MathN.Vector.Distance(this.transform.position, _goalTransform.position);
+        _tmpdif = Vector3.Distance(this.transform.position, _goalTransform.position);
         _tmpStartDif = _tmpdif;
         startsize = this.transform.localScale;
     }
