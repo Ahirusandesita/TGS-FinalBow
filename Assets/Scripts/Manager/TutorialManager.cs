@@ -154,11 +154,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             {
                 _inputFirst = false;
                 _textSystem.NextText();
-                StartCoroutine(WaitInput());
             }
         }
+        else
+        {
+            _inputFirst = true;
+        }
 
-#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
         {
             _textSystem.NextText();
@@ -172,13 +174,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         if (Input.GetKeyDown(KeyCode.F3))
             OnSelectedBomb();
-
-        if (Input.GetKeyDown(KeyCode.F4))
-            OnAttractCompleted();
-
-        if (Input.GetKeyDown(KeyCode.F5))
-            OnShot();
-#endif
     }
 
 
@@ -454,12 +449,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         // クリスタルを出現させて、即割る
         StartCoroutine(Instantiate(_crystal, _crystalTransform.position, Quaternion.identity).GetComponent<TutorialCrystalBreak>().Break());
         _isShotFirst = true;
-    }
-
-    private IEnumerator WaitInput()
-    {
-        yield return new WaitForSeconds(0.3f);
-        _inputFirst = true;
     }
 
     private IEnumerator WaitPossibleHit()
