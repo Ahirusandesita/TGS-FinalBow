@@ -30,9 +30,10 @@ public class TestText : MonoBehaviour,ITextLikeSpeaking
 
     }
 
-    public void IsComplete()
+    public void AllComplete()
     {
         Debug.Log("İ’è•¶š‚·‚×‚Äo—Í");
     }
+    public void ResponseComplete() { }
     #endregion
 }

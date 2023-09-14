@@ -384,7 +384,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// <summary>
     /// テキスト表示の終了感知（共通）
     /// </summary>
-    public void IsComplete()
+    public void AllComplete()
     {
         _textFrame.SetActive(false);
 
@@ -445,6 +445,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 break;
         }
     }
+
+    public void ResponseComplete() { }
 
     private IEnumerator WaitTargetDespawn()
     {
