@@ -197,13 +197,12 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     /// <returns></returns>
     private IEnumerator ParalysisCoroutine(float time)
     {
-        print("–ƒáƒ’†");
+        
         _paralysisEffects.SetActive(true);
         _isParalysis = true;
 
         yield return new WaitForSeconds(time);
 
-        print("–ƒáƒ‰ïê");
         _paralysisEffects.SetActive(false);
         _isParalysis = false;
     }
