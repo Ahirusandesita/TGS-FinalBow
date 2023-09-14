@@ -15,9 +15,6 @@ public class TitleLogoMove : MonoBehaviour
     private float _startPos = default;
 
     [SerializeField]
-    private float _rotationSpeed = 100f;
-
-    [SerializeField]
     private float _translateSpeed_Serialized = 1;
 
     private float _translateSpeed = default;

@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-
 public class SelectEnchant : MonoBehaviour
 {
     /*
@@ -53,13 +52,8 @@ public class SelectEnchant : MonoBehaviour
     [SerializeField]
     EnchantSetting[] setting;
     [SerializeField] SpriteRenderer main;
-    [SerializeField] int mode = -1;
     [SerializeField] Transform barParent;
     [SerializeField] GameObject image;
-    float linez = 0;
-    float minAngle = default;
-    float nextAngle = default;
-    float[] circleLinesAngle = default;
     [System.Serializable]
     struct EnchantSetting
     {
@@ -154,8 +148,6 @@ public class SelectEnchant : MonoBehaviour
                 DecisionCancel(ExchengeState(_enchantState));
             }
             _inputAngle = Mathf.Atan2(_inputVecter.x, _inputVecter.y) * Mathf.Rad2Deg;
-
-            print(_inputAngle);
 
             if (_inputAngle < 144f)
             {
