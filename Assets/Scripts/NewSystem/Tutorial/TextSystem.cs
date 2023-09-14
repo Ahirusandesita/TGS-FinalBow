@@ -13,7 +13,10 @@ using System.Collections.Generic;
 
 public interface ITextLikeSpeaking
 {
-    void IsComplete();
+    void AllComplete();
+
+    void ResponseComplete();
+
 }
 
 public class TextSystem : MonoBehaviour
@@ -68,6 +71,10 @@ public class TextSystem : MonoBehaviour
         {
             TutorialData tutorialData = tutorialManagementData.tutorialManagementItem[i].tutorialDatas;
             WaitForSeconds waitForSeconds = new WaitForSeconds(tutorialData.speakingSpeed);
+
+            GameObject outImage = Instantiate(tutorialData.image.gameObject, tutorialData.image.gameObject.transform.position, tutorialData.image.gameObject.transform.rotation);
+            if (i == tutorialManagementData.tutorialManagementItem.Count - 1) textLikeSpeaking.ResponseComplete();
+
             int textCount = 0;
             for (int k = 0; k < tutorialData.text.Length; k++)
             {
@@ -136,10 +143,12 @@ public class TextSystem : MonoBehaviour
                 canNextText = false;
                 yield return new WaitUntil(() => CanNextText || IsNextTime(tutorialManagementData.tutorialManagementItem[i].nextTime));
             }
+            Destroy(outImage);
+            outImage = null;
             this.text.text = default;
             canNextText = false;
         }
-        textLikeSpeaking.IsComplete();
+        textLikeSpeaking.AllComplete();
 
     }
 
