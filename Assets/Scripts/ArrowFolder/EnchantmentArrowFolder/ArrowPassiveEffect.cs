@@ -98,6 +98,7 @@ public class ArrowPassiveEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
 
     public void SetAttackDamage()
     {
+        if (_workEffect == null) return;
         sizeAdjustmentToVector3.plusCount++;
         _workEffect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3 / 2.5f;
     }
