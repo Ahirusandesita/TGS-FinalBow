@@ -48543,9 +48543,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2959116dd1e7fe4fa05b0342459b762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speaker: {fileID: 0}
-  _selectSound: {fileID: 0}
-  _enchantSound: {fileID: 0}
+  _speaker: {fileID: 1498709498}
+  _selectSound: {fileID: 8300000, guid: e98bc45c5ab32d94f9fcea3ab3f0b38c, type: 3}
+  _enchantSound: {fileID: 8300000, guid: 240c9f89b5683ca4da4c1bd714d3f589, type: 3}
   Chenger: {fileID: 1380443190}
   _dontSelect: {fileID: 0}
   selectDirection: {x: 0, y: 0}
@@ -48561,7 +48561,6 @@ MonoBehaviour:
   - _enchantState: 0
     color: {r: 1, g: 0.59836286, b: 0, a: 1}
   main: {fileID: 1284316099}
-  mode: -1
   barParent: {fileID: 254047716}
   image: {fileID: 1093121749}
 --- !u!114 &1380443190 stripped
@@ -51935,6 +51934,11 @@ SkinnedMeshRenderer:
 Transform:
   m_CorrespondingSourceObject: {fileID: 934617562227915451, guid: 4e05db48b6a7d5141bc36642f3a63223, type: 3}
   m_PrefabInstance: {fileID: 1604666398}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1498709498 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7936575622951840007, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 1609754649}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1500927518
 GameObject:
