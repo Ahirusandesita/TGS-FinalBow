@@ -190,8 +190,7 @@ public class ArrowEnchant : MonoBehaviour, IArrowEnchantable<GameObject, Enchant
         float sideRadius = size.GetFirstSize + size.GetMinimumSize * size.plusCount;
         Collider[] sideColliders = Physics.OverlapSphere(hitObj.transform.position,
             sideRadius, _layerMask);
-        print("aaa");
-        ArrayDebugLog.LogArrayObject<Collider>(sideColliders, "aaa,col");
+
         // ”šS“à‚Ì“G‚ğƒXƒLƒƒƒ“
         Collider[] middleColliders = Physics.OverlapSphere(hitObj.transform.position,
             sideRadius * _bombMiddleAreaSizePercent, _layerMask);

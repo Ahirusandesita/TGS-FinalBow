@@ -24,15 +24,6 @@ public class BossManager : MonoBehaviour
     [Tooltip("取得したBossMoveクラス")]
     private BossActionClass _bossMove = default;
 
-    [Tooltip("召喚までの行動数")]
-    private int _summonsIntervalTimes = 4;　// この数に1回召喚
-
-    [Tooltip("現在時間")]
-    private float _currentTime = 0f;
-
-    [Tooltip("攻撃行動の間隔")]
-    private const float ATTACK_INTERVAL_TIME = 5f;
-
     private void Start()
     {
         _bossStats = this.GetComponent<BossStats>();

@@ -23,17 +23,17 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
     public enum JumpDirectionState { zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve };
     public JumpDirectionState _jumpDirectionState;
 
-    private int _crabWalkDirection = 0;
+    //private int _crabWalkDirection = 0;
 
 
     public float _crabWalkingSpeed = default;
 
     public float _jumpPower = 150f;
-    private float _jumpPowerMax;
+    //private float _jumpPowerMax;
 
     CrabWalkState _crabWalk;
 
-    private bool _isJump = false;
+    //private bool _isJump = false;
 
     Transform wormSandTransform = default;
     Transform wormGroundTransform = default;
@@ -51,28 +51,25 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         public float X;
         public float Z;
     }
-    private JumpDirection _jumpDirection;
+    //private JumpDirection _jumpDirection;
 
-    private GroundEnemyAttack _groundEnemyAttack = default;
+    //private GroundEnemyAttack _groundEnemyAttack = default;
 
-
-    private float _currentTime = 0f;
-    private float _currentTime2 = 0f;
     [HideInInspector]
     public float _reAttackTime_s = default;
-    private bool _completedAttack = true;
+    //private bool _completedAttack = true;
     [HideInInspector]
     public float _despawnTime_s = default;
     [HideInInspector]
     public bool _needDespawn = false;
 
-    private Vector3 startTransform;
+    //private Vector3 startTransform;
     [SerializeField]
     private float moveMinusSpeed = 0f;
-    private float moveMaxMinusSpeed = 0f;
+    //private float moveMaxMinusSpeed = 0f;
 
-    private bool isJumpUp = true;
-    private bool canJumpStop = true;
+    //private bool isJumpUp = true;
+    //private bool canJumpStop = true;
 
     [SerializeField]
     private List<BoxCollider> myColliders = new List<BoxCollider>();
@@ -105,12 +102,12 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
 
     protected override void Start()
     {
-        moveMaxMinusSpeed = moveMinusSpeed;
+        //moveMaxMinusSpeed = moveMinusSpeed;
         _crabWalk = CrabWalkState.left;
         WalkDirectionState();
-        _jumpPowerMax = _jumpPower;
+        //_jumpPowerMax = _jumpPower;
         myAnimation = this.GetComponent<Animator>();
-        _groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
+        //_groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
         _genemyStats = this.GetComponent<GroundEnemyStats>();
 
         base.Start();
@@ -118,10 +115,8 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
 
     public void InitializeOnEnable()
     {
-        _currentTime = 0f;
-        _currentTime2 = 0f;
         _needDespawn = false;
-        startTransform = this.transform.position;
+        //startTransform = this.transform.position;
         isOnePlay = true;
 
         wormGroundTransform = this.transform.GetChild(0).GetChild(0).transform;
@@ -203,124 +198,124 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         //CrabWalk();
         //Jump();
     }
-    IEnumerator JumpStop()
-    {
-        isJumpUp = false;
-        yield return new WaitForSeconds(stopTime);
-        isJumpUp = true;
-    }
+    //IEnumerator JumpStop()
+    //{
+    //    isJumpUp = false;
+    //    yield return new WaitForSeconds(stopTime);
+    //    isJumpUp = true;
+    //}
 
-    private void Jump()
-    {
-        if (_isJump)
-        {
-            _transform.Translate(40f * _jumpDirection.X * Time.deltaTime, _jumpPower * Time.deltaTime, 40f * _jumpDirection.Z * Time.deltaTime);
-            _jumpPower -= 200f * Time.deltaTime;
-        }
-    }
+    //private void Jump()
+    //{
+    //    if (_isJump)
+    //    {
+    //        _transform.Translate(40f * _jumpDirection.X * Time.deltaTime, _jumpPower * Time.deltaTime, 40f * _jumpDirection.Z * Time.deltaTime);
+    //        _jumpPower -= 200f * Time.deltaTime;
+    //    }
+    //}
 
-    private void CrabWalk()
-    {
-        _transform.Translate(_crabWalkingSpeed * _crabWalkDirection * Time.deltaTime, 0f, 0f);
-    }
+    //private void CrabWalk()
+    //{
+    //    _transform.Translate(_crabWalkingSpeed * _crabWalkDirection * Time.deltaTime, 0f, 0f);
+    //}
 
-    private void Stop()
-    {
+    //private void Stop()
+    //{
 
-    }
+    //}
 
     /// <summary>
     /// òAë±çUåÇ
     /// </summary>
     /// <returns></returns>
-    private IEnumerator ConsecutiveAttack()
-    {
-        _completedAttack = false;
+    //private IEnumerator ConsecutiveAttack()
+    //{
+    //    _completedAttack = false;
 
-        int count = 0;
-        while (count < 3)
-        {
-            _groundEnemyAttack.ThrowingAttack(_transform);
-            count++;
+    //    int count = 0;
+    //    while (count < 3)
+    //    {
+    //        _groundEnemyAttack.ThrowingAttack(_transform);
+    //        count++;
 
-            yield return new WaitForSeconds(0.5f);
-        }
+    //        yield return new WaitForSeconds(0.5f);
+    //    }
 
-        _completedAttack = true;
-    }
+    //    _completedAttack = true;
+    //}
 
     private void WalkDirectionState()
     {
         if (_crabWalk == CrabWalkState.left)
         {
-            _crabWalkDirection = 1;
+            //_crabWalkDirection = 1;
         }
         else if (_crabWalk == CrabWalkState.right)
         {
-            _crabWalkDirection = -1;
+            //_crabWalkDirection = -1;
         }
     }
 
-    private void JumpDirectionSetting()
-    {
-        switch (_jumpDirectionState)
-        {
-            case JumpDirectionState.zero:
-                _jumpDirection.X = 0f;
-                _jumpDirection.Z = 0f;
-                break;
-            case JumpDirectionState.one:
-                _jumpDirection.X = 0.2886f;
-                _jumpDirection.Z = 0.5f;
-                break;
-            case JumpDirectionState.two:
-                _jumpDirection.X = 0.5f;
-                _jumpDirection.Z = 0.2886f;
-                break;
-            case JumpDirectionState.three:
-                _jumpDirection.X = 1f;
-                _jumpDirection.Z = 0f;
-                break;
-            case JumpDirectionState.four:
-                _jumpDirection.X = 0.5f;
-                _jumpDirection.Z = -0.2886f;
-                break;
-            case JumpDirectionState.five:
-                _jumpDirection.X = 0.2886f;
-                _jumpDirection.Z = -0.5f;
-                break;
-            case JumpDirectionState.six:
-                _jumpDirection.X = 0f;
-                _jumpDirection.Z = -1f;
-                break;
-            case JumpDirectionState.seven:
-                _jumpDirection.X = -0.2886f;
-                _jumpDirection.Z = -0.5f;
-                break;
-            case JumpDirectionState.eight:
-                _jumpDirection.X = -0.5f;
-                _jumpDirection.Z = -0.2886f;
-                break;
-            case JumpDirectionState.nine:
-                _jumpDirection.X = -1f;
-                _jumpDirection.Z = 0f;
-                break;
-            case JumpDirectionState.ten:
-                _jumpDirection.X = -0.5f;
-                _jumpDirection.Z = 0.2886f;
-                break;
-            case JumpDirectionState.eleven:
-                _jumpDirection.X = -0.2886f;
-                _jumpDirection.Z = 0.5f;
-                break;
-            case JumpDirectionState.twelve:
-                _jumpDirection.X = 0f;
-                _jumpDirection.Z = 1f;
+    //private void JumpDirectionSetting()
+    //{
+    //    switch (_jumpDirectionState)
+    //    {
+    //        case JumpDirectionState.zero:
+    //            _jumpDirection.X = 0f;
+    //            _jumpDirection.Z = 0f;
+    //            break;
+    //        case JumpDirectionState.one:
+    //            _jumpDirection.X = 0.2886f;
+    //            _jumpDirection.Z = 0.5f;
+    //            break;
+    //        case JumpDirectionState.two:
+    //            _jumpDirection.X = 0.5f;
+    //            _jumpDirection.Z = 0.2886f;
+    //            break;
+    //        case JumpDirectionState.three:
+    //            _jumpDirection.X = 1f;
+    //            _jumpDirection.Z = 0f;
+    //            break;
+    //        case JumpDirectionState.four:
+    //            _jumpDirection.X = 0.5f;
+    //            _jumpDirection.Z = -0.2886f;
+    //            break;
+    //        case JumpDirectionState.five:
+    //            _jumpDirection.X = 0.2886f;
+    //            _jumpDirection.Z = -0.5f;
+    //            break;
+    //        case JumpDirectionState.six:
+    //            _jumpDirection.X = 0f;
+    //            _jumpDirection.Z = -1f;
+    //            break;
+    //        case JumpDirectionState.seven:
+    //            _jumpDirection.X = -0.2886f;
+    //            _jumpDirection.Z = -0.5f;
+    //            break;
+    //        case JumpDirectionState.eight:
+    //            _jumpDirection.X = -0.5f;
+    //            _jumpDirection.Z = -0.2886f;
+    //            break;
+    //        case JumpDirectionState.nine:
+    //            _jumpDirection.X = -1f;
+    //            _jumpDirection.Z = 0f;
+    //            break;
+    //        case JumpDirectionState.ten:
+    //            _jumpDirection.X = -0.5f;
+    //            _jumpDirection.Z = 0.2886f;
+    //            break;
+    //        case JumpDirectionState.eleven:
+    //            _jumpDirection.X = -0.2886f;
+    //            _jumpDirection.Z = 0.5f;
+    //            break;
+    //        case JumpDirectionState.twelve:
+    //            _jumpDirection.X = 0f;
+    //            _jumpDirection.Z = 1f;
 
-                break;
+    //            break;
 
-        }
-    }
+    //    }
+    //}
 
     //public override void OrignalOnCollisionEnter_HitFloor()
     //{
