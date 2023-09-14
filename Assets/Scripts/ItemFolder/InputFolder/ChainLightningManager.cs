@@ -132,7 +132,7 @@ public class ChainLightningManager : MonoBehaviour
         foreach (EnemyStats stats in enemyStats)
         {
 
-            if(stats is null)
+            if(stats is null || stats.gameObject.activeSelf is false)
             {
                 continue;
             }
