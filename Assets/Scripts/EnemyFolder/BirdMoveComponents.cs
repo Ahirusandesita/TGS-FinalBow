@@ -69,7 +69,8 @@ public class BirdMoveComponents : BirdMoveBase
     {
         base.BirdEnable();
 
-        InitializeVariables();
+        if (_moveType == MoveType.curve)
+            InitializeVariables();
     }
 
 
@@ -180,7 +181,7 @@ public class BirdMoveComponents : BirdMoveBase
     private float AddArc()
     {
         percentMoveDistance = _cacheMoveValue / _finishMoveValue;
-        
+
         // ‘O”¼‚Ì“®‚«
         if (percentMoveDistance < PERCENT_HALF)
         {
@@ -205,8 +206,8 @@ public class BirdMoveComponents : BirdMoveBase
     {
         base.InitializeForRe_Movement();
 
-        InitializeVariables();
-
+        if (_moveType == MoveType.curve)
+            InitializeVariables();
     }
 
 
