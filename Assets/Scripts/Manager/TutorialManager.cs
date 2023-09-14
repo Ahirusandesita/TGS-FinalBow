@@ -193,7 +193,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _currentTutorialType++;
         _isHitFirst = true;
         _isHit = false;
-        _isAllTargetFirst = true;
 
         StartCoroutine(CallText(2f));
     }
@@ -424,6 +423,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
             // 吸い込みの紹介をした後
             case TutorialIventType.attract1:
+
+                _isAllTargetFirst = true;
 
                 // クリスタルを出現させて、即割る
                 StartCoroutine(Instantiate(_crystal, _crystalTransform.position, Quaternion.identity).GetComponent<TutorialCrystalBreak>().Break());
