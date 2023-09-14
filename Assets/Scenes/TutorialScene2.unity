@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2738.0098, g: 2496.5273, b: 2610.5664, a: 1}
+  m_IndirectSpecularColor: {r: 2736.6992, g: 2495.6328, b: 2609.9453, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c49e2edcd5ae5d4449ea8d2447cc2f6c, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 56c407ab604ca034d8a1472c9525bd34, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -521,6 +521,54 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: e26ce04ef09d5ae4385e9d41cced11b3, type: 3}
+--- !u!1 &228105688
+GameObject:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 228105690}
+  - component: {fileID: 228105689}
+  m_Layer: 0
+  m_Name: SceneIDMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &228105689
+MonoBehaviour:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228105688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1142077164}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Entries:
+  - id: 0
+    category: 0
+    gameObject: {fileID: 1493814105}
+--- !u!4 &228105690
+Transform:
+  m_ObjectHideFlags: 19
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228105688}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &326698020 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1126381010441410434, guid: 3eec3d983846545489c3a64ade90046b, type: 3}
@@ -11338,6 +11386,20 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 57db7eef9d313b5489e8c40e4a2c4f89, type: 3}
+--- !u!115 &1142077164
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 5
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: SceneObjectIDMapSceneAsset
+  m_Namespace: UnityEngine.Rendering.HighDefinition
 --- !u!1001 &1275178287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11594,7 +11656,7 @@ PrefabInstance:
     - target: {fileID: 61056267, guid: 85fa94433b5ac21489088be442290b88, type: 3}
       propertyPath: m_BakedTexture
       value: 
-      objectReference: {fileID: 8900000, guid: b3217a126b149f54aa55528c539f8b45, type: 3}
+      objectReference: {fileID: 8900000, guid: 52e7340f7d04911428308361ee7e4962, type: 3}
     - target: {fileID: 705507993, guid: 85fa94433b5ac21489088be442290b88, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -11666,6 +11728,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 85fa94433b5ac21489088be442290b88, type: 3}
+--- !u!1 &1493814105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 61056266, guid: 85fa94433b5ac21489088be442290b88, type: 3}
+  m_PrefabInstance: {fileID: 1493814104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1509854277
 GameObject:
   m_ObjectHideFlags: 0
@@ -18860,7 +18927,6 @@ MonoBehaviour:
   - _enchantState: 0
     color: {r: 1, g: 0.59836286, b: 0, a: 1}
   main: {fileID: 1670079814}
-  mode: -1
   barParent: {fileID: 1670079815}
   image: {fileID: 1670079816}
 --- !u!1001 &1974268868
