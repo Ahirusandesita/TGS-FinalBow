@@ -60,7 +60,7 @@ public class FinalResult : MonoBehaviour
         sumScoreText.font = fontAssets[nowint];
 
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(titleScene);
         }
