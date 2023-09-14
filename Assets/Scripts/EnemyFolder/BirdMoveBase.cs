@@ -15,11 +15,6 @@ using UnityEngine;
 public abstract class BirdMoveBase : EnemyMoveBase
 {
     #region variable 
-    [SerializeField] float _idleMoveSpeedX = 10f;
-
-    [SerializeField] float _idleMoveSpeedY = 10f;
-
-    [SerializeField] float _changeAngleSpeed = 1f;
 
     //const float IDLE_MOVE_Z_SPEED = 0f;
 
@@ -117,9 +112,6 @@ public abstract class BirdMoveBase : EnemyMoveBase
 
     [Tooltip("現在の経過時間（再び動き出すまでの時間に使う）")]
     private float _currentTime2 = 0f;
-
-    [Tooltip("次の移動完了で処理終了")]
-    private bool _isLastMove = false;
 
     [Tooltip("行動（ゴール設定）の繰り返しカウント")]
     private int _repeatCount = 0;
