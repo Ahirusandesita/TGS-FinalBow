@@ -322,27 +322,27 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnShot()
     {
-        if (_isShotFirst && _canShotFirst)
-        {
-            _isShotFirst = false;
-            StartCoroutine(WaitPossibleHit());
+        //if (_isShotFirst && _canShotFirst)
+        //{
+        //    _isShotFirst = false;
+        //    StartCoroutine(WaitPossibleHit());
 
-            if (_isHit)
-            {
-                return;
-            }
+        //    if (_isHit)
+        //    {
+        //        return;
+        //    }
 
-            _isReStart = true;
-            _targetSpawnCount--;
+        //    _isReStart = true;
+        //    _targetSpawnCount--;
 
-            StartCoroutine(RemoveTarget());
+        //    StartCoroutine(RemoveTarget());
 
-            StartCoroutine(WaitTargetDespawn());
+        //    StartCoroutine(WaitTargetDespawn());
 
-            // リセット
-            _isAttractCompletedFirst = true;
-            _canAttractCompleted = true;
-        }
+        //    // リセット
+        //    _isAttractCompletedFirst = true;
+        //    _canAttractCompleted = true;
+        //}
     }
 
     /// <summary>
