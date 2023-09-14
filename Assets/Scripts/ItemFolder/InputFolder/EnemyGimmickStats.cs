@@ -10,7 +10,7 @@ using System;
 public class EnemyGimmickStats : EnemyStats, IFGetReactiveEvent
 {
 
-    bool used = false;
+    //bool used = false;
     public override int HP => throw new System.NotImplementedException();
 
     protected override void Start()
@@ -23,7 +23,7 @@ public class EnemyGimmickStats : EnemyStats, IFGetReactiveEvent
     private void OnEnable()
     {
         _hp = 1;
-        used = false;
+        //used = false;
     }
 
     public void CallEvent()

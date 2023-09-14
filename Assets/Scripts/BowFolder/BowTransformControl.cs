@@ -71,8 +71,6 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
     /// </summary>
     [SerializeField] Transform _drawObject = default;
 
-    [SerializeField] Transform _changeHandObjectTransform = default;
-
     [SerializeField] Transform _selectUI;
 
     [SerializeField] Transform _selectUILeftPosition = default;
