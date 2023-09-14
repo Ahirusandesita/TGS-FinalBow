@@ -47,7 +47,12 @@ public class ReactionWormWarm : MonoBehaviour, InterfaceReaction.IBombReaction
         anim.SetTrigger("Death");
         anim.Update(0f);
         AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-        drop.MiniDropStart(dropData, dropSpawnTransform, state.length, dropValue);
+
+        if (transform.gameObject.activeSelf)
+        {
+            drop.MiniDropStart(dropData, dropSpawnTransform, state.length, dropValue);
+        }
+        
     }
 
     public void StartAnim()
