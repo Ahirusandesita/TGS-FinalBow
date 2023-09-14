@@ -104,9 +104,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [Tooltip("最初のトリガー入力")]
     private bool _inputFirst = true;
 
-    [Tooltip("最初にすべての的が撤去されたとき")]
-    private bool _isAllTargetFirst = true;
-
     private bool _isHit { get; set; }
     #endregion
 
@@ -193,7 +190,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _currentTutorialType++;
         _isHitFirst = true;
         _isHit = false;
-        _isAllTargetFirst = true;
 
         StartCoroutine(CallText(2f));
     }
@@ -259,19 +255,23 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void DecrementTargetAmount()
     {
         _spawndTargetAmount--;
-        _isHit = true;
 
-        if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
+        // 最初の爆発
+        if (_isHitFirst && _currentTutorialType == TutorialIventType.enchant2)
         {
             _isHitFirst = false;
-            _canShotFirst = false;
+            //_isHit = true;
+            //_canShotFirst = false;
             StartCoroutine(RemoveTarget());
         }
 
-        if (_spawndTargetAmount <= 0 && _isAllTargetFirst)
+        if (_isReStart && _currentTutorialType == TutorialIventType.attract1)
         {
-            _isAllTargetFirst = false;
 
+        }
+
+        if (_spawndTargetAmount <= 0)
+        {
             if (_isReStart)
             {
                 _isReStart = false;
@@ -291,6 +291,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         yield return new WaitForSeconds(0.8f);
 
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
+
+        if (targets.Length == 0)
+        {
+            ProgressingTheTutorial();
+        }
+
         for (int i = 0; i < targets.Length; i++)
         {
             StartCoroutine(targets[i].RotateAtDespawn());
@@ -328,27 +334,27 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnShot()
     {
-        //if (_isShotFirst && _canShotFirst)
-        //{
-        //    _isShotFirst = false;
-        //    StartCoroutine(WaitPossibleHit());
+        if (_isShotFirst && _canShotFirst)
+        {
+            _isShotFirst = false;
+            StartCoroutine(WaitPossibleHit());
 
-        //    if (_isHit)
-        //    {
-        //        return;
-        //    }
+            if (_isHit)
+            {
+                return;
+            }
 
-        //    _isReStart = true;
-        //    _targetSpawnCount--;
+            _isReStart = true;
+            _targetSpawnCount--;
 
-        //    StartCoroutine(RemoveTarget());
+            StartCoroutine(RemoveTarget());
 
-        //    StartCoroutine(WaitTargetDespawn());
+            StartCoroutine(WaitTargetDespawn());
 
-        //    // リセット
-        //    _isAttractCompletedFirst = true;
-        //    _canAttractCompleted = true;
-        //}
+            // リセット
+            _isAttractCompletedFirst = true;
+            _canAttractCompleted = true;
+        }
     }
 
     /// <summary>
