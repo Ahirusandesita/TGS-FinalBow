@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// プールオブジェクト生成方法
@@ -195,6 +196,12 @@ public class ObjectPoolSystem : MonoBehaviour
         {
             // 配列の中の各キューを生成
             _objectQueues[i] = new Queue<CashObjectInformation>();
+
+            // メインシーン以外で生成しないオブジェクトは処理をスキップ
+            if (_poolObjectParamTable._scriptablePoolInformation[i]._onlyMainScene && SceneManager.GetActiveScene().name != "HDRPDebugscene")
+            {
+                continue;
+            }
 
             // 各プールオブジェクトに設定されたキューの最大容量まで、オブジェクト生成を繰り返す
             for (int k = 0; k < _poolObjectParamTable._scriptablePoolInformation[i]._queueMax; k++)

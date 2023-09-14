@@ -36,6 +36,8 @@ public class PoolInformation
     public int _queueMax = default;
     [Tooltip("プールオブジェクトの生成方法")]
     public CreateType _createType = CreateType.automatic;
+    [Tooltip("メインシーンのみ生成")]
+    public bool _onlyMainScene = false;
 }
 
 /// <summary>

@@ -17,114 +17,142 @@ MonoBehaviour:
     _prefab: {fileID: 3084670092578774059, guid: ea82161d13e361d4aa82f2dfd08c6511, type: 3}
     _queueMax: 100
     _createType: 1
+    _onlyMainScene: 0
   - _name: NormalBullet
     _prefab: {fileID: 1391308840062237195, guid: f1d128399b71e724f97aa4fb680da92c, type: 3}
     _queueMax: 100
     _createType: 0
+    _onlyMainScene: 1
   - _name: BombBullet
     _prefab: {fileID: 7187811981614886133, guid: d06020532bbdcc9428c6f7b6a6a6171b, type: 3}
-    _queueMax: 100
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: PenetrateBullet
     _prefab: {fileID: -3168518705095684918, guid: 25cefd655cc51104eae80a6718063ebe, type: 3}
-    _queueMax: 50
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: ThunderBullet
     _prefab: {fileID: 8362926634211889526, guid: 31ae7f87b12775e48a735246edaa8230, type: 3}
-    _queueMax: 50
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: Bird
     _prefab: {fileID: 598212175796384945, guid: e26c2b1b39eed6b4e8bbed396c2c79a2, type: 3}
     _queueMax: 15
     _createType: 0
+    _onlyMainScene: 1
   - _name: Targeter
     _prefab: {fileID: -3062190278450946162, guid: e5f6f2cea43e7184c87eeafe8ae81970, type: 3}
     _queueMax: 15
     _createType: 0
+    _onlyMainScene: 0
   - _name: TargetObject
     _prefab: {fileID: 1852502067193274808, guid: ff350965cedd9c749a53c9dd0d47570a, type: 3}
     _queueMax: 10
     _createType: 0
+    _onlyMainScene: 0
   - _name: NormalBird
     _prefab: {fileID: 7241519513470474410, guid: 18b4b6a789df4714fb3f0c9cd3ce7ac0, type: 3}
     _queueMax: 15
     _createType: 1
+    _onlyMainScene: 1
   - _name: BombBird
     _prefab: {fileID: 1244590434005974053, guid: bae362c5eb568804cb7f98ca001af06c, type: 3}
-    _queueMax: 15
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: penetrateTemp
     _prefab: {fileID: 1244590434005974053, guid: bae362c5eb568804cb7f98ca001af06c, type: 3}
-    _queueMax: 100
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: ThunderBird
     _prefab: {fileID: 8699823271377731589, guid: d7c9610990309dc46b52b6720a40897b, type: 3}
-    _queueMax: 15
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: BombBird2
     _prefab: {fileID: 1244590434005974053, guid: 846a29f42bdb5ae43961de0028a406f0, type: 3}
-    _queueMax: 15
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: ThunderBird2
     _prefab: {fileID: 8699823271377731589, guid: 98d21529179cb1a4e8868dfc366c1b48, type: 3}
-    _queueMax: 15
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: PenetrateBird2
     _prefab: {fileID: 8482484689346554488, guid: 26b75a707e4395c499c3f6750a63e9fb, type: 3}
-    _queueMax: 15
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: GroundEnemy_Worm
     _prefab: {fileID: -2750861475530309417, guid: 3b681bf63efa3ee4297a154d72d0824f, type: 3}
     _queueMax: 15
     _createType: 1
+    _onlyMainScene: 1
   - _name: GroundBullet_Temp
     _prefab: {fileID: 1391308840062237195, guid: c67fc4e87ab5d304c80029d3791b12a4, type: 3}
-    _queueMax: 50
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: DropItem_2
     _prefab: {fileID: 2364292013323123579, guid: 1a50f2ff4c98ceb4189b7c10a35b3d70, type: 3}
     _queueMax: 200
     _createType: 0
+    _onlyMainScene: 0
   - _name: UsedArrow
     _prefab: {fileID: 7016812520367087376, guid: 9ebd5da6122f2134d898248f3531affc, type: 3}
     _queueMax: 100
     _createType: 0
+    _onlyMainScene: 0
   - _name: BirdBodyChip
     _prefab: {fileID: -6140233910423151836, guid: 1c1646881a2097d41ba8cff268bd57b4, type: 3}
-    _queueMax: 100
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: BirdBodyChipBig
     _prefab: {fileID: -6140233910423151836, guid: d7fbd270f959cca4c9df823a3bb99a1b, type: 3}
-    _queueMax: 100
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: BirdBodyChipBigFire
     _prefab: {fileID: -6140233910423151836, guid: fa5d5a6db961e304092dbc2aaa91dfe7, type: 3}
-    _queueMax: 100
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: BirdBodyChipFire
     _prefab: {fileID: -6140233910423151836, guid: 617d7308ecf41a24c8d32c6fba1503ca, type: 3}
-    _queueMax: 100
+    _queueMax: 0
     _createType: 0
+    _onlyMainScene: 1
   - _name: Watcher
     _prefab: {fileID: 4049845359205270449, guid: e8ad512efb08ab443a1003e51d5470fb, type: 3}
     _queueMax: 15
     _createType: 1
+    _onlyMainScene: 1
   - _name: GiantBat
     _prefab: {fileID: 7139396730681564239, guid: 8843f44676d61b64b9bf9e10a7b737c7, type: 3}
     _queueMax: 15
     _createType: 1
+    _onlyMainScene: 1
   - _name: BomberBug
     _prefab: {fileID: 667042108, guid: 6038b79ea55d94f2c82af1a31a922eec, type: 3}
     _queueMax: 15
     _createType: 1
+    _onlyMainScene: 1
   - _name: OceanDragon
     _prefab: {fileID: 1140446698322222259, guid: 56024a37fbed68b4ab27b16db35a09c0, type: 3}
     _queueMax: 15
     _createType: 1
+    _onlyMainScene: 1
   - _name: DesertDragon
     _prefab: {fileID: 6046743209233475935, guid: 2dd29647822914e4aa783b7b1496e8b6, type: 3}
     _queueMax: 15
     _createType: 1
+    _onlyMainScene: 1
   _scriptableEffectInformation:
   - _name: Nomal
     _prefab: {fileID: 879681129677348344, guid: bb7c04ee23d5c584c99ac06601febe0c, type: 3}
