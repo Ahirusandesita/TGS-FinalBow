@@ -7,14 +7,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 public class SelectEnchant : MonoBehaviour
 {
-    /*
-    各パーツは７２°で計算
-    始点は上方０°で考える
-    */
-
     [SerializeField]
     private AudioSource _speaker = default;
 
@@ -87,20 +81,6 @@ public class SelectEnchant : MonoBehaviour
         {
             NormalEventSetting();
         }
-
-
-        //circleLinesAngle = CircleDivide(setting.Length);
-        //image.SetActive(false);
-        //foreach (float a in circleLinesAngle)
-        //{
-        //    print(a);
-        //}
-
-        //for(int i = 0; i < circleLinesAngle.Length; i++)
-        //{
-        //    Instantiate(bar,)
-        //}
-
     }
 
     
@@ -295,16 +275,6 @@ public class SelectEnchant : MonoBehaviour
             //}
             #endregion
         }
-
-
-
-        //if (_state != NowSelect.None)
-        //{
-        //    enchantSetter.EnchantSetting(setting[mode].state);
-        //    Graphics(_inputAngle);
-
-        //}
-
     }
     private Vector2 SetInput()
     {
@@ -318,8 +288,6 @@ public class SelectEnchant : MonoBehaviour
             selectDirection = mng.Axis2LeftStick();
         }
         return selectDirection;
-        //print("x:" + Mathf.Cos(Time.time)+"y:"+ Mathf.Sin(Time.time));
-        //return new Vector2(Mathf.Cos(Time.time), Mathf.Sin(Time.time));
     }
 
     private IEnumerator DecisionCancelCoroutine(float delay, EnchantsChenger.E_Enchant Enchant)

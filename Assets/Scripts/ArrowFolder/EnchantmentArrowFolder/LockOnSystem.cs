@@ -5,7 +5,6 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 
 public interface IFLockOnSystem
@@ -118,12 +117,10 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                     }
                     catch
                     {
-                        print("LockOnUI無い");
                     }
                     if (_lockOnTime > DISITION_TIME && LockOnTarget == null)
                     {
                         LockOnTarget = _temporaryTarget;
-                        print("2^2ロックオン完了　　" + LockOnTarget);
                     }
                 }
                 else
@@ -144,7 +141,6 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
     public GameObject TargetSet(ArrowMove arrow)
     {
         _temporaryTarget = null;
-        print(LockOnTarget + "  ターゲット 2^2");
         return LockOnTarget;
     }
 
