@@ -104,6 +104,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [Tooltip("Å‰‚ÌƒgƒŠƒK[“ü—Í")]
     private bool _inputFirst = true;
 
+    [Tooltip("Å‰‚É‚·‚×‚Ä‚Ì“I‚ª“P‹‚³‚ê‚½‚Æ‚«")]
+    private bool _isAllTargetFirst = true;
+
     private bool _isHit { get; set; }
     #endregion
 
@@ -148,7 +151,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Update()
     {
-        if (_input.ButtonLeftDownTrigger() || _input.ButtonRightDownTrigger())
+        if (_input.ButtonLeftDownTrigger() || _input.ButtonRightDownTrigger() || _input.ButtonLeftUpTrigger() || _input.ButtonRightUpTrigger())
         {
             if (_inputFirst)
             {
@@ -190,6 +193,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _currentTutorialType++;
         _isHitFirst = true;
         _isHit = false;
+        _isAllTargetFirst = true;
 
         StartCoroutine(CallText(2f));
     }
@@ -264,8 +268,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             StartCoroutine(RemoveTarget());
         }
 
-        if (_spawndTargetAmount <= 0)
+        if (_spawndTargetAmount <= 0 && _isAllTargetFirst)
         {
+            _isAllTargetFirst = false;
+
             if (_isReStart)
             {
                 _isReStart = false;
