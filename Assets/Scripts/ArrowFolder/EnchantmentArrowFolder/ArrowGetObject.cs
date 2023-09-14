@@ -33,7 +33,7 @@ public static class ArrowGetObject
     private static int _layerMask_CantDestroyButtonピーポー = 11;
 
     private static int _layerMask_BlockObjectピーポー = 13;
-    private static int _layerMask_Barrier = 12;
+    //private static int _layerMask_Barrier = 12;
 
     private static float ARROW_THICK = 0.4f;
     private static int ARROW_END_INDEX = 0;

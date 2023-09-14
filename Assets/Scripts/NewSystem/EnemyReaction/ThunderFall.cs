@@ -63,7 +63,6 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
 
     Vector3 _paralysisMoveVector = Vector3.one.normalized;
 
-    float test = 0;
     #endregion
     #region property
     #endregion
@@ -104,7 +103,7 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
                 _animator.speed = 0;
                 _elapsedTime2 += Time.deltaTime;
 
-
+                effect.SetActive(true);
                 if (_elapsedTime2 >= ERASE_TIME)
                 {
                     if(falseEvent is not null)
@@ -119,7 +118,7 @@ public class ThunderFall : MonoBehaviour, InterfaceReaction.IThunderReaction
                     //_animator.SetTrigger("Fall");
                     aaa = true;
                 }
-                effect.SetActive(true);
+                
                 _transform.Translate(DOWN * Time.deltaTime * _fallSpeed, Space.World);
                 
                 // 180ìxà»è„âÒì]ÇµÇ»Ç¢
