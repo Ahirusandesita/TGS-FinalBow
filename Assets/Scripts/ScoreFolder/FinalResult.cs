@@ -30,6 +30,7 @@ public class FinalResult : MonoBehaviour
     {
         ScoreDisPlay(ScoreNumber.ScorePoint);
         GameObject.FindObjectOfType<ScoreManager>().ScoreReset();
+        ScoreNumber.ResetScore();
         this.transform.GetChild(7).gameObject.GetComponent<ResultString>().Result();
     }
 
@@ -62,6 +63,7 @@ public class FinalResult : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            GameObject.FindObjectOfType<ScoreManager>().ScoreReset();
             GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(titleScene);
         }
     }

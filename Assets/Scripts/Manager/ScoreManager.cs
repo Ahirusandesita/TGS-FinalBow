@@ -453,6 +453,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
     public void ScoreReset()
     {
         ScorePoint = new ScoreNumber.Score();
+        ScoreNumber.ScorePoint = new ScoreNumber.Score();
         ScorePoint.scoreTimeBonus = 4000;
     }
 
