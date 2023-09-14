@@ -148,7 +148,12 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
             wormSandTransform.gameObject.SetActive(false);
             wormGroundTransform.gameObject.SetActive(false);
             wormJumpUpTransform.gameObject.SetActive(false);
-            moveRoutine = StartCoroutine(WormAction());
+
+            if (transform.gameObject.activeSelf)
+            {
+                moveRoutine = StartCoroutine(WormAction());
+            }
+           
             MyCollidersEnabledFalse();
             isOnePlay = false;
         }
