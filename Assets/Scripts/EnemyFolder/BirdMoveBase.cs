@@ -654,6 +654,14 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _directionTypes_moving.Clear();
         _directionTypes_stopping.Clear();
         _directionTypes_attack.Clear();
+
+        _repeatCount = 0;
+        _currentTime = 0f;
+        _currentTime2 = 0f;
+        _isFinishMovement = false;
+        _isCompleteChangeScale = false;
+        _needDespawn = false;
+        _movedDistance = 0f;
     }
 
     /// <summary>
