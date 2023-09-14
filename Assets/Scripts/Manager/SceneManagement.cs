@@ -54,6 +54,6 @@ public class SceneManagement : MonoBehaviour,ISceneManager
     {
         _sceneFadeManager.SceneFadeInStart();
         yield return new WaitUntil(() => _sceneFadeManager._isSceneFadeInEnd);
-        SceneSpecifyMove("LoadScene");
+        SceneSpecifyMove("LoadScene2");
     }
 }
