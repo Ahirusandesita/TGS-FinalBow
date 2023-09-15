@@ -61,8 +61,6 @@ public class BirdStats : CommonEnemyStats
 
     public override void Death()
     {
-        
-
         // •Ï”‚ÌƒfƒNƒŠƒƒ“ƒg
         _onDeathBird();
 
