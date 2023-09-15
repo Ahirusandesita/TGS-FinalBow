@@ -72,7 +72,7 @@ public class EffectPoolEnum
 
         chickens,
         fallingSmoke,
-
+        thunderBlast,
 
     }
 }

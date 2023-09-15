@@ -44,7 +44,7 @@ public class ReactionWormWarm : MonoBehaviour, InterfaceReaction.IBombReaction
         needEnd.MoveEnd();
         particle.SetActive(true);
         anim.speed = 1;
-        anim.SetTrigger("Death");
+        anim.SetTrigger("Bomb");
         anim.Update(0f);
         AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
 

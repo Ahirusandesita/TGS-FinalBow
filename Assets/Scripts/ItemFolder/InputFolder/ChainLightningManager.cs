@@ -129,6 +129,7 @@ public class ChainLightningManager : MonoBehaviour
 
         WaitForSeconds wait = new(waitTime);
         Vector3 chainRootPosition = startPosition;
+        yield return wait;
         foreach (EnemyStats stats in enemyStats)
         {
 
