@@ -105,7 +105,7 @@ public class ResultStage : MonoBehaviour
             {
                 if (isOne)
                 {
-                    checkPointResult.Result(resultStruct);
+                    checkPointResult.Result(ref resultStruct);
                     resultString.Result();
                     isOne = false;
                 }
