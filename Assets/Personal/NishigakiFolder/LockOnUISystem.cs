@@ -51,7 +51,12 @@ public class LockOnUISystem : MonoBehaviour
             _lockOnGage.enabled = false;
             _lockOnComplete.enabled = false;
         }
-    } 
+    }
 
- #endregion
+    private void OnDisable()
+    {
+        LockOnEnd();
+    }
+
+    #endregion
 }

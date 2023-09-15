@@ -151,7 +151,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
     #region ホーミングで使用している変数
 
     // ホーミングするターゲット
-    private GameObject _target = default;
+    private Transform _target = default;
 
     // ターゲットへ向くためのベクトル
     private Vector3 _lookVect = default;
@@ -385,7 +385,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
         }
 
         // ターゲットへのベクトルを取得
-        _lookVect = _target.transform.position - arrowTransform.position;
+        _lookVect = _target.position - arrowTransform.position;
 
         // 最終角度を設定
         _lookRot = Quaternion.LookRotation(_lookVect);
@@ -400,7 +400,7 @@ public class ArrowMove : MonoBehaviour, IArrowMoveSettingReset,IArrowEnchantable
                                   Space.Self);                        // ローカルで指定　矢先はＺ軸
 
         // ターゲットが壊れたら挙動変更
-        if (_target.activeSelf == false)
+        if (_target.gameObject.activeSelf == false)
         {
             _endSetting = false;
             SetNormal();
