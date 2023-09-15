@@ -18,6 +18,8 @@ public class BGMManager : MonoBehaviour
     #region method
     private void Awake()
     {
+        inGameAudioSource.enabled = false;
+        tutorialAudioSource.enabled = false;
         gameProgress = GameObject.FindObjectOfType<GameProgress>();
 
         gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
@@ -27,9 +29,12 @@ public class BGMManager : MonoBehaviour
                 {
                     tutorialAudioSource.enabled = true;
                 }
-                if(progressType == GameProgressType.inGame)
+                if(progressType == GameProgressType.gamePreparation)
                 {
                     tutorialAudioSource.enabled = false;
+                }
+                if(progressType == GameProgressType.inGame)
+                { 
                     inGameAudioSource.enabled = true;
                 }
             }
