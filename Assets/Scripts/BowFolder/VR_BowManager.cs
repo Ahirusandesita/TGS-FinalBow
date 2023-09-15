@@ -79,10 +79,10 @@ public class VR_BowManager : CanDraw_BowManager
             BowStringGrap();
         }
         // 手が、弓の持つ手の切り替えるポジションの近くにある場合
-        else if (grapLimitDistance > Vector3.Distance(_changeHandObjectTransform.position, _transformControl.GetHandPosition) && CanHandChange())
-        {
-            ChangeHand();
-        }
+        //else if (grapLimitDistance > Vector3.Distance(_changeHandObjectTransform.position, _transformControl.GetHandPosition) && CanHandChange())
+        //{
+        //    ChangeHand();
+        //}
     }
 
     protected override void ProcessOfHoldObject()
