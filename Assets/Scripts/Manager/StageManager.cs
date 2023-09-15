@@ -211,10 +211,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         {
             // 次のステージへ
             X_Debug.Log("ステージクリア");
-            //---------------------------------------------------------------
-            //ProgressingTheStage();//ここ後で消す
-            //---------------------------------------------------------------
-            MovingResultCanvas();
+            ProgressingTheStage();
             return;
         }
 
@@ -238,8 +235,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
             // すべてのステージをクリア = ゲームオーバー
             // ボス倒したら終了だからここ動かないかも
             //FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
+            MovingResultCanvas();
             gameProgress.InGameEnding();
-            _resultStage.Result();
             X_Debug.Log("ゲーム終了");
             return;
         }
