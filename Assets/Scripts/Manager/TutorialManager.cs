@@ -292,10 +292,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
 
-        if (targets.Length == 0)
-        {
-            ProgressingTheTutorial();
-        }
+        //if (targets.Length == 0)
+        //{
+        //    ProgressingTheTutorial();
+        //}
 
         for (int i = 0; i < targets.Length; i++)
         {
