@@ -60,8 +60,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [SerializeField, Tooltip("リザルト用Canvas")]
     private GameObject _resultCanvas = default;
 
-    [SerializeField, Tooltip("ResultCanvasの位置をプレイヤーの位置からどれだけ離すか")]
-    private float _resultCanvasPositionCorrectionValue = 50f;
+    [SerializeField, Tooltip("ゲームスタート用Canvas")]
+    private GameObject _startCanvas = default;
+
+    [SerializeField, Tooltip("Canvasの位置をプレイヤーの位置からどれだけ離すか")]
+    private float _canvasPositionCorrectionValue = 50f;
 
     [SerializeField]
     private SceneObject _sceneObject = default;
@@ -103,6 +106,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 if (progressType == GameProgressType.gamePreparation)
                 {
                     MovingPlayer();
+                    MovingStartCanvas();
                 }
             }
             );
@@ -234,6 +238,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
             // すべてのステージをクリア = ゲームオーバー
             // ボス倒したら終了だからここ動かないかも
             //FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
+            gameProgress.InGameEnding();
             _resultStage.Result();
             X_Debug.Log("ゲーム終了");
             return;
@@ -401,7 +406,13 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// </summary>
     private void MovingResultCanvas()
     {
-        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _resultCanvasPositionCorrectionValue;
+        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
         _resultCanvas.transform.rotation = _player.transform.rotation;
+    }
+
+    private void MovingStartCanvas()
+    {
+        _startCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
+        _startCanvas.transform.rotation = _player.transform.rotation;
     }
 }

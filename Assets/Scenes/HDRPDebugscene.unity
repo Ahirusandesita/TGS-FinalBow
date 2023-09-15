@@ -47895,7 +47895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -135.6, y: -74}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &886316834
@@ -47920,8 +47920,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: AAAAAAAAAA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1b99d6edc93ce8a4cbc16bf34877940a, type: 2}
+  m_sharedMaterial: {fileID: 4318882749855975620, guid: 1b99d6edc93ce8a4cbc16bf34877940a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -49835,7 +49835,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941362216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50505, y: 368.16, z: 27807.49}
+  m_LocalPosition: {x: -50505, y: 371.7, z: 27807.49}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -56270,6 +56270,10 @@ PrefabInstance:
       propertyPath: _sceneObject
       value: 
       objectReference: {fileID: 11400000, guid: 287b39c697d377747be63c3048e5c802, type: 2}
+    - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
+      propertyPath: _startCanvas
+      value: 
+      objectReference: {fileID: 609347288}
     - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
       propertyPath: _resultCanvas
       value: 
@@ -76214,7 +76218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577612491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50505, y: 358.38, z: 27768.4}
+  m_LocalPosition: {x: -50505, y: 361.94, z: 27768.4}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
