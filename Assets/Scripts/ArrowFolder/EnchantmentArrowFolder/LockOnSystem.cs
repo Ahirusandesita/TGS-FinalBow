@@ -56,14 +56,11 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
     {
         if (_enchant.EnchantmentNowState == EnchantmentEnum.EnchantmentState.homing)
         {
-            EnemyStats[] moves = GameObject.FindObjectsOfType<EnemyStats>();
+            GameObject[] moves = GameObject.FindGameObjectsWithTag("HomingTarget");
             List<GameObject> enemys = new List<GameObject>();
             for (int i = 0; i < moves.Length; i++)
             {
-                if ((1 << moves[i].gameObject.layer & _enemyLayer.value) != 0 && moves[i].gameObject.activeSelf == true)
-                {
-                    enemys.Add(moves[i].gameObject);
-                }
+                enemys.Add(moves[i].gameObject);
             }
             List<GameObject> searchEnemys = new List<GameObject>();
             searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 30f, 100000f, 1);

@@ -2081,7 +2081,6 @@ GameObject:
   - component: {fileID: 6046743209233475906}
   - component: {fileID: 6046743209233475907}
   - component: {fileID: 6046743209233475904}
-  - component: {fileID: -6730229322600948291}
   m_Layer: 6
   m_Name: DesertDragon_PBR
   m_TagString: Untagged
@@ -2223,21 +2222,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 4
   m_Center: {x: 0, y: 2.2, z: -1}
---- !u!114 &-6730229322600948291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6046743209233475905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lockOn: {fileID: 2785105997658498386}
-  _lockOnGage: {fileID: 6728563902178764167}
-  _lockOnComplete: {fileID: 4140707871981443327}
 --- !u!1 &6046743209233476317
 GameObject:
   m_ObjectHideFlags: 0
@@ -3522,9 +3506,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8680640337607954901}
+  - component: {fileID: 874144479231326722}
   m_Layer: 6
   m_Name: HomingTarget
-  m_TagString: Untagged
+  m_TagString: HomingTatget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3544,6 +3529,21 @@ Transform:
   m_Father: {fileID: 6046743209233104549}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &874144479231326722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8067153380953418730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockOn: {fileID: 2785105997658498386}
+  _lockOnGage: {fileID: 6728563902178764167}
+  _lockOnComplete: {fileID: 4140707871981443327}
 --- !u!1001 &242464822120049428
 PrefabInstance:
   m_ObjectHideFlags: 0

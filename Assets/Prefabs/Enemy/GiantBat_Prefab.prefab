@@ -53,9 +53,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7550482229924080482}
+  - component: {fileID: 6183232751883603199}
   m_Layer: 6
   m_Name: HomingTarget
-  m_TagString: Untagged
+  m_TagString: HomingTatget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,6 +76,21 @@ Transform:
   m_Father: {fileID: 7680508421001965574}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6183232751883603199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154993799327609884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockOn: {fileID: 3846027884854422232}
+  _lockOnGage: {fileID: 5663790990404725261}
+  _lockOnComplete: {fileID: 3066886487415854965}
 --- !u!1 &7680508421001473024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,7 +1710,6 @@ GameObject:
   - component: {fileID: 2403830884518823726}
   - component: {fileID: 2124556190831977233}
   - component: {fileID: 7116080443937404969}
-  - component: {fileID: 8436080809751478734}
   - component: {fileID: 1730091458177390167}
   m_Layer: 6
   m_Name: GiantBat_Prefab
@@ -1849,21 +1864,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25b829086d84564caebe97474ea58e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8436080809751478734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7680508421001473510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lockOn: {fileID: 3846027884854422232}
-  _lockOnGage: {fileID: 5663790990404725261}
-  _lockOnComplete: {fileID: 3066886487415854965}
 --- !u!114 &1730091458177390167
 MonoBehaviour:
   m_ObjectHideFlags: 0

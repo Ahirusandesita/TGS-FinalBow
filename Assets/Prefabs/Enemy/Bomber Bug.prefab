@@ -447,7 +447,6 @@ GameObject:
   - component: {fileID: 2254109627465252403}
   - component: {fileID: 5432936786597074027}
   - component: {fileID: 3095529904316780615}
-  - component: {fileID: -4013297063737343632}
   m_Layer: 6
   m_Name: Bomber Bug
   m_TagString: Untagged
@@ -588,21 +587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4013297063737343632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lockOn: {fileID: 3690693099611198082}
-  _lockOnGage: {fileID: 5256263508006310487}
-  _lockOnComplete: {fileID: 3235811219481767727}
 --- !u!1 &124458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,9 +2661,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4915484845348678461}
+  - component: {fileID: 7264031648301129481}
   m_Layer: 6
   m_Name: HomingTarget
-  m_TagString: Untagged
+  m_TagString: HomingTatget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2699,6 +2684,21 @@ Transform:
   m_Father: {fileID: 402408}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7264031648301129481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282919675394451873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockOn: {fileID: 3690693099611198082}
+  _lockOnGage: {fileID: 5256263508006310487}
+  _lockOnComplete: {fileID: 3235811219481767727}
 --- !u!1 &5113094588220399754
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3227585471057242660}
+  - component: {fileID: 6574017116323468262}
   m_Layer: 6
   m_Name: HomingTarget
-  m_TagString: Untagged
+  m_TagString: HomingTatget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,6 +32,21 @@ Transform:
   m_Father: {fileID: 5726085141777164337}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6574017116323468262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5186782456302739992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockOn: {fileID: 8009286145365471600}
+  _lockOnGage: {fileID: 1504401623481872805}
+  _lockOnComplete: {fileID: 8139873324891622621}
 --- !u!1 &5726085141776828717
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,7 +3237,6 @@ GameObject:
   - component: {fileID: 8727653155123246873}
   - component: {fileID: 5283091231117625542}
   - component: {fileID: 6772336792453812279}
-  - component: {fileID: 2445228806379727993}
   m_Layer: 6
   m_Name: OceanDragon
   m_TagString: Untagged
@@ -3363,21 +3378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2445228806379727993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5726085141777068393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lockOn: {fileID: 8009286145365471600}
-  _lockOnGage: {fileID: 1504401623481872805}
-  _lockOnComplete: {fileID: 8139873324891622621}
 --- !u!1 &5726085141777068543
 GameObject:
   m_ObjectHideFlags: 0

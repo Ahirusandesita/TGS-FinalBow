@@ -25,6 +25,9 @@ public class SelectEnchant : MonoBehaviour
 
     private float _waitTime = 0.25f;
 
+    private GameProgress _gameProgress = default;
+
+
     private enum NowSelect { None = 0, Explosion = 1, Thunder = 2, Penetration = 3, Homing = 4, Rapid = 5 };
     private NowSelect _state;
     private Vector2 _inputVecter = default;
@@ -60,27 +63,30 @@ public class SelectEnchant : MonoBehaviour
     #region property
     #endregion
     #region method
+
+    private void Awake()
+    {
+        _gameProgress = GameObject.FindObjectOfType<GameProgress>();
+
+        _gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
+            {
+                if(progressType == GameProgressType.tutorial)
+                {
+                    StartCoroutine(TutorialEventCoroutine());
+                }
+                if (progressType == GameProgressType.inGame)
+                {
+                    StartCoroutine(NormalEventCoroutine());
+                }
+            }
+                );
+    }
+
     private void Start()
     {
         mng = GameObject.FindWithTag(InhallLibTags.InputController).GetComponent<InputManagement>();
         enchantSetter = GameObject.FindWithTag(InhallLibTags.ArrowEnchantmentController).GetComponent<IArrowEnchantSet>();
-        try
-        {
-            _tutorialManager = GameObject.FindGameObjectWithTag("TutorialController").GetComponent<TutorialManager>();
-        }
-        catch
-        {
-            _tutorialManager = null;
-        }
-
-        if (_tutorialManager != null)
-        {
-            TutorialEventSetting();
-        }
-        else
-        {
-            NormalEventSetting();
-        }
     }
 
     
@@ -586,6 +592,18 @@ public class SelectEnchant : MonoBehaviour
         DecisionPenetrate = TutorialDecisionPenetrate;
         DecisionHoming = TutorialDecisionHoming;
         DecisionRapid = TutorialDecisionRapid;
+    }
+
+    private IEnumerator TutorialEventCoroutine()
+    {
+        TutorialEventSetting();
+        yield return null;
+    }
+
+    private IEnumerator NormalEventCoroutine()
+    {
+        NormalEventCoroutine();
+        yield return null;
     }
 
     private void TutorialUI()
