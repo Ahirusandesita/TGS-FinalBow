@@ -662,6 +662,9 @@ public abstract class BirdMoveBase : EnemyMoveBase
         _isCompleteChangeScale = false;
         _needDespawn = false;
         _movedDistance = 0f;
+
+        animator.speed = 1f;
+        animator.SetTrigger("Exit");
     }
 
     /// <summary>

@@ -60,6 +60,8 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
 
     protected float _paralysisTime = default;
 
+    private Coroutine _activeCoroutine = default;
+
     public float ParalysisTime { get => _paralysisTime; }
 
     /// <summary>
@@ -98,6 +100,11 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         _hp = _maxHp;
     }
 
+    protected virtual void OnDisable()
+    {
+        _isParalysis = false;
+    }
+
 
     public override void TakeBomb(int damage, Transform arrowTransform, Vector3 arrowVector)
     {
@@ -118,7 +125,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         base.TakeThunder(power);
 
         _paralysisTime = 1.2f;
-        StartCoroutine(ParalysisCoroutine(_paralysisTime));
+        _activeCoroutine = StartCoroutine(ParalysisCoroutine(_paralysisTime));
     }
 
     public override void Death()
@@ -197,7 +204,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
     /// <returns></returns>
     private IEnumerator ParalysisCoroutine(float time)
     {
-        
+
         _paralysisEffects.SetActive(true);
         _isParalysis = true;
 
