@@ -190,7 +190,6 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
         ResultStage resultStage = GameObject.FindObjectOfType<ResultStage>();
         GameProgress gameProgress = GameObject.FindObjectOfType<GameProgress>();
-        if (resultStage == null) return;
         gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
             progressType =>
             {

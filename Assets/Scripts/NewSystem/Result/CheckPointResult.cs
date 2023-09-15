@@ -45,7 +45,7 @@ public class CheckPointResult : MonoBehaviour
         //text = this.GetComponent<TextMeshProUGUI>();
     }
 
-    public void Result(ResultStruct resultStruct)
+    public void Result(ref ResultStruct resultStruct)
     {
         killCountText.text = resultStruct.NumberOfKills.ToString();
         killScoreText.text = resultStruct.KillsScore.ToString();
