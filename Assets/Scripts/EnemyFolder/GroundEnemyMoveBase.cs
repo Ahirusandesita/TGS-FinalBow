@@ -18,9 +18,10 @@ interface IFNeedMoveRotineEnd
 public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
 {
     private Animator myAnimation;
-
+    public AudioClip sandSE;
     public AudioClip spawnSE;
     private AudioSource audioSource;
+    
 
     private enum CrabWalkState { left, right };
 
@@ -376,7 +377,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
                 break;
         }
 
-
+        audioSource.PlayOneShot(sandSE);
         yield return new WaitForSeconds(_groundEnemyData._spawnTime_s);
 
         if (_groundEnemyData._onlySandDust)
@@ -390,11 +391,12 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         wormSandTransform.gameObject.SetActive(false);
         wormJumpUpTransform.gameObject.SetActive(true);
         MyColliderEnabledTrue();
+        audioSource.Stop();
+        audioSource.PlayOneShot(spawnSE);
         yield return new WaitForSeconds(3f);
         wormJumpUpTransform.gameObject.SetActive(false);
         yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s - 3f);
         myAnimation.SetTrigger(hide);
-        audioSource.PlayOneShot(spawnSE);
         yield return new WaitForSeconds(1.4f);
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.6f);

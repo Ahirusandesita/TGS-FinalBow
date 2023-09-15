@@ -10721,6 +10721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8ada14bda0b5b48bed94ba759b0fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sandSE: {fileID: 8300000, guid: da6e8191923993048804ed0d4b7bd950, type: 3}
   spawnSE: {fileID: 8300000, guid: 13abfc8b52be574449b00d1b0ccbebd1, type: 3}
   _jumpDirectionState: 0
   _crabWalkingSpeed: 0
@@ -10814,7 +10815,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.343
   m_Pitch: 1
   Loop: 0
   Mute: 0
