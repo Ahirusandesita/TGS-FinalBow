@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
+  m_Name: Bird1-5-3-1a
+  m_EditorClassIdentifier: 
+  _birdType: 3
+  _bullet: 1
+  _spawnDelay_s: 3
+  _birdSpawnPlace: {fileID: 821281742369761292, guid: fe9b43ad60c6b1143b7289a053f5bf80, type: 3}
+  _birdGoalPlaces:
+  - _moveType: 1
+    _arcHeight: 30
+    _arcMoveDirection: 2
+    _birdGoalPlace: {fileID: 5631375258430233619, guid: 7505be735248f564eab826b5ab36c008, type: 3}
+    _speed: 50
+    _stayTime_s: 0
+    _birdAttackType_a: 3
+    _birdAttackType_b: 3
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 1
+    _arcHeight: 30
+    _arcMoveDirection: 2
+    _birdGoalPlace: {fileID: 821281742369761292, guid: fe9b43ad60c6b1143b7289a053f5bf80, type: 3}
+    _speed: 50
+    _stayTime_s: 0
+    _birdAttackType_a: 3
+    _birdAttackType_b: 3
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 1
+    _arcHeight: 30
+    _arcMoveDirection: 2
+    _birdGoalPlace: {fileID: 5631375258430233619, guid: 7505be735248f564eab826b5ab36c008, type: 3}
+    _speed: 50
+    _stayTime_s: 0
+    _birdAttackType_a: 3
+    _birdAttackType_b: 3
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 1
+    _arcHeight: 30
+    _arcMoveDirection: 2
+    _birdGoalPlace: {fileID: 821281742369761292, guid: fe9b43ad60c6b1143b7289a053f5bf80, type: 3}
+    _speed: 50
+    _stayTime_s: 0
+    _birdAttackType_a: 3
+    _birdAttackType_b: 3
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 1
+    _arcHeight: 30
+    _arcMoveDirection: 2
+    _birdGoalPlace: {fileID: 5863345738785250873, guid: 289202ffcc730bd40951f05c0c3b0954, type: 3}
+    _speed: 50
+    _stayTime_s: 0
+    _birdAttackType_a: 3
+    _birdAttackType_b: 3
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  _needRoop: 0
+  _goalIndexOfRoop: 0
+  _despawnTime_s: 30

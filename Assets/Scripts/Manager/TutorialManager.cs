@@ -104,10 +104,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [Tooltip("最初のトリガー入力")]
     private bool _inputFirst = true;
 
-    [Tooltip("最初にすべての的が撤去されたとき")]
-    private bool _isAllTargetFirst = true;
-
     private bool _isHit { get; set; }
+
+    private GameProgress gameProgress;
     #endregion
 
     #region property
@@ -116,6 +115,17 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     #region method
     private void Awake()
     {
+        gameProgress = GameObject.FindObjectOfType<GameProgress>();
+        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
+            {
+                if(progressType == GameProgressType.tutorial)
+                {
+                    Tutorial();
+                }
+            }
+            );
+
         try
         {
             _poolSystem = GameObject.FindWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
@@ -146,7 +156,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Start()
     {
-        Tutorial();
     }
 
     private void Update()
@@ -258,19 +267,23 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void DecrementTargetAmount()
     {
         _spawndTargetAmount--;
-        _isHit = true;
 
+        // 最初の爆発
         if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
         {
             _isHitFirst = false;
-            _canShotFirst = false;
+            //_isHit = true;
+            //_canShotFirst = false;
             StartCoroutine(RemoveTarget());
         }
 
-        if (_spawndTargetAmount <= 0 && _isAllTargetFirst)
+        if (_isReStart && _currentTutorialType == TutorialIventType.attract1)
         {
-            _isAllTargetFirst = false;
 
+        }
+
+        if (_spawndTargetAmount <= 0)
+        {
             if (_isReStart)
             {
                 _isReStart = false;
@@ -290,6 +303,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         yield return new WaitForSeconds(0.8f);
 
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
+
+        //if (targets.Length == 0)
+        //{
+        //    ProgressingTheTutorial();
+        //}
+
         for (int i = 0; i < targets.Length; i++)
         {
             StartCoroutine(targets[i].RotateAtDespawn());
@@ -377,7 +396,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// <summary>
     /// テキスト表示の終了感知（共通）
     /// </summary>
-    public void IsComplete()
+    public void AllComplete()
     {
         _textFrame.SetActive(false);
 
@@ -424,8 +443,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             // 吸い込みの紹介をした後
             case TutorialIventType.attract1:
 
-                _isAllTargetFirst = true;
-
                 // クリスタルを出現させて、即割る
                 StartCoroutine(Instantiate(_crystal, _crystalTransform.position, Quaternion.identity).GetComponent<TutorialCrystalBreak>().Break());
 
@@ -435,11 +452,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 break;
 
             case TutorialIventType.ending:
-                FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
-
+                //FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
+                gameProgress.TutorialEnding();
                 break;
         }
     }
+
+    public void ResponseComplete() { }
 
     private IEnumerator WaitTargetDespawn()
     {

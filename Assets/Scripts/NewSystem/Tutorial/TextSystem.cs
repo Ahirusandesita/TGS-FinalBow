@@ -13,15 +13,19 @@ using System.Collections.Generic;
 
 public interface ITextLikeSpeaking
 {
-    void IsComplete();
-}
+    void AllComplete();
 
+    void ResponseComplete();
+
+}
+[RequireComponent(typeof(AudioSource))]
 public class TextSystem : MonoBehaviour
 {
     private TextMeshProUGUI text;
     public List<TMP_FontAsset> fontAssets = new List<TMP_FontAsset>();
     private float time;
     private const int MAX_RANDOM = 50;
+    private AudioSource audioSource;
 
     Vector3 size;
     Vector3 defaultSize;
@@ -31,6 +35,7 @@ public class TextSystem : MonoBehaviour
     private void Awake()
     {
         text = this.GetComponent<TextMeshProUGUI>();
+        audioSource = this.GetComponent<AudioSource>();
         text.text = default;
         defaultSize = transform.localScale;
         size = defaultSize * 1.006f;
@@ -66,67 +71,45 @@ public class TextSystem : MonoBehaviour
 
         for (int i = 0; i < tutorialManagementData.tutorialManagementItem.Count; i++)
         {
+            if (!audioSource.isPlaying)
+                if (tutorialManagementData.audioClip != null)
+                    audioSource.PlayOneShot(tutorialManagementData.audioClip);
+
             TutorialData tutorialData = tutorialManagementData.tutorialManagementItem[i].tutorialDatas;
             WaitForSeconds waitForSeconds = new WaitForSeconds(tutorialData.speakingSpeed);
-            int textCount = 0;
+            if (tutorialData.speakingSpeed == 0f) canNextText = true;
+
+            GameObject outImage = default;
+            if (tutorialData.image != null)
+            {
+                outImage = Instantiate(tutorialData.image.gameObject, tutorialData.image.gameObject.transform.position, tutorialData.image.gameObject.transform.rotation);
+            }
+
+            if (i == tutorialManagementData.tutorialManagementItem.Count - 1) textLikeSpeaking.ResponseComplete();
+
             for (int k = 0; k < tutorialData.text.Length; k++)
             {
-                if (canNextText)
+
+                string restText = default;
+                if (tutorialData.text[k] == '<')
                 {
-                    for (int u = k; u < tutorialData.text.Length; u++)
+                    string specialTag = tutorialData.text[k].ToString();
+                    k++;
+                    while (tutorialData.text[k] != '>')
                     {
-                        char restChar = tutorialData.text[u];
-                        string restText = default;
-                        textCount++;
-                        if (restChar == '。')
-                        {
-                            textCount = 0;
-                            restText = restChar + "\n";
-                        }
-                        else
-                        {
-                            restText = restChar.ToString();
-                        }
-
-                        if (textCount > 20)
-                        {
-                            if (restChar == '、')
-                            {
-                                restText += "\n";
-                                textCount = 0;
-                            }
-                        }
-                        this.text.text += restText;
+                        specialTag += tutorialData.text[k];
+                        k++;
                     }
-                    break;
+                    k++;
+                    specialTag += '>';
+                    restText = specialTag;
                 }
 
+                restText += tutorialData.text[k];
+                this.text.text += restText;
+                if (!canNextText)
+                    yield return waitForSeconds;
 
-
-
-                char textChar = tutorialData.text[k];
-                string textString = default;
-                textCount++;
-                if (textChar == '。')
-                {
-                    textCount = 0;
-                    textString = textChar + "\n";
-                }
-                else
-                {
-                    textString = textChar.ToString();
-                }
-
-                if (textCount > 20)
-                {
-                    if (textChar == '、')
-                    {
-                        textString += "\n";
-                        textCount = 0;
-                    }
-                }
-                this.text.text += textString;
-                yield return waitForSeconds;
             }
             if (!tutorialData.canNextText)
                 yield return new WaitForSeconds(tutorialManagementData.tutorialManagementItem[i].nextTime);
@@ -136,10 +119,12 @@ public class TextSystem : MonoBehaviour
                 canNextText = false;
                 yield return new WaitUntil(() => CanNextText || IsNextTime(tutorialManagementData.tutorialManagementItem[i].nextTime));
             }
+            Destroy(outImage);
+            outImage = null;
             this.text.text = default;
             canNextText = false;
         }
-        textLikeSpeaking.IsComplete();
+        textLikeSpeaking.AllComplete();
 
     }
 

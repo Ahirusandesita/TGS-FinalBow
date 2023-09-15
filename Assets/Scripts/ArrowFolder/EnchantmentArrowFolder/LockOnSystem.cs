@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public interface IFLockOnSystem
 {
-    GameObject LockOnTarget { get; set; }
+    Transform LockOnTarget { get; set; }
     void TargetLockOn(Transform bowTransform);
 
     void DestroyUI();
@@ -18,7 +18,7 @@ public interface IFLockOnSystem
 public class LockOnSystem : MonoBehaviour , IFLockOnSystem
 {
     #region variable 
-    public GameObject LockOnTarget { get; set; }
+    public Transform LockOnTarget { get; set; }
 
     private GameObject _temporaryTarget = default;
 
@@ -36,9 +36,10 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
 
     private bool _onTarget = false;
 
+    private string _targetName = new string("HomingTarget");
 
 
-    private const float DISITION_TIME = 1f;
+    private const float DISITION_TIME = 0.5f;
 
     private const float INFINITY = Mathf.Infinity;
     #endregion
@@ -110,7 +111,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
 
                 if (_onTarget)
                 {
-                    _lockOnTime += Time.deltaTime;
+                    _lockOnTime += Time.deltaTime / DISITION_TIME;
                     try
                     {
                         _lockOnUI.LockOnNow(_lockOnTime);
@@ -118,9 +119,13 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                     catch
                     {
                     }
-                    if (_lockOnTime > DISITION_TIME && LockOnTarget == null)
+                    if (_lockOnTime > 1f && LockOnTarget == null)
                     {
-                        LockOnTarget = _temporaryTarget;
+                        LockOnTarget = _temporaryTarget.transform.Find(_targetName);
+                        if (LockOnTarget == null)
+                        {
+                            LockOnTarget = _temporaryTarget.transform;
+                        }
                     }
                 }
                 else
@@ -138,7 +143,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
         LockOnTarget = null;
     }
 
-    public GameObject TargetSet(ArrowMove arrow)
+    public Transform TargetSet(ArrowMove arrow)
     {
         _temporaryTarget = null;
         return LockOnTarget;
