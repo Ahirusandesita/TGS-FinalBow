@@ -72,6 +72,7 @@ public class TextSystem : MonoBehaviour
         for (int i = 0; i < tutorialManagementData.tutorialManagementItem.Count; i++)
         {
             if (!audioSource.isPlaying)
+                if(tutorialManagementData.audioClip is null == false)
                 audioSource.PlayOneShot(tutorialManagementData.audioClip);
 
             TutorialData tutorialData = tutorialManagementData.tutorialManagementItem[i].tutorialDatas;
