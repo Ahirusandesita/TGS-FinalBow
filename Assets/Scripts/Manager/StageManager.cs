@@ -129,6 +129,12 @@ public class StageManager : MonoBehaviour, IStageSpawn
 #if UNITY_EDITOR
     private void Update()
     {
+        if (_currentNumberOfObject <= 0 && uuu)
+        {
+            // 次のウェーブへ
+            ProgressingTheWave();
+            uuu = false;
+        }
         if (Input.GetKeyDown(KeyCode.P))
         {
             EnemyStats[] obj = FindObjectsOfType<EnemyStats>();
@@ -144,6 +150,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     public void WaveExecution()
     {
+        uuu = true;
         try
         {
             // 最終ステージだったら、ボスをスポーン
@@ -157,7 +164,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
             // EnemySpawnerTableで設定したスポナーの数を設定
             _currentNumberOfObject += _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count;
             _currentNumberOfObject += _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData.Count;
-
+            Debug.LogError("MaxUntitti" + _currentNumberOfObject);
             // 各ウェーブで設定された数、鳥雑魚をスポーンさせる
             for (int i = 0; i < _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count; i++)
             {
@@ -183,14 +190,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private void DecrementNumberOfObject()
     {
         _currentNumberOfObject--;
-
-        if (_currentNumberOfObject == 0)
-        {
-            // 次のウェーブへ
-            ProgressingTheWave();
-        }
     }
-
+    bool uuu = false;
     /// <summary>
     /// ウェーブを進める
     /// </summary>
@@ -199,7 +200,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
         _currentWaveIndex++;
         _currentNumberOfObject = 0;
         X_Debug.Log("次のウェーブへ");
-
         // すべてのウェーブをクリア = 次のステージに進む
         if (_currentWaveIndex >= _stageDataTables[_currentStageIndex]._waveInformation.Count)
         {

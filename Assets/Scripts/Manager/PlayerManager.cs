@@ -200,6 +200,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
     }
     public void ArrowEnchantPlusDamage()
     {
+        if (_arrow is null) return;
+
+
         if (tutorialManager != null)
         {
             tutorialManager.OnAttractCompleted();
