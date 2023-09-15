@@ -1163,7 +1163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropData: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
 --- !u!114 &7679170251223779403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1178,6 +1177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 1
   maxInhallData: {fileID: 11400000, guid: 9c7c19a2918ce334cb8f314e946766ef, type: 2}
+  _dropData: {fileID: 0}
 --- !u!114 &598212175796384945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1216,9 +1216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff8f1d15e2f0a849b926a31ce0ca7aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _idleMoveSpeedX: 10
-  _idleMoveSpeedY: 10
-  _changeAngleSpeed: 1
 --- !u!114 &7728833080253847853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2064,7 +2061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8883607e24d0c4a8a37dd025598fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPlace: {fileID: 3896496780618105880, guid: d274d14d1729ade479f7d953cea837e9, type: 3}
 --- !u!1 &7076726453172797877
 GameObject:
   m_ObjectHideFlags: 0
