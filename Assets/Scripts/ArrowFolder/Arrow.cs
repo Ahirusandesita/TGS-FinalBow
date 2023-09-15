@@ -275,7 +275,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
     private void Start()
     {
         NeedArrowEnchant = true;
-        MyTransform = gameObject.transform;
+        MyTransform = this.transform;
         _hitZone = new HitZone(2f, MyTransform.position);
         //_playerManager = StaticPlayerManager.PlayerManager;
         //Transformキャッシュ
@@ -305,6 +305,8 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
 
     private void Update()
     {
+        if (MyTransform is null) MyTransform = this.transform;
+
         if (!_isStart)
         {
             return;
