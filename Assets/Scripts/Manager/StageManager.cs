@@ -92,16 +92,20 @@ public class StageManager : MonoBehaviour, IStageSpawn
         gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
             progressType =>
             {
-                if(progressType == GameProgressType.ending)
+                if (progressType == GameProgressType.ending)
                 {
                     ProgressingTheStage();
                 }
-                if(progressType == GameProgressType.inGame)
+                if (progressType == GameProgressType.inGame)
                 {
                     StartCoroutine(WaveStart());
                 }
+                if (progressType == GameProgressType.gamePreparation)
+                {
+                    MovingPlayer();
+                }
             }
-            );   
+            );
 
     }
 
@@ -114,7 +118,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         //_resultStage.readOnlyStateProperty.Subject.Subscribe(isResult => { if (!isResult) { ProgressingTheStage(); } });
 
         // ゲーム開始時にプレイヤーのTransformを更新する
-        MovingPlayer();
+        //MovingPlayer();
 
         // ゲームスタート
         //StartCoroutine(WaveStart());

@@ -51,6 +51,15 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [SerializeField]
     private SceneObject _sceneObject = default;
 
+    [SerializeField]
+    private Transform _playerTransform = default;
+
+    [SerializeField]
+    private GameObject _player = default;
+
+    [SerializeField]
+    private GameObject _debugPlayer = default;
+
 
     private ScoreFrameMaganer _frameManager = default;
 
@@ -156,6 +165,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Start()
     {
+        _player.transform.position = _playerTransform.position;
+        _player.transform.rotation = _playerTransform.rotation;
+        _debugPlayer.transform.position = _playerTransform.position;
+        _debugPlayer.transform.rotation = _playerTransform.rotation;
     }
 
     private void Update()

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3248568111420736392}
   - component: {fileID: 8655607265101325264}
   - component: {fileID: 4720218653211257176}
+  - component: {fileID: 5232181426604351141}
   m_Layer: 6
   m_Name: TargetSpawnPoint_3
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2284320359164856732}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -10, y: 3.23, z: 0}
+  m_LocalPosition: {x: -50515, y: 364.23, z: 27814}
   m_LocalScale: {x: 200, y: 200, z: 3.8024545}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,5 +155,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7629bbe0d1951ad43b5f29884a15bfa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5232181426604351141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284320359164856732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172b6fca44b417641914cee250027b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
