@@ -154,6 +154,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4208937216684494474}
     m_Modifications:
+    - target: {fileID: 2497900438844394259, guid: e94aff94c349e5940b4dd8b3167d06f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5605795079140396556, guid: e94aff94c349e5940b4dd8b3167d06f6, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -313,7 +317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 422740, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 422740, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       propertyPath: m_LocalPosition.y
@@ -351,6 +355,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 13623232, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
@@ -377,7 +385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 414912, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 414912, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -414,6 +422,10 @@ PrefabInstance:
     - target: {fileID: 414912, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 11438496, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -511,13 +523,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: m_TargetEye
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: usePerEyeCameras
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 20000010189485334, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000010189485334, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: field of view
+      value: 94.14986
       objectReference: {fileID: 0}
     - target: {fileID: 20000010189485334, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: far clip plane
@@ -723,26 +743,6 @@ PrefabInstance:
       propertyPath: materials.Array.data[1]
       value: 
       objectReference: {fileID: 2377376760783321371, guid: 7d0f08c00471bfa4e8366be4e491795a, type: 3}
-    - target: {fileID: 5662138346565801120, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-      propertyPath: _chargeMeterMeshes.Array.data[0]
-      value: 
-      objectReference: {fileID: 8101503571044691440}
-    - target: {fileID: 5662138346565801120, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-      propertyPath: _chargeMeterMeshes.Array.data[1]
-      value: 
-      objectReference: {fileID: 7033433994691878193}
-    - target: {fileID: 5662138346565801120, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-      propertyPath: _chargeMeterMeshes.Array.data[2]
-      value: 
-      objectReference: {fileID: 5858238138376380267}
-    - target: {fileID: 5662138346565801120, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-      propertyPath: _chargeMeterMeshes.Array.data[3]
-      value: 
-      objectReference: {fileID: 5556869041251617835}
-    - target: {fileID: 5662138346565801120, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-      propertyPath: _chargeMeterMeshes.Array.data[4]
-      value: 
-      objectReference: {fileID: 2040127910134614683}
     - target: {fileID: 7195640814306679996, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -756,34 +756,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3905607903403321472}
   m_SourcePrefab: {fileID: 100100000, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
---- !u!23 &2040127910134614683 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7049140185769748950, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-  m_PrefabInstance: {fileID: 9051230438505554765}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4208937216684494474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5185129958207729095, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-  m_PrefabInstance: {fileID: 9051230438505554765}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5556869041251617835 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3495242819037605734, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-  m_PrefabInstance: {fileID: 9051230438505554765}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5858238138376380267 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3229303775940475942, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-  m_PrefabInstance: {fileID: 9051230438505554765}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &7033433994691878193 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2019768589868318332, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
-  m_PrefabInstance: {fileID: 9051230438505554765}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &8101503571044691440 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1004932410011209405, guid: 955cdd1fa90bed545b8abbdf90c1a355, type: 3}
   m_PrefabInstance: {fileID: 9051230438505554765}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &9051230438450541951 stripped
