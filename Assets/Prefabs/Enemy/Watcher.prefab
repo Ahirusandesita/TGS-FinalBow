@@ -1134,6 +1134,8 @@ GameObject:
   - component: {fileID: 4049845359205270414}
   - component: {fileID: 4049845359205270413}
   - component: {fileID: 291895708963374230}
+  - component: {fileID: 2285700551275551246}
+  - component: {fileID: 4566743892497450668}
   m_Layer: 6
   m_Name: Watcher
   m_TagString: Untagged
@@ -1301,6 +1303,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effect: {fileID: 1588822585382198976}
   blastPosition: {fileID: 9027821879711092594}
+--- !u!114 &2285700551275551246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5409419035768733025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b7a139cbebdb541ab9313765fc3a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveCurveZ: {fileID: 11400000, guid: 13e11871063964145acfd77daf30a635, type: 2}
+  moveCurveY: {fileID: 11400000, guid: c218740c18cf2c44ea30f17aa1731834, type: 2}
+  rotateX: {fileID: 11400000, guid: 103feb30db0a4c647bd5c6d13c17a5b7, type: 2}
+--- !u!114 &4566743892497450668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5409419035768733025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe49dac13065b541ba41edd5e8c7dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveCurveZ: {fileID: 11400000, guid: 13e11871063964145acfd77daf30a635, type: 2}
+  moveCurveY: {fileID: 11400000, guid: c218740c18cf2c44ea30f17aa1731834, type: 2}
+  rotateX: {fileID: 11400000, guid: 103feb30db0a4c647bd5c6d13c17a5b7, type: 2}
 --- !u!1 &5585655115769574573
 GameObject:
   m_ObjectHideFlags: 0

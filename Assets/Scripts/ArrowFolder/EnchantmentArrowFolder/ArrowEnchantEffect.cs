@@ -55,28 +55,28 @@ public struct Size
 
 public struct SizeAdjustmentToVector3
 {
-    public Size sizeX,sizeY,sizeZ;
+    public Size sizeX, sizeY, sizeZ;
 
     public int plusCount;
 
     public SizeAdjustmentToVector3(float x, float y, float z) => this = new SizeAdjustmentToVector3(new Size(x), new Size(y), new Size(z));
 
-    public SizeAdjustmentToVector3(Size x,Size y,Size z)
+    public SizeAdjustmentToVector3(Size x, Size y, Size z)
     {
         sizeX = x;
         sizeY = y;
         sizeZ = z;
         plusCount = 0;
     }
-    public SizeAdjustmentToVector3(float x,float y,float z,int plusCount) => this = new SizeAdjustmentToVector3(new Size(x), new Size(y), new Size(z),plusCount);
+    public SizeAdjustmentToVector3(float x, float y, float z, int plusCount) => this = new SizeAdjustmentToVector3(new Size(x), new Size(y), new Size(z), plusCount);
 
-    public void SetSizeToVector3(float x,float y,float z)
+    public void SetSizeToVector3(float x, float y, float z)
     {
         sizeX.firstSize = x;
         sizeY.firstSize = y;
         sizeZ.firstSize = z;
     }
-    public SizeAdjustmentToVector3(Size x,Size y,Size z,int plusCount)
+    public SizeAdjustmentToVector3(Size x, Size y, Size z, int plusCount)
     {
         sizeX = x;
         sizeY = y;
@@ -85,7 +85,7 @@ public struct SizeAdjustmentToVector3
     }
 
 
-    public Vector3 GetMinimumSizeToVector3 => new Vector3(sizeX.GetMinimumSize,sizeY.GetMinimumSize,sizeZ.GetMinimumSize);
+    public Vector3 GetMinimumSizeToVector3 => new Vector3(sizeX.GetMinimumSize, sizeY.GetMinimumSize, sizeZ.GetMinimumSize);
     public Vector3 GetFirstSizeToVector3 => new Vector3(sizeX.GetFirstSize, sizeY.GetFirstSize, sizeZ.GetFirstSize);
 }
 
@@ -94,7 +94,7 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
 {
     [SerializeField]
     private float bombSize = 6f;
-    
+
 
     private ObjectPoolSystem _objectPoolSystem;
 
@@ -231,7 +231,7 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
     /// <param name="spawnTransform"></param>
     private void EffectCall(EffectPoolEnum.EffectPoolState effectState, Transform spawnTransform)
     {
-        StartCoroutine(EffectTime(_objectPoolSystem.CallObject(effectState, spawnTransform.position, spawnTransform.rotation), effectState));
+        StartCoroutine(EffectTime(_objectPoolSystem.CallObject(effectState, spawnTransform.position, spawnTransform.rotation), effectState,false));
     }
     private void EffectCall(EffectPoolEnum.EffectPoolState effectState, Transform spawnTransform, ref SizeAdjustmentToVector3 sizeAdjustmentToVector3)
     {
@@ -244,11 +244,11 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
         effect.transform.localScale = sizeAdjustmentToVector3.GetFirstSizeToVector3;
         while (sizeAdjustmentToVector3.plusCount > 0)
         {
-            effect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3 ;
+            effect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
             sizeAdjustmentToVector3.plusCount--;
         }
 
-        StartCoroutine(EffectTime(effect, effectState));
+        StartCoroutine(EffectTime(effect, effectState,true));
     }
 
     /// <summary>
@@ -257,11 +257,11 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
     /// <param name="effectObject"></param>
     /// <param name="effectPoolState"></param>
     /// <returns></returns>
-    private IEnumerator EffectTime(GameObject effectObject, EffectPoolEnum.EffectPoolState effectPoolState)
+    private IEnumerator EffectTime(GameObject effectObject, EffectPoolEnum.EffectPoolState effectPoolState, bool a)
     {
         yield return _waitSeconds;
-
-        effectObject.transform.localScale = sizeAdjustmentToVector3.GetFirstSizeToVector3;
+        if (a)
+            effectObject.transform.localScale = sizeAdjustmentToVector3.GetFirstSizeToVector3;
         _objectPoolSystem.ReturnObject(effectPoolState, effectObject);
     }
 
