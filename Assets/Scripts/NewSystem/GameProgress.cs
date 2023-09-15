@@ -17,7 +17,7 @@ public enum GameProgressType
 }
 public class GameProgress : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         gameProgressProperty.Value = GameProgressType.tutorial;
     }
