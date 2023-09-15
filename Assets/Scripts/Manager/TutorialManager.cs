@@ -200,7 +200,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             _inputFirst = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.At))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             _textSystem.NextText();
         }
