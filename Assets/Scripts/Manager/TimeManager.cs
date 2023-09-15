@@ -39,10 +39,11 @@ public class TimeManager :MonoBehaviour , ITime
         StartCoroutine(TimeCount());
 
         resultStage = GameObject.FindObjectOfType<ResultStage>();
-        resultStage.readOnlyStateProperty.Subject.Subscribe(
-            isResult =>
+        GameProgress gameProgress = GameObject.FindObjectOfType<GameProgress>();
+        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
             {
-                if (isResult)
+                if(progressType == GameProgressType.result)
                 {
                     resultStage.ResultScreenTime(time);
                 }

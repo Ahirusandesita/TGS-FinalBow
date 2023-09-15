@@ -189,18 +189,20 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         playerStats.readOnlyPlayerHp.Subject.SecondOnwardsObservers(_ => { BonusScore_HpScore(); });
 
         ResultStage resultStage = GameObject.FindObjectOfType<ResultStage>();
+        GameProgress gameProgress = GameObject.FindObjectOfType<GameProgress>();
         if (resultStage == null) return;
-        resultStage.readOnlyStateProperty.Subject.Subscribe(
-            isResult =>
+        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
             {
-                if (isResult)
+                if(progressType == GameProgressType.result)
                 {
                     resultStage.ResultScreenScore(ScorePoint);
                     SumScorePoint = SumScorePoint + ScorePoint;
                     ScorePoint.Reset();
                 }
             }
-        );
+            );
+
     }
 
     private void Start()
