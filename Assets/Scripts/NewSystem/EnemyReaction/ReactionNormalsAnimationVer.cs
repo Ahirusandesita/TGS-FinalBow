@@ -9,13 +9,17 @@ using System.Collections;
 public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INormalReaction, InterfaceReaction.IPenetrateReaction, InterfaceReaction.IKnockBackReaction
 {
     Animator anim = default;
-
+    IFNeedMoveRotineEnd need = default;
+    [SerializeField] AnimationClip state = default;
+    [SerializeField] string actionTrigger = "Death";
+    [SerializeField] float _endTime = 1.1f;
     bool _end = false;
     public bool ReactionEnd { get => _end; set => _end = value; }
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        need = GetComponent<IFNeedMoveRotineEnd>();
     }
     public bool IsComplete()
     {
@@ -29,10 +33,16 @@ public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INor
 
     public void Reaction(Transform t1, Vector3 t2)
     {
-        anim.SetTrigger("Death");
+        anim.SetTrigger(actionTrigger);
+
+        if(need is not null)
+        need.MoveEnd();
+        //float time = 0f;
         anim.Update(0f);
         AnimatorStateInfo info = anim.GetNextAnimatorStateInfo(0);
-        StartCoroutine(ActionEnd(info.length));
+        _endTime = info.length;
+
+        StartCoroutine(ActionEnd(_endTime));
 
     }
 
