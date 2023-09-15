@@ -10606,6 +10606,7 @@ GameObject:
   - component: {fileID: 1412493737270300541}
   - component: {fileID: 7691320567663443306}
   - component: {fileID: 6086682948021638767}
+  - component: {fileID: 5871249125302612474}
   m_Layer: 6
   m_Name: WormEnemy
   m_TagString: Untagged
@@ -10720,6 +10721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8ada14bda0b5b48bed94ba759b0fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSE: {fileID: 8300000, guid: 13abfc8b52be574449b00d1b0ccbebd1, type: 3}
   _jumpDirectionState: 0
   _crabWalkingSpeed: 0
   _jumpPower: 150
@@ -10800,6 +10802,102 @@ MonoBehaviour:
   state: {fileID: 7400000, guid: 80fc2fdc8d091cd418dd1bdb641cff17, type: 2}
   actionTrigger: Test Death
   _endTime: 2
+--- !u!82 &5871249125302612474
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5651375071990206721}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5651375071990208891
 GameObject:
   m_ObjectHideFlags: 0
@@ -32968,7 +33066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 497524, guid: 358f85872dfa7c941bce8484cce12c20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8500061
+      value: 0.31
       objectReference: {fileID: 0}
     - target: {fileID: 497524, guid: 358f85872dfa7c941bce8484cce12c20, type: 3}
       propertyPath: m_LocalPosition.y
@@ -33199,12 +33297,28 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 8619141481687252211}
     m_Modifications:
+    - target: {fileID: 1478994475184387466, guid: cd86f6cc2ed614c4f949bbabfc4203e8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 59c4c926b044c79449ac702a9d4800f7, type: 2}
     - target: {fileID: 1478994475186305248, guid: cd86f6cc2ed614c4f949bbabfc4203e8, type: 3}
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1478994475186305248, guid: cd86f6cc2ed614c4f949bbabfc4203e8, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478994475186305248, guid: cd86f6cc2ed614c4f949bbabfc4203e8, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478994475186305248, guid: cd86f6cc2ed614c4f949bbabfc4203e8, type: 3}
       propertyPath: InitialModule.startSize.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478994475186305248, guid: cd86f6cc2ed614c4f949bbabfc4203e8, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1478994475200211538, guid: cd86f6cc2ed614c4f949bbabfc4203e8, type: 3}

@@ -18,6 +18,10 @@ interface IFNeedMoveRotineEnd
 public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
 {
     private Animator myAnimation;
+
+    public AudioClip spawnSE;
+    private AudioSource audioSource;
+
     private enum CrabWalkState { left, right };
 
     public enum JumpDirectionState { zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve };
@@ -109,7 +113,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         myAnimation = this.GetComponent<Animator>();
         //_groundEnemyAttack = this.GetComponent<GroundEnemyAttack>();
         _genemyStats = this.GetComponent<GroundEnemyStats>();
-
+        audioSource = this.GetComponent<AudioSource>();
         base.Start();
     }
 
@@ -390,6 +394,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         wormJumpUpTransform.gameObject.SetActive(false);
         yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s - 3f);
         myAnimation.SetTrigger(hide);
+        audioSource.PlayOneShot(spawnSE);
         yield return new WaitForSeconds(1.4f);
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.6f);
@@ -397,7 +402,6 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         MyCollidersEnabledFalse();
         yield return new WaitForSeconds(0.3f);
         wormSandTransform.gameObject.SetActive(false);
-
         _genemyStats.Despawn();
     }
 
