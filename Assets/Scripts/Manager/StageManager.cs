@@ -72,6 +72,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     [Tooltip("取得したリザルト用クラス")]
     private ResultStage _resultStage = default;
+    private GameProgress gameProgress;
 
     [Tooltip("現在の雑魚/的の数")]
     private int _currentNumberOfObject = 0;
@@ -85,6 +86,24 @@ public class StageManager : MonoBehaviour, IStageSpawn
     private bool _isFirst = true;
     #endregion
 
+    private void Awake()
+    {
+        gameProgress = GameObject.FindObjectOfType<GameProgress>();
+        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
+            {
+                if(progressType == GameProgressType.ending)
+                {
+                    ProgressingTheStage();
+                }
+                if(progressType == GameProgressType.inGame)
+                {
+                    StartCoroutine(WaveStart());
+                }
+            }
+            );   
+
+    }
 
     private void Start()
     {
@@ -92,13 +111,13 @@ public class StageManager : MonoBehaviour, IStageSpawn
         _resultStage = this.GetComponent<ResultStage>();
 
         // ステージ間リザルトの表示が終了したとき、ResultStageクラスでステージ進行処理が呼ばれる
-        _resultStage.readOnlyStateProperty.Subject.Subscribe(isResult => { if (!isResult) { ProgressingTheStage(); } });
+        //_resultStage.readOnlyStateProperty.Subject.Subscribe(isResult => { if (!isResult) { ProgressingTheStage(); } });
 
         // ゲーム開始時にプレイヤーのTransformを更新する
         MovingPlayer();
 
         // ゲームスタート
-        StartCoroutine(WaveStart());
+        //StartCoroutine(WaveStart());
     }
 
 #if UNITY_EDITOR

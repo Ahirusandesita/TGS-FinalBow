@@ -21,6 +21,8 @@ public class ResultStage : MonoBehaviour
     private bool isOne = true;
     private ScoreFrameMaganer scoreFrameMaganer;
     InputManagement inputManagement = default;
+
+    private GameProgress gameProgress;
     #endregion
     #region property
     #endregion
@@ -33,22 +35,39 @@ public class ResultStage : MonoBehaviour
         if (checkPointResult == null) return;
         resultString = checkPointResult.gameObject.transform.GetChild(7).gameObject.GetComponent<ResultString>();
         scoreFrameMaganer = checkPointResult.gameObject.transform.GetChild(0).gameObject.GetComponent<ScoreFrameMaganer>();
-        stagePropery.Subject.Subscribe(
-            isResult =>
+        //stagePropery.Subject.Subscribe(
+        //    isResult =>
+        //    {
+        //        if (!isResult) DeleteResultScreen();
+        //    }
+        //    );
+        //stagePropery.Subject.Subscribe(
+        //    isResult =>
+        //    {
+        //        if (isResult)
+        //        {
+        //            checkPointResult.gameObject.SetActive(true);
+        //            scoreFrameMaganer.OpenFrame();
+        //        }
+        //    }
+        //    );
+
+        gameProgress = GameObject.FindObjectOfType<GameProgress>();
+        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
             {
-                if (!isResult) DeleteResultScreen();
-            }
-            );
-        stagePropery.Subject.Subscribe(
-            isResult =>
-            {
-                if (isResult)
+                if (progressType == GameProgressType.result)
                 {
                     checkPointResult.gameObject.SetActive(true);
                     scoreFrameMaganer.OpenFrame();
                 }
+                if (progressType == GameProgressType.ending)
+                {
+                    DeleteResultScreen();
+                }
             }
             );
+
     }
 
     public void Result() => stagePropery.Value = true;
@@ -92,14 +111,16 @@ public class ResultStage : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            if (stagePropery.Value)
-                stagePropery.Value = false;
+            gameProgress.ResultEnding();
+            //if (stagePropery.Value)
+            //    stagePropery.Value = false;
         }
 
         if (inputManagement.ButtonLeftDownTrigger() || inputManagement.ButtonRightDownTrigger())
         {
-            if (stagePropery.Value)
-                stagePropery.Value = false;
+            gameProgress.ResultEnding();
+            //if (stagePropery.Value)
+            //    stagePropery.Value = false;
         }
     }
 

@@ -105,6 +105,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private bool _inputFirst = true;
 
     private bool _isHit { get; set; }
+
+    private GameProgress gameProgress;
     #endregion
 
     #region property
@@ -113,6 +115,17 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     #region method
     private void Awake()
     {
+        gameProgress = GameObject.FindObjectOfType<GameProgress>();
+        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
+            {
+                if(progressType == GameProgressType.tutorial)
+                {
+                    Tutorial();
+                }
+            }
+            );
+
         try
         {
             _poolSystem = GameObject.FindWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
@@ -143,7 +156,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private void Start()
     {
-        Tutorial();
     }
 
     private void Update()
@@ -440,8 +452,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 break;
 
             case TutorialIventType.ending:
-                FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
-
+                //FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
+                gameProgress.TutorialEnding();
                 break;
         }
     }
