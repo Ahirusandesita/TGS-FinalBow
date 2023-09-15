@@ -66,6 +66,8 @@ public class SelectEnchant : MonoBehaviour
 
     private void Awake()
     {
+        _tutorialManager = GameObject.FindObjectOfType<TutorialManager>();
+
         _gameProgress = GameObject.FindObjectOfType<GameProgress>();
 
         _gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
