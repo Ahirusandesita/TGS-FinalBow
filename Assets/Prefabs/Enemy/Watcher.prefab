@@ -1133,7 +1133,6 @@ GameObject:
   - component: {fileID: 4049845359205270415}
   - component: {fileID: 4049845359205270414}
   - component: {fileID: 4049845359205270413}
-  - component: {fileID: 5380491162618247666}
   - component: {fileID: 291895708963374230}
   m_Layer: 6
   m_Name: Watcher
@@ -1288,21 +1287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79cd61d2d230b814cb87fe1dbc1eaff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5380491162618247666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5409419035768733025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lockOn: {fileID: 5404360128167558457}
-  _lockOnGage: {fileID: 3514535012259675628}
-  _lockOnComplete: {fileID: 6111441998828699796}
 --- !u!114 &291895708963374230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1852,7 +1836,6 @@ Transform:
   - {fileID: 1793111642078389977}
   m_Father: {fileID: 4206709701053980703}
   m_RootOrder: -1
-
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8583358919759486529
 GameObject:
@@ -1863,9 +1846,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5743497509975755364}
+  - component: {fileID: 603751751202582213}
   m_Layer: 6
   m_Name: HomingTarget
-  m_TagString: Untagged
+  m_TagString: HomingTatget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1885,7 +1869,21 @@ Transform:
   m_Father: {fileID: 9027821879711092594}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
+--- !u!114 &603751751202582213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8583358919759486529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0aafd0aa263e24e8bc4913a52312a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lockOn: {fileID: 5404360128167558457}
+  _lockOnGage: {fileID: 3514535012259675628}
+  _lockOnComplete: {fileID: 6111441998828699796}
 --- !u!1 &8767490056141323707
 GameObject:
   m_ObjectHideFlags: 0
