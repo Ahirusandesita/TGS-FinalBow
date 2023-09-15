@@ -602,7 +602,7 @@ public class SelectEnchant : MonoBehaviour
 
     private IEnumerator NormalEventCoroutine()
     {
-        NormalEventCoroutine();
+        NormalEventSetting();
         yield return null;
     }
 
