@@ -116,7 +116,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private bool _isHit { get; set; }
 
     private GameProgress gameProgress;
-    #endregion
+
+#if UNITY_EDITOR
+    [HideInInspector]
+    public bool _skipTutorial = default;
+#endif
+#endregion
 
     #region property
     #endregion
@@ -130,6 +135,15 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             {
                 if(progressType == GameProgressType.tutorial)
                 {
+#if UNITY_EDITOR
+                    if (_skipTutorial)
+                    {
+                        gameProgress.TutorialEnding();
+                        this.enabled = false;
+                        return;
+                    }
+#endif
+
                     Tutorial();
                 }
             }
@@ -467,6 +481,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             case TutorialIventType.ending:
                 //FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
                 gameProgress.TutorialEnding();
+                this.enabled = false;
                 break;
         }
     }
