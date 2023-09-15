@@ -82,8 +82,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     [Tooltip("現在のウェーブ番号")]
     private int _currentWaveIndex = 0;  // ウェーブ1
-
-    private bool _isFirst = true;
     #endregion
 
     private void Awake()
@@ -142,8 +140,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     public void WaveExecution()
     {
-        _isFirst = true;
-
         try
         {
             // 最終ステージだったら、ボスをスポーン
@@ -184,10 +180,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         _currentNumberOfObject--;
 
-        if (_currentNumberOfObject <= 0 && _isFirst)
+        if (_currentNumberOfObject == 0)
         {
-            _isFirst = false;
-
             // 次のウェーブへ
             ProgressingTheWave();
         }
