@@ -19565,6 +19565,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7857152538658902278}
+  - component: {fileID: 2890501576327541601}
   m_Layer: 0
   m_Name: ThunderBlast
   m_TagString: Untagged
@@ -19588,6 +19589,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2890501576327541601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463636661364653007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e2f60bc0f2b854db2fa49eb5c9c008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myObjectType: 0
 --- !u!1 &5746555573550675685
 GameObject:
   m_ObjectHideFlags: 0
@@ -24529,6 +24543,7 @@ GameObject:
   - component: {fileID: 3625794061269955511}
   - component: {fileID: 7678208871745271444}
   - component: {fileID: 1011817456891679264}
+  - component: {fileID: 2925698678037574231}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Untagged
@@ -24569,7 +24584,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 3
   cullingMode: 1
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -29398,6 +29413,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2925698678037574231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6095228442694601535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2299365703a27994c9db9e929005fe97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: {fileID: 2890501576327541601}
 --- !u!1 &7193469240782318356
 GameObject:
   m_ObjectHideFlags: 0
