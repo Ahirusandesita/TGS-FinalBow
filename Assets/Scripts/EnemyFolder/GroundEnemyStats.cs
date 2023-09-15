@@ -43,7 +43,7 @@ public class GroundEnemyStats : CommonEnemyStats
     public override void Despawn()
     {
         _onDeathEnemy();
-        X_Debug.Log("out");
+        //X_Debug.Log("out");
         base.Despawn();
     }
 

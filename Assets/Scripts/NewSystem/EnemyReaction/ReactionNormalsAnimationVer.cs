@@ -6,7 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using System.Collections;
-public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INormalReaction, InterfaceReaction.IPenetrateReaction, InterfaceReaction.IKnockBackReaction
+public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INormalReaction, InterfaceReaction.IPenetrateReaction, InterfaceReaction.IKnockBackReaction,InterfaceReaction.IHomingReaction
 {
     Animator anim = default;
     IFNeedMoveRotineEnd need = default;
