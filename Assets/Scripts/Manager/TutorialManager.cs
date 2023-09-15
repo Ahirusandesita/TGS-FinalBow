@@ -117,10 +117,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private GameProgress gameProgress;
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
     [HideInInspector]
     public bool _skipTutorial = default;
-#endif
+//#endif
 #endregion
 
     #region property
@@ -135,14 +135,14 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             {
                 if(progressType == GameProgressType.tutorial)
                 {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
                     if (_skipTutorial)
                     {
                         gameProgress.TutorialEnding();
                         this.enabled = false;
                         return;
                     }
-#endif
+//#endif
 
                     Tutorial();
                 }
