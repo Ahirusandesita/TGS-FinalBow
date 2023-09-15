@@ -78,6 +78,7 @@ public class SelectEnchant : MonoBehaviour
                 if (progressType == GameProgressType.inGame)
                 {
                     StartCoroutine(NormalEventCoroutine());
+                    _dontSelect.enabled = false;
                 }
             }
                 );
