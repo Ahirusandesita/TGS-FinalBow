@@ -1158,6 +1158,10 @@ public abstract class BirdMoveBase : EnemyMoveBase
         if (_delta == ZERO)
             return;
 
+        if (bird.Get_isParalysis)
+        {
+            return;
+        }
         _transform.rotation = Quaternion.LookRotation(_delta, UP);
     }
 
