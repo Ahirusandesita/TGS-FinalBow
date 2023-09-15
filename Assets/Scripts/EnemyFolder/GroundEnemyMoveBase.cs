@@ -397,6 +397,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         wormJumpUpTransform.gameObject.SetActive(false);
         yield return new WaitForSeconds(_groundEnemyData._appearanceKeep_s - 3f);
         myAnimation.SetTrigger(hide);
+        audioSource.PlayOneShot(sandSE);
         yield return new WaitForSeconds(1.4f);
         wormSandTransform.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.6f);
@@ -404,6 +405,7 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         MyCollidersEnabledFalse();
         yield return new WaitForSeconds(0.3f);
         wormSandTransform.gameObject.SetActive(false);
+        audioSource.Stop();
         _genemyStats.Despawn();
     }
 
