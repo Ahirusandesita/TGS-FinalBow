@@ -32,6 +32,21 @@ public class ResultStage : MonoBehaviour
     {
         inputManagement = GameObject.FindObjectOfType<InputManagement>();
         checkPointResult = GameObject.FindObjectOfType<CheckPointResult>();
+        gameProgress = GameObject.FindObjectOfType<GameProgress>();
+        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
+            {
+                if (progressType == GameProgressType.result)
+                {
+                    checkPointResult.gameObject.SetActive(true);
+                    scoreFrameMaganer.OpenFrame();
+                }
+                if (progressType == GameProgressType.ending)
+                {
+                    DeleteResultScreen();
+                }
+            }
+            );
         if (checkPointResult == null) return;
         resultString = checkPointResult.gameObject.transform.GetChild(7).gameObject.GetComponent<ResultString>();
         scoreFrameMaganer = checkPointResult.gameObject.transform.GetChild(0).gameObject.GetComponent<ScoreFrameMaganer>();
@@ -52,21 +67,6 @@ public class ResultStage : MonoBehaviour
         //    }
         //    );
 
-        gameProgress = GameObject.FindObjectOfType<GameProgress>();
-        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
-            progressType =>
-            {
-                if (progressType == GameProgressType.result)
-                {
-                    checkPointResult.gameObject.SetActive(true);
-                    scoreFrameMaganer.OpenFrame();
-                }
-                if (progressType == GameProgressType.ending)
-                {
-                    DeleteResultScreen();
-                }
-            }
-            );
 
     }
 
@@ -75,6 +75,7 @@ public class ResultStage : MonoBehaviour
 
     public void ResultScreenScore(ScoreNumber.Score score)
     {
+
         //Debug.LogError($"合計スコア{score.SumScore}");
         //Debug.LogError($"ノーマル撃破数{score.valueNormalEnemy}。ノーマルスコア{score.scoreNormalEnemy}");
         // Debug.LogError($"コンボスコア{score.scoreComboBonus}");
@@ -96,6 +97,8 @@ public class ResultStage : MonoBehaviour
     }
     private void Update()
     {
+
+
         if (scoreFrameMaganer != null)
         {
             if (scoreFrameMaganer._endOpen)
@@ -118,7 +121,7 @@ public class ResultStage : MonoBehaviour
 
         if (inputManagement.ButtonLeftDownTrigger() || inputManagement.ButtonRightDownTrigger())
         {
-            gameProgress.ResultEnding();
+            //gameProgress.ResultEnding();
             //if (stagePropery.Value)
             //    stagePropery.Value = false;
         }
