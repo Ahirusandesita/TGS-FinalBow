@@ -85,8 +85,6 @@ public class TextSystem : MonoBehaviour
                 outImage = Instantiate(tutorialData.image.gameObject, tutorialData.image.gameObject.transform.position, tutorialData.image.gameObject.transform.rotation);
             }
 
-            if (i == tutorialManagementData.tutorialManagementItem.Count - 1) textLikeSpeaking.ResponseComplete();
-
             for (int k = 0; k < tutorialData.text.Length; k++)
             {
 
@@ -111,6 +109,9 @@ public class TextSystem : MonoBehaviour
                     yield return waitForSeconds;
 
             }
+
+            if (i == tutorialManagementData.tutorialManagementItem.Count - 1) textLikeSpeaking.ResponseComplete();
+
             if (!tutorialData.canNextText)
                 yield return new WaitForSeconds(tutorialManagementData.tutorialManagementItem[i].nextTime);
             else

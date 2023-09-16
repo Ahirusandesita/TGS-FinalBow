@@ -33,6 +33,14 @@ public enum TutorialTextType
     /// </summary>
     attract1,
     /// <summary>
+    /// …お見事！
+    /// </summary>
+    end_A,
+    /// <summary>
+    /// …こんな感じに
+    /// </summary>
+    end_B,
+    /// <summary>
     /// …うまく使って敵を倒しましょう
     /// </summary>
     ending
@@ -129,9 +137,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     [Tooltip("ラジアルメニューが表示された通知の許可")]
     private bool _canRadialMenuDisplayed = false;
-
-    [Tooltip("リスタート")]
-    private bool _isReStart = false;
 
     [Tooltip("最初のトリガー入力")]
     private bool _inputFirst = true;
@@ -252,7 +257,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _currentTutorialType++;
         _isHitFirst = true;
 
-        StartCoroutine(CallText(2f));
+        StartCoroutine(CallText(1f));
     }
 
     /// <summary>
@@ -271,7 +276,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             yield return null;
 
         _frameManager._endOpen = false;
-
         _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType], this);
     }
 
@@ -319,7 +323,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _isHit = true;
 
         // 最初の爆発
-        if (_isHitFirst && (_currentTutorialType == TutorialTextType.enchant2 || _currentTutorialType == TutorialTextType.attract1))
+        if (_isHitFirst && _currentTutorialType == TutorialTextType.enchant2)
         {
             _isHitFirst = false;
             StartCoroutine(RemoveTarget());
@@ -336,7 +340,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     private IEnumerator RemoveTarget()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.5f);
 
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
 
@@ -383,13 +387,17 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
             IEnumerator WaitPossibleHit()
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
 
                 if (_isHit) yield break;
 
-                // 強制的に矢を飛ばして的に当てる
-                _onArrowMissed_Create();
-                _onArrowMissed_Shot(_stageDataTable._waveInformation[2]._targetData[2]._spawnPlace.position + Vector3.up * 10f);
+                _currentTutorialType++;
+
+                // 当たってなかったら的を下げる
+                StartCoroutine(RemoveTarget());
+
+                // 外したとき用のテキスト分岐
+                CallText(0f);
             }
 
             StartCoroutine(WaitPossibleHit());
@@ -448,7 +456,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 _canRadialMenuDisplayed = true;
                 // 同時に爆発の選択も検知
                 _canSelectedBomb = true;
-
                 break;
 
             case TutorialTextType.enchant2:
@@ -456,7 +463,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 // ボムが選択されるまで非同期で待機し、的をスポーン
                 IEnumerator WaitBomb() { yield return new WaitUntil(() => _isSelectedBomb); CallSpawn(); }
                 StartCoroutine(WaitBomb());
-
                 break;
 
             case TutorialTextType.attract1:
@@ -466,14 +472,18 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
                 // ここで吸い込みを感知
                 _canAttractCompleted = true;
+                break;
 
+            case TutorialTextType.end_A:
+
+                _currentTutorialType++;
+                ProgressingTheTutorial();
                 break;
 
             case TutorialTextType.ending:
 
                 gameProgress.TutorialEnding();
                 this.enabled = false;
-
                 break;
         }
     }
@@ -483,12 +493,38 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void ResponseComplete()
     {
-        // テキストが表示されたタイミングで既に爆発が選択されていたら、即時的を出す
-        if (_currentTutorialType == TutorialTextType.enchant2 && _isSelectedBomb)
+        switch (_currentTutorialType)
         {
-            _isSelectedBomb = false;
-            CallSpawn();
+            case TutorialTextType.enchant2:
+
+                // テキストが表示されたタイミングで既に爆発が選択されていたら、即時的を出す
+                if (_isSelectedBomb)
+                {
+                    _isSelectedBomb = false;
+                    CallSpawn();
+                }
+
+                break;
+
+            case TutorialTextType.end_B:
+
+                // 的を再スポーン
+                _targetSpawnCount--;
+                CallSpawn();
+
+                IEnumerator WaitSpawn()
+                {
+                    yield return new WaitForSeconds(1f);
+
+                    // 強制的に矢を飛ばして的に当てる
+                    _onArrowMissed_Create();
+                    _onArrowMissed_Shot(_stageDataTable._waveInformation[2]._targetData[2]._spawnPlace.position + Vector3.up * 10f);
+                }
+                StartCoroutine(WaitSpawn());
+
+                break;
         }
+
     }
     #endregion
 }
