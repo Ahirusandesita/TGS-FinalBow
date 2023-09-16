@@ -11,6 +11,7 @@ public class ParticleCallbackPool : MonoBehaviour
     ObjectPoolSystem pool = default;
     ParticleSystem particle = default;
     [SerializeField]CashObjectInformation root = default;
+    [SerializeField] GameObject rootObject;
     //Transform _transform = default;
 
     //int particles = 0;
@@ -41,6 +42,6 @@ public class ParticleCallbackPool : MonoBehaviour
     private void OnParticleSystemStopped()
     {
         
-        pool.ReturnObject(root);
+        pool.ReturnObject(EffectPoolEnum.EffectPoolState.thunderBlast,rootObject);
     }
 }

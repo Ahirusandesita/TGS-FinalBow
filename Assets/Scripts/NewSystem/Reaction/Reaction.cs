@@ -127,6 +127,9 @@ public class Reaction : MonoBehaviour
         isStart = true;
         ReactionEnd = () =>
         {
+            //追加
+            if (ReactionEndEvent.GetLength() == 0) return false;
+
             foreach (ReactionEndDelegate handler in ReactionEndEvent.GetInvocationList())
             {
                 if (!handler.Invoke()) return false;
@@ -138,6 +141,7 @@ public class Reaction : MonoBehaviour
         {
             if (!isStart) return;
 
+            
             if (!ReactionEnd()) return;
 
             if (AfterReactionEvent.GetLength() == 0)
@@ -154,6 +158,9 @@ public class Reaction : MonoBehaviour
             ReactionSelect = null;
             ReactionEnd = () =>
             {
+                //追加
+                if (AfterReactionEndEvent.GetLength() == 0) return false;
+
                 foreach (ReactionEndDelegate handler in AfterReactionEndEvent.GetInvocationList())
                 {
                     if (!handler.Invoke()) return false;
@@ -195,6 +202,9 @@ public class Reaction : MonoBehaviour
 
         ReactionEnd = () =>
         {
+            //追加
+            if (OverReactionEndEvent.GetLength() == 0) return false;
+
             foreach (ReactionEndDelegate handler in OverReactionEndEvent.GetInvocationList())
             {
                 if (!handler.Invoke()) return false;
@@ -224,6 +234,9 @@ public class Reaction : MonoBehaviour
 
         ReactionEnd = () =>
         {
+            //追加
+            if (AfterReactionEndEvent.GetLength() == 0) return false;
+
             foreach (ReactionEndDelegate handler in AfterReactionEndEvent.GetInvocationList())
             {
                 if (!handler.Invoke()) return false;
