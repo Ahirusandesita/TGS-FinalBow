@@ -10,14 +10,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum TutorialIventType
+public enum TutorialTextType
 {
+    /// <summary>
+    /// …VRが正常に見えるかどうか確認してください
+    /// </summary>
     opening,
+    /// <summary>
+    /// …すべての的に矢を当ててみましょう
+    /// </summary>
     shot1,
-    shot2,
+    /// <summary>
+    /// …コントローラーの左スティックを倒してみましょう
+    /// </summary>
     enchant1,
+    /// <summary>
+    /// …試しに、爆発/Explosionを選んでみましょう
+    /// </summary>
     enchant2,
+    /// <summary>
+    /// …吸い込んだ分エンチャントが強化されます
+    /// </summary>
     attract1,
+    /// <summary>
+    /// …うまく使って敵を倒しましょう
+    /// </summary>
     ending
 }
 
@@ -60,13 +77,19 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [SerializeField]
     private GameObject _debugPlayer = default;
 
+    [Tooltip("矢が外れたとき、矢を生成する")]
+    public Action _onArrowMissed_Create = default;
+
+    [Tooltip("矢が外れたとき、強制的に矢を飛ばす")]
+    public Action<Transform> _onArrowMissed_Shot = default;
+
 
     private ScoreFrameMaganer _frameManager = default;
 
     private InputManagement _input = default;
 
     [Tooltip("チュートリアルの進行度")]
-    private TutorialIventType _currentTutorialType = 0;    // opening
+    private TutorialTextType _currentTutorialType = 0;    // opening
 
     [Tooltip("現在の的の出現回数")]
     private int _targetSpawnCount = 0;
@@ -86,11 +109,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [Tooltip("最初に矢を撃った")]
     private bool _isShotFirst = true;
 
-    [Tooltip("最初にボムが選ばれた")]
-    private bool _isSelectedBombFirst = true;
-
     [Tooltip("最初にラジアルメニューが表示された")]
     private bool _isRadialMenuDisplayedFirst = true;
+
+    [Tooltip("ボムが選ばれた")]
+    private bool _isSelectedBomb = false;
 
     [Tooltip("弦を掴んだ通知の許可")]
     private bool _canGrabTheString = false;
@@ -117,11 +140,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private GameProgress gameProgress;
 
-//#if UNITY_EDITOR
+    //#if UNITY_EDITOR
     [HideInInspector]
     public bool _skipTutorial = default;
-//#endif
-#endregion
+    //#endif
+    #endregion
 
     #region property
     #endregion
@@ -133,16 +156,16 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
             progressType =>
             {
-                if(progressType == GameProgressType.tutorial)
+                if (progressType == GameProgressType.tutorial)
                 {
-//#if UNITY_EDITOR
+                    //#if UNITY_EDITOR
                     if (_skipTutorial)
                     {
                         gameProgress.TutorialEnding();
                         this.enabled = false;
                         return;
                     }
-//#endif
+                    //#endif
 
                     Tutorial();
                 }
@@ -296,15 +319,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         _spawndTargetAmount--;
 
         // 最初の爆発
-        if (_isHitFirst && (_currentTutorialType == TutorialIventType.enchant2 || _currentTutorialType == TutorialIventType.attract1))
+        if (_isHitFirst && (_currentTutorialType == TutorialTextType.enchant2 || _currentTutorialType == TutorialTextType.attract1))
         {
             _isHitFirst = false;
-            //_isHit = true;
-            //_canShotFirst = false;
             StartCoroutine(RemoveTarget());
         }
 
-        if (_isReStart && _currentTutorialType == TutorialIventType.attract1)
+        if (_isReStart && _currentTutorialType == TutorialTextType.attract1)
         {
 
         }
@@ -331,11 +352,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
 
-        //if (targets.Length == 0)
-        //{
-        //    ProgressingTheTutorial();
-        //}
-
         for (int i = 0; i < targets.Length; i++)
         {
             StartCoroutine(targets[i].RotateAtDespawn());
@@ -347,11 +363,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnGrabTheString()
     {
-        if (_isGrabTheStringFirst && _canGrabTheString)
-        {
-            _isGrabTheStringFirst = false;
-            ProgressingTheTutorial();
-        }
+        //if (_isGrabTheStringFirst && _canGrabTheString)
+        //{
+        //    _isGrabTheStringFirst = false;
+        //    ProgressingTheTutorial();
+        //}
     }
 
     /// <summary>
@@ -401,10 +417,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnSelectedBomb()
     {
-        if (_isSelectedBombFirst && _canSelectedBomb)
+        if (_canSelectedBomb)
         {
-            _isSelectedBombFirst = false;
-            CallSpawn();
+            _canSelectedBomb = false;
+            _isSelectedBomb = true;
         }
     }
 
@@ -429,46 +445,37 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         switch (_currentTutorialType)
         {
-            // VRが見えるか確認した後
-            case TutorialIventType.opening:
+            case TutorialTextType.opening:
 
                 // かかしを消す
                 _kakashi.SetActive(false);
                 ProgressingTheTutorial();
                 break;
 
-            // 弦を掴んだ後
-            case TutorialIventType.shot1:
-
-                // ここで弦を掴んだかどうか検知
-                _canGrabTheString = true;
-                break;
-
-            // 的当てテキストの後
-            case TutorialIventType.shot2:
+            case TutorialTextType.shot1:
 
                 // 的を出現させる
                 CallSpawn();
                 break;
 
-            // ラジアルメニュー展開を指示した後
-            case TutorialIventType.enchant1:
+            case TutorialTextType.enchant1:
 
                 // ここでラジアルメニューを検知
                 _canRadialMenuDisplayed = true;
-                break;
-
-            // 爆発エンチャントの選択を指示した後
-            case TutorialIventType.enchant2:
-
-                // ここで爆発の選択を検知
+                // 同時に爆発の選択も検知
                 _canSelectedBomb = true;
-                // ここでは、矢が一発でもいずれかの的に当たったら次のチュートリアルへ進行する
 
                 break;
 
-            // 吸い込みの紹介をした後
-            case TutorialIventType.attract1:
+            case TutorialTextType.enchant2:
+
+                // ボムが選択されるまで非同期で待機し、的をスポーン
+                IEnumerator WaitBomb() { yield return new WaitUntil(() => _isSelectedBomb); CallSpawn(); }
+                StartCoroutine(WaitBomb());
+
+                break;
+
+            case TutorialTextType.attract1:
 
                 // クリスタルを出現させて、即割る
                 StartCoroutine(Instantiate(_crystal, _crystalTransform.position, Quaternion.identity).GetComponent<TutorialCrystalBreak>().Break());
@@ -478,30 +485,26 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
                 break;
 
-            case TutorialIventType.ending:
-                //FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
+            case TutorialTextType.ending:
+
                 gameProgress.TutorialEnding();
                 this.enabled = false;
+
                 break;
         }
     }
 
-    public void ResponseComplete() { }
-
-    private IEnumerator WaitTargetDespawn()
+    /// <summary>
+    /// 最後のテキストが表示されたときに呼ばれる
+    /// </summary>
+    public void ResponseComplete()
     {
-        float wait = 1f;
-        float time = 0f;
-
-        while (time <= wait)
+        // テキストが表示されたタイミングで既に爆発が選択されていたら、即時的を出す
+        if (_currentTutorialType == TutorialTextType.enchant2 && _isSelectedBomb)
         {
-            time += Time.deltaTime;
-            yield return null;
+            _isSelectedBomb = false;
+            CallSpawn();
         }
-
-        // クリスタルを出現させて、即割る
-        StartCoroutine(Instantiate(_crystal, _crystalTransform.position, Quaternion.identity).GetComponent<TutorialCrystalBreak>().Break());
-        _isShotFirst = true;
     }
 
     private IEnumerator WaitPossibleHit()
