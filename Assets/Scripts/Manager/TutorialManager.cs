@@ -325,20 +325,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             StartCoroutine(RemoveTarget());
         }
 
-        if (_isReStart && _currentTutorialType == TutorialTextType.attract1)
-        {
-
-        }
-
         if (_spawndTargetAmount <= 0)
         {
-            if (_isReStart)
-            {
-                _isReStart = false;
-                _isHit = false;
-                return;
-            }
-
             ProgressingTheTutorial();
         }
     }
@@ -389,27 +377,23 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnShot()
     {
-        //if (_isShotFirst && _canShotFirst)
-        //{
-        //    _isShotFirst = false;
-        //    StartCoroutine(WaitPossibleHit());
+        if (_isShotFirst && _canShotFirst)
+        {
+            _isShotFirst = false;
 
-        //    if (_isHit)
-        //    {
-        //        return;
-        //    }
+            IEnumerator WaitPossibleHit()
+            {
+                yield return new WaitForSeconds(0.8f);
 
-        //    _isReStart = true;
-        //    _targetSpawnCount--;
+                if (_isHit) yield break;
 
-        //    StartCoroutine(RemoveTarget());
+                // 強制的に矢を飛ばして的に当てる
+                _onArrowMissed_Create();
+                _onArrowMissed_Shot(_stageDataTable._waveInformation[2]._targetData[2]._spawnPlace);
+            }
 
-        //    StartCoroutine(WaitTargetDespawn());
-
-        //    // リセット
-        //    _isAttractCompletedFirst = true;
-        //    _canAttractCompleted = true;
-        //}
+            StartCoroutine(WaitPossibleHit());
+        }
     }
 
     /// <summary>
@@ -505,11 +489,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             _isSelectedBomb = false;
             CallSpawn();
         }
-    }
-
-    private IEnumerator WaitPossibleHit()
-    {
-        yield return new WaitForSeconds(1.0f);
     }
     #endregion
 }

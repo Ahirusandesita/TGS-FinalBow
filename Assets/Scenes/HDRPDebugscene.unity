@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -19792,6 +19792,7 @@ GameObject:
   m_Component:
   - component: {fileID: 931323382}
   - component: {fileID: 931323381}
+  - component: {fileID: 931323383}
   m_Layer: 0
   m_Name: TutorialController
   m_TagString: TutorialController
@@ -19815,7 +19816,6 @@ MonoBehaviour:
   _tutorialTextsData:
   - {fileID: 11400000, guid: 5c33829bd43f687409d8fb889030056f, type: 2}
   - {fileID: 11400000, guid: a4f49429c4c91384aa5609a4cd272769, type: 2}
-  - {fileID: 11400000, guid: 05f4d1bded9f6654096a45001bebe93e, type: 2}
   - {fileID: 11400000, guid: 05270a54d880f934caf05e885e4b7aef, type: 2}
   - {fileID: 11400000, guid: 094ec3fa1afb2944e84a36149bfe55a3, type: 2}
   - {fileID: 11400000, guid: c124ca251caf75542a531a7ba7e2eda8, type: 2}
@@ -19829,7 +19829,7 @@ MonoBehaviour:
   _playerTransform: {fileID: 1577612495}
   _player: {fileID: 1959761423}
   _debugPlayer: {fileID: 870565835}
-  _skipTutorial: 1
+  _skipTutorial: 0
 --- !u!4 &931323382
 Transform:
   m_ObjectHideFlags: 0
@@ -19845,6 +19845,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &931323383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931323379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8ad74223cc2934b9d58c4643b8f92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotPosition: {fileID: 1959761424}
+  arrowSpeed: 100
 --- !u!1001 &938014041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30008,6 +30022,11 @@ Transform:
 --- !u!1 &1959761423 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9051230437966575151, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
+  m_PrefabInstance: {fileID: 1609754649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1959761424 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9051230437966670351, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
   m_PrefabInstance: {fileID: 1609754649}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1982326337 stripped
