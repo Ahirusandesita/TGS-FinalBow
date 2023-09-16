@@ -231,6 +231,7 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
     /// <param name="spawnTransform"></param>
     private void EffectCall(EffectPoolEnum.EffectPoolState effectState, Transform spawnTransform)
     {
+        sizeAdjustmentToVector3.plusCount = 0;
         StartCoroutine(EffectTime(_objectPoolSystem.CallObject(effectState, spawnTransform.position, spawnTransform.rotation), effectState,false));
     }
     private void EffectCall(EffectPoolEnum.EffectPoolState effectState, Transform spawnTransform, ref SizeAdjustmentToVector3 sizeAdjustmentToVector3)
@@ -242,6 +243,10 @@ public class ArrowEnchantEffect : MonoBehaviour, IArrowEnchantable<Transform>, I
             effect.transform.localScale.y,
             effect.transform.localScale.z);
         effect.transform.localScale = sizeAdjustmentToVector3.GetFirstSizeToVector3;
+
+        //‰ž‹}‘[’u
+        if (sizeAdjustmentToVector3.plusCount > 10) sizeAdjustmentToVector3.plusCount = 10;
+
         while (sizeAdjustmentToVector3.plusCount > 0)
         {
             effect.transform.localScale += sizeAdjustmentToVector3.GetMinimumSizeToVector3;
