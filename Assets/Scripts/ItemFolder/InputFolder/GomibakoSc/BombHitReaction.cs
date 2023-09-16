@@ -22,6 +22,9 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
     //private Drop drop;
     [SerializeField] GameObject body;
     [SerializeField] Collider[] colliders;
+    [SerializeField]
+    EffectPoolEnum.EffectPoolState effect = EffectPoolEnum.EffectPoolState.chickens;
+    [SerializeField] float effectScale = 3f; 
     ObjectPoolSystem pool;
 
     bool end = false;
@@ -39,8 +42,8 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
         //drop.DropStart(bodyChipFire, this.transform.position);
         //drop.DropStart(bodyChipBig, this.transform.position);
         //drop.DropStart(bodyChipBigFire, this.transform.position);
-        GameObject chickens = pool.CallObject(EffectPoolEnum.EffectPoolState.chickens, transform.position);
-        chickens.transform.localScale *= transform.localScale.x;
+        GameObject chickens = pool.CallObject(effect, transform.position);
+        chickens.transform.localScale *= effectScale;
         body.SetActive(false);
         foreach(Collider col in colliders)
         {
