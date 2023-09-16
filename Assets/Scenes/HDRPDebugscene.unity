@@ -18836,7 +18836,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 55c112a4e86f4254f931be1721898f40, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.762
+  m_Volume: 0.742
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -19728,7 +19728,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &905163857
 Canvas:
   m_ObjectHideFlags: 0
@@ -19857,8 +19857,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8ad74223cc2934b9d58c4643b8f92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPosition: {fileID: 1959761424}
-  arrowSpeed: 100
+  shotPosition: {fileID: 1577612495}
+  arrowSpeed: 3000
 --- !u!1001 &938014041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30022,11 +30022,6 @@ Transform:
 --- !u!1 &1959761423 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9051230437966575151, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
-  m_PrefabInstance: {fileID: 1609754649}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1959761424 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9051230437966670351, guid: 0afd52ec99323184aa0a2768199ce7d1, type: 3}
   m_PrefabInstance: {fileID: 1609754649}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1982326337 stripped

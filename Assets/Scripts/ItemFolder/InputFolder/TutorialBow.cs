@@ -17,7 +17,6 @@ public class TutorialBow : MonoBehaviour
 
     private void Awake()
     {
-        player = FindObjectOfType<PlayerManager>();
         pool = FindObjectOfType<ObjectPoolSystem>();
         tutorial = FindObjectOfType<TutorialManager>();
         tutorial._onArrowMissed_Shot = (a) => TutorialShot(a);
@@ -25,18 +24,29 @@ public class TutorialBow : MonoBehaviour
     }
     public void TutorialArrowCreate()
     {
-        _arrow = pool.CallObject(PoolEnum.PoolObjectType.arrow, transform.position);
+        _arrow = pool.CallObject(PoolEnum.PoolObjectType.arrow, shotPosition.position);
     }
     /// <summary>
     /// チュートリアルショット
     /// </summary>
-    public void TutorialShot(Transform target)
+    public void TutorialShot(Vector3 target)
     {
+        player = FindObjectOfType<PlayerManager>();
+
+        player.SetEnchantParameter(EnchantmentEnum.ItemAttributeState.bomb);
+
+        for (int i = 0; i < 5; i++)
+        {
+            player.ArrowEnchantPlusDamage();
+        }
+
         player.SetArrowMoveSpeed(arrowSpeed);
 
         player.ShotArrow(Vector3.zero);
 
         _arrow.transform.LookAt(target);
+
+        _arrow.GetComponent<ArrowMove>().ReSetNormalSetting();
     }
 
 }
