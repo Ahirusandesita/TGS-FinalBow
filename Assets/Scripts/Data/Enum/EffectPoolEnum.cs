@@ -73,6 +73,8 @@ public class EffectPoolEnum
         chickens,
         fallingSmoke,
         thunderBlast,
+        enemyTakeBomb,
+        enemyTakeBombBug,
 
     }
 }
