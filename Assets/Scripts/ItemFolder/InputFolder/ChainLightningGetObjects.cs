@@ -76,7 +76,7 @@ public class ChainLightningGetObjects
         for (int index = 0; index < numberOfChain; index++)
         {
             List<EnemyStats> selectedArray = new List<EnemyStats>
-                (FindObjectInArea<EnemyStats>(chainRoot.position,_layerMask,_arcSeach,takedObjects.ToArray()));
+                (FindObjectInArea<EnemyStats>(chainRoot.position,_layerMask,_arcSeach,takedObjects.ToArray(),true));
 
             EnemyStats select = GetShotestDistanceObject<EnemyStats>(selectedArray.ToArray(), chainRoot.position);
 
@@ -92,7 +92,7 @@ public class ChainLightningGetObjects
             takedObjects.Add(select.gameObject);
 
         }
-
+        
         return takeParalysis;
     }
 
@@ -166,11 +166,11 @@ public class ChainLightningGetObjects
     }
 
 
-    private GameObject[] FindObjectInArea(Vector3 position, int layerMask, float radius)
+    private GameObject[] FindObjectInArea(Vector3 position, int layerMask, float radius,bool getRoot = false)
     {
         List<GameObject> findObjects = new();
 
-        int debug = 0;
+        
         if (Physics.CheckSphere(position, radius, layerMask))
         {
             Collider[] colliders = Physics.OverlapSphere(position, radius, layerMask);
@@ -179,13 +179,18 @@ public class ChainLightningGetObjects
             {
                 GameObject check = col.gameObject;
 
+                if (getRoot)
+                {
+                    check = check.transform.root.gameObject;
+                }
+
                 if (findObjects.Contains(check))
                 {
                     continue;
                 }
                 else
                 {
-                    debug++;
+                    
 
                     findObjects.Add(check);
                 }
@@ -195,9 +200,9 @@ public class ChainLightningGetObjects
         return findObjects.ToArray();
     }
 
-    private GameObject[] FindObjectInArea(Vector3 position, int layerMask, float radius, GameObject[] delete)
+    private GameObject[] FindObjectInArea(Vector3 position, int layerMask, float radius, GameObject[] delete,bool getRoot = false)
     {
-        GameObject[] gameObjects = FindObjectInArea(position, layerMask, radius);
+        GameObject[] gameObjects = FindObjectInArea(position, layerMask, radius,getRoot);
 
         HashSet<GameObject> hash = new HashSet<GameObject>(gameObjects);
 
@@ -210,9 +215,9 @@ public class ChainLightningGetObjects
         return deleteds;
     }
 
-    private T[] FindObjectInArea<T>(Vector3 position, int layerMask, float radius, GameObject[] delete) where T : MonoBehaviour
+    private T[] FindObjectInArea<T>(Vector3 position, int layerMask, float radius, GameObject[] delete, bool getRoot = false) where T : MonoBehaviour
     {
-        GameObject[] objects = FindObjectInArea(position, layerMask, radius, delete);
+        GameObject[] objects = FindObjectInArea(position, layerMask, radius, delete,getRoot);
 
         List<T> tList = new();
 
