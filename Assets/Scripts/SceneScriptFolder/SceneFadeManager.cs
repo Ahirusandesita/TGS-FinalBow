@@ -18,7 +18,7 @@ public class SceneFadeManager : MonoBehaviour
     #endregion
     #region method
 
-    private void Start()
+    private void Awake()
     {
         _sceneFadeIn[0] = transform.GetChild(0).GetComponent<SceneFadeIn>();
         _sceneFadeOut[0] = transform.GetChild(1).GetComponent<SceneFadeOut>();
