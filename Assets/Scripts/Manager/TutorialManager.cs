@@ -81,7 +81,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     public Action _onArrowMissed_Create = default;
 
     [Tooltip("矢が外れたとき、強制的に矢を飛ばす")]
-    public Action<Transform> _onArrowMissed_Shot = default;
+    public Action<Vector3> _onArrowMissed_Shot = default;
 
 
     private ScoreFrameMaganer _frameManager = default;
@@ -136,7 +136,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     [Tooltip("最初のトリガー入力")]
     private bool _inputFirst = true;
 
-    private bool _isHit { get; set; }
+    private bool _isHit = default;
 
     private GameProgress gameProgress;
 
@@ -251,7 +251,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         _currentTutorialType++;
         _isHitFirst = true;
-        _isHit = false;
 
         StartCoroutine(CallText(2f));
     }
@@ -317,6 +316,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private void DecrementTargetAmount()
     {
         _spawndTargetAmount--;
+        _isHit = true;
 
         // 最初の爆発
         if (_isHitFirst && (_currentTutorialType == TutorialTextType.enchant2 || _currentTutorialType == TutorialTextType.attract1))
@@ -366,7 +366,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         if (_isAttractCompletedFirst && _canAttractCompleted)
         {
             _isAttractCompletedFirst = false;
-            _canAttractCompleted = false;
+            _isHit = false;
             _canShotFirst = true;
             CallSpawn();
         }
@@ -383,13 +383,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
             IEnumerator WaitPossibleHit()
             {
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(1f);
 
                 if (_isHit) yield break;
 
                 // 強制的に矢を飛ばして的に当てる
                 _onArrowMissed_Create();
-                _onArrowMissed_Shot(_stageDataTable._waveInformation[2]._targetData[2]._spawnPlace);
+                _onArrowMissed_Shot(_stageDataTable._waveInformation[2]._targetData[2]._spawnPlace.position + Vector3.up * 10f);
             }
 
             StartCoroutine(WaitPossibleHit());
