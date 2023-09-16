@@ -19,7 +19,7 @@ public class CheckPointResult : MonoBehaviour
     public TextMeshProUGUI clearTimeText;
     public TextMeshProUGUI sumScoreText;
 
-    public List<TMP_FontAsset> fontAssets = new List<TMP_FontAsset>();
+
 
     [SerializeField]
     private float _waitTime = 0.3f;
@@ -56,18 +56,18 @@ public class CheckPointResult : MonoBehaviour
     }
     private void Update()
     {
-        int nowint = default;
-        int lastInt = default;
-        while (nowint == lastInt)
-            nowint = Random.Range(0, fontAssets.Count - 1);
+        //int nowint = default;
+        //int lastInt = default;
+        //while (nowint == lastInt)
+        //    nowint = Random.Range(0, fontAssets.Count - 1);
 
-        lastInt = nowint;
+        //lastInt = nowint;
 
-        killCountText.font = fontAssets[nowint];
-        killScoreText.font = fontAssets[nowint];
-        numberOfCombosText.font = fontAssets[nowint];
-        clearTimeText.font = fontAssets[nowint];
-        sumScoreText.font = fontAssets[nowint];
+        //killCountText.font = fontAssets[nowint];
+        //killScoreText.font = fontAssets[nowint];
+        //numberOfCombosText.font = fontAssets[nowint];
+        //clearTimeText.font = fontAssets[nowint];
+        //sumScoreText.font = fontAssets[nowint];
     }
 
     IEnumerator DestroyCount()

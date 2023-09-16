@@ -18,7 +18,9 @@ public class ResultStage : MonoBehaviour
     private CheckPointResult checkPointResult;
     private CheckPointResult.ResultStruct resultStruct;
     private ResultString resultString;
-    private bool isOne = true;
+    private bool isOne = false;
+    private bool isScore = false;
+    private bool isTime = false;
     private ScoreFrameMaganer scoreFrameMaganer;
     InputManagement inputManagement = default;
 
@@ -36,10 +38,14 @@ public class ResultStage : MonoBehaviour
         gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
             progressType =>
             {
+                if(progressType == GameProgressType.gamePreparation)
+                {
+                    checkPointResult.gameObject.SetActive(false);
+                }
                 if (progressType == GameProgressType.result)
                 {
+                    isOne = true;
                     checkPointResult.gameObject.SetActive(true);
-                    scoreFrameMaganer.OpenFrame();
                 }
                 if (progressType == GameProgressType.ending)
                 {
@@ -48,8 +54,8 @@ public class ResultStage : MonoBehaviour
             }
             );
         if (checkPointResult == null) return;
-        resultString = checkPointResult.gameObject.transform.GetChild(7).gameObject.GetComponent<ResultString>();
-        scoreFrameMaganer = checkPointResult.gameObject.transform.GetChild(0).gameObject.GetComponent<ScoreFrameMaganer>();
+        //resultString = checkPointResult.gameObject.transform.GetChild(7).gameObject.GetComponent<ResultString>();
+        //scoreFrameMaganer = checkPointResult.gameObject.transform.GetChild(0).gameObject.GetComponent<ScoreFrameMaganer>();
         //stagePropery.Subject.Subscribe(
         //    isResult =>
         //    {
@@ -83,11 +89,13 @@ public class ResultStage : MonoBehaviour
         resultStruct.NumberOfCombos = score.scoreComboBonus;
         resultStruct.KillsScore = score.scoreNormalEnemy;
         resultStruct.SumScore = score.SumScore;
+        isScore = true;
     }
     public void ResultScreenTime(float time)
     {
         //Debug.LogError($"クリアタイム{time}");
         resultStruct.ClearTime = time;
+        isTime = true;
     }
 
 
@@ -97,20 +105,14 @@ public class ResultStage : MonoBehaviour
     }
     private void Update()
     {
-
-
-        if (scoreFrameMaganer != null)
-        {
-            if (scoreFrameMaganer._endOpen)
+        if(isScore && isTime)
+            if (isOne)
             {
-                if (isOne)
-                {
-                    checkPointResult.Result(ref resultStruct);
-                    resultString.Result();
-                    isOne = false;
-                }
+                checkPointResult.Result(ref resultStruct);
+                isOne = false;
+                isScore = false;
+                isTime = false;
             }
-        }
 
         if (Input.GetKeyDown(KeyCode.N))
         {
