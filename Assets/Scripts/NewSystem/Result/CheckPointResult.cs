@@ -144,10 +144,10 @@ public class CheckPointResult : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         int maxIndex = default;
-        maxIndex = sumScoreWork < 10000 ? 1 : sumScoreWork < 20000 ? 2 : sumScoreWork < 30000 ? 3 : sumScoreWork < 40000 ? 4 : sumScoreWork < 50000 ? 5 : sumScoreWork < 60000 ? 6 : 7;
+        maxIndex = sumScoreWork < 20000 ? 1 : sumScoreWork < 30000 ? 2 : sumScoreWork < 40000 ? 3 : sumScoreWork < 50000 ? 4 : sumScoreWork < 60000 ? 5 : sumScoreWork < 70000 ? 6 : 7;
 
 
-        for (int index = 1; index < maxIndex;)
+        for (int index = 1; index <= maxIndex;)
         {
             ScoreRank.sprite = ScoreRanks[index];
             Vector3 size = ScoreRank.gameObject.transform.localScale;
@@ -187,7 +187,7 @@ public class CheckPointResult : MonoBehaviour
             case 4: rank = "B"; break;
             case 5: rank = "A"; break;
             case 6: rank = "S"; break;
-            case 7: rank = "WA"; break;
+            case 7: rank = "WS"; break;
         }
         YouRankText.text = rank;
 
