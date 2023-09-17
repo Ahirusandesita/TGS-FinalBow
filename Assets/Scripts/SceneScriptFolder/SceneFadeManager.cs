@@ -28,10 +28,16 @@ public class SceneFadeManager : MonoBehaviour
 
     public void SceneFadeOutStart()
     {
+        _sceneFadeIn[0]._isFadeEnd = false;
+        _sceneFadeIn[1]._isFadeEnd = false;
+        _isSceneFadeOutEnd = false;
         StartCoroutine(SceneMoveFadeOut());
     }
     public void SceneFadeInStart()
     {
+        _sceneFadeOut[0]._isFadeEnd = false;
+        _sceneFadeOut[1]._isFadeEnd = false;
+        _isSceneFadeInEnd = false;
         StartCoroutine(SceneMoveFadeIn());
     }
 
