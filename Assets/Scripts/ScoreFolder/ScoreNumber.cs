@@ -66,7 +66,7 @@ public static class ScoreNumber
             valueComboBonus = 0;
         }
         //public int SumScore => scoreNormalEnemy + scoreBossEnemy + scoreEnchant + scoreCoin + scoreComboBonus + scoreHpBonus + valueHpBonus + scoreAttractBonus + valueAttractBonus + scoreTimeBonus + valueTimeBonus;
-        public int SumScore => scoreNormalEnemy + scoreComboBonus;
+        public int SumScore => scoreNormalEnemy + scoreAttractBonus + scoreTimeBonus;
         
 
 

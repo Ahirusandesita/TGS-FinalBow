@@ -24,7 +24,7 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
     [SerializeField] Collider[] colliders;
     [SerializeField]
     EffectPoolEnum.EffectPoolState effect = EffectPoolEnum.EffectPoolState.chickens;
-    [SerializeField] float effectScale = 3f; 
+    [SerializeField] float effectScale = 3f;
     ObjectPoolSystem pool;
 
     bool end = false;
@@ -45,7 +45,7 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
         GameObject chickens = pool.CallObject(effect, transform.position);
         chickens.transform.localScale *= effectScale;
         body.SetActive(false);
-        foreach(Collider col in colliders)
+        foreach (Collider col in colliders)
         {
             col.enabled = false;
         }
@@ -58,7 +58,7 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
     {
         //drop = this.GetComponent<Drop>();
     }
-   
+
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(2f);
@@ -68,6 +68,7 @@ public class BombHitReaction : MonoBehaviour, InterfaceReaction.IBombReaction
     private void OnDisable()
     {
         body.SetActive(true);
+
         foreach (Collider col in colliders)
         {
             col.enabled = true;
