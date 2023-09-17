@@ -10,7 +10,7 @@ public class ParticleCallbackPool : MonoBehaviour
 {
     ObjectPoolSystem pool = default;
     ParticleSystem particle = default;
-    [SerializeField]CashObjectInformation root = default;
+    [SerializeField] EffectPoolEnum.EffectPoolState state = EffectPoolEnum.EffectPoolState.thunderBlast;
     [SerializeField] GameObject rootObject;
     //Transform _transform = default;
 
@@ -18,17 +18,9 @@ public class ParticleCallbackPool : MonoBehaviour
     private void Awake()
     {
         pool = FindObjectOfType<ObjectPoolSystem>();
-        particle = GetComponent<ParticleSystem>();
-        if(root is null)
-        {
-            root = transform.GetComponent<CashObjectInformation>();
 
-            if (root is null)
-            {
-                root = transform.parent.GetComponent<CashObjectInformation>();
-            }
-        }
-        
+
+        particle = GetComponent<ParticleSystem>();
         //foreach(Transform t in _transform)
         //{
 
@@ -42,6 +34,6 @@ public class ParticleCallbackPool : MonoBehaviour
     private void OnParticleSystemStopped()
     {
         
-        pool.ReturnObject(EffectPoolEnum.EffectPoolState.thunderBlast,rootObject);
+        pool.ReturnObject(state,rootObject);
     }
 }

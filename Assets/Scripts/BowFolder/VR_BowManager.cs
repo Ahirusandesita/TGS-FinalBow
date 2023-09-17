@@ -43,6 +43,9 @@ public class VR_BowManager : CanDraw_BowManager
 
     bool isTitle = false;
 
+    bool _isWork = true;
+    public bool CantShotBecauseYouMissed { set { _isWork = value; } }
+
     protected override void Start()
     {
         tutorialManager = GameObject.FindObjectOfType<TutorialManager>();
@@ -67,6 +70,7 @@ public class VR_BowManager : CanDraw_BowManager
 
     private void Update()
     {
+        if(_isWork)
         BowUpdateCallProcess();
     }
 
