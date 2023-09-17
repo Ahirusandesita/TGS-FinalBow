@@ -121,7 +121,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private bool _isShotFirst = true;
 
     [Tooltip("最初にラジアルメニューが表示された")]
-    private bool _isRadialMenuDisplayedFirst = true;
+    private bool _isRadialMenuDisplayed = false;
 
     [Tooltip("ボムが選ばれた")]
     private bool _isSelectedBomb = false;
@@ -145,6 +145,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     private bool _inputFirst = true;
 
     private bool _isHit = default;
+
+    private bool _isEnchant1_Closed = false;
 
     private GameProgress gameProgress;
 
@@ -437,10 +439,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void OnRadialMenuDisplayed()
     {
-        if (_isRadialMenuDisplayedFirst && _canRadialMenuDisplayed)
+        if (_canRadialMenuDisplayed)
         {
-            _isRadialMenuDisplayedFirst = false;
-            ProgressingTheTutorial();
+            _isRadialMenuDisplayed = true;
         }
     }
 
@@ -468,10 +469,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
             case TutorialTextType.enchant1:
 
-                // ここでラジアルメニューを検知
-                _canRadialMenuDisplayed = true;
-                // 同時に爆発の選択も検知
-                _canSelectedBomb = true;
+                _isEnchant1_Closed = true;
                 break;
 
             case TutorialTextType.attract1:
@@ -508,6 +506,22 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         {
             case TutorialTextType.enchant1:
 
+                // ここでラジアルメニューを検知
+                _canRadialMenuDisplayed = true;
+                // 同時に爆発の選択も検知
+                _canSelectedBomb = true;
+
+                // ラジアルメニューが出されるまで非同期で待機し、進行する
+                IEnumerator WaitRadialMenu()
+                {
+                    yield return new WaitUntil(() => _isRadialMenuDisplayed);
+
+                    if (!_isEnchant1_Closed)
+                        _textSystem.NextText();
+
+                    ProgressingTheTutorial();
+                }
+                StartCoroutine(WaitRadialMenu());
                 break;
 
             case TutorialTextType.enchant2:
