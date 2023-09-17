@@ -88,7 +88,7 @@ public class ResultStage : MonoBehaviour
         resultStruct.HitAverage = Mathf.Floor(score.hitCount / score.shotCount * 10000f) / 100f;
         resultStruct.AttractValue = score.valueAttractBonus;
         resultStruct.KillCount = score.valueNormalEnemy;
-        resultStruct.SumScore = score.SumScore;
+        resultStruct.SumScore = score.SumScore + (int)(resultStruct.HitAverage * 100f);
         isScore = true;
     }
     public void ResultScreenTime(float time)
