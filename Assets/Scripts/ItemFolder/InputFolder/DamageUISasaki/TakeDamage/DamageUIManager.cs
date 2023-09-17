@@ -17,14 +17,6 @@ public class DamageUIManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            TakeDamageUIEvent();
-        }
-    }
-
     public void TakeDamageUIEvent()
     {
         if(seClip is not null)
