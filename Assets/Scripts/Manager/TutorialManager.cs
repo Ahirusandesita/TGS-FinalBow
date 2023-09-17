@@ -98,7 +98,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private VR_BowManager _VRbowManager = default;
 
-    private FPSBow _fpsBow = default;
 
     [Tooltip("チュートリアルの進行度")]
     private TutorialTextType _currentTutorialType = 0;    // opening
@@ -215,15 +214,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         catch (Exception)
         {
             X_Debug.LogError("VR_BowManagerが取得できていません。");
-        }
-
-        try
-        {
-            _fpsBow = FindObjectOfType<FPSBow>();
-        }
-        catch (Exception)
-        {
-            X_Debug.LogError("FPSBowが取得できていません。");
         }
     }
 
@@ -505,7 +495,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             case TutorialTextType.ending:
 
                 _VRbowManager.CantShotBecauseYouMissed = true;
-                _fpsBow.CantDrawBowBecauseYouMissed = true;
+                FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = true;
                 gameProgress.TutorialEnding();
                 this.enabled = false;
                 break;
@@ -554,7 +544,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                     _textSystem.NextText();
                     // 矢を撃てなくする
                     _VRbowManager.CantShotBecauseYouMissed = false;
-                    _fpsBow.CantDrawBowBecauseYouMissed = false;
+                    FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = false;
 
                     yield return new WaitForSeconds(0.8f);
 
