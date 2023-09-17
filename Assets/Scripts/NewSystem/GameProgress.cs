@@ -77,7 +77,7 @@ public class GameProgress : MonoBehaviour
     public void InGameEnding()
     {
         if (gameProgressProperty.Value == GameProgressType.extraPreparation) return;
-        gameProgressProperty.Value = GameProgressType.extraPreparation;
+        gameProgressProperty.Value = GameProgressType.inGameLastStageEnd;
     }
     /// <summary>
     /// ÇPÅ|ÇSèIóπ
