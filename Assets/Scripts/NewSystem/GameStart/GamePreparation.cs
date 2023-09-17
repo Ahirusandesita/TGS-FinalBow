@@ -29,6 +29,16 @@ public class GamePreparation : MonoBehaviour
                 {
                    StartCoroutine(GamePreparationProcess());
                 }
+
+                if (progressType == GameProgressType.inGameLastStageEnd)
+                {
+                    StartCoroutine(InGameLastStageEndProcess());
+                }
+
+                if (progressType == GameProgressType.extraPreparation)
+                {
+                    StartCoroutine(ExtraPreparationProcess());
+                }
             }
             );
     }
@@ -39,6 +49,22 @@ public class GamePreparation : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         textMesh.text = default;
         gameProgress.GamePreparationEnding();
+    }
+
+    private IEnumerator InGameLastStageEndProcess()
+    {
+        textMesh.text = "ステージクリア！";
+        yield return new WaitForSeconds(2.5f);
+        textMesh.text = default;
+        gameProgress.InGameLastStageEnding();
+    }
+
+    private IEnumerator ExtraPreparationProcess()
+    {
+        textMesh.text = "EXTRA STAGE！";
+        yield return new WaitForSeconds(4f);
+        textMesh.text = default;
+        gameProgress.ExtraPreparationEnding();
     }
     #endregion
 }
