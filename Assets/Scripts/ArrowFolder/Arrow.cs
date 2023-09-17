@@ -242,6 +242,13 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
 
     public int Damage => damage;
     private ArrowEnchant arrowEnchant;
+    private ScoreManager scoreManager;
+
+    private void Awake()
+    {
+        scoreManager = GameObject.FindObjectOfType<ScoreManager>();
+    }
+
     private void OnEnable()
     {
         //矢のクラスをゲットコンポーネントする
@@ -375,6 +382,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
             }
             //矢をリセットする
 
+            scoreManager.HitCount();
 
             //貫通系ならプールに戻さない
             if (
@@ -405,6 +413,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
                 EventArrowEffect(MyTransform);
                 ArrowEnchantSound(_audioSource);
             }
+            scoreManager.HitCount();
             ReturnQue();
         }
 
@@ -423,6 +432,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
                 EventArrowEffect(MyTransform);
                 ArrowEnchantSound(_audioSource);
             }
+            scoreManager.HitCount();
             ReturnQue();
         }
 
@@ -464,6 +474,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
                 EventArrowEffect(MyTransform);
                 ArrowEnchantSound(_audioSource);
             }
+            scoreManager.HitCount();
             ReturnQue();
         }
 
@@ -482,7 +493,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
                 ArrowEnchantSound(_audioSource);
             }
             _hitObjects[5].GetComponent<IFCanTakeArrowButtonCantDestroy>().ButtonPush(MyTransform);
-
+            scoreManager.HitCount();
         }
     }
 

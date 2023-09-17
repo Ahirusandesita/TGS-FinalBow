@@ -53,6 +53,8 @@ interface IFPlayerManager
 public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFPlayerManagerSetArrow, IFPlayerManagerShotArrow, IFPlayerManagerHave
 {
     #region •Ï”éŒ¾•”
+    private ScoreManager scoreManager;
+
     public bool CanRapid { get; set; }
 
     //public static bool AddTag = false;
@@ -139,6 +141,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     private void Awake()
     {
+        scoreManager = GameObject.FindObjectOfType<ScoreManager>();
+
         tutorialManager = GameObject.FindObjectOfType<TutorialManager>();
     }
 
@@ -258,7 +262,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
                         index = i;
                         rapidRandomAngle += (float)index;
                         rapidRandomAngle /= 3f;
-                       
+                        scoreManager.ShotCount();
                     }
                 }
             }
@@ -276,6 +280,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         else
         {
+            scoreManager.ShotCount();
             arrowRotation =  _bowObject.transform.rotation;
         }
 
