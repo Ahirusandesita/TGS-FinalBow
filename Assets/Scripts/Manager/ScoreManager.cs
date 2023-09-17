@@ -240,6 +240,15 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
 
     }
+
+    public void ShotCount()
+    {
+        ScorePoint.shotCount++;
+    }
+    public void HitCount()
+    {
+        ScorePoint.hitCount++;
+    }
     /// <summary>
     /// 雑魚敵を倒すごとに呼ぶメソッド　加点する　デフォルトのスコア
     /// </summary>

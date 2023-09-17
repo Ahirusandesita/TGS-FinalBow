@@ -85,7 +85,7 @@ public class ResultStage : MonoBehaviour
         //Debug.LogError($"合計スコア{score.SumScore}");
         //Debug.LogError($"ノーマル撃破数{score.valueNormalEnemy}。ノーマルスコア{score.scoreNormalEnemy}");
         // Debug.LogError($"コンボスコア{score.scoreComboBonus}");
-        resultStruct.HitAverage = score.valueNormalEnemy;
+        resultStruct.HitAverage = Mathf.Floor(score.hitCount / score.shotCount * 10000f) / 100f;
         resultStruct.AttractValue = score.valueAttractBonus;
         resultStruct.KillCount = score.valueNormalEnemy;
         resultStruct.SumScore = score.SumScore;

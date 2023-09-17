@@ -10,6 +10,10 @@ public static class ScoreNumber
     public static Score ScorePoint;
     public struct Score
     {
+
+        public float shotCount;
+        public float hitCount;
+
         public int scoreNormalEnemy;
         public int scoreBossEnemy;
         public int scoreEnchant;
@@ -44,10 +48,15 @@ public static class ScoreNumber
             scoreA.valueNormalEnemy += scoreB.valueNormalEnemy;
             scoreA.valueComboBonus += scoreB.valueComboBonus;
 
+            scoreA.shotCount += scoreB.shotCount;
+            scoreA.hitCount += scoreB.hitCount;
             return scoreA;
         }
         public void Reset()
         {
+            shotCount = 0;
+            hitCount = 0;
+
             scoreNormalEnemy = 0;
             scoreBossEnemy = 0;
             scoreEnchant = 0;

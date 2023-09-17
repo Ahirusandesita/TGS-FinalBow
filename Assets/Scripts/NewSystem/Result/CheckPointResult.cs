@@ -29,7 +29,7 @@ public class CheckPointResult : MonoBehaviour
 
     public struct ResultStruct
     {
-        public int HitAverage;
+        public float HitAverage;
         public int KillCount;
         public float ClearTime;
         public int AttractValue;
@@ -47,7 +47,7 @@ public class CheckPointResult : MonoBehaviour
 
     public void Result(ref ResultStruct resultStruct)
     {
-        HitAverageText.text = resultStruct.HitAverage.ToString();
+        HitAverageText.text = resultStruct.HitAverage.ToString() + "%";
         KillCountText.text = resultStruct.KillCount.ToString();
         ClearTimeText.text = resultStruct.ClearTime.ToString();
         AttractGetValueText.text = resultStruct.AttractValue.ToString();
