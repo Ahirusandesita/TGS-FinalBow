@@ -26,6 +26,24 @@ public class TimeManager :MonoBehaviour , ITime
     private IFScoreManager_Time _scoreManager;
     private GameManager _gameManager;
     private ResultStage resultStage;
+
+    private bool canTimeCount = false;
+    private GameProgress gameProgress;
+    private void Awake()
+    {
+        gameProgress = GameObject.FindObjectOfType<GameProgress>();
+
+        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+            progressType =>
+            {
+                if (progressType == GameProgressType.tutorial) canTimeCount = false;
+                if (progressType == GameProgressType.inGame) canTimeCount = true;
+                if (progressType == GameProgressType.inGameLastStageEnd) canTimeCount = false;
+                if (progressType == GameProgressType.extra) canTimeCount = true;
+            }
+            );
+    }
+
     private void Start()
     {
         _gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
@@ -69,13 +87,17 @@ public class TimeManager :MonoBehaviour , ITime
         {
 
             yield return new WaitForSeconds(1f);
-            time++;
-            _gameManager.TimeManager = this;
-            _scoreManager.BonusValue_Time(1);
 
-            if(time % ONE_MINUTES == MINUTES_COUNTTIME && time != START_TIME)
+            if (canTimeCount)
             {
-                _scoreManager.BonusScore_TimeScore();
+                time++;
+                _gameManager.TimeManager = this;
+                _scoreManager.BonusValue_Time(1);
+
+                if (time % ONE_MINUTES == MINUTES_COUNTTIME && time != START_TIME)
+                {
+                    _scoreManager.BonusScore_TimeScore();
+                }
             }
 
 

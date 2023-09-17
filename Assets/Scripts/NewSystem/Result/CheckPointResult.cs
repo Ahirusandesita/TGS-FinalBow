@@ -13,11 +13,11 @@ using System.Collections.Generic;
 public class CheckPointResult : MonoBehaviour
 {
     #region variable 
-    public TextMeshProUGUI killCountText;
-    public TextMeshProUGUI killScoreText;
-    public TextMeshProUGUI numberOfCombosText;
-    public TextMeshProUGUI clearTimeText;
-    public TextMeshProUGUI sumScoreText;
+    public TextMeshProUGUI HitAverageText;
+    public TextMeshProUGUI KillCountText;
+    public TextMeshProUGUI ClearTimeText;
+    public TextMeshProUGUI AttractGetValueText;
+    public TextMeshProUGUI SumScoreText;
 
 
 
@@ -29,10 +29,10 @@ public class CheckPointResult : MonoBehaviour
 
     public struct ResultStruct
     {
-        public int NumberOfKills;
-        public int KillsScore;
-        public int NumberOfCombos;
+        public int HitAverage;
+        public int KillCount;
         public float ClearTime;
+        public int AttractValue;
         public int SumScore;
     }
     #endregion
@@ -47,11 +47,11 @@ public class CheckPointResult : MonoBehaviour
 
     public void Result(ref ResultStruct resultStruct)
     {
-        killCountText.text = resultStruct.NumberOfKills.ToString();
-        killScoreText.text = resultStruct.KillsScore.ToString();
-        numberOfCombosText.text = resultStruct.NumberOfCombos.ToString();
-        clearTimeText.text = resultStruct.ClearTime.ToString();
-        sumScoreText.text = resultStruct.SumScore.ToString();
+        HitAverageText.text = resultStruct.HitAverage.ToString();
+        KillCountText.text = resultStruct.KillCount.ToString();
+        ClearTimeText.text = resultStruct.ClearTime.ToString();
+        AttractGetValueText.text = resultStruct.AttractValue.ToString();
+        SumScoreText.text = resultStruct.SumScore.ToString();
 
     }
     private void Update()

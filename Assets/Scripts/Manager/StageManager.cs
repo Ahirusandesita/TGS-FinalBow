@@ -164,7 +164,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
             // EnemySpawnerTableで設定したスポナーの数を設定
             _currentNumberOfObject += _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count;
             _currentNumberOfObject += _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._groundEnemysData.Count;
-            Debug.LogError("MaxUntitti" + _currentNumberOfObject);
+
             // 各ウェーブで設定された数、鳥雑魚をスポーンさせる
             for (int i = 0; i < _stageDataTables[_currentStageIndex]._waveInformation[_currentWaveIndex]._birdsData.Count; i++)
             {
