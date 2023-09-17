@@ -96,6 +96,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     private InputManagement _input = default;
 
+    private VR_BowManager _VRbowManager = default;
+
+    private FPSBow _fpsBow = default;
+
     [Tooltip("チュートリアルの進行度")]
     private TutorialTextType _currentTutorialType = 0;    // opening
 
@@ -202,6 +206,24 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
         catch (Exception)
         {
             X_Debug.LogError("InputManagemantが取得できていません。");
+        }
+
+        try
+        {
+            _VRbowManager = FindObjectOfType<VR_BowManager>();
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("VR_BowManagerが取得できていません。");
+        }
+
+        try
+        {
+            _fpsBow = FindObjectOfType<FPSBow>();
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("FPSBowが取得できていません。");
         }
     }
 
@@ -465,15 +487,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 _canSelectedBomb = true;
                 break;
 
-            case TutorialTextType.enchant2:
-
-                if (_isSelectedBomb) break;
-
-                // ボムが選択されるまで非同期で待機し、的をスポーン
-                IEnumerator WaitBomb() { yield return new WaitUntil(() => _isSelectedBomb); CallSpawn(); }
-                StartCoroutine(WaitBomb());
-                break;
-
             case TutorialTextType.attract1:
 
                 // クリスタルを出現させて、即割る
@@ -491,6 +504,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
             case TutorialTextType.ending:
 
+                _VRbowManager.CantShotBecauseYouMissed = true;
+                _fpsBow.CantDrawBowBecauseYouMissed = true;
                 gameProgress.TutorialEnding();
                 this.enabled = false;
                 break;
@@ -518,6 +533,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                     }
                     StartCoroutine(WaitBomb());
                 }
+                // そうじゃなければ、ボムが選択されるまで非同期で待機し、的をスポーン
+                else
+                {
+                    IEnumerator WaitBomb() { yield return new WaitUntil(() => _isSelectedBomb); CallSpawn(); }
+                    StartCoroutine(WaitBomb());
+                }
 
                 break;
 
@@ -531,6 +552,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                     _targetSpawnCount--;
                     CallSpawn();
                     _textSystem.NextText();
+                    // 矢を撃てなくする
+                    _VRbowManager.CantShotBecauseYouMissed = false;
+                    _fpsBow.CantDrawBowBecauseYouMissed = false;
 
                     yield return new WaitForSeconds(0.8f);
 
