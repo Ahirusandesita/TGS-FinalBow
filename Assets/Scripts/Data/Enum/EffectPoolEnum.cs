@@ -76,5 +76,6 @@ public class EffectPoolEnum
         enemyTakeBomb,
         enemyTakeBombBug,
 
+        arrowMissedEffect,
     }
 }

@@ -245,9 +245,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
             _textSystem.NextText();
         }
 
-        if (Input.GetKeyDown(KeyCode.F1))
-            OnGrabTheString();
-
         if (Input.GetKeyDown(KeyCode.F2))
             OnRadialMenuDisplayed();
 
@@ -509,6 +506,10 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     {
         switch (_currentTutorialType)
         {
+            case TutorialTextType.enchant1:
+
+                break;
+
             case TutorialTextType.enchant2:
 
                 // テキストが表示されたタイミングで既に爆発が選択されていたら、即時的を出す

@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Tutorial_Enchant1
   m_EditorClassIdentifier: 
   tutorialManagementItem:
-  - myName: Enchant1
+  - myName: Enchant1_1
+    tutorialDatas: {fileID: 11400000, guid: dcaef608288dd9348a5fe72ec763655e, type: 2}
+    nextTime: 3
+  - myName: Enchant1_2
     tutorialDatas: {fileID: 11400000, guid: 6afb4bb6a22fedc43a3a96953bad5193, type: 2}
     nextTime: 3
+  audioClip: {fileID: 0}
