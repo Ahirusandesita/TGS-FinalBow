@@ -32,7 +32,8 @@ public sealed class FPSBow : BowManager
 
     protected override Vector3 GetShotDirection => _myTransform.forward - _myTransform.position;
 
-
+    bool _isWork = true;
+    public bool CantDrawBowBecauseYouMissed { set { _isWork = value; } }
     #endregion
     #region method
 
@@ -59,6 +60,7 @@ public sealed class FPSBow : BowManager
     // “ü—Íó•t&ˆ—
     private void Update()
     {
+        if(_isWork)
         BowUpdateCallProcess();
 
         //wasd‚ÅˆÚ“® 
