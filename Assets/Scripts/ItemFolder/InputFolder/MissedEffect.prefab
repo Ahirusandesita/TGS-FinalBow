@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.26415092, g: 0.2025335, b: 0.18066926, a: 0.3882353}
+      maxColor: {r: 0.49056602, g: 0.48320332, b: 0.4743681, a: 0.72156864}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -285,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 20
       minScalar: 2.5
       maxCurve:
         serializedVersion: 2
@@ -1364,7 +1364,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.2830189, g: 0.109238766, b: 0, a: 1}
+        key0: {r: 0.5377358, g: 0.3904785, b: 0.2967693, a: 1}
         key1: {r: 0.2830189, g: 0.109238766, b: 0, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -9810,7 +9810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19813856, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.6156863
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19813856, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: InitialModule.startSize.minMaxState
@@ -9830,7 +9830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19813856, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 12336
+      value: 38936
       objectReference: {fileID: 0}
     - target: {fileID: 19813856, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.atime2
@@ -9838,7 +9838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19813856, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key1.a
-      value: 0.25882354
+      value: 0.9137255
       objectReference: {fileID: 0}
     - target: {fileID: 19813856, guid: fddad85224879894ca726219a83ec7ca, type: 3}
       propertyPath: InitialModule.startLifetime.minMaxState
