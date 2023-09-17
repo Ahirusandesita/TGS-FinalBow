@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 
 using UnityEngine;
+using UnityEngine.Video;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -84,6 +85,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
     [SerializeField]
     private GameObject _debugPlayer = default;
+
+    [SerializeField]
+    private VideoPlayer _videoPlayer = default;
+
+    [SerializeField]
+    private MovieDisplayManager _videoDisplay = default;
+
 
     [Tooltip("ñÓÇ™äOÇÍÇΩÇ∆Ç´ÅAñÓÇê∂ê¨Ç∑ÇÈ")]
     public Action _onArrowMissed_Create = default;
@@ -342,6 +350,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         if (_spawndTargetAmount <= 0)
         {
+            if (_currentTutorialType == TutorialTextType.shot1)
+            {
+                _videoPlayer.Stop();
+                _videoDisplay.CloseFrame();
+            }
+
             if (_currentTutorialType == TutorialTextType.end_B)
             {
                 ProgressingTheTutorial(2f);
@@ -450,7 +464,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     public void AllComplete()
     {
-        _textFrame.SetActive(false);
+        _frameManager.CloseFrame();
 
         switch (_currentTutorialType)
         {
@@ -459,6 +473,20 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 // Ç©Ç©ÇµÇè¡Ç∑
                 _kakashi.SetActive(false);
                 ProgressingTheTutorial();
+
+                IEnumerator WaitVideo()
+                {
+                    yield return new WaitForSeconds(2f);
+
+                    _videoPlayer.time = 0f;
+                    _videoDisplay.OpenFrame();
+                    yield return new WaitUntil(() => _videoDisplay._endOpen);
+
+                    yield return new WaitForSeconds(1f);
+
+                    _videoPlayer.Play();
+                }
+                StartCoroutine(WaitVideo());
                 break;
 
             case TutorialTextType.shot1:

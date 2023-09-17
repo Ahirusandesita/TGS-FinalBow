@@ -47,15 +47,6 @@ public class TargetMove : MonoBehaviour
         _rotationPoint = _transform.GetChild(0).transform;
     }
 
-    private void Start()
-    {
-
-    }
-
-    private void Update()
-    {
-
-    }
 
     /// <summary>
     /// ƒXƒ|[ƒ“‚Ì‰Šú‰»

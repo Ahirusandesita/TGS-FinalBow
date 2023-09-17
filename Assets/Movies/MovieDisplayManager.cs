@@ -1,18 +1,15 @@
-// 81-C# FactoryScript-FactoryScript.cs
-//
-//CreateDay:
-//Creator  :
-//
+// --------------------------------------------------------- 
+// MovieDisplayManager.cs 
+// 
+// CreateDay: 
+// Creator  : 
+// --------------------------------------------------------- 
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public interface IFUIOpener
-{
-    public bool _endOpen { get; set; }
-}
-
-public class ScoreFrameMaganer : MonoBehaviour
+public class MovieDisplayManager : MonoBehaviour
 {
     [HideInInspector]
     public bool _endOpen { get; set; }
@@ -37,7 +34,7 @@ public class ScoreFrameMaganer : MonoBehaviour
 
     private RectTransform _frameTransform = default;
 
-    private Image _frameImage = default;
+    private RawImage _displayRawImage = default;
 
     private Vector2 _nowScale = default;
 
@@ -57,7 +54,7 @@ public class ScoreFrameMaganer : MonoBehaviour
     {
         _frameTransform = _frameObject.GetComponent<RectTransform>();
 
-        _frameImage = _frameObject.GetComponent<Image>();
+        _displayRawImage = _frameObject.GetComponent<RawImage>();
     }
 
     #region ÉIÅ[ÉvÉì
@@ -67,7 +64,7 @@ public class ScoreFrameMaganer : MonoBehaviour
         _nowWidthValue = NOW_WIDTH_MIN;
         _nowHeightValue = NOW_HEIGHT_MIN;
         _nowScale = new Vector2(_nowWidthValue * _maxWidth, _nowHeightValue * _maxHeight);
-        _frameImage.enabled = true;
+        _displayRawImage.enabled = true;
         StartCoroutine(OpenHeightCoroutine());
     }
 
@@ -75,7 +72,7 @@ public class ScoreFrameMaganer : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         _nowHeightValue += _openSpeed * Time.deltaTime;
-        if(_nowHeightValue < NOW_HEIGHT_MAX)
+        if (_nowHeightValue < NOW_HEIGHT_MAX)
         {
             _nowScale.y = _nowHeightValue * _maxHeight;
             _frameTransform.sizeDelta = _nowScale;
@@ -120,7 +117,7 @@ public class ScoreFrameMaganer : MonoBehaviour
     IEnumerator CloseWidthCoroutine()
     {
         yield return new WaitForEndOfFrame();
-        _nowWidthValue +=/*Ç±Ç±ïœÇ¶ÇΩ*/ _closeSpeed * Time.deltaTime;
+        _nowWidthValue += _closeSpeed * Time.deltaTime;
         if (_nowWidthValue > NOW_WIDTH_MIN)
         {
             _nowScale.x = _nowWidthValue * _maxWidth;
@@ -137,7 +134,7 @@ public class ScoreFrameMaganer : MonoBehaviour
     IEnumerator CloseHeightCoroutine()
     {
         yield return new WaitForEndOfFrame();
-        _nowHeightValue +=/*Ç±Ç±ïœÇ¶ÇΩ*/ _closeSpeed * Time.deltaTime;
+        _nowHeightValue += _closeSpeed * Time.deltaTime;
         if (_nowHeightValue > NOW_HEIGHT_MIN)
         {
             _nowScale.y = _nowHeightValue * _maxHeight;
@@ -147,9 +144,10 @@ public class ScoreFrameMaganer : MonoBehaviour
         else
         {
             _nowScale.y = NOW_HEIGHT_MIN * _maxHeight;
-            _frameImage.enabled = false;
+            _displayRawImage.enabled = false;
             _endClose = true;
         }
     }
     #endregion
+
 }
