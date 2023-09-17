@@ -88,6 +88,12 @@ public interface IArrowEnchant
 public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDamageable
 {
 
+    [SerializeField]
+    private AudioClip missHitSound;
+
+    private AudioSource audioSource;
+
+    private ObjectPoolSystem objectPoolSystem;
 
     public ArrowMove EnchantArrowMove { set; get; }
     public ArrowPassiveEffect EnchantArrowPassiveEffect { set; get; }
@@ -247,6 +253,8 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
     private void Awake()
     {
         scoreManager = GameObject.FindObjectOfType<ScoreManager>();
+        audioSource = this.GetComponent<AudioSource>();
+        objectPoolSystem = GameObject.FindWithTag(InhallLibTags.PoolSystem).GetComponent<ObjectPoolSystem>();
     }
 
     private void OnEnable()
@@ -352,8 +360,9 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
         {
             if (EventArrowEffect != null)
             {
-                EventArrowEffect(MyTransform);
-                ArrowEnchantSound(_audioSource);
+                objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.arrowMissedEffect, MyTransform.position);
+                if (missHitSound is not null)
+                    audioSource.PlayOneShot(missHitSound);
             }
             ReturnQue();
             return;
@@ -392,7 +401,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
                 _enchantState == EnchantmentEnum.EnchantmentState.bombPenetrate ||
                 _enchantState == EnchantmentEnum.EnchantmentState.knockBackpenetrate)
             {
-               // Debug.LogError(_enchantState+"貫通") ;
+                // Debug.LogError(_enchantState+"貫通") ;
                 return;
             }
             //貫通系じゃなければプールに戻す処理をよぶ
@@ -468,7 +477,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
             {
                 _hitObjects[4].GetComponent<IFCanTakeArrowButton>().ButtonPush();
             }
-            
+
             if (EventArrowEffect != null)
             {
                 EventArrowEffect(MyTransform);
