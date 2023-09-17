@@ -115,7 +115,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
                 if (progressType == GameProgressType.inGameLastStageEnd)
                 {
-                    MovingGameCanvas();
+                    MovingGameCanvas(indexCorrectionValue: -1);
                 }
 
                 if (progressType == GameProgressType.extraPreparation)
@@ -263,7 +263,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         // ボスがいないときはマイナス1
         //-------------------------------------------------------------------
         // すべてのステージをクリア = ゲームオーバー
-        if (_currentStageIndex > _stageDataTables.Count - 1)
+        if (_currentStageIndex >= _stageDataTables.Count)
         {
             IEnumerator WaitResult()
             {
@@ -454,13 +454,16 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// </summary>
     private void MovingResultCanvas()
     {
-        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex - 1]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
+        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
         _resultCanvas.transform.rotation = _player.transform.rotation;
     }
 
-    private void MovingGameCanvas()
+    /// <summary>
+    /// ゲーム進行キャンバスを移動させる
+    /// </summary>
+    private void MovingGameCanvas(int indexCorrectionValue = 0)
     {
-        _startCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
+        _startCanvas.transform.position = _stageTransforms[_currentStageIndex + indexCorrectionValue]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
         _startCanvas.transform.rotation = _player.transform.rotation;
     }
 }
