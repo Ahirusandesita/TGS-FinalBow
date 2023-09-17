@@ -75,7 +75,10 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     [Tooltip("取得したリザルト用クラス")]
     private ResultStage _resultStage = default;
-    private GameProgress gameProgress;
+
+    private GameProgress _gameProgress;
+
+    private SceneFadeManager _fadeManager = default;
 
     [Tooltip("現在の雑魚/的の数")]
     private int _currentNumberOfObject = 0;
@@ -85,30 +88,72 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     [Tooltip("現在のウェーブ番号")]
     private int _currentWaveIndex = 0;  // ウェーブ1
+
+    [Tooltip("")]
+    private bool uuu = false;
     #endregion
 
     private void Awake()
     {
-        gameProgress = GameObject.FindObjectOfType<GameProgress>();
-        gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
+        _fadeManager = FindObjectOfType<SceneFadeManager>();
+
+        _gameProgress = GameObject.FindObjectOfType<GameProgress>();
+        _gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
             progressType =>
             {
-                if (progressType == GameProgressType.ending)
-                {
-                    ProgressingTheStage();
-                }
-                if (progressType == GameProgressType.inGame)
-                {
-                    StartCoroutine(WaveStart());
-                }
                 if (progressType == GameProgressType.gamePreparation)
                 {
                     MovingPlayer();
                     MovingStartCanvas();
                 }
+
+                if (progressType == GameProgressType.inGame)
+                {
+                    StartCoroutine(WaveStart());
+                }
+
+                if (progressType == GameProgressType.inGameLastStageEnd)
+                {
+                    // 「クリア」と出して暗転
+                    IEnumerator WaitFadeOut()
+                    {
+                        _fadeManager.SceneFadeOutStart();
+
+                        yield return new WaitUntil(() => _fadeManager._isSceneFadeOutEnd);
+
+                        MovingPlayer();
+
+                        _gameProgress.InGameLastStageEnding();
+                    }
+                    StartCoroutine(WaitFadeOut());
+                }
+
+                if (progressType == GameProgressType.extraPreparation)
+                {
+                    // 明転して「エクストラ開始」と出す
+                    IEnumerator WaitFadeIn()
+                    {
+                        _fadeManager.SceneFadeInStart();
+
+                        yield return new WaitUntil(() => _fadeManager._isSceneFadeInEnd);
+
+                        MovingStartCanvas();
+
+                        yield return new WaitForSeconds(3f);
+
+                        _gameProgress.ExtraPreparationEnding();
+                    }
+                    StartCoroutine(WaitFadeIn());
+                }
+
+                if (progressType == GameProgressType.extra)
+                {
+                    // 「1-5」敵のスポーン開始
+                    StartCoroutine(WaveStart());
+                }
+
             }
             );
-
     }
 
     private void Start()
@@ -126,7 +171,6 @@ public class StageManager : MonoBehaviour, IStageSpawn
         //StartCoroutine(WaveStart());
     }
 
-#if UNITY_EDITOR
     private void Update()
     {
         if (_currentNumberOfObject <= 0 && uuu)
@@ -135,6 +179,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
             ProgressingTheWave();
             uuu = false;
         }
+
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.P))
         {
             EnemyStats[] obj = FindObjectsOfType<EnemyStats>();
@@ -144,8 +190,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 obj[i].TakeDamage(1);
             }
         }
-    }
 #endif
+    }
 
 
     public void WaveExecution()
@@ -191,7 +237,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         _currentNumberOfObject--;
     }
-    bool uuu = false;
+
     /// <summary>
     /// ウェーブを進める
     /// </summary>
@@ -224,19 +270,38 @@ public class StageManager : MonoBehaviour, IStageSpawn
         //-------------------------------------------------------------------
         // ボスがいないときはマイナス1
         //-------------------------------------------------------------------
+        // すべてのステージをクリア = ゲームオーバー
         if (_currentStageIndex > _stageDataTables.Count - 1)
         {
-            // すべてのステージをクリア = ゲームオーバー
-            // ボス倒したら終了だからここ動かないかも
-            //FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(_sceneObject);
-            MovingResultCanvas();
-            gameProgress.InGameEnding();
-            X_Debug.Log("ゲーム終了");
+            IEnumerator WaitResult()
+            {
+                X_Debug.Log("ゲーム終了");
+
+                // 暗転
+                _fadeManager.SceneFadeOutStart();
+                yield return new WaitUntil(() => _fadeManager._isSceneFadeOutEnd);
+
+                // プレイヤーをチュートリアルの場所に移動
+                MovingPlayer();
+
+                // 明転
+                _fadeManager.SceneFadeInStart();
+                yield return new WaitUntil(() => _fadeManager._isSceneFadeInEnd);
+
+                yield return new WaitForSeconds(1f);
+
+                // リザルト表示
+                MovingResultCanvas();
+                _gameProgress.ExtraEnding();
+            }
+            StartCoroutine(WaitResult());
+
             return;
         }
-
-        MovingPlayer();
-        StartCoroutine(WaveStart());
+        else
+        {
+            _gameProgress.InGameEnding();
+        }
     }
 
     /// <summary>
