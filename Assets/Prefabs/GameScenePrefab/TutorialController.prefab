@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1666212762992039723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1666212762992039726}
+  - component: {fileID: 1666212762992039725}
+  - component: {fileID: 1666212762992039727}
+  m_Layer: 0
+  m_Name: TutorialController
+  m_TagString: TutorialController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1666212762992039726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666212762992039723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -50505, y: 361, z: 27814}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1666212762992039725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666212762992039723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7888a125241ee4fb3a0c629ff339af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stageDataTable: {fileID: 11400000, guid: c4652b5dc99ccad4aa5f3625f4ecee7c, type: 2}
+  _tutorialTextsData:
+  - {fileID: 11400000, guid: 5c33829bd43f687409d8fb889030056f, type: 2}
+  - {fileID: 11400000, guid: a4f49429c4c91384aa5609a4cd272769, type: 2}
+  - {fileID: 11400000, guid: 05270a54d880f934caf05e885e4b7aef, type: 2}
+  - {fileID: 11400000, guid: 094ec3fa1afb2944e84a36149bfe55a3, type: 2}
+  - {fileID: 11400000, guid: c124ca251caf75542a531a7ba7e2eda8, type: 2}
+  - {fileID: 11400000, guid: 2b134c81e5df9844bb1226bfbe137fe9, type: 2}
+  - {fileID: 11400000, guid: 39411053b7c51b14ebbf768da682e609, type: 2}
+  - {fileID: 11400000, guid: 0c1efba7199017c418298ceadba3f146, type: 2}
+  _textSystem: {fileID: 0}
+  _kakashi: {fileID: 0}
+  _textFrame: {fileID: 0}
+  _crystal: {fileID: 5467212870605495754, guid: f26f83102fad91845a428b83f03c1154, type: 3}
+  _crystalTransform: {fileID: 0}
+  _sceneObject: {fileID: 11400000, guid: dd0c0bbcdaf7fb24d925bf6e7c25568d, type: 2}
+  _playerTransform: {fileID: 0}
+  _player: {fileID: 0}
+  _debugPlayer: {fileID: 0}
+  _videoPlayer: {fileID: 0}
+  _videoDisplay: {fileID: 0}
+  _skipTutorial: 0
+--- !u!114 &1666212762992039727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666212762992039723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8ad74223cc2934b9d58c4643b8f92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotPosition: {fileID: 0}
+  arrowSpeed: 3000
