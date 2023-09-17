@@ -206,7 +206,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
 
     private void Start()
     {
-        ScorePoint.scoreTimeBonus = 4000;
+        ScorePoint.scoreTimeBonus = 50000;
         SumScorePoint = ScoreNumber.ScorePoint;
         if (ScorePoint.scoreHpBonus == 0)
         {
@@ -214,7 +214,7 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
         }
         if (ScorePoint.scoreTimeBonus == 0)
         {
-            ScorePoint.scoreTimeBonus = 4000;
+            ScorePoint.scoreTimeBonus = 50000;
         }
         ScoreNumber.ScorePoint = SumScorePoint;
 
