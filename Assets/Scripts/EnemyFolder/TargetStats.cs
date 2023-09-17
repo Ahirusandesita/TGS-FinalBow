@@ -17,11 +17,13 @@ public class TargetStats : EnemyStats
 
     private bool _isFirst = true;
 
+    public bool _canDeath { private get; set; }
+
     private void OnEnable()
     {
         _hp = 1;
         _isFirst = true;
-
+        _canDeath = true;
     }
 
     protected override void Start()
@@ -44,7 +46,7 @@ public class TargetStats : EnemyStats
 
     public override void Death()
     {
-        if (_isFirst)
+        if (_isFirst && _canDeath)
         {
             _isFirst = false;
 
