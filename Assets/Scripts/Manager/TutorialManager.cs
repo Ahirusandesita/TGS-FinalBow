@@ -252,12 +252,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// <summary>
     /// チュートリアル進行処理
     /// </summary>
-    private void ProgressingTheTutorial()
+    private void ProgressingTheTutorial(float textTime = 1f)
     {
         _currentTutorialType++;
         _isHitFirst = true;
 
-        StartCoroutine(CallText(1f));
+        StartCoroutine(CallText(textTime));
     }
 
     /// <summary>
@@ -331,6 +331,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
         if (_spawndTargetAmount <= 0)
         {
+            if (_currentTutorialType == TutorialTextType.end_B)
+            {
+                ProgressingTheTutorial(2f);
+                return;
+            }
+
             ProgressingTheTutorial();
         }
     }
@@ -340,12 +346,13 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
     /// </summary>
     private IEnumerator RemoveTarget()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.35f);
 
         TargetMove[] targets = FindObjectsOfType<TargetMove>();
 
         for (int i = 0; i < targets.Length; i++)
         {
+            targets[i].GetComponent<TargetStats>()._canDeath = false;
             StartCoroutine(targets[i].RotateAtDespawn());
         }
     }
@@ -460,6 +467,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
             case TutorialTextType.enchant2:
 
+                if (_isSelectedBomb) break;
+
                 // ボムが選択されるまで非同期で待機し、的をスポーン
                 IEnumerator WaitBomb() { yield return new WaitUntil(() => _isSelectedBomb); CallSpawn(); }
                 StartCoroutine(WaitBomb());
@@ -500,31 +509,39 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
                 // テキストが表示されたタイミングで既に爆発が選択されていたら、即時的を出す
                 if (_isSelectedBomb)
                 {
-                    _isSelectedBomb = false;
-                    CallSpawn();
+                    IEnumerator WaitBomb()
+                    {
+                        yield return new WaitForSeconds(1f);
+
+                        CallSpawn();
+                        _textSystem.NextText();
+                    }
+                    StartCoroutine(WaitBomb());
                 }
 
                 break;
 
             case TutorialTextType.end_B:
 
-                // 的を再スポーン
-                _targetSpawnCount--;
-                CallSpawn();
-
                 IEnumerator WaitSpawn()
                 {
                     yield return new WaitForSeconds(1f);
 
+                    // 的を再スポーン
+                    _targetSpawnCount--;
+                    CallSpawn();
+                    _textSystem.NextText();
+
+                    yield return new WaitForSeconds(0.8f);
+
                     // 強制的に矢を飛ばして的に当てる
                     _onArrowMissed_Create();
-                    _onArrowMissed_Shot(_stageDataTable._waveInformation[2]._targetData[2]._spawnPlace.position + Vector3.up * 10f);
+                    _onArrowMissed_Shot(_stageDataTable._waveInformation[2]._targetData[2]._spawnPlace.position + Vector3.up * 15f);
                 }
                 StartCoroutine(WaitSpawn());
 
                 break;
         }
-
     }
     #endregion
 }
