@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 262.3369, g: 325.0498, b: 430.21924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1198,6 +1198,7 @@ GameObject:
   - component: {fileID: 296885698}
   - component: {fileID: 296885700}
   - component: {fileID: 296885699}
+  - component: {fileID: 296885701}
   m_Layer: 5
   m_Name: MovieDisplay
   m_TagString: Untagged
@@ -1232,7 +1233,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296885697}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
@@ -1260,6 +1261,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296885697}
   m_CullTransparentMesh: 1
+--- !u!114 &296885701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296885697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c819990020a69b47a6fbef64bd66f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _openSpeed: 5
+  _closeSpeed: -5
+  _maxWidth: 5
+  _maxHeight: 5
+  _frameObject: {fileID: 296885697}
 --- !u!1 &302221372
 GameObject:
   m_ObjectHideFlags: 0
@@ -19978,6 +19996,8 @@ MonoBehaviour:
   _playerTransform: {fileID: 1577612495}
   _player: {fileID: 1959761423}
   _debugPlayer: {fileID: 870565835}
+  _videoPlayer: {fileID: 418111425}
+  _videoDisplay: {fileID: 296885701}
   _skipTutorial: 0
 --- !u!4 &931323382
 Transform:
