@@ -19840,7 +19840,7 @@ MonoBehaviour:
   _playerTransform: {fileID: 1577612495}
   _player: {fileID: 1959761423}
   _debugPlayer: {fileID: 870565835}
-  _skipTutorial: 0
+  _skipTutorial: 1
 --- !u!4 &931323382
 Transform:
   m_ObjectHideFlags: 0
@@ -20908,7 +20908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
       propertyPath: _stageTransforms.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
       propertyPath: _stageDataTables.Array.data[0]
@@ -20931,6 +20931,18 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
+      propertyPath: _stageTransforms.Array.data[0]._stageName
+      value: 1-1/1-4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
+      propertyPath: _stageTransforms.Array.data[1]._stageName
+      value: 1-5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
+      propertyPath: _stageTransforms.Array.data[2]._stageName
+      value: ResultPlace
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
       propertyPath: _stageTransforms.Array.data[0]._stageTransform
       value: 
       objectReference: {fileID: 1794850598081884698, guid: dceab5e24af3d8445880c2f61a8d8337, type: 3}
@@ -20938,6 +20950,10 @@ PrefabInstance:
       propertyPath: _stageTransforms.Array.data[1]._stageTransform
       value: 
       objectReference: {fileID: 4040850729757073010, guid: 02ac5ffab53737148b5597354bfa331c, type: 3}
+    - target: {fileID: 2494350199507808296, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
+      propertyPath: _stageTransforms.Array.data[2]._stageTransform
+      value: 
+      objectReference: {fileID: 1577612495}
     - target: {fileID: 2494350199507808297, guid: 502fa1a0bead9a54595537f86a53514e, type: 3}
       propertyPath: m_Name
       value: StageController

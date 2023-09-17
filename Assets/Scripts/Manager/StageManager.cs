@@ -63,6 +63,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [SerializeField, Tooltip("ゲームスタート用Canvas")]
     private GameObject _startCanvas = default;
 
+
     [SerializeField, Tooltip("Canvasの位置をプレイヤーの位置からどれだけ離すか")]
     private float _canvasPositionCorrectionValue = 50f;
 
@@ -104,7 +105,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 if (progressType == GameProgressType.gamePreparation)
                 {
                     MovingPlayer();
-                    MovingStartCanvas();
+                    MovingGameCanvas();
                 }
 
                 if (progressType == GameProgressType.inGame)
@@ -114,8 +115,13 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
                 if (progressType == GameProgressType.inGameLastStageEnd)
                 {
-                    // 「クリア」と出して暗転
-                    IEnumerator WaitFadeOut()
+                    MovingGameCanvas();
+                }
+
+                if (progressType == GameProgressType.extraPreparation)
+                {
+                    // 暗転・移動・明転して「エクストラ開始」と出す
+                    IEnumerator WaitFadeIn()
                     {
                         _fadeManager.SceneFadeOutStart();
 
@@ -123,25 +129,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
                         MovingPlayer();
 
-                        _gameProgress.InGameLastStageEnding();
-                    }
-                    StartCoroutine(WaitFadeOut());
-                }
-
-                if (progressType == GameProgressType.extraPreparation)
-                {
-                    // 明転して「エクストラ開始」と出す
-                    IEnumerator WaitFadeIn()
-                    {
                         _fadeManager.SceneFadeInStart();
 
                         yield return new WaitUntil(() => _fadeManager._isSceneFadeInEnd);
 
-                        MovingStartCanvas();
-
-                        yield return new WaitForSeconds(3f);
-
-                        _gameProgress.ExtraPreparationEnding();
+                        MovingGameCanvas();
                     }
                     StartCoroutine(WaitFadeIn());
                 }
@@ -466,7 +458,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
         _resultCanvas.transform.rotation = _player.transform.rotation;
     }
 
-    private void MovingStartCanvas()
+    private void MovingGameCanvas()
     {
         _startCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
         _startCanvas.transform.rotation = _player.transform.rotation;
