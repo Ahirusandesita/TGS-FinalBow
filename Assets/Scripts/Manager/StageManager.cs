@@ -20,7 +20,7 @@ interface IStageSpawn
     void WaveExecution();
 }
 
-public class StageManager : MonoBehaviour, IStageSpawn
+public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 {
     /// <summary>
     /// ステージ情報クラス
@@ -92,8 +92,14 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [Tooltip("現在のウェーブ番号")]
     private int _currentWaveIndex = 0;  // ウェーブ1
 
-    [Tooltip("")]
-    private bool uuu = false;
+    [Tooltip("最初にウェーブ進行処理が走った")]
+    private bool _isFirst = false;
+
+    [Tooltip("フェードアウト完了")]
+    private bool _isEndFadeOut = false;
+
+    [Tooltip("フェードイン完了")]
+    private bool _isEndFadeIn = false;
     #endregion
 
     private void Awake()
@@ -106,8 +112,15 @@ public class StageManager : MonoBehaviour, IStageSpawn
             {
                 if (progressType == GameProgressType.gamePreparation)
                 {
-                    MovingPlayer();
-                    MovingGameCanvas();
+                    IEnumerator WaitFadeIn()
+                    {
+                        MovingPlayer();
+                        MovingGameCanvas();
+
+                        this.SceneFadeInStart();
+                        yield return new WaitUntil(() => _isEndFadeIn);
+                    }
+                    StartCoroutine(WaitFadeIn());
                 }
 
                 if (progressType == GameProgressType.inGame)
@@ -125,15 +138,19 @@ public class StageManager : MonoBehaviour, IStageSpawn
                     // 暗転・移動・明転して「エクストラ開始」と出す
                     IEnumerator WaitFadeIn()
                     {
-                        _fadeManager.SceneFadeOutStart();
+                        this.SceneFadeOutStart();
 
-                        yield return new WaitUntil(() => _fadeManager._isSceneFadeOutEnd);
+                        yield return new WaitUntil(() => _isEndFadeOut);
+
+                        _isEndFadeOut = false;
 
                         MovingPlayer();
 
-                        _fadeManager.SceneFadeInStart();
+                        this.SceneFadeInStart();
 
-                        yield return new WaitUntil(() => _fadeManager._isSceneFadeInEnd);
+                        yield return new WaitUntil(() => _isEndFadeIn);
+
+                        _isEndFadeIn = false;
 
                         MovingGameCanvas();
                     }
@@ -167,11 +184,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     private void Update()
     {
-        if (_currentNumberOfObject <= 0 && uuu)
+        if (_currentNumberOfObject <= 0 && _isFirst)
         {
             // 次のウェーブへ
             ProgressingTheWave();
-            uuu = false;
+            _isFirst = false;
         }
 
 #if UNITY_EDITOR
@@ -190,7 +207,8 @@ public class StageManager : MonoBehaviour, IStageSpawn
 
     public void WaveExecution()
     {
-        uuu = true;
+        _isFirst = true;
+
         try
         {
             // 最終ステージだったら、ボスをスポーン
@@ -272,15 +290,19 @@ public class StageManager : MonoBehaviour, IStageSpawn
                 X_Debug.Log("ゲーム終了");
 
                 // 暗転
-                _fadeManager.SceneFadeOutStart();
-                yield return new WaitUntil(() => _fadeManager._isSceneFadeOutEnd);
+                this.SceneFadeOutStart();
+                yield return new WaitUntil(() => _isEndFadeOut);
+
+                _isEndFadeOut = false;
 
                 // プレイヤーをチュートリアルの場所に移動
                 MovingPlayer();
 
                 // 明転
-                _fadeManager.SceneFadeInStart();
-                yield return new WaitUntil(() => _fadeManager._isSceneFadeInEnd);
+                this.SceneFadeInStart();
+                yield return new WaitUntil(() => _isEndFadeIn);
+
+                _isEndFadeIn = false;
 
                 yield return new WaitForSeconds(1f);
 
@@ -467,5 +489,15 @@ public class StageManager : MonoBehaviour, IStageSpawn
     {
         _startCanvas.transform.position = _stageTransforms[_currentStageIndex + indexCorrectionValue]._stageTransform.position + _player.transform.forward * _gameCanvasPositionCorrectionValue;
         _startCanvas.transform.rotation = _player.transform.rotation;
+    }
+
+    public void SceneFadeInComplete()
+    {
+        _isEndFadeIn = true;
+    }
+
+    public void SceneFadeOutComplete()
+    {
+        _isEndFadeOut = true;
     }
 }

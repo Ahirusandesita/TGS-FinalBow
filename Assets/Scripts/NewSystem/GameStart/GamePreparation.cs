@@ -46,7 +46,7 @@ public class GamePreparation : MonoBehaviour
     private IEnumerator GamePreparationProcess()
     {
         textMesh.text = "ìGÇì|ÇπÅI";
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(5f);
         textMesh.text = default;
         gameProgress.GamePreparationEnding();
     }

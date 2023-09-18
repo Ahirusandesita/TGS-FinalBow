@@ -48,7 +48,7 @@ public enum TutorialTextType
 }
 
 
-public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
+public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneFadeCallBack
 {
     #region variable 
     [SerializeField]
@@ -519,8 +519,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
                 _VRbowManager.CantShotBecauseYouMissed = true;
                 FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = true;
-                gameProgress.TutorialEnding();
-                this.enabled = false;
+                this.SceneFadeOutStart();
                 break;
         }
     }
@@ -599,6 +598,17 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking
 
                 break;
         }
+    }
+
+    public void SceneFadeInComplete()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SceneFadeOutComplete()
+    {
+        gameProgress.TutorialEnding();
+        this.enabled = false;
     }
     #endregion
 }
