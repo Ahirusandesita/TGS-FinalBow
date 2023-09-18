@@ -13,7 +13,7 @@ interface ISceneManager
     SceneObject SceneName { get; }
 }
 
-public class SceneManagement : MonoBehaviour,ISceneManager
+public class SceneManagement : MonoBehaviour,ISceneManager,ISceneFadeCallBack
 {
     private IGameManagerSceneMoveNameSet _gameManager;
 
@@ -22,6 +22,8 @@ public class SceneManagement : MonoBehaviour,ISceneManager
     public SceneObject SceneName { private set; get; }
 
     private SceneFadeManager _sceneFadeManager = default;
+
+    private bool isSceneFadeOutComplete = false;
 
     private void SceneSpecifyMove(string sceneName)
     {
@@ -40,20 +42,31 @@ public class SceneManagement : MonoBehaviour,ISceneManager
         StartCoroutine(SceneMoveFadeIn());
     }
 
+    void Awake()
+    {
+        isSceneFadeOutComplete = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _gameManager = GameObject.FindGameObjectWithTag(_GameControllerTagData.TagName).GetComponent<GameManager>();
-
-        _sceneFadeManager = GameObject.FindGameObjectWithTag("SceneFade").GetComponent<SceneFadeManager>();
-        if (_sceneFadeManager == null) return;
-        _sceneFadeManager.SceneFadeOutStart();
+        this.SceneFadeInStart();
     }
 
     private IEnumerator SceneMoveFadeIn()
     {
-        _sceneFadeManager.SceneFadeInStart();
-        yield return new WaitUntil(() => _sceneFadeManager._isSceneFadeInEnd);
+        this.SceneFadeOutStart();
+        yield return new WaitUntil(() => isSceneFadeOutComplete);
         SceneSpecifyMove("LoadScene2");
+    }
+
+    public void SceneFadeInComplete()
+    {
+    }
+
+    public void SceneFadeOutComplete()
+    {
+        isSceneFadeOutComplete = true;
     }
 }
