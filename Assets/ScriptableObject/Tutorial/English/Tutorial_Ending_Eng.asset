@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c6ab770e7a0ef41ae22f0b52d58db4, type: 3}
+  m_Name: Tutorial_Ending_Eng
+  m_EditorClassIdentifier: 
+  tutorialManagementItem:
+  - myName: End2
+    tutorialDatas: {fileID: 11400000, guid: c518781830c2a4344b17a7af82ea98ab, type: 2}
+    nextTime: 3
+  - myName: End3
+    tutorialDatas: {fileID: 11400000, guid: dceb06003bef96f48b8639d002a408b8, type: 2}
+    nextTime: 3
+  audioClip: {fileID: 0}
