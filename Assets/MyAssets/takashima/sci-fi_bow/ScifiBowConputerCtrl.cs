@@ -51,19 +51,18 @@ public class ScifiBowConputerCtrl : MonoBehaviour
     void Update()
     {
         mat_Graph.mainTextureOffset = new Vector2(graphOffset.x + Time.time * 0.1f, graphOffset.y);
-
         float val = Mathf.Cos((float)(2 * Mathf.PI * Time.time / .5f)) * 0.5f + 0.5f;
         color = new Color(color.r, color.g, color.b, val);
         mat_Heart.SetColor("_TintColor", color);
 
-        if (Input.GetKeyDown(KeyCode.K))
-            HpUpdate(Random.Range(0, 100));
+        //if (Input.GetKeyDown(KeyCode.K))
+        //    HpUpdate(Random.Range(0, 100));
 
-        if (Input.GetKeyDown(KeyCode.L))
-            EnchantValueUpdate(Random.Range(0, 9));
+        //if (Input.GetKeyDown(KeyCode.L))
+        //    EnchantValueUpdate(Random.Range(0, 9));
 
-        if (Input.GetKeyDown(KeyCode.J))
-            EnchantTypeUpdate((ENCHANT_TYPE)Random.Range(0, 4));
+        //if (Input.GetKeyDown(KeyCode.J))
+        //    EnchantTypeUpdate((ENCHANT_TYPE)Random.Range(0, 4));
 
     }
 
@@ -89,23 +88,23 @@ public class ScifiBowConputerCtrl : MonoBehaviour
     /// エンチャントタイプ表示更新
     /// </summary>
     /// <param name="hpValue"></param>
-    public void EnchantTypeUpdate(ENCHANT_TYPE EnchantType)
+    public void EnchantTypeUpdate(EnchantmentEnum.EnchantmentState enchantmentState)
     {
-        switch (EnchantType)
+        switch (enchantmentState)
         {
-            case ENCHANT_TYPE.EXPLOSION:
+            case EnchantmentEnum.EnchantmentState.bomb:
                 enchantTypeImageRender.material.mainTexture = tex_encExplosion;
                 break;
-            case ENCHANT_TYPE.RIOT:
+            case EnchantmentEnum.EnchantmentState.thunder:
                 enchantTypeImageRender.material.mainTexture = tex_encRiot;
                 break;
-            case ENCHANT_TYPE.PENETRATION:
+            case EnchantmentEnum.EnchantmentState.penetrate:
                 enchantTypeImageRender.material.mainTexture = tex_encPenetration;
                 break;
-            case ENCHANT_TYPE.HOMING:
+            case EnchantmentEnum.EnchantmentState.homing:
                 enchantTypeImageRender.material.mainTexture = tex_encHoming;
                 break;
-            case ENCHANT_TYPE.MULTIPLE:
+            case EnchantmentEnum.EnchantmentState.rapidShots:
                 enchantTypeImageRender.material.mainTexture = tex_encMultiple;
                 break;
             default:

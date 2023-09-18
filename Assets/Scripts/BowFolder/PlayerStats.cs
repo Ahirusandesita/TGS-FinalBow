@@ -17,10 +17,15 @@ public class PlayerStats : MonoBehaviour
 
     private ICanvasManager _canvasManager;
     private IFScoreManager_Hp _scoreManager;
+
+    private ScifiBowConputerCtrl scifiBowConputerCtrl;
+    private DamageUIManager damageUIManager;
     private void Start()
     {
-        playerHp.Value = 10;
-        _canvasManager = GameObject.FindGameObjectWithTag("CanvasController").GetComponent<CanvasManager>();
+        scifiBowConputerCtrl = GameObject.FindObjectOfType<ScifiBowConputerCtrl>();
+        damageUIManager = GameObject.FindObjectOfType<DamageUIManager>();
+        playerHp.Value = 100;
+       // _canvasManager = GameObject.FindGameObjectWithTag("CanvasController").GetComponent<CanvasManager>();
         if (GameObject.FindGameObjectsWithTag("ScoreController").Length == 0)
         {
             enabled = false;
@@ -38,7 +43,9 @@ public class PlayerStats : MonoBehaviour
         if (!isInvincible)
         {
             playerHp.Value -= damage;
-            _canvasManager.StagingDamage();
+            scifiBowConputerCtrl.HpUpdate(playerHp.Value);
+            damageUIManager.TakeDamageUIEvent();
+            //_canvasManager.StagingDamage();
             StartCoroutine(Invincible());
             //_scoreManager.BonusScore_HpScore();
         }
@@ -52,7 +59,7 @@ public class PlayerStats : MonoBehaviour
     public void PlayerHealing(int heal)
     {
         playerHp.Value += heal;
-        _canvasManager.StagingRecovery();
+        //_canvasManager.StagingRecovery();
     }
 
     /// <summary>
@@ -69,7 +76,7 @@ public class PlayerStats : MonoBehaviour
     private IEnumerator Invincible()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         isInvincible = false;
     }
 }

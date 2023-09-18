@@ -285,6 +285,7 @@ interface IArrowEnchantReset
 /// </summary>
 public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEnchantPlusSet, IArrowEventSet, IArrowPlusDamage
 {
+    private ScifiBowConputerCtrl scifiBowConputerCtrl;
 
     public IFPlayerManagerHave _playerManager { get; set; }
 
@@ -318,6 +319,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
     {
 
         //矢の効果　エフェクト　サウンドを取得する
+        scifiBowConputerCtrl = GameObject.FindObjectOfType<ScifiBowConputerCtrl>();
 
         _enchantEvents._arrowEnchantUI = this.GetComponent<ArrowEnchantUI>();
         _enchantEvents._atractEffect = this.GetComponent<AttractEffect>();
@@ -380,8 +382,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
         }
         NewEnchantState();
         _enchantmentStateLast = _enchantmentStateNow;
-
-
+        scifiBowConputerCtrl.EnchantTypeUpdate(_enchantmentStateLast);
 
     }
 

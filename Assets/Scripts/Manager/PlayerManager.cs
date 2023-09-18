@@ -76,6 +76,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
     private EnchantmentEnum.EnchantmentState _rapidSubEnchantment = default;
 
+    private ScifiBowConputerCtrl scifiBowConputerCtrl;
 
     private float rapidRandomAngle = 0f;
 
@@ -167,7 +168,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         }
         try
         {
-            _chargeMeterManager = GameObject.FindWithTag(InhallLibTags.ChargeMeterController).GetComponent<ChargeMeterManager>();
+            //_chargeMeterManager = GameObject.FindWithTag(InhallLibTags.ChargeMeterController).GetComponent<ChargeMeterManager>();
+            scifiBowConputerCtrl = GameObject.FindObjectOfType<ScifiBowConputerCtrl>();
         }
         catch (System.NullReferenceException)
         {
@@ -222,7 +224,8 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         _arrow.SetAttackDamage();
 
         //チャージ画像
-        if (_chargeMeterManager != null) _chargeMeterManager.Charging();
+        //if (_chargeMeterManager != null) _chargeMeterManager.Charging();
+        if (scifiBowConputerCtrl is not null) scifiBowConputerCtrl.EnchantValueUpdate(attractCount);
 
         _arrow.ArrowPowerColor();
 
@@ -301,11 +304,13 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
         //arrowEnchant.EnchantUIReset();
         attractCount = 0;
+        scifiBowConputerCtrl.EnchantValueUpdate(attractCount);
+
         //チャージ画像リセット
-        if (_chargeMeterManager != null)
-        {
-            _chargeMeterManager.ChargeReset();
-        }
+        //if (_chargeMeterManager != null)
+        //{
+        //    _chargeMeterManager.ChargeReset();
+        //}
 
 
         _arrow = default;
