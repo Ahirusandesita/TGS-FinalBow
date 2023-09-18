@@ -26,7 +26,7 @@ public class ReactionMoveRay
 
     public bool HitCollision(Vector3 moveDistance)
     {
-        Ray ray = new Ray(rayRoot.position, moveDistance);
+        Ray ray = new Ray(rayRoot.position, moveDistance.normalized);
         if (Physics.SphereCast(ray, myColiderSize, moveDistance.magnitude, mask))
         {
             return true;
