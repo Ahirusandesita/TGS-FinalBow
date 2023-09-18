@@ -34,10 +34,6 @@ public enum GameProgressType
     /// </summary>
     extra,
     /// <summary>
-    /// エクストラ終了
-    /// </summary>
-    extraEnd,
-    /// <summary>
     /// リザルト
     /// </summary>
     result,
