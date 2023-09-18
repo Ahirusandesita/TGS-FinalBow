@@ -95,7 +95,8 @@ public class ReactionHoming : MonoBehaviour,InterfaceReaction.IHomingReaction
     {
         if (_end == false)
         {
-            pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position);
+            GameObject ef = pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position);
+            pool.ResetActive(ef);
         }
         _end = true;
         _isStart = false;

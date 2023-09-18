@@ -52,11 +52,8 @@ public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INor
     {
         WaitForSeconds wait = new WaitForSeconds(end);
         yield return wait;
-        Transform ef = pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position).transform;
-        ef.position = effectPosition.position;
-        //ef.gameObject.SetActive(false);
-        ef.gameObject.SetActive(true);
-        print(ef);
+        GameObject ef = pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position);
+        pool.ResetActive(ef);
         _end = true;
     }
 }

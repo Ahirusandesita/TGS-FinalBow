@@ -101,7 +101,8 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
     {
         if (_end == false)
         {
-            pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position);
+            GameObject ef = pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position);
+            pool.ResetActive(ef);
         }
 
         _end = true;
