@@ -350,7 +350,7 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
         EnchantDecision(
             new EnchantStatePreparation(
                 () =>
-                { 
+                {
                     _enchantmentStateNow = _enchantMix.EnchantmentStateSetting(enchantmentState);
                 }
                 ));
@@ -361,7 +361,8 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
         EnchantDecision(
             new EnchantStatePreparation(
                 () =>
-                { _enchantmentStateNow = enchantmentState;
+                {
+                    _enchantmentStateNow = enchantmentState;
                     canMix = false;
                 }));
     }
@@ -382,7 +383,9 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
         }
         NewEnchantState();
         _enchantmentStateLast = _enchantmentStateNow;
-        scifiBowConputerCtrl.EnchantTypeUpdate(_enchantmentStateLast);
+
+        if (scifiBowConputerCtrl is not null)
+            scifiBowConputerCtrl.EnchantTypeUpdate(_enchantmentStateLast);
 
     }
 
@@ -473,5 +476,5 @@ public sealed class ArrowEnchantment : MonoBehaviour, IArrowEnchantSet, IArrowEn
         return EnchantmentEnum.EnchantmentState.nothing;
 
     }
-    
+
 }
