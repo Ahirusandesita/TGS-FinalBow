@@ -29,7 +29,6 @@ public class ParticleCallbackPool : MonoBehaviour
 
     private void OnEnable()
     {
-        print("aaa");
         particle.Play(true);
     }
     private void OnParticleSystemStopped()

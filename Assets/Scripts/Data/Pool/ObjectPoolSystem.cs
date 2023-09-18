@@ -247,4 +247,15 @@ public class ObjectPoolSystem : MonoBehaviour
         }
     }
     #endregion
+
+    /// <summary>
+    /// 自動でアクティブfalse→trueにならないときに
+    /// </summary>
+    /// <param name="poolObj"></param>
+    public void ResetActive(GameObject poolObj)
+    {
+        poolObj.SetActive(false);
+        poolObj.SetActive(true);
+
+    }
 }
