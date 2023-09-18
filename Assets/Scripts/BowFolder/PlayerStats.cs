@@ -76,7 +76,7 @@ public class PlayerStats : MonoBehaviour
     private IEnumerator Invincible()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         isInvincible = false;
     }
 }
