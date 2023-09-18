@@ -17,14 +17,14 @@ public class ScoreRankingSystem : MonoBehaviour
     #region property
     #endregion
     #region method
-    public int aaa;
-    public string bbb;
-    private void Awake()
+    public struct RankingElement
     {
-        RankingUpdate(30000, "WS");
+        public string score;
+        public string rank;
+        public string day;
     }
 
-    private void RankingUpdate(int score, string rank)
+    public void RankingUpdate(int score, string rank)
     {
         string filePath = Application.dataPath + "/Resources/ScoreRanking.txt";
 
@@ -39,7 +39,6 @@ public class ScoreRankingSystem : MonoBehaviour
                 string line = default;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    Debug.LogError(line);
                     int commaIndex = 0;
                     for (int i = 0; i < line.Length; i++)
                     {
@@ -162,23 +161,66 @@ public class ScoreRankingSystem : MonoBehaviour
         }
 
     }
-    IEnumerator aa()
+    
+    public List<RankingElement> GetRanking()
     {
-        for (int i = 100; i < 120; i++)
+        string filePath = Application.dataPath + "/Resources/ScoreRanking.txt";
+
+        List<string> scores = new List<string>();
+        List<string> ranks = new List<string>();
+        List<string> days = new List<string>();
+        try
         {
-            yield return new WaitForSeconds(1f);
-            RankingUpdate(i, "A");
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string rankingKind = default;
+                string line = default;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    int commaIndex = 0;
+                    for (int i = 0; i < line.Length; i++)
+                    {
+                        if (line[i] == ',')
+                        {
+                            commaIndex++;
+                            if (commaIndex == 1)
+                            {
+                                scores.Add(rankingKind);
+                            }
+                            else if (commaIndex == 2)
+                            {
+                                ranks.Add(rankingKind);
+                            }
+                            else if (commaIndex == 3)
+                            {
+                                days.Add(rankingKind);
+                                commaIndex = 0;
+                            }
+                            rankingKind = default;
+                            continue;
+                        }
+                        rankingKind += line[i];
+                    }
+                }
+            }
+
         }
-    }
+        catch(IOException e)
+        {
+            Debug.LogError(e);
+        }
 
-    private void Start()
-    {
+        List<RankingElement> rankingElements = new List<RankingElement>();
+        RankingElement rankingElement = default;
+        for(int i = 0; i < scores.Count; i++)
+        {
+            rankingElement.score = scores[i];
+            rankingElement.rank = ranks[i];
+            rankingElement.day = days[i];
+            rankingElements.Add(rankingElement);
+        }
 
-    }
-
-    private void Update()
-    {
-
+        return rankingElements;
     }
     #endregion
 }
