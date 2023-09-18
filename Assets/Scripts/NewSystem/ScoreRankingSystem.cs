@@ -5,7 +5,6 @@
 // Creator  : 
 // --------------------------------------------------------- 
 using UnityEngine;
-using System.Collections;
 using System.IO;
 using System.Collections.Generic;
 using System;
@@ -17,6 +16,13 @@ public class ScoreRankingSystem : MonoBehaviour
     #region property
     #endregion
     #region method
+    public struct NewRecord
+    {
+        public bool isNewRecord;
+        public int newRecordIndex;
+    }
+    public NewRecord Record { get; private set; }
+
     public struct RankingElement
     {
         public string score;
@@ -75,7 +81,7 @@ public class ScoreRankingSystem : MonoBehaviour
 
         DateTime dt = DateTime.Now;
         string day = default;
-        day += dt.Month+"/";
+        day += dt.Month + "/";
         day += dt.Day + "/";
         day += dt.Hour + ":";
         day += dt.Minute;
@@ -101,6 +107,11 @@ public class ScoreRankingSystem : MonoBehaviour
                 scores[index] = score.ToString();
                 ranks[index] = rank;
                 days[index] = day;
+
+                NewRecord record = default;
+                record.isNewRecord = true;
+                record.newRecordIndex = index;
+                Record = record;
             }
         }
         else
@@ -108,6 +119,10 @@ public class ScoreRankingSystem : MonoBehaviour
             scores.Add(score.ToString());
             ranks.Add(rank);
             days.Add(day);
+            NewRecord record = default;
+            record.isNewRecord = true;
+            record.newRecordIndex = scores.Count - 1;
+            Record = record;
         }
 
         for (int i = 0; i < scores.Count - 1; i++)
@@ -139,6 +154,14 @@ public class ScoreRankingSystem : MonoBehaviour
                 scores[index] = workScores;
                 ranks[index] = workRank;
                 days[index] = workDays;
+                if (Record.isNewRecord)
+                    if (Record.newRecordIndex == index)
+                    {
+                        NewRecord record = default;
+                        record.isNewRecord = true;
+                        record.newRecordIndex = i;
+                        Record = record;
+                    }
             }
 
         }
@@ -161,7 +184,7 @@ public class ScoreRankingSystem : MonoBehaviour
         }
 
     }
-    
+
     public List<RankingElement> GetRanking()
     {
         string filePath = Application.dataPath + "/Resources/ScoreRanking.txt";
@@ -205,14 +228,14 @@ public class ScoreRankingSystem : MonoBehaviour
             }
 
         }
-        catch(IOException e)
+        catch (IOException e)
         {
             Debug.LogError(e);
         }
 
         List<RankingElement> rankingElements = new List<RankingElement>();
         RankingElement rankingElement = default;
-        for(int i = 0; i < scores.Count; i++)
+        for (int i = 0; i < scores.Count; i++)
         {
             rankingElement.score = scores[i];
             rankingElement.rank = ranks[i];
@@ -222,5 +245,6 @@ public class ScoreRankingSystem : MonoBehaviour
 
         return rankingElements;
     }
+
     #endregion
 }

@@ -326,9 +326,15 @@ public class CheckPointResult : MonoBehaviour
 
         List<ScoreRankingSystem.RankingElement> rankingElements = new List<ScoreRankingSystem.RankingElement>();
         rankingElements = GameObject.FindObjectOfType<ScoreRankingSystem>().GetRanking();
-
+        ScoreRankingSystem scoreRankingSystem = GameObject.FindObjectOfType<ScoreRankingSystem>();
         for (int i = 0; i < rankingElements.Count;)
         {
+            if(scoreRankingSystem.Record.isNewRecord)
+                if(i == scoreRankingSystem.Record.newRecordIndex)
+                {
+                    RankingMeterObjects[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = default;
+                    RankingMeterObjects[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.yellow;
+                }
             RankingScores[i].text = rankingElements[i].score + "pts";
             //RankingRanks[i].sprite 
             switch (rankingElements[i].rank)
