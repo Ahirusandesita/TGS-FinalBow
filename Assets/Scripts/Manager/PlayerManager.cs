@@ -248,7 +248,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         //連射
         if (arrowEnchant2.GetSubEnchantment() != EnchantmentEnum.EnchantmentState.nothing && !CanRapid)
         {
-            
+
             _rapidSubEnchantment = arrowEnchant2.GetSubEnchantment();
             int index = default;
             if (attractCount > _rapidData.rapids.rapidParams[_rapidData.rapids.rapidParams.Count - 1].rapidCheckPoint)
@@ -284,7 +284,7 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         else
         {
             scoreManager.ShotCount();
-            arrowRotation =  _bowObject.transform.rotation;
+            arrowRotation = _bowObject.transform.rotation;
         }
 
         //arrowEnchant.EventSetting(_arrow, true, (EnchantmentEnum.EnchantmentState.normal));
@@ -304,7 +304,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
 
         //arrowEnchant.EnchantUIReset();
         attractCount = 0;
-        scifiBowConputerCtrl.EnchantValueUpdate(attractCount);
+
+        if (scifiBowConputerCtrl is not null)
+            scifiBowConputerCtrl.EnchantValueUpdate(attractCount);
 
         //チャージ画像リセット
         //if (_chargeMeterManager != null)

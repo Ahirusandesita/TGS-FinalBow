@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
         scifiBowConputerCtrl = GameObject.FindObjectOfType<ScifiBowConputerCtrl>();
         damageUIManager = GameObject.FindObjectOfType<DamageUIManager>();
         playerHp.Value = 100;
-       // _canvasManager = GameObject.FindGameObjectWithTag("CanvasController").GetComponent<CanvasManager>();
+        // _canvasManager = GameObject.FindGameObjectWithTag("CanvasController").GetComponent<CanvasManager>();
         if (GameObject.FindGameObjectsWithTag("ScoreController").Length == 0)
         {
             enabled = false;
@@ -42,8 +42,10 @@ public class PlayerStats : MonoBehaviour
     {
         if (!isInvincible)
         {
+
             playerHp.Value -= damage;
-            scifiBowConputerCtrl.HpUpdate(playerHp.Value);
+            if (scifiBowConputerCtrl is not null)
+                scifiBowConputerCtrl.HpUpdate(playerHp.Value);
             damageUIManager.TakeDamageUIEvent();
             //_canvasManager.StagingDamage();
             StartCoroutine(Invincible());
