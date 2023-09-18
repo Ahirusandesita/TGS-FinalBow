@@ -163,11 +163,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
     private GameProgress gameProgress;
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [Space]
     [SerializeField, Header("チュートリアルをスキップ（デバッグ用）")]
     private bool _skipTutorial = default;
-    #endif
+#endif
     #endregion
 
     #region property
@@ -182,14 +182,14 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
             {
                 if (progressType == GameProgressType.tutorial)
                 {
-                    #if UNITY_EDITOR
+#if UNITY_EDITOR
                     if (_skipTutorial)
                     {
                         gameProgress.TutorialEnding();
                         this.enabled = false;
                         return;
                     }
-                    #endif
+#endif
 
                     Tutorial();
                 }
@@ -243,7 +243,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
         if (_gameManager.SubtitlesType == SubtitlesType.English)
         {
-            _subtitlesDataIndex = 9; // ここから英語データ
+            _subtitlesDataIndex = 8; // ここから英語データ
         }
     }
 
@@ -285,7 +285,12 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
     private void Tutorial()
     {
-        StartCoroutine(CallText(1f));
+        IEnumerator WaitArrowUp()
+        {
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.UpArrow));
+            StartCoroutine(CallText(1f));
+        }
+        StartCoroutine(WaitArrowUp());
     }
 
     /// <summary>

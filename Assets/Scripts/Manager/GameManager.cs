@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
     public static GameManager Instance = null;
     IStageSpawn stageSpawn;
     private string _sceneMoveName;
+    private float _buttonTime = 0f;
+    private bool _isButtonDown = false;
 
     void Awake()
     {
@@ -79,17 +81,29 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
     private void Update()
     {
         //Debug.LogError(ScoreManager.ScorePoint.scoreNormalEnemy);
-        if (Input.GetKeyDown(KeyCode.Keypad1) && SceneManager.GetActiveScene().name == "TitleScene")
+        if (Input.GetKey(KeyCode.UpArrow) && SceneManager.GetActiveScene().name == "TitleScene")
         {
-            if (SubtitlesType == SubtitlesType.Japanese)
+            _buttonTime += Time.deltaTime;
+            _isButtonDown = true;
+        }
+        else
+        {
+            if (_buttonTime < 1.5f && _isButtonDown)
             {
-                SubtitlesType = SubtitlesType.English;
-                X_Debug.Log("‰pŒê");
-            }
-            else
-            {
-                SubtitlesType = SubtitlesType.Japanese;
-                X_Debug.Log("“ú–{Œê");
+                _isButtonDown = false;
+
+                if (SubtitlesType == SubtitlesType.Japanese)
+                {
+                    SubtitlesType = SubtitlesType.English;
+                    X_Debug.Log("‰pŒê");
+                }
+                else
+                {
+                    SubtitlesType = SubtitlesType.Japanese;
+                    X_Debug.Log("“ú–{Œê");
+                }
+
+                _buttonTime = 0f;
             }
         }
     }
