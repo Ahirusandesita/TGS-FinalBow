@@ -10,9 +10,10 @@ public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INor
 {
     Animator anim = default;
     IFNeedMoveRotineEnd need = default;
-    [SerializeField] AnimationClip state = default;
     [SerializeField] string actionTrigger = "Death";
     [SerializeField] float _endTime = 1.1f;
+    [SerializeField] Transform effectPosition = default;
+    ObjectPoolSystem pool = default;
     bool _end = false;
     public bool ReactionEnd { get => _end; set => _end = value; }
 
@@ -20,6 +21,7 @@ public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INor
     {
         anim = GetComponent<Animator>();
         need = GetComponent<IFNeedMoveRotineEnd>();
+        pool = FindObjectOfType<ObjectPoolSystem>();
     }
     public bool IsComplete()
     {
@@ -33,7 +35,7 @@ public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INor
 
     public void Reaction(Transform t1, Vector3 t2)
     {
-        anim.SetTrigger(actionTrigger);
+        anim.SetTrigger("Test Death");
 
         if(need is not null)
         need.MoveEnd();
@@ -50,6 +52,11 @@ public class ReactionNormalsAnimationVer : MonoBehaviour, InterfaceReaction.INor
     {
         WaitForSeconds wait = new WaitForSeconds(end);
         yield return wait;
+        Transform ef = pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position).transform;
+        ef.position = effectPosition.position;
+        //ef.gameObject.SetActive(false);
+        ef.gameObject.SetActive(true);
+        print(ef);
         _end = true;
     }
 }

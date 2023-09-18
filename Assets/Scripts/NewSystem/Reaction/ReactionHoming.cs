@@ -11,14 +11,22 @@ public class ReactionHoming : MonoBehaviour,InterfaceReaction.IHomingReaction
     [SerializeField] CreateAnimationCurve moveCurveZ = default;
     [SerializeField] CreateAnimationCurve moveCurveY = default;
     [SerializeField] CreateAnimationCurve rotateX = default;
+    [SerializeField] Transform effectPosition = default;
+    [SerializeField] float ColiderSize = default;
+    ReactionMoveRay moveRay = default;
     Animator animator = default;
+    ObjectPoolSystem pool = default;
     Vector3 _backDirection = Vector3.back;
     float _cacheTime = 0f;
     bool _isStart = false;
     bool _end = false;
     public bool ReactionEnd { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-
+    private void Awake()
+    {
+        pool = FindObjectOfType<ObjectPoolSystem>();
+        moveRay = new(effectPosition, ColiderSize * transform.localScale.magnitude);
+    }
     public void AfterReaction(Transform t1, Vector3 t2)
     {
 
@@ -59,8 +67,7 @@ public class ReactionHoming : MonoBehaviour,InterfaceReaction.IHomingReaction
         {
             if (EndMove(_cacheTime))
             {
-                _end = true;
-                _isStart = false;
+                EndAction();
                 return;
             }
 
@@ -68,7 +75,8 @@ public class ReactionHoming : MonoBehaviour,InterfaceReaction.IHomingReaction
 
             Vector3 moveDown = Vector3.up * moveCurveY.Curve.Evaluate(_cacheTime);
 
-            transform.Translate((moveDown + moveBack) * Time.deltaTime, Space.World);
+            Vector3 moveVec = (moveDown + moveBack) * Time.deltaTime;
+            transform.Translate(moveVec, Space.World);
 
             Vector3 rote = transform.rotation.eulerAngles;
 
@@ -76,8 +84,21 @@ public class ReactionHoming : MonoBehaviour,InterfaceReaction.IHomingReaction
 
             _cacheTime += Time.deltaTime;
 
-
+            if (moveRay.HitCollision(moveVec))
+            {
+                EndAction();
+            }
         }
+    }
+
+    private void EndAction()
+    {
+        if (_end == false)
+        {
+            pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position);
+        }
+        _end = true;
+        _isStart = false;
     }
 
     private bool EndMove(float Nowtime)

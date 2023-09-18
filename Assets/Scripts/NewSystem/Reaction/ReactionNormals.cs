@@ -11,8 +11,12 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
     [SerializeField] CreateAnimationCurve moveCurveZ = default;
     [SerializeField] CreateAnimationCurve moveCurveY = default;
     [SerializeField] CreateAnimationCurve rotateX = default;
+    [SerializeField] Transform effectPosition = default;
+    [SerializeField] float myColliderSize = default;
+    ReactionMoveRay moveRay = default;
     Animator animator = default;
     PlayerStats player = default;
+    ObjectPoolSystem pool = default;
     Vector3 _backDirection = Vector3.back;
     float _cacheTime = 0f;
     bool _isStart = false;
@@ -34,7 +38,11 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
     {
         
     }
-
+    private void Awake()
+    {
+        pool = FindObjectOfType<ObjectPoolSystem>();
+        moveRay = new(effectPosition, myColliderSize * transform.localScale.magnitude);
+    }
     public void Reaction(Transform arrow, Vector3 arrowPos)
     {
         player = FindObjectOfType<PlayerStats>();
@@ -63,8 +71,8 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
         {
             if (EndMove(_cacheTime))
             {
-                _end = true;
-                _isStart = false;
+                EndAction();
+
                 return;
             }
 
@@ -72,7 +80,9 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
             Vector3 moveDown = Vector3.up * moveCurveY.Curve.Evaluate(_cacheTime);
 
-            transform.Translate((moveDown + moveBack) * Time.deltaTime, Space.World) ;
+            Vector3 moveVec = (moveDown + moveBack) * Time.deltaTime;
+
+            transform.Translate(moveVec, Space.World) ;
 
             Vector3 rote = transform.rotation.eulerAngles;
 
@@ -80,8 +90,22 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
             _cacheTime += Time.deltaTime;
 
-            
+            if (moveRay.HitCollision(moveVec))
+            {
+                EndAction();
+            }
         }
+    }
+
+    private void EndAction()
+    {
+        if (_end == false)
+        {
+            pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, effectPosition.position);
+        }
+
+        _end = true;
+        _isStart = false;
     }
 
     private bool EndMove(float Nowtime)

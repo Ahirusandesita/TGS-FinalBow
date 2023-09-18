@@ -1501,6 +1501,8 @@ MonoBehaviour:
   colliders:
   - {fileID: 8592156782917564589}
   - {fileID: 1666722397194667780}
+  effect: 49
+  effectScale: 3
 --- !u!114 &3966867446662052608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,6 +1530,7 @@ MonoBehaviour:
   moveCurveZ: {fileID: 11400000, guid: 13e11871063964145acfd77daf30a635, type: 2}
   moveCurveY: {fileID: 11400000, guid: c218740c18cf2c44ea30f17aa1731834, type: 2}
   rotateX: {fileID: 11400000, guid: 103feb30db0a4c647bd5c6d13c17a5b7, type: 2}
+  effectPosition: {fileID: 7748260672567496870}
 --- !u!114 &7326926944123119756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1543,6 +1546,7 @@ MonoBehaviour:
   moveCurveZ: {fileID: 11400000, guid: 13e11871063964145acfd77daf30a635, type: 2}
   moveCurveY: {fileID: 11400000, guid: c218740c18cf2c44ea30f17aa1731834, type: 2}
   rotateX: {fileID: 11400000, guid: 103feb30db0a4c647bd5c6d13c17a5b7, type: 2}
+  effectPosition: {fileID: 7748260672567496870}
 --- !u!114 &-455577067129665828
 MonoBehaviour:
   m_ObjectHideFlags: 0
