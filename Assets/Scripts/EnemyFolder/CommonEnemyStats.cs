@@ -133,7 +133,7 @@ public abstract class CommonEnemyStats : EnemyStats, IFCommonEnemyGetParalysis
         // スコアを加算
         _score.NormalScore_NormalEnemyScore();
         // 死んだときのエフェクト呼び出し
-        _objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _transform.position, Quaternion.identity);
+        //_objectPoolSystem.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, _transform.position, Quaternion.identity);
 
         _objectPoolSystem.ReturnObject(_cashObjectInformation);
     }
