@@ -81,7 +81,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
     private GameProgress _gameProgress;
 
-    private SceneFadeManager _fadeManager = default;
+    private GamePreparation _gamePreparation = default;
 
     [Tooltip("現在の雑魚/的の数")]
     private int _currentNumberOfObject = 0;
@@ -104,7 +104,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
     private void Awake()
     {
-        _fadeManager = FindObjectOfType<SceneFadeManager>();
+        _gamePreparation = FindObjectOfType<GamePreparation>();
 
         _gameProgress = GameObject.FindObjectOfType<GameProgress>();
         _gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
@@ -119,6 +119,10 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
                         this.SceneFadeInStart();
                         yield return new WaitUntil(() => _isEndFadeIn);
+
+                        yield return StartCoroutine(_gamePreparation.GamePreparationProcess());
+
+                        _gameProgress.GamePreparationEnding();
                     }
                     StartCoroutine(WaitFadeIn());
                 }
@@ -130,7 +134,21 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
                 if (progressType == GameProgressType.inGameLastStageEnd)
                 {
-                    MovingGameCanvas(indexCorrectionValue: -1);
+                    IEnumerator WaitFadeOut()
+                    {
+                        MovingGameCanvas(indexCorrectionValue: -1);
+
+                        StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
+
+                        yield return new WaitForSeconds(2f);
+
+                        this.SceneFadeOutStart();
+                        yield return new WaitUntil(() => _isEndFadeOut);
+                        _isEndFadeOut = false;
+
+                        _gameProgress.InGameLastStageEnding();
+                    }
+                    StartCoroutine(WaitFadeOut());
                 }
 
                 if (progressType == GameProgressType.extraPreparation)
@@ -138,12 +156,6 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                     // 暗転・移動・明転して「エクストラ開始」と出す
                     IEnumerator WaitFadeIn()
                     {
-                        this.SceneFadeOutStart();
-
-                        yield return new WaitUntil(() => _isEndFadeOut);
-
-                        _isEndFadeOut = false;
-
                         MovingPlayer();
 
                         this.SceneFadeInStart();
@@ -153,6 +165,10 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                         _isEndFadeIn = false;
 
                         MovingGameCanvas();
+
+                        yield return StartCoroutine(_gamePreparation.ExtraPreparationProcess());
+
+                        _gameProgress.ExtraPreparationEnding();
                     }
                     StartCoroutine(WaitFadeIn());
                 }
@@ -162,7 +178,6 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                     // 「1-5」敵のスポーン開始
                     StartCoroutine(WaveStart());
                 }
-
             }
             );
     }
@@ -257,12 +272,10 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
     {
         _currentWaveIndex++;
         _currentNumberOfObject = 0;
-        X_Debug.Log("次のウェーブへ");
         // すべてのウェーブをクリア = 次のステージに進む
         if (_currentWaveIndex >= _stageDataTables[_currentStageIndex]._waveInformation.Count)
         {
             // 次のステージへ
-            X_Debug.Log("ステージクリア");
             ProgressingTheStage();
             return;
         }
@@ -277,7 +290,6 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
     {
         _currentStageIndex++;
         _currentWaveIndex = 0;
-        X_Debug.Log("次のステージへ");
 
         //-------------------------------------------------------------------
         // ボスがいないときはマイナス1
@@ -287,7 +299,9 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
         {
             IEnumerator WaitResult()
             {
-                X_Debug.Log("ゲーム終了");
+                StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
+
+                yield return new WaitForSeconds(2f);
 
                 // 暗転
                 this.SceneFadeOutStart();
