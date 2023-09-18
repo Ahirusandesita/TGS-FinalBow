@@ -31,6 +31,8 @@ public class ReticleSystem : MonoBehaviour
 
     private float _timeByCount;
 
+    [SerializeField]
+    private bool _UseReticle = true;
 
 
     private Vector3 _shadowVector;
@@ -108,44 +110,47 @@ public class ReticleSystem : MonoBehaviour
     #region 呼び出し部
     public void CreateReticleSystem(float arrowSpeed)
     {
-        if (!_nowCreate && _enchant.EnchantmentNowState != EnchantmentEnum.EnchantmentState.homing)
+        if (_UseReticle)
         {
-            _reticleRenderer.enabled = true;
-            _nowCreate = true;
-        }
-        else
-        {
-            switch (_enchant.EnchantmentNowState)
+            if (!_nowCreate && _enchant.EnchantmentNowState != EnchantmentEnum.EnchantmentState.homing)
             {
-                case EnchantmentEnum.EnchantmentState.bomb:
-                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
-                    break;
+                _reticleRenderer.enabled = true;
+                _nowCreate = true;
+            }
+            else
+            {
+                switch (_enchant.EnchantmentNowState)
+                {
+                    case EnchantmentEnum.EnchantmentState.bomb:
+                        Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
+                        break;
 
 
-                case EnchantmentEnum.EnchantmentState.thunder:
-                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
-                    break;
+                    case EnchantmentEnum.EnchantmentState.thunder:
+                        Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
+                        break;
 
 
-                case EnchantmentEnum.EnchantmentState.penetrate:
-                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_PENETRATE, GRAVITY_PENETRATE);
-                    break;
+                    case EnchantmentEnum.EnchantmentState.penetrate:
+                        Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_PENETRATE, GRAVITY_PENETRATE);
+                        break;
 
 
-                case EnchantmentEnum.EnchantmentState.homing:
-                    EndCreate();
-                    // ホーミング範囲描画したい
-                    break;
+                    case EnchantmentEnum.EnchantmentState.homing:
+                        EndCreate();
+                        // ホーミング範囲描画したい
+                        break;
 
 
-                case EnchantmentEnum.EnchantmentState.rapidShots:
-                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
-                    break;
+                    case EnchantmentEnum.EnchantmentState.rapidShots:
+                        Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
+                        break;
 
 
-                case EnchantmentEnum.EnchantmentState.normal:
-                    Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
-                    break;
+                    case EnchantmentEnum.EnchantmentState.normal:
+                        Calculation(arrowSpeed, SPEED_TO_RANGE_COEFFICIENT_NORMAL, GRAVITY_NORMAL);
+                        break;
+                }
             }
         }
     }
