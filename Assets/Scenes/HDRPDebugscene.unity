@@ -14260,6 +14260,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4695153740782738461, guid: 557e327f050c674449e4f5ad613b240f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695153740782738461, guid: 557e327f050c674449e4f5ad613b240f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 4695153741354185584, guid: 557e327f050c674449e4f5ad613b240f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -20314,7 +20322,7 @@ MonoBehaviour:
   _debugPlayer: {fileID: 870565835}
   _videoPlayer: {fileID: 418111425}
   _videoDisplay: {fileID: 296885701}
-  _skipTutorial: 1
+  _skipTutorial: 0
 --- !u!4 &931323382
 Transform:
   m_ObjectHideFlags: 0
