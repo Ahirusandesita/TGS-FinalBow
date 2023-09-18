@@ -9,6 +9,10 @@ using System.Collections;
 public class TitleLogoManager : MonoBehaviour
 {
     public SceneObject sceneObject;
+
+    private float _buttonTime = 0f;
+
+    private bool _isFirst = true;
     #region variable 
     #endregion
     #region property
@@ -27,9 +31,19 @@ public class TitleLogoManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-            GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(sceneObject);
+            _buttonTime += Time.deltaTime;
+
+            if (_buttonTime >= 1.5f && _isFirst)
+            {
+                _isFirst = false;
+                GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(sceneObject);
+            }
+        }
+        else
+        {
+            _buttonTime = 0f;
         }
     }
     #endregion
