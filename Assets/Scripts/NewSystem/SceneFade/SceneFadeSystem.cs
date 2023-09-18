@@ -37,7 +37,7 @@ public class SceneFadeSystem : MonoBehaviour
     {
         FadeSystem.sceneFadeSystem = this;
         fadeColor = fadeImage.color;
-        fadeColor.a = 0f;
+        fadeColor.a = 1f;
         fadeImage.color = fadeColor;
     }
     private IEnumerator FadeIn(ISceneFadeCallBack sceneFadeCallBack)
