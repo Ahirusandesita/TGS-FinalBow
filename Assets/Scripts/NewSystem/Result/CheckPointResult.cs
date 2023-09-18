@@ -33,6 +33,17 @@ public class CheckPointResult : MonoBehaviour
     public GameObject PushObject;
     public TextMeshProUGUI PushMe;
 
+
+    public List<GameObject> TotalResultObjects = new List<GameObject>();
+    public List<GameObject> RankingObjects = new List<GameObject>();
+    public List<GameObject> RankingMeterObjects = new List<GameObject>();
+    private List<RectTransform> RankingMeterTransform = new List<RectTransform>();
+    private List<Vector3> RankingMeterSizes = new List<Vector3>();
+
+    public List<TextMeshProUGUI> RankingScores = new List<TextMeshProUGUI>();
+    public List<Image> RankingRanks = new List<Image>();
+    public List<TextMeshProUGUI> RankingDays = new List<TextMeshProUGUI>();
+
     int sumScoreWork = default;
 
     [SerializeField]
@@ -51,6 +62,8 @@ public class CheckPointResult : MonoBehaviour
     }
 
     private bool isresultEnd = false;
+    private bool isRankingOutput = false;
+    private ResultStruct resultStruct;
     #endregion
     #region property
     #endregion
@@ -58,6 +71,16 @@ public class CheckPointResult : MonoBehaviour
 
     private void Awake()
     {
+        for (int i = 0; i < RankingObjects.Count; i++)
+        {
+            RankingObjects[i].SetActive(false);
+        }
+        for (int i = 0; i < RankingMeterObjects.Count; i++)
+        {
+            RankingMeterTransform.Add(RankingMeterObjects[i].GetComponent<RectTransform>());
+            RankingMeterSizes.Add(RankingMeterTransform[i].localScale);
+            RankingMeterObjects[i].SetActive(false);
+        }
         //text = this.GetComponent<TextMeshProUGUI>();
         for (int i = 0; i < MeterObjects.Count; i++)
         {
@@ -82,8 +105,9 @@ public class CheckPointResult : MonoBehaviour
         sumScoreWork = resultStruct.SumScore;
         SumScoreText.text = default;
         //SumScoreText.text = resultStruct.SumScore.ToString();
-
+        this.resultStruct = resultStruct;
         StartCoroutine(MeterOutPut());
+
     }
     private void Update()
     {
@@ -102,12 +126,16 @@ public class CheckPointResult : MonoBehaviour
 
         if (OVRInput.Get(OVRInput.Button.Any) && isresultEnd)
         {
-            GameObject.FindObjectOfType<GameProgress>().ResultEnding();
+            isresultEnd = false;
+            isRankingOutput = true;
+            StartCoroutine(RankingOutput());
         }
 
         if (Input.anyKeyDown && isresultEnd)
         {
-            GameObject.FindObjectOfType<GameProgress>().ResultEnding();
+            isresultEnd = false;
+            isRankingOutput = true;
+            StartCoroutine(RankingOutput());
         }
 
     }
@@ -194,13 +222,13 @@ public class CheckPointResult : MonoBehaviour
         string rank = default;
         switch (maxIndex)
         {
-            case 1: rank = "E"; break;
-            case 2: rank = "D"; break;
-            case 3: rank = "C"; break;
-            case 4: rank = "B"; break;
-            case 5: rank = "A"; break;
-            case 6: rank = "S"; break;
-            case 7: rank = "WS"; break;
+            case 1: rank = "E"; GameObject.FindObjectOfType<ScoreRankingSystem>().RankingUpdate(resultStruct.SumScore, "E"); break;
+            case 2: rank = "D"; GameObject.FindObjectOfType<ScoreRankingSystem>().RankingUpdate(resultStruct.SumScore, "D"); break;
+            case 3: rank = "C"; GameObject.FindObjectOfType<ScoreRankingSystem>().RankingUpdate(resultStruct.SumScore, "C"); break;
+            case 4: rank = "B"; GameObject.FindObjectOfType<ScoreRankingSystem>().RankingUpdate(resultStruct.SumScore, "B"); break;
+            case 5: rank = "A"; GameObject.FindObjectOfType<ScoreRankingSystem>().RankingUpdate(resultStruct.SumScore, "A"); break;
+            case 6: rank = "S"; GameObject.FindObjectOfType<ScoreRankingSystem>().RankingUpdate(resultStruct.SumScore, "S"); break;
+            case 7: rank = "WS"; GameObject.FindObjectOfType<ScoreRankingSystem>().RankingUpdate(resultStruct.SumScore, "WS"); break;
         }
         YouRankText.text = rank;
 
@@ -237,7 +265,7 @@ public class CheckPointResult : MonoBehaviour
             if (isPlusAlpha)
             {
                 alpha += plusValue;
-                if(alpha >= 1f)
+                if (alpha >= 1f)
                 {
                     alpha = 1f;
                     isPlusAlpha = false;
@@ -246,7 +274,7 @@ public class CheckPointResult : MonoBehaviour
             else
             {
                 alpha -= plusValue;
-                if(alpha <= 0f)
+                if (alpha <= 0f)
                 {
                     alpha = 0f;
                     isPlusAlpha = true;
@@ -255,6 +283,8 @@ public class CheckPointResult : MonoBehaviour
             pushMeColor.a = alpha;
             PushMe.color = pushMeColor;
 
+
+            if (isRankingOutput) break;
             yield return pushTime;
         }
 
@@ -262,6 +292,75 @@ public class CheckPointResult : MonoBehaviour
         //LastScoreRank.sprite = ScoreRanks[2];
     }
 
+    private IEnumerator RankingOutput()
+    {
+        WaitForSeconds niceTime = new WaitForSeconds(0.025f);
+
+        float rotateAngle = 0f;
+        bool isRotate = true;
+        while (true)
+        {
+            this.transform.Rotate(0f, 5f, 0f);
+            rotateAngle += 5f;
+
+            if (rotateAngle > 90f && isRotate)
+            {
+                isRotate = false;
+                for (int i = 0; i < TotalResultObjects.Count; i++)
+                {
+                    TotalResultObjects[i].SetActive(false);
+                }
+                for (int i = 0; i < RankingObjects.Count; i++)
+                {
+                    RankingObjects[i].SetActive(true);
+                }
+            }
+
+            if (rotateAngle >= 180f)
+            {
+                this.transform.rotation = Quaternion.Euler(new Vector3(0f, 180f, 0f));
+                break;
+            }
+            yield return niceTime;
+        }
+
+        List<ScoreRankingSystem.RankingElement> rankingElements = new List<ScoreRankingSystem.RankingElement>();
+        rankingElements = GameObject.FindObjectOfType<ScoreRankingSystem>().GetRanking();
+
+        for (int i = 0; i < rankingElements.Count;)
+        {
+            RankingScores[i].text = rankingElements[i].score + "pts";
+            //RankingRanks[i].sprite 
+            switch (rankingElements[i].rank)
+            {
+                case "E": RankingRanks[i].sprite = ScoreRanks[1]; break;
+                case "D": RankingRanks[i].sprite = ScoreRanks[2]; break;
+                case "C": RankingRanks[i].sprite = ScoreRanks[3]; break;
+                case "B": RankingRanks[i].sprite = ScoreRanks[4]; break;
+                case "A": RankingRanks[i].sprite = ScoreRanks[5]; break;
+                case "S": RankingRanks[i].sprite = ScoreRanks[6]; break;
+                case "WS": RankingRanks[i].sprite = ScoreRanks[7]; break;
+            }
+            RankingDays[i].text = rankingElements[i].day;
+            RankingMeterObjects[i].SetActive(true);
+            RankingMeterTransform[i].localScale = RankingMeterTransform[i].localScale * 3f;
+
+            for (; ; )
+            {
+                RankingMeterTransform[i].localScale /= 1.07f;
+                if (RankingMeterTransform[i].localScale.x < RankingMeterSizes[i].x)
+                {
+                    RankingMeterTransform[i].localScale = RankingMeterSizes[i];
+                    i++;
+                    break;
+                }
+                yield return niceTime;
+            }
+            yield return new WaitForSeconds(0.03f);
+        }
+
+
+    }
 
     IEnumerator DestroyCount()
     {
