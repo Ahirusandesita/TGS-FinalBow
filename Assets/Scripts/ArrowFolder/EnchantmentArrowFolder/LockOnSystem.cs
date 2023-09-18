@@ -63,7 +63,7 @@ public class LockOnSystem : MonoBehaviour , IFLockOnSystem
                 enemys.Add(moves[i].gameObject);
             }
             List<GameObject> searchEnemys = new List<GameObject>();
-            searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 30f, 200f, 1);
+            searchEnemys = ConeDecision.ConeInObjects(bowTransform, enemys, 30f, 500f, 1);
             if (searchEnemys.Count == 0)
             {
                 ReSetTarget();
