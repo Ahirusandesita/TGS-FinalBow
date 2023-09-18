@@ -63,9 +63,11 @@ public class StageManager : MonoBehaviour, IStageSpawn
     [SerializeField, Tooltip("ゲームスタート用Canvas")]
     private GameObject _startCanvas = default;
 
+    [SerializeField, Tooltip("ResultCanvasの位置をプレイヤーからどれだけ離すか")]
+    private float _resultCanvasPositionCorrectionValue = 20f;
 
-    [SerializeField, Tooltip("Canvasの位置をプレイヤーの位置からどれだけ離すか")]
-    private float _canvasPositionCorrectionValue = 50f;
+    [SerializeField, Tooltip("GameCanvasの位置をプレイヤーの位置からどれだけ離すか")]
+    private float _gameCanvasPositionCorrectionValue = 50f;
 
     [SerializeField]
     private SceneObject _sceneObject = default;
@@ -454,7 +456,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// </summary>
     private void MovingResultCanvas()
     {
-        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
+        _resultCanvas.transform.position = _stageTransforms[_currentStageIndex]._stageTransform.position + _player.transform.forward * _resultCanvasPositionCorrectionValue;
         _resultCanvas.transform.rotation = _player.transform.rotation;
     }
 
@@ -463,7 +465,7 @@ public class StageManager : MonoBehaviour, IStageSpawn
     /// </summary>
     private void MovingGameCanvas(int indexCorrectionValue = 0)
     {
-        _startCanvas.transform.position = _stageTransforms[_currentStageIndex + indexCorrectionValue]._stageTransform.position + _player.transform.forward * _canvasPositionCorrectionValue;
+        _startCanvas.transform.position = _stageTransforms[_currentStageIndex + indexCorrectionValue]._stageTransform.position + _player.transform.forward * _gameCanvasPositionCorrectionValue;
         _startCanvas.transform.rotation = _player.transform.rotation;
     }
 }
