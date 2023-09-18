@@ -71,9 +71,6 @@ public class TextSystem : MonoBehaviour
 
         for (int i = 0; i < tutorialManagementData.tutorialManagementItem.Count; i++)
         {
-            if (!audioSource.isPlaying)
-                if (tutorialManagementData.audioClip != null)
-                    audioSource.PlayOneShot(tutorialManagementData.audioClip);
 
             TutorialData tutorialData = tutorialManagementData.tutorialManagementItem[i].tutorialDatas;
             WaitForSeconds waitForSeconds = new WaitForSeconds(tutorialData.speakingSpeed);
@@ -87,6 +84,9 @@ public class TextSystem : MonoBehaviour
 
             for (int k = 0; k < tutorialData.text.Length; k++)
             {
+                if ((!audioSource.isPlaying))
+                    if (tutorialManagementData.audioClip != null)
+                        audioSource.PlayOneShot(tutorialManagementData.audioClip);
 
                 string restText = default;
                 if (tutorialData.text[k] == '<')

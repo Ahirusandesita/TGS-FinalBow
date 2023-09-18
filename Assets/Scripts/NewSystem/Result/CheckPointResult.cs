@@ -49,6 +49,8 @@ public class CheckPointResult : MonoBehaviour
         public int AttractValue;
         public int SumScore;
     }
+
+    private bool isresultEnd = false;
     #endregion
     #region property
     #endregion
@@ -97,6 +99,17 @@ public class CheckPointResult : MonoBehaviour
         //numberOfCombosText.font = fontAssets[nowint];
         //clearTimeText.font = fontAssets[nowint];
         //sumScoreText.font = fontAssets[nowint];
+
+        if (OVRInput.Get(OVRInput.Button.Any) && isresultEnd)
+        {
+            GameObject.FindObjectOfType<GameProgress>().ResultEnding();
+        }
+
+        if (Input.anyKeyDown && isresultEnd)
+        {
+            GameObject.FindObjectOfType<GameProgress>().ResultEnding();
+        }
+
     }
 
     private IEnumerator MeterOutPut()
@@ -218,6 +231,7 @@ public class CheckPointResult : MonoBehaviour
         bool isPlusAlpha = true;
 
         float plusValue = 0.01f;
+        isresultEnd = true;
         for (; ; )
         {
             if (isPlusAlpha)
@@ -254,5 +268,7 @@ public class CheckPointResult : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
     }
+
+
     #endregion
 }
