@@ -14,6 +14,14 @@ public class CheckPointResult : MonoBehaviour
 {
     #region variable 
 
+    public AudioClip frameSE;
+    public AudioClip scoreSE;
+    public AudioClip rankFrameSE;
+    public AudioClip rankSE;
+    public AudioClip rankingSE;
+    private AudioSource audioSource;
+
+
     public List<GameObject> MeterObjects = new List<GameObject>();
     private List<Vector3> MeterSizes = new List<Vector3>();
     private List<RectTransform> MeterRectTransforms = new List<RectTransform>();
@@ -63,6 +71,9 @@ public class CheckPointResult : MonoBehaviour
 
     private bool isresultEnd = false;
     private bool isRankingOutput = false;
+    private bool isRankingOutputEnd = false;
+
+    private float startTime = 0f;
     private ResultStruct resultStruct;
     #endregion
     #region property
@@ -71,6 +82,8 @@ public class CheckPointResult : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = this.GetComponent<AudioSource>();
+
         for (int i = 0; i < RankingObjects.Count; i++)
         {
             RankingObjects[i].SetActive(false);
@@ -124,19 +137,46 @@ public class CheckPointResult : MonoBehaviour
         //clearTimeText.font = fontAssets[nowint];
         //sumScoreText.font = fontAssets[nowint];
 
-        if (OVRInput.Get(OVRInput.Button.Any) && isresultEnd)
+        if (OVRInput.Get(OVRInput.Button.Any))
         {
-            isresultEnd = false;
-            isRankingOutput = true;
-            StartCoroutine(RankingOutput());
+            if (isresultEnd)
+            {
+                isresultEnd = false;
+                isRankingOutput = true;
+                StartCoroutine(RankingOutput());
+            }
+            if (isRankingOutputEnd)
+            {
+                GameObject.FindObjectOfType<GameProgress>().ResultEnding();
+            }
         }
 
-        if (Input.anyKeyDown && isresultEnd)
+        if (isresultEnd && Time.time - startTime < 5f)
         {
             isresultEnd = false;
             isRankingOutput = true;
             StartCoroutine(RankingOutput());
         }
+        if (isRankingOutputEnd && Time.time - startTime < 10f)
+        {
+            GameObject.FindObjectOfType<GameProgress>().ResultEnding();
+        }
+
+        if (Input.anyKeyDown)
+        {
+            if (isresultEnd)
+            {
+                isresultEnd = false;
+                isRankingOutput = true;
+                StartCoroutine(RankingOutput());
+            }
+            if (isRankingOutputEnd)
+            {
+                GameObject.FindObjectOfType<GameProgress>().ResultEnding();
+            }
+        }
+
+
 
     }
 
@@ -162,6 +202,8 @@ public class CheckPointResult : MonoBehaviour
                 }
                 yield return fadeTime;
             }
+            if (frameSE is not null)
+                audioSource.PlayOneShot(frameSE);
             yield return new WaitForSeconds(0.25f);
         }
         int textSumScore = default;
@@ -171,6 +213,10 @@ public class CheckPointResult : MonoBehaviour
 
         while (true)
         {
+            if (!audioSource.isPlaying)
+                if (scoreSE is not null)
+                    audioSource.PlayOneShot(scoreSE);
+
             textSumScore = textSumScore + 100;
             SumScoreText.text = textSumScore.ToString();
             if (textSumScore > sumScoreWork)
@@ -181,6 +227,7 @@ public class CheckPointResult : MonoBehaviour
             }
             yield return waitSumScore;
         }
+        audioSource.Stop();
 
         yield return new WaitForSeconds(2f);
 
@@ -213,6 +260,9 @@ public class CheckPointResult : MonoBehaviour
                 yield return fadeTime;
 
             }
+            if (rankFrameSE is not null)
+                audioSource.PlayOneShot(rankFrameSE);
+
             yield return new WaitForSeconds(0.25f);
         }
 
@@ -245,6 +295,8 @@ public class CheckPointResult : MonoBehaviour
             }
             yield return fadeTime;
         }
+        if (rankSE is not null)
+            audioSource.PlayOneShot(rankSE);
 
         yield return new WaitForSeconds(1f);
 
@@ -260,6 +312,7 @@ public class CheckPointResult : MonoBehaviour
 
         float plusValue = 0.01f;
         isresultEnd = true;
+        startTime = Time.time;
         for (; ; )
         {
             if (isPlusAlpha)
@@ -329,8 +382,8 @@ public class CheckPointResult : MonoBehaviour
         ScoreRankingSystem scoreRankingSystem = GameObject.FindObjectOfType<ScoreRankingSystem>();
         for (int i = 0; i < rankingElements.Count;)
         {
-            if(scoreRankingSystem.Record.isNewRecord)
-                if(i == scoreRankingSystem.Record.newRecordIndex)
+            if (scoreRankingSystem.Record.isNewRecord)
+                if (i == scoreRankingSystem.Record.newRecordIndex)
                 {
                     RankingMeterObjects[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = default;
                     RankingMeterObjects[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.yellow;
@@ -362,10 +415,12 @@ public class CheckPointResult : MonoBehaviour
                 }
                 yield return niceTime;
             }
+            if (rankingSE is not null)
+                audioSource.PlayOneShot(rankingSE);
             yield return new WaitForSeconds(0.03f);
         }
-
-
+        isRankingOutputEnd = true;
+        startTime = Time.time;
     }
 
     IEnumerator DestroyCount()
