@@ -18,6 +18,7 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
     PlayerStats player = default;
     ObjectPoolSystem pool = default;
     Vector3 _backDirection = Vector3.back;
+    Vector3 rote = default; 
     float _cacheTime = 0f;
     bool _isStart = false;
     bool _end = false;
@@ -63,6 +64,8 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
 
 
         animator.SetTrigger("Death");
+        transform.LookAt(transform.position - _backDirection);
+        rote = transform.rotation.eulerAngles;
     }
 
     private void Update()
@@ -83,8 +86,6 @@ public class ReactionNormals : MonoBehaviour,InterfaceReaction.INormalReaction, 
             Vector3 moveVec = (moveDown + moveBack) * Time.deltaTime;
 
             transform.Translate(moveVec, Space.World) ;
-
-            Vector3 rote = transform.rotation.eulerAngles;
 
             transform.rotation = Quaternion.Euler(rotateX.Curve.Evaluate(_cacheTime), rote.y, rote.z);
 

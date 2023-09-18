@@ -1165,6 +1165,11 @@ public abstract class BirdMoveBase : EnemyMoveBase
         {
             return;
         }
+        
+        if(_birdStats.HP <= 0)
+        {
+            return;
+        }
         _transform.rotation = Quaternion.LookRotation(_delta, UP);
     }
 
