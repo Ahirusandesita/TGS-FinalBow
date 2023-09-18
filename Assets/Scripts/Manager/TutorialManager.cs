@@ -106,9 +106,14 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
     private VR_BowManager _VRbowManager = default;
 
+    private GameManager _gameManager = default;
+
 
     [Tooltip("チュートリアルの進行度")]
     private TutorialTextType _currentTutorialType = 0;    // opening
+
+    [Tooltip("言語データのインデックス")]
+    private int _subtitlesDataIndex = 0; // 日本語
 
     [Tooltip("現在の的の出現回数")]
     private int _targetSpawnCount = 0;
@@ -158,10 +163,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
     private GameProgress gameProgress;
 
-    //#if UNITY_EDITOR
-    [HideInInspector]
-    public bool _skipTutorial = default;
-    //#endif
+    #if UNITY_EDITOR
+    [Space]
+    [SerializeField, Header("チュートリアルをスキップ（デバッグ用）")]
+    private bool _skipTutorial = default;
+    #endif
     #endregion
 
     #region property
@@ -176,14 +182,14 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
             {
                 if (progressType == GameProgressType.tutorial)
                 {
-                    //#if UNITY_EDITOR
+                    #if UNITY_EDITOR
                     if (_skipTutorial)
                     {
                         gameProgress.TutorialEnding();
                         this.enabled = false;
                         return;
                     }
-                    //#endif
+                    #endif
 
                     Tutorial();
                 }
@@ -224,6 +230,20 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
         catch (Exception)
         {
             X_Debug.LogError("VR_BowManagerが取得できていません。");
+        }
+
+        try
+        {
+            _gameManager = FindObjectOfType<GameManager>();
+        }
+        catch (Exception)
+        {
+            X_Debug.LogError("GameManagerが取得できていません。");
+        }
+
+        if (_gameManager.SubtitlesType == SubtitlesType.English)
+        {
+            _subtitlesDataIndex = 9; // ここから英語データ
         }
     }
 
@@ -295,7 +315,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
             yield return null;
 
         _frameManager._endOpen = false;
-        _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType], this);
+        _textSystem.TextLikeSpeaking(_tutorialTextsData[(int)_currentTutorialType + _subtitlesDataIndex], this);
     }
 
     /// <summary>
