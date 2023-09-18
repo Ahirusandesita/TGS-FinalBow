@@ -6,6 +6,7 @@
 // --------------------------------------------------------- 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 interface IGame
 {
@@ -54,10 +55,12 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
     private string _sceneMoveName;
     private float _buttonTime = 0f;
     private bool _isButtonDown = false;
+    private TextMeshProUGUI _text = default;
+    private const string JAPANESE = "“ú–{Œê";
+    private const string ENGLISH = "English";
 
     void Awake()
     {
-        SubtitlesType = SubtitlesType.Japanese;
 
         if (Instance == null)
         {
@@ -69,12 +72,17 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
         }
 
         DontDestroyOnLoad(gameObject);
-
-
     }
 
     private void Start()
     {
+        if (SceneManager.GetActiveScene().name == "TitleScene")
+        {
+            _text = GameObject.FindWithTag("SubtitleText").GetComponent<TextMeshProUGUI>();
+            SubtitlesType = SubtitlesType.Japanese;
+            _text.text = JAPANESE;
+        }
+
         stageSpawn = this.GetComponent<IStageSpawn>();
     }
 
@@ -95,12 +103,12 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
                 if (SubtitlesType == SubtitlesType.Japanese)
                 {
                     SubtitlesType = SubtitlesType.English;
-                    X_Debug.Log("‰pŒê");
+                    _text.text = ENGLISH;
                 }
                 else
                 {
                     SubtitlesType = SubtitlesType.Japanese;
-                    X_Debug.Log("“ú–{Œê");
+                    _text.text = JAPANESE;
                 }
 
                 _buttonTime = 0f;
