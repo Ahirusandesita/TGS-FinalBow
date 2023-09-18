@@ -400,12 +400,18 @@ public class GroundEnemyMoveBase : EnemyMoveBase,IFNeedMoveRotineEnd
         audioSource.PlayOneShot(sandSE);
         yield return new WaitForSeconds(1.4f);
         wormSandTransform.gameObject.SetActive(true);
+        ParticleSystem.MainModule mainModule = wormSandTransform.gameObject.GetComponent<ParticleSystem>().main;
+        mainModule.loop = false;
         yield return new WaitForSeconds(0.6f);
-        wormGroundTransform.gameObject.SetActive(false);
+        //mainModule.loop = true;
         MyCollidersEnabledFalse();
         yield return new WaitForSeconds(0.3f);
-        wormSandTransform.gameObject.SetActive(false);
+        //wormSandTransform.gameObject.SetActive(false);
         audioSource.Stop();
+        yield return new WaitForSeconds(1f);
+        wormGroundTransform.gameObject.SetActive(false);
+        mainModule.loop = true;
+        wormSandTransform.gameObject.SetActive(false);
         _genemyStats.Despawn();
     }
 
