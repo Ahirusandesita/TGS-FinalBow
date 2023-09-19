@@ -35,7 +35,7 @@ public class BGMManager : MonoBehaviour
                 }
                 if(progressType == GameProgressType.gamePreparation)
                 {
-                    tutorialAudioSource.enabled = false;
+                    StartCoroutine(AudioFadeOut(tutorialAudioSource));
                 }
                 if(progressType == GameProgressType.inGame)
                 { 
@@ -43,7 +43,7 @@ public class BGMManager : MonoBehaviour
                 }
                 if (progressType == GameProgressType.inGameLastStageEnd)
                 {
-                    inGameAudioSource.enabled = false;
+                    StartCoroutine(AudioFadeOut(inGameAudioSource));
                 }
                 if (progressType == GameProgressType.extra)
                 {
@@ -51,7 +51,7 @@ public class BGMManager : MonoBehaviour
                 }
                 if (progressType == GameProgressType.extraEnd)
                 {
-                    extraAudioSource.enabled = false;
+                    StartCoroutine(AudioFadeOut(extraAudioSource));
                 }
                 if (progressType == GameProgressType.result)
                 {
@@ -59,10 +59,25 @@ public class BGMManager : MonoBehaviour
                 }
                 if (progressType == GameProgressType.ending)
                 {
-                    resultAudioSource.enabled = false;
+                    StartCoroutine(AudioFadeOut(resultAudioSource));
                 }
             }
             );
+    }
+
+    private IEnumerator AudioFadeOut(AudioSource audioSource)
+    {
+        for (; ; )
+        {
+            audioSource.volume -= 0.01f;
+            if(audioSource.volume <= 0)
+            {
+                audioSource.volume = 0f;
+                break;
+            }
+            yield return new WaitForSeconds(0.025f);
+        }
+        audioSource.enabled = false;
     }
     #endregion
 }
