@@ -23,7 +23,7 @@ public class ResetGame : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             _buttonTime += Time.deltaTime;
 

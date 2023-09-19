@@ -30,9 +30,13 @@ public enum GameProgressType
     /// </summary>
     extraPreparation,
     /// <summary>
-    /// //エクストラ
+    /// エクストラ
     /// </summary>
     extra,
+    /// <summary>
+    /// エクストラクリア
+    /// </summary>
+    extraEnd,
     /// <summary>
     /// リザルト
     /// </summary>
@@ -95,6 +99,14 @@ public class GameProgress : MonoBehaviour
     /// エクストラステージ終了
     /// </summary>
     public void ExtraEnding()
+    {
+        if (gameProgressProperty.Value == GameProgressType.extraEnd) return;
+        gameProgressProperty.Value = GameProgressType.extraEnd;
+    }
+    /// <summary>
+    /// エクストラエンド終了
+    /// </summary>
+    public void ExtraClearEnding()
     {
         if (gameProgressProperty.Value == GameProgressType.result) return;
         gameProgressProperty.Value = GameProgressType.result;
