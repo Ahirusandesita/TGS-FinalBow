@@ -27,7 +27,7 @@ public class TargeterMove : MonoBehaviour
     float _distance = default;
 
     [SerializeField ,Tooltip("目標地点へ向かうスピード")]
-    float _speed = default;
+    float _speed = 5f;
 
     // 開始時の中心軸から見た角度
     float _startRotation = default;
@@ -44,19 +44,14 @@ public class TargeterMove : MonoBehaviour
     [SerializeField ,Tooltip("１秒間に加算される半径係数の値")]
     private float _addRadius = 0.1f;
 
-
-
-
-    private void OnEnable()
+    private void Awake()
     {
         // 開始前の初期設定
         _object = this.gameObject;
 
-        //--------------あとで修正する------------------------//
-        _player = GameObject.FindObjectOfType<PlayerManager>().gameObject;
-        //----------------------------------------------------//
+        // 弓のオブジェクトを取得
+        _player = GameObject.FindObjectOfType<Inhall>().gameObject;
     }
-
 
     private void Update()
     {
@@ -68,6 +63,7 @@ public class TargeterMove : MonoBehaviour
 
     private void TargeterMovement()
     {
+        print("Targ");
         _time += Time.deltaTime * Mathf.PI;
         _nextPosition.x = Mathf.Cos(_startRotation + _time) * (_radius * _distance);
         _nextPosition.y = Mathf.Sin(_startRotation + _time) * (_radius * _distance);
@@ -80,6 +76,7 @@ public class TargeterMove : MonoBehaviour
         }
 
         _distance -= Time.deltaTime * _speed;
+
         if (_distance < 0f)
         {
             _doMove = false;
@@ -91,7 +88,7 @@ public class TargeterMove : MonoBehaviour
         if(_object != null)
         {
             _object.transform.parent = _player.transform;
-            _startRotation = Mathf.Atan2(_object.transform.position.y, _object.transform.position.x);
+            _startRotation = Mathf.Atan2(_object.transform.localPosition.y, _object.transform.localPosition.x);
 
             _distance = _object.transform.localPosition.z;
 
@@ -108,5 +105,10 @@ public class TargeterMove : MonoBehaviour
             _object.transform.parent = null;
             _time = default;
         }
+    }
+
+    private void OnDisable()
+    {
+        _doMove = false;
     }
 }
