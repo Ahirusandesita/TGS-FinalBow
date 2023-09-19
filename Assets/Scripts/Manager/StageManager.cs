@@ -70,6 +70,9 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
     [SerializeField, Tooltip("ゲームスタート用Canvas")]
     private GameObject _startCanvas = default;
 
+    [SerializeField, Tooltip("プレイありがとうキャンバス")]
+    private GameObject _thankYouCanvas = default;
+
     [SerializeField, Tooltip("ResultCanvasの位置をプレイヤーからどれだけ離すか")]
     private float _resultCanvasPositionCorrectionValue = 20f;
 
@@ -125,6 +128,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
         _clearPreparation.gameObject.SetActive(false);
         _updatePreparation.gameObject.SetActive(false);
         _UIAnimator = _startCanvas.GetComponentInChildren<Animator>();
+        _thankYouCanvas.SetActive(false);
 
         _gameProgress = GameObject.FindObjectOfType<GameProgress>();
         _gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
@@ -199,6 +203,11 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                 {
                     // 「1-5」敵のスポーン開始
                     StartCoroutine(WaveStart());
+                }
+
+                if (progressType == GameProgressType.ending)
+                {
+                    _thankYouCanvas.SetActive(true);
                 }
             }
             );

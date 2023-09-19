@@ -23,19 +23,9 @@ public class ResetGame : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            _buttonTime += Time.deltaTime;
-
-            if (_buttonTime >= 1.5f && _isFirst)
-            {
-                _isFirst = false;
-                GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(sceneObject);
-            }
-        }
-        else
-        {
-            _buttonTime = 0f;
+            GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(sceneObject);
         }
     }
     #endregion

@@ -91,48 +91,18 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
     private void Update()
     {
         //Debug.LogError(ScoreManager.ScorePoint.scoreNormalEnemy);
-        if (Input.GetKey(KeyCode.UpArrow) && SceneManager.GetActiveScene().name == "TitleScene")
+        if (Input.GetKeyDown(KeyCode.DownArrow) && SceneManager.GetActiveScene().name == "TitleScene")
         {
-            _buttonTime += Time.deltaTime;
-            _isButtonDown = true;
-        }
-        else
-        {
-            if (_buttonTime < 1.5f && _isButtonDown)
+            if (SubtitlesType == SubtitlesType.Japanese)
             {
-                if (SubtitlesType == SubtitlesType.Japanese)
-                {
-                    SubtitlesType = SubtitlesType.English;
-                    _text.text = ENGLISH;
-                }
-                else
-                {
-                    SubtitlesType = SubtitlesType.Japanese;
-                    _text.text = JAPANESE;
-                }
-
-                _buttonTime = 0f;
+                SubtitlesType = SubtitlesType.English;
+                _text.text = ENGLISH;
             }
-
-            _isButtonDown = false;
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            _arrowDownTime += Time.deltaTime;
-            _isArrowDown = true;
-        }
-        else
-        {
-            if (_arrowDownTime < 1.5f && _isArrowDown)
+            else
             {
-                // ³–ÊƒŠƒZƒbƒg
-                OVRManager.display.RecenterPose();
-
-                _arrowDownTime = 0f;
+                SubtitlesType = SubtitlesType.Japanese;
+                _text.text = JAPANESE;
             }
-
-            _isArrowDown = false;
         }
     }
 }
