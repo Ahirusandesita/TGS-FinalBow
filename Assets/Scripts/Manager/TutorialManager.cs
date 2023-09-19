@@ -264,18 +264,18 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
     private void Update()
     {
-        if (_input.ButtonLeftDownTrigger() || _input.ButtonRightDownTrigger() || _input.ButtonLeftUpTrigger() || _input.ButtonRightUpTrigger())
-        {
-            if (_inputFirst)
-            {
-                _inputFirst = false;
-                _textSystem.NextText();
-            }
-        }
-        else
-        {
-            _inputFirst = true;
-        }
+        //if (_input.ButtonLeftDownTrigger() || _input.ButtonRightDownTrigger() || _input.ButtonLeftUpTrigger() || _input.ButtonRightUpTrigger())
+        //{
+        //    if (_inputFirst)
+        //    {
+        //        _inputFirst = false;
+        //        _textSystem.NextText();
+        //    }
+        //}
+        //else
+        //{
+        //    _inputFirst = true;
+        //}
 
         if (Input.GetKeyDown(KeyCode.O))
         {
