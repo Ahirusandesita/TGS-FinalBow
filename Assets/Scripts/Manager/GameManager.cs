@@ -96,11 +96,18 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
             if (SubtitlesType == SubtitlesType.Japanese)
             {
                 SubtitlesType = SubtitlesType.English;
+
+                if (_text == null)
+                    _text = GameObject.FindWithTag("SubtitleText").GetComponent<TextMeshProUGUI>();
+
                 _text.text = ENGLISH;
             }
             else
             {
                 SubtitlesType = SubtitlesType.Japanese;
+                if (_text == null)
+                    _text = GameObject.FindWithTag("SubtitleText").GetComponent<TextMeshProUGUI>();
+
                 _text.text = JAPANESE;
             }
         }
