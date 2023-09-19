@@ -130,11 +130,14 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                 {
                     IEnumerator WaitFadeIn()
                     {
+                        _isEndFadeOut = false;
                         MovingPlayer();
                         MovingGameCanvas();
 
                         this.SceneFadeInStart();
                         yield return new WaitUntil(() => _isEndFadeIn);
+
+                        _isEndFadeIn = false;
 
                         yield return StartCoroutine(_gamePreparation.GamePreparationProcess());
 
@@ -154,7 +157,8 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                     {
                         MovingGameCanvas(indexCorrectionValue: -1);
 
-                        yield return StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
+                        StartCoroutine(_clearPreparation.InGameLastStageEndProcess());
+                        yield return new WaitForSeconds(3f);
 
                         this.SceneFadeOutStart();
                         yield return new WaitUntil(() => _isEndFadeOut);
@@ -313,7 +317,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
         {
             IEnumerator WaitResult()
             {
-                yield return StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
+                yield return StartCoroutine(_clearPreparation.InGameLastStageEndProcess());
 
                 // ˆÃ“]
                 this.SceneFadeOutStart();
