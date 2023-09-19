@@ -17,6 +17,8 @@ public class ReactionWormWarm : MonoBehaviour, InterfaceReaction.IBombReaction
     bool actioning = false;
     [SerializeField] GameObject particle;
     [SerializeField] Transform dropSpawnTransform;
+    [SerializeField] Transform deathPosition;
+    ObjectPoolSystem pool = default;
     int dropValue = 4;
     public bool ReactionEnd { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     private void Awake()
@@ -24,6 +26,7 @@ public class ReactionWormWarm : MonoBehaviour, InterfaceReaction.IBombReaction
         anim = GetComponent<Animator>();
         drop = GetComponent<Drop>();
         needEnd = GetComponent<IFNeedMoveRotineEnd>();
+        pool = FindObjectOfType<ObjectPoolSystem>();
     }
     private void OnEnable()
     {
@@ -62,8 +65,9 @@ public class ReactionWormWarm : MonoBehaviour, InterfaceReaction.IBombReaction
 
     public void EndAnim()
     {
-       
+        
         particle.SetActive(false);
+        pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, deathPosition.position);
         anim.speed = 1;
         actioning = false;
         end = true;
