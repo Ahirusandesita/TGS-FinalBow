@@ -27,7 +27,7 @@ public class TargeterMove : MonoBehaviour
     float _distance = default;
 
     [SerializeField ,Tooltip("目標地点へ向かうスピード")]
-    float _speed = 5f;
+    float _speed = 100f;
 
     // 開始時の中心軸から見た角度
     float _startRotation = default;
@@ -63,23 +63,21 @@ public class TargeterMove : MonoBehaviour
 
     private void TargeterMovement()
     {
-        print("Targ");
-        _time += Time.deltaTime * Mathf.PI;
+        _time += Time.deltaTime * Mathf.PI * 4f;
+        _distance = Mathf.Clamp( _distance - Time.deltaTime * _speed , 0f, Mathf.Infinity);
         _nextPosition.x = Mathf.Cos(_startRotation + _time) * (_radius * _distance);
         _nextPosition.y = Mathf.Sin(_startRotation + _time) * (_radius * _distance);
         _nextPosition.z = _distance;
         _object.transform.localPosition = _nextPosition;
 
+        if (_distance <= 0f)
+        {
+            _doMove = false;
+        }
+
         if(_radius < MAX_RADIUS)
         {
             _radius += Time.deltaTime * _addRadius;
-        }
-
-        _distance -= Time.deltaTime * _speed;
-
-        if (_distance < 0f)
-        {
-            _doMove = false;
         }
     }
 
