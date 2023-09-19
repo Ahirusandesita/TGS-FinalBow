@@ -31,15 +31,18 @@ public class TutorialImageSystem : MonoBehaviour
     private Image _guide = default;
 
     [SerializeField]
-    private Color32 _guideColor_1 = default;
+    private Color _guideColor_1 = default;
 
     [SerializeField]
-    private Color32 _guideColor_2 = default;
+    private Color _guideColor_2 = default;
 
     private float _guideTimer = default;
 
     private const float GUIDE_TIMELIMIT = 0.6f;
     #endregion
+
+    [SerializeField]
+    private Image LogImage = default;
 
 
     #endregion
@@ -99,7 +102,7 @@ public class TutorialImageSystem : MonoBehaviour
 
     public void StringPointerClose()
     {
-        stringPointerEvent = null;
+        stringPointerEvent = None;
         _stringTimer = 0f;
         _stringPointer.enabled = false;
     }
@@ -113,6 +116,7 @@ public class TutorialImageSystem : MonoBehaviour
 
     private void GuideColorChenge_1()
     {
+        _guideColor_1 = new Color(_guideColor_1.r, _guideColor_1.g, _guideColor_1.b, LogImage.color.a) ;
         _guide.color = _guideColor_1;
 
         _guideTimer += Time.deltaTime;
@@ -126,6 +130,7 @@ public class TutorialImageSystem : MonoBehaviour
 
     private void GuideColorChenge_2()
     {
+        _guideColor_2 = new Color(_guideColor_2.r, _guideColor_2.g, _guideColor_2.b, LogImage.color.a);
         _guide.color = _guideColor_2;
 
         _guideTimer += Time.deltaTime;
@@ -139,9 +144,14 @@ public class TutorialImageSystem : MonoBehaviour
 
     public void GuideClose()
     {
-        guideEvent = null;
+        guideEvent = None;
         _guideTimer = 0f;
         _guide.enabled = false;
+    }
+
+    private void None()
+    {
+        return;
     }
 
     #endregion
