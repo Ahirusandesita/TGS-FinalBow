@@ -38,7 +38,7 @@ public class ResultStage : MonoBehaviour
         gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
             progressType =>
             {
-                if(progressType == GameProgressType.gamePreparation)
+                if (progressType == GameProgressType.gamePreparation)
                 {
                     checkPointResult.gameObject.SetActive(false);
                 }
@@ -85,7 +85,9 @@ public class ResultStage : MonoBehaviour
         //Debug.LogError($"合計スコア{score.SumScore}");
         //Debug.LogError($"ノーマル撃破数{score.valueNormalEnemy}。ノーマルスコア{score.scoreNormalEnemy}");
         // Debug.LogError($"コンボスコア{score.scoreComboBonus}");
-        resultStruct.HitAverage = Mathf.Floor(score.hitCount / score.shotCount * 10000f) / 100f;
+        if (score.shotCount <= 0) resultStruct.HitAverage = 0.00f;
+        else
+            resultStruct.HitAverage = Mathf.Floor(score.hitCount / score.shotCount * 10000f) / 100f;
         resultStruct.AttractValue = score.valueAttractBonus;
         resultStruct.KillCount = score.valueNormalEnemy;
         resultStruct.SumScore = score.SumScore + (int)(resultStruct.HitAverage * 100f);
@@ -105,7 +107,7 @@ public class ResultStage : MonoBehaviour
     }
     private void Update()
     {
-        if(isScore && isTime)
+        if (isScore && isTime)
             if (isOne)
             {
                 checkPointResult.Result(ref resultStruct);
