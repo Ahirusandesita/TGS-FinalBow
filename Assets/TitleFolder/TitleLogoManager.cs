@@ -43,6 +43,7 @@ public class TitleLogoManager : MonoBehaviour
         }
         else
         {
+            _isFirst = true;
             _buttonTime = 0f;
         }
     }
