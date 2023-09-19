@@ -11,6 +11,8 @@ public class BGMManager : MonoBehaviour
     #region variable 
     public AudioSource tutorialAudioSource;
     public AudioSource inGameAudioSource;
+    public AudioSource extraAudioSource;
+    public AudioSource resultAudioSource;
     private GameProgress gameProgress;
     #endregion
     #region property
@@ -20,6 +22,8 @@ public class BGMManager : MonoBehaviour
     {
         inGameAudioSource.enabled = false;
         tutorialAudioSource.enabled = false;
+        extraAudioSource.enabled = false;
+        resultAudioSource.enabled = false;
         gameProgress = GameObject.FindObjectOfType<GameProgress>();
 
         gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
@@ -36,6 +40,23 @@ public class BGMManager : MonoBehaviour
                 if(progressType == GameProgressType.inGame)
                 { 
                     inGameAudioSource.enabled = true;
+                }
+                if (progressType == GameProgressType.inGameLastStageEnd)
+                {
+                    inGameAudioSource.enabled = false;
+                }
+                if (progressType == GameProgressType.extra)
+                {
+                    extraAudioSource.enabled = true;
+                }
+                if (progressType == GameProgressType.result)
+                {
+                    extraAudioSource.enabled = false;
+                    resultAudioSource.enabled = true;
+                }
+                if (progressType == GameProgressType.ending)
+                {
+                    resultAudioSource.enabled = false;
                 }
             }
             );
