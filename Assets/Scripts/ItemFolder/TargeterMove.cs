@@ -50,7 +50,7 @@ public class TargeterMove : MonoBehaviour
         _object = this.gameObject;
 
         // 弓のオブジェクトを取得
-        _player = GameObject.FindObjectOfType<Inhall>().gameObject;
+        _player = GameObject.Find("ArrowLookPoint").gameObject;
     }
 
     private void Update()
