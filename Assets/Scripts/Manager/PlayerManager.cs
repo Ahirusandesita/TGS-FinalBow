@@ -209,10 +209,10 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
         if (_arrow is null) return;
 
 
-        if (tutorialManager != null)
-        {
-            tutorialManager.OnAttractCompleted();
-        }
+        //if (tutorialManager != null)
+        //{
+        //    tutorialManager.OnAttractCompleted();
+        //}
 
         if (attractCount >= maxAttractCount)
         {

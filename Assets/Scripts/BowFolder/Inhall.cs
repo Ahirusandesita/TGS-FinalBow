@@ -44,11 +44,14 @@ public class Inhall : MonoBehaviour, IInhall, IInhallDestroObject
     public bool debugAttract = true;
 
     public TagObject _PlayerControllerTagData;
+
+    private TutorialManager tutorialManager;
     #endregion
 
 
     private void Start()
     {
+        tutorialManager = GameObject.FindObjectOfType<TutorialManager>();
         try
         {
             //IPlayerManagerEnchantParameter型にPlayerManagerクラスを代入する
@@ -76,6 +79,10 @@ public class Inhall : MonoBehaviour, IInhall, IInhallDestroObject
         else
         {
             //変更
+            if (tutorialManager != null)
+            {
+                tutorialManager.OnAttractCompleted();
+            }
             InhallItem(obj);
         }
         //　消滅処理オブジェクトのセットActivをFalseにする　ObjectPool
