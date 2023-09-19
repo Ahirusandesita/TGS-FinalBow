@@ -26,7 +26,7 @@ public class TitleLogoManager : MonoBehaviour
 
     private void Start()
     {
-
+        _isFirst = true;
     }
 
     private void Update()
