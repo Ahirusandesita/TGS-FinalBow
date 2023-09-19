@@ -32,10 +32,10 @@ public class ResetGame : MonoBehaviour
                 _isFirst = false;
                 GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(sceneObject);
             }
-            else
-            {
-                _buttonTime = 0f;
-            }
+        }
+        else
+        {
+            _buttonTime = 0f;
         }
     }
     #endregion

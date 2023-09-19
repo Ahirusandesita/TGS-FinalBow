@@ -98,8 +98,6 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
         }
         else
         {
-            _isButtonDown = false;
-
             if (_buttonTime < 1.5f && _isButtonDown)
             {
                 if (SubtitlesType == SubtitlesType.Japanese)
@@ -115,6 +113,8 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
 
                 _buttonTime = 0f;
             }
+
+            _isButtonDown = false;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
@@ -124,8 +124,6 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
         }
         else
         {
-            _isArrowDown = false;
-
             if (_arrowDownTime < 1.5f && _isArrowDown)
             {
                 // ³–ÊƒŠƒZƒbƒg
@@ -133,6 +131,8 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
 
                 _arrowDownTime = 0f;
             }
+
+            _isArrowDown = false;
         }
     }
 }
