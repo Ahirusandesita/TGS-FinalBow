@@ -199,6 +199,11 @@ IFScoreManager_Time, IFScoreManager_TimeGetScore,
                     SumScorePoint = SumScorePoint + ScorePoint;
                     ScorePoint.Reset();
                 }
+                if(progressType == GameProgressType.inGame)
+                {
+                    ScorePoint.Reset();
+                    ScoreNumber.ScorePoint.Reset();
+                }
             }
             );
 
