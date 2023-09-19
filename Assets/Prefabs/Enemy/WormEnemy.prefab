@@ -10763,6 +10763,7 @@ MonoBehaviour:
   dropData: {fileID: 11400000, guid: db5b0668167058142a5ddbf6c2313bf6, type: 2}
   particle: {fileID: 4193060697884999929}
   dropSpawnTransform: {fileID: 5651375071990431835}
+  deathPosition: {fileID: 6825162747543363274}
 --- !u!114 &1412493737270300541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10801,7 +10802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047e1edb40a6c264898a683ee9bb2df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: {fileID: 7400000, guid: 80fc2fdc8d091cd418dd1bdb641cff17, type: 2}
   actionTrigger: Test Death
   _endTime: 2
   effectPosition: {fileID: 6825162747543363274}
