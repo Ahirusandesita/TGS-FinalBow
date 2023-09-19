@@ -223,11 +223,11 @@ public class CheckPointResult : MonoBehaviour
                     audioSource.PlayOneShot(scoreSE);
 
             textSumScore = textSumScore + 100;
-            SumScoreText.text = textSumScore.ToString();
+            SumScoreText.text = "<mspace=1em>" + textSumScore.ToString() + "</mspace>";
             if (textSumScore > sumScoreWork)
             {
                 textSumScore = sumScoreWork;
-                SumScoreText.text = textSumScore.ToString();
+                SumScoreText.text = "<mspace=1em>"+textSumScore.ToString()+"</mspace>";
                 break;
             }
             yield return waitSumScore;
