@@ -204,7 +204,7 @@ public class ItemMove : MonoBehaviour
         _targetVector = _targeterTransform.position - _itemTransform.position;
 
         // 自身をターゲットに向けて移動
-        _itemTransform.position += _targetVector.normalized * (_targetVector.magnitude * _attractSpeed * Time.deltaTime) ;
+        _itemTransform.position += _targetVector.normalized * Mathf.Clamp((_targetVector.magnitude * _attractSpeed * Time.deltaTime) ,-_targetVector.magnitude,_targetVector.magnitude);
 
         // プレイヤーとアイテムの距離を取得する
         _playerDistance = Vector3.Distance(_playerTransform.position , _itemTransform.position);
@@ -225,7 +225,6 @@ public class ItemMove : MonoBehaviour
     /// </summary>
     public void ReSetAll()
     {
-        print("Reset");
         this.transform.localScale = startsize;
         _targeterObject.GetComponent<TargeterMove>().TargeterReSet();
         _poolManager.ReturnObject(_targeterCash);
