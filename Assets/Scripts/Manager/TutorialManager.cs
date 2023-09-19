@@ -108,6 +108,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
     private GameManager _gameManager = default;
 
+    private FPSChanger _changer = default;
+
 
     [Tooltip("チュートリアルの進行度")]
     private TutorialTextType _currentTutorialType = 0;    // opening
@@ -245,6 +247,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
         {
             _subtitlesDataIndex = 8; // ここから英語データ
         }
+
+        _changer = FindObjectOfType<FPSChanger>();
     }
 
     private void Start()
@@ -543,7 +547,9 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
             case TutorialTextType.ending:
 
                 _VRbowManager.CantShotBecauseYouMissed = true;
-                FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = true;
+                if (!_changer.vr)
+                    FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = true;
+
                 this.SceneFadeOutStart();
                 break;
         }
@@ -611,7 +617,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
                     _textSystem.NextText();
                     // 矢を撃てなくする
                     _VRbowManager.CantShotBecauseYouMissed = false;
-                    FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = false;
+                    if (!_changer.vr)
+                        FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = false;
 
                     yield return new WaitForSeconds(0.8f);
 
