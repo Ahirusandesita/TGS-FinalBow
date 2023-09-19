@@ -71,6 +71,8 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
     /// </summary>
     [SerializeField] Transform _drawObject = default;
 
+    [SerializeField] Transform _arrowLookPoint = default;   
+
     [SerializeField] Transform _selectUI;
 
     [SerializeField] Transform _selectUILeftPosition = default;
@@ -114,6 +116,11 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
         if(_drawObject is null)
         {
             _drawObject = this.transform;
+        }
+
+        if(_arrowLookPoint is null)
+        {
+            _arrowLookPoint = this.transform;
         }
 
         _firstDrawObjectPositon = _drawObject.localPosition;
@@ -187,7 +194,7 @@ public class BowTransformControl : MonoBehaviour, IFBowTransformControl_Bow, IFB
 
             float angleBowZ = _transform.rotation.eulerAngles.z;
 
-            _transform.rotation = Quaternion.LookRotation(_transform.position - _drawObject.transform.position);
+            _transform.rotation = Quaternion.LookRotation(_arrowLookPoint.position - _drawObject.transform.position);
 
             _transform.rotation = Quaternion.Euler(_transform.rotation.eulerAngles.x,
                 _transform.rotation.eulerAngles.y, angleBowZ);
