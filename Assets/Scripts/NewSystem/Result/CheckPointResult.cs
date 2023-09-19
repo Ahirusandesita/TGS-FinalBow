@@ -150,10 +150,6 @@ public class CheckPointResult : MonoBehaviour
                 isRankingOutput = true;
                 StartCoroutine(RankingOutput());
             }
-            if (isRankingOutputEnd)
-            {
-                GameObject.FindObjectOfType<GameProgress>().ResultEnding();
-            }
         }
 
         if (isresultEnd && Time.time - startTime > 5f)
@@ -174,10 +170,6 @@ public class CheckPointResult : MonoBehaviour
                 isresultEnd = false;
                 isRankingOutput = true;
                 StartCoroutine(RankingOutput());
-            }
-            if (isRankingOutputEnd)
-            {
-                GameObject.FindObjectOfType<GameProgress>().ResultEnding();
             }
         }
 
@@ -222,7 +214,7 @@ public class CheckPointResult : MonoBehaviour
                 if (scoreSE is not null)
                     audioSource.PlayOneShot(scoreSE);
 
-            textSumScore = textSumScore + 100;
+            textSumScore = textSumScore + 300;
             SumScoreText.text = "<mspace=1em>" + textSumScore.ToString() + "</mspace>";
             if (textSumScore > sumScoreWork)
             {
