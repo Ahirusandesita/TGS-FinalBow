@@ -92,6 +92,8 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
     private GamePreparation _clearPreparation = default;
 
+    private GamePreparation _updatePreparation = default;
+
     [Tooltip("åªç›ÇÃéGãõ/ìIÇÃêî")]
     private int _currentNumberOfObject = 0;
 
@@ -119,7 +121,9 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
     {
         _gamePreparation = GameObject.FindWithTag("StartUIPanel").GetComponent<GamePreparation>();
         _clearPreparation = GameObject.FindWithTag("ClearUIPanel").GetComponent<GamePreparation>();
+        _updatePreparation = GameObject.FindWithTag("UpdateUIPanel").GetComponent<GamePreparation>();
         _clearPreparation.gameObject.SetActive(false);
+        _updatePreparation.gameObject.SetActive(false);
         _UIAnimator = _startCanvas.GetComponentInChildren<Animator>();
 
         _gameProgress = GameObject.FindObjectOfType<GameProgress>();
@@ -157,9 +161,10 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                     {
                         MovingGameCanvas(indexCorrectionValue: -1);
 
-                        StartCoroutine(_clearPreparation.InGameLastStageEndProcess());
-                        yield return new WaitForSeconds(3f);
+                        StartCoroutine(_updatePreparation.MissionUpdateProcess(waitTime: 8f));
+                        yield return new WaitForSeconds(3.5f);
 
+                        StartCoroutine(_gamePreparation.WaitPerocess(waitTime: 6.5f));
                         this.SceneFadeOutStart();
                         yield return new WaitUntil(() => _isEndFadeOut);
                         _isEndFadeOut = false;
@@ -175,14 +180,13 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                     IEnumerator WaitFadeIn()
                     {
                         MovingPlayer();
+                        MovingGameCanvas();
 
                         this.SceneFadeInStart();
 
                         yield return new WaitUntil(() => _isEndFadeIn);
 
                         _isEndFadeIn = false;
-
-                        MovingGameCanvas();
 
                         yield return StartCoroutine(_gamePreparation.ExtraPreparationProcess());
 
