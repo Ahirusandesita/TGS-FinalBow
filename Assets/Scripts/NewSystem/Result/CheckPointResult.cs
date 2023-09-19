@@ -237,7 +237,7 @@ public class CheckPointResult : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         int maxIndex = default;
-        maxIndex = sumScoreWork < 20000 ? 1 : sumScoreWork < 30000 ? 2 : sumScoreWork < 40000 ? 3 : sumScoreWork < 50000 ? 4 : sumScoreWork < 60000 ? 5 : sumScoreWork < 70000 ? 6 : 7;
+        maxIndex = sumScoreWork < 60000 ? 1 : sumScoreWork < 75000 ? 2 : sumScoreWork < 85000 ? 3 : sumScoreWork < 100000 ? 4 : sumScoreWork < 120000 ? 5 : sumScoreWork < 140000 ? 6 : 7;
 
 
         for (int index = 1; index <= maxIndex;)
