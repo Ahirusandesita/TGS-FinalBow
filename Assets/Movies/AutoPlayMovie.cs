@@ -57,7 +57,7 @@ public class AutoPlayMovie : MonoBehaviour
                 _isClosed = true;
                 _isPlaying = false;
                 _videoPlayer.Stop();
-                _displayManager.CloseFrame();
+                _videoDisplay.enabled = false;
             }
         }
         else
