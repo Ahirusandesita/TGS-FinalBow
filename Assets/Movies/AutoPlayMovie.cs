@@ -71,15 +71,10 @@ public class AutoPlayMovie : MonoBehaviour
             {
                 _isPlaying = true;
 
-                IEnumerator PlayVideoAsync()
-                {
-                    _isClosed = false;
-                    _displayManager.OpenFrame();
-                    yield return new WaitUntil(() => _displayManager._endOpen);
+                _isClosed = false;
+                _videoDisplay.enabled = true;
 
-                    _videoPlayer.Play();
-                }
-                StartCoroutine(PlayVideoAsync());
+                _videoPlayer.Play();
             }
         }
     }
