@@ -12,17 +12,104 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc10960acc3fe14eb3e6e8dcd100bbb, type: 3}
   m_Name: Bird1-5-5-2a
   m_EditorClassIdentifier: 
-  _birdType: 0
+  _birdType: 1
   _bullet: 1
   _spawnDelay_s: 3
-  _birdSpawnPlace: {fileID: 7551417246737515314, guid: 5ffe3775c2575754caf3d15293a01f6f, type: 3}
+  _birdSpawnPlace: {fileID: 7551417246737515314, guid: dc053537f6e6a88418c825078e2032f1, type: 3}
   _birdGoalPlaces:
   - _moveType: 1
     _arcHeight: 30
     _arcMoveDirection: 2
-    _birdGoalPlace: {fileID: 2414731621233567374, guid: 5035ad16cf0d49440a8dbad73debdf49, type: 3}
-    _speed: 20
-    _stayTime_s: 10
+    _birdGoalPlace: {fileID: 1805797893682171998, guid: 33aa8ae956896354d93a2e7e149aad06, type: 3}
+    _speed: 100
+    _stayTime_s: 0
+    _birdAttackType_a: 3
+    _birdAttackType_b: 3
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 2
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 1
+    _arcHeight: 30
+    _arcMoveDirection: 2
+    _birdGoalPlace: {fileID: 2414731621233567374, guid: e2c2b5b73ac0de24aa3f48a5859b943d, type: 3}
+    _speed: 100
+    _stayTime_s: 3
+    _birdAttackType_a: 3
+    _birdAttackType_b: 1
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0.5
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 0
+    _arcHeight: 10
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 5041642771386453199, guid: 29ee9f224c849524ea83de9ed27290e8, type: 3}
+    _speed: 100
+    _stayTime_s: 3
+    _birdAttackType_a: 3
+    _birdAttackType_b: 1
+    _attackInterval_s_a: 0
+    _attackInterval_s_b: 0
+    _attackTiming_s1_a: 0
+    _attackTiming_s2_a: 0
+    _attackTiming_s3_a: 0
+    _attackTiming_s4_a: 0
+    _attackTiming_s5_a: 0
+    _attackTiming_s1_b: 0.5
+    _attackTiming_s2_b: 0
+    _attackTiming_s3_b: 0
+    _attackTiming_s4_b: 0
+    _attackTiming_s5_b: 0
+    _attackTimes_a: 0
+    _attackTimes_b: 0
+    _cooldownTime_s_a: 0
+    _cooldownTime_s_b: 0
+    _consecutiveAttackInterval_s_a: 0
+    _consecutiveAttackInterval_s_b: 0
+    _directionType_moving: 0
+    _directionType_stopping: 0
+    _directionType_attack: 0
+  - _moveType: 0
+    _arcHeight: 10
+    _arcMoveDirection: 0
+    _birdGoalPlace: {fileID: 2414731621233567374, guid: e2c2b5b73ac0de24aa3f48a5859b943d, type: 3}
+    _speed: 100
+    _stayTime_s: 2
     _birdAttackType_a: 3
     _birdAttackType_b: 3
     _attackInterval_s_a: 0
@@ -49,9 +136,9 @@ MonoBehaviour:
   - _moveType: 0
     _arcHeight: 20
     _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 7171380737634302350, guid: 1d4110252ef5c8443a7d053f60b67c5b, type: 3}
-    _speed: 20
-    _stayTime_s: 10
+    _birdGoalPlace: {fileID: 5082378643218377192, guid: 2de95e78d7981534b935ab3303eee1e3, type: 3}
+    _speed: 100
+    _stayTime_s: 3
     _birdAttackType_a: 3
     _birdAttackType_b: 1
     _attackInterval_s_a: 0
@@ -61,8 +148,8 @@ MonoBehaviour:
     _attackTiming_s3_a: 0
     _attackTiming_s4_a: 0
     _attackTiming_s5_a: 0
-    _attackTiming_s1_b: 1
-    _attackTiming_s2_b: 6
+    _attackTiming_s1_b: 0.5
+    _attackTiming_s2_b: 0
     _attackTiming_s3_b: 0
     _attackTiming_s4_b: 0
     _attackTiming_s5_b: 0
@@ -78,9 +165,9 @@ MonoBehaviour:
   - _moveType: 0
     _arcHeight: 10
     _arcMoveDirection: 0
-    _birdGoalPlace: {fileID: 5082378643218377192, guid: 73bffe6befb397e4196b354a6f54e2f2, type: 3}
-    _speed: 20
-    _stayTime_s: 0
+    _birdGoalPlace: {fileID: 2414731621233567374, guid: e2c2b5b73ac0de24aa3f48a5859b943d, type: 3}
+    _speed: 100
+    _stayTime_s: 2
     _birdAttackType_a: 3
     _birdAttackType_b: 3
     _attackInterval_s_a: 0
@@ -90,7 +177,7 @@ MonoBehaviour:
     _attackTiming_s3_a: 0
     _attackTiming_s4_a: 0
     _attackTiming_s5_a: 0
-    _attackTiming_s1_b: 0
+    _attackTiming_s1_b: 0.5
     _attackTiming_s2_b: 0
     _attackTiming_s3_b: 0
     _attackTiming_s4_b: 0
@@ -105,5 +192,5 @@ MonoBehaviour:
     _directionType_stopping: 0
     _directionType_attack: 0
   _needRoop: 1
-  _goalIndexOfRoop: 0
-  _despawnTime_s: 20
+  _goalIndexOfRoop: 2
+  _despawnTime_s: 60
