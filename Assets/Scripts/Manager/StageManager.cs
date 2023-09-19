@@ -90,6 +90,8 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
     private GamePreparation _gamePreparation = default;
 
+    private GamePreparation _clearPreparation = default;
+
     [Tooltip("åªç›ÇÃéGãõ/ìIÇÃêî")]
     private int _currentNumberOfObject = 0;
 
@@ -115,7 +117,9 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
     private void Awake()
     {
-        _gamePreparation = FindObjectOfType<GamePreparation>();
+        _gamePreparation = GameObject.FindWithTag("StartUIPanel").GetComponent<GamePreparation>();
+        _clearPreparation = GameObject.FindWithTag("ClearUIPanel").GetComponent<GamePreparation>();
+        _clearPreparation.gameObject.SetActive(false);
         _UIAnimator = _startCanvas.GetComponentInChildren<Animator>();
 
         _gameProgress = GameObject.FindObjectOfType<GameProgress>();
@@ -150,9 +154,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                     {
                         MovingGameCanvas(indexCorrectionValue: -1);
 
-                        StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
-
-                        yield return new WaitForSeconds(2f);
+                        yield return StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
 
                         this.SceneFadeOutStart();
                         yield return new WaitUntil(() => _isEndFadeOut);
@@ -311,9 +313,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
         {
             IEnumerator WaitResult()
             {
-                StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
-
-                yield return new WaitForSeconds(2f);
+                yield return StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
 
                 // à√ì]
                 this.SceneFadeOutStart();

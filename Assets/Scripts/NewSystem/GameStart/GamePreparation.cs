@@ -27,7 +27,9 @@ public class GamePreparation : MonoBehaviour
 
     public IEnumerator InGameLastStageEndProcess()
     {
-        yield return new WaitForSeconds(2.5f);
+        this.gameObject.SetActive(true);
+        yield return new WaitForSeconds(4.5f);
+        this.gameObject.SetActive(false);
     }
 
     public IEnumerator ExtraPreparationProcess()
