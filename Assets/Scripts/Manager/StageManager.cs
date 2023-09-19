@@ -317,6 +317,8 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
         {
             IEnumerator WaitResult()
             {
+                _gameProgress.ExtraEnding();
+
                 yield return StartCoroutine(_clearPreparation.InGameLastStageEndProcess());
 
                 // ˆÃ“]
@@ -338,7 +340,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
                 // ƒŠƒUƒ‹ƒg•\Ž¦
                 MovingResultCanvas();
-                _gameProgress.ExtraEnding();
+                _gameProgress.ExtraClearEnding();
             }
             StartCoroutine(WaitResult());
 

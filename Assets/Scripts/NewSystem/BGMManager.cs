@@ -49,9 +49,12 @@ public class BGMManager : MonoBehaviour
                 {
                     extraAudioSource.enabled = true;
                 }
-                if (progressType == GameProgressType.result)
+                if (progressType == GameProgressType.extraEnd)
                 {
                     extraAudioSource.enabled = false;
+                }
+                if (progressType == GameProgressType.result)
+                {
                     resultAudioSource.enabled = true;
                 }
                 if (progressType == GameProgressType.ending)
