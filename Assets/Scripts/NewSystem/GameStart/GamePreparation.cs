@@ -25,6 +25,13 @@ public class GamePreparation : MonoBehaviour
         yield return new WaitForSeconds(5f);
     }
 
+    public IEnumerator MissionUpdateProcess(float waitTime)
+    {
+        this.gameObject.SetActive(true);
+        yield return new WaitForSeconds(waitTime);
+        this.gameObject.SetActive(false);
+    }
+
     public IEnumerator InGameLastStageEndProcess()
     {
         this.gameObject.SetActive(true);
