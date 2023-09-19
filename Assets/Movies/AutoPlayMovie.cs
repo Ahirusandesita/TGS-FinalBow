@@ -48,7 +48,7 @@ public class AutoPlayMovie : MonoBehaviour
 
     private void Update()
     {
-        if (OVRInput.Get(OVRInput.Touch.Any))
+        if (OVRInput.Get(OVRInput.Touch.Any) || OVRInput.Get(OVRInput.NearTouch.Any) || OVRInput.Get(OVRInput.RawNearTouch.Any) || OVRInput.Get(OVRInput.RawTouch.Any))
         {
             _nonOperationTime = 0f;
 
