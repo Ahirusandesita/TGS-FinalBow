@@ -12,6 +12,7 @@ public class FPSChanger : MonoBehaviour
     [SerializeField]GameObject[] VRObjects;
     [SerializeField]GameObject fps;
     [SerializeField] GameObject fade;
+    public bool vr = true;
     #endregion
     #region property
     #endregion
@@ -42,7 +43,7 @@ public class FPSChanger : MonoBehaviour
             {
                 obj.SetActive(false);
             }
-
+            vr = false;
             fps.SetActive(true);
             //fade.SetActive(false);
         }
@@ -53,6 +54,7 @@ public class FPSChanger : MonoBehaviour
             {
                 obj.SetActive(true);
             }
+            vr = true;
             fps.SetActive(false);
         }
         

@@ -294,6 +294,8 @@ MonoBehaviour:
   - {fileID: 5221159405999934363}
   - {fileID: 856082914012077440}
   - {fileID: 1698402447019314583}
+  NewRecordImage: {fileID: 21300000, guid: 094c4c05094fa7f45b604c4be5c2496a, type: 3}
+  TotalResult: {fileID: 6780656221791275758}
   _waitTime: 0.3
   _upSpeed: 5
 --- !u!82 &7013195688257852646
@@ -549,6 +551,18 @@ PrefabInstance:
     - target: {fileID: 224466835964491012, guid: a92f2b3edcf51314ebbf6c120a3efde3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081345901841328986, guid: a92f2b3edcf51314ebbf6c120a3efde3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883120938370811577, guid: a92f2b3edcf51314ebbf6c120a3efde3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662444166776059550, guid: a92f2b3edcf51314ebbf6c120a3efde3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -893,6 +907,11 @@ RectTransform:
 --- !u!1 &6780626969799534590 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1116874337737522, guid: a92f2b3edcf51314ebbf6c120a3efde3, type: 3}
+  m_PrefabInstance: {fileID: 6780828427692637388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6780656221791275758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1105489426658850, guid: a92f2b3edcf51314ebbf6c120a3efde3, type: 3}
   m_PrefabInstance: {fileID: 6780828427692637388}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6780667911736547508 stripped

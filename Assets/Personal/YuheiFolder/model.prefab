@@ -210,6 +210,7 @@ MonoBehaviour:
   _reticleRenderer: {fileID: 3597104961487765491}
   _startPosition: {fileID: 5185129958207729095}
   _shadowTransform: {fileID: 7883126460646123070}
+  _UseReticle: 1
   GRAVITY_NORMAL: -100
   GRAVITY_PENETRATE: -10
 --- !u!120 &3597104961487765491
@@ -315,6 +316,37 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &3484379436529606797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8656302839273667112}
+  m_Layer: 0
+  m_Name: ArrowLookPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8656302839273667112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3484379436529606797}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.07, z: 3.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5185129958207729095}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4788865490280521163
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +420,7 @@ Transform:
   - {fileID: 1905825892}
   - {fileID: 1148322246032621760}
   - {fileID: 4233266014848363641}
+  - {fileID: 8656302839273667112}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 21.6, y: 0, z: 0}
@@ -596,7 +629,7 @@ MonoBehaviour:
   grapLimitDistance: 0.5
   drawLimitAngle: 90
   drawLimitDistance: 5
-  cantShotDistance: 0.005
+  cantShotDistance: 0.5
   drawDistancePercentMaxPower: 0.9
   _changeHandObjectTransform: {fileID: 56596018}
   scene: {fileID: 11400000, guid: 470ecd8a41bcaa44083a123dbf970244, type: 2}
@@ -627,7 +660,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _handLeftPosition: {fileID: 0}
   _handRightPosition: {fileID: 0}
-  _drawObject: {fileID: 2580952625647554278}
+  _drawObject: {fileID: 499759983511004121}
+  _arrowLookPoint: {fileID: 8656302839273667112}
   _selectUI: {fileID: 0}
   _selectUILeftPosition: {fileID: 0}
   _selectUIRightPosition: {fileID: 0}
@@ -1367,13 +1401,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 86ce2bab4c0e351429efd892b8fb4fa5, type: 3}
+--- !u!4 &499759983511004121 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8929982494309210943, guid: 86ce2bab4c0e351429efd892b8fb4fa5, type: 3}
+  m_PrefabInstance: {fileID: 9007809266091899110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1148322246032621760 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8281418445352155174, guid: 86ce2bab4c0e351429efd892b8fb4fa5, type: 3}
-  m_PrefabInstance: {fileID: 9007809266091899110}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2580952625647554278 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6832884706669016576, guid: 86ce2bab4c0e351429efd892b8fb4fa5, type: 3}
   m_PrefabInstance: {fileID: 9007809266091899110}
   m_PrefabAsset: {fileID: 0}

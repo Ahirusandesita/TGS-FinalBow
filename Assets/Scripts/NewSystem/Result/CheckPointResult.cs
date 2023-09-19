@@ -51,6 +51,9 @@ public class CheckPointResult : MonoBehaviour
     public List<TextMeshProUGUI> RankingScores = new List<TextMeshProUGUI>();
     public List<Image> RankingRanks = new List<Image>();
     public List<TextMeshProUGUI> RankingDays = new List<TextMeshProUGUI>();
+    public Sprite NewRecordImage;
+
+    public GameObject TotalResult;
 
     int sumScoreWork = default;
 
@@ -106,6 +109,7 @@ public class CheckPointResult : MonoBehaviour
         YouRankText.text = default;
         PushObject.SetActive(false);
         PushMe.enabled = false;
+        TotalResult.SetActive(false);
     }
 
     public void Result(ref ResultStruct resultStruct)
@@ -120,8 +124,9 @@ public class CheckPointResult : MonoBehaviour
         //SumScoreText.text = resultStruct.SumScore.ToString();
         this.resultStruct = resultStruct;
         StartCoroutine(MeterOutPut());
-
     }
+    public void ResultScreen() => StartCoroutine(MeterOutPut());
+
     private void Update()
     {
         //int nowint = default;
@@ -151,13 +156,13 @@ public class CheckPointResult : MonoBehaviour
             }
         }
 
-        if (isresultEnd && Time.time - startTime < 5f)
+        if (isresultEnd && Time.time - startTime > 5f)
         {
             isresultEnd = false;
             isRankingOutput = true;
             StartCoroutine(RankingOutput());
         }
-        if (isRankingOutputEnd && Time.time - startTime < 10f)
+        if (isRankingOutputEnd && Time.time - startTime > 10f)
         {
             GameObject.FindObjectOfType<GameProgress>().ResultEnding();
         }
@@ -182,7 +187,7 @@ public class CheckPointResult : MonoBehaviour
 
     private IEnumerator MeterOutPut()
     {
-
+        TotalResult.SetActive(true);
         WaitForSeconds fadeTime = new WaitForSeconds(0.025f);
 
         yield return new WaitForSeconds(0.5f);
@@ -385,8 +390,8 @@ public class CheckPointResult : MonoBehaviour
             if (scoreRankingSystem.Record.isNewRecord)
                 if (i == scoreRankingSystem.Record.newRecordIndex)
                 {
-                    RankingMeterObjects[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = default;
-                    RankingMeterObjects[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.yellow;
+                    //RankingMeterObjects[i].gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = NewRecordImage;
+                    StartCoroutine(NewRecordEffect(RankingMeterObjects[i]));
                 }
             RankingScores[i].text = rankingElements[i].score + "pts";
             //RankingRanks[i].sprite 
@@ -423,6 +428,16 @@ public class CheckPointResult : MonoBehaviour
         startTime = Time.time;
     }
 
+    private IEnumerator NewRecordEffect(GameObject meterObject)
+    {
+        while (true)
+        {
+            meterObject.SetActive(false);
+            yield return new WaitForSeconds(0.25f);
+            meterObject.SetActive(true);
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
     IEnumerator DestroyCount()
     {
         yield return new WaitForEndOfFrame();

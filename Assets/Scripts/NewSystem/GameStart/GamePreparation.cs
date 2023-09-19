@@ -10,35 +10,39 @@ using TMPro;
 public class GamePreparation : MonoBehaviour
 {
     #region variable 
-    private TextMeshProUGUI textMesh;
+    private Animator _animator;
     #endregion
     #region method
 
     private void Awake()
     {
-        textMesh = this.GetComponent<TextMeshProUGUI>();
-        textMesh.text = default;
+        _animator = this.GetComponent<Animator>();
     }
 
     public IEnumerator GamePreparationProcess()
     {
-        textMesh.text = "敵を倒せ！";
-        yield return new WaitForSeconds(2.5f);
-        textMesh.text = default;
+        _animator.Play("anim_Start");
+        yield return new WaitForSeconds(5f);
     }
 
     public IEnumerator InGameLastStageEndProcess()
     {
-        textMesh.text = "ステージクリア！";
-        yield return new WaitForSeconds(2.5f);
-        textMesh.text = default;
+        this.gameObject.SetActive(true);
+        yield return new WaitForSeconds(4.5f);
+        this.gameObject.SetActive(false);
     }
 
     public IEnumerator ExtraPreparationProcess()
     {
-        textMesh.text = "EXTRA STAGE！";
-        yield return new WaitForSeconds(2.5f);
-        textMesh.text = default;
+        _animator.Play("anim_ExtraStage");
+        yield return new WaitForSeconds(5f);
+    }
+
+    public IEnumerator WaitPerocess(float waitTime)
+    {
+        _animator.Play("anim_Wait");
+        yield return new WaitForSeconds(waitTime);
+        _animator.SetTrigger("Exit");
     }
     #endregion
 }

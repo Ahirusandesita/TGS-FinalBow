@@ -35,6 +35,13 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
         public Transform _stageTransform;
     }
 
+    public enum GameIventType
+    {
+        missionStart,
+        extraStage,
+        wait
+    }
+
     #region 変数
     [SerializeField, Tooltip("タグの名前")]
     private TagObject _PoolSystemTagData = default;
@@ -83,6 +90,8 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
     private GamePreparation _gamePreparation = default;
 
+    private GamePreparation _clearPreparation = default;
+
     [Tooltip("現在の雑魚/的の数")]
     private int _currentNumberOfObject = 0;
 
@@ -100,11 +109,18 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
     [Tooltip("フェードイン完了")]
     private bool _isEndFadeIn = false;
+
+    private GameIventType _gameIventType = default;
+
+    private Animator _UIAnimator = default;
     #endregion
 
     private void Awake()
     {
-        _gamePreparation = FindObjectOfType<GamePreparation>();
+        _gamePreparation = GameObject.FindWithTag("StartUIPanel").GetComponent<GamePreparation>();
+        _clearPreparation = GameObject.FindWithTag("ClearUIPanel").GetComponent<GamePreparation>();
+        _clearPreparation.gameObject.SetActive(false);
+        _UIAnimator = _startCanvas.GetComponentInChildren<Animator>();
 
         _gameProgress = GameObject.FindObjectOfType<GameProgress>();
         _gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
@@ -138,9 +154,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
                     {
                         MovingGameCanvas(indexCorrectionValue: -1);
 
-                        StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
-
-                        yield return new WaitForSeconds(2f);
+                        yield return StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
 
                         this.SceneFadeOutStart();
                         yield return new WaitUntil(() => _isEndFadeOut);
@@ -299,9 +313,7 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
         {
             IEnumerator WaitResult()
             {
-                StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
-
-                yield return new WaitForSeconds(2f);
+                yield return StartCoroutine(_gamePreparation.InGameLastStageEndProcess());
 
                 // 暗転
                 this.SceneFadeOutStart();
