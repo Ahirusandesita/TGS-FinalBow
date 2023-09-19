@@ -106,7 +106,7 @@ public class ItemMove : MonoBehaviour
         _itemTransform = this.gameObject.transform;
 
         // ƒvƒŒƒCƒ„[‚ÌTransform‚Ì‘ã“ü
-        _playerTransform = GameObject.FindGameObjectWithTag("PlayerController").transform;
+        _playerTransform = GameObject.Find("ArrowLookPoint").transform;
 
         // PoolManager‚Ì‘ã“ü
         _poolManager = GameObject.FindGameObjectWithTag("PoolSystem").GetComponent<ObjectPoolSystem>();
