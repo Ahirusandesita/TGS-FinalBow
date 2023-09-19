@@ -232,13 +232,13 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
 
     private TrailRenderer _myTrailRenderer;
 
-    private Renderer _myArrowRenderer;
+    //private Renderer _myArrowRenderer;
 
     private Color _arrowStartColor;
 
     private Color _colorEnd = Color.red;
 
-    private float _colorValue = default;
+    //private float _colorValue = default;
 
     private HitZone _hitZone = default;
 
@@ -304,8 +304,8 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
 
         _waitArrowActivTime = new WaitForSeconds(_arrowActivTime);
 
-        _myArrowRenderer = MyTransform.GetChild(2).gameObject.transform.GetChild(4).GetComponent<Renderer>();
-        _colorValue = _myArrowRenderer.material.color.g / 10;
+        //_myArrowRenderer = MyTransform.GetChild(2).gameObject.transform.GetChild(4).GetComponent<Renderer>();
+        //_colorValue = _myArrowRenderer.material.color.g / 10;
 
         _isStart = true;
 
@@ -580,14 +580,14 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
     public void ArrowPowerColor()
     {
 
-        Color color = _myArrowRenderer.material.color;
-        if (color.r >= 255)
-        {
-            return;
-        }
-        color.r += _colorValue;
-        color.g -= _colorValue;
-        _myArrowRenderer.material.color = color;
+        //Color color = _myArrowRenderer.material.color;
+        //if (color.r >= 255)
+        //{
+        //    return;
+        //}
+        //color.r += _colorValue;
+        //color.g -= _colorValue;
+        //_myArrowRenderer.material.color = color;
     }
 
 
@@ -613,7 +613,7 @@ public class Arrow : MonoBehaviour, IArrowMove, IArrowEnchant, IArrowEnchantDama
         EventArrowEffectPassiveDestroy = null;
         EventArrowPassiveEffect = null;
         MoveArrow = null;
-        _myArrowRenderer.material.color = Color.green;
+        //_myArrowRenderer.material.color = Color.green;
         NeedArrowEnchant = false;
         damage = 0;
     }
