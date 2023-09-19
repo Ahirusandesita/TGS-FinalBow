@@ -210,7 +210,7 @@ public class ItemMove : MonoBehaviour
         _playerDistance = Vector3.Distance(_playerTransform.position , _itemTransform.position);
 
         // 距離でサイズ変更
-        _itemTransform.localScale = startsize * (_playerDistance / _startDistance);
+        _itemTransform.localScale = startsize * Mathf.Clamp(_playerDistance / _startDistance , 0.15f , 1f);
 
         // '追跡するターゲットが目標地点に到達している' かつ '自身がターゲットに追いついている' かの判定
         if (_targetVector.magnitude < CHECK_ALLIVE_DISTANCE && _playerDistance < CHECK_ALLIVE_DISTANCE || !_bowManager.IsHolding)

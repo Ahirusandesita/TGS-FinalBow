@@ -44,7 +44,7 @@ public class BowVibe : MonoBehaviour, IFBowVibe
 
     [SerializeField] float inhallTime = 0.5f;
 
-    bool vibe = false;
+    bool vibe = true;
 
     [Tooltip("‹|‚Á‚Ä‚¢‚éè‚ÌƒoƒCƒu")]
     private Action<float, float> _useHandVibeAction = default;

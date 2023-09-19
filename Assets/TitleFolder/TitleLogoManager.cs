@@ -10,9 +10,6 @@ public class TitleLogoManager : MonoBehaviour
 {
     public SceneObject sceneObject;
 
-    private float _buttonTime = 0f;
-
-    private bool _isFirst = true;
     #region variable 
     #endregion
     #region property
@@ -26,25 +23,13 @@ public class TitleLogoManager : MonoBehaviour
 
     private void Start()
     {
-        _isFirst = true;
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            _buttonTime += Time.deltaTime;
-
-            if (_buttonTime >= 1.5f && _isFirst)
-            {
-                _isFirst = false;
-                GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(sceneObject);
-            }
-        }
-        else
-        {
-            _isFirst = true;
-            _buttonTime = 0f;
+            GameObject.FindObjectOfType<SceneManagement>().SceneLoadSpecifyMove(sceneObject);
         }
     }
     #endregion

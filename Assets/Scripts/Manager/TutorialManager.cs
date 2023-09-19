@@ -374,7 +374,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
         _isHit = true;
 
         // ç≈èâÇÃîöî≠
-        if (_isHitFirst && _currentTutorialType == TutorialTextType.enchant2)
+        if (_isHitFirst && (_currentTutorialType == TutorialTextType.enchant2 || _currentTutorialType == TutorialTextType.attract1))
         {
             _isHitFirst = false;
             StartCoroutine(RemoveTarget());

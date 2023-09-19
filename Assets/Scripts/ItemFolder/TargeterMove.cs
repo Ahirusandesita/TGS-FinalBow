@@ -63,7 +63,7 @@ public class TargeterMove : MonoBehaviour
 
     private void TargeterMovement()
     {
-        _time += Time.deltaTime * Mathf.PI * 4f;
+        _time += Time.deltaTime * Mathf.PI * 2f;
         _distance = Mathf.Clamp( _distance - Time.deltaTime * _speed , 0f, Mathf.Infinity);
         _nextPosition.x = Mathf.Cos(_startRotation + _time) * (_radius * _distance);
         _nextPosition.y = Mathf.Sin(_startRotation + _time) * (_radius * _distance);
