@@ -35,6 +35,13 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
         public Transform _stageTransform;
     }
 
+    public enum GameIventType
+    {
+        missionStart,
+        extraStage,
+        wait
+    }
+
     #region 変数
     [SerializeField, Tooltip("タグの名前")]
     private TagObject _PoolSystemTagData = default;
@@ -100,11 +107,16 @@ public class StageManager : MonoBehaviour, IStageSpawn, ISceneFadeCallBack
 
     [Tooltip("フェードイン完了")]
     private bool _isEndFadeIn = false;
+
+    private GameIventType _gameIventType = default;
+
+    private Animator _UIAnimator = default;
     #endregion
 
     private void Awake()
     {
         _gamePreparation = FindObjectOfType<GamePreparation>();
+        _UIAnimator = _startCanvas.GetComponentInChildren<Animator>();
 
         _gameProgress = GameObject.FindObjectOfType<GameProgress>();
         _gameProgress.readOnlyGameProgressProperty.Subject.Subscribe(
