@@ -110,6 +110,8 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
     private FPSChanger _changer = default;
 
+    private TutorialImageSystem _imageSystem = default;
+
 
     [Tooltip("チュートリアルの進行度")]
     private TutorialTextType _currentTutorialType = 0;    // opening
@@ -249,6 +251,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
         }
 
         _changer = FindObjectOfType<FPSChanger>();
+        _imageSystem = this.GetComponent<TutorialImageSystem>();
     }
 
     private void Start()
@@ -520,6 +523,7 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
 
             case TutorialTextType.shot1:
 
+                _imageSystem.StringPointerClose();
                 // 的を出現させる
                 CallSpawn();
                 break;
@@ -562,6 +566,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
     {
         switch (_currentTutorialType)
         {
+            case TutorialTextType.shot1:
+
+                _imageSystem.StringPointerOpen();
+                break;
+
             case TutorialTextType.enchant1:
 
                 // ここでラジアルメニューを検知
