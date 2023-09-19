@@ -67,7 +67,8 @@ public class ReactionWormWarm : MonoBehaviour, InterfaceReaction.IBombReaction
     {
         
         particle.SetActive(false);
-        pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, deathPosition.position);
+        GameObject ef = pool.CallObject(EffectPoolEnum.EffectPoolState.enemyDeath, deathPosition.position);
+        pool.ResetActive(ef);
         anim.speed = 1;
         actioning = false;
         end = true;
