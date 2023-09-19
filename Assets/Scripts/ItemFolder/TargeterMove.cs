@@ -44,19 +44,14 @@ public class TargeterMove : MonoBehaviour
     [SerializeField ,Tooltip("１秒間に加算される半径係数の値")]
     private float _addRadius = 0.1f;
 
-
-
-
-    private void OnEnable()
+    private void Awake()
     {
         // 開始前の初期設定
         _object = this.gameObject;
 
-        //--------------あとで修正する------------------------//
-        _player = GameObject.FindObjectOfType<PlayerManager>().gameObject;
-        //----------------------------------------------------//
+        // 弓のオブジェクトを取得
+        _player = GameObject.FindObjectOfType<Inhall>().gameObject;
     }
-
 
     private void Update()
     {
@@ -91,7 +86,7 @@ public class TargeterMove : MonoBehaviour
         if(_object != null)
         {
             _object.transform.parent = _player.transform;
-            _startRotation = Mathf.Atan2(_object.transform.position.y, _object.transform.position.x);
+            _startRotation = Mathf.Atan2(_object.transform.localPosition.y, _object.transform.localPosition.x);
 
             _distance = _object.transform.localPosition.z;
 

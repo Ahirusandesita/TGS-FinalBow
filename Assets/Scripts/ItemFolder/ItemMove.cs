@@ -12,12 +12,14 @@ public class ItemMove : MonoBehaviour
 
     #region　bool一覧
 
+    [HideInInspector]
     // 移動を開始するフラグ　trueなら移動　falseなら停止　使うときにtrueにしてね
     public bool _isStart = false;
 
     [SerializeField, Tooltip("臨時版の使用の可否")]
     public bool _UseTemporary = true;
 
+    [HideInInspector]
     public bool _endSetting = false;
 
     public ItemVibration itemVibration;
@@ -64,7 +66,7 @@ public class ItemMove : MonoBehaviour
     private const float SPEED_UP_COEFFICIENT = 1f;
 
     // 到達判定距離　プレイヤーとの距離で判定
-    private const float CHECK_ALLIVE_DISTANCE = 5f;
+    private const float CHECK_ALLIVE_DISTANCE = 1f;
     #endregion
 
     #region クラスの代入用変数
@@ -176,7 +178,7 @@ public class ItemMove : MonoBehaviour
     /// <param name="attractPower">引き寄せる力の大きさ</param>
     public void StartSetting()
     {
-        _targeterObject = _poolManager.CallObject(PoolEnum.PoolObjectType.targeter, this.gameObject.transform.position).gameObject;
+        _targeterObject = _poolManager.CallObject(PoolEnum.PoolObjectType.targeter, this.transform.position).gameObject;
 
         _targeterTransform = _targeterObject.transform;
 
@@ -229,25 +231,6 @@ public class ItemMove : MonoBehaviour
         _targeterObject.GetComponent<TargeterMove>().TargeterReSet();
         _poolManager.ReturnObject(_targeterCash);
         _poolManager.ReturnObject(_itemCash);
-    }
-
-    /// <summary>
-    /// 追跡するオブジェクトを設定するプロパティ
-    /// </summary>
-    public GameObject SetTargeter
-    {
-        set
-        {
-            // まだ追跡するターゲットが代入されていなければ実行
-            if (_targeterObject == null)
-            {
-                // 追跡するターゲットの設定
-                _targeterObject = value;
-
-                // 移動の開始
-                _isStart = true;
-            }
-        }
     }
 
     /// <summary>
