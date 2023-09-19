@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
     private string _sceneMoveName;
     private float _buttonTime = 0f;
     private bool _isButtonDown = false;
+    private float _arrowDownTime = 0f;
+    private bool _isArrowDown = false;
     private TextMeshProUGUI _text = default;
     private const string JAPANESE = "日本語";
     private const string ENGLISH = "English";
@@ -96,10 +98,10 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
         }
         else
         {
+            _isButtonDown = false;
+
             if (_buttonTime < 1.5f && _isButtonDown)
             {
-                _isButtonDown = false;
-
                 if (SubtitlesType == SubtitlesType.Japanese)
                 {
                     SubtitlesType = SubtitlesType.English;
@@ -112,6 +114,24 @@ public class GameManager : MonoBehaviour, IGame, IGameManagerSceneMoveNameSet, I
                 }
 
                 _buttonTime = 0f;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            _arrowDownTime += Time.deltaTime;
+            _isArrowDown = true;
+        }
+        else
+        {
+            _isArrowDown = false;
+
+            if (_arrowDownTime < 1.5f && _isArrowDown)
+            {
+                // 正面リセット
+                OVRManager.display.RecenterPose();
+
+                _arrowDownTime = 0f;
             }
         }
     }
