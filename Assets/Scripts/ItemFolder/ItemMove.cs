@@ -137,14 +137,12 @@ public class ItemMove : MonoBehaviour
     /// </summary>
     private void Update()
     {
-
         // 開始のフラグ管理
         if (_isStart)
         {
             // 本処理と臨時処理の切り替え
             if (!_UseTemporary)
             {
-
                 //移動処理実行
                 ItemMovement();
             }
@@ -227,6 +225,7 @@ public class ItemMove : MonoBehaviour
     /// </summary>
     public void ReSetAll()
     {
+        print("Reset");
         this.transform.localScale = startsize;
         _targeterObject.GetComponent<TargeterMove>().TargeterReSet();
         _poolManager.ReturnObject(_targeterCash);
