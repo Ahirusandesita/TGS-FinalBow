@@ -449,6 +449,11 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
         {
             _isShotFirst = false;
 
+            // –î‚ðŒ‚‚Ä‚È‚­‚·‚é
+            _VRbowManager.CantShotBecauseYouMissed = false;
+            if (!_changer.vr)
+                FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = false;
+
             IEnumerator WaitPossibleHit()
             {
                 yield return new WaitForSeconds(0.5f);
@@ -624,10 +629,6 @@ public partial class TutorialManager : MonoBehaviour, ITextLikeSpeaking, ISceneF
                     _targetSpawnCount--;
                     CallSpawn();
                     _textSystem.NextText();
-                    // –î‚ðŒ‚‚Ä‚È‚­‚·‚é
-                    _VRbowManager.CantShotBecauseYouMissed = false;
-                    if (!_changer.vr)
-                        FindObjectOfType<FPSBow>().CantDrawBowBecauseYouMissed = false;
 
                     yield return new WaitForSeconds(0.8f);
 
