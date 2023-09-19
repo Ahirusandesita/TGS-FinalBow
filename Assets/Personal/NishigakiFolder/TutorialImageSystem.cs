@@ -54,6 +54,8 @@ public class TutorialImageSystem : MonoBehaviour
     {
         _stringPointer.enabled = false;
         _guide.enabled = false;
+        stringPointerEvent = None;
+        guideEvent = None;
     }
 
     private void Update()
@@ -65,8 +67,8 @@ public class TutorialImageSystem : MonoBehaviour
     private delegate void StringPointerEvent();
     private delegate void GuideEvent();
 
-    StringPointerEvent stringPointerEvent = null;
-    GuideEvent guideEvent = null;
+    StringPointerEvent stringPointerEvent;
+    GuideEvent guideEvent;
 
     public void StringPointerOpen()
     {
