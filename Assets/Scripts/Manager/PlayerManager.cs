@@ -265,9 +265,9 @@ public class PlayerManager : MonoBehaviour, IFPlayerManagerEnchantParameter, IFP
                         index = i;
                         rapidRandomAngle += (float)index;
                         rapidRandomAngle /= 3f;
-                        scoreManager.ShotCount();
                     }
                 }
+                scoreManager.ShotCount();
             }
             _bowManagerQue.SetArrowMachineGun(_rapidData.rapids.rapidParams[index].rapidIndex, _rapidData.rapidParam.rapidLate);
         }
