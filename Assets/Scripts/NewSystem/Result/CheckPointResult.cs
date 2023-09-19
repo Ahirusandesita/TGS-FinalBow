@@ -151,13 +151,13 @@ public class CheckPointResult : MonoBehaviour
             }
         }
 
-        if (isresultEnd && Time.time - startTime < 5f)
+        if (isresultEnd && Time.time - startTime > 5f)
         {
             isresultEnd = false;
             isRankingOutput = true;
             StartCoroutine(RankingOutput());
         }
-        if (isRankingOutputEnd && Time.time - startTime < 10f)
+        if (isRankingOutputEnd && Time.time - startTime > 10f)
         {
             GameObject.FindObjectOfType<GameProgress>().ResultEnding();
         }
