@@ -20,7 +20,7 @@ public class TimeManager :MonoBehaviour , ITime
 
     private int time = 0;
     private const int START_TIME = 0;
-    private const int ONE_MINUTES = 60;
+    private const int ONE_MINUTES = 10;
     private const int MINUTES_COUNTTIME = 0;
 
     private IFScoreManager_Time _scoreManager;
